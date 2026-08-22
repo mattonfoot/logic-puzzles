@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { solutionRows } from '../game/layout';
+import { solutionRows, type SolutionCell } from '../game/layout';
 import type { Puzzle } from '../puzzle/types';
-import { palette, radius, space, tint } from '../ui/theme';
+import { palette, space, tint } from '../ui/theme';
 
 interface Props {
   puzzle: Puzzle;
@@ -11,93 +11,131 @@ interface Props {
   compact?: boolean;
 }
 
-const MIN_COLUMN = 76;
-
 /**
  * The answer as a table: one row per person, one column per set, so the whole
  * solution can be read across in a line.
+ *
+ * The first set stays pinned while the rest scroll sideways, which keeps the
+ * headings on one line each however long the set names are.
  */
 export function SolutionTable({ puzzle, compact = false }: Props) {
   const rows = solutionRows(puzzle);
-  const columnWidth = Math.max(MIN_COLUMN, compact ? 78 : 88);
+  const [viewport, setViewport] = useState(0);
+  const [content, setContent] = useState(0);
+  const overflows = content > viewport + 4;
+  const columnWidth = compact ? 96 : 104;
+  const rowHeight = compact ? 28 : 32;
+  const headerHeight = compact ? 22 : 26;
+
+  const cell = (entry: SolutionCell, lead: boolean, index: number) => (
+    <View
+      key={`${entry.category}-${entry.item}`}
+      style={[
+        styles.cell,
+        {
+          width: columnWidth,
+          height: rowHeight,
+          backgroundColor: index % 2 ? tint(puzzle.accent, 0.05) : 'transparent',
+        },
+      ]}
+    >
+      <Text
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        style={[styles.cellText, compact && styles.cellTextCompact, lead && styles.cellTextLead]}
+      >
+        {entry.label}
+      </Text>
+    </View>
+  );
+
+  const header = (name: string) => (
+    <View key={name} style={[styles.headerCell, { width: columnWidth, height: headerHeight }]}>
+      <Text numberOfLines={1} style={[styles.headerText, { color: puzzle.accent }]}>
+        {name}
+      </Text>
+    </View>
+  );
 
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      <View>
-        <View style={styles.headerRow}>
-          {puzzle.categories.map((category) => (
-            <Text
-              key={category.id}
-              numberOfLines={2}
-              style={[styles.headerCell, { width: columnWidth, color: puzzle.accent }]}
-            >
-              {category.name}
-            </Text>
-          ))}
+    <View>
+      <View style={styles.row}>
+        <View style={styles.pinned}>
+          {header(puzzle.categories[0].name)}
+          {rows.map((row, index) => cell(row[0], true, index))}
         </View>
 
-        {rows.map((row, index) => (
-          <View
-            key={row[0].label}
-            style={[
-              styles.row,
-              { backgroundColor: index % 2 ? tint(puzzle.accent, 0.05) : 'transparent' },
-            ]}
-          >
-            {row.map((cell, column) => (
-              <Text
-                key={`${cell.category}-${cell.item}`}
-                numberOfLines={2}
-                style={[
-                  styles.cell,
-                  { width: columnWidth },
-                  compact && styles.cellCompact,
-                  column === 0 && styles.cellLead,
-                ]}
-              >
-                {cell.label}
-              </Text>
+        {/* Shrinks below its content width so the remaining sets scroll rather
+            than spilling past the edge of the card. */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.scroller}
+          onLayout={(event) => setViewport(event.nativeEvent.layout.width)}
+          onContentSizeChange={(width) => setContent(width)}
+        >
+          <View>
+            <View style={styles.row}>
+              {puzzle.categories.slice(1).map((category) => header(category.name))}
+            </View>
+            {rows.map((row, index) => (
+              <View key={row[0].label} style={styles.row}>
+                {row.slice(1).map((entry) => cell(entry, false, index))}
+              </View>
             ))}
           </View>
-        ))}
+        </ScrollView>
       </View>
-    </ScrollView>
+
+      {overflows ? (
+        <Text style={styles.hint}>Swipe the table for the other sets</Text>
+      ) : null}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  headerRow: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: palette.line,
-    paddingBottom: space(1.5),
-  },
-  headerCell: {
-    fontSize: 9,
-    lineHeight: 12,
-    fontWeight: '700',
-    letterSpacing: 0.4,
-    textTransform: 'uppercase',
-    paddingHorizontal: space(1.5),
-  },
   row: {
     flexDirection: 'row',
-    borderRadius: radius.sm,
+  },
+  pinned: {
+    borderRightWidth: 1,
+    borderRightColor: palette.line,
+  },
+  scroller: {
+    flexShrink: 1,
+  },
+  headerCell: {
+    justifyContent: 'flex-end',
+    paddingHorizontal: space(1.5),
+    paddingBottom: space(1),
+    borderBottomWidth: 1,
+    borderBottomColor: palette.line,
+  },
+  headerText: {
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
   },
   cell: {
-    fontSize: 13,
-    lineHeight: 17,
-    color: palette.inkSoft,
-    paddingVertical: space(2),
+    justifyContent: 'center',
     paddingHorizontal: space(1.5),
   },
-  cellCompact: {
-    fontSize: 12,
-    lineHeight: 15,
-    paddingVertical: space(1.5),
+  cellText: {
+    fontSize: 13,
+    color: palette.inkSoft,
   },
-  cellLead: {
+  cellTextCompact: {
+    fontSize: 12,
+  },
+  cellTextLead: {
     color: palette.ink,
     fontWeight: '700',
+  },
+  hint: {
+    fontSize: 11,
+    color: palette.inkFaint,
+    marginTop: space(2),
   },
 });

@@ -50,7 +50,8 @@ is set in `app.json` and should be changed to your own before building.
 4. **Check** highlights any mark that contradicts the solution, **Hint** places
    one true pairing for you, and the timer stops when the last square is right.
    Finishing shows **the answer as a table**: one row per person, one column per
-   set, so the whole solution reads across in a line.
+   set, so the whole solution reads across in a line. The first set stays pinned
+   while the others scroll sideways, which keeps every heading on one line.
 5. **Come back later** — the board saves itself as you play, so closing the app
    mid-puzzle costs nothing. The home screen offers to resume it, with the clock
    picking up where it left off.
@@ -104,7 +105,8 @@ Astronaut × Ship can be carried into Ship × Launch without leaving the board.
 
 `solutionRows` in the same module produces the end-of-game summary: one row per
 entity and one column per set, ordered by the ordered set (earliest year,
-cheapest bill…) so it reads like the answer key of a printed puzzle.
+cheapest bill…) so it reads like the answer key of a printed puzzle. The table
+pins its first column and scrolls the rest, so set names never have to wrap.
 
 ## How the puzzle engine works
 
