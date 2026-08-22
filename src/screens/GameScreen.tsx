@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { AppState, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ClueList } from '../components/ClueList';
@@ -18,50 +18,112 @@ import {
   type Cell,
   type Marks,
 } from '../game/board';
+import { SAVE_VERSION, type SavedGame } from '../game/persistence';
+import type { CompletionInput } from '../game/usePersistence';
 import { formatDuration, useTimer } from '../game/useTimer';
 import { cluePrimaryPair } from '../puzzle/describe';
 import type { Puzzle } from '../puzzle/types';
+import type { Improvement } from '../stats/summary';
 import { haptics } from '../ui/haptics';
 import { palette, radius, shadow, space, tint } from '../ui/theme';
 
 interface Props {
   puzzle: Puzzle;
+  /** Board to start from when the player is picking a game back up. */
+  restore?: SavedGame | null;
   onExit: () => void;
   onNewPuzzle: () => void;
+  onSaveProgress: (game: SavedGame) => void;
+  onCompleted: (input: CompletionInput) => Promise<Improvement>;
+  onOpenStats: () => void;
 }
 
-export function GameScreen({ puzzle, onExit, onNewPuzzle }: Props) {
+/**
+ * The board itself. App mounts one per puzzle (keyed by seed), so the initial
+ * state can come straight from a resumed game.
+ */
+export function GameScreen({
+  puzzle,
+  restore,
+  onExit,
+  onNewPuzzle,
+  onSaveProgress,
+  onCompleted,
+  onOpenStats,
+}: Props) {
   const insets = useSafeAreaInsets();
   const pairs = useMemo(() => categoryPairs(puzzle.categories.length), [puzzle]);
+  const resumed = restore?.puzzle.seed === puzzle.seed ? restore : null;
 
-  const [marks, setMarks] = useState<Marks>({});
-  const [activePair, setActivePair] = useState(0);
-  const [crossedOut, setCrossedOut] = useState<Set<number>>(new Set());
+  const [marks, setMarks] = useState<Marks>(() => resumed?.marks ?? {});
+  const [activePair, setActivePair] = useState(() => resumed?.activePair ?? 0);
+  const [crossedOut, setCrossedOut] = useState<Set<number>>(
+    () => new Set(resumed?.crossedOut ?? []),
+  );
   const [mistakes, setMistakes] = useState<Set<string>>(new Set());
   const [status, setStatus] = useState<string | null>(null);
   const [autoEliminate, setAutoEliminate] = useState(true);
-  const [hintsUsed, setHintsUsed] = useState(0);
+  const [hintsUsed, setHintsUsed] = useState(() => resumed?.hintsUsed ?? 0);
   const [revealed, setRevealed] = useState(false);
+  const [improvement, setImprovement] = useState<Improvement | null>(null);
   const statusTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const solved = useMemo(() => isSolved(marks, puzzle), [marks, puzzle]);
   const filled = useMemo(() => progress(marks, puzzle), [marks, puzzle]);
-  const seconds = useTimer(!solved, puzzle.seed);
+  const seconds = useTimer(!solved, puzzle.seed, resumed?.seconds ?? 0);
 
-  // Reset the board whenever a different puzzle arrives.
-  useEffect(() => {
-    setMarks({});
-    setActivePair(0);
-    setCrossedOut(new Set());
-    setMistakes(new Set());
-    setStatus(null);
-    setHintsUsed(0);
-    setRevealed(false);
-  }, [puzzle.seed]);
+  // A snapshot of the board that the autosave paths can read without having to
+  // re-subscribe every time the clock ticks.
+  const snapshot = useRef<() => SavedGame>(() => ({}) as SavedGame);
+  snapshot.current = () => ({
+    version: SAVE_VERSION,
+    puzzle,
+    marks,
+    crossedOut: [...crossedOut],
+    seconds,
+    hintsUsed,
+    activePair,
+    updatedAt: Date.now(),
+  });
+  const finished = useRef(false);
+  finished.current = solved;
 
   useEffect(() => {
     if (solved) haptics.success();
   }, [solved]);
+
+  // Record the finish once, and ask how it compares with earlier games.
+  useEffect(() => {
+    if (!solved) return;
+    let active = true;
+    void onCompleted({ seconds, hintsUsed, revealed }).then((result) => {
+      if (active) setImprovement(result);
+    });
+    return () => {
+      active = false;
+    };
+    // `seconds` is read at the moment of the win; it must not retrigger this.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [solved]);
+
+  // Save the board shortly after every change, so closing the app mid-puzzle
+  // loses nothing worth keeping.
+  useEffect(() => {
+    if (solved) return;
+    const timer = setTimeout(() => onSaveProgress(snapshot.current()), 600);
+    return () => clearTimeout(timer);
+  }, [marks, crossedOut, hintsUsed, activePair, solved, onSaveProgress]);
+
+  // Backgrounding the app and leaving the screen both save immediately.
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state !== 'active' && !finished.current) onSaveProgress(snapshot.current());
+    });
+    return () => {
+      subscription.remove();
+      if (!finished.current) onSaveProgress(snapshot.current());
+    };
+  }, [onSaveProgress]);
 
   useEffect(() => () => {
     if (statusTimer.current) clearTimeout(statusTimer.current);
@@ -285,8 +347,10 @@ export function GameScreen({ puzzle, onExit, onNewPuzzle }: Props) {
         puzzle={puzzle}
         seconds={seconds}
         hintsUsed={hintsUsed}
+        improvement={improvement}
         onPlayAgain={onNewPuzzle}
         onChangeSetup={onExit}
+        onOpenStats={onOpenStats}
       />
     </View>
   );

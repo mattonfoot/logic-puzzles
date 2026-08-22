@@ -1,13 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-/** Counts elapsed seconds while `running`; `resetKey` starts a fresh count. */
-export function useTimer(running: boolean, resetKey: unknown): number {
-  const [seconds, setSeconds] = useState(0);
-  const startedAt = useRef(Date.now());
+export { formatDuration, formatGap, formatSpan } from './time';
+
+/**
+ * Counts elapsed seconds while `running`.
+ * `resetKey` restarts the count; `startAt` seeds it from a resumed game.
+ */
+export function useTimer(running: boolean, resetKey: unknown, startAt = 0): number {
+  const [seconds, setSeconds] = useState(startAt);
 
   useEffect(() => {
-    startedAt.current = Date.now();
-    setSeconds(0);
+    setSeconds(startAt);
+    // `startAt` only matters when a different game is loaded.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resetKey]);
 
   useEffect(() => {
@@ -22,10 +27,4 @@ export function useTimer(running: boolean, resetKey: unknown): number {
   }, [running, resetKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return seconds;
-}
-
-export function formatDuration(seconds: number): string {
-  const minutes = Math.floor(seconds / 60);
-  const rest = seconds % 60;
-  return `${minutes}:${rest.toString().padStart(2, '0')}`;
 }

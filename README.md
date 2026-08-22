@@ -9,6 +9,9 @@ Every generated puzzle is guaranteed to:
 - have exactly one solution, and
 - be solvable by pure deduction, so a player never has to guess.
 
+Games in progress survive closing the app, finished games are kept, and the
+statistics screen shows whether you are getting quicker.
+
 ## Running it
 
 ```bash
@@ -21,7 +24,7 @@ npm run web        # browser preview, handy on a machine without Xcode
 Checks:
 
 ```bash
-npm test           # jest — puzzle engine and board logic
+npm test           # jest — puzzle engine, board, storage and statistics
 npm run typecheck  # tsc --noEmit
 ```
 
@@ -42,6 +45,13 @@ is set in `app.json` and should be changed to your own before building.
    hold it to jump straight to the grid it talks about.
 4. **Check** highlights any mark that contradicts the solution, **Hint** places
    one true pairing for you, and the timer stops when the last square is right.
+5. **Come back later** — the board saves itself as you play, so closing the app
+   mid-puzzle costs nothing. The home screen offers to resume it, with the clock
+   picking up where it left off.
+6. **Statistics** — solved count, time played, day streak, no-hint wins, a
+   per-size table of best and average times, a chart of recent solve times, and
+   the list of recent games. Finishing a puzzle shows how that time compares
+   with your earlier games at the same size.
 
 ## Project layout
 
@@ -55,9 +65,14 @@ src/puzzle/generator.ts     builds a solution, then a minimal clue set for it
 src/puzzle/solver.ts        constraint solver: propagation + search
 src/puzzle/describe.ts      clue objects → the sentences the player reads
 src/game/board.ts           the player's ticks and crosses, hints, win check
+src/game/persistence.ts     what gets written to disk, and the guards to read it
+src/game/usePersistence.ts  saved game + finished games as React state
+src/game/time.ts            duration formatting
 src/game/useTimer.ts        elapsed-time hook
-src/components/             PairGrid, ClueList, WinOverlay, AppButton
-src/screens/                HomeScreen, GameScreen
+src/stats/summary.ts        history → per-size stats, streaks, improvement notes
+src/storage/store.ts        the only module that touches AsyncStorage
+src/components/             PairGrid, ClueList, WinOverlay, TrendChart, …
+src/screens/                HomeScreen, GameScreen, StatsScreen
 src/ui/                     palette, spacing, haptics helpers
 ```
 
@@ -103,13 +118,42 @@ that each generated puzzle has exactly one solution.
 Generation is seeded: `generatePuzzle({ theme, size, seed })` always rebuilds the
 same puzzle, and the seed is shown at the bottom of the game screen.
 
+## Persistence and statistics
+
+Two things are stored, both under AsyncStorage, both versioned:
+
+| Key | Holds |
+|-----|-------|
+| `logic-grid:saved-game:v1` | the puzzle in progress: the whole puzzle, every tick and cross, crossed-off clues, elapsed seconds, hints used |
+| `logic-grid:history:v1` | the last 300 finished games: time, hints, theme, size, whether it was revealed |
+
+The saved game stores the generated puzzle itself rather than its seed, so a
+game in progress keeps playing exactly as it was even if the themes or the
+generator change in a later version.
+
+`src/storage/store.ts` is the only module that talks to AsyncStorage. Reads run
+through the guards in `persistence.ts`, so data from an older version, a
+half-written file, or a corrupt value reads as "nothing saved" instead of
+crashing; writes are wrapped too, so a device that refuses to write costs the
+player their save and nothing more. The board is written 600ms after each
+change, when the app goes to the background, and when the player leaves the
+screen; finishing a puzzle clears it.
+
+`src/stats/summary.ts` derives everything shown from the list of finished games
+— nothing aggregated is stored, so the numbers can never drift out of sync with
+the games behind them. Revealed puzzles are recorded but kept out of the times.
+Improvement is measured two ways: `improvementFor` compares a game just
+finished with earlier games at the same size (personal best, share faster than
+average, rank), and `statsForSize` compares the last five solves with the five
+before them for the longer-run trend the chart draws.
+
 ## Notes
 
 - The five themes live entirely in `src/data/themes.ts`. Adding one is a matter
   of listing five categories with six items each, marking the ordered category,
   and giving each category a `pattern` used to phrase clues (`the {} mission`).
   A theme needs at least six items per category to support the 6 × 4 grid.
-- No backend, no analytics, no persistence — progress lives in component state
-  for the duration of a puzzle.
+- No backend and no analytics: everything is kept on the device, and clearing
+  the statistics from the stats screen deletes it.
 - `react-dom` / `react-native-web` are installed only so `npm run web` can give
   a quick preview away from a Mac; nothing in the app is web-specific.

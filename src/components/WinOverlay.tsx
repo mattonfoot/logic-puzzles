@@ -1,8 +1,9 @@
 import React from 'react';
 import { Modal, StyleSheet, Text, View } from 'react-native';
 
-import { formatDuration } from '../game/useTimer';
+import { formatDuration } from '../game/time';
 import type { Puzzle } from '../puzzle/types';
+import type { Improvement } from '../stats/summary';
 import { palette, radius, shadow, space, tint } from '../ui/theme';
 import { AppButton } from './AppButton';
 
@@ -13,8 +14,11 @@ interface Props {
   puzzle: Puzzle;
   seconds: number;
   hintsUsed: number;
+  /** How this game compares with earlier ones; null until stats have loaded. */
+  improvement: Improvement | null;
   onPlayAgain: () => void;
   onChangeSetup: () => void;
+  onOpenStats: () => void;
 }
 
 export function WinOverlay({
@@ -23,8 +27,10 @@ export function WinOverlay({
   puzzle,
   seconds,
   hintsUsed,
+  improvement,
   onPlayAgain,
   onChangeSetup,
+  onOpenStats,
 }: Props) {
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onChangeSetup}>
@@ -42,6 +48,24 @@ export function WinOverlay({
             <Stat label="Hints" value={`${hintsUsed}`} accent={puzzle.accent} />
           </View>
 
+          {improvement ? (
+            <View
+              style={[
+                styles.improvement,
+                {
+                  backgroundColor: tint(improvement.kind === 'best' ? puzzle.accent : palette.ink, 0.08),
+                  borderColor: improvement.kind === 'best' ? puzzle.accent : palette.line,
+                },
+              ]}
+            >
+              <Text style={[styles.improvementHeadline, { color: puzzle.accent }]}>
+                {improvement.kind === 'best' ? '🏆 ' : ''}
+                {improvement.headline}
+              </Text>
+              <Text style={styles.improvementDetail}>{improvement.detail}</Text>
+            </View>
+          ) : null}
+
           <AppButton
             label="New puzzle"
             icon="↻"
@@ -49,13 +73,22 @@ export function WinOverlay({
             onPress={onPlayAgain}
             style={styles.button}
           />
-          <AppButton
-            label="Change setup"
-            variant="ghost"
-            accent={palette.inkSoft}
-            onPress={onChangeSetup}
-            style={styles.button}
-          />
+          <View style={styles.secondaryRow}>
+            <AppButton
+              label="Statistics"
+              variant="ghost"
+              accent={palette.inkSoft}
+              onPress={onOpenStats}
+              style={styles.secondaryButton}
+            />
+            <AppButton
+              label="Change setup"
+              variant="ghost"
+              accent={palette.inkSoft}
+              onPress={onChangeSetup}
+              style={styles.secondaryButton}
+            />
+          </View>
         </View>
       </View>
     </Modal>
@@ -104,8 +137,37 @@ const styles = StyleSheet.create({
   stats: {
     flexDirection: 'row',
     gap: space(2),
-    marginVertical: space(5),
+    marginTop: space(5),
     width: '100%',
+  },
+  improvement: {
+    width: '100%',
+    borderRadius: radius.md,
+    borderWidth: 1,
+    padding: space(4),
+    marginTop: space(3),
+  },
+  improvementHeadline: {
+    fontSize: 15,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  improvementDetail: {
+    fontSize: 13,
+    lineHeight: 18,
+    color: palette.inkSoft,
+    textAlign: 'center',
+    marginTop: space(1),
+  },
+  secondaryRow: {
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    gap: space(2),
+  },
+  secondaryButton: {
+    flex: 1,
+    marginTop: space(1),
+    paddingHorizontal: space(2),
   },
   stat: {
     flex: 1,
@@ -126,6 +188,6 @@ const styles = StyleSheet.create({
   },
   button: {
     alignSelf: 'stretch',
-    marginTop: space(2),
+    marginTop: space(4),
   },
 });

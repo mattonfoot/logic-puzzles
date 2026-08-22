@@ -13,6 +13,16 @@ export const palette = {
   success: '#2E9E6B',
 };
 
+/**
+ * Chart ink. One series hue (validated against the light card surface for
+ * lightness, chroma and 3:1 contrast) plus recessive gridline and baseline.
+ */
+export const chart = {
+  series: '#2a78d6',
+  grid: '#EBE6DA',
+  reference: '#B7AF9C',
+};
+
 export const radius = {
   sm: 10,
   md: 16,
