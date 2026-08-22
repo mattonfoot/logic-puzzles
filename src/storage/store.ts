@@ -10,8 +10,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   EMPTY_HISTORY,
-  reviveHistory,
-  reviveSavedGame,
+  isHistory,
+  isSavedGame,
   type History,
   type SavedGame,
 } from '../game/persistence';
@@ -21,12 +21,12 @@ const KEYS = {
   history: 'logic-grid:history:v1',
 } as const;
 
-/** `revive` validates and, where needed, migrates what was written earlier. */
-async function readJson<T>(key: string, revive: (value: unknown) => T | null): Promise<T | null> {
+async function readJson<T>(key: string, guard: (value: unknown) => value is T): Promise<T | null> {
   try {
     const raw = await AsyncStorage.getItem(key);
     if (!raw) return null;
-    return revive(JSON.parse(raw) as unknown);
+    const parsed: unknown = JSON.parse(raw);
+    return guard(parsed) ? parsed : null;
   } catch {
     return null;
   }
@@ -49,12 +49,12 @@ async function removeKey(key: string): Promise<void> {
 }
 
 export const storage = {
-  loadSavedGame: () => readJson(KEYS.savedGame, reviveSavedGame),
+  loadSavedGame: () => readJson(KEYS.savedGame, isSavedGame),
   saveGame: (game: SavedGame) => writeJson(KEYS.savedGame, game),
   clearSavedGame: () => removeKey(KEYS.savedGame),
 
   loadHistory: async (): Promise<History> =>
-    (await readJson(KEYS.history, reviveHistory)) ?? EMPTY_HISTORY,
+    (await readJson(KEYS.history, isHistory)) ?? EMPTY_HISTORY,
   saveHistory: (history: History) => writeJson(KEYS.history, history),
   clearHistory: () => removeKey(KEYS.history),
 };

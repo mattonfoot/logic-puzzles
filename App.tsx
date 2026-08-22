@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { DEFAULT_SIZE, ITEM_COUNTS, SET_COUNTS, sizeById, sizeFor } from './src/data/sizes';
+import { SIZES, sizeById } from './src/data/sizes';
 import { THEMES, themeById } from './src/data/themes';
 import type { SavedGame } from './src/game/persistence';
 import { usePersistence } from './src/game/usePersistence';
@@ -20,7 +20,7 @@ export default function App() {
   const persistence = usePersistence();
 
   const [theme, setTheme] = useState<ThemeDef>(THEMES[0]);
-  const [size, setSize] = useState<SizeOption>(DEFAULT_SIZE);
+  const [size, setSize] = useState<SizeOption>(SIZES[1]);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [restore, setRestore] = useState<SavedGame | null>(null);
   const [screen, setScreen] = useState<Screen>('home');
@@ -47,10 +47,7 @@ export default function App() {
 
   const surpriseMe = useCallback(() => {
     const nextTheme = THEMES[Math.floor(Math.random() * THEMES.length)];
-    const nextSize = sizeFor(
-      SET_COUNTS[Math.floor(Math.random() * SET_COUNTS.length)],
-      ITEM_COUNTS[Math.floor(Math.random() * ITEM_COUNTS.length)],
-    );
+    const nextSize = SIZES[Math.floor(Math.random() * SIZES.length)];
     setTheme(nextTheme);
     setSize(nextSize);
     build(nextTheme, nextSize);

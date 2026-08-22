@@ -1,4 +1,4 @@
-import { sizeFor } from '../../data/sizes';
+import { SIZES } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
 import { generatePuzzle } from '../../puzzle/generator';
 import { setMark } from '../board';
@@ -9,14 +9,12 @@ import {
   HISTORY_VERSION,
   isHistory,
   isSavedGame,
-  reviveHistory,
-  reviveSavedGame,
   SAVE_VERSION,
   type CompletedGame,
   type SavedGame,
 } from '../persistence';
 
-const puzzle = generatePuzzle({ theme: THEMES[0], size: sizeFor(4, 4), seed: 7 });
+const puzzle = generatePuzzle({ theme: THEMES[0], size: SIZES[1], seed: 7 });
 
 function savedGame(overrides: Partial<SavedGame> = {}): SavedGame {
   return {
@@ -98,68 +96,5 @@ describe('completedGameFrom', () => {
       finishedAt: 123,
     });
     expect(game.seconds).toBe(62);
-  });
-});
-
-
-describe('reading data written by an older build', () => {
-  /** Version 1 stored one of four size presets, with `categories` for sets. */
-  const legacySize = { id: 'md', items: 5, categories: 4, label: '5 × 4', blurb: 'Tricky' };
-  const legacyPuzzle = generatePuzzle({ theme: THEMES[0], size: sizeFor(4, 5), seed: 21 });
-
-  const legacySave = {
-    ...savedGame({ puzzle: { ...legacyPuzzle, size: legacySize } as never }),
-    version: 1,
-  };
-
-  it('brings a version 1 saved game forward with its shape rebuilt', () => {
-    const revived = reviveSavedGame(JSON.parse(JSON.stringify(legacySave)));
-    expect(revived).not.toBeNull();
-    expect(revived!.version).toBe(SAVE_VERSION);
-    expect(revived!.puzzle.size).toMatchObject({
-      id: '4x5',
-      sets: 4,
-      items: 5,
-      label: '4 × 5',
-      description: '4 sets of 5',
-      grids: 6,
-    });
-    // The board itself is untouched.
-    expect(revived!.marks).toEqual(legacySave.marks);
-    expect(revived!.seconds).toBe(legacySave.seconds);
-  });
-
-  it('keeps version 1 statistics by mapping the old preset ids', () => {
-    const legacyHistory = {
-      version: 1,
-      games: [
-        { ...completed(), sizeId: 'md', sizeLabel: '5 × 4' },
-        { ...completed(), sizeId: 'xs', sizeLabel: '3 × 3' },
-      ],
-    };
-    const revived = reviveHistory(JSON.parse(JSON.stringify(legacyHistory)));
-
-    expect(revived!.version).toBe(HISTORY_VERSION);
-    expect(revived!.games.map((game) => [game.sizeId, game.sizeLabel])).toEqual([
-      ['4x5', '4 × 5'],
-      ['3x3', '3 × 3'],
-    ]);
-  });
-
-  it('refuses anything from a version it does not know', () => {
-    expect(reviveSavedGame({ ...legacySave, version: 99 })).toBeNull();
-    expect(reviveHistory({ version: 99, games: [] })).toBeNull();
-    expect(reviveSavedGame(null)).toBeNull();
-    expect(reviveHistory('nope')).toBeNull();
-  });
-
-  it('drops a saved game whose shape cannot be worked out', () => {
-    const broken = { ...legacySave, puzzle: { ...legacyPuzzle, size: { id: '???' } } };
-    expect(reviveSavedGame(broken)).toBeNull();
-  });
-
-  it('passes a current saved game straight through', () => {
-    const current = savedGame();
-    expect(reviveSavedGame(JSON.parse(JSON.stringify(current)))).toEqual(current);
   });
 });

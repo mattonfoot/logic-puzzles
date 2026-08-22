@@ -1,4 +1,4 @@
-import { sizeFor } from '../../data/sizes';
+import { SIZES } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
 import { generatePuzzle } from '../../puzzle/generator';
 import {
@@ -14,7 +14,7 @@ import {
   solvedMarks,
 } from '../board';
 
-const puzzle = generatePuzzle({ theme: THEMES[0], size: sizeFor(4, 4), seed: 2024 });
+const puzzle = generatePuzzle({ theme: THEMES[0], size: SIZES[1], seed: 2024 });
 const size = puzzle.size.items;
 
 describe('marks', () => {

@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { sizeFor } from '../../data/sizes';
+import { SIZES } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
 import { completedGameFrom, EMPTY_HISTORY, SAVE_VERSION, appendGame } from '../../game/persistence';
 import { generatePuzzle } from '../../puzzle/generator';
 import { storage } from '../store';
 
-const puzzle = generatePuzzle({ theme: THEMES[3], size: sizeFor(3, 3), seed: 11 });
+const puzzle = generatePuzzle({ theme: THEMES[3], size: SIZES[0], seed: 11 });
 
 const saved = {
   version: SAVE_VERSION,
