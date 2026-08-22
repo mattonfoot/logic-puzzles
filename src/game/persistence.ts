@@ -22,7 +22,6 @@ export interface SavedGame {
   crossedOut: number[];
   seconds: number;
   hintsUsed: number;
-  activePair: number;
   updatedAt: number;
 }
 

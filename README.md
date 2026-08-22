@@ -37,14 +37,20 @@ is set in `app.json` and should be changed to your own before building.
    4 × 4 (classic), 5 × 4 (tricky) or 6 × 4 (expert). The first number is how
    many items each category holds, the second how many categories take part.
    "Surprise me" rolls both for you.
-2. **Game** — one pair-grid is shown at a time; the pills across the top switch
-   between the pairs (six of them on a four-category puzzle). Tap a square to
-   cycle it blank → ✓ → ✕. Ticking a square automatically crosses out the rest
-   of its row and column; the **Auto ✕** button turns that off.
+2. **Game** — the whole puzzle is drawn as one staircase of grids, the way a
+   printed logic puzzle is laid out: every pair of sets meets in its own grid,
+   so a four-set puzzle is a 3 × 3 arrangement holding six grids, and each grid
+   is items × items. Tap a square to cycle it blank → ✓ → ✕. Ticking a square
+   automatically crosses out the rest of its row and column; the **Auto ✕**
+   button turns that off. The set names and item labels stay pinned while the
+   grids scroll sideways, and − / + resize the squares.
 3. **Clues** — tap a clue to cross it off once you have used it, or press and
-   hold it to jump straight to the grid it talks about.
+   hold it to light up every row and column it talks about, across all the
+   grids at once.
 4. **Check** highlights any mark that contradicts the solution, **Hint** places
    one true pairing for you, and the timer stops when the last square is right.
+   Finishing shows **the answer as a table**: one row per person, one column per
+   set, so the whole solution reads across in a line.
 5. **Come back later** — the board saves itself as you play, so closing the app
    mid-puzzle costs nothing. The home screen offers to resume it, with the clock
    picking up where it left off.
@@ -65,16 +71,40 @@ src/puzzle/generator.ts     builds a solution, then a minimal clue set for it
 src/puzzle/solver.ts        constraint solver: propagation + search
 src/puzzle/describe.ts      clue objects → the sentences the player reads
 src/game/board.ts           the player's ticks and crosses, hints, win check
+src/game/layout.ts          the staircase arrangement + the answer table
 src/game/persistence.ts     what gets written to disk, and the guards to read it
 src/game/usePersistence.ts  saved game + finished games as React state
 src/game/time.ts            duration formatting
 src/game/useTimer.ts        elapsed-time hook
 src/stats/summary.ts        history → per-size stats, streaks, improvement notes
 src/storage/store.ts        the only module that touches AsyncStorage
-src/components/             PairGrid, ClueList, WinOverlay, TrendChart, …
+src/components/             GridBoard, SolutionTable, ClueList, WinOverlay, …
 src/screens/                HomeScreen, GameScreen, StatsScreen
 src/ui/                     palette, spacing, haptics helpers
 ```
+
+## How the board is laid out
+
+`src/game/layout.ts` turns a set count into the classic arrangement. Sets 1…N-1
+run across the top as columns; sets 0, N-1, N-2 … 2 run down the side as rows.
+A block is drawn where a row set meets a column set for the first time, which
+leaves the familiar staircase:
+
+```
+              Destination   Ship     Launch
+   Astronaut     ■■■■       ■■■■      ■■■■
+   Launch        ■■■■       ■■■■
+   Ship          ■■■■
+```
+
+Four sets therefore give a 3 × 3 arrangement of six grids, three sets a 2 × 2
+arrangement of three, and five sets a 4 × 4 arrangement of ten — every pair of
+sets exactly once, which is what makes cross-referencing possible: a tick in
+Astronaut × Ship can be carried into Ship × Launch without leaving the board.
+
+`solutionRows` in the same module produces the end-of-game summary: one row per
+entity and one column per set, ordered by the ordered set (earliest year,
+cheapest bill…) so it reads like the answer key of a printed puzzle.
 
 ## How the puzzle engine works
 

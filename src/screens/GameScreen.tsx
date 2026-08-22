@@ -1,12 +1,20 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AppState, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  AppState,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ClueList } from '../components/ClueList';
-import { PairGrid } from '../components/PairGrid';
+import { GridBoard } from '../components/GridBoard';
+import { SolutionTable } from '../components/SolutionTable';
 import { WinOverlay } from '../components/WinOverlay';
 import {
-  categoryPairs,
   findHint,
   findMistakes,
   getMark,
@@ -21,11 +29,18 @@ import {
 import { SAVE_VERSION, type SavedGame } from '../game/persistence';
 import type { CompletionInput } from '../game/usePersistence';
 import { formatDuration, useTimer } from '../game/useTimer';
-import { cluePrimaryPair } from '../puzzle/describe';
-import type { Puzzle } from '../puzzle/types';
+import { clueAttributes } from '../puzzle/describe';
+import type { Attribute, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { haptics } from '../ui/haptics';
 import { palette, radius, shadow, space, tint } from '../ui/theme';
+
+/** The smallest cell worth tapping, and the steps the zoom buttons take. */
+const MIN_CELL = 18;
+const MAX_CELL = 46;
+const ZOOM_STEP = 8;
+/** Width the set strip and row labels take on the left of the board. */
+const BOARD_LABELS = 84;
 
 interface Props {
   puzzle: Puzzle;
@@ -52,11 +67,11 @@ export function GameScreen({
   onOpenStats,
 }: Props) {
   const insets = useSafeAreaInsets();
-  const pairs = useMemo(() => categoryPairs(puzzle.categories.length), [puzzle]);
+  const { width } = useWindowDimensions();
   const resumed = restore?.puzzle.seed === puzzle.seed ? restore : null;
 
   const [marks, setMarks] = useState<Marks>(() => resumed?.marks ?? {});
-  const [activePair, setActivePair] = useState(() => resumed?.activePair ?? 0);
+  const [focusedClue, setFocusedClue] = useState<number | null>(null);
   const [crossedOut, setCrossedOut] = useState<Set<number>>(
     () => new Set(resumed?.crossedOut ?? []),
   );
@@ -72,6 +87,23 @@ export function GameScreen({
   const filled = useMemo(() => progress(marks, puzzle), [marks, puzzle]);
   const seconds = useTimer(!solved, puzzle.seed, resumed?.seconds ?? 0);
 
+  // The whole staircase is drawn at once, so the cell size decides whether it
+  // fits the screen. Start at the size that shows all of it, and let the player
+  // zoom in from there; anything wider than the screen scrolls sideways.
+  const fitCell = useMemo(() => {
+    const columns = puzzle.size.items * (puzzle.categories.length - 1);
+    const available = width - space(8) - space(6) - BOARD_LABELS;
+    // Each block carries a small gap to its neighbour.
+    const gaps = (puzzle.categories.length - 2) * space(1);
+    return Math.max(MIN_CELL, Math.min(MAX_CELL, Math.floor((available - gaps) / columns)));
+  }, [puzzle, width]);
+  const [cellSize, setCellSize] = useState(fitCell);
+
+  const highlight = useMemo<Attribute[]>(
+    () => (focusedClue === null ? [] : clueAttributes(puzzle.clues[focusedClue])),
+    [focusedClue, puzzle.clues],
+  );
+
   // A snapshot of the board that the autosave paths can read without having to
   // re-subscribe every time the clock ticks.
   const snapshot = useRef<() => SavedGame>(() => ({}) as SavedGame);
@@ -82,7 +114,6 @@ export function GameScreen({
     crossedOut: [...crossedOut],
     seconds,
     hintsUsed,
-    activePair,
     updatedAt: Date.now(),
   });
   const finished = useRef(false);
@@ -112,7 +143,7 @@ export function GameScreen({
     if (solved) return;
     const timer = setTimeout(() => onSaveProgress(snapshot.current()), 600);
     return () => clearTimeout(timer);
-  }, [marks, crossedOut, hintsUsed, activePair, solved, onSaveProgress]);
+  }, [marks, crossedOut, hintsUsed, solved, onSaveProgress]);
 
   // Backgrounding the app and leaving the screen both save immediately.
   useEffect(() => {
@@ -170,16 +201,17 @@ export function GameScreen({
     haptics.select();
     setHintsUsed((count) => count + 1);
     setMarks((current) => setMark(current, cell, 'yes', { autoEliminate: true, size: puzzle.size.items }));
-    const index = pairs.findIndex(([c1, c2]) => c1 === cell.c1 && c2 === cell.c2);
-    if (index >= 0) setActivePair(index);
-    flash('Hint placed on the grid.');
-  }, [flash, marks, pairs, puzzle]);
+    flash(
+      `Hint: ${puzzle.categories[cell.c1].items[cell.i1].label} goes with ${puzzle.categories[cell.c2].items[cell.i2].label}.`,
+    );
+  }, [flash, marks, puzzle]);
 
   const restart = useCallback(() => {
     haptics.select();
     setMarks({});
     setMistakes(new Set());
     setCrossedOut(new Set());
+    setFocusedClue(null);
     setHintsUsed(0);
     setRevealed(false);
     flash('Board cleared.');
@@ -201,20 +233,13 @@ export function GameScreen({
     });
   }, []);
 
-  const focusClue = useCallback(
-    (index: number) => {
-      const pair = cluePrimaryPair(puzzle.clues[index]);
-      if (!pair) return;
-      const target = pairs.findIndex(([c1, c2]) => c1 === pair[0] && c2 === pair[1]);
-      if (target >= 0) {
-        haptics.select();
-        setActivePair(target);
-      }
-    },
-    [pairs, puzzle.clues],
-  );
+  const focusClue = useCallback((index: number) => {
+    haptics.select();
+    setFocusedClue((current) => (current === index ? null : index));
+  }, []);
 
-  const [rowCategory, columnCategory] = pairs[activePair] ?? pairs[0];
+  const gridsShown = (puzzle.categories.length * (puzzle.categories.length - 1)) / 2;
+  const leadCategory = puzzle.categories[0].name.toLowerCase();
 
   return (
     <View style={styles.screen}>
@@ -252,47 +277,38 @@ export function GameScreen({
         contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + space(10) }]}
         showsVerticalScrollIndicator={false}
       >
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.tabs}
-        >
-          {pairs.map(([c1, c2], index) => {
-            const selected = index === activePair;
-            return (
-              <Pressable
-                key={`${c1}-${c2}`}
-                accessibilityRole="tab"
-                accessibilityState={{ selected }}
-                onPress={() => {
-                  haptics.select();
-                  setActivePair(index);
-                }}
-                style={[
-                  styles.tab,
-                  {
-                    backgroundColor: selected ? tint(puzzle.accent, 0.14) : palette.surface,
-                    borderColor: selected ? puzzle.accent : palette.line,
-                  },
-                ]}
-              >
-                <Text style={[styles.tabText, selected && { color: puzzle.accent }]}>
-                  {puzzle.categories[c1].name} × {puzzle.categories[c2].name}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </ScrollView>
-
         <View style={[styles.card, shadow.card]}>
-          <PairGrid
+          <View style={styles.boardHeader}>
+            <Text style={styles.cardTitle}>
+              {puzzle.categories.length} sets · {gridsShown} grids
+            </Text>
+            <View style={styles.zoomRow}>
+              <ZoomButton
+                label="−"
+                accent={puzzle.accent}
+                disabled={cellSize <= fitCell}
+                onPress={() => setCellSize((size) => Math.max(fitCell, size - ZOOM_STEP))}
+              />
+              <ZoomButton
+                label="+"
+                accent={puzzle.accent}
+                disabled={cellSize >= MAX_CELL}
+                onPress={() => setCellSize((size) => Math.min(MAX_CELL, size + ZOOM_STEP))}
+              />
+            </View>
+          </View>
+
+          <GridBoard
             puzzle={puzzle}
-            pair={[rowCategory, columnCategory]}
             marks={marks}
             mistakes={mistakes}
+            highlight={highlight}
+            cellSize={cellSize}
             onToggle={toggleCell}
           />
-          <Text style={styles.cardHint}>Tap a square to cycle blank → ✓ → ✕.</Text>
+          <Text style={styles.cardHint}>
+            Tap a square to cycle blank → ✓ → ✕ · swipe the board sideways for the rest
+          </Text>
         </View>
 
         <View style={styles.toolbar}>
@@ -314,7 +330,7 @@ export function GameScreen({
         <View style={[styles.card, shadow.card]}>
           <Text style={styles.cardTitle}>Clues</Text>
           <Text style={styles.cardSubtitle}>
-            Tap to cross one off · hold to jump to its grid
+            Tap to cross one off · hold to light it up on the board
           </Text>
           <ClueList
             puzzle={puzzle}
@@ -323,6 +339,14 @@ export function GameScreen({
             onFocus={focusClue}
           />
         </View>
+
+        {solved ? (
+          <View style={[styles.card, shadow.card]}>
+            <Text style={styles.cardTitle}>The answer</Text>
+            <Text style={styles.cardSubtitle}>One row per {leadCategory}</Text>
+            <SolutionTable puzzle={puzzle} />
+          </View>
+        ) : null}
 
         <View style={styles.footerLinks}>
           <Pressable accessibilityRole="button" onPress={restart} hitSlop={8}>
@@ -353,6 +377,34 @@ export function GameScreen({
         onOpenStats={onOpenStats}
       />
     </View>
+  );
+}
+
+function ZoomButton({
+  label,
+  accent,
+  disabled,
+  onPress,
+}: {
+  label: string;
+  accent: string;
+  disabled: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={label === '+' ? 'Zoom in' : 'Zoom out'}
+      accessibilityState={{ disabled }}
+      disabled={disabled}
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.zoomButton,
+        { borderColor: tint(accent, 0.4), opacity: disabled ? 0.35 : pressed ? 0.7 : 1 },
+      ]}
+    >
+      <Text style={[styles.zoomButtonText, { color: accent }]}>{label}</Text>
+    </Pressable>
   );
 }
 
@@ -441,20 +493,29 @@ const styles = StyleSheet.create({
     paddingTop: space(4),
     gap: space(4),
   },
-  tabs: {
-    gap: space(2),
-    paddingRight: space(4),
+  boardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: space(3),
   },
-  tab: {
+  zoomRow: {
+    flexDirection: 'row',
+    gap: space(2),
+  },
+  zoomButton: {
+    width: 32,
+    height: 32,
     borderRadius: radius.pill,
     borderWidth: 1,
-    paddingHorizontal: space(3.5),
-    paddingVertical: space(2),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: palette.surface,
   },
-  tabText: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: palette.inkSoft,
+  zoomButtonText: {
+    fontSize: 17,
+    fontWeight: '700',
+    marginTop: -2,
   },
   card: {
     backgroundColor: palette.surface,

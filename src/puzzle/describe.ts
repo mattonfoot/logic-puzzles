@@ -33,7 +33,10 @@ export function describeClue(clue: Clue, puzzle: Puzzle): string {
       if (clue.gap === undefined) {
         return `The ${noun} for ${greater} is ${greaterWord} than for ${lesser}.`;
       }
-      return `The ${noun} for ${greater} is exactly ${clue.gap} ${ordered?.unit ?? 'units'} ${greaterWord} than for ${lesser}.`;
+      const unit = ordered?.unit ?? 'units';
+      // "1 years" reads badly; the themes name their units in the plural.
+      const measure = clue.gap === 1 ? unit.replace(/s$/, '') : unit;
+      return `The ${noun} for ${greater} is exactly ${clue.gap} ${measure} ${greaterWord} than for ${lesser}.`;
     }
   }
 }
@@ -59,15 +62,4 @@ export function clueAttributes(clue: Clue): Attribute[] {
     case 'compare':
       return [clue.greater, clue.lesser];
   }
-}
-
-/** The pair grid a clue is most useful on, or null when it spans one category. */
-export function cluePrimaryPair(clue: Clue): [number, number] | null {
-  const categories = clueAttributes(clue).map((attr) => attr.category);
-  for (const first of categories) {
-    for (const second of categories) {
-      if (first < second) return [first, second];
-    }
-  }
-  return null;
 }

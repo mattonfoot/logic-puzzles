@@ -15,7 +15,6 @@ const saved = {
   crossedOut: [1],
   seconds: 30,
   hintsUsed: 0,
-  activePair: 0,
   updatedAt: 5,
 };
 

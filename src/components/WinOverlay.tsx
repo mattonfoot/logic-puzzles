@@ -1,11 +1,12 @@
 import React from 'react';
-import { Modal, StyleSheet, Text, View } from 'react-native';
+import { Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { formatDuration } from '../game/time';
 import type { Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { palette, radius, shadow, space, tint } from '../ui/theme';
 import { AppButton } from './AppButton';
+import { SolutionTable } from './SolutionTable';
 
 interface Props {
   visible: boolean;
@@ -35,7 +36,11 @@ export function WinOverlay({
   return (
     <Modal visible={visible} transparent animationType="fade" onRequestClose={onChangeSetup}>
       <View style={styles.backdrop}>
-        <View style={[styles.card, shadow.raised]}>
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={[styles.card, shadow.raised]}
+          showsVerticalScrollIndicator={false}
+        >
           <Text style={styles.emoji}>{puzzle.themeEmoji}</Text>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.subtitle}>
@@ -66,6 +71,11 @@ export function WinOverlay({
             </View>
           ) : null}
 
+          <View style={styles.answer}>
+            <Text style={styles.answerLabel}>The answer</Text>
+            <SolutionTable puzzle={puzzle} compact />
+          </View>
+
           <AppButton
             label="New puzzle"
             icon="↻"
@@ -89,7 +99,7 @@ export function WinOverlay({
               style={styles.secondaryButton}
             />
           </View>
-        </View>
+        </ScrollView>
       </View>
     </Modal>
   );
@@ -112,13 +122,36 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: space(6),
   },
-  card: {
+  scroll: {
     width: '100%',
     maxWidth: 380,
+    maxHeight: '100%',
+    // Without this the scroll view stretches to the full height of the screen
+    // and the card grows a tail of empty space under the buttons.
+    flexGrow: 0,
+    borderRadius: radius.lg,
+    backgroundColor: palette.surface,
+  },
+  card: {
     backgroundColor: palette.surface,
     borderRadius: radius.lg,
     padding: space(6),
     alignItems: 'center',
+  },
+  answer: {
+    alignSelf: 'stretch',
+    marginTop: space(5),
+    paddingTop: space(4),
+    borderTopWidth: 1,
+    borderTopColor: palette.line,
+  },
+  answerLabel: {
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
+    color: palette.inkFaint,
+    marginBottom: space(2),
   },
   emoji: {
     fontSize: 44,

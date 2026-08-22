@@ -24,7 +24,6 @@ function savedGame(overrides: Partial<SavedGame> = {}): SavedGame {
     crossedOut: [0, 2],
     seconds: 42,
     hintsUsed: 1,
-    activePair: 3,
     updatedAt: 1_700_000_000_000,
     ...overrides,
   };
