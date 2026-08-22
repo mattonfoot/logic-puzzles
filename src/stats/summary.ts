@@ -4,6 +4,7 @@
  * All of it is pure: the same history always yields the same summary, which
  * keeps it easy to test and cheap to recompute on every render.
  */
+import { sizeFromId } from '../data/sizes';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
 import type { SizeOption } from '../puzzle/types';
@@ -155,6 +156,10 @@ export interface Improvement {
 
 const percent = (fraction: number): string => `${Math.round(Math.abs(fraction) * 100)}%`;
 
+/** "4 sets of 5" where the shape is known, else whatever was recorded. */
+const shapeName = (game: CompletedGame): string =>
+  sizeFromId(game.sizeId)?.description ?? game.sizeLabel;
+
 /**
  * Compares a finished game with the player's earlier games at the same size.
  * `previous` is the history from *before* this game was added.
@@ -166,6 +171,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   const averageBefore = mean(times);
   const rank = times.filter((time) => time < game.seconds).length + 1;
   const noHints = game.hintsUsed === 0 ? ' · solved with no hints' : '';
+  const shape = shapeName(game);
 
   if (game.revealed) {
     return {
@@ -182,7 +188,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   if (previousBest === null) {
     return {
       kind: 'first',
-      headline: `First ${game.sizeLabel} in the books`,
+      headline: `First ${shape} puzzle in the books`,
       detail: `Time to beat next round: ${formatDuration(game.seconds)}${noHints}.`,
       previousBest,
       averageBefore,
@@ -194,7 +200,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   if (game.seconds < previousBest) {
     return {
       kind: 'best',
-      headline: `New ${game.sizeLabel} best!`,
+      headline: `New best for ${shape}!`,
       detail: `${formatDuration(previousBest - game.seconds)} faster than your old best of ${formatDuration(previousBest)}${noHints}.`,
       previousBest,
       averageBefore,
@@ -207,7 +213,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
     const share = (averageBefore - game.seconds) / averageBefore;
     return {
       kind: 'faster',
-      headline: `${percent(share)} faster than your ${game.sizeLabel} average`,
+      headline: `${percent(share)} faster than your ${shape} average`,
       detail: `#${rank} of ${earlier.length + 1} · best is ${formatDuration(previousBest)}${noHints}.`,
       previousBest,
       averageBefore,
@@ -218,7 +224,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
 
   return {
     kind: 'steady',
-    headline: `${game.sizeLabel} complete`,
+    headline: `${shape} complete`,
     detail: `${formatDuration(game.seconds - previousBest)} off your best of ${formatDuration(previousBest)}${noHints}.`,
     previousBest,
     averageBefore,

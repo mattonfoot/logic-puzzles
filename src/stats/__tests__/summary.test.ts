@@ -2,8 +2,8 @@ import type { CompletedGame } from '../../game/persistence';
 import { improvementFor, statsForSize, summarise, TREND_WINDOW } from '../summary';
 
 const SIZES = [
-  { id: 'sm', label: '4 × 4' },
-  { id: 'md', label: '5 × 4' },
+  { id: '4x4', label: '4 × 4' },
+  { id: '4x5', label: '4 × 5' },
 ];
 
 const DAY = 86_400_000;
@@ -16,7 +16,7 @@ function game(overrides: Partial<CompletedGame> = {}): CompletedGame {
     themeName: 'Cosmic Voyage',
     themeEmoji: '🚀',
     accent: '#4C6FFF',
-    sizeId: 'sm',
+    sizeId: '4x4',
     sizeLabel: '4 × 4',
     seconds: 120,
     hintsUsed: 0,
@@ -43,7 +43,7 @@ describe('statsForSize', () => {
     const games = newestFirst(
       game({ seconds: 200 }),
       game({ seconds: 100 }),
-      game({ seconds: 300, sizeId: 'md', sizeLabel: '5 × 4' }),
+      game({ seconds: 300, sizeId: '4x5', sizeLabel: '4 × 5' }),
     );
     const stats = statsForSize(games, SIZES[0]);
     expect(stats.solved).toBe(2);
@@ -93,7 +93,7 @@ describe('summarise', () => {
     expect(stats.hintsUsed).toBe(2);
     expect(stats.noHintSolves).toBe(1);
     expect(stats.themesPlayed).toBe(2);
-    expect(stats.sizes.map((size) => size.sizeId)).toEqual(['sm', 'md']);
+    expect(stats.sizes.map((size) => size.sizeId)).toEqual(['4x4', '4x5']);
   });
 
   it('counts a streak of consecutive days, ignoring several games in one day', () => {
@@ -175,7 +175,7 @@ describe('improvementFor', () => {
   });
 
   it('only compares against the same grid size', () => {
-    const previous = [game({ seconds: 10, sizeId: 'md', sizeLabel: '5 × 4' })];
+    const previous = [game({ seconds: 10, sizeId: '4x5', sizeLabel: '4 × 5' })];
     expect(improvementFor(game({ seconds: 300 }), previous).kind).toBe('first');
   });
 });

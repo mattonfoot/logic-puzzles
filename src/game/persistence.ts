@@ -5,11 +5,15 @@
  * a build that stored a puzzle whose theme has since changed. Everything that
  * comes back is validated before it reaches the game.
  */
-import type { Puzzle } from '../puzzle/types';
+import { makeSize, normaliseSizeId, sizeFromId } from '../data/sizes';
+import type { Puzzle, SizeOption } from '../puzzle/types';
 import type { Marks } from './board';
 
-export const SAVE_VERSION = 1;
-export const HISTORY_VERSION = 1;
+/** Version 2 replaced the four size presets with separate sets/items dials. */
+export const SAVE_VERSION = 2;
+export const HISTORY_VERSION = 2;
+const READABLE_SAVE_VERSIONS = [1, 2];
+const READABLE_HISTORY_VERSIONS = [1, 2];
 /** How many finished games are kept; older ones fall off the end. */
 export const HISTORY_LIMIT = 300;
 
@@ -54,6 +58,20 @@ function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
 }
 
+/**
+ * Rebuilds a size from whatever a build wrote: the current `{ sets, items }`,
+ * or version 1's `{ categories, items }` preset.
+ */
+function reviveSize(value: unknown): SizeOption | null {
+  if (!isObject(value)) return null;
+  const items = value.items;
+  const sets = typeof value.sets === 'number' ? value.sets : value.categories;
+  if (typeof items === 'number' && typeof sets === 'number' && items > 0 && sets > 1) {
+    return makeSize(sets, items);
+  }
+  return typeof value.id === 'string' ? sizeFromId(value.id) : null;
+}
+
 function isPuzzle(value: unknown): value is Puzzle {
   if (!isObject(value)) return false;
   const { categories, solution, clues, size } = value;
@@ -73,6 +91,29 @@ export function isSavedGame(value: unknown): value is SavedGame {
   return typeof value.seconds === 'number' && typeof value.hintsUsed === 'number';
 }
 
+/**
+ * Reads a saved game back, bringing an older one up to date. Anything that
+ * cannot be made sense of returns null, which the app treats as "nothing
+ * saved" rather than an error.
+ */
+export function reviveSavedGame(value: unknown): SavedGame | null {
+  if (!isObject(value)) return null;
+  if (typeof value.version !== 'number' || !READABLE_SAVE_VERSIONS.includes(value.version)) {
+    return null;
+  }
+  if (!isObject(value.puzzle)) return null;
+
+  const size = reviveSize(value.puzzle.size);
+  if (!size) return null;
+
+  const migrated = {
+    ...value,
+    version: SAVE_VERSION,
+    puzzle: { ...value.puzzle, size },
+  };
+  return isSavedGame(migrated) ? migrated : null;
+}
+
 function isCompletedGame(value: unknown): value is CompletedGame {
   if (!isObject(value)) return false;
   return (
@@ -87,6 +128,26 @@ function isCompletedGame(value: unknown): value is CompletedGame {
 export function isHistory(value: unknown): value is History {
   if (!isObject(value) || value.version !== HISTORY_VERSION) return false;
   return Array.isArray(value.games) && value.games.every(isCompletedGame);
+}
+
+/**
+ * Reads the finished games back. Games recorded against the old size presets
+ * keep their place in the statistics: `xs`/`sm`/`md`/`lg` name the same shapes
+ * the sets/items dials now produce.
+ */
+export function reviveHistory(value: unknown): History | null {
+  if (!isObject(value)) return null;
+  if (typeof value.version !== 'number' || !READABLE_HISTORY_VERSIONS.includes(value.version)) {
+    return null;
+  }
+  if (!Array.isArray(value.games)) return null;
+
+  const games = value.games.filter(isCompletedGame).map((game) => {
+    const size = sizeFromId(normaliseSizeId(game.sizeId));
+    return size ? { ...game, sizeId: size.id, sizeLabel: size.label } : game;
+  });
+
+  return { version: HISTORY_VERSION, games };
 }
 
 /** Newest first, capped at `limit`. */

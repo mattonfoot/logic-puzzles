@@ -45,7 +45,7 @@ export function generatePuzzle({ theme, size, seed }: GenerateOptions): Puzzle {
  */
 function pickCategories(theme: ThemeDef, size: SizeOption, rng: Rng): PuzzleCategory[] {
   const [anchor, ...rest] = theme.categories;
-  const wanted = Math.min(size.categories, theme.categories.length) - 1;
+  const wanted = Math.min(size.sets, theme.categories.length) - 1;
 
   const ordered = rest.filter((category) => category.ordered);
   const chosen: CategoryDef[] = [];

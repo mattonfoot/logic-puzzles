@@ -233,7 +233,7 @@ export function GameScreen({
             {puzzle.themeEmoji} {puzzle.themeName}
           </Text>
           <Text style={styles.headerSubtitle}>
-            {puzzle.size.label} · {puzzle.clues.length} clues
+            {puzzle.size.description} · {puzzle.size.grids} grids · {puzzle.clues.length} clues
           </Text>
         </View>
         <Text style={[styles.timer, { color: puzzle.accent }]}>{formatDuration(seconds)}</Text>

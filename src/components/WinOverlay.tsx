@@ -39,7 +39,7 @@ export function WinOverlay({
           <Text style={styles.emoji}>{puzzle.themeEmoji}</Text>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.subtitle}>
-            {puzzle.themeName} · {puzzle.size.label}
+            {puzzle.themeName} · {puzzle.size.description}
           </Text>
 
           <View style={styles.stats}>

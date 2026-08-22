@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { SIZES } from '../data/sizes';
+import { gridCount, ITEM_COUNTS, SET_COUNTS, sizeFor } from '../data/sizes';
 import { THEMES } from '../data/themes';
 import { progress } from '../game/board';
 import type { SavedGame } from '../game/persistence';
@@ -61,8 +61,8 @@ export function HomeScreen({
         <Text style={styles.eyebrow}>Deduction, freshly generated</Text>
         <Text style={styles.title}>Logic Grid</Text>
         <Text style={styles.lede}>
-          Pick a theme and a grid size. Every puzzle is built on the spot, has exactly one solution,
-          and can be cracked by pure deduction — no guessing.
+          Pick a theme, then the shape of the puzzle. Every one is built on the spot, has exactly
+          one solution, and can be cracked by pure deduction — no guessing.
         </Text>
 
         {savedGame ? (
@@ -75,7 +75,8 @@ export function HomeScreen({
           >
             <Text style={styles.resumeLabel}>Puzzle in progress</Text>
             <Text style={styles.resumeTitle}>
-              {savedGame.puzzle.themeEmoji} {savedGame.puzzle.themeName} · {savedGame.puzzle.size.label}
+              {savedGame.puzzle.themeEmoji} {savedGame.puzzle.themeName} ·{' '}
+              {savedGame.puzzle.size.description}
             </Text>
             <Text style={styles.resumeMeta}>
               {Math.round(savedProgress * 100)}% filled in · {formatDuration(savedGame.seconds)} on the clock
@@ -130,39 +131,46 @@ export function HomeScreen({
           })}
         </View>
 
-        <Text style={styles.sectionLabel}>Grid size</Text>
+        <Text style={styles.sectionLabel}>Sets</Text>
+        <Text style={styles.sectionHint}>
+          Sets of things to match up, the people included. Each pair of sets gets its own grid.
+        </Text>
         <View style={styles.sizeRow}>
-          {SIZES.map((option) => {
-            const selected = option.id === size.id;
-            return (
-              <Pressable
-                key={option.id}
-                accessibilityRole="radio"
-                accessibilityState={{ selected }}
-                onPress={() => {
-                  haptics.select();
-                  onSelectSize(option);
-                }}
-                style={({ pressed }) => [
-                  styles.sizeCard,
-                  {
-                    borderColor: selected ? theme.accent : palette.line,
-                    backgroundColor: selected ? tint(theme.accent, 0.12) : palette.surface,
-                    opacity: pressed ? 0.85 : 1,
-                  },
-                ]}
-              >
-                <Text style={[styles.sizeLabel, selected && { color: theme.accent }]}>
-                  {option.label}
-                </Text>
-                <Text style={styles.sizeBlurb}>{option.blurb}</Text>
-              </Pressable>
-            );
-          })}
+          {SET_COUNTS.map((count) => (
+            <NumberChip
+              key={`sets-${count}`}
+              value={count}
+              caption={`${gridCount(count)} grids`}
+              selected={count === size.sets}
+              accent={theme.accent}
+              onPress={() => {
+                haptics.select();
+                onSelectSize(sizeFor(count, size.items));
+              }}
+            />
+          ))}
         </View>
+
+        <Text style={styles.sectionLabel}>Items per set</Text>
+        <Text style={styles.sectionHint}>The rows and columns in every grid.</Text>
+        <View style={styles.sizeRow}>
+          {ITEM_COUNTS.map((count) => (
+            <NumberChip
+              key={`items-${count}`}
+              value={count}
+              caption={sizeFor(size.sets, count).blurb}
+              selected={count === size.items}
+              accent={theme.accent}
+              onPress={() => {
+                haptics.select();
+                onSelectSize(sizeFor(size.sets, count));
+              }}
+            />
+          ))}
+        </View>
+
         <Text style={styles.sizeHint}>
-          {size.items} items in each of {size.categories} categories —{' '}
-          {(size.categories * (size.categories - 1)) / 2} grids to fill in.
+          {size.description} — {size.grids} grids of {size.items} × {size.items} to fill in.
         </Text>
         {sizeStats && sizeStats.solved > 0 ? (
           <Text style={styles.sizeStats}>
@@ -231,6 +239,40 @@ export function HomeScreen({
         </View>
       ) : null}
     </View>
+  );
+}
+
+function NumberChip({
+  value,
+  caption,
+  selected,
+  accent,
+  onPress,
+}: {
+  value: number;
+  caption: string;
+  selected: boolean;
+  accent: string;
+  onPress: () => void;
+}) {
+  return (
+    <Pressable
+      accessibilityRole="radio"
+      accessibilityState={{ selected }}
+      accessibilityLabel={`${value}, ${caption}`}
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.sizeCard,
+        {
+          borderColor: selected ? accent : palette.line,
+          backgroundColor: selected ? tint(accent, 0.12) : palette.surface,
+          opacity: pressed ? 0.85 : 1,
+        },
+      ]}
+    >
+      <Text style={[styles.sizeLabel, selected && { color: accent }]}>{value}</Text>
+      <Text style={styles.sizeBlurb}>{caption}</Text>
+    </Pressable>
   );
 }
 
@@ -318,6 +360,12 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: palette.inkFaint,
     marginTop: space(0.5),
+  },
+  sectionHint: {
+    fontSize: 12,
+    color: palette.inkFaint,
+    marginTop: -space(2),
+    marginBottom: space(2.5),
   },
   sizeHint: {
     fontSize: 13,

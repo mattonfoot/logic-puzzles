@@ -90,20 +90,21 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
 
         {played.length > 0 ? (
           <View style={[styles.card, shadow.card]}>
-            <Text style={styles.cardTitle}>By grid size</Text>
+            <Text style={styles.cardTitle}>By puzzle shape</Text>
+            <Text style={styles.cardSubtitle}>Sets × items per set</Text>
             <View style={styles.sizeTable}>
               <View style={styles.sizeHeaderRow}>
-                <Text style={[styles.sizeHeaderCell, styles.sizeCellWide]}>Size</Text>
+                <Text style={[styles.sizeHeaderCell, styles.sizeCellWide]}>Shape</Text>
                 <Text style={styles.sizeHeaderCell}>Solved</Text>
                 <Text style={styles.sizeHeaderCell}>Best</Text>
                 <Text style={styles.sizeHeaderCell}>Average</Text>
               </View>
-              {stats.sizes.map((size) => (
+              {played.map((size) => (
                 <View key={size.sizeId} style={styles.sizeRow}>
                   <Text style={[styles.sizeCell, styles.sizeCellWide, styles.sizeCellStrong]}>
                     {size.sizeLabel}
                   </Text>
-                  <Text style={styles.sizeCell}>{size.solved || '—'}</Text>
+                  <Text style={styles.sizeCell}>{size.solved}</Text>
                   <Text style={styles.sizeCell}>
                     {size.bestSeconds === null ? '—' : formatDuration(size.bestSeconds)}
                   </Text>
@@ -119,7 +120,9 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
         {selected ? (
           <View style={[styles.card, shadow.card]}>
             <Text style={styles.cardTitle}>Are you getting faster?</Text>
-            <Text style={styles.cardSubtitle}>Recent solve times, one column per puzzle</Text>
+            <Text style={styles.cardSubtitle}>
+              Recent solve times for {selected.sizeLabel} — one column per puzzle
+            </Text>
 
             <View style={styles.pillRow}>
               {played.map((size) => {

@@ -75,13 +75,25 @@ export type Clue =
    */
   | { kind: 'compare'; order: number; greater: Attribute; lesser: Attribute; gap?: number };
 
+/**
+ * The shape of a puzzle: how many sets take part and how many items each set
+ * holds. One grid is drawn per pair of sets, so `sets` drives the number of
+ * grids and `items` the size of each one.
+ */
 export interface SizeOption {
+  /** Stable `${sets}x${items}` key, used to group statistics. */
   id: string;
-  /** Items per category (also the number of entities). */
+  /** How many sets (categories) take part. */
+  sets: number;
+  /** How many items in each set — also the number of entities. */
   items: number;
-  /** How many categories take part. */
-  categories: number;
+  /** Compact "4 × 5", read as sets × items. */
   label: string;
+  /** Spelled out: "4 sets of 5". */
+  description: string;
+  /** Grids to fill in: sets choose 2. */
+  grids: number;
+  /** Difficulty word for the shape. */
   blurb: string;
 }
 
