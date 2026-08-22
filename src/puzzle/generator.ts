@@ -9,6 +9,7 @@
  *    the answer unique *and* reachable without ever guessing.
  * 4. Remove every clue that is not needed, so the player gets a minimal set.
  */
+import { resolveClueTemplates } from './describe';
 import { createRng, randomSeed, type Rng } from './rng';
 import { contextFor, solveByDeduction, type SolveContext } from './solver';
 import type { Attribute, CategoryDef, Clue, Puzzle, PuzzleCategory, SizeOption, ThemeDef } from './types';
@@ -32,6 +33,7 @@ export function generatePuzzle({ theme: themeOrPool, size, seed }: GenerateOptio
 
   return {
     seed: actualSeed,
+    clueTemplates: resolveClueTemplates(theme),
     themeId: theme.id,
     themeName: theme.name,
     themeEmoji: theme.emoji,

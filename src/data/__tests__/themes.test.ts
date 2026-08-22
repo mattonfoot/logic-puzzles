@@ -1,5 +1,21 @@
+import { DEFAULT_CLUE_TEMPLATES, resolveClueTemplates } from '../../puzzle/describe';
+import type { ClueTemplates } from '../../puzzle/types';
 import { SIZES } from '../sizes';
 import { THEMES, themeById } from '../themes';
+
+/**
+ * The slots each template must keep: leaving one out would quietly drop half
+ * the clue, and the puzzle would stop being solvable from what the player reads.
+ */
+const REQUIRED_SLOTS: Record<keyof ClueTemplates, string[]> = {
+  link: ['{a}', '{b}'],
+  notLink: ['{a}', '{b}'],
+  either: ['{a}', '{b}', '{c}'],
+  compare: ['{greater}', '{lesser}'],
+  compareGap: ['{greater}', '{lesser}', '{gap}'],
+};
+
+const KNOWN_SLOTS = ['a', 'b', 'c', 'greater', 'lesser', 'noun', 'comparative', 'gap', 'unit'];
 
 /** Deep enough that two puzzles on the same theme rarely share a cast. */
 const MIN_POOL = 12;
@@ -8,6 +24,21 @@ const MAX_LABEL = 14;
 const BIGGEST_PUZZLE = Math.max(...SIZES.map((size) => size.items));
 
 describe('themes', () => {
+  it('has a voice of its own, or falls back to the neutral one', () => {
+    const custom = THEMES.filter((theme) => theme.clues);
+    expect(custom.length).toBeGreaterThan(0);
+
+    // Two themes should not be saying the same thing.
+    const links = new Set(THEMES.map((theme) => resolveClueTemplates(theme).link));
+    expect(links.size).toBeGreaterThan(1);
+
+    // And the defaults are still complete on their own.
+    for (const slots of Object.values(REQUIRED_SLOTS)) {
+      expect(slots.length).toBeGreaterThan(0);
+    }
+    expect(Object.keys(DEFAULT_CLUE_TEMPLATES).sort()).toEqual(Object.keys(REQUIRED_SLOTS).sort());
+  });
+
   it('offers several themes to draw from', () => {
     expect(THEMES.length).toBeGreaterThanOrEqual(4);
     expect(new Set(THEMES.map((theme) => theme.id)).size).toBe(THEMES.length);
@@ -41,6 +72,23 @@ describe('themes', () => {
           for (const label of labels) {
             expect(label.length).toBeGreaterThan(0);
             expect(label.length).toBeLessThanOrEqual(MAX_LABEL);
+          }
+        }
+      });
+
+      it('writes its clues in complete sentences, keeping every slot it needs', () => {
+        const templates = resolveClueTemplates(theme);
+        for (const [kind, slots] of Object.entries(REQUIRED_SLOTS)) {
+          const template = templates[kind as keyof ClueTemplates];
+          for (const slot of slots) {
+            expect(`${kind}: ${template}`).toContain(slot);
+          }
+          expect(template.trim()).toBe(template);
+          expect(template).toMatch(/[.!?]$/);
+
+          // Only slots the writer knows how to fill.
+          for (const [, name] of template.matchAll(/\{(\w+)\}/g)) {
+            expect(KNOWN_SLOTS).toContain(name);
           }
         }
       });

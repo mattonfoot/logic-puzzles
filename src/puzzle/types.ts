@@ -37,6 +37,35 @@ export interface CategoryDef {
   ordered?: OrderedMeta;
 }
 
+/**
+ * The sentences a theme's clues are written in.
+ *
+ * Each is a template filled with `{name}` slots:
+ *
+ * | Slot | Meaning |
+ * |---|---|
+ * | `{a}` `{b}` `{c}` | the attributes a link or either-or clue names |
+ * | `{greater}` `{lesser}` | the two sides of a comparison |
+ * | `{noun}` | what the ordered set is called, e.g. "launch year" |
+ * | `{comparative}` | which way the comparison runs, e.g. "later" |
+ * | `{gap}` `{unit}` | the exact difference, e.g. "3" and "years" |
+ *
+ * Themes override what they want; anything left out falls back to the neutral
+ * wording in `DEFAULT_CLUE_TEMPLATES`.
+ */
+export interface ClueTemplates {
+  /** Two attributes belong to the same entity. Needs `{a}` and `{b}`. */
+  link: string;
+  /** They do not. Needs `{a}` and `{b}`. */
+  notLink: string;
+  /** One of two options. Needs `{a}`, `{b}` and `{c}`. */
+  either: string;
+  /** A comparison. Needs `{greater}` and `{lesser}`. */
+  compare: string;
+  /** A comparison with an exact difference. Needs `{greater}`, `{lesser}`, `{gap}`. */
+  compareGap: string;
+}
+
 export interface ThemeDef {
   id: string;
   name: string;
@@ -46,6 +75,8 @@ export interface ThemeDef {
   accent: string;
   /** The first category is always the anchor category. */
   categories: CategoryDef[];
+  /** Wording for this theme's clues; anything omitted uses the default. */
+  clues?: Partial<ClueTemplates>;
 }
 
 /** A category after it has been sampled down to the puzzle's size. */
@@ -88,6 +119,8 @@ export interface SizeOption {
 export interface Puzzle {
   /** Seed the puzzle was generated from — regenerating with it is deterministic. */
   seed: number;
+  /** The theme's wording, resolved at generation so saved games read the same. */
+  clueTemplates: ClueTemplates;
   themeId: string;
   themeName: string;
   themeEmoji: string;

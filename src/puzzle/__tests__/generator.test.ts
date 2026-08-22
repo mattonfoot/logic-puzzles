@@ -149,7 +149,7 @@ describe('generatePuzzle', () => {
       const puzzle = generatePuzzle({ theme, size: SIZES[3], seed: 55 });
       for (const clue of puzzle.clues) {
         const text = describeClue(clue, puzzle);
-        expect(text).not.toContain('{}');
+        expect(text).not.toContain('{');
         expect(text).not.toContain('undefined');
         expect(text.endsWith('.')).toBe(true);
         expect(text.length).toBeGreaterThan(12);

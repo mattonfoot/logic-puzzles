@@ -92,7 +92,7 @@ src/puzzle/types.ts         puzzle, clue and theme model
 src/puzzle/rng.ts           seeded PRNG (a seed always rebuilds the same puzzle)
 src/puzzle/generator.ts     builds a solution, then a minimal clue set for it
 src/puzzle/solver.ts        constraint solver: propagation + search
-src/puzzle/describe.ts      clue objects → the sentences the player reads
+src/puzzle/describe.ts      clue objects → sentences, using each theme's wording
 src/game/board.ts           the player's ticks and crosses, hints, win check
 src/game/layout.ts          the staircase arrangement + the answer table
 src/game/persistence.ts     what gets written to disk, and the guards to read it
@@ -171,6 +171,46 @@ search, which keeps generation at a few hundred milliseconds even for the 6 × 4
 expert grids. `solve()` still exists for the tests, which independently confirm
 that each generated puzzle has exactly one solution.
 
+### Clue wording
+
+The sentences clues are written in belong to the themes, not to the code. Each
+theme can supply templates for the five kinds of clue, filled from named slots:
+
+| Slot | Meaning |
+|---|---|
+| `{a}` `{b}` `{c}` | the attributes a link or either-or clue names |
+| `{greater}` `{lesser}` | the two sides of a comparison |
+| `{noun}` | what the ordered set is called, e.g. "launch year" |
+| `{comparative}` | which way it runs, e.g. "later" |
+| `{gap}` `{unit}` | the exact difference, e.g. "3" and "years" |
+
+So Cosmic Voyage says
+
+```ts
+clues: {
+  link: '{a} shares a mission with {b}.',
+  compare: '{greater} launches {comparative} than {lesser}.',
+  compareGap: '{greater} launches exactly {gap} {unit} {comparative} than {lesser}.',
+  …
+}
+```
+
+and reads "The Kestrel launches later than Milo", while Reef Dive says "The
+Pipefish spotter went exactly 18 metres deeper than Nico" and Mythic Quest
+"Wren is not the Minotaur slayer".
+
+Anything a theme leaves out falls back to `DEFAULT_CLUE_TEMPLATES` in
+`describe.ts` ("{a} is paired with {b}."), so a new theme can ship without
+writing any of them. `resolveClueTemplates` merges the two at generation and
+stores the result on the puzzle, which means a saved game keeps the wording it
+was played with even if the theme is rewritten later. A test holds every
+template to the slots its clue needs — dropping `{b}` from a link would quietly
+halve the clue — and to a capital letter and a full stop.
+
+The item `pattern` on each category (`the {} mission`) is what those slots are
+filled with, so the two are written together: change the voice and the patterns
+usually want a look as well.
+
 ### Seeds
 
 Every new puzzle is given a freshly rolled 32-bit seed, and that seed decides
@@ -224,8 +264,9 @@ before them for the longer-run trend the chart draws.
 
 - The five themes live entirely in `src/data/themes.ts`. Adding one is a matter
   of listing five categories with a pool of items each, marking the ordered
-  category, and giving each category a `pattern` used to phrase clues
-  (`the {} mission`). The pools hold fourteen items apiece — well over the six a
+  category, giving each category a `pattern` used to phrase clues
+  (`the {} mission`), and optionally a `clues` block to give the theme its own
+  voice. The pools hold fourteen items apiece — well over the six a
   6 × 4 puzzle uses — which is what makes the draw feel fresh; a test keeps every
   pool deep, distinct and short enough to fit the grid headings.
 - No backend and no analytics: everything is kept on the device, and clearing

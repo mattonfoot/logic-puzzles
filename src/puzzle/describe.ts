@@ -1,42 +1,79 @@
-/** Turns clue objects into the sentences the player reads. */
-import type { Attribute, Clue, Puzzle, PuzzleCategory } from './types';
+/**
+ * Turns clue objects into the sentences the player reads.
+ *
+ * The wording lives with the themes: each supplies whichever templates it wants
+ * to phrase in its own voice, and anything it leaves out falls back to the
+ * neutral defaults here. The templates are resolved when a puzzle is generated
+ * and stored on it, so a saved game keeps the wording it was played with.
+ */
+import type { Attribute, Clue, ClueTemplates, Puzzle, PuzzleCategory, ThemeDef } from './types';
+
+export const DEFAULT_CLUE_TEMPLATES: ClueTemplates = {
+  link: '{a} is paired with {b}.',
+  notLink: '{a} is not paired with {b}.',
+  either: '{a} is paired with either {b} or {c}.',
+  compare: 'The {noun} for {greater} is {comparative} than for {lesser}.',
+  compareGap:
+    'The {noun} for {greater} is exactly {gap} {unit} {comparative} than for {lesser}.',
+};
+
+export function resolveClueTemplates(theme: ThemeDef): ClueTemplates {
+  return { ...DEFAULT_CLUE_TEMPLATES, ...theme.clues };
+}
+
+/** Fills `{name}` slots; a slot with no value is left out rather than printed. */
+function fill(template: string, values: Record<string, string | number | undefined>): string {
+  const sentence = template.replace(/\{(\w+)\}/g, (_, key: string) => {
+    const value = values[key];
+    return value === undefined ? '' : String(value);
+  });
+  // A slot that had no value leaves a gap behind: tidy the spacing, including
+  // any space it left sitting in front of the punctuation.
+  const tidy = sentence
+    .replace(/\s+/g, ' ')
+    .replace(/\s+([.,;:!?])/g, '$1')
+    .trim();
+  // Templates start with a slot as often as not, so capitalise the result.
+  return tidy.charAt(0).toUpperCase() + tidy.slice(1);
+}
 
 function phrase(categories: PuzzleCategory[], attr: Attribute): string {
   const category = categories[attr.category];
   return category.pattern.replace('{}', category.items[attr.item].label);
 }
 
-function capitalise(text: string): string {
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
 export function describeClue(clue: Clue, puzzle: Puzzle): string {
   const categories = puzzle.categories;
+  // Older saved games predate per-theme wording.
+  const templates = puzzle.clueTemplates ?? DEFAULT_CLUE_TEMPLATES;
+
   switch (clue.kind) {
-    case 'link': {
-      const a = capitalise(phrase(categories, clue.a));
-      const b = phrase(categories, clue.b);
-      return clue.positive ? `${a} is paired with ${b}.` : `${a} is not paired with ${b}.`;
-    }
-    case 'either': {
-      const a = capitalise(phrase(categories, clue.a));
-      const first = phrase(categories, clue.options[0]);
-      const second = phrase(categories, clue.options[1]);
-      return `${a} is paired with either ${first} or ${second}.`;
-    }
+    case 'link':
+      return fill(templates[clue.positive ? 'link' : 'notLink'], {
+        a: phrase(categories, clue.a),
+        b: phrase(categories, clue.b),
+      });
+
+    case 'either':
+      return fill(templates.either, {
+        a: phrase(categories, clue.a),
+        b: phrase(categories, clue.options[0]),
+        c: phrase(categories, clue.options[1]),
+      });
+
     case 'compare': {
       const ordered = categories[clue.order].ordered;
-      const noun = ordered?.noun ?? categories[clue.order].name.toLowerCase();
-      const greaterWord = ordered?.greater ?? 'higher';
-      const greater = phrase(categories, clue.greater);
-      const lesser = phrase(categories, clue.lesser);
-      if (clue.gap === undefined) {
-        return `The ${noun} for ${greater} is ${greaterWord} than for ${lesser}.`;
-      }
       const unit = ordered?.unit ?? 'units';
-      // "1 years" reads badly; the themes name their units in the plural.
-      const measure = clue.gap === 1 ? unit.replace(/s$/, '') : unit;
-      return `The ${noun} for ${greater} is exactly ${clue.gap} ${measure} ${greaterWord} than for ${lesser}.`;
+      const values = {
+        greater: phrase(categories, clue.greater),
+        lesser: phrase(categories, clue.lesser),
+        noun: ordered?.noun ?? categories[clue.order].name.toLowerCase(),
+        comparative: ordered?.greater ?? 'higher',
+        gap: clue.gap,
+        // "1 years" reads badly; the themes name their units in the plural.
+        unit: clue.gap === 1 ? unit.replace(/s$/, '') : unit,
+      };
+      return fill(clue.gap === undefined ? templates.compare : templates.compareGap, values);
     }
   }
 }

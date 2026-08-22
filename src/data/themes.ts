@@ -7,6 +7,11 @@
  *
  * `pattern` is the sentence fragment used in clues; `{}` becomes the item label.
  * Keep labels short — they are written sideways above narrow grid columns.
+ *
+ * `clues` gives the theme its own voice: templates for the sentences its clues
+ * are written in, filled from the slots documented on `ClueTemplates`. Anything
+ * a theme leaves out falls back to the neutral wording in
+ * `DEFAULT_CLUE_TEMPLATES`, so a new theme can ship with none of them.
  */
 import type { ItemDef, ThemeDef } from '../puzzle/types';
 
@@ -44,7 +49,7 @@ export const THEMES: ThemeDef[] = [
       {
         id: 'destination',
         name: 'Destination',
-        pattern: 'the {} mission',
+        pattern: 'the crew bound for {}',
         items: words(
           'Mars', 'Venus', 'Titan', 'Europa', 'Ceres', 'Io', 'Luna',
           'Vesta', 'Callisto', 'Ganymede', 'Enceladus', 'Triton', 'Phobos', 'Deimos',
@@ -77,6 +82,13 @@ export const THEMES: ThemeDef[] = [
         ordered: { noun: 'launch year', unit: 'years', greater: 'later', lesser: 'earlier' },
       },
     ],
+    clues: {
+      link: '{a} shares a mission with {b}.',
+      notLink: '{a} does not share a mission with {b}.',
+      either: '{a} shares a mission with either {b} or {c}.',
+      compare: '{greater} launches {comparative} than {lesser}.',
+      compareGap: '{greater} launches exactly {gap} {unit} {comparative} than {lesser}.',
+    },
   },
   {
     id: 'cafe',
@@ -106,7 +118,7 @@ export const THEMES: ThemeDef[] = [
       {
         id: 'pastry',
         name: 'Pastry',
-        pattern: 'whoever ordered the {}',
+        pattern: 'the {}',
         items: words(
           'Croissant', 'Cannelé', 'Scone', 'Éclair', 'Brioche', 'Tartlet', 'Danish',
           'Madeleine', 'Palmier', 'Doughnut', 'Muffin', 'Baklava', 'Cruffin', 'Turnover',
@@ -129,6 +141,13 @@ export const THEMES: ThemeDef[] = [
         ordered: { noun: 'bill', unit: 'dollars', greater: 'higher', lesser: 'lower' },
       },
     ],
+    clues: {
+      link: '{a} is on the same ticket as {b}.',
+      notLink: '{a} is not on the same ticket as {b}.',
+      either: '{a} is on the same ticket as either {b} or {c}.',
+      compare: 'The {noun} for {greater} came out {comparative} than for {lesser}.',
+      compareGap: 'The {noun} for {greater} came out exactly {gap} {unit} {comparative} than for {lesser}.',
+    },
   },
   {
     id: 'quest',
@@ -183,6 +202,13 @@ export const THEMES: ThemeDef[] = [
         ordered: { noun: 'reward', unit: 'gold', greater: 'larger', lesser: 'smaller' },
       },
     ],
+    clues: {
+      link: '{a} is none other than {b}.',
+      notLink: '{a} is not {b}.',
+      either: '{a} is either {b} or {c}.',
+      compare: '{greater} claimed a {comparative} {noun} than {lesser}.',
+      compareGap: '{greater} claimed exactly {gap} {unit} more than {lesser}.',
+    },
   },
   {
     id: 'reef',
@@ -232,11 +258,18 @@ export const THEMES: ThemeDef[] = [
       {
         id: 'depth',
         name: 'Depth',
-        pattern: 'the {} dive',
+        pattern: 'the diver at {}',
         items: numbers(12, 6, 14, (value) => `${value}m`),
         ordered: { noun: 'depth', unit: 'metres', greater: 'deeper', lesser: 'shallower' },
       },
     ],
+    clues: {
+      link: '{a} and {b} were on the same dive.',
+      notLink: '{a} and {b} were not on the same dive.',
+      either: '{a} was on the same dive as either {b} or {c}.',
+      compare: '{greater} went {comparative} than {lesser}.',
+      compareGap: '{greater} went exactly {gap} {unit} {comparative} than {lesser}.',
+    },
   },
   {
     id: 'garden',
@@ -289,6 +322,13 @@ export const THEMES: ThemeDef[] = [
         ordered: { noun: 'plant height', unit: 'centimetres', greater: 'taller', lesser: 'shorter' },
       },
     ],
+    clues: {
+      link: '{a} and {b} are the same entry.',
+      notLink: '{a} and {b} are different entries.',
+      either: '{a} is the same entry as either {b} or {c}.',
+      compare: '{greater} stands {comparative} than {lesser}.',
+      compareGap: '{greater} stands exactly {gap} {unit} {comparative} than {lesser}.',
+    },
   },
 ];
 
