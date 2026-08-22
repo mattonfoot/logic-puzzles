@@ -1,30 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export { formatDuration, formatGap, formatSpan } from './time';
 
 /**
  * Counts elapsed seconds while `running`.
- * `resetKey` restarts the count; `startAt` seeds it from a resumed game.
+ *
+ * `resetKey` starts the count over — a different puzzle, or the same one
+ * restarted — from `startAt`, which is what a resumed game had on its clock.
+ * The clock is derived from a timestamp rather than counted up, so it stays
+ * honest across re-renders and pauses.
  */
 export function useTimer(running: boolean, resetKey: unknown, startAt = 0): number {
   const [seconds, setSeconds] = useState(startAt);
+  /** When the clock reads zero, in wall-clock time. */
+  const base = useRef(Date.now() - startAt * 1000);
+  /** The value on screen, readable from effects that run before the next render. */
+  const shown = useRef(startAt);
+  shown.current = seconds;
 
   useEffect(() => {
+    base.current = Date.now() - startAt * 1000;
+    shown.current = startAt;
     setSeconds(startAt);
-    // `startAt` only matters when a different game is loaded.
+    // `startAt` belongs to the game `resetKey` identifies.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resetKey]);
 
   useEffect(() => {
     if (!running) return;
-    const base = Date.now() - seconds * 1000;
+    // Picking up after a pause: don't count the time that passed while stopped.
+    base.current = Date.now() - shown.current * 1000;
     const timer = setInterval(() => {
-      setSeconds(Math.floor((Date.now() - base) / 1000));
+      setSeconds(Math.floor((Date.now() - base.current) / 1000));
     }, 250);
     return () => clearInterval(timer);
-    // `seconds` is read once to rebase the clock; listing it here would tear the
-    // interval down and rebuild it on every tick.
-  }, [running, resetKey]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [running, resetKey]);
 
   return seconds;
 }

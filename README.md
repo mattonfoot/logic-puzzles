@@ -68,13 +68,14 @@ rest is the app behaving normally.
    hold it to light up every row and column it talks about, across all the
    grids at once.
 4. **Check** highlights any mark that contradicts the solution, **Hint** places
-   one true pairing for you, and the timer stops when the last square is right.
+   one true pairing for you, **Restart** wipes the board and the clock without
+   changing the puzzle, and the timer stops when the last square is right.
    Finishing shows **the answer as a table**: one row per person, one column per
    set, so the whole solution reads across in a line. The first set stays pinned
    while the others scroll sideways, which keeps every heading on one line.
 5. **Come back later** — the board saves itself as you play, so closing the app
    mid-puzzle costs nothing. The home screen offers to resume it, with the clock
-   picking up where it left off.
+   picking up where it left off and the same puzzle in front of you.
 6. **Statistics** — solved count, time played, day streak, no-hint wins, a
    per-size table of best and average times, a chart of recent solve times, and
    the list of recent games. Finishing a puzzle shows how that time compares
@@ -170,8 +171,25 @@ search, which keeps generation at a few hundred milliseconds even for the 6 × 4
 expert grids. `solve()` still exists for the tests, which independently confirm
 that each generated puzzle has exactly one solution.
 
-Generation is seeded: `generatePuzzle({ theme, size, seed })` always rebuilds the
-same puzzle, and the seed is shown at the bottom of the game screen.
+### Seeds
+
+Every new puzzle is given a freshly rolled 32-bit seed, and that seed decides
+everything the player did not choose: which theme is drawn, which of its sets
+play, which items are sampled from their pools, the solution, and the clues.
+`generatePuzzle({ theme, size, seed })` with the same seed and size rebuilds an
+identical puzzle — a test asserts exactly that, which is what makes the seed a
+fair name for a puzzle rather than a debugging curiosity.
+
+The seed is therefore never re-rolled for a puzzle already in play:
+
+| Action | Seed |
+|---|---|
+| Start puzzle / New puzzle | a new random seed |
+| **Restart** | unchanged — same theme, sets, items, answer and clues; only the board and the clock start over |
+| **Resume** | unchanged — the saved puzzle is stored whole and comes back as it was, clock included |
+
+The current seed is printed at the foot of the game screen, so a puzzle worth
+repeating can be identified.
 
 ## Persistence and statistics
 

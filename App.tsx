@@ -8,6 +8,7 @@ import { THEMES } from './src/data/themes';
 import type { SavedGame } from './src/game/persistence';
 import { usePersistence } from './src/game/usePersistence';
 import { generatePuzzle } from './src/puzzle/generator';
+import { randomSeed } from './src/puzzle/rng';
 import type { Puzzle, SizeOption } from './src/puzzle/types';
 import { GameScreen } from './src/screens/GameScreen';
 import { HomeScreen } from './src/screens/HomeScreen';
@@ -26,8 +27,10 @@ export default function App() {
   const [busy, setBusy] = useState(false);
 
   /**
-   * The theme is never chosen by the player: the generator draws one from the
-   * pool, along with the sets and items it uses.
+   * Every new puzzle gets its own random seed, and that seed decides everything
+   * the player is not choosing: the theme, the sets in play, the items in them,
+   * the solution and the clues. Resuming or restarting keeps the puzzle that
+   * seed produced, so the same cast comes back.
    *
    * Generation is synchronous and can take a beat on the bigger grids, so we
    * hand a frame back to the UI first and let the button show its busy state.
@@ -35,11 +38,12 @@ export default function App() {
   const build = useCallback(
     (nextSize: SizeOption) => {
       setBusy(true);
+      const seed = randomSeed();
       setTimeout(() => {
         // Starting a new puzzle replaces whatever was in progress.
         persistence.discardSavedGame();
         setRestore(null);
-        setPuzzle(generatePuzzle({ theme: THEMES, size: nextSize }));
+        setPuzzle(generatePuzzle({ theme: THEMES, size: nextSize, seed }));
         setScreen('game');
         setBusy(false);
       }, 32);

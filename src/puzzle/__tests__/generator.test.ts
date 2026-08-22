@@ -67,6 +67,28 @@ describe('generatePuzzle', () => {
       expect(draw(1234)).toEqual(draw(1234));
     });
 
+    it('records the seed it used, and rolls a new one when not given one', () => {
+      expect(draw(4321).seed).toBe(4321);
+
+      const rolled = Array.from({ length: 25 }, () =>
+        generatePuzzle({ theme: THEMES, size: SIZES[0] }).seed,
+      );
+      expect(new Set(rolled).size).toBe(rolled.length);
+    });
+
+    it('rebuilds a puzzle from nothing but its seed and size', () => {
+      // This is what lets "resume" and "restart" hand back the same puzzle: the
+      // seed, not the board, is what a puzzle really is.
+      for (const size of SIZES) {
+        const played = generatePuzzle({ theme: THEMES, size });
+        const rebuilt = generatePuzzle({ theme: THEMES, size, seed: played.seed });
+        expect(rebuilt).toEqual(played);
+        expect(rebuilt.themeId).toBe(played.themeId);
+        expect(rebuilt.categories).toEqual(played.categories);
+        expect(rebuilt.solution).toEqual(played.solution);
+      }
+    });
+
     it('deals a different cast each time, out of the whole pool', () => {
       const theme = THEMES[0];
       const casts = new Set<string>();

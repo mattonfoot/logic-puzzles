@@ -17,9 +17,9 @@ interface Props {
 }
 
 const CATEGORY_STRIP = 14;
-const ROW_LABEL = 66;
-/** Room the rotated item labels get to write in. */
-const LABEL_RUN = 68;
+const ROW_LABEL = 76;
+/** Room the rotated item labels get to write in — the longest item names fit. */
+const LABEL_RUN = 88;
 const LABEL_LINE = 14;
 const CATEGORY_NAME = 20;
 const HEADER_HEIGHT = LABEL_RUN + CATEGORY_NAME;

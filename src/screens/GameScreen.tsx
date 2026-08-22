@@ -40,7 +40,7 @@ const MIN_CELL = 18;
 const MAX_CELL = 46;
 const ZOOM_STEP = 8;
 /** Width the set strip and row labels take on the left of the board. */
-const BOARD_LABELS = 84;
+const BOARD_LABELS = 90;
 
 interface Props {
   puzzle: Puzzle;
@@ -70,6 +70,9 @@ export function GameScreen({
   const { width } = useWindowDimensions();
   const resumed = restore?.puzzle.seed === puzzle.seed ? restore : null;
 
+  // Bumped by "Restart": the puzzle stays exactly as it is — same seed, same
+  // theme, sets and items — while the board and the clock start over.
+  const [attempt, setAttempt] = useState(0);
   const [marks, setMarks] = useState<Marks>(() => resumed?.marks ?? {});
   const [focusedClue, setFocusedClue] = useState<number | null>(null);
   const [crossedOut, setCrossedOut] = useState<Set<number>>(
@@ -85,7 +88,11 @@ export function GameScreen({
 
   const solved = useMemo(() => isSolved(marks, puzzle), [marks, puzzle]);
   const filled = useMemo(() => progress(marks, puzzle), [marks, puzzle]);
-  const seconds = useTimer(!solved, puzzle.seed, resumed?.seconds ?? 0);
+  const seconds = useTimer(
+    !solved,
+    `${puzzle.seed}:${attempt}`,
+    attempt === 0 ? (resumed?.seconds ?? 0) : 0,
+  );
 
   // The whole staircase is drawn at once, so the cell size decides whether it
   // fits the screen. Start at the size that shows all of it, and let the player
@@ -208,13 +215,14 @@ export function GameScreen({
 
   const restart = useCallback(() => {
     haptics.select();
+    setAttempt((count) => count + 1);
     setMarks({});
     setMistakes(new Set());
     setCrossedOut(new Set());
     setFocusedClue(null);
     setHintsUsed(0);
     setRevealed(false);
-    flash('Board cleared.');
+    flash('Restarted — same puzzle, fresh board and clock.');
   }, [flash]);
 
   const reveal = useCallback(() => {
@@ -350,7 +358,7 @@ export function GameScreen({
 
         <View style={styles.footerLinks}>
           <Pressable accessibilityRole="button" onPress={restart} hitSlop={8}>
-            <Text style={styles.link}>Clear board</Text>
+            <Text style={styles.link}>Restart</Text>
           </Pressable>
           <Text style={styles.linkDivider}>·</Text>
           <Pressable accessibilityRole="button" onPress={onNewPuzzle} hitSlop={8}>
@@ -362,7 +370,7 @@ export function GameScreen({
           </Pressable>
         </View>
 
-        <Text style={styles.seed}>Seed #{puzzle.seed}</Text>
+        <Text style={styles.seed}>Puzzle seed #{puzzle.seed}</Text>
       </ScrollView>
 
       <WinOverlay
