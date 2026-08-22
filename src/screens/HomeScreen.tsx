@@ -7,7 +7,7 @@ import { THEMES } from '../data/themes';
 import { progress } from '../game/board';
 import type { SavedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
-import type { SizeOption, ThemeDef } from '../puzzle/types';
+import type { SizeOption } from '../puzzle/types';
 import type { OverallStats } from '../stats/summary';
 import { haptics } from '../ui/haptics';
 import { palette, radius, shadow, space, tint } from '../ui/theme';
@@ -15,13 +15,11 @@ import { AppButton } from '../components/AppButton';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 
 interface Props {
-  theme: ThemeDef;
   size: SizeOption;
   busy: boolean;
   /** An unfinished game waiting to be picked back up, if there is one. */
   savedGame: SavedGame | null;
   stats: OverallStats;
-  onSelectTheme: (theme: ThemeDef) => void;
   onSelectSize: (size: SizeOption) => void;
   onStart: () => void;
   onSurpriseMe: () => void;
@@ -31,12 +29,10 @@ interface Props {
 }
 
 export function HomeScreen({
-  theme,
   size,
   busy,
   savedGame,
   stats,
-  onSelectTheme,
   onSelectSize,
   onStart,
   onSurpriseMe,
@@ -61,8 +57,8 @@ export function HomeScreen({
         <Text style={styles.eyebrow}>Deduction, freshly generated</Text>
         <Text style={styles.title}>Logic Grid</Text>
         <Text style={styles.lede}>
-          Pick a theme and a grid size. Every puzzle is built on the spot, has exactly one solution,
-          and can be cracked by pure deduction — no guessing.
+          Pick a grid size and start. The theme, the sets and the cast are drawn fresh each time,
+          and every puzzle has exactly one solution you can reach by pure deduction — no guessing.
         </Text>
 
         {savedGame ? (
@@ -99,35 +95,15 @@ export function HomeScreen({
           </View>
         ) : null}
 
-        <Text style={styles.sectionLabel}>Theme</Text>
-        <View style={styles.themeGrid}>
-          {THEMES.map((option) => {
-            const selected = option.id === theme.id;
-            return (
-              <Pressable
-                key={option.id}
-                accessibilityRole="radio"
-                accessibilityState={{ selected }}
-                onPress={() => {
-                  haptics.select();
-                  onSelectTheme(option);
-                }}
-                style={({ pressed }) => [
-                  styles.themeCard,
-                  shadow.card,
-                  {
-                    borderColor: selected ? option.accent : palette.line,
-                    backgroundColor: selected ? tint(option.accent, 0.1) : palette.surface,
-                    opacity: pressed ? 0.85 : 1,
-                  },
-                ]}
-              >
-                <Text style={styles.themeEmoji}>{option.emoji}</Text>
-                <Text style={styles.themeName}>{option.name}</Text>
-                <Text style={styles.themeBlurb}>{option.blurb}</Text>
-              </Pressable>
-            );
-          })}
+        <View style={[styles.themeNote, shadow.card]}>
+          <Text style={styles.themeNoteLabel}>Theme</Text>
+          <Text style={styles.themeNoteTitle}>Drawn at random</Text>
+          <Text style={styles.themeNoteText}>
+            One of {THEMES.length} settings, with its sets and items picked from a much larger cast.
+          </Text>
+          <Text style={styles.themeNoteEmoji}>
+            {THEMES.map((option) => option.emoji).join('  ')}
+          </Text>
         </View>
 
         <Text style={styles.sectionLabel}>Grid size</Text>
@@ -146,13 +122,13 @@ export function HomeScreen({
                 style={({ pressed }) => [
                   styles.sizeCard,
                   {
-                    borderColor: selected ? theme.accent : palette.line,
-                    backgroundColor: selected ? tint(theme.accent, 0.12) : palette.surface,
+                    borderColor: selected ? palette.accent : palette.line,
+                    backgroundColor: selected ? tint(palette.accent, 0.12) : palette.surface,
                     opacity: pressed ? 0.85 : 1,
                   },
                 ]}
               >
-                <Text style={[styles.sizeLabel, selected && { color: theme.accent }]}>
+                <Text style={[styles.sizeLabel, selected && { color: palette.accent }]}>
                   {option.label}
                 </Text>
                 <Text style={styles.sizeBlurb}>{option.blurb}</Text>
@@ -194,12 +170,12 @@ export function HomeScreen({
         <AppButton
           label={busy ? 'Building puzzle…' : 'Start puzzle'}
           icon={busy ? '◦' : '▶'}
-          accent={theme.accent}
+          accent={palette.accent}
           disabled={busy}
           onPress={onStart}
         />
         <AppButton
-          label="Surprise me"
+          label="Random size"
           variant="ghost"
           accent={palette.inkSoft}
           disabled={busy}
@@ -225,7 +201,7 @@ export function HomeScreen({
         // natively, so it keeps spinning while the puzzle is being built.
         <View style={styles.busyOverlay} pointerEvents="auto">
           <View style={[styles.busyCard, shadow.card]}>
-            <ActivityIndicator color={theme.accent} />
+            <ActivityIndicator color={palette.accent} />
             <Text style={styles.busyText}>Building your puzzle…</Text>
           </View>
         </View>
@@ -271,32 +247,36 @@ const styles = StyleSheet.create({
     marginTop: space(8),
     marginBottom: space(3),
   },
-  themeGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: space(3),
-  },
-  themeCard: {
-    width: '47.5%',
-    flexGrow: 1,
+  themeNote: {
+    backgroundColor: palette.surface,
     borderRadius: radius.md,
-    borderWidth: 1.5,
+    borderWidth: 1,
+    borderColor: palette.line,
     padding: space(4),
+    marginTop: space(8),
   },
-  themeEmoji: {
-    fontSize: 26,
+  themeNoteLabel: {
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+    color: palette.inkFaint,
   },
-  themeName: {
-    fontSize: 16,
+  themeNoteTitle: {
+    fontSize: 17,
     fontWeight: '700',
     color: palette.ink,
-    marginTop: space(2),
+    marginTop: space(1.5),
   },
-  themeBlurb: {
-    fontSize: 12,
-    lineHeight: 16,
+  themeNoteText: {
+    fontSize: 13,
+    lineHeight: 19,
     color: palette.inkSoft,
     marginTop: space(1),
+  },
+  themeNoteEmoji: {
+    fontSize: 20,
+    marginTop: space(3),
   },
   sizeRow: {
     flexDirection: 'row',

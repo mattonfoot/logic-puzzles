@@ -51,6 +51,60 @@ describe('generatePuzzle', () => {
     }
   });
 
+  describe('drawing from the pool', () => {
+    const draw = (seed: number) => generatePuzzle({ theme: THEMES, size: SIZES[1], seed });
+
+    it('picks the theme itself when handed the whole pool', () => {
+      const themes = new Set(Array.from({ length: 40 }, (_, seed) => draw(seed).themeId));
+      // Not proof of a fair coin, but a stuck picker would show up here.
+      expect(themes.size).toBeGreaterThan(1);
+      for (const id of themes) {
+        expect(THEMES.some((theme) => theme.id === id)).toBe(true);
+      }
+    });
+
+    it('rebuilds the same theme and cast from the same seed', () => {
+      expect(draw(1234)).toEqual(draw(1234));
+    });
+
+    it('deals a different cast each time, out of the whole pool', () => {
+      const theme = THEMES[0];
+      const casts = new Set<string>();
+      const seen = new Map<string, Set<string>>();
+
+      for (let seed = 0; seed < 40; seed++) {
+        const puzzle = generatePuzzle({ theme, size: SIZES[2], seed });
+        casts.add(
+          puzzle.categories.map((c) => `${c.id}:${c.items.map((i) => i.label).join()}`).join('|'),
+        );
+        for (const category of puzzle.categories) {
+          const labels = seen.get(category.id) ?? new Set();
+          category.items.forEach((item) => labels.add(item.label));
+          seen.set(category.id, labels);
+        }
+      }
+
+      // Practically every draw is a different line-up...
+      expect(casts.size).toBeGreaterThan(35);
+      // ...and over 40 draws the deeper pools are well used.
+      for (const [id, labels] of seen) {
+        const pool = theme.categories.find((category) => category.id === id)!;
+        expect(labels.size).toBeGreaterThan(pool.items.length * 0.7);
+      }
+    });
+
+    it('keeps the ordered set sorted however it was drawn', () => {
+      for (let seed = 0; seed < 20; seed++) {
+        const puzzle = draw(seed);
+        for (const category of puzzle.categories) {
+          if (!category.ordered) continue;
+          const values = category.items.map((item) => item.value as number);
+          expect(values).toEqual([...values].sort((a, b) => a - b));
+        }
+      }
+    });
+  });
+
   it('is deterministic for a given seed and different across seeds', () => {
     const options = { theme: THEMES[2], size: SIZES[2] };
     const first = generatePuzzle({ ...options, seed: 7 });

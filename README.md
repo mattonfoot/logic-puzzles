@@ -1,8 +1,9 @@
 # Logic Grid
 
 An iOS app (React Native + Expo, TypeScript) that generates a fresh logic-grid
-deduction puzzle every time you press start. You choose two things — a **theme**
-and a **grid size** — and the app builds a puzzle around them.
+deduction puzzle every time you press start. You choose the **grid size**; the
+app draws everything else — the theme, the sets in play and the cast of items —
+at random.
 
 Every generated puzzle is guaranteed to:
 
@@ -33,10 +34,12 @@ is set in `app.json` and should be changed to your own before building.
 
 ## How you play
 
-1. **Home** — pick one of five themes and a grid size: 3 × 3 (warm-up),
-   4 × 4 (classic), 5 × 4 (tricky) or 6 × 4 (expert). The first number is how
-   many items each category holds, the second how many categories take part.
-   "Surprise me" rolls both for you.
+1. **Home** — pick a grid size: 3 × 3 (warm-up), 4 × 4 (classic), 5 × 4 (tricky)
+   or 6 × 4 (expert). The first number is how many items each category holds, the
+   second how many categories take part. The theme is drawn when you press start
+   — one of five settings, its sets and its cast sampled from pools of fourteen
+   items each, so two puzzles rarely share a line-up. "Random size" rolls the
+   shape too.
 2. **Game** — the whole puzzle is drawn as one staircase of grids, the way a
    printed logic puzzle is laid out: every pair of sets meets in its own grid,
    so a four-set puzzle is a 3 × 3 arrangement holding six grids, and each grid
@@ -64,7 +67,7 @@ is set in `app.json` and should be changed to your own before building.
 
 ```
 App.tsx                     screen switching + puzzle generation entry point
-src/data/themes.ts          the five themes: categories, items, clue wording
+src/data/themes.ts          the five themes: categories, item pools, clue wording
 src/data/sizes.ts           the four grid sizes
 src/puzzle/types.ts         puzzle, clue and theme model
 src/puzzle/rng.ts           seeded PRNG (a seed always rebuilds the same puzzle)
@@ -118,9 +121,11 @@ a relabelling of entities.
 
 **Generating** (`generator.ts`):
 
-1. Sample the categories and items from the theme — always including one ordered
-   category (a year, a price, a depth…) so comparison clues are possible — and
-   roll a random solution.
+1. Draw a theme from the pool, then its categories — always including one ordered
+   category (a year, a price, a depth…) so comparison clues are possible — then
+   sample the items each category contributes and roll a random solution. Every
+   one of those draws comes from the seeded generator, so a seed rebuilds the
+   whole puzzle, cast included.
 2. Build a pool of clues that are all *true* of that solution:
    - `A is paired with B` / `A is not paired with B`
    - `A is paired with either B or C`
@@ -182,9 +187,11 @@ before them for the longer-run trend the chart draws.
 ## Notes
 
 - The five themes live entirely in `src/data/themes.ts`. Adding one is a matter
-  of listing five categories with six items each, marking the ordered category,
-  and giving each category a `pattern` used to phrase clues (`the {} mission`).
-  A theme needs at least six items per category to support the 6 × 4 grid.
+  of listing five categories with a pool of items each, marking the ordered
+  category, and giving each category a `pattern` used to phrase clues
+  (`the {} mission`). The pools hold fourteen items apiece — well over the six a
+  6 × 4 puzzle uses — which is what makes the draw feel fresh; a test keeps every
+  pool deep, distinct and short enough to fit the grid headings.
 - No backend and no analytics: everything is kept on the device, and clearing
   the statistics from the stats screen deletes it.
 - `react-dom` / `react-native-web` are installed only so `npm run web` can give

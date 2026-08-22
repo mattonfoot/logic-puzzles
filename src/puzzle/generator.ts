@@ -1,7 +1,9 @@
 /**
  * Puzzle generator.
  *
- * 1. Pick categories and items from the chosen theme and roll a random solution.
+ * 1. Pick a theme, then categories and items from it, and roll a random
+ *    solution. Every one of those picks comes from the seeded generator, so a
+ *    seed rebuilds the whole puzzle — cast included.
  * 2. Build a pool of clues that are all *true* for that solution.
  * 3. Greedily add clues until plain propagation cracks the puzzle — that makes
  *    the answer unique *and* reachable without ever guessing.
@@ -12,15 +14,17 @@ import { contextFor, solveByDeduction, type SolveContext } from './solver';
 import type { Attribute, CategoryDef, Clue, Puzzle, PuzzleCategory, SizeOption, ThemeDef } from './types';
 
 export interface GenerateOptions {
-  theme: ThemeDef;
+  /** One theme, or a pool for the generator to choose from. */
+  theme: ThemeDef | ThemeDef[];
   size: SizeOption;
   seed?: number;
 }
 
-export function generatePuzzle({ theme, size, seed }: GenerateOptions): Puzzle {
+export function generatePuzzle({ theme: themeOrPool, size, seed }: GenerateOptions): Puzzle {
   const actualSeed = seed ?? randomSeed();
   const rng = createRng(actualSeed);
 
+  const theme = Array.isArray(themeOrPool) ? rng.pick(themeOrPool) : themeOrPool;
   const categories = pickCategories(theme, size, rng);
   const solution = rollSolution(size.items, categories.length, rng);
   const ctx = contextFor(categories, size.items);
@@ -41,7 +45,8 @@ export function generatePuzzle({ theme, size, seed }: GenerateOptions): Puzzle {
 
 /**
  * The anchor category always comes first. At least one ordered category is
- * included when the theme has one, so comparison clues are available.
+ * included when the theme has one, so comparison clues are available; the rest
+ * are drawn at random from what the theme offers.
  */
 function pickCategories(theme: ThemeDef, size: SizeOption, rng: Rng): PuzzleCategory[] {
   const [anchor, ...rest] = theme.categories;
@@ -58,6 +63,7 @@ function pickCategories(theme: ThemeDef, size: SizeOption, rng: Rng): PuzzleCate
   return [anchor, ...rng.shuffle(chosen)].map((category) => sampleCategory(category, size.items, rng));
 }
 
+/** Draws `size` items at random from the category's pool. */
 function sampleCategory(category: CategoryDef, size: number, rng: Rng): PuzzleCategory {
   let items = rng.shuffle(category.items).slice(0, size);
   if (category.ordered) {

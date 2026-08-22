@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { TrendChart } from '../components/TrendChart';
+import { THEMES } from '../data/themes';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration, formatSpan } from '../game/time';
 import type { OverallStats, SizeStats } from '../stats/summary';
@@ -83,7 +84,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
             <View style={styles.tileRow}>
               <Tile label="No-hint wins" value={`${stats.noHintSolves}`} />
               <Tile label="Hints used" value={`${stats.hintsUsed}`} />
-              <Tile label="Themes" value={`${stats.themesPlayed}/5`} />
+              <Tile label="Themes" value={`${stats.themesPlayed}/${THEMES.length}`} />
             </View>
           </>
         ) : null}

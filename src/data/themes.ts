@@ -2,16 +2,26 @@
  * Puzzle themes. Each theme needs:
  *  - an anchor category first (the "who" of the puzzle),
  *  - at least one ordered category so comparison clues can be generated,
- *  - at least six items per category, which is the largest supported grid.
+ *  - a deep pool of items per category: the generator samples a fresh handful
+ *    every time, so the same theme rarely produces the same cast twice.
  *
  * `pattern` is the sentence fragment used in clues; `{}` becomes the item label.
+ * Keep labels short — they are written sideways above narrow grid columns.
  */
-import type { ThemeDef } from '../puzzle/types';
+import type { ItemDef, ThemeDef } from '../puzzle/types';
 
-const years = (start: number, step: number, count: number, suffix = '') =>
+const words = (...labels: string[]): ItemDef[] => labels.map((label) => ({ label }));
+
+/** Evenly spaced numbers for the ordered categories. */
+const numbers = (
+  start: number,
+  step: number,
+  count: number,
+  format: (value: number) => string,
+): ItemDef[] =>
   Array.from({ length: count }, (_, index) => {
     const value = start + index * step;
-    return { label: `${value}${suffix}`, value };
+    return { label: format(value), value };
   });
 
 export const THEMES: ThemeDef[] = [
@@ -26,33 +36,44 @@ export const THEMES: ThemeDef[] = [
         id: 'astronaut',
         name: 'Astronaut',
         pattern: '{}',
-        items: ['Nova', 'Rhea', 'Iris', 'Milo', 'Vega', 'Juno'].map((label) => ({ label })),
+        items: words(
+          'Nova', 'Rhea', 'Iris', 'Milo', 'Vega', 'Juno', 'Orin',
+          'Cass', 'Elio', 'Suri', 'Dax', 'Noor', 'Kai', 'Wren',
+        ),
       },
       {
         id: 'destination',
         name: 'Destination',
         pattern: 'the {} mission',
-        items: ['Mars', 'Venus', 'Titan', 'Europa', 'Ceres', 'Io'].map((label) => ({ label })),
+        items: words(
+          'Mars', 'Venus', 'Titan', 'Europa', 'Ceres', 'Io', 'Luna',
+          'Vesta', 'Callisto', 'Ganymede', 'Enceladus', 'Triton', 'Phobos', 'Deimos',
+        ),
       },
       {
         id: 'ship',
         name: 'Ship',
         pattern: 'the {}',
-        items: ['Kestrel', 'Corvus', 'Lyra', 'Orion', 'Pallas', 'Sable'].map((label) => ({ label })),
+        items: words(
+          'Kestrel', 'Corvus', 'Lyra', 'Orion', 'Pallas', 'Sable', 'Merlin',
+          'Halcyon', 'Vesper', 'Nimbus', 'Aurora', 'Cygnus', 'Perseus', 'Zephyr',
+        ),
       },
       {
         id: 'cargo',
         name: 'Cargo',
         pattern: 'the {} payload',
-        items: ['Seed Vault', 'Ice Core', 'Solar Sail', 'Rover Kit', 'Med Pods', 'Star Maps'].map(
-          (label) => ({ label }),
+        items: words(
+          'Seed Vault', 'Ice Core', 'Solar Sail', 'Rover Kit', 'Med Pods',
+          'Star Maps', 'Water Tank', 'Drone Bay', 'Soil Lab', 'Fuel Cells',
+          'Greenhouse', 'Repair Kit', 'Comms Mast', 'Sample Case',
         ),
       },
       {
         id: 'launch',
         name: 'Launch',
         pattern: 'the {} launch',
-        items: years(2031, 1, 6),
+        items: numbers(2031, 1, 14, (value) => `${value}`),
         ordered: { noun: 'launch year', unit: 'years', greater: 'later', lesser: 'earlier' },
       },
     ],
@@ -68,37 +89,43 @@ export const THEMES: ThemeDef[] = [
         id: 'customer',
         name: 'Customer',
         pattern: '{}',
-        items: ['Alma', 'Basil', 'Dax', 'Esme', 'Fen', 'Grier'].map((label) => ({ label })),
+        items: words(
+          'Alma', 'Basil', 'Dax', 'Esme', 'Fen', 'Grier', 'Hollis',
+          'Ines', 'Jonas', 'Kit', 'Lena', 'Mika', 'Nell', 'Otto',
+        ),
       },
       {
         id: 'drink',
         name: 'Drink',
         pattern: 'the {} drinker',
-        items: ['Latte', 'Mocha', 'Chai', 'Cortado', 'Matcha', 'Espresso'].map((label) => ({
-          label,
-        })),
+        items: words(
+          'Latte', 'Mocha', 'Chai', 'Cortado', 'Matcha', 'Espresso', 'Flat White',
+          'Americano', 'Cappuccino', 'Macchiato', 'Cold Brew', 'Oat Latte', 'Mint Tea', 'Hot Choc',
+        ),
       },
       {
         id: 'pastry',
         name: 'Pastry',
         pattern: 'whoever ordered the {}',
-        items: ['Croissant', 'Cannelé', 'Scone', 'Éclair', 'Brioche', 'Tartlet'].map((label) => ({
-          label,
-        })),
+        items: words(
+          'Croissant', 'Cannelé', 'Scone', 'Éclair', 'Brioche', 'Tartlet', 'Danish',
+          'Madeleine', 'Palmier', 'Doughnut', 'Muffin', 'Baklava', 'Cruffin', 'Turnover',
+        ),
       },
       {
         id: 'seat',
         name: 'Seat',
         pattern: 'the {} table',
-        items: ['Window', 'Corner', 'Patio', 'Counter', 'Loft', 'Fireside'].map((label) => ({
-          label,
-        })),
+        items: words(
+          'Window', 'Corner', 'Patio', 'Counter', 'Loft', 'Fireside', 'Balcony',
+          'Alcove', 'Bar Stool', 'Booth', 'Terrace', 'Garden', 'Nook', 'Bench',
+        ),
       },
       {
         id: 'bill',
         name: 'Bill',
         pattern: 'the {} bill',
-        items: years(4, 1, 6, '').map(({ label, value }) => ({ label: `$${label}`, value })),
+        items: numbers(4, 1, 14, (value) => `$${value}`),
         ordered: { noun: 'bill', unit: 'dollars', greater: 'higher', lesser: 'lower' },
       },
     ],
@@ -114,37 +141,45 @@ export const THEMES: ThemeDef[] = [
         id: 'hero',
         name: 'Hero',
         pattern: '{}',
-        items: ['Bran', 'Sorrel', 'Ivo', 'Wren', 'Tamsin', 'Kell'].map((label) => ({ label })),
+        items: words(
+          'Bran', 'Sorrel', 'Ivo', 'Wren', 'Tamsin', 'Kell', 'Rowan',
+          'Fenn', 'Maeve', 'Osric', 'Perrin', 'Isolde', 'Garrick', 'Nyla',
+        ),
       },
       {
         id: 'weapon',
         name: 'Weapon',
         pattern: 'the {} wielder',
-        items: ['Ash Bow', 'Rune Axe', 'Gale Spear', 'Ember Blade', 'Frost Flail', 'Thorn Whip'].map(
-          (label) => ({ label }),
+        items: words(
+          'Ash Bow', 'Rune Axe', 'Gale Spear', 'Ember Blade', 'Frost Flail',
+          'Thorn Whip', 'Storm Mace', 'Moon Dagger', 'Oak Staff', 'Bone Sling',
+          'Star Lance', 'Wind Sabre', 'Shadow Pike', 'Iron Halberd',
         ),
       },
       {
         id: 'beast',
         name: 'Beast',
         pattern: 'the {} slayer',
-        items: ['Griffin', 'Wyvern', 'Basilisk', 'Kraken', 'Chimera', 'Sphinx'].map((label) => ({
-          label,
-        })),
+        items: words(
+          'Griffin', 'Wyvern', 'Basilisk', 'Kraken', 'Chimera', 'Sphinx', 'Manticore',
+          'Hydra', 'Cyclops', 'Banshee', 'Golem', 'Harpy', 'Minotaur', 'Direwolf',
+        ),
       },
       {
         id: 'realm',
         name: 'Realm',
         pattern: 'the champion of {}',
-        items: ['Ashfell', 'Duskmoor', 'Highmere', 'Ironvale', 'Sablewood', 'Windreach'].map(
-          (label) => ({ label }),
+        items: words(
+          'Ashfell', 'Duskmoor', 'Highmere', 'Ironvale', 'Sablewood', 'Windreach',
+          'Thornhold', 'Greymarch', 'Frostgate', 'Emberholt', 'Larkspur', 'Mistvale',
+          'Stonebrook', 'Ravenfen',
         ),
       },
       {
         id: 'reward',
         name: 'Reward',
         pattern: 'the {} reward',
-        items: years(30, 15, 6).map(({ label, value }) => ({ label: `${label}g`, value })),
+        items: numbers(30, 15, 14, (value) => `${value}g`),
         ordered: { noun: 'reward', unit: 'gold', greater: 'larger', lesser: 'smaller' },
       },
     ],
@@ -160,37 +195,45 @@ export const THEMES: ThemeDef[] = [
         id: 'diver',
         name: 'Diver',
         pattern: '{}',
-        items: ['Pia', 'Rune', 'Sena', 'Tobin', 'Ada', 'Nico'].map((label) => ({ label })),
+        items: words(
+          'Pia', 'Rune', 'Sena', 'Tobin', 'Ada', 'Nico', 'Marlow',
+          'Indra', 'Cleo', 'Bo', 'Yara', 'Elias', 'Suki', 'Rafa',
+        ),
       },
       {
         id: 'species',
         name: 'Sighting',
         pattern: 'the {} spotter',
-        items: ['Octopus', 'Manta', 'Turtle', 'Seahorse', 'Moray', 'Clownfish'].map((label) => ({
-          label,
-        })),
+        items: words(
+          'Octopus', 'Manta', 'Turtle', 'Seahorse', 'Moray', 'Clownfish', 'Barracuda',
+          'Stingray', 'Lionfish', 'Grouper', 'Pipefish', 'Reef Shark', 'Cuttlefish', 'Sea Urchin',
+        ),
       },
       {
         id: 'gear',
         name: 'Gear',
         pattern: 'the diver with the {}',
-        items: ['Red Fins', 'Blue Mask', 'Green Tank', 'Yellow Torch', 'Black Camera', 'White Slate'].map(
-          (label) => ({ label }),
+        items: words(
+          'Red Fins', 'Blue Mask', 'Green Tank', 'Yellow Torch', 'Black Camera',
+          'White Slate', 'Orange Reel', 'Pink Buoy', 'Silver Knife', 'Teal Compass',
+          'Grey Gloves', 'Amber Lamp', 'Coral Flag', 'Navy Hood',
         ),
       },
       {
         id: 'site',
         name: 'Site',
         pattern: 'the {} site',
-        items: ['Blue Hole', 'Lace Wall', 'Shipwreck', 'Kelp Maze', 'Coral Arch', 'Night Cove'].map(
-          (label) => ({ label }),
+        items: words(
+          'Blue Hole', 'Lace Wall', 'Shipwreck', 'Kelp Maze', 'Coral Arch', 'Night Cove',
+          'Tide Pools', 'Anchor Bay', 'Sea Fan Bay', 'Lantern Reef', 'Sunken Pier',
+          'Green Lagoon', 'Cavern Ridge', 'Turtle Point',
         ),
       },
       {
         id: 'depth',
         name: 'Depth',
         pattern: 'the {} dive',
-        items: years(12, 6, 6).map(({ label, value }) => ({ label: `${label}m`, value })),
+        items: numbers(12, 6, 14, (value) => `${value}m`),
         ordered: { noun: 'depth', unit: 'metres', greater: 'deeper', lesser: 'shallower' },
       },
     ],
@@ -206,35 +249,43 @@ export const THEMES: ThemeDef[] = [
         id: 'gardener',
         name: 'Gardener',
         pattern: '{}',
-        items: ['Opal', 'Ferris', 'Hazel', 'Lark', 'Pim', 'Rosa'].map((label) => ({ label })),
+        items: words(
+          'Opal', 'Ferris', 'Hazel', 'Lark', 'Pim', 'Rosa', 'Bram',
+          'Tilly', 'Emrys', 'Wilder', 'Junie', 'Alder', 'Posy', 'Marnie',
+        ),
       },
       {
         id: 'flower',
         name: 'Flower',
         pattern: 'the {} grower',
-        items: ['Dahlia', 'Peony', 'Iris', 'Tulip', 'Aster', 'Zinnia'].map((label) => ({ label })),
+        items: words(
+          'Dahlia', 'Peony', 'Iris', 'Tulip', 'Aster', 'Zinnia', 'Lupin',
+          'Freesia', 'Marigold', 'Foxglove', 'Camellia', 'Sweet Pea', 'Snapdragon', 'Cosmos',
+        ),
       },
       {
         id: 'pot',
         name: 'Pot',
         pattern: 'the {} pot',
-        items: ['Terracotta', 'Cobalt', 'Ivory', 'Copper', 'Slate', 'Mint'].map((label) => ({
-          label,
-        })),
+        items: words(
+          'Terracotta', 'Cobalt', 'Ivory', 'Copper', 'Slate', 'Mint', 'Rust',
+          'Cream', 'Indigo', 'Charcoal', 'Blush', 'Amber', 'Olive', 'Plum',
+        ),
       },
       {
         id: 'tool',
         name: 'Tool',
         pattern: 'the {} owner',
-        items: ['Trowel', 'Shears', 'Dibber', 'Rake', 'Sprayer', 'Gloves'].map((label) => ({
-          label,
-        })),
+        items: words(
+          'Trowel', 'Shears', 'Dibber', 'Rake', 'Sprayer', 'Gloves', 'Hoe',
+          'Twine', 'Secateurs', 'Kneeler', 'Sieve', 'Hand Fork', 'Watering Can', 'Plant Labels',
+        ),
       },
       {
         id: 'height',
         name: 'Height',
         pattern: 'the {} plant',
-        items: years(20, 15, 6).map(({ label, value }) => ({ label: `${label}cm`, value })),
+        items: numbers(20, 15, 14, (value) => `${value}cm`),
         ordered: { noun: 'plant height', unit: 'centimetres', greater: 'taller', lesser: 'shorter' },
       },
     ],

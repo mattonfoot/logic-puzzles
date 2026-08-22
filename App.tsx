@@ -4,11 +4,11 @@ import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { SIZES, sizeById } from './src/data/sizes';
-import { THEMES, themeById } from './src/data/themes';
+import { THEMES } from './src/data/themes';
 import type { SavedGame } from './src/game/persistence';
 import { usePersistence } from './src/game/usePersistence';
 import { generatePuzzle } from './src/puzzle/generator';
-import type { Puzzle, SizeOption, ThemeDef } from './src/puzzle/types';
+import type { Puzzle, SizeOption } from './src/puzzle/types';
 import { GameScreen } from './src/screens/GameScreen';
 import { HomeScreen } from './src/screens/HomeScreen';
 import { StatsScreen } from './src/screens/StatsScreen';
@@ -19,7 +19,6 @@ type Screen = 'home' | 'game' | 'stats';
 export default function App() {
   const persistence = usePersistence();
 
-  const [theme, setTheme] = useState<ThemeDef>(THEMES[0]);
   const [size, setSize] = useState<SizeOption>(SIZES[1]);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [restore, setRestore] = useState<SavedGame | null>(null);
@@ -27,17 +26,20 @@ export default function App() {
   const [busy, setBusy] = useState(false);
 
   /**
+   * The theme is never chosen by the player: the generator draws one from the
+   * pool, along with the sets and items it uses.
+   *
    * Generation is synchronous and can take a beat on the bigger grids, so we
    * hand a frame back to the UI first and let the button show its busy state.
    */
   const build = useCallback(
-    (nextTheme: ThemeDef, nextSize: SizeOption) => {
+    (nextSize: SizeOption) => {
       setBusy(true);
       setTimeout(() => {
         // Starting a new puzzle replaces whatever was in progress.
         persistence.discardSavedGame();
         setRestore(null);
-        setPuzzle(generatePuzzle({ theme: nextTheme, size: nextSize }));
+        setPuzzle(generatePuzzle({ theme: THEMES, size: nextSize }));
         setScreen('game');
         setBusy(false);
       }, 32);
@@ -46,23 +48,20 @@ export default function App() {
   );
 
   const surpriseMe = useCallback(() => {
-    const nextTheme = THEMES[Math.floor(Math.random() * THEMES.length)];
     const nextSize = SIZES[Math.floor(Math.random() * SIZES.length)];
-    setTheme(nextTheme);
     setSize(nextSize);
-    build(nextTheme, nextSize);
+    build(nextSize);
   }, [build]);
 
   const resume = useCallback(() => {
     const saved = persistence.savedGame;
     if (!saved) return;
-    // Line the setup pickers up with the resumed game, so "new puzzle" from
-    // inside it keeps the same theme and size.
+    // Line the size picker up with the resumed game, so "new puzzle" from
+    // inside it keeps the same shape.
     try {
-      setTheme(themeById(saved.puzzle.themeId));
       setSize(sizeById(saved.puzzle.size.id));
     } catch {
-      // A theme or size that no longer exists: the saved puzzle still plays.
+      // A size that no longer exists: the saved puzzle still plays.
     }
     setRestore(saved);
     setPuzzle(saved.puzzle);
@@ -107,21 +106,19 @@ export default function App() {
             puzzle={puzzle}
             restore={restore ?? persistence.savedGame}
             onExit={leaveGame}
-            onNewPuzzle={() => build(theme, size)}
+            onNewPuzzle={() => build(size)}
             onSaveProgress={persistence.saveProgress}
             onCompleted={recordCompletion}
             onOpenStats={openStatsAfterWin}
           />
         ) : (
           <HomeScreen
-            theme={theme}
             size={size}
             busy={busy}
             savedGame={persistence.savedGame}
             stats={persistence.stats}
-            onSelectTheme={setTheme}
             onSelectSize={setSize}
-            onStart={() => build(theme, size)}
+            onStart={() => build(size)}
             onSurpriseMe={surpriseMe}
             onResume={resume}
             onDiscardSaved={persistence.discardSavedGame}
