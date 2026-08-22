@@ -26,7 +26,11 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
 
   const selected = useMemo<SizeStats | null>(() => {
     if (played.length === 0) return null;
-    return played.find((size) => size.sizeId === sizeId) ?? played[played.length - 1];
+    const chosen = played.find((size) => size.sizeId === sizeId);
+    if (chosen) return chosen;
+    // Default to the shape with the most solves — the one with a trend worth
+    // looking at — rather than whichever comes last in the list.
+    return played.reduce((best, size) => (size.solved > best.solved ? size : best), played[0]);
   }, [played, sizeId]);
 
   const selectedGames = useMemo(

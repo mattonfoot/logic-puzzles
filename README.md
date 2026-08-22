@@ -27,10 +27,27 @@ Checks:
 ```bash
 npm test           # jest — puzzle engine, board, storage and statistics
 npm run typecheck  # tsc --noEmit
+npm run screenshots  # rebuild the screens in docs/screenshots (see below)
 ```
 
 For a standalone build, use EAS (`npx eas build -p ios`); the bundle identifier
 is set in `app.json` and should be changed to your own before building.
+
+## Screens
+
+Captured from the real build at iPhone proportions. **Regenerate these whenever
+the UI changes** — `npm run screenshots` — so the reference here always matches
+what the app looks like; a change that alters a screen should land with fresh
+images in the same commit.
+
+| | | |
+|---|---|---|
+| <img src="docs/screenshots/01-setup.png" width="230" alt="Setup screen"><br>**1. Setup** — the grid size is the only choice; the theme is drawn on start. | <img src="docs/screenshots/02-board.png" width="230" alt="Puzzle board"><br>**2. Board** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, with the clue list below. | <img src="docs/screenshots/03-clue-focus.png" width="230" alt="Board with a clue focused"><br>**3. Clue focus** — holding a clue lights up every row and column it mentions. |
+| <img src="docs/screenshots/04-solved.png" width="230" alt="Solved overlay"><br>**4. Solved** — time, hints, how it compares with earlier games, and the answer table. | <img src="docs/screenshots/05-statistics.png" width="230" alt="Statistics screen"><br>**5. Statistics** — totals, per-size bests and the trend of recent solve times. | <img src="docs/screenshots/06-resume.png" width="230" alt="Setup screen with a saved game"><br>**6. Resume** — the setup screen offering the game that was left in progress. |
+
+The theme differs from run to run because it is drawn at random, and the
+statistics screen is captured with a sample history baked into the script — the
+rest is the app behaving normally.
 
 ## How you play
 
@@ -67,6 +84,7 @@ is set in `app.json` and should be changed to your own before building.
 
 ```
 App.tsx                     screen switching + puzzle generation entry point
+scripts/screenshots.mjs     drives the app in a browser to refresh docs/screenshots
 src/data/themes.ts          the five themes: categories, item pools, clue wording
 src/data/sizes.ts           the four grid sizes
 src/puzzle/types.ts         puzzle, clue and theme model
@@ -194,5 +212,12 @@ before them for the longer-run trend the chart draws.
   pool deep, distinct and short enough to fit the grid headings.
 - No backend and no analytics: everything is kept on the device, and clearing
   the statistics from the stats screen deletes it.
+- `npm run screenshots` exports the app for web, serves that build, drives it in
+  Chromium and rewrites `docs/screenshots`. Playwright's Chromium arrives with
+  the dev dependencies (`npx playwright install chromium` if the download was
+  skipped); `PLAYWRIGHT_CHROMIUM_PATH` points it at another binary, and
+  `--skip-build` reuses the last export. **Treat the images as part of the
+  build**: regenerate them alongside any change that alters a screen, so the
+  README never shows a version of the app that no longer exists.
 - `react-dom` / `react-native-web` are installed only so `npm run web` can give
   a quick preview away from a Mac; nothing in the app is web-specific.
