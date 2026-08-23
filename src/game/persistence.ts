@@ -6,7 +6,7 @@
  * comes back is validated before it reaches the game.
  */
 import type { Puzzle } from '../puzzle/types';
-import type { Marks } from './board';
+import type { MarkEntry, Marks } from './board';
 
 export const SAVE_VERSION = 1;
 export const HISTORY_VERSION = 1;
@@ -64,6 +64,32 @@ function isPuzzle(value: unknown): value is Puzzle {
   return solution.every((row) => Array.isArray(row) && row.length === size.items);
 }
 
+function isMarkEntry(value: unknown): value is MarkEntry {
+  if (!isObject(value)) return false;
+  const sourceOk = value.source === 'hand' || value.source === 'auto';
+  return sourceOk && (value.mark === 'yes' || value.mark === 'no');
+}
+
+/**
+ * Reads a board back, bringing older saves forward.
+ *
+ * Before marks carried a source, a square held nothing but `'yes'` or `'no'`;
+ * those are all treated as the player's own, which is the safe reading — an
+ * automatic cross that survives as a hand one is a cross that stays put a
+ * little longer than it should, rather than one that vanishes.
+ */
+export function reviveMarks(value: unknown): Marks | null {
+  if (!isObject(value)) return null;
+
+  const marks: Marks = {};
+  for (const [key, entry] of Object.entries(value)) {
+    if (isMarkEntry(entry)) marks[key] = entry;
+    else if (entry === 'yes' || entry === 'no') marks[key] = { mark: entry, source: 'hand' };
+    else return null;
+  }
+  return marks;
+}
+
 export function isSavedGame(value: unknown): value is SavedGame {
   if (!isObject(value) || value.version !== SAVE_VERSION) return false;
   if (!isPuzzle(value.puzzle)) return false;
@@ -86,6 +112,17 @@ function isCompletedGame(value: unknown): value is CompletedGame {
 export function isHistory(value: unknown): value is History {
   if (!isObject(value) || value.version !== HISTORY_VERSION) return false;
   return Array.isArray(value.games) && value.games.every(isCompletedGame);
+}
+
+/** Reads a saved game back, migrating the parts that have moved on. */
+export function reviveSavedGame(value: unknown): SavedGame | null {
+  if (!isObject(value)) return null;
+
+  const marks = reviveMarks(value.marks);
+  if (!marks) return null;
+
+  const migrated = { ...value, marks };
+  return isSavedGame(migrated) ? migrated : null;
 }
 
 /** Newest first, capped at `limit`. */

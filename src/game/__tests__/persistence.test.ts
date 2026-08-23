@@ -1,7 +1,7 @@
 import { SIZES } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
 import { generatePuzzle } from '../../puzzle/generator';
-import { setMark } from '../board';
+import { byHand, markKey, setMark } from '../board';
 import {
   appendGame,
   completedGameFrom,
@@ -9,6 +9,8 @@ import {
   HISTORY_VERSION,
   isHistory,
   isSavedGame,
+  reviveMarks,
+  reviveSavedGame,
   SAVE_VERSION,
   type CompletedGame,
   type SavedGame,
@@ -20,7 +22,7 @@ function savedGame(overrides: Partial<SavedGame> = {}): SavedGame {
   return {
     version: SAVE_VERSION,
     puzzle,
-    marks: setMark({}, { c1: 0, i1: 0, c2: 1, i2: 1 }, 'yes'),
+    marks: setMark({}, { c1: 0, i1: 0, c2: 1, i2: 1 }, 'yes', { size: puzzle.size.items }),
     crossedOut: [0, 2],
     seconds: 42,
     hintsUsed: 1,
@@ -95,5 +97,39 @@ describe('completedGameFrom', () => {
       finishedAt: 123,
     });
     expect(game.seconds).toBe(62);
+  });
+});
+
+describe('reading a board back', () => {
+  const cell = { c1: 0, i1: 0, c2: 1, i2: 1 };
+
+  it('keeps what each entry records', () => {
+    const marks = setMark({}, cell, 'yes', { size: puzzle.size.items });
+    expect(reviveMarks(JSON.parse(JSON.stringify(marks)))).toEqual(marks);
+  });
+
+  it('treats a board written before marks had a source as the player\'s own', () => {
+    expect(reviveMarks({ '0.0-1.1': 'yes', '0.0-1.2': 'no' })).toEqual({
+      '0.0-1.1': byHand('yes'),
+      '0.0-1.2': byHand('no'),
+    });
+  });
+
+  it('refuses a board with a square it cannot read', () => {
+    expect(reviveMarks({ '0.0-1.1': 'maybe' })).toBeNull();
+    expect(reviveMarks({ '0.0-1.1': { mark: 'yes' } })).toBeNull();
+    expect(reviveMarks('nope')).toBeNull();
+  });
+
+  it('migrates an older save on the way in', () => {
+    const legacy = { ...savedGame(), marks: { [markKey(cell)]: 'yes' } };
+    const revived = reviveSavedGame(JSON.parse(JSON.stringify(legacy)));
+    expect(revived?.marks).toEqual({ [markKey(cell)]: byHand('yes') });
+  });
+
+  it('refuses a save it cannot make sense of', () => {
+    expect(reviveSavedGame(null)).toBeNull();
+    expect(reviveSavedGame({ ...savedGame(), marks: { '0.0-1.1': 'maybe' } })).toBeNull();
+    expect(reviveSavedGame({ ...savedGame(), version: SAVE_VERSION + 1 })).toBeNull();
   });
 });

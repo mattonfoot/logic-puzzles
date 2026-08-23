@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { SIZES } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
+import { byHand } from '../../game/board';
 import { completedGameFrom, EMPTY_HISTORY, SAVE_VERSION, appendGame } from '../../game/persistence';
 import { generatePuzzle } from '../../puzzle/generator';
 import { storage } from '../store';
@@ -11,7 +12,7 @@ const puzzle = generatePuzzle({ theme: THEMES[3], size: SIZES[0], seed: 11 });
 const saved = {
   version: SAVE_VERSION,
   puzzle,
-  marks: { '0.0-1.1': 'yes' as const },
+  marks: { '0.0-1.1': byHand('yes'), '0.0-1.2': { mark: 'no' as const, source: 'auto' as const, from: '0.0-1.1' } },
   crossedOut: [1],
   seconds: 30,
   hintsUsed: 0,
@@ -48,8 +49,22 @@ describe('storage', () => {
     expect(await storage.loadHistory()).toEqual(EMPTY_HISTORY);
   });
 
+  it('brings a board written before marks had a source forward', async () => {
+    await AsyncStorage.setItem(
+      'logic-grid:saved-game:v1',
+      JSON.stringify({ ...saved, marks: { '0.0-1.1': 'yes' } }),
+    );
+    expect((await storage.loadSavedGame())?.marks).toEqual({ '0.0-1.1': byHand('yes') });
+  });
+
   it('treats damaged data as nothing saved', async () => {
     await AsyncStorage.setItem('logic-grid:saved-game:v1', 'not json');
+    expect(await storage.loadSavedGame()).toBeNull();
+
+    await AsyncStorage.setItem(
+      'logic-grid:saved-game:v1',
+      JSON.stringify({ ...saved, marks: { '0.0-1.1': 'maybe' } }),
+    );
     expect(await storage.loadSavedGame()).toBeNull();
 
     await AsyncStorage.setItem('logic-grid:history:v1', JSON.stringify({ version: 99, games: [] }));

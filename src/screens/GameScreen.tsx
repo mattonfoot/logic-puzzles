@@ -21,9 +21,9 @@ import {
   isSolved,
   nextMark,
   progress,
+  reconcile,
   setMark,
   solvedMarks,
-  withAutoCrosses,
   type Cell,
   type Marks,
 } from '../game/board';
@@ -87,16 +87,8 @@ export function GameScreen({
   const [improvement, setImprovement] = useState<Improvement | null>(null);
   const statusTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // `marks` is what the player marked; `board` is what they see, with the
-  // crosses a tick implies filled in. Everything downstream reads `board`, so
-  // undoing a tick undoes its crosses in the same breath.
-  const board = useMemo(
-    () => (autoEliminate ? withAutoCrosses(marks, puzzle.size.items) : marks),
-    [autoEliminate, marks, puzzle.size.items],
-  );
-
-  const solved = useMemo(() => isSolved(board, puzzle), [board, puzzle]);
-  const filled = useMemo(() => progress(board, puzzle), [board, puzzle]);
+  const solved = useMemo(() => isSolved(marks, puzzle), [marks, puzzle]);
+  const filled = useMemo(() => progress(marks, puzzle), [marks, puzzle]);
   const seconds = useTimer(
     !solved,
     `${puzzle.seed}:${attempt}`,
@@ -186,15 +178,21 @@ export function GameScreen({
     (cell: Cell) => {
       haptics.tap();
       setMistakes(new Set());
-      // The cycle follows what the square shows, so a derived cross behaves
-      // like any other: blank → ✕ → ✓ → blank.
-      setMarks((current) => setMark(current, cell, nextMark(getMark(board, cell))));
+      // The cycle follows what the square shows, so an automatic cross behaves
+      // like any other: blank → ✕ → ✓ → blank. Whatever it lands on is the
+      // player's own mark from then on.
+      setMarks((current) =>
+        setMark(current, cell, nextMark(getMark(current, cell)), {
+          size: puzzle.size.items,
+          autoEliminate,
+        }),
+      );
     },
-    [board],
+    [autoEliminate, puzzle.size.items],
   );
 
   const check = useCallback(() => {
-    const found = findMistakes(board, puzzle);
+    const found = findMistakes(marks, puzzle);
     setMistakes(new Set(found));
     if (found.length === 0) {
       haptics.tap();
@@ -203,21 +201,23 @@ export function GameScreen({
       haptics.warn();
       flash(`${found.length} mark${found.length === 1 ? '' : 's'} contradict the clues.`);
     }
-  }, [board, flash, puzzle]);
+  }, [flash, marks, puzzle]);
 
   const hint = useCallback(() => {
-    const cell = findHint(board, puzzle, (max) => Math.floor(Math.random() * max));
+    const cell = findHint(marks, puzzle, (max) => Math.floor(Math.random() * max));
     if (!cell) {
       flash('Nothing left to reveal.');
       return;
     }
     haptics.select();
     setHintsUsed((count) => count + 1);
-    setMarks((current) => setMark(current, cell, 'yes'));
+    setMarks((current) =>
+      setMark(current, cell, 'yes', { size: puzzle.size.items, autoEliminate }),
+    );
     flash(
       `Hint: ${puzzle.categories[cell.c1].items[cell.i1].label} goes with ${puzzle.categories[cell.c2].items[cell.i2].label}.`,
     );
-  }, [board, flash, puzzle]);
+  }, [autoEliminate, flash, marks, puzzle]);
 
   const restart = useCallback(() => {
     haptics.select();
@@ -314,7 +314,7 @@ export function GameScreen({
 
           <GridBoard
             puzzle={puzzle}
-            marks={board}
+            marks={marks}
             mistakes={mistakes}
             highlight={highlight}
             cellSize={cellSize}
@@ -334,7 +334,13 @@ export function GameScreen({
             accent={autoEliminate ? puzzle.accent : palette.inkFaint}
             onPress={() => {
               haptics.select();
-              setAutoEliminate((value) => !value);
+              setAutoEliminate((value) => {
+                const next = !value;
+                setMarks((current) =>
+                  reconcile(current, { size: puzzle.size.items, autoEliminate: next }),
+                );
+                return next;
+              });
             }}
           />
         </View>

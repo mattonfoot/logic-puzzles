@@ -4,15 +4,28 @@
  * Marks are stored flat, keyed by the two (category, item) coordinates with the
  * lower category first, so `(0,2) x (3,1)` and `(3,1) x (0,2)` are one cell.
  *
- * Only what the player marked is stored. The crosses that follow from a tick —
- * the rest of its row and column cannot also be that item — are derived by
- * `withAutoCrosses` whenever the board is read, so taking the tick away takes
- * its crosses with it.
+ * Every entry records who put it there. A mark the player made is `hand`; a
+ * cross the board added because a tick rules out the rest of its row and column
+ * is `auto`, and remembers the tick it came `from`. That distinction is what
+ * keeps the two apart: automation never touches a hand mark, and taking a tick
+ * away takes only the crosses that tick added.
  */
 import type { Puzzle } from '../puzzle/types';
 
 export type Mark = 'yes' | 'no';
-export type Marks = Record<string, Mark>;
+export type MarkSource = 'hand' | 'auto';
+
+export interface MarkEntry {
+  mark: Mark;
+  source: MarkSource;
+  /** Auto crosses only: the key of the tick that put this here. */
+  from?: string;
+}
+
+export type Marks = Record<string, MarkEntry>;
+
+/** A mark the player made themselves. */
+export const byHand = (mark: Mark): MarkEntry => ({ mark, source: 'hand' });
 
 export interface Cell {
   c1: number;
@@ -41,8 +54,12 @@ export function cellFromKey(key: string): Cell | null {
   return { c1, i1, c2, i2 };
 }
 
-export function getMark(marks: Marks, cell: Cell): Mark | undefined {
+export function getEntry(marks: Marks, cell: Cell): MarkEntry | undefined {
   return marks[markKey(cell)];
+}
+
+export function getMark(marks: Marks, cell: Cell): Mark | undefined {
+  return marks[markKey(cell)]?.mark;
 }
 
 /** All category pairs, in the order the tabs show them. */
@@ -54,39 +71,62 @@ export function categoryPairs(categoryCount: number): [number, number][] {
   return pairs;
 }
 
-/** Records what the player marked; `null` takes their mark away again. */
-export function setMark(marks: Marks, cell: Cell, mark: Mark | null): Marks {
-  const next = { ...marks };
-  const key = markKey(cell);
-  if (mark === null) delete next[key];
-  else next[key] = mark;
-  return next;
+interface MarkOptions {
+  size: number;
+  /** Whether a tick crosses out the rest of its row and column. */
+  autoEliminate?: boolean;
 }
 
 /**
- * The board as it is read: every tick crosses out the rest of its row and
- * column, and the player's own marks sit on top of those.
- *
- * Deriving the crosses rather than writing them down is what lets a tick be
- * undone cleanly — cycle the tick back to blank and the crosses it implied go
- * with it, while anything crossed by hand stays put.
+ * Records what the player marked, then brings the automatic crosses back in
+ * line. `null` takes their mark away again.
  */
-export function withAutoCrosses(marks: Marks, size: number): Marks {
-  const derived: Marks = {};
+export function setMark(
+  marks: Marks,
+  cell: Cell,
+  mark: Mark | null,
+  { size, autoEliminate = true }: MarkOptions,
+): Marks {
+  const next = { ...marks };
+  const key = markKey(cell);
+  if (mark === null) delete next[key];
+  else next[key] = byHand(mark);
+  return reconcile(next, { size, autoEliminate });
+}
 
-  for (const [key, mark] of Object.entries(marks)) {
-    if (mark !== 'yes') continue;
+/**
+ * Rebuilds the automatic crosses around whatever the player has marked.
+ *
+ * Hand marks are kept exactly as they are. Every hand tick then crosses out the
+ * rest of its row and column, but only where the player has left the square
+ * alone — so a cross made by hand is never overwritten, and one added for a
+ * tick disappears with it.
+ */
+export function reconcile(marks: Marks, { size, autoEliminate = true }: MarkOptions): Marks {
+  const next: Marks = {};
+  for (const [key, entry] of Object.entries(marks)) {
+    if (entry.source === 'hand') next[key] = entry;
+  }
+  if (!autoEliminate) return next;
+
+  for (const [key, entry] of Object.entries(next)) {
+    if (entry.mark !== 'yes') continue;
     const cell = cellFromKey(key);
     if (!cell) continue;
 
     const { c1, i1, c2, i2 } = cell;
+    const cross = (target: Cell) => {
+      const targetKey = markKey(target);
+      if (!next[targetKey]) next[targetKey] = { mark: 'no', source: 'auto', from: key };
+    };
+
     for (let item = 0; item < size; item++) {
-      if (item !== i2) derived[markKey({ c1, i1, c2, i2: item })] = 'no';
-      if (item !== i1) derived[markKey({ c1, i1: item, c2, i2 })] = 'no';
+      if (item !== i2) cross({ c1, i1, c2, i2: item });
+      if (item !== i1) cross({ c1, i1: item, c2, i2 });
     }
   }
 
-  return { ...derived, ...marks };
+  return next;
 }
 
 /** Cycles a cell through blank → cross → tick → blank. */
@@ -167,14 +207,15 @@ export function findHint(marks: Marks, puzzle: Puzzle, roll: (max: number) => nu
   return options[roll(options.length)];
 }
 
+/** The finished board, as though the player had marked every square. */
 export function solvedMarks(puzzle: Puzzle): Marks {
   const marks: Marks = {};
   for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
     for (let i1 = 0; i1 < puzzle.size.items; i1++) {
       for (let i2 = 0; i2 < puzzle.size.items; i2++) {
-        marks[markKey({ c1, i1, c2, i2 })] = isCorrectPair(puzzle, { c1, i1, c2, i2 })
-          ? 'yes'
-          : 'no';
+        marks[markKey({ c1, i1, c2, i2 })] = byHand(
+          isCorrectPair(puzzle, { c1, i1, c2, i2 }) ? 'yes' : 'no',
+        );
       }
     }
   }

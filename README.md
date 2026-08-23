@@ -127,13 +127,17 @@ arrangement of three, and five sets a 4 × 4 arrangement of ten — every pair o
 sets exactly once, which is what makes cross-referencing possible: a tick in
 Astronaut × Ship can be carried into Ship × Launch without leaving the board.
 
-`src/game/board.ts` stores only what the player marked. The crosses that follow
-from a tick — nothing else in its row or column can be that item — are derived
-by `withAutoCrosses` every time the board is read, rather than written down.
-That is what makes a tick undoable: cycling it back to blank drops the crosses
-it implied, while a cross placed by hand is a mark of its own and survives. It
-also keeps saved games small and lets **Auto ✕** switch the implied crosses off
-without touching anything the player did.
+In `src/game/board.ts` every square records who marked it. A tap by the player
+is a `hand` mark; a cross the board adds because a tick rules out the rest of
+its row and column is an `auto` mark that remembers the tick it came `from`.
+`reconcile` rebuilds the automatic crosses around the hand marks after every
+change, and only ever fills a square the player has left alone.
+
+That distinction is the whole point: cycling a tick back to blank drops the
+crosses it added, but a cross the player placed by hand stays put — even one the
+tick would also have implied, since the tick never claimed that square in the
+first place. It is also what lets **Auto ✕** switch the implied crosses off and
+on again without touching anything the player did.
 
 `solutionRows` in the same module produces the end-of-game summary: one row per
 entity and one column per set, ordered by the ordered set (earliest year,

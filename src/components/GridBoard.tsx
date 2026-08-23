@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { getMark, markKey, type Cell, type Marks } from '../game/board';
+import { getEntry, markKey, type Cell, type Marks } from '../game/board';
 import { boardLayout } from '../game/layout';
 import type { Attribute, Puzzle } from '../puzzle/types';
 import { palette, radius, space, tint } from '../ui/theme';
@@ -155,7 +155,8 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
                             c2: colCategory,
                             i2: colItem,
                           };
-                          const mark = getMark(marks, cell);
+                          const entry = getEntry(marks, cell);
+                          const mark = entry?.mark;
                           const wrong = mistakes.has(markKey(cell));
                           const crosshair =
                             isLit(rowCategory, rowItem) || isLit(colCategory, colItem);
@@ -202,6 +203,9 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
                                   style={[
                                     styles.cross,
                                     { fontSize: cellSize * 0.42 },
+                                    // Crosses the board filled in for a tick sit
+                                    // lighter than the ones the player made.
+                                    entry?.source === 'auto' && styles.crossAuto,
                                     wrong && { color: palette.danger },
                                   ]}
                                 >
@@ -299,6 +303,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   cross: {
+    color: palette.inkSoft,
+  },
+  crossAuto: {
     color: palette.inkFaint,
+    opacity: 0.65,
   },
 });
