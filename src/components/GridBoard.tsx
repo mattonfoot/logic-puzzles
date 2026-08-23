@@ -4,7 +4,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { getEntry, markKey, type Cell, type Marks } from '../game/board';
 import { boardLayout } from '../game/layout';
 import type { Attribute, Puzzle } from '../puzzle/types';
-import { palette, radius, space, tint } from '../ui/theme';
+import { palette, space, tint } from '../ui/theme';
 
 interface Props {
   puzzle: Puzzle;
@@ -289,7 +289,6 @@ const styles = StyleSheet.create({
   block: {
     borderWidth: 1,
     borderColor: palette.lineStrong,
-    borderRadius: radius.sm,
     overflow: 'hidden',
     marginRight: BLOCK_GAP,
     marginBottom: BLOCK_GAP,
