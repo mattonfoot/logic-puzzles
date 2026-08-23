@@ -20,7 +20,7 @@ function savedGame(overrides: Partial<SavedGame> = {}): SavedGame {
   return {
     version: SAVE_VERSION,
     puzzle,
-    marks: setMark({}, { c1: 0, i1: 0, c2: 1, i2: 1 }, 'yes', { size: puzzle.size.items }),
+    marks: setMark({}, { c1: 0, i1: 0, c2: 1, i2: 1 }, 'yes'),
     crossedOut: [0, 2],
     seconds: 42,
     hintsUsed: 1,

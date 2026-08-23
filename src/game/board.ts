@@ -3,6 +3,11 @@
  *
  * Marks are stored flat, keyed by the two (category, item) coordinates with the
  * lower category first, so `(0,2) x (3,1)` and `(3,1) x (0,2)` are one cell.
+ *
+ * Only what the player marked is stored. The crosses that follow from a tick —
+ * the rest of its row and column cannot also be that item — are derived by
+ * `withAutoCrosses` whenever the board is read, so taking the tick away takes
+ * its crosses with it.
  */
 import type { Puzzle } from '../puzzle/types';
 
@@ -27,6 +32,15 @@ export function markKey(cell: Cell): string {
   return `${c1}.${i1}-${c2}.${i2}`;
 }
 
+const KEY = /^(\d+)\.(\d+)-(\d+)\.(\d+)$/;
+
+export function cellFromKey(key: string): Cell | null {
+  const match = KEY.exec(key);
+  if (!match) return null;
+  const [c1, i1, c2, i2] = match.slice(1).map(Number);
+  return { c1, i1, c2, i2 };
+}
+
 export function getMark(marks: Marks, cell: Cell): Mark | undefined {
   return marks[markKey(cell)];
 }
@@ -40,38 +54,45 @@ export function categoryPairs(categoryCount: number): [number, number][] {
   return pairs;
 }
 
-interface SetMarkOptions {
-  /** Ticking a cell crosses out the rest of its row and column. */
-  autoEliminate?: boolean;
-  size: number;
-}
-
-export function setMark(
-  marks: Marks,
-  cell: Cell,
-  mark: Mark | null,
-  { autoEliminate = true, size }: SetMarkOptions,
-): Marks {
+/** Records what the player marked; `null` takes their mark away again. */
+export function setMark(marks: Marks, cell: Cell, mark: Mark | null): Marks {
   const next = { ...marks };
   const key = markKey(cell);
   if (mark === null) delete next[key];
   else next[key] = mark;
-
-  if (mark === 'yes' && autoEliminate) {
-    const { c1, i1, c2, i2 } = normalise(cell);
-    for (let item = 0; item < size; item++) {
-      if (item !== i2) next[markKey({ c1, i1, c2, i2: item })] = 'no';
-      if (item !== i1) next[markKey({ c1, i1: item, c2, i2 })] = 'no';
-    }
-  }
-
   return next;
 }
 
-/** Cycles a cell through blank → tick → cross → blank. */
+/**
+ * The board as it is read: every tick crosses out the rest of its row and
+ * column, and the player's own marks sit on top of those.
+ *
+ * Deriving the crosses rather than writing them down is what lets a tick be
+ * undone cleanly — cycle the tick back to blank and the crosses it implied go
+ * with it, while anything crossed by hand stays put.
+ */
+export function withAutoCrosses(marks: Marks, size: number): Marks {
+  const derived: Marks = {};
+
+  for (const [key, mark] of Object.entries(marks)) {
+    if (mark !== 'yes') continue;
+    const cell = cellFromKey(key);
+    if (!cell) continue;
+
+    const { c1, i1, c2, i2 } = cell;
+    for (let item = 0; item < size; item++) {
+      if (item !== i2) derived[markKey({ c1, i1, c2, i2: item })] = 'no';
+      if (item !== i1) derived[markKey({ c1, i1: item, c2, i2 })] = 'no';
+    }
+  }
+
+  return { ...derived, ...marks };
+}
+
+/** Cycles a cell through blank → cross → tick → blank. */
 export function nextMark(current: Mark | undefined): Mark | null {
-  if (current === undefined) return 'yes';
-  if (current === 'yes') return 'no';
+  if (current === undefined) return 'no';
+  if (current === 'no') return 'yes';
   return null;
 }
 

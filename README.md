@@ -60,10 +60,12 @@ rest is the app behaving normally.
 2. **Game** — the whole puzzle is drawn as one staircase of grids, the way a
    printed logic puzzle is laid out: every pair of sets meets in its own grid,
    so a four-set puzzle is a 3 × 3 arrangement holding six grids, and each grid
-   is items × items. Tap a square to cycle it blank → ✓ → ✕. Ticking a square
-   automatically crosses out the rest of its row and column; the **Auto ✕**
-   button turns that off. The set names and item labels stay pinned while the
-   grids scroll sideways, and − / + resize the squares.
+   is items × items. Tap a square to cycle it blank → ✕ → ✓. A tick crosses out
+   the rest of its row and column for you, and cycling that tick back to blank
+   takes those crosses away with it — anything you crossed by hand stays put.
+   The **Auto ✕** button turns the implied crosses off. The set names and item
+   labels stay pinned while the grids scroll sideways, and − / + resize the
+   squares.
 3. **Clues** — tap a clue to cross it off once you have used it, or press and
    hold it to light up every row and column it talks about, across all the
    grids at once.
@@ -124,6 +126,14 @@ Four sets therefore give a 3 × 3 arrangement of six grids, three sets a 2 × 2
 arrangement of three, and five sets a 4 × 4 arrangement of ten — every pair of
 sets exactly once, which is what makes cross-referencing possible: a tick in
 Astronaut × Ship can be carried into Ship × Launch without leaving the board.
+
+`src/game/board.ts` stores only what the player marked. The crosses that follow
+from a tick — nothing else in its row or column can be that item — are derived
+by `withAutoCrosses` every time the board is read, rather than written down.
+That is what makes a tick undoable: cycling it back to blank drops the crosses
+it implied, while a cross placed by hand is a mark of its own and survives. It
+also keeps saved games small and lets **Auto ✕** switch the implied crosses off
+without touching anything the player did.
 
 `solutionRows` in the same module produces the end-of-game summary: one row per
 entity and one column per set, ordered by the ordered set (earliest year,
