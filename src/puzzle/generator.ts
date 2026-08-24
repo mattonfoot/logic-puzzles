@@ -8,6 +8,8 @@
  * 3. Greedily add clues until plain propagation cracks the puzzle — that makes
  *    the answer unique *and* reachable without ever guessing.
  * 4. Remove every clue that is not needed, so the player gets a minimal set.
+ * 5. Check the mix: link clues must carry at least three quarters of the
+ *    puzzle. If they do not, build it again with the flavour spread thinner.
  */
 import { resolveClueTemplates } from './describe';
 import { createRng, randomSeed, type Rng } from './rng';
@@ -189,11 +191,31 @@ function buildPools(
 }
 
 /**
- * Interleaves the pools so the interesting clue types get offered first;
- * plain positive links come last and usually get dropped in minimisation,
- * which is what makes the puzzles feel like puzzles.
+ * Link clues — the plain "X is / isn't Y" statements — are what the grid is for,
+ * so they carry most of the puzzle. The rest add flavour: comparisons and
+ * either-ors that need a second thought before they touch the board.
  */
-function orderPool(pools: Pools, rng: Rng): Clue[] {
+const MIN_LINK_SHARE = 0.75;
+
+/** How many link clues to offer between each flavour clue, loosest first. */
+const LINKS_PER_FLAVOUR = [3, 4, 6, 10, Infinity];
+
+function linkShare(clues: Clue[]): number {
+  if (clues.length === 0) return 1;
+  return clues.filter((clue) => clue.kind === 'link').length / clues.length;
+}
+
+/** A few direct matches are offered up front to keep the clue list short. */
+const SEED_MATCH_SHARE = 8;
+
+/**
+ * Interleaves the pools so the flavour clues get offered early enough to
+ * survive minimisation, spaced by `linksPerFlavour` links either side. A
+ * handful of direct matches lead, since without them a puzzle carried by links
+ * alone needs half as many clues again; the rest come last and usually get
+ * dropped, which is what makes the puzzles feel like puzzles.
+ */
+function orderPool(pools: Pools, rng: Rng, linksPerFlavour: number): Clue[] {
   const negative = rng.shuffle(pools.negative);
   const compare = rng.shuffle(pools.compare);
   const compareGap = rng.shuffle(pools.compareGap).slice(0, Math.ceil(compare.length / 3));
@@ -201,17 +223,19 @@ function orderPool(pools: Pools, rng: Rng): Clue[] {
   const positive = rng.shuffle(pools.positive);
 
   const flavour = rng.shuffle([...compare, ...compareGap, ...either.slice(0, either.length / 2)]);
+  const seeded = Math.max(1, Math.round(positive.length / SEED_MATCH_SHARE));
 
-  const mixed: Clue[] = [];
+  const mixed: Clue[] = positive.slice(0, seeded);
   let n = 0;
   let f = 0;
   while (n < negative.length || f < flavour.length) {
     if (f < flavour.length) mixed.push(flavour[f++]);
-    if (n < negative.length) mixed.push(negative[n++]);
-    if (n < negative.length) mixed.push(negative[n++]);
+    for (let step = 0; step < linksPerFlavour && n < negative.length; step++) {
+      mixed.push(negative[n++]);
+    }
   }
 
-  return [...mixed, ...positive];
+  return [...mixed, ...positive.slice(seeded)];
 }
 
 function buildClues(
@@ -220,7 +244,29 @@ function buildClues(
   ctx: SolveContext,
   rng: Rng,
 ): Clue[] {
-  const pool = orderPool(buildPools(solution, categories, ctx, rng), rng);
+  const pools = buildPools(solution, categories, ctx, rng);
+
+  // Thinning the flavour out is the only reliable way to hit the link share:
+  // which clues survive is decided by the deduction, not by the offer. The last
+  // rung offers links alone, so a puzzle that needs it still gets made.
+  let best: Clue[] = [];
+  for (const spacing of LINKS_PER_FLAVOUR) {
+    const clues = assembleClues(pools, solution, ctx, rng, spacing);
+    if (linkShare(clues) >= MIN_LINK_SHARE) return clues;
+    if (linkShare(clues) > linkShare(best)) best = clues;
+  }
+  return best;
+}
+
+/** One pass: greedily take clues until propagation cracks it, then trim. */
+function assembleClues(
+  pools: Pools,
+  solution: number[][],
+  ctx: SolveContext,
+  rng: Rng,
+  linksPerFlavour: number,
+): Clue[] {
+  const pool = orderPool(pools, rng, linksPerFlavour);
   const chosen: Clue[] = [];
   const used = new Set<string>();
 
@@ -250,10 +296,19 @@ function buildClues(
   return rng.shuffle(minimise(chosen, ctx, rng));
 }
 
-/** Drops every clue the deduction does not actually need. */
+/**
+ * Drops every clue the deduction does not actually need, trying the flavour
+ * clues first so a redundant comparison goes before a redundant link.
+ */
 function minimise(clues: Clue[], ctx: SolveContext, rng: Rng): Clue[] {
+  const order = rng.shuffle(clues);
+  const candidates = [
+    ...order.filter((clue) => clue.kind !== 'link'),
+    ...order.filter((clue) => clue.kind === 'link'),
+  ];
+
   let kept = clues.slice();
-  for (const clue of rng.shuffle(clues)) {
+  for (const clue of candidates) {
     const without = kept.filter((candidate) => candidate !== clue);
     if (without.length < kept.length && solveByDeduction(without, ctx)) kept = without;
   }

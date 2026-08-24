@@ -137,6 +137,32 @@ describe('generatePuzzle', () => {
     expect(other.solution).not.toEqual(first.solution);
   });
 
+  describe('the clue mix', () => {
+    const linkShare = (clues: { kind: string }[]) =>
+      clues.filter((clue) => clue.kind === 'link').length / clues.length;
+
+    it('leans on link clues — at least three in four, at every size', () => {
+      for (const size of SIZES) {
+        for (let seed = 0; seed < 30; seed++) {
+          const puzzle = generatePuzzle({ theme: THEMES, size, seed });
+          expect(linkShare(puzzle.clues)).toBeGreaterThanOrEqual(0.75);
+        }
+      }
+    });
+
+    it('still leaves room for the flavour clues', () => {
+      // The floor is a floor, not a ban: comparisons and either-ors should
+      // still turn up across a run of puzzles.
+      const kinds = new Set<string>();
+      for (let seed = 0; seed < 30; seed++) {
+        for (const clue of generatePuzzle({ theme: THEMES, size: SIZES[2], seed }).clues) {
+          kinds.add(clue.kind);
+        }
+      }
+      expect(kinds).toEqual(new Set(['link', 'either', 'compare']));
+    });
+  });
+
   it('always includes an ordered category so comparison clues are possible', () => {
     for (const theme of THEMES) {
       const puzzle = generatePuzzle({ theme, size: SIZES[1], seed: 1234 });

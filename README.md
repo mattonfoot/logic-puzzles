@@ -163,11 +163,20 @@ a relabelling of entities.
    - `A is paired with B` / `A is not paired with B`
    - `A is paired with either B or C`
    - `The depth for A is deeper than for B`, optionally with an exact gap
-   The pool is ordered so the interesting clue types are offered first and plain
-   positive links come last.
 3. Add clues one at a time until propagation alone cracks the grid.
 4. Try removing every clue in turn, keeping the removal whenever the puzzle is
    still deducible. What is left is a minimal clue set.
+
+Link clues — the plain *is* and *is not* statements the grid is drawn for — make
+up **at least three quarters** of every finished puzzle. That is not something
+the offer order can promise on its own, because which clues survive is decided
+by the deduction rather than by the pool: a single comparison can do the work of
+five crosses and stay in. So the generator spaces the flavour clues out among
+the links, drops a redundant comparison before a redundant link when it
+minimises, and if the mix still comes out short it builds the puzzle again with
+the flavour thinner — down to links alone, which always clears the bar. A few
+direct matches lead the pool, since a puzzle carried by links alone otherwise
+needs half as many clues again to reach the same certainty.
 
 **Solving** (`solver.ts`) keeps a candidate bitmask per (category, entity) in a
 flat `Int32Array` and alternates:
