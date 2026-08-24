@@ -16,6 +16,10 @@ interface Props {
   onToggle: (cell: Cell) => void;
 }
 
+/** The smallest cell worth tapping, and the largest the zoom will go to. */
+export const MIN_CELL = 18;
+export const MAX_CELL = 46;
+
 const CATEGORY_STRIP = 14;
 const ROW_LABEL = 76;
 /** Room the rotated item labels get to write in — the longest item names fit. */
@@ -24,6 +28,21 @@ const LABEL_LINE = 14;
 const CATEGORY_NAME = 20;
 const HEADER_HEIGHT = LABEL_RUN + CATEGORY_NAME;
 const BLOCK_GAP = 4;
+/** Width the set strip and row labels take on the left of the board. */
+const BOARD_LABELS = CATEGORY_STRIP + ROW_LABEL;
+
+/**
+ * The largest cell whose whole staircase fits the space given — the size the
+ * board opens at, so a puzzle needs no scrolling in either direction until the
+ * player zooms in past it.
+ */
+export function fitCellSize(puzzle: Puzzle, width: number, height: number): number {
+  const rows = puzzle.categories.length - 1;
+  const items = puzzle.size.items;
+  const byWidth = (width - BOARD_LABELS - (rows - 1) * BLOCK_GAP) / (items * rows);
+  const byHeight = (height - HEADER_HEIGHT - rows * BLOCK_GAP) / (items * rows);
+  return Math.max(MIN_CELL, Math.min(MAX_CELL, Math.floor(Math.min(byWidth, byHeight))));
+}
 
 /**
  * The whole puzzle as one staircase of blocks, the way a printed logic grid is

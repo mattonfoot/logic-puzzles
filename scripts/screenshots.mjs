@@ -158,24 +158,30 @@ async function main() {
   await fresh(page, origin);
   await shot('01-setup');
 
-  // 2. The board mid-puzzle, and 3. a clue lighting up its rows and columns.
+  // 2. The grid tab, which is where a game opens.
   await startPuzzle(page);
   await shot('02-board');
 
+  // 3. The clue list on its own tab.
+  await page.getByRole('tab', { name: /^Clues/ }).click();
+  await wait(page, 400);
+  await shot('03-clues');
+
+  // 4. Holding a clue lights it up — and takes the player back to the grid.
   const clue = page.locator('[role="checkbox"]').first();
   const box = await clue.boundingBox();
   await page.mouse.move(box.x + 40, box.y + 12);
   await page.mouse.down();
   await wait(page, 900);
   await page.mouse.up();
-  await wait(page, 500);
-  await shot('03-clue-focus');
+  await wait(page, 600);
+  await shot('04-clue-focus');
 
-  // 4. Finished, with the answer table.
+  // 5. Finished, with the answer table.
   await solveWithHints(page);
-  await shot('04-solved');
+  await shot('05-solved');
 
-  // 5. Statistics, shown with a sample history.
+  // 6. Statistics, shown with a sample history.
   await page.goto(origin, { waitUntil: 'networkidle' });
   await page.evaluate((history) => {
     localStorage.clear();
@@ -185,9 +191,9 @@ async function main() {
   await wait(page, 1000);
   await page.getByText('Statistics').first().click();
   await wait(page, 800);
-  await shot('05-statistics', { fullPage: true });
+  await shot('06-statistics', { fullPage: true });
 
-  // 6. Home again, with a game waiting to be resumed.
+  // 7. Home again, with a game waiting to be resumed.
   await page.getByLabel('Back').click();
   await wait(page, 500);
   await startPuzzle(page);
@@ -196,7 +202,7 @@ async function main() {
   await wait(page, 1000);
   await page.getByLabel('Back to setup').click();
   await wait(page, 700);
-  await shot('06-resume');
+  await shot('07-resume');
 
   await browser.close();
   server.close();

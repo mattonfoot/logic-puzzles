@@ -42,8 +42,9 @@ images in the same commit.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-setup.png" width="230" alt="Setup screen"><br>**1. Setup** — the grid size is the only choice; the theme is drawn on start. | <img src="docs/screenshots/02-board.png" width="230" alt="Puzzle board"><br>**2. Board** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, with the clue list below. | <img src="docs/screenshots/03-clue-focus.png" width="230" alt="Board with a clue focused"><br>**3. Clue focus** — holding a clue lights up every row and column it mentions. |
-| <img src="docs/screenshots/04-solved.png" width="230" alt="Solved overlay"><br>**4. Solved** — time, hints, how it compares with earlier games, and the answer table. | <img src="docs/screenshots/05-statistics.png" width="230" alt="Statistics screen"><br>**5. Statistics** — totals, per-size bests and the trend of recent solve times. | <img src="docs/screenshots/06-resume.png" width="230" alt="Setup screen with a saved game"><br>**6. Resume** — the setup screen offering the game that was left in progress. |
+| <img src="docs/screenshots/01-setup.png" width="230" alt="Setup screen"><br>**1. Setup** — the grid size is the only choice; the theme is drawn on start. | <img src="docs/screenshots/02-board.png" width="230" alt="Grid tab"><br>**2. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the tab. | <img src="docs/screenshots/03-clues.png" width="230" alt="Clues tab"><br>**3. Clues** — the clue list on its own tab, with the count still to be used. |
+| <img src="docs/screenshots/04-clue-focus.png" width="230" alt="Grid with a clue focused"><br>**4. Clue focus** — holding a clue lights up its rows and columns and brings you back to the grid. | <img src="docs/screenshots/05-solved.png" width="230" alt="Solved overlay"><br>**5. Solved** — time, hints, how it compares with earlier games, and the answer table. | <img src="docs/screenshots/06-statistics.png" width="230" alt="Statistics screen"><br>**6. Statistics** — totals, per-size bests and the trend of recent solve times. |
+| <img src="docs/screenshots/07-resume.png" width="230" alt="Setup screen with a saved game"><br>**7. Resume** — the setup screen offering the game that was left in progress. | | |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -60,15 +61,18 @@ rest is the app behaving normally.
 2. **Game** — the whole puzzle is drawn as one staircase of grids, the way a
    printed logic puzzle is laid out: every pair of sets meets in its own grid,
    so a four-set puzzle is a 3 × 3 arrangement holding six grids, and each grid
-   is items × items. Tap a square to cycle it blank → ✕ → ✓. A tick crosses out
-   the rest of its row and column for you, and cycling that tick back to blank
-   takes those crosses away with it — anything you crossed by hand stays put.
-   The **Auto ✕** button turns the implied crosses off. The set names and item
-   labels stay pinned while the grids scroll sideways, and − / + resize the
-   squares.
-3. **Clues** — tap a clue to cross it off once you have used it, or press and
-   hold it to light up every row and column it talks about, across all the
-   grids at once.
+   is items × items. The screen has two tabs — **Grid** and **Clues** — so the
+   board is never pushed off the top of a scroll to read a clue, and the board
+   opens at the size that fits the space the tab gives it. Tap a square to cycle
+   it blank → ✕ → ✓. A tick crosses out the rest of its row and column for you,
+   and cycling that tick back to blank takes those crosses away with it —
+   anything you crossed by hand stays put. The **Auto ✕** button turns the
+   implied crosses off. The set names and item labels stay pinned while the
+   grids scroll sideways, and − / + resize the squares past the fit.
+3. **Clues** — the second tab, with the number still to be used on the tab
+   itself. Tap a clue to cross it off once you have used it, or press and hold
+   it to light up every row and column it talks about: that takes you to the
+   grid, with the clue named in a strip beneath the board until you dismiss it.
 4. **Check** highlights any mark that contradicts the solution, **Hint** places
    one true pairing for you, **Restart** wipes the board and the clock without
    changing the puzzle, and the timer stops when the last square is right.
@@ -126,6 +130,15 @@ Four sets therefore give a 3 × 3 arrangement of six grids, three sets a 2 × 2
 arrangement of three, and five sets a 4 × 4 arrangement of ten — every pair of
 sets exactly once, which is what makes cross-referencing possible: a tick in
 Astronaut × Ship can be carried into Ship × Launch without leaving the board.
+
+The game screen holds that staircase and the clue list in two tabs of one
+fixed-height layout, with the toolbar pinned below both. Nothing about the
+screen scrolls: `fitCellSize` measures the space the tab actually leaves for the
+board — width *and* height, from an `onLayout` on the board area rather than
+from the window — and picks the largest cell whose whole staircase fits it. The
+zoom buttons go up from there, and only a board zoomed past its fit scrolls, in
+whichever direction it outgrew. The clue list scrolls inside its own tab when a
+puzzle carries more clues than a screen holds.
 
 In `src/game/board.ts` every square records who marked it. A tap by the player
 is a `hand` mark; a cross the board adds because a tick rules out the rest of

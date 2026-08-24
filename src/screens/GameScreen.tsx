@@ -1,18 +1,17 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   AppState,
+  LayoutChangeEvent,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
   View,
-  useWindowDimensions,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ClueList } from '../components/ClueList';
-import { GridBoard } from '../components/GridBoard';
-import { SolutionTable } from '../components/SolutionTable';
+import { fitCellSize, GridBoard, MAX_CELL } from '../components/GridBoard';
 import { WinOverlay } from '../components/WinOverlay';
 import {
   findHint,
@@ -30,18 +29,16 @@ import {
 import { SAVE_VERSION, type SavedGame } from '../game/persistence';
 import type { CompletionInput } from '../game/usePersistence';
 import { formatDuration, useTimer } from '../game/useTimer';
-import { clueAttributes } from '../puzzle/describe';
+import { clueAttributes, describeClue } from '../puzzle/describe';
 import type { Attribute, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { haptics } from '../ui/haptics';
 import { palette, radius, shadow, space, tint } from '../ui/theme';
 
-/** The smallest cell worth tapping, and the steps the zoom buttons take. */
-const MIN_CELL = 18;
-const MAX_CELL = 46;
+/** How much each press of the zoom buttons adds or takes away. */
 const ZOOM_STEP = 8;
-/** Width the set strip and row labels take on the left of the board. */
-const BOARD_LABELS = 90;
+
+type Tab = 'grid' | 'clues';
 
 interface Props {
   puzzle: Puzzle;
@@ -57,6 +54,10 @@ interface Props {
 /**
  * The board itself. App mounts one per puzzle (keyed by seed), so the initial
  * state can come straight from a resumed game.
+ *
+ * The grid and the clues are two tabs of one fixed-height screen rather than
+ * one long scroll: the board opens at the size that fits the space it is given,
+ * and reading a clue is a tap away instead of a scroll away.
  */
 export function GameScreen({
   puzzle,
@@ -68,12 +69,12 @@ export function GameScreen({
   onOpenStats,
 }: Props) {
   const insets = useSafeAreaInsets();
-  const { width } = useWindowDimensions();
   const resumed = restore?.puzzle.seed === puzzle.seed ? restore : null;
 
   // Bumped by "Restart": the puzzle stays exactly as it is — same seed, same
   // theme, sets and items — while the board and the clock start over.
   const [attempt, setAttempt] = useState(0);
+  const [tab, setTab] = useState<Tab>('grid');
   const [marks, setMarks] = useState<Marks>(() => resumed?.marks ?? {});
   const [focusedClue, setFocusedClue] = useState<number | null>(null);
   const [crossedOut, setCrossedOut] = useState<Set<number>>(
@@ -96,16 +97,22 @@ export function GameScreen({
   );
 
   // The whole staircase is drawn at once, so the cell size decides whether it
-  // fits the screen. Start at the size that shows all of it, and let the player
-  // zoom in from there; anything wider than the screen scrolls sideways.
-  const fitCell = useMemo(() => {
-    const columns = puzzle.size.items * (puzzle.categories.length - 1);
-    const available = width - space(8) - space(6) - BOARD_LABELS;
-    // Each block carries a small gap to its neighbour.
-    const gaps = (puzzle.categories.length - 2) * space(1);
-    return Math.max(MIN_CELL, Math.min(MAX_CELL, Math.floor((available - gaps) / columns)));
-  }, [puzzle, width]);
-  const [cellSize, setCellSize] = useState(fitCell);
+  // fits. It is measured against the space the tab actually leaves for it, and
+  // the player can zoom in from there; a zoomed-in board scrolls both ways.
+  const [boardArea, setBoardArea] = useState({ width: 0, height: 0 });
+  const fitCell = useMemo(
+    () => fitCellSize(puzzle, boardArea.width, boardArea.height),
+    [puzzle, boardArea],
+  );
+  const [zoom, setZoom] = useState(0);
+  const cellSize = Math.min(MAX_CELL, fitCell + zoom);
+
+  const measureBoard = useCallback((event: LayoutChangeEvent) => {
+    const { width, height } = event.nativeEvent.layout;
+    setBoardArea((current) =>
+      current.width === width && current.height === height ? current : { width, height },
+    );
+  }, []);
 
   const highlight = useMemo<Attribute[]>(
     () => (focusedClue === null ? [] : clueAttributes(puzzle.clues[focusedClue])),
@@ -199,6 +206,8 @@ export function GameScreen({
       flash('Everything you have marked so far is right.');
     } else {
       haptics.warn();
+      // The marks are on the board, so that is where the answer is.
+      setTab('grid');
       flash(`${found.length} mark${found.length === 1 ? '' : 's'} contradict the clues.`);
     }
   }, [flash, marks, puzzle]);
@@ -211,6 +220,7 @@ export function GameScreen({
     }
     haptics.select();
     setHintsUsed((count) => count + 1);
+    setTab('grid');
     setMarks((current) =>
       setMark(current, cell, 'yes', { size: puzzle.size.items, autoEliminate }),
     );
@@ -228,6 +238,7 @@ export function GameScreen({
     setFocusedClue(null);
     setHintsUsed(0);
     setRevealed(false);
+    setTab('grid');
     flash('Restarted — same puzzle, fresh board and clock.');
   }, [flash]);
 
@@ -247,13 +258,17 @@ export function GameScreen({
     });
   }, []);
 
+  // Holding a clue lights up its rows and columns, which are on the other tab —
+  // so the hold takes the player there, and the clue rides along in the strip
+  // under the board.
   const focusClue = useCallback((index: number) => {
     haptics.select();
     setFocusedClue((current) => (current === index ? null : index));
+    setTab('grid');
   }, []);
 
   const gridsShown = (puzzle.categories.length * (puzzle.categories.length - 1)) / 2;
-  const leadCategory = puzzle.categories[0].name.toLowerCase();
+  const cluesLeft = puzzle.clues.length - crossedOut.size;
 
   return (
     <View style={styles.screen}>
@@ -271,8 +286,8 @@ export function GameScreen({
           <Text style={styles.headerTitle} numberOfLines={1}>
             {puzzle.themeEmoji} {puzzle.themeName}
           </Text>
-          <Text style={styles.headerSubtitle}>
-            {puzzle.size.label} · {puzzle.clues.length} clues
+          <Text style={styles.headerSubtitle} numberOfLines={1}>
+            {puzzle.size.label} · {puzzle.clues.length} clues · #{puzzle.seed}
           </Text>
         </View>
         <Text style={[styles.timer, { color: puzzle.accent }]}>{formatDuration(seconds)}</Text>
@@ -287,43 +302,105 @@ export function GameScreen({
         />
       </View>
 
-      <ScrollView
-        contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + space(10) }]}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={[styles.card, shadow.card]}>
-          <View style={styles.boardHeader}>
-            <Text style={styles.cardTitle}>
-              {puzzle.categories.length} sets · {gridsShown} grids
-            </Text>
-            <View style={styles.zoomRow}>
-              <ZoomButton
-                label="−"
-                accent={puzzle.accent}
-                disabled={cellSize <= fitCell}
-                onPress={() => setCellSize((size) => Math.max(fitCell, size - ZOOM_STEP))}
-              />
-              <ZoomButton
-                label="+"
-                accent={puzzle.accent}
-                disabled={cellSize >= MAX_CELL}
-                onPress={() => setCellSize((size) => Math.min(MAX_CELL, size + ZOOM_STEP))}
-              />
-            </View>
-          </View>
+      <View style={styles.tabs}>
+        <TabButton
+          label="Grid"
+          accent={puzzle.accent}
+          selected={tab === 'grid'}
+          onPress={() => setTab('grid')}
+        />
+        <TabButton
+          label="Clues"
+          count={cluesLeft}
+          accent={puzzle.accent}
+          selected={tab === 'clues'}
+          onPress={() => setTab('clues')}
+        />
+      </View>
 
-          <GridBoard
-            puzzle={puzzle}
-            marks={marks}
-            mistakes={mistakes}
-            highlight={highlight}
-            cellSize={cellSize}
-            onToggle={toggleCell}
-          />
-          <Text style={styles.cardHint}>
-            Tap a square to cycle blank → ✕ → ✓ · swipe the board sideways for the rest
-          </Text>
-        </View>
+      <View style={styles.tabBody}>
+        {tab === 'grid' ? (
+          <View style={[styles.card, styles.fill, shadow.card]}>
+            <View style={styles.boardHeader}>
+              <Text style={styles.cardTitle}>
+                {puzzle.categories.length} sets · {gridsShown} grids
+              </Text>
+              <View style={styles.zoomRow}>
+                <ZoomButton
+                  label="−"
+                  accent={puzzle.accent}
+                  disabled={zoom <= 0}
+                  onPress={() => setZoom((step) => Math.max(0, step - ZOOM_STEP))}
+                />
+                <ZoomButton
+                  label="+"
+                  accent={puzzle.accent}
+                  disabled={cellSize >= MAX_CELL}
+                  onPress={() => setZoom((step) => step + ZOOM_STEP)}
+                />
+              </View>
+            </View>
+
+            <View style={styles.fill} onLayout={measureBoard}>
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.boardScroll}
+              >
+                {boardArea.width > 0 ? (
+                  <GridBoard
+                    puzzle={puzzle}
+                    marks={marks}
+                    mistakes={mistakes}
+                    highlight={highlight}
+                    cellSize={cellSize}
+                    onToggle={toggleCell}
+                  />
+                ) : null}
+              </ScrollView>
+            </View>
+
+            {focusedClue === null ? (
+              <Text style={styles.cardHint}>Tap a square to cycle blank → ✕ → ✓</Text>
+            ) : (
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Stop lighting up this clue"
+                onPress={() => setFocusedClue(null)}
+                style={[styles.focusStrip, { borderColor: tint(puzzle.accent, 0.35) }]}
+              >
+                <Text style={styles.focusText} numberOfLines={2}>
+                  {describeClue(puzzle.clues[focusedClue], puzzle)}
+                </Text>
+                <Text style={[styles.focusClear, { color: puzzle.accent }]}>✕</Text>
+              </Pressable>
+            )}
+          </View>
+        ) : (
+          <View style={[styles.card, styles.fill, shadow.card]}>
+            <Text style={styles.cardTitle}>Clues</Text>
+            <Text style={styles.cardSubtitle}>
+              Tap to cross one off · hold to light it up on the grid
+            </Text>
+            <ScrollView
+              style={styles.fill}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.clueScroll}
+            >
+              <ClueList
+                puzzle={puzzle}
+                crossedOut={crossedOut}
+                onToggle={toggleClue}
+                onFocus={focusClue}
+              />
+            </ScrollView>
+          </View>
+        )}
+      </View>
+
+      <View style={[styles.footer, { paddingBottom: insets.bottom + space(2) }]}>
+        <Text style={styles.status} numberOfLines={2}>
+          {status ?? ''}
+        </Text>
 
         <View style={styles.toolbar}>
           <ToolButton label="Check" icon="✓" accent={puzzle.accent} onPress={check} />
@@ -345,29 +422,6 @@ export function GameScreen({
           />
         </View>
 
-        {status ? <Text style={styles.status}>{status}</Text> : null}
-
-        <View style={[styles.card, shadow.card]}>
-          <Text style={styles.cardTitle}>Clues</Text>
-          <Text style={styles.cardSubtitle}>
-            Tap to cross one off · hold to light it up on the board
-          </Text>
-          <ClueList
-            puzzle={puzzle}
-            crossedOut={crossedOut}
-            onToggle={toggleClue}
-            onFocus={focusClue}
-          />
-        </View>
-
-        {solved ? (
-          <View style={[styles.card, shadow.card]}>
-            <Text style={styles.cardTitle}>The answer</Text>
-            <Text style={styles.cardSubtitle}>One row per {leadCategory}</Text>
-            <SolutionTable puzzle={puzzle} />
-          </View>
-        ) : null}
-
         <View style={styles.footerLinks}>
           <Pressable accessibilityRole="button" onPress={restart} hitSlop={8}>
             <Text style={styles.link}>Restart</Text>
@@ -381,9 +435,7 @@ export function GameScreen({
             <Text style={[styles.link, styles.linkMuted]}>Reveal solution</Text>
           </Pressable>
         </View>
-
-        <Text style={styles.seed}>Puzzle seed #{puzzle.seed}</Text>
-      </ScrollView>
+      </View>
 
       <WinOverlay
         visible={solved}
@@ -397,6 +449,52 @@ export function GameScreen({
         onOpenStats={onOpenStats}
       />
     </View>
+  );
+}
+
+function TabButton({
+  label,
+  count,
+  accent,
+  selected,
+  onPress,
+}: {
+  label: string;
+  /** Shown as a pill beside the label — the clues still to be used. */
+  count?: number;
+  accent: string;
+  selected: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <Pressable
+      accessibilityRole="tab"
+      accessibilityLabel={count === undefined ? label : `${label}, ${count} left`}
+      accessibilityState={{ selected }}
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.tab,
+        selected && { borderBottomColor: accent },
+        { opacity: pressed ? 0.7 : 1 },
+      ]}
+    >
+      <Text style={[styles.tabLabel, { color: selected ? accent : palette.inkSoft }]}>{label}</Text>
+      {count === undefined ? null : (
+        <View
+          style={[
+            styles.tabCount,
+            {
+              backgroundColor: selected ? tint(accent, 0.12) : palette.surfaceAlt,
+              borderColor: selected ? tint(accent, 0.35) : palette.line,
+            },
+          ]}
+        >
+          <Text style={[styles.tabCountText, { color: selected ? accent : palette.inkFaint }]}>
+            {count}
+          </Text>
+        </View>
+      )}
+    </Pressable>
   );
 }
 
@@ -460,6 +558,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: palette.bg,
   },
+  fill: {
+    flex: 1,
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -508,16 +609,58 @@ const styles = StyleSheet.create({
   progressFill: {
     height: 3,
   },
-  content: {
+  tabs: {
+    flexDirection: 'row',
     paddingHorizontal: space(4),
-    paddingTop: space(4),
-    gap: space(4),
+    borderBottomWidth: 1,
+    borderBottomColor: palette.line,
+  },
+  tab: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: space(2),
+    paddingVertical: space(3),
+    borderBottomWidth: 2,
+    borderBottomColor: 'transparent',
+    marginBottom: -1,
+  },
+  tabLabel: {
+    fontSize: 15,
+    fontWeight: '700',
+  },
+  tabCount: {
+    minWidth: 22,
+    paddingHorizontal: space(1.5),
+    paddingVertical: 1,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  tabCountText: {
+    fontSize: 11,
+    fontWeight: '700',
+  },
+  tabBody: {
+    flex: 1,
+    paddingHorizontal: space(4),
+    paddingTop: space(3),
   },
   boardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: space(3),
+  },
+  clueScroll: {
+    paddingBottom: space(1),
+  },
+  boardScroll: {
+    // Centred, so a board that fits sits in the middle of the space rather
+    // than hanging from the top of it.
+    flexGrow: 1,
+    justifyContent: 'center',
   },
   zoomRow: {
     flexDirection: 'row',
@@ -558,8 +701,34 @@ const styles = StyleSheet.create({
   cardHint: {
     fontSize: 11,
     color: palette.inkFaint,
-    marginTop: space(3),
+    marginTop: space(2),
     textAlign: 'center',
+  },
+  focusStrip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: space(2),
+    marginTop: space(2),
+    paddingVertical: space(2),
+    paddingHorizontal: space(3),
+    borderWidth: 1,
+    borderRadius: radius.sm,
+    backgroundColor: palette.surfaceAlt,
+  },
+  focusText: {
+    flex: 1,
+    fontSize: 12,
+    lineHeight: 16,
+    color: palette.inkSoft,
+  },
+  focusClear: {
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  footer: {
+    paddingHorizontal: space(4),
+    paddingTop: space(2),
+    gap: space(2),
   },
   toolbar: {
     flexDirection: 'row',
@@ -584,6 +753,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   status: {
+    minHeight: 32,
     fontSize: 13,
     color: palette.inkSoft,
     textAlign: 'center',
@@ -603,11 +773,6 @@ const styles = StyleSheet.create({
     color: palette.inkFaint,
   },
   linkDivider: {
-    color: palette.inkFaint,
-  },
-  seed: {
-    textAlign: 'center',
-    fontSize: 11,
     color: palette.inkFaint,
   },
 });
