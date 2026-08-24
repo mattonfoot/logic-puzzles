@@ -25,12 +25,28 @@ export const chart = {
   reference: '#B7AF9C',
 };
 
+/**
+ * Square corners throughout — the app is drawn like a printed puzzle page.
+ * The scale is kept so the decision lives in one place rather than in every
+ * component that used to round something.
+ */
 export const radius = {
-  sm: 10,
-  md: 16,
-  lg: 24,
-  pill: 999,
+  sm: 0,
+  md: 0,
+  lg: 0,
+  pill: 0,
 };
+
+/** Every visible border is one line thick. */
+export const border = 1;
+
+/**
+ * Bordered neighbours sit flush and share that one line, instead of each
+ * drawing its own edge with a gap between. Apply to every child of a joined
+ * row or column after the first.
+ */
+export const joinLeft = { marginLeft: -border };
+export const joinTop = { marginTop: -border };
 
 export const space = (steps: number) => steps * 4;
 

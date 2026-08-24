@@ -27,7 +27,8 @@ const LABEL_RUN = 88;
 const LABEL_LINE = 14;
 const CATEGORY_NAME = 20;
 const HEADER_HEIGHT = LABEL_RUN + CATEGORY_NAME;
-const BLOCK_GAP = 4;
+/** Blocks sit flush against each other, sharing the line between them. */
+const BLOCK_GAP = 0;
 /** Width the set strip and row labels take on the left of the board. */
 const BOARD_LABELS = CATEGORY_STRIP + ROW_LABEL;
 
@@ -210,7 +211,10 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
                                   style={[
                                     styles.tick,
                                     {
-                                      fontSize: cellSize * 0.55,
+                                      fontSize: cellSize * 0.82,
+                                      // The glyph gets the whole square, so a
+                                      // big mark is centred rather than clipped.
+                                      lineHeight: cellSize,
                                       color: wrong ? palette.danger : puzzle.accent,
                                     },
                                   ]}
@@ -221,7 +225,7 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
                                 <Text
                                   style={[
                                     styles.cross,
-                                    { fontSize: cellSize * 0.42 },
+                                    { fontSize: cellSize * 0.68, lineHeight: cellSize },
                                     // Crosses the board filled in for a tick sit
                                     // lighter than the ones the player made.
                                     entry?.source === 'auto' && styles.crossAuto,

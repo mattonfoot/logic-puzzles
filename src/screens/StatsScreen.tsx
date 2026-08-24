@@ -9,7 +9,7 @@ import type { CompletedGame } from '../game/persistence';
 import { formatDuration, formatSpan } from '../game/time';
 import type { OverallStats, SizeStats } from '../stats/summary';
 import { haptics } from '../ui/haptics';
-import { chart, palette, radius, shadow, space, tint } from '../ui/theme';
+import { chart, joinLeft, joinTop, palette, radius, shadow, space, tint } from '../ui/theme';
 
 interface Props {
   stats: OverallStats;
@@ -82,19 +82,24 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
           <>
             <View style={styles.tileRow}>
               <Tile label="Solved" value={`${stats.solved}`} />
-              <Tile label="Time played" value={formatSpan(stats.totalSeconds)} />
-              <Tile label="Streak" value={`${stats.currentStreak}d`} hint={`best ${stats.longestStreak}d`} />
+              <Tile label="Time played" value={formatSpan(stats.totalSeconds)} joined />
+              <Tile
+                label="Streak"
+                value={`${stats.currentStreak}d`}
+                hint={`best ${stats.longestStreak}d`}
+                joined
+              />
             </View>
-            <View style={styles.tileRow}>
+            <View style={[styles.tileRow, joinTop]}>
               <Tile label="No-hint wins" value={`${stats.noHintSolves}`} />
-              <Tile label="Hints used" value={`${stats.hintsUsed}`} />
-              <Tile label="Themes" value={`${stats.themesPlayed}/${THEMES.length}`} />
+              <Tile label="Hints used" value={`${stats.hintsUsed}`} joined />
+              <Tile label="Themes" value={`${stats.themesPlayed}/${THEMES.length}`} joined />
             </View>
           </>
         ) : null}
 
         {played.length > 0 ? (
-          <View style={[styles.card, shadow.card]}>
+          <View style={[styles.card, joinTop, shadow.card]}>
             <Text style={styles.cardTitle}>By grid size</Text>
             <View style={styles.sizeTable}>
               <View style={styles.sizeHeaderRow}>
@@ -122,12 +127,12 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
         ) : null}
 
         {selected ? (
-          <View style={[styles.card, shadow.card]}>
+          <View style={[styles.card, joinTop, shadow.card]}>
             <Text style={styles.cardTitle}>Are you getting faster?</Text>
             <Text style={styles.cardSubtitle}>Recent solve times, one column per puzzle</Text>
 
             <View style={styles.pillRow}>
-              {played.map((size) => {
+              {played.map((size, index) => {
                 const isSelected = size.sizeId === selected.sizeId;
                 return (
                   <Pressable
@@ -140,6 +145,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
                     }}
                     style={[
                       styles.pill,
+                      index > 0 && joinLeft,
                       {
                         borderColor: isSelected ? chart.series : palette.line,
                         backgroundColor: isSelected ? tint(chart.series, 0.12) : palette.surface,
@@ -170,7 +176,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
         ) : null}
 
         {history.length > 0 ? (
-          <View style={[styles.card, shadow.card]}>
+          <View style={[styles.card, joinTop, shadow.card]}>
             <Text style={styles.cardTitle}>Recent games</Text>
             {stats.recent.map((game) => (
               <View key={`${game.seed}-${game.finishedAt}`} style={styles.gameRow}>
@@ -219,9 +225,20 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
   );
 }
 
-function Tile({ label, value, hint }: { label: string; value: string; hint?: string }) {
+function Tile({
+  label,
+  value,
+  hint,
+  joined,
+}: {
+  label: string;
+  value: string;
+  hint?: string;
+  /** Share the left-hand edge with the tile before it. */
+  joined?: boolean;
+}) {
   return (
-    <View style={[styles.tile, shadow.card]}>
+    <View style={[styles.tile, joined && joinLeft, shadow.card]}>
       <Text style={styles.tileValue}>{value}</Text>
       <Text style={styles.tileLabel}>{label}</Text>
       {hint ? <Text style={styles.tileHint}>{hint}</Text> : null}
@@ -306,7 +323,6 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: space(4),
     paddingTop: space(2),
-    gap: space(3),
   },
   card: {
     backgroundColor: palette.surface,
@@ -328,7 +344,6 @@ const styles = StyleSheet.create({
   },
   tileRow: {
     flexDirection: 'row',
-    gap: space(3),
   },
   tile: {
     flex: 1,
@@ -395,7 +410,6 @@ const styles = StyleSheet.create({
   },
   pillRow: {
     flexDirection: 'row',
-    gap: space(2),
     marginBottom: space(3),
   },
   pill: {

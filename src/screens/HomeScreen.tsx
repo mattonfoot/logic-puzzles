@@ -10,7 +10,7 @@ import { formatDuration } from '../game/time';
 import type { SizeOption } from '../puzzle/types';
 import type { OverallStats } from '../stats/summary';
 import { haptics } from '../ui/haptics';
-import { palette, radius, shadow, space, tint } from '../ui/theme';
+import { border, joinLeft, palette, radius, shadow, space, tint } from '../ui/theme';
 import { AppButton } from '../components/AppButton';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 
@@ -108,7 +108,7 @@ export function HomeScreen({
 
         <Text style={styles.sectionLabel}>Grid size</Text>
         <View style={styles.sizeRow}>
-          {SIZES.map((option) => {
+          {SIZES.map((option, index) => {
             const selected = option.id === size.id;
             return (
               <Pressable
@@ -121,6 +121,7 @@ export function HomeScreen({
                 }}
                 style={({ pressed }) => [
                   styles.sizeCard,
+                  index > 0 && joinLeft,
                   {
                     borderColor: selected ? palette.accent : palette.line,
                     backgroundColor: selected ? tint(palette.accent, 0.12) : palette.surface,
@@ -280,12 +281,11 @@ const styles = StyleSheet.create({
   },
   sizeRow: {
     flexDirection: 'row',
-    gap: space(2),
   },
   sizeCard: {
     flex: 1,
     borderRadius: radius.md,
-    borderWidth: 1.5,
+    borderWidth: border,
     paddingVertical: space(3),
     alignItems: 'center',
   },
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
   },
   resumeCard: {
     borderRadius: radius.md,
-    borderWidth: 1.5,
+    borderWidth: border,
     padding: space(4),
     marginTop: space(6),
   },

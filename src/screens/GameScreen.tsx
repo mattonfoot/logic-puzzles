@@ -33,7 +33,7 @@ import { clueAttributes, describeClue } from '../puzzle/describe';
 import type { Attribute, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { haptics } from '../ui/haptics';
-import { palette, radius, shadow, space, tint } from '../ui/theme';
+import { joinLeft, palette, radius, shadow, space, tint } from '../ui/theme';
 
 /** How much each press of the zoom buttons adds or takes away. */
 const ZOOM_STEP = 8;
@@ -334,6 +334,7 @@ export function GameScreen({
                 />
                 <ZoomButton
                   label="+"
+                  joined
                   accent={puzzle.accent}
                   disabled={cellSize >= MAX_CELL}
                   onPress={() => setZoom((step) => step + ZOOM_STEP)}
@@ -404,10 +405,11 @@ export function GameScreen({
 
         <View style={styles.toolbar}>
           <ToolButton label="Check" icon="✓" accent={puzzle.accent} onPress={check} />
-          <ToolButton label="Hint" icon="💡" accent={puzzle.accent} onPress={hint} />
+          <ToolButton label="Hint" icon="💡" joined accent={puzzle.accent} onPress={hint} />
           <ToolButton
             label={autoEliminate ? 'Auto ✕ on' : 'Auto ✕ off'}
             icon="⚡"
+            joined
             accent={autoEliminate ? puzzle.accent : palette.inkFaint}
             onPress={() => {
               haptics.select();
@@ -502,11 +504,14 @@ function ZoomButton({
   label,
   accent,
   disabled,
+  joined,
   onPress,
 }: {
   label: string;
   accent: string;
   disabled: boolean;
+  /** Share the left-hand edge with the button before it. */
+  joined?: boolean;
   onPress: () => void;
 }) {
   return (
@@ -518,6 +523,7 @@ function ZoomButton({
       onPress={onPress}
       style={({ pressed }) => [
         styles.zoomButton,
+        joined && joinLeft,
         { borderColor: tint(accent, 0.4), opacity: disabled ? 0.35 : pressed ? 0.7 : 1 },
       ]}
     >
@@ -530,11 +536,14 @@ function ToolButton({
   label,
   icon,
   accent,
+  joined,
   onPress,
 }: {
   label: string;
   icon: string;
   accent: string;
+  /** Share the left-hand edge with the button before it. */
+  joined?: boolean;
   onPress: () => void;
 }) {
   return (
@@ -544,6 +553,7 @@ function ToolButton({
       onPress={onPress}
       style={({ pressed }) => [
         styles.tool,
+        joined && joinLeft,
         { borderColor: tint(accent, 0.4), opacity: pressed ? 0.75 : 1 },
       ]}
     >
@@ -664,7 +674,6 @@ const styles = StyleSheet.create({
   },
   zoomRow: {
     flexDirection: 'row',
-    gap: space(2),
   },
   zoomButton: {
     width: 32,
@@ -732,7 +741,6 @@ const styles = StyleSheet.create({
   },
   toolbar: {
     flexDirection: 'row',
-    gap: space(2),
   },
   tool: {
     flex: 1,

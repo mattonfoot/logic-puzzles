@@ -109,7 +109,7 @@ src/stats/summary.ts        history → per-size stats, streaks, improvement not
 src/storage/store.ts        the only module that touches AsyncStorage
 src/components/             GridBoard, SolutionTable, ClueList, WinOverlay, …
 src/screens/                HomeScreen, GameScreen, StatsScreen
-src/ui/                     palette, spacing, haptics helpers
+src/ui/                     palette, spacing, borders, haptics helpers
 ```
 
 ## How the board is laid out
@@ -130,6 +130,13 @@ Four sets therefore give a 3 × 3 arrangement of six grids, three sets a 2 × 2
 arrangement of three, and five sets a 4 × 4 arrangement of ten — every pair of
 sets exactly once, which is what makes cross-referencing possible: a tick in
 Astronaut × Ship can be carried into Ship × Launch without leaving the board.
+
+Nothing in the app is rounded and no bordered thing has a gap beside it: the
+`radius` scale in `src/ui/theme.ts` is zero throughout, and bordered neighbours
+carry `joinLeft` / `joinTop`, a one-pixel negative margin that makes the two
+share a single edge rather than each drawing its own. Grid blocks, size cards,
+stat tiles, filter pills and the toolbar buttons all sit flush, so a row of them
+reads as one ruled table the way a printed puzzle page does.
 
 The game screen holds that staircase and the clue list in two tabs of one
 fixed-height layout, with the toolbar pinned below both. Nothing about the

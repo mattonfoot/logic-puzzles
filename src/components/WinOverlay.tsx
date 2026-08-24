@@ -4,7 +4,7 @@ import { Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { formatDuration } from '../game/time';
 import type { Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
-import { palette, radius, shadow, space, tint } from '../ui/theme';
+import { border, palette, radius, shadow, space, tint } from '../ui/theme';
 import { AppButton } from './AppButton';
 import { SolutionTable } from './SolutionTable';
 
@@ -49,8 +49,8 @@ export function WinOverlay({
 
           <View style={styles.stats}>
             <Stat label="Time" value={formatDuration(seconds)} accent={puzzle.accent} />
-            <Stat label="Clues" value={`${puzzle.clues.length}`} accent={puzzle.accent} />
-            <Stat label="Hints" value={`${hintsUsed}`} accent={puzzle.accent} />
+            <Stat label="Clues" value={`${puzzle.clues.length}`} accent={puzzle.accent} joined />
+            <Stat label="Hints" value={`${hintsUsed}`} accent={puzzle.accent} joined />
           </View>
 
           {improvement ? (
@@ -105,9 +105,20 @@ export function WinOverlay({
   );
 }
 
-function Stat({ label, value, accent }: { label: string; value: string; accent: string }) {
+function Stat({
+  label,
+  value,
+  accent,
+  joined,
+}: {
+  label: string;
+  value: string;
+  accent: string;
+  /** Sit flush against the block before it. */
+  joined?: boolean;
+}) {
   return (
-    <View style={[styles.stat, { backgroundColor: tint(accent, 0.1) }]}>
+    <View style={[styles.stat, joined && styles.statJoined, { backgroundColor: tint(accent, 0.1) }]}>
       <Text style={[styles.statValue, { color: accent }]}>{value}</Text>
       <Text style={styles.statLabel}>{label}</Text>
     </View>
@@ -169,7 +180,6 @@ const styles = StyleSheet.create({
   },
   stats: {
     flexDirection: 'row',
-    gap: space(2),
     marginTop: space(5),
     width: '100%',
   },
@@ -201,6 +211,10 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: space(1),
     paddingHorizontal: space(2),
+  },
+  statJoined: {
+    borderLeftWidth: border,
+    borderLeftColor: palette.surface,
   },
   stat: {
     flex: 1,
