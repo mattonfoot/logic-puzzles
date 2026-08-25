@@ -337,7 +337,10 @@ const styles = StyleSheet.create({
     color: palette.inkSoft,
   },
   crossAuto: {
+    // Lighter than a cross the player made, but only just faint enough to tell
+    // them apart — the board's squares are tinted, so it cannot fade as far as
+    // it could against white.
     color: palette.inkFaint,
-    opacity: 0.65,
+    opacity: 0.85,
   },
 });

@@ -3,16 +3,17 @@ import { Platform } from 'react-native';
 export const palette = {
   /** Used by the setup and statistics screens, which have no theme of their own. */
   accent: '#4C6FFF',
-  bg: '#F1EDE2',
+  bg: '#F6F3EC',
   surface: '#FFFFFF',
   surfaceAlt: '#FBF9F3',
   /**
-   * The two squares of the board's checkerboard. Both sit lighter than the
-   * page, so the grid reads as paper laid on the page, and far enough apart to
-   * be told from one another at a glance.
+   * The two squares of the board's checkerboard. Both sit a little deeper than
+   * the page — a grid printed on the paper rather than laid on top of it — and
+   * far enough apart to be told from one another at a glance. Near-white
+   * squares were tried and shimmered against the page; these are calm.
    */
-  boardLight: '#FFFFFF',
-  boardShade: '#F9F7F0',
+  boardLight: '#F1EEE4',
+  boardShade: '#E7E1D4',
   ink: '#1D2333',
   inkSoft: '#5C6379',
   inkFaint: '#98A0B3',
