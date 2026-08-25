@@ -175,8 +175,11 @@ Nothing in the app is rounded and no bordered thing has a gap beside it: the
 `radius` scale in `src/ui/theme.ts` is zero throughout, and bordered neighbours
 carry `joinLeft` / `joinTop`, a one-pixel negative margin that makes the two
 share a single edge rather than each drawing its own. Grid blocks, stat tiles,
-menu rows and the toolbar buttons all sit flush, so a row of them reads as one
-ruled table the way a printed puzzle page does. The two rows that mark a
+menu rows and the toolbar buttons all sit flush, so a group of them reads as one
+ruled table the way a printed puzzle page does — but that is for things that
+belong together, not for whole sections: the statistics cards keep their spacing
+so each reads as its own panel, and the six stat tiles are one flush table
+inside that spacing rather than another card in the stack. The two rows that mark a
 *chosen* item — the grid sizes on the home screen and the size filter on the
 statistics screen — keep a gap instead: the chosen one draws its border in the
 accent, and a neighbour sharing that edge paints over it, leaving the selection

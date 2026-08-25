@@ -80,7 +80,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
         ) : null}
 
         {stats.solved > 0 ? (
-          <>
+          <View>
             <View style={styles.tileRow}>
               <Tile label="Solved" value={`${stats.solved}`} />
               <Tile label="Time played" value={formatSpan(stats.totalSeconds)} joined />
@@ -96,11 +96,11 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
               <Tile label="Hints used" value={`${stats.hintsUsed}`} joined />
               <Tile label="Themes" value={`${stats.themesPlayed}/${THEMES.length}`} joined />
             </View>
-          </>
+          </View>
         ) : null}
 
         {played.length > 0 ? (
-          <View style={[styles.card, joinTop, shadow.card]}>
+          <View style={[styles.card, shadow.card]}>
             <Text style={styles.cardTitle}>By grid size</Text>
             <View style={styles.sizeTable}>
               <View style={styles.sizeHeaderRow}>
@@ -128,7 +128,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
         ) : null}
 
         {selected ? (
-          <View style={[styles.card, joinTop, shadow.card]}>
+          <View style={[styles.card, shadow.card]}>
             <Text style={styles.cardTitle}>Are you getting faster?</Text>
             <Text style={styles.cardSubtitle}>Recent solve times, one column per puzzle</Text>
 
@@ -176,7 +176,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
         ) : null}
 
         {history.length > 0 ? (
-          <View style={[styles.card, joinTop, shadow.card]}>
+          <View style={[styles.card, shadow.card]}>
             <Text style={styles.cardTitle}>Recent games</Text>
             {stats.recent.map((game) => (
               <View key={`${game.seed}-${game.finishedAt}`} style={styles.gameRow}>
@@ -326,6 +326,7 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: space(4),
     paddingTop: space(2),
+    gap: space(3),
   },
   card: {
     backgroundColor: palette.surface,
