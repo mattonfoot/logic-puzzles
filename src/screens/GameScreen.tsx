@@ -12,7 +12,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ClueList } from '../components/ClueList';
 import { fitCellSize, GridBoard, MAX_CELL } from '../components/GridBoard';
-import { WinOverlay } from '../components/WinOverlay';
+import { SolvedPanel } from '../components/SolvedPanel';
 import {
   findHint,
   findMistakes,
@@ -38,7 +38,7 @@ import { joinLeft, palette, radius, space, tint } from '../ui/theme';
 /** How much each press of the zoom buttons adds or takes away. */
 const ZOOM_STEP = 8;
 
-type Tab = 'grid' | 'clues';
+type Tab = 'grid' | 'clues' | 'result';
 
 interface Props {
   puzzle: Puzzle;
@@ -135,7 +135,10 @@ export function GameScreen({
   finished.current = solved;
 
   useEffect(() => {
-    if (solved) haptics.success();
+    if (!solved) return;
+    haptics.success();
+    // The finish is the news, so show it — the grid stays a tab away.
+    setTab('result');
   }, [solved]);
 
   // Record the finish once, and ask how it compares with earlier games.
@@ -183,6 +186,12 @@ export function GameScreen({
 
   const toggleCell = useCallback(
     (cell: Cell) => {
+      // A finished board is read-only: a stray tap would undo the win, restart
+      // the clock and have the game counted twice.
+      if (finished.current) {
+        flash('This puzzle is finished — Restart to play it again.');
+        return;
+      }
       haptics.tap();
       setMistakes(new Set());
       // The cycle follows what the square shows, so an automatic cross behaves
@@ -195,7 +204,7 @@ export function GameScreen({
         }),
       );
     },
-    [autoEliminate, puzzle.size.items],
+    [autoEliminate, flash, puzzle.size.items],
   );
 
   const check = useCallback(() => {
@@ -316,6 +325,14 @@ export function GameScreen({
           selected={tab === 'clues'}
           onPress={() => setTab('clues')}
         />
+        {solved ? (
+          <TabButton
+            label={revealed ? 'Revealed' : 'Solved'}
+            accent={puzzle.accent}
+            selected={tab === 'result'}
+            onPress={() => setTab('result')}
+          />
+        ) : null}
       </View>
 
       <View style={styles.tabBody}>
@@ -361,7 +378,11 @@ export function GameScreen({
             </View>
 
             {focusedClue === null ? (
-              <Text style={styles.cardHint}>Tap a square to cycle blank → ✕ → ✓</Text>
+              <Text style={styles.cardHint}>
+                {solved
+                  ? 'The finished board · Restart to play this puzzle again'
+                  : 'Tap a square to cycle blank → ✕ → ✓'}
+              </Text>
             ) : (
               <Pressable
                 accessibilityRole="button"
@@ -376,7 +397,7 @@ export function GameScreen({
               </Pressable>
             )}
           </View>
-        ) : (
+        ) : tab === 'clues' ? (
           <View style={styles.fill}>
             <Text style={styles.cardTitle}>Clues</Text>
             <Text style={styles.cardSubtitle}>
@@ -395,6 +416,17 @@ export function GameScreen({
               />
             </ScrollView>
           </View>
+        ) : (
+          <SolvedPanel
+            title={revealed ? 'Revealed' : 'Solved!'}
+            puzzle={puzzle}
+            seconds={seconds}
+            hintsUsed={hintsUsed}
+            improvement={improvement}
+            onPlayAgain={onNewPuzzle}
+            onChangeSetup={onExit}
+            onOpenStats={onOpenStats}
+          />
         )}
       </View>
 
@@ -403,26 +435,29 @@ export function GameScreen({
           {status ?? ''}
         </Text>
 
-        <View style={styles.toolbar}>
-          <ToolButton label="Check" icon="✓" accent={puzzle.accent} onPress={check} />
-          <ToolButton label="Hint" icon="💡" joined accent={puzzle.accent} onPress={hint} />
-          <ToolButton
-            label={autoEliminate ? 'Auto ✕ on' : 'Auto ✕ off'}
-            icon="⚡"
-            joined
-            accent={autoEliminate ? puzzle.accent : palette.inkFaint}
-            onPress={() => {
-              haptics.select();
-              setAutoEliminate((value) => {
-                const next = !value;
-                setMarks((current) =>
-                  reconcile(current, { size: puzzle.size.items, autoEliminate: next }),
-                );
-                return next;
-              });
-            }}
-          />
-        </View>
+        {/* Nothing on a finished board is left to check, hint at or eliminate. */}
+        {solved ? null : (
+          <View style={styles.toolbar}>
+            <ToolButton label="Check" icon="✓" accent={puzzle.accent} onPress={check} />
+            <ToolButton label="Hint" icon="💡" joined accent={puzzle.accent} onPress={hint} />
+            <ToolButton
+              label={autoEliminate ? 'Auto ✕ on' : 'Auto ✕ off'}
+              icon="⚡"
+              joined
+              accent={autoEliminate ? puzzle.accent : palette.inkFaint}
+              onPress={() => {
+                haptics.select();
+                setAutoEliminate((value) => {
+                  const next = !value;
+                  setMarks((current) =>
+                    reconcile(current, { size: puzzle.size.items, autoEliminate: next }),
+                  );
+                  return next;
+                });
+              }}
+            />
+          </View>
+        )}
 
         <View style={styles.footerLinks}>
           <Pressable accessibilityRole="button" onPress={restart} hitSlop={8}>
@@ -432,24 +467,17 @@ export function GameScreen({
           <Pressable accessibilityRole="button" onPress={onNewPuzzle} hitSlop={8}>
             <Text style={styles.link}>New puzzle</Text>
           </Pressable>
-          <Text style={styles.linkDivider}>·</Text>
-          <Pressable accessibilityRole="button" onPress={reveal} hitSlop={8}>
-            <Text style={[styles.link, styles.linkMuted]}>Reveal solution</Text>
-          </Pressable>
+          {solved ? null : (
+            <>
+              <Text style={styles.linkDivider}>·</Text>
+              <Pressable accessibilityRole="button" onPress={reveal} hitSlop={8}>
+                <Text style={[styles.link, styles.linkMuted]}>Reveal solution</Text>
+              </Pressable>
+            </>
+          )}
         </View>
       </View>
 
-      <WinOverlay
-        visible={solved}
-        title={revealed ? 'Revealed' : 'Solved!'}
-        puzzle={puzzle}
-        seconds={seconds}
-        hintsUsed={hintsUsed}
-        improvement={improvement}
-        onPlayAgain={onNewPuzzle}
-        onChangeSetup={onExit}
-        onOpenStats={onOpenStats}
-      />
     </View>
   );
 }

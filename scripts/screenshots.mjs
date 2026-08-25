@@ -177,11 +177,16 @@ async function main() {
   await wait(page, 600);
   await shot('04-clue-focus');
 
-  // 5. Finished, with the answer table.
+  // 5. Finished: the result fills the screen, on a tab of its own.
   await solveWithHints(page);
   await shot('05-solved');
 
-  // 6. Statistics, shown with a sample history.
+  // 6. The finished board, one tap away from the result.
+  await page.getByRole('tab', { name: 'Grid' }).click();
+  await wait(page, 500);
+  await shot('06-solved-grid');
+
+  // 7. Statistics, shown with a sample history.
   await page.goto(origin, { waitUntil: 'networkidle' });
   await page.evaluate((history) => {
     localStorage.clear();
@@ -191,9 +196,9 @@ async function main() {
   await wait(page, 1000);
   await page.getByText('Statistics').first().click();
   await wait(page, 800);
-  await shot('06-statistics', { fullPage: true });
+  await shot('07-statistics', { fullPage: true });
 
-  // 7. Home again, with a game waiting to be resumed.
+  // 8. Home again, with a game waiting to be resumed.
   await page.getByLabel('Back').click();
   await wait(page, 500);
   await startPuzzle(page);
@@ -202,7 +207,7 @@ async function main() {
   await wait(page, 1000);
   await page.getByLabel('Back to setup').click();
   await wait(page, 700);
-  await shot('07-resume');
+  await shot('08-resume');
 
   await browser.close();
   server.close();

@@ -43,8 +43,8 @@ images in the same commit.
 | | | |
 |---|---|---|
 | <img src="docs/screenshots/01-setup.png" width="230" alt="Setup screen"><br>**1. Setup** — the grid size is the only choice; the theme is drawn on start. | <img src="docs/screenshots/02-board.png" width="230" alt="Grid tab"><br>**2. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the tab. | <img src="docs/screenshots/03-clues.png" width="230" alt="Clues tab"><br>**3. Clues** — the clue list on its own tab, with the count still to be used. |
-| <img src="docs/screenshots/04-clue-focus.png" width="230" alt="Grid with a clue focused"><br>**4. Clue focus** — holding a clue lights up its rows and columns and brings you back to the grid. | <img src="docs/screenshots/05-solved.png" width="230" alt="Solved overlay"><br>**5. Solved** — time, hints, how it compares with earlier games, and the answer table. | <img src="docs/screenshots/06-statistics.png" width="230" alt="Statistics screen"><br>**6. Statistics** — totals, per-size bests and the trend of recent solve times. |
-| <img src="docs/screenshots/07-resume.png" width="230" alt="Setup screen with a saved game"><br>**7. Resume** — the setup screen offering the game that was left in progress. | | |
+| <img src="docs/screenshots/04-clue-focus.png" width="230" alt="Grid with a clue focused"><br>**4. Clue focus** — holding a clue lights up its rows and columns and brings you back to the grid. | <img src="docs/screenshots/05-solved.png" width="230" alt="Solved tab"><br>**5. Solved** — the finish fills the screen on a tab of its own: time, hints, how it compares, the answer table. | <img src="docs/screenshots/06-solved-grid.png" width="230" alt="The finished board"><br>**6. Finished board** — the grid tab after the win, one tap from the result. |
+| <img src="docs/screenshots/07-statistics.png" width="230" alt="Statistics screen"><br>**7. Statistics** — totals, per-size bests and the trend of recent solve times. | <img src="docs/screenshots/08-resume.png" width="230" alt="Setup screen with a saved game"><br>**8. Resume** — the setup screen offering the game that was left in progress. | |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -76,9 +76,13 @@ rest is the app behaving normally.
 4. **Check** highlights any mark that contradicts the solution, **Hint** places
    one true pairing for you, **Restart** wipes the board and the clock without
    changing the puzzle, and the timer stops when the last square is right.
-   Finishing shows **the answer as a table**: one row per person, one column per
-   set, so the whole solution reads across in a line. The first set stays pinned
-   while the others scroll sideways, which keeps every heading on one line.
+   Finishing opens a third tab, **Solved**, which fills the screen with the
+   clock, how the game compares with your earlier ones, and **the answer as a
+   table**: one row per person, one column per set, so the whole solution reads
+   across in a line. The first set stays pinned while the others scroll
+   sideways, which keeps every heading on one line. The grid and the clues stay
+   where they were, so the finished board is one tap away — though it is
+   read-only from then on, since changing it would undo the win.
 5. **Come back later** — the board saves itself as you play, so closing the app
    mid-puzzle costs nothing. The home screen offers to resume it, with the clock
    picking up where it left off and the same puzzle in front of you.
@@ -107,7 +111,7 @@ src/game/time.ts            duration formatting
 src/game/useTimer.ts        elapsed-time hook
 src/stats/summary.ts        history → per-size stats, streaks, improvement notes
 src/storage/store.ts        the only module that touches AsyncStorage
-src/components/             GridBoard, SolutionTable, ClueList, WinOverlay, …
+src/components/             GridBoard, SolutionTable, ClueList, SolvedPanel, …
 src/screens/                HomeScreen, GameScreen, StatsScreen
 src/ui/                     palette, spacing, borders, haptics helpers
 ```
@@ -155,6 +159,13 @@ from the window — and picks the largest cell whose whole staircase fits it. Th
 zoom buttons go up from there, and only a board zoomed past its fit scrolls, in
 whichever direction it outgrew. The clue list scrolls inside its own tab when a
 puzzle carries more clues than a screen holds.
+
+Winning adds a third tab rather than covering the board: `SolvedPanel` fills the
+tab body with the result, the tab bar grows a **Solved** tab, and the win
+selects it. Everything the finish made pointless goes with it — the Check, Hint
+and Auto ✕ buttons and the "Reveal solution" link are all hidden — and the board
+becomes read-only, because a stray tap on a finished grid would undo the win,
+restart the clock and have the game counted a second time.
 
 In `src/game/board.ts` every square records who marked it. A tap by the player
 is a `hand` mark; a cross the board adds because a tick rules out the rest of
