@@ -33,7 +33,7 @@ import { clueAttributes, describeClue } from '../puzzle/describe';
 import type { Attribute, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { haptics } from '../ui/haptics';
-import { joinLeft, palette, radius, shadow, space, tint } from '../ui/theme';
+import { joinLeft, palette, radius, space, tint } from '../ui/theme';
 
 /** How much each press of the zoom buttons adds or takes away. */
 const ZOOM_STEP = 8;
@@ -320,7 +320,7 @@ export function GameScreen({
 
       <View style={styles.tabBody}>
         {tab === 'grid' ? (
-          <View style={[styles.card, styles.fill, shadow.card]}>
+          <View style={styles.fill}>
             <View style={styles.boardHeader}>
               <Text style={styles.cardTitle}>
                 {puzzle.categories.length} sets · {gridsShown} grids
@@ -377,7 +377,7 @@ export function GameScreen({
             )}
           </View>
         ) : (
-          <View style={[styles.card, styles.fill, shadow.card]}>
+          <View style={styles.fill}>
             <Text style={styles.cardTitle}>Clues</Text>
             <Text style={styles.cardSubtitle}>
               Tap to cross one off · hold to light it up on the grid
@@ -688,13 +688,6 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: '700',
     marginTop: -2,
-  },
-  card: {
-    backgroundColor: palette.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: palette.line,
-    padding: space(3),
   },
   cardTitle: {
     fontSize: 16,
