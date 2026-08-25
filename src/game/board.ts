@@ -69,7 +69,7 @@ export function categoryPairs(categoryCount: number): [number, number][] {
   return pairs;
 }
 
-interface MarkOptions {
+export interface MarkOptions {
   size: number;
   /** Whether a tick crosses out the rest of its row and column. */
   autoEliminate?: boolean;
@@ -158,6 +158,27 @@ export function findMistakes(marks: Marks, puzzle: Puzzle): string[] {
     }
   }
   return mistakes;
+}
+
+/**
+ * Whether the answer is still within reach of what is marked.
+ *
+ * A puzzle has exactly one solution, so a single mark that contradicts it puts
+ * the board past saving: no amount of further marking makes it right again, and
+ * the player has to take something back.
+ */
+export function isSolvable(marks: Marks, puzzle: Puzzle): boolean {
+  return findMistakes(marks, puzzle).length === 0;
+}
+
+/** The board with every contradicting mark taken off, and nothing else lost. */
+export function clearMistakes(marks: Marks, puzzle: Puzzle, options: MarkOptions): Marks {
+  const wrong = new Set(findMistakes(marks, puzzle));
+  const kept: Marks = {};
+  for (const [key, entry] of Object.entries(marks)) {
+    if (!wrong.has(key)) kept[key] = entry;
+  }
+  return reconcile(kept, options);
 }
 
 /** Every true pairing is ticked and nothing false is. */

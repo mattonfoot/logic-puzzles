@@ -5,11 +5,14 @@ import {
   byHand,
   categoryPairs,
   cellFromKey,
+  clearMistakes,
   findHint,
   findMistakes,
   getEntry,
   getMark,
+  isSolvable,
   isSolved,
+  correctItem,
   markKey,
   nextMark,
   progress,
@@ -138,6 +141,41 @@ describe('reconcile', () => {
     const own = { c1: 0, i1: 1, c2: 1, i2: 0 };
     const marks = setMark(setMark({}, tick, 'yes', options), own, 'no', options);
     expect(getEntry(reconcile(marks, options), own)).toEqual(byHand('no'));
+  });
+});
+
+describe('whether the answer is still reachable', () => {
+  const right = { c1: 0, i1: 0, c2: 1, i2: correctItem(puzzle, 0, 0, 1) };
+  const wrong = { c1: 0, i1: 0, c2: 1, i2: (correctItem(puzzle, 0, 0, 1) + 1) % size };
+
+  it('holds while every mark agrees with the answer', () => {
+    expect(isSolvable({}, puzzle)).toBe(true);
+    expect(isSolvable(setMark({}, right, 'yes', options), puzzle)).toBe(true);
+    expect(isSolvable(solvedMarks(puzzle), puzzle)).toBe(true);
+  });
+
+  it('fails on a tick the answer contradicts', () => {
+    expect(isSolvable(setMark({}, wrong, 'yes', options), puzzle)).toBe(false);
+  });
+
+  it('fails on a cross over a pairing that is true', () => {
+    expect(isSolvable(setMark({}, right, 'no', options), puzzle)).toBe(false);
+  });
+
+  it('takes the contradicting marks off and leaves the rest', () => {
+    const other = { c1: 0, i1: 1, c2: 2, i2: correctItem(puzzle, 0, 1, 2) };
+    const board = setMark(setMark({}, other, 'yes', options), wrong, 'yes', options);
+    expect(isSolvable(board, puzzle)).toBe(false);
+
+    const cleaned = clearMistakes(board, puzzle, options);
+    expect(isSolvable(cleaned, puzzle)).toBe(true);
+    expect(getMark(cleaned, other)).toBe('yes');
+    expect(getMark(cleaned, wrong)).toBeUndefined();
+  });
+
+  it('leaves a board that was already fine alone', () => {
+    const board = setMark({}, right, 'yes', options);
+    expect(clearMistakes(board, puzzle, options)).toEqual(board);
   });
 });
 

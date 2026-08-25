@@ -14,9 +14,11 @@ import { ClueList } from '../components/ClueList';
 import { fitCellSize, GridBoard, MAX_CELL } from '../components/GridBoard';
 import { SolvedPanel } from '../components/SolvedPanel';
 import {
+  clearMistakes,
   findHint,
   findMistakes,
   getMark,
+  isSolvable,
   isSolved,
   nextMark,
   progress,
@@ -33,10 +35,12 @@ import { clueAttributes, describeClue } from '../puzzle/describe';
 import type { Attribute, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { haptics } from '../ui/haptics';
-import { joinLeft, palette, radius, space, tint } from '../ui/theme';
+import { border, joinLeft, palette, radius, space, tint } from '../ui/theme';
 
 /** How much each press of the zoom buttons adds or takes away. */
 const ZOOM_STEP = 8;
+/** How many moves back the undo button can reach. */
+const UNDO_LIMIT = 200;
 
 type Tab = 'grid' | 'clues' | 'result';
 
@@ -81,6 +85,11 @@ export function GameScreen({
     () => new Set(resumed?.crossedOut ?? []),
   );
   const [mistakes, setMistakes] = useState<Set<string>>(new Set());
+  // Every board the player has moved on from, newest last, so a move can be
+  // taken back. It lives for the session only — a resumed game starts fresh.
+  const [history, setHistory] = useState<Marks[]>([]);
+  // Set when a hint finds the board past saving; cleared as soon as it is not.
+  const [flagged, setFlagged] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [autoEliminate, setAutoEliminate] = useState(true);
   const [hintsUsed, setHintsUsed] = useState(() => resumed?.hintsUsed ?? 0);
@@ -89,6 +98,8 @@ export function GameScreen({
   const statusTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const solved = useMemo(() => isSolved(marks, puzzle), [marks, puzzle]);
+  const wrong = useMemo(() => findMistakes(marks, puzzle), [marks, puzzle]);
+  const stuck = flagged && wrong.length > 0;
   const filled = useMemo(() => progress(marks, puzzle), [marks, puzzle]);
   const seconds = useTimer(
     !solved,
@@ -187,6 +198,17 @@ export function GameScreen({
     statusTimer.current = setTimeout(() => setStatus(null), 2600);
   }, []);
 
+  /** Records a move so it can be taken back, then makes it. */
+  const move = useCallback((change: (current: Marks) => Marks) => {
+    setMistakes(new Set());
+    setMarks((current) => {
+      const next = change(current);
+      if (next === current) return current;
+      setHistory((past) => [...past.slice(-(UNDO_LIMIT - 1)), current]);
+      return next;
+    });
+  }, []);
+
   const toggleCell = useCallback(
     (cell: Cell) => {
       // A finished board is read-only: a stray tap would undo the win, restart
@@ -196,35 +218,80 @@ export function GameScreen({
         return;
       }
       haptics.tap();
-      setMistakes(new Set());
       // The cycle follows what the square shows, so an automatic cross behaves
       // like any other: blank → ✕ → ✓ → blank. Whatever it lands on is the
       // player's own mark from then on.
-      setMarks((current) =>
+      move((current) =>
         setMark(current, cell, nextMark(getMark(current, cell)), {
           size: puzzle.size.items,
           autoEliminate,
         }),
       );
     },
-    [autoEliminate, flash, puzzle.size.items],
+    [autoEliminate, flash, move, puzzle.size.items],
   );
 
-  const check = useCallback(() => {
-    const found = findMistakes(marks, puzzle);
-    setMistakes(new Set(found));
-    if (found.length === 0) {
-      haptics.tap();
-      flash('Everything you have marked so far is right.');
-    } else {
+  const undo = useCallback(() => {
+    if (history.length === 0) {
+      flash('Nothing to undo.');
+      return;
+    }
+    haptics.select();
+    setMistakes(new Set());
+    setHistory((past) => past.slice(0, -1));
+    // Reconciled on the way back in, so a board recorded while Auto ✕ was on
+    // comes back the way the setting stands now.
+    setMarks(reconcile(history[history.length - 1], { size: puzzle.size.items, autoEliminate }));
+  }, [autoEliminate, flash, history, puzzle.size.items]);
+
+  /** Takes moves back until the answer is within reach again. */
+  const rewind = useCallback(() => {
+    haptics.select();
+    const options = { size: puzzle.size.items, autoEliminate };
+    let past = history;
+    let board: Marks | null = null;
+    let steps = 0;
+
+    while (past.length > 0) {
+      const candidate = reconcile(past[past.length - 1], options);
+      past = past.slice(0, -1);
+      steps++;
+      if (isSolvable(candidate, puzzle)) {
+        board = candidate;
+        break;
+      }
+    }
+
+    setHistory(past);
+    setMistakes(new Set());
+    if (board) {
+      setMarks(board);
+      flash(`Rewound ${steps} move${steps === 1 ? '' : 's'} to a board that can still be solved.`);
+      return;
+    }
+    // Nothing recorded is clean — a resumed board can start out wrong, and its
+    // history begins where the player picked it up. Take the bad marks off.
+    setMarks((current) => clearMistakes(current, puzzle, options));
+    flash('Took off the marks that cannot be right.');
+  }, [autoEliminate, flash, history, puzzle]);
+
+  /**
+   * Checks the board before it helps: a hint on top of a mark that contradicts
+   * the answer would be advice towards a solution the player can no longer
+   * reach, so say so instead and offer to wind it back.
+   */
+  const hint = useCallback(() => {
+    if (wrong.length > 0) {
       haptics.warn();
+      setMistakes(new Set(wrong));
+      setFlagged(true);
       // The marks are on the board, so that is where the answer is.
       setTab('grid');
-      flash(`${found.length} mark${found.length === 1 ? '' : 's'} contradict the clues.`);
+      flash('A hint cannot help from here — the answer is out of reach.');
+      return;
     }
-  }, [flash, marks, puzzle]);
+    setFlagged(false);
 
-  const hint = useCallback(() => {
     const cell = findHint(marks, puzzle, (max) => Math.floor(Math.random() * max));
     if (!cell) {
       flash('Nothing left to reveal.');
@@ -233,19 +300,19 @@ export function GameScreen({
     haptics.select();
     setHintsUsed((count) => count + 1);
     setTab('grid');
-    setMarks((current) =>
-      setMark(current, cell, 'yes', { size: puzzle.size.items, autoEliminate }),
-    );
+    move((current) => setMark(current, cell, 'yes', { size: puzzle.size.items, autoEliminate }));
     flash(
       `Hint: ${puzzle.categories[cell.c1].items[cell.i1].label} goes with ${puzzle.categories[cell.c2].items[cell.i2].label}.`,
     );
-  }, [autoEliminate, flash, marks, puzzle]);
+  }, [autoEliminate, flash, marks, move, puzzle, wrong]);
 
   const restart = useCallback(() => {
     haptics.select();
     setAttempt((count) => count + 1);
     setMarks({});
+    setHistory([]);
     setMistakes(new Set());
+    setFlagged(false);
     setCrossedOut(new Set());
     setFocusedClue(null);
     setHintsUsed(0);
@@ -257,9 +324,9 @@ export function GameScreen({
   const reveal = useCallback(() => {
     haptics.warn();
     setRevealed(true);
-    setMistakes(new Set());
-    setMarks(solvedMarks(puzzle));
-  }, [puzzle]);
+    setFlagged(false);
+    move(() => solvedMarks(puzzle));
+  }, [move, puzzle]);
 
   const toggleClue = useCallback((index: number) => {
     setCrossedOut((current) => {
@@ -438,10 +505,30 @@ export function GameScreen({
           {status ?? ''}
         </Text>
 
-        {/* Nothing on a finished board is left to check, hint at or eliminate. */}
+        {stuck ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Rewind to a board that can still be solved"
+            onPress={rewind}
+            style={({ pressed }) => [styles.rewind, { opacity: pressed ? 0.8 : 1 }]}
+          >
+            <Text style={styles.rewindText}>
+              {wrong.length} mark{wrong.length === 1 ? '' : 's'} cannot be right
+            </Text>
+            <Text style={styles.rewindAction}>↶ Rewind</Text>
+          </Pressable>
+        ) : null}
+
+        {/* Nothing on a finished board is left to undo, hint at or eliminate. */}
         {solved ? null : (
           <View style={styles.toolbar}>
-            <ToolButton label="Check" icon="✓" accent={puzzle.accent} onPress={check} />
+            <ToolButton
+              label="Undo"
+              icon="↶"
+              accent={puzzle.accent}
+              disabled={history.length === 0}
+              onPress={undo}
+            />
             <ToolButton label="Hint" icon="💡" joined accent={puzzle.accent} onPress={hint} />
             <ToolButton
               label={autoEliminate ? 'Auto ✕ on' : 'Auto ✕ off'}
@@ -567,6 +654,7 @@ function ToolButton({
   icon,
   accent,
   joined,
+  disabled = false,
   onPress,
 }: {
   label: string;
@@ -574,17 +662,23 @@ function ToolButton({
   accent: string;
   /** Share the left-hand edge with the button before it. */
   joined?: boolean;
+  disabled?: boolean;
   onPress: () => void;
 }) {
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
+      accessibilityState={{ disabled }}
+      disabled={disabled}
       onPress={onPress}
       style={({ pressed }) => [
         styles.tool,
         joined && joinLeft,
-        { borderColor: tint(accent, 0.4), opacity: pressed ? 0.75 : 1 },
+        {
+          borderColor: tint(accent, 0.4),
+          opacity: disabled ? 0.4 : pressed ? 0.75 : 1,
+        },
       ]}
     >
       <Text style={styles.toolIcon}>{icon}</Text>
@@ -761,6 +855,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: space(4),
     paddingTop: space(2),
     gap: space(2),
+  },
+  rewind: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: space(3),
+    paddingVertical: space(2.5),
+    paddingHorizontal: space(3),
+    borderWidth: border,
+    borderColor: palette.danger,
+    backgroundColor: tint(palette.danger, 0.08),
+  },
+  rewindText: {
+    flex: 1,
+    fontSize: 13,
+    fontWeight: '600',
+    color: palette.danger,
+  },
+  rewindAction: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: palette.danger,
   },
   toolbar: {
     flexDirection: 'row',

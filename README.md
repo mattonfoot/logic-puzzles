@@ -55,8 +55,8 @@ images in the same commit.
 | | | |
 |---|---|---|
 | <img src="docs/screenshots/01-setup.png" width="230" alt="Setup screen"><br>**1. Setup** — the grid size is the only choice; the theme is drawn on start. | <img src="docs/screenshots/02-board.png" width="230" alt="Grid tab"><br>**2. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the tab. | <img src="docs/screenshots/03-clues.png" width="230" alt="Clues tab"><br>**3. Clues** — the clue list on its own tab, with the count still to be used. |
-| <img src="docs/screenshots/04-clue-focus.png" width="230" alt="Grid with a clue focused"><br>**4. Clue focus** — holding a clue lights up its rows and columns and brings you back to the grid. | <img src="docs/screenshots/05-solved.png" width="230" alt="Solved tab"><br>**5. Solved** — the finish fills the screen on a tab of its own: time, hints, how it compares, the answer table. | <img src="docs/screenshots/06-solved-grid.png" width="230" alt="The finished board"><br>**6. Finished board** — the grid tab after the win, one tap from the result. |
-| <img src="docs/screenshots/07-statistics.png" width="230" alt="Statistics screen"><br>**7. Statistics** — totals, per-size bests and the trend of recent solve times. | <img src="docs/screenshots/08-resume.png" width="230" alt="Setup screen with a saved game"><br>**8. Resume** — the setup screen offering the game that was left in progress. | |
+| <img src="docs/screenshots/04-clue-focus.png" width="230" alt="Grid with a clue focused"><br>**4. Clue focus** — holding a clue lights up its rows and columns and brings you back to the grid. | <img src="docs/screenshots/05-stuck.png" width="230" alt="A board that can no longer be solved"><br>**5. Out of reach** — a hint checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/06-solved.png" width="230" alt="Solved tab"><br>**6. Solved** — the finish fills the screen on a tab of its own: time, hints, how it compares, the answer table. |
+| <img src="docs/screenshots/07-solved-grid.png" width="230" alt="The finished board"><br>**7. Finished board** — the grid tab after the win, one tap from the result. | <img src="docs/screenshots/08-statistics.png" width="230" alt="Statistics screen"><br>**8. Statistics** — totals, per-size bests and the trend of recent solve times. | <img src="docs/screenshots/09-resume.png" width="230" alt="Setup screen with a saved game"><br>**9. Resume** — the setup screen offering the game that was left in progress. |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -85,8 +85,13 @@ rest is the app behaving normally.
    itself. Tap a clue to cross it off once you have used it, or press and hold
    it to light up every row and column it talks about: that takes you to the
    grid, with the clue named in a strip beneath the board until you dismiss it.
-4. **Check** highlights any mark that contradicts the solution, **Hint** places
-   one true pairing for you, **Restart** wipes the board and the clock without
+4. **Undo** takes back one mark at a time, autos and all. **Hint** looks at the
+   board before it helps: a puzzle has one answer, so a single mark that
+   contradicts it puts the answer out of reach, and a hint towards a solution
+   you can no longer get to would be worse than none. When that has happened it
+   says so, marks the squares that cannot be right, and offers **Rewind**, which
+   takes moves back until the board can be solved again. Otherwise it places one
+   true pairing, as before. **Restart** wipes the board and the clock without
    changing the puzzle, and the timer stops when the last square is right.
    Finishing opens a third tab, **Solved**, which fills the screen with the
    clock, how the game compares with your earlier ones, and **the answer as a
@@ -173,9 +178,17 @@ zoom buttons go up from there, and only a board zoomed past its fit scrolls, in
 whichever direction it outgrew. The clue list scrolls inside its own tab when a
 puzzle carries more clues than a screen holds.
 
+`isSolvable` is `findMistakes` read the other way round: a puzzle has exactly
+one answer, so a mark the answer contradicts is a mark nothing later can put
+right. That is what Hint tests before helping and what Rewind pops the undo
+stack towards; `clearMistakes` is the fallback for a board whose history has run
+out — a resumed game starts with an empty stack, so its undo history begins
+where the player picked it up. The stack itself is session-only and holds the
+last 200 boards.
+
 Winning adds a third tab rather than covering the board: `SolvedPanel` fills the
 tab body with the result, the tab bar grows a **Solved** tab, and the win
-selects it. Everything the finish made pointless goes with it — the Check, Hint
+selects it. Everything the finish made pointless goes with it — the Undo, Hint
 and Auto ✕ buttons and the "Reveal solution" link are all hidden — and the board
 becomes read-only, because a stray tap on a finished grid would undo the win,
 restart the clock and have the game counted a second time.

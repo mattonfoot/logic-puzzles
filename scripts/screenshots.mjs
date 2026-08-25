@@ -177,16 +177,39 @@ async function main() {
   await wait(page, 600);
   await shot('04-clue-focus');
 
-  // 5. Finished: the result fills the screen, on a tab of its own.
-  await solveWithHints(page);
-  await shot('05-solved');
+  // 5. A board the answer can no longer be reached from, which is what a hint
+  // reports instead of helping. The script does not know the solution, so it
+  // ticks squares until a hint says the board is past saving.
+  await page.getByLabel('Stop lighting up this clue').click();
+  await wait(page, 300);
+  const cells = page.locator('[role="button"][aria-label*=" and "]');
+  const rewind = page.getByLabel(/^Rewind/);
+  for (let index = 0; index < 10 && (await rewind.count()) === 0; index++) {
+    const label = await cells.nth(index).getAttribute('aria-label');
+    if (!label.endsWith('unknown')) continue;
+    await cells.nth(index).click();
+    await wait(page, 80);
+    await cells.nth(index).click();
+    await wait(page, 120);
+    await page.getByText('Hint', { exact: true }).first().click();
+    await wait(page, 350);
+  }
+  await shot('05-stuck');
+  if (await rewind.count()) {
+    await rewind.click();
+    await wait(page, 400);
+  }
 
-  // 6. The finished board, one tap away from the result.
+  // 6. Finished: the result fills the screen, on a tab of its own.
+  await solveWithHints(page);
+  await shot('06-solved');
+
+  // 7. The finished board, one tap away from the result.
   await page.getByRole('tab', { name: 'Grid' }).click();
   await wait(page, 500);
-  await shot('06-solved-grid');
+  await shot('07-solved-grid');
 
-  // 7. Statistics, shown with a sample history.
+  // 8. Statistics, shown with a sample history.
   await page.goto(origin, { waitUntil: 'networkidle' });
   await page.evaluate((history) => {
     localStorage.clear();
@@ -196,9 +219,9 @@ async function main() {
   await wait(page, 1000);
   await page.getByText('Statistics').first().click();
   await wait(page, 800);
-  await shot('07-statistics', { fullPage: true });
+  await shot('08-statistics', { fullPage: true });
 
-  // 8. Home again, with a game waiting to be resumed.
+  // 9. Home again, with a game waiting to be resumed.
   await page.getByLabel('Back').click();
   await wait(page, 500);
   await startPuzzle(page);
@@ -207,7 +230,7 @@ async function main() {
   await wait(page, 1000);
   await page.getByLabel('Back to setup').click();
   await wait(page, 700);
-  await shot('08-resume');
+  await shot('09-resume');
 
   await browser.close();
   server.close();
