@@ -10,7 +10,7 @@ import { formatDuration, formatSpan } from '../game/time';
 import type { OverallStats, SizeStats } from '../stats/summary';
 import { haptics } from '../ui/haptics';
 import { Text } from '../ui/Text';
-import { chart, joinLeft, joinTop, palette, radius, shadow, space, tint } from '../ui/theme';
+import { chart, palette, radius, shadow, space, tint } from '../ui/theme';
 
 interface Props {
   stats: OverallStats;
@@ -80,21 +80,20 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
         ) : null}
 
         {stats.solved > 0 ? (
-          <View>
+          <View style={styles.tiles}>
             <View style={styles.tileRow}>
               <Tile label="Solved" value={`${stats.solved}`} />
-              <Tile label="Time played" value={formatSpan(stats.totalSeconds)} joined />
+              <Tile label="Time played" value={formatSpan(stats.totalSeconds)} />
               <Tile
                 label="Streak"
                 value={`${stats.currentStreak}d`}
                 hint={`best ${stats.longestStreak}d`}
-                joined
               />
             </View>
-            <View style={[styles.tileRow, joinTop]}>
+            <View style={styles.tileRow}>
               <Tile label="No-hint wins" value={`${stats.noHintSolves}`} />
-              <Tile label="Hints used" value={`${stats.hintsUsed}`} joined />
-              <Tile label="Themes" value={`${stats.themesPlayed}/${THEMES.length}`} joined />
+              <Tile label="Hints used" value={`${stats.hintsUsed}`} />
+              <Tile label="Themes" value={`${stats.themesPlayed}/${THEMES.length}`} />
             </View>
           </View>
         ) : null}
@@ -227,20 +226,9 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
   );
 }
 
-function Tile({
-  label,
-  value,
-  hint,
-  joined,
-}: {
-  label: string;
-  value: string;
-  hint?: string;
-  /** Share the left-hand edge with the tile before it. */
-  joined?: boolean;
-}) {
+function Tile({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
-    <View style={[styles.tile, joined && joinLeft, shadow.card]}>
+    <View style={[styles.tile, shadow.card]}>
       <Text style={styles.tileValue}>{value}</Text>
       <Text style={styles.tileLabel}>{label}</Text>
       {hint ? <Text style={styles.tileHint}>{hint}</Text> : null}
@@ -346,8 +334,12 @@ const styles = StyleSheet.create({
     marginTop: space(0.5),
     marginBottom: space(2),
   },
+  tiles: {
+    gap: space(3),
+  },
   tileRow: {
     flexDirection: 'row',
+    gap: space(3),
   },
   tile: {
     flex: 1,

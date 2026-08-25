@@ -171,19 +171,17 @@ waits on `useFonts` before drawing so the app never reflows from a system font
 to this one. Swapping typeface means changing the package, the five names in
 `App.tsx`, and the map in `Text.tsx`.
 
-Nothing in the app is rounded and no bordered thing has a gap beside it: the
-`radius` scale in `src/ui/theme.ts` is zero throughout, and bordered neighbours
-carry `joinLeft` / `joinTop`, a one-pixel negative margin that makes the two
-share a single edge rather than each drawing its own. Grid blocks, stat tiles,
-menu rows and the toolbar buttons all sit flush, so a group of them reads as one
-ruled table the way a printed puzzle page does — but that is for things that
-belong together, not for whole sections: the statistics cards keep their spacing
-so each reads as its own panel, and the six stat tiles are one flush table
-inside that spacing rather than another card in the stack. The two rows that mark a
-*chosen* item — the grid sizes on the home screen and the size filter on the
-statistics screen — keep a gap instead: the chosen one draws its border in the
-accent, and a neighbour sharing that edge paints over it, leaving the selection
-looking like it had lost a side.
+Nothing in the app is rounded: the `radius` scale in `src/ui/theme.ts` is zero
+throughout. Where bordered neighbours do sit flush they carry `joinLeft` /
+`joinTop`, a one-pixel negative margin that makes the two share a single edge
+rather than each drawing its own. Grid blocks, menu rows and
+the toolbar buttons sit flush, so a group of them reads as one ruled table the
+way a printed puzzle page does. That is for parts of one thing, though, not for
+things that are separately readable: the statistics screen keeps its spacing —
+between its cards and between its stat tiles — and so do the two rows that mark
+a chosen item, the grid sizes on the home screen and the size filter on the
+statistics screen, where a shared edge would paint over the selection's own
+border.
 
 There are no lines on the board at all. Inside a block the squares alternate
 white and a shade, like a checkerboard, and that shading is what keeps a row
