@@ -94,10 +94,17 @@ export function GameScreen({
   const [flagged, setFlagged] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [autoEliminate, setAutoEliminate] = useState(true);
+  const [autoFacts, setAutoFacts] = useState(true);
   const [hintsUsed, setHintsUsed] = useState(() => resumed?.hintsUsed ?? 0);
   const [revealed, setRevealed] = useState(false);
   const [improvement, setImprovement] = useState<Improvement | null>(null);
   const statusTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  /** What the board works out for itself, as the settings currently stand. */
+  const boardOptions = useMemo(
+    () => ({ size: puzzle.size.items, autoEliminate, autoFacts }),
+    [autoEliminate, autoFacts, puzzle.size.items],
+  );
 
   const solved = useMemo(() => isSolved(marks, puzzle), [marks, puzzle]);
   const wrong = useMemo(() => findMistakes(marks, puzzle), [marks, puzzle]);
@@ -223,14 +230,9 @@ export function GameScreen({
       // The cycle follows what the square shows, so an automatic cross behaves
       // like any other: blank → ✕ → ✓ → blank. Whatever it lands on is the
       // player's own mark from then on.
-      move((current) =>
-        setMark(current, cell, nextMark(getMark(current, cell)), {
-          size: puzzle.size.items,
-          autoEliminate,
-        }),
-      );
+      move((current) => setMark(current, cell, nextMark(getMark(current, cell)), boardOptions));
     },
-    [autoEliminate, flash, move, puzzle.size.items],
+    [boardOptions, flash, move],
   );
 
   const undo = useCallback(() => {
@@ -243,19 +245,18 @@ export function GameScreen({
     setHistory((past) => past.slice(0, -1));
     // Reconciled on the way back in, so a board recorded while Auto ✕ was on
     // comes back the way the setting stands now.
-    setMarks(reconcile(history[history.length - 1], { size: puzzle.size.items, autoEliminate }));
-  }, [autoEliminate, flash, history, puzzle.size.items]);
+    setMarks(reconcile(history[history.length - 1], boardOptions));
+  }, [boardOptions, flash, history]);
 
   /** Takes moves back until the answer is within reach again. */
   const rewind = useCallback(() => {
     haptics.select();
-    const options = { size: puzzle.size.items, autoEliminate };
     let past = history;
     let board: Marks | null = null;
     let steps = 0;
 
     while (past.length > 0) {
-      const candidate = reconcile(past[past.length - 1], options);
+      const candidate = reconcile(past[past.length - 1], boardOptions);
       past = past.slice(0, -1);
       steps++;
       if (isSolvable(candidate, puzzle)) {
@@ -273,9 +274,9 @@ export function GameScreen({
     }
     // Nothing recorded is clean — a resumed board can start out wrong, and its
     // history begins where the player picked it up. Take the bad marks off.
-    setMarks((current) => clearMistakes(current, puzzle, options));
+    setMarks((current) => clearMistakes(current, puzzle, boardOptions));
     flash('Took off the marks that cannot be right.');
-  }, [autoEliminate, flash, history, puzzle]);
+  }, [boardOptions, flash, history, puzzle]);
 
   /**
    * Checks the board before it helps: a hint on top of a mark that contradicts
@@ -302,11 +303,11 @@ export function GameScreen({
     haptics.select();
     setHintsUsed((count) => count + 1);
     setTab('grid');
-    move((current) => setMark(current, cell, 'yes', { size: puzzle.size.items, autoEliminate }));
+    move((current) => setMark(current, cell, 'yes', boardOptions));
     flash(
       `Hint: ${puzzle.categories[cell.c1].items[cell.i1].label} goes with ${puzzle.categories[cell.c2].items[cell.i2].label}.`,
     );
-  }, [autoEliminate, flash, marks, move, puzzle, wrong]);
+  }, [boardOptions, flash, marks, move, puzzle, wrong]);
 
   const restart = useCallback(() => {
     haptics.select();
@@ -333,10 +334,18 @@ export function GameScreen({
   const toggleAutoEliminate = useCallback(() => {
     setAutoEliminate((value) => {
       const next = !value;
-      setMarks((current) => reconcile(current, { size: puzzle.size.items, autoEliminate: next }));
+      setMarks((current) => reconcile(current, { ...boardOptions, autoEliminate: next }));
       return next;
     });
-  }, [puzzle.size.items]);
+  }, [boardOptions]);
+
+  const toggleAutoFacts = useCallback(() => {
+    setAutoFacts((value) => {
+      const next = !value;
+      setMarks((current) => reconcile(current, { ...boardOptions, autoFacts: next }));
+      return next;
+    });
+  }, [boardOptions]);
 
   const toggleClue = useCallback((index: number) => {
     setCrossedOut((current) => {
@@ -364,8 +373,10 @@ export function GameScreen({
       <GameMenuScreen
         puzzle={puzzle}
         autoEliminate={autoEliminate}
+        autoFacts={autoFacts}
         solved={solved}
-        onToggleAuto={toggleAutoEliminate}
+        onToggleAutoEliminate={toggleAutoEliminate}
+        onToggleAutoFacts={toggleAutoFacts}
         onRestart={() => {
           restart();
           setMenuOpen(false);

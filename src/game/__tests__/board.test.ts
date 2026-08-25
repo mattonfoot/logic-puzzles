@@ -217,3 +217,66 @@ describe('board state', () => {
     ]);
   });
 });
+
+describe('ticks that follow from other ticks', () => {
+  const facts = { size, autoFacts: true };
+  const a1 = { c1: 0, i1: 1 };
+  const b3 = { c2: 1, i2: 3 };
+  const link = { ...a1, ...b3 };
+  const chain = { c1: 1, i1: 3, c2: 2, i2: 2 };
+  const implied = { c1: 0, i1: 1, c2: 2, i2: 2 };
+
+  it('is off unless it is asked for', () => {
+    // Neither tick's own grid touches the square the chain implies, so with the
+    // setting off it stays blank.
+    const board = setMark(setMark({}, link, 'yes', options), chain, 'yes', options);
+    expect(getMark(board, implied)).toBeUndefined();
+  });
+
+  it('carries a pairing across a shared entity', () => {
+    const board = setMark(setMark({}, link, 'yes', facts), chain, 'yes', facts);
+
+    expect(getEntry(board, implied)).toEqual({
+      mark: 'yes',
+      source: 'auto',
+      from: markKey(chain),
+    });
+  });
+
+  it('works in either direction round the chain', () => {
+    // A goes with B and A goes with C, so B goes with C.
+    const alsoA = { c1: 0, i1: 1, c2: 2, i2: 2 };
+    const board = setMark(setMark({}, link, 'yes', facts), alsoA, 'yes', facts);
+    expect(getMark(board, chain)).toBe('yes');
+  });
+
+  it('crosses out the rows and columns of the ticks it worked out', () => {
+    const board = setMark(setMark({}, link, 'yes', facts), chain, 'yes', facts);
+    // The implied tick rules the rest of its own row out too.
+    expect(getMark(board, { c1: 0, i1: 1, c2: 2, i2: 0 })).toBe('no');
+    expect(getMark(board, { c1: 0, i1: 3, c2: 2, i2: 2 })).toBe('no');
+  });
+
+  it('never writes over a square the player marked', () => {
+    const board = setMark(
+      setMark(setMark({}, implied, 'no', facts), link, 'yes', facts),
+      chain,
+      'yes',
+      facts,
+    );
+    expect(getEntry(board, implied)).toEqual(byHand('no'));
+  });
+
+  it('takes the worked-out ticks away again when it is switched off', () => {
+    const board = setMark(setMark({}, link, 'yes', facts), chain, 'yes', facts);
+    expect(getMark(board, implied)).toBe('yes');
+
+    const without = reconcile(board, options);
+    expect(getMark(without, implied)).toBeUndefined();
+    expect(reconcile(without, facts)).toEqual(board);
+  });
+
+  it('leaves a lone tick with nothing to chain to alone', () => {
+    expect(setMark({}, link, 'yes', facts)).toEqual(setMark({}, link, 'yes', options));
+  });
+});

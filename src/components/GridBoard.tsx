@@ -220,7 +220,14 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
                                       // The glyph gets the whole square, so a
                                       // big mark is centred rather than clipped.
                                       lineHeight: cellSize,
-                                      color: wrong ? palette.danger : puzzle.accent,
+                                      // A tick the board worked out sits lighter
+                                      // than one the player put down, the same
+                                      // way its crosses do.
+                                      color: wrong
+                                        ? palette.danger
+                                        : entry?.source === 'auto'
+                                          ? tint(puzzle.accent, 0.55)
+                                          : puzzle.accent,
                                     },
                                   ]}
                                 >

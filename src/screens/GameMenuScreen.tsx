@@ -10,9 +10,12 @@ interface Props {
   puzzle: Puzzle;
   /** Whether a tick crosses out the rest of its row and column. */
   autoEliminate: boolean;
+  /** Whether ticks that follow from other ticks are filled in. */
+  autoFacts: boolean;
   /** A finished puzzle has nothing left to reveal. */
   solved: boolean;
-  onToggleAuto: () => void;
+  onToggleAutoEliminate: () => void;
+  onToggleAutoFacts: () => void;
   onRestart: () => void;
   onNewPuzzle: () => void;
   onReveal: () => void;
@@ -20,21 +23,28 @@ interface Props {
 }
 
 /**
- * Everything that acts on the game as a whole rather than on a square: the one
- * board setting, and the three ways to leave the puzzle behind. They live here
- * so the playing screen carries only what a player reaches for mid-puzzle.
+ * Everything that acts on the game as a whole rather than on a square: what the
+ * board works out for itself, and the three ways to leave the puzzle behind.
+ * They live here so the playing screen carries only what a player reaches for
+ * mid-puzzle.
  */
 export function GameMenuScreen({
   puzzle,
   autoEliminate,
+  autoFacts,
   solved,
-  onToggleAuto,
+  onToggleAutoEliminate,
+  onToggleAutoFacts,
   onRestart,
   onNewPuzzle,
   onReveal,
   onClose,
 }: Props) {
   const insets = useSafeAreaInsets();
+  // Told with this puzzle's own sets, so the rule reads as something about the
+  // game in front of the player rather than about letters.
+  const [first, second, third] = puzzle.categories.map((category) => category.name.toLowerCase());
+  const a = (word: string) => (/^[aeiou]/.test(word) ? `an ${word}` : `a ${word}`);
 
   return (
     <View style={styles.screen}>
@@ -63,42 +73,21 @@ export function GameMenuScreen({
         showsVerticalScrollIndicator={false}
       >
         <Text style={styles.sectionLabel}>Board</Text>
-        <Pressable
-          accessibilityRole="switch"
-          accessibilityLabel="Automatic crosses"
-          accessibilityState={{ checked: autoEliminate }}
-          onPress={() => {
-            haptics.select();
-            onToggleAuto();
-          }}
-          style={({ pressed }) => [styles.row, { opacity: pressed ? 0.8 : 1 }]}
-        >
-          <View style={styles.rowText}>
-            <Text style={styles.rowTitle}>Automatic crosses</Text>
-            <Text style={styles.rowNote}>
-              A tick crosses out the rest of its row and column for you. Your own crosses stay
-              either way.
-            </Text>
-          </View>
-          <View
-            style={[
-              styles.switch,
-              {
-                borderColor: autoEliminate ? puzzle.accent : palette.line,
-                backgroundColor: autoEliminate ? tint(puzzle.accent, 0.12) : palette.surfaceAlt,
-              },
-            ]}
-          >
-            <Text
-              style={[
-                styles.switchText,
-                { color: autoEliminate ? puzzle.accent : palette.inkFaint },
-              ]}
-            >
-              {autoEliminate ? 'On' : 'Off'}
-            </Text>
-          </View>
-        </Pressable>
+        <Setting
+          label="Automatic crosses"
+          note="A tick crosses out the rest of its row and column for you. Your own crosses stay either way."
+          on={autoEliminate}
+          accent={puzzle.accent}
+          onPress={onToggleAutoEliminate}
+        />
+        <Setting
+          label="Auto add facts"
+          note={`A tick that follows from the ticks already down is filled in: if ${a(first)} goes with ${a(second)}, and that ${second} goes with ${a(third)}, then the ${first} and the ${third} are paired too.`}
+          on={autoFacts}
+          accent={puzzle.accent}
+          joined
+          onPress={onToggleAutoFacts}
+        />
 
         <Text style={styles.sectionLabel}>This puzzle</Text>
         <MenuAction
@@ -128,6 +117,54 @@ export function GameMenuScreen({
         )}
       </ScrollView>
     </View>
+  );
+}
+
+function Setting({
+  label,
+  note,
+  on,
+  accent,
+  joined,
+  onPress,
+}: {
+  label: string;
+  note: string;
+  on: boolean;
+  accent: string;
+  /** Share the top edge with the row before it. */
+  joined?: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <Pressable
+      accessibilityRole="switch"
+      accessibilityLabel={label}
+      accessibilityState={{ checked: on }}
+      onPress={() => {
+        haptics.select();
+        onPress();
+      }}
+      style={({ pressed }) => [styles.row, joined && joinTop, { opacity: pressed ? 0.8 : 1 }]}
+    >
+      <View style={styles.rowText}>
+        <Text style={styles.rowTitle}>{label}</Text>
+        <Text style={styles.rowNote}>{note}</Text>
+      </View>
+      <View
+        style={[
+          styles.switch,
+          {
+            borderColor: on ? accent : palette.line,
+            backgroundColor: on ? tint(accent, 0.12) : palette.surfaceAlt,
+          },
+        ]}
+      >
+        <Text style={[styles.switchText, { color: on ? accent : palette.inkFaint }]}>
+          {on ? 'On' : 'Off'}
+        </Text>
+      </View>
+    </Pressable>
   );
 }
 

@@ -79,8 +79,10 @@ rest is the app behaving normally.
    opens at the size that fits the space the tab gives it. Tap a square to cycle
    it blank → ✕ → ✓. A tick crosses out the rest of its row and column for you,
    and cycling that tick back to blank takes those crosses away with it —
-   anything you crossed by hand stays put. **Automatic crosses** can be turned
-   off in the menu. The set names and item labels stay pinned while the
+   anything you crossed by hand stays put. **Automatic crosses** and **Auto add
+   facts** — which fills in a tick that follows from two others, so a pairing
+   carried across a shared entity lands on the board without you copying it
+   over — can both be turned off in the menu. The set names and item labels stay pinned while the
    grids scroll sideways, and − / + resize the squares past the fit.
 3. **Clues** — the second tab, with the number still to be used on the tab
    itself. Tap a clue to cross it off once you have used it, or press and hold
@@ -101,7 +103,7 @@ rest is the app behaving normally.
    where they were, so the finished board is one tap away — though it is
    read-only from then on, since changing it would undo the win.
 5. **The menu**, behind the burger at the top left, holds everything that acts
-   on the game rather than on a square: the automatic-crosses setting,
+   on the game rather than on a square: the two board settings,
    **Restart** (same puzzle, fresh board and clock), **New puzzle**, and
    **Reveal the answer**, which is hidden once the puzzle is finished. The
    `<<< back` link at the bottom left leaves for the home screen; the board is
@@ -211,8 +213,18 @@ change, and only ever fills a square the player has left alone.
 That distinction is the whole point: cycling a tick back to blank drops the
 crosses it added, but a cross the player placed by hand stays put — even one the
 tick would also have implied, since the tick never claimed that square in the
-first place. It is also what lets **Auto ✕** switch the implied crosses off and
-on again without touching anything the player did.
+first place. It is also what lets either board setting be switched off and on
+again without touching anything the player did.
+
+`reconcile` works in the order the reasoning goes. **Auto add facts** comes
+first: a tick says two attributes belong to one entity, so the ticks read as
+edges and every connected group is one entity, whose members are all paired with
+each other — that is how `A1 × B3` and `B3 × C2` put a tick on `A1 × C2`, and it
+carries chains of any length, in any direction, not just the three-step case.
+Then **Automatic crosses** rules out the rest of the row and column of every
+tick, worked out ones included. Two attributes from the same set can only land
+in one group on a board that has already gone wrong, and those pairs are left
+alone rather than marked with a pairing that cannot exist.
 
 `solutionRows` in the same module produces the end-of-game summary: one row per
 entity and one column per set, ordered by the ordered set (earliest year,

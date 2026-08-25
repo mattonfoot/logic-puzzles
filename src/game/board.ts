@@ -73,38 +73,45 @@ export interface MarkOptions {
   size: number;
   /** Whether a tick crosses out the rest of its row and column. */
   autoEliminate?: boolean;
+  /**
+   * Whether ticks that follow from other ticks are filled in: if A goes with B
+   * and B goes with C, then A goes with C.
+   */
+  autoFacts?: boolean;
 }
 
 /**
  * Records what the player marked, then brings the automatic crosses back in
  * line. `null` takes their mark away again.
  */
-export function setMark(
-  marks: Marks,
-  cell: Cell,
-  mark: Mark | null,
-  { size, autoEliminate = true }: MarkOptions,
-): Marks {
+export function setMark(marks: Marks, cell: Cell, mark: Mark | null, options: MarkOptions): Marks {
   const next = { ...marks };
   const key = markKey(cell);
   if (mark === null) delete next[key];
   else next[key] = byHand(mark);
-  return reconcile(next, { size, autoEliminate });
+  return reconcile(next, options);
 }
 
 /**
- * Rebuilds the automatic crosses around whatever the player has marked.
+ * Rebuilds everything automatic around whatever the player has marked.
  *
- * Hand marks are kept exactly as they are. Every hand tick then crosses out the
- * rest of its row and column, but only where the player has left the square
- * alone — so a cross made by hand is never overwritten, and one added for a
- * tick disappears with it.
+ * Hand marks are kept exactly as they are, and the rest is worked out from
+ * them, in the order the reasoning goes: a tick puts every attribute it names
+ * in one group, so anything else already in that group is ticked too; then
+ * every tick, made or worked out, crosses off the rest of its row and column.
+ * Nothing is ever written over a square the player has marked, so their own
+ * work survives and anything added for a tick disappears with it.
  */
-export function reconcile(marks: Marks, { size, autoEliminate = true }: MarkOptions): Marks {
+export function reconcile(
+  marks: Marks,
+  { size, autoEliminate = true, autoFacts = false }: MarkOptions,
+): Marks {
   const next: Marks = {};
   for (const [key, entry] of Object.entries(marks)) {
     if (entry.source === 'hand') next[key] = entry;
   }
+
+  if (autoFacts) addImpliedTicks(next);
   if (!autoEliminate) return next;
 
   for (const [key, entry] of Object.entries(next)) {
@@ -125,6 +132,72 @@ export function reconcile(marks: Marks, { size, autoEliminate = true }: MarkOpti
   }
 
   return next;
+}
+
+/** An attribute as a node: `${category}.${item}`. */
+type Node = string;
+
+const nodeOf = (category: number, item: number): Node => `${category}.${item}`;
+const cellBetween = (a: Node, b: Node): Cell => {
+  const [c1, i1] = a.split('.').map(Number);
+  const [c2, i2] = b.split('.').map(Number);
+  return { c1, i1, c2, i2 };
+};
+
+/**
+ * Fills in the ticks that follow from the ticks already on the board.
+ *
+ * A tick says two attributes belong to the same entity, so ticks chain: read
+ * them as edges and every connected group is one entity, whose members are all
+ * paired with each other. Each square that names two of them and is still empty
+ * gets a tick, remembering the tick that brought the second attribute into the
+ * group.
+ *
+ * Two attributes from the same set can only land in one group on a board that
+ * has already gone wrong; those pairs are left alone rather than marked with a
+ * pairing that cannot exist.
+ */
+function addImpliedTicks(marks: Marks): void {
+  const edges = new Map<Node, { to: Node; via: string }[]>();
+  const link = (from: Node, to: Node, via: string) => {
+    const list = edges.get(from);
+    if (list) list.push({ to, via });
+    else edges.set(from, [{ to, via }]);
+  };
+
+  for (const [key, entry] of Object.entries(marks)) {
+    if (entry.mark !== 'yes') continue;
+    const cell = cellFromKey(key);
+    if (!cell) continue;
+    link(nodeOf(cell.c1, cell.i1), nodeOf(cell.c2, cell.i2), key);
+    link(nodeOf(cell.c2, cell.i2), nodeOf(cell.c1, cell.i1), key);
+  }
+
+  const seen = new Set<Node>();
+  for (const start of edges.keys()) {
+    if (seen.has(start)) continue;
+
+    // The whole group, each member with the tick that reached it.
+    const group: { node: Node; via: string }[] = [{ node: start, via: '' }];
+    seen.add(start);
+    for (let index = 0; index < group.length; index++) {
+      for (const edge of edges.get(group[index].node) ?? []) {
+        if (seen.has(edge.to)) continue;
+        seen.add(edge.to);
+        group.push({ node: edge.to, via: edge.via });
+      }
+    }
+
+    for (let a = 0; a < group.length; a++) {
+      for (let b = a + 1; b < group.length; b++) {
+        const cell = cellBetween(group[a].node, group[b].node);
+        if (cell.c1 === cell.c2) continue;
+        const key = markKey(cell);
+        if (marks[key]) continue;
+        marks[key] = { mark: 'yes', source: 'auto', from: group[b].via || group[a].via };
+      }
+    }
+  }
 }
 
 /** Cycles a cell through blank → cross → tick → blank. */
