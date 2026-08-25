@@ -138,6 +138,15 @@ share a single edge rather than each drawing its own. Grid blocks, size cards,
 stat tiles, filter pills and the toolbar buttons all sit flush, so a row of them
 reads as one ruled table the way a printed puzzle page does.
 
+Inside a block there are no lines at all: the squares alternate white and a
+shade, like a checkerboard, and that shading is what keeps a row readable across
+the grid. The only rule left on the board is the one around each block, drawn at
+two pixels so it holds the whole structure on its own. A block's box carries
+that rule on each side and is measured to suit — `blockBox = cellSize * items +
+2 * BLOCK_BORDER` — so the squares inside come out at exactly `cellSize` and
+line up with the labels beside them, and `fitCellSize` allows for the rules when
+it sizes the board.
+
 The game screen holds that staircase and the clue list in two tabs of one
 fixed-height layout, with the toolbar pinned below both. Nothing about the
 screen scrolls: `fitCellSize` measures the space the tab actually leaves for the

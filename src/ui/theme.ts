@@ -6,6 +6,8 @@ export const palette = {
   bg: '#F6F3EC',
   surface: '#FFFFFF',
   surfaceAlt: '#FBF9F3',
+  /** Every other square of a pair grid, which is what rules the grid now. */
+  boardShade: '#F3EFE5',
   ink: '#1D2333',
   inkSoft: '#5C6379',
   inkFaint: '#98A0B3',

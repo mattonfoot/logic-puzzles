@@ -27,8 +27,13 @@ const LABEL_RUN = 88;
 const LABEL_LINE = 14;
 const CATEGORY_NAME = 20;
 const HEADER_HEIGHT = LABEL_RUN + CATEGORY_NAME;
-/** Blocks sit flush against each other, sharing the line between them. */
-const BLOCK_GAP = 0;
+/**
+ * The rule drawn around each pair grid. Squares inside a grid are told apart by
+ * their shading rather than by lines, so this is the only rule on the board and
+ * it carries the whole structure — hence heavier than a hairline. Blocks sit
+ * flush, so the seam where two grids meet is twice this.
+ */
+const BLOCK_BORDER = 2;
 /** Width the set strip and row labels take on the left of the board. */
 const BOARD_LABELS = CATEGORY_STRIP + ROW_LABEL;
 
@@ -40,8 +45,9 @@ const BOARD_LABELS = CATEGORY_STRIP + ROW_LABEL;
 export function fitCellSize(puzzle: Puzzle, width: number, height: number): number {
   const rows = puzzle.categories.length - 1;
   const items = puzzle.size.items;
-  const byWidth = (width - BOARD_LABELS - (rows - 1) * BLOCK_GAP) / (items * rows);
-  const byHeight = (height - HEADER_HEIGHT - rows * BLOCK_GAP) / (items * rows);
+  const rules = rows * BLOCK_BORDER * 2;
+  const byWidth = (width - BOARD_LABELS - rules) / (items * rows);
+  const byHeight = (height - HEADER_HEIGHT - rules) / (items * rows);
   return Math.max(MIN_CELL, Math.min(MAX_CELL, Math.floor(Math.min(byWidth, byHeight))));
 }
 
@@ -56,8 +62,10 @@ export function fitCellSize(puzzle: Puzzle, width: number, height: number): numb
 export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onToggle }: Props) {
   const layout = useMemo(() => boardLayout(puzzle.categories.length), [puzzle]);
   const items = puzzle.size.items;
+  // A block's box holds its own rule on each side, so the squares inside it
+  // measure exactly `cellSize` and line up with the labels beside them.
   const blockSize = cellSize * items;
-  const rowHeight = blockSize + BLOCK_GAP;
+  const blockBox = blockSize + BLOCK_BORDER * 2;
 
   const lit = useMemo(
     () => new Set(highlight.map((attr) => `${attr.category}.${attr.item}`)),
@@ -74,17 +82,17 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
       <View>
         <View style={{ height: HEADER_HEIGHT }} />
         {layout.rowCategories.map((rowCategory) => (
-          <View key={`labels-${rowCategory}`} style={[styles.row, { height: rowHeight }]}>
-            <View style={[styles.categoryStrip, { height: blockSize }]}>
+          <View key={`labels-${rowCategory}`} style={[styles.row, { height: blockBox }]}>
+            <View style={[styles.categoryStrip, { height: blockBox }]}>
               <Text
                 numberOfLines={1}
                 style={[
                   styles.categoryStripText,
                   {
-                    width: blockSize,
-                    maxWidth: blockSize,
-                    left: (CATEGORY_STRIP - blockSize) / 2,
-                    top: (blockSize - LABEL_LINE) / 2,
+                    width: blockBox,
+                    maxWidth: blockBox,
+                    left: (CATEGORY_STRIP - blockBox) / 2,
+                    top: (blockBox - LABEL_LINE) / 2,
                     color: puzzle.accent,
                   },
                 ]}
@@ -93,7 +101,7 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
               </Text>
             </View>
 
-            <View style={{ width: ROW_LABEL }}>
+            <View style={{ width: ROW_LABEL, paddingTop: BLOCK_BORDER }}>
               {puzzle.categories[rowCategory].items.map((item, index) => (
                 <View key={item.label} style={[styles.rowLabel, { height: cellSize }]}>
                   <Text
@@ -117,7 +125,7 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
             {layout.colCategories.map((category) => (
               <View
                 key={`head-${category}`}
-                style={[styles.columnBlock, { width: blockSize + BLOCK_GAP }]}
+                style={[styles.columnBlock, { width: blockBox }]}
               >
                 <Text style={[styles.categoryName, { color: puzzle.accent }]} numberOfLines={1}>
                   {puzzle.categories[category].name}
@@ -150,21 +158,21 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
           </View>
 
           {layout.rowCategories.map((rowCategory, row) => (
-            <View key={`row-${rowCategory}`} style={[styles.row, { height: rowHeight }]}>
+            <View key={`row-${rowCategory}`} style={[styles.row, { height: blockBox }]}>
               {layout.colCategories.map((colCategory, col) => {
                 const block = blockAt(row, col);
                 if (!block) {
                   return (
                     <View
                       key={`gap-${colCategory}`}
-                      style={{ width: blockSize + BLOCK_GAP, height: blockSize }}
+                      style={{ width: blockBox, height: blockBox }}
                     />
                   );
                 }
                 return (
                   <View
                     key={`block-${rowCategory}-${colCategory}`}
-                    style={[styles.block, { width: blockSize, height: blockSize }]}
+                    style={[styles.block, { width: blockBox, height: blockBox }]}
                   >
                     {puzzle.categories[rowCategory].items.map((_, rowItem) => (
                       <View key={rowItem} style={styles.row}>
@@ -193,15 +201,15 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
                                 {
                                   width: cellSize,
                                   height: cellSize,
-                                  borderRightWidth: colItem === items - 1 ? 0 : 1,
-                                  borderBottomWidth: rowItem === items - 1 ? 0 : 1,
                                   backgroundColor: wrong
                                     ? tint(palette.danger, 0.16)
                                     : mark === 'yes'
                                       ? tint(puzzle.accent, 0.16)
                                       : crosshair
                                         ? tint(puzzle.accent, 0.07)
-                                        : palette.surface,
+                                        : (rowItem + colItem) % 2 === 1
+                                          ? palette.boardShade
+                                          : palette.surface,
                                   opacity: pressed ? 0.7 : 1,
                                 },
                               ]}
@@ -310,14 +318,11 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   block: {
-    borderWidth: 1,
+    borderWidth: BLOCK_BORDER,
     borderColor: palette.lineStrong,
     overflow: 'hidden',
-    marginRight: BLOCK_GAP,
-    marginBottom: BLOCK_GAP,
   },
   cell: {
-    borderColor: palette.line,
     alignItems: 'center',
     justifyContent: 'center',
   },
