@@ -13,6 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ClueList } from '../components/ClueList';
 import { fitCellSize, GridBoard, MAX_CELL } from '../components/GridBoard';
 import { SolvedPanel } from '../components/SolvedPanel';
+import { GameMenuScreen } from './GameMenuScreen';
 import {
   clearMistakes,
   findHint,
@@ -79,6 +80,7 @@ export function GameScreen({
   // theme, sets and items — while the board and the clock start over.
   const [attempt, setAttempt] = useState(0);
   const [tab, setTab] = useState<Tab>('grid');
+  const [menuOpen, setMenuOpen] = useState(false);
   const [marks, setMarks] = useState<Marks>(() => resumed?.marks ?? {});
   const [focusedClue, setFocusedClue] = useState<number | null>(null);
   const [crossedOut, setCrossedOut] = useState<Set<number>>(
@@ -328,6 +330,14 @@ export function GameScreen({
     move(() => solvedMarks(puzzle));
   }, [move, puzzle]);
 
+  const toggleAutoEliminate = useCallback(() => {
+    setAutoEliminate((value) => {
+      const next = !value;
+      setMarks((current) => reconcile(current, { size: puzzle.size.items, autoEliminate: next }));
+      return next;
+    });
+  }, [puzzle.size.items]);
+
   const toggleClue = useCallback((index: number) => {
     setCrossedOut((current) => {
       const next = new Set(current);
@@ -349,17 +359,41 @@ export function GameScreen({
   const gridsShown = (puzzle.categories.length * (puzzle.categories.length - 1)) / 2;
   const cluesLeft = puzzle.clues.length - crossedOut.size;
 
+  if (menuOpen) {
+    return (
+      <GameMenuScreen
+        puzzle={puzzle}
+        autoEliminate={autoEliminate}
+        solved={solved}
+        onToggleAuto={toggleAutoEliminate}
+        onRestart={() => {
+          restart();
+          setMenuOpen(false);
+        }}
+        onNewPuzzle={onNewPuzzle}
+        onReveal={() => {
+          reveal();
+          setMenuOpen(false);
+        }}
+        onClose={() => setMenuOpen(false)}
+      />
+    );
+  }
+
   return (
     <View style={styles.screen}>
       <View style={[styles.header, { paddingTop: insets.top + space(2) }]}>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Back to setup"
-          onPress={onExit}
+          accessibilityLabel="Menu"
+          onPress={() => {
+            haptics.select();
+            setMenuOpen(true);
+          }}
           style={styles.headerButton}
           hitSlop={12}
         >
-          <Text style={styles.headerButtonText}>‹</Text>
+          <Text style={styles.headerButtonText}>☰</Text>
         </Pressable>
         <View style={styles.headerCenter}>
           <Text style={styles.headerTitle} numberOfLines={1}>
@@ -530,41 +564,13 @@ export function GameScreen({
               onPress={undo}
             />
             <ToolButton label="Hint" icon="💡" joined accent={puzzle.accent} onPress={hint} />
-            <ToolButton
-              label={autoEliminate ? 'Auto ✕ on' : 'Auto ✕ off'}
-              icon="⚡"
-              joined
-              accent={autoEliminate ? puzzle.accent : palette.inkFaint}
-              onPress={() => {
-                haptics.select();
-                setAutoEliminate((value) => {
-                  const next = !value;
-                  setMarks((current) =>
-                    reconcile(current, { size: puzzle.size.items, autoEliminate: next }),
-                  );
-                  return next;
-                });
-              }}
-            />
           </View>
         )}
 
         <View style={styles.footerLinks}>
-          <Pressable accessibilityRole="button" onPress={restart} hitSlop={8}>
-            <Text style={styles.link}>Restart</Text>
+          <Pressable accessibilityRole="button" accessibilityLabel="Back to setup" onPress={onExit}>
+            <Text style={styles.back}>&lt;&lt;&lt; back</Text>
           </Pressable>
-          <Text style={styles.linkDivider}>·</Text>
-          <Pressable accessibilityRole="button" onPress={onNewPuzzle} hitSlop={8}>
-            <Text style={styles.link}>New puzzle</Text>
-          </Pressable>
-          {solved ? null : (
-            <>
-              <Text style={styles.linkDivider}>·</Text>
-              <Pressable accessibilityRole="button" onPress={reveal} hitSlop={8}>
-                <Text style={[styles.link, styles.linkMuted]}>Reveal solution</Text>
-              </Pressable>
-            </>
-          )}
         </View>
       </View>
     </View>
@@ -907,9 +913,15 @@ const styles = StyleSheet.create({
   },
   footerLinks: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
-    gap: space(2),
+  },
+  back: {
+    fontSize: 13,
+    fontWeight: '600',
+    letterSpacing: 0.5,
+    color: palette.inkSoft,
+    paddingVertical: space(1),
+    paddingRight: space(4),
   },
   link: {
     fontSize: 13,

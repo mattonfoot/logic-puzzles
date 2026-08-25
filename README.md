@@ -54,9 +54,10 @@ images in the same commit.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-setup.png" width="230" alt="Setup screen"><br>**1. Setup** — the grid size is the only choice; the theme is drawn on start. | <img src="docs/screenshots/02-board.png" width="230" alt="Grid tab"><br>**2. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the tab. | <img src="docs/screenshots/03-clues.png" width="230" alt="Clues tab"><br>**3. Clues** — the clue list on its own tab, with the count still to be used. |
-| <img src="docs/screenshots/04-clue-focus.png" width="230" alt="Grid with a clue focused"><br>**4. Clue focus** — holding a clue lights up its rows and columns and brings you back to the grid. | <img src="docs/screenshots/05-stuck.png" width="230" alt="A board that can no longer be solved"><br>**5. Out of reach** — a hint checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/06-solved.png" width="230" alt="Solved tab"><br>**6. Solved** — the finish fills the screen on a tab of its own: time, hints, how it compares, the answer table. |
-| <img src="docs/screenshots/07-solved-grid.png" width="230" alt="The finished board"><br>**7. Finished board** — the grid tab after the win, one tap from the result. | <img src="docs/screenshots/08-statistics.png" width="230" alt="Statistics screen"><br>**8. Statistics** — totals, per-size bests and the trend of recent solve times. | <img src="docs/screenshots/09-resume.png" width="230" alt="Setup screen with a saved game"><br>**9. Resume** — the setup screen offering the game that was left in progress. |
+| <img src="docs/screenshots/01-setup.png" width="230" alt="Setup screen"><br>**1. Setup** — the grid size is the only choice; the theme is drawn on start. | <img src="docs/screenshots/02-board.png" width="230" alt="Grid tab"><br>**2. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the tab. | <img src="docs/screenshots/03-menu.png" width="230" alt="Game menu"><br>**3. Menu** — behind the burger: the board setting, and the three ways to leave the puzzle. |
+| <img src="docs/screenshots/04-clues.png" width="230" alt="Clues tab"><br>**4. Clues** — the clue list on its own tab, with the count still to be used. | <img src="docs/screenshots/05-clue-focus.png" width="230" alt="Grid with a clue focused"><br>**5. Clue focus** — holding a clue lights up its rows and columns and brings you back to the grid. | <img src="docs/screenshots/06-stuck.png" width="230" alt="A board that can no longer be solved"><br>**6. Out of reach** — a hint checks the board first, and offers to rewind when the answer has been marked away. |
+| <img src="docs/screenshots/07-solved.png" width="230" alt="Solved tab"><br>**7. Solved** — the finish fills the screen on a tab of its own: time, hints, how it compares, the answer table. | <img src="docs/screenshots/08-solved-grid.png" width="230" alt="The finished board"><br>**8. Finished board** — the grid tab after the win, one tap from the result. | <img src="docs/screenshots/09-statistics.png" width="230" alt="Statistics screen"><br>**9. Statistics** — totals, per-size bests and the trend of recent solve times. |
+| <img src="docs/screenshots/10-resume.png" width="230" alt="Setup screen with a saved game"><br>**10. Resume** — the setup screen offering the game that was left in progress. | | |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -78,8 +79,8 @@ rest is the app behaving normally.
    opens at the size that fits the space the tab gives it. Tap a square to cycle
    it blank → ✕ → ✓. A tick crosses out the rest of its row and column for you,
    and cycling that tick back to blank takes those crosses away with it —
-   anything you crossed by hand stays put. The **Auto ✕** button turns the
-   implied crosses off. The set names and item labels stay pinned while the
+   anything you crossed by hand stays put. **Automatic crosses** can be turned
+   off in the menu. The set names and item labels stay pinned while the
    grids scroll sideways, and − / + resize the squares past the fit.
 3. **Clues** — the second tab, with the number still to be used on the tab
    itself. Tap a clue to cross it off once you have used it, or press and hold
@@ -91,8 +92,7 @@ rest is the app behaving normally.
    you can no longer get to would be worse than none. When that has happened it
    says so, marks the squares that cannot be right, and offers **Rewind**, which
    takes moves back until the board can be solved again. Otherwise it places one
-   true pairing, as before. **Restart** wipes the board and the clock without
-   changing the puzzle, and the timer stops when the last square is right.
+   true pairing, as before. The timer stops when the last square is right.
    Finishing opens a third tab, **Solved**, which fills the screen with the
    clock, how the game compares with your earlier ones, and **the answer as a
    table**: one row per person, one column per set, so the whole solution reads
@@ -100,7 +100,13 @@ rest is the app behaving normally.
    sideways, which keeps every heading on one line. The grid and the clues stay
    where they were, so the finished board is one tap away — though it is
    read-only from then on, since changing it would undo the win.
-5. **Come back later** — the board saves itself as you play, so closing the app
+5. **The menu**, behind the burger at the top left, holds everything that acts
+   on the game rather than on a square: the automatic-crosses setting,
+   **Restart** (same puzzle, fresh board and clock), **New puzzle**, and
+   **Reveal the answer**, which is hidden once the puzzle is finished. The
+   `<<< back` link at the bottom left leaves for the home screen; the board is
+   saved either way.
+6. **Come back later** — the board saves itself as you play, so closing the app
    mid-puzzle costs nothing. The home screen offers to resume it, with the clock
    picking up where it left off and the same puzzle in front of you.
 6. **Statistics** — solved count, time played, day streak, no-hint wins, a
@@ -129,7 +135,7 @@ src/game/useTimer.ts        elapsed-time hook
 src/stats/summary.ts        history → per-size stats, streaks, improvement notes
 src/storage/store.ts        the only module that touches AsyncStorage
 src/components/             GridBoard, SolutionTable, ClueList, SolvedPanel, …
-src/screens/                HomeScreen, GameScreen, StatsScreen
+src/screens/                HomeScreen, GameScreen, GameMenuScreen, StatsScreen
 src/ui/                     palette, spacing, borders, haptics helpers
 ```
 
@@ -188,8 +194,9 @@ last 200 boards.
 
 Winning adds a third tab rather than covering the board: `SolvedPanel` fills the
 tab body with the result, the tab bar grows a **Solved** tab, and the win
-selects it. Everything the finish made pointless goes with it — the Undo, Hint
-and Auto ✕ buttons and the "Reveal solution" link are all hidden — and the board
+selects it. Everything the finish made pointless goes with it — the Undo and
+Hint buttons, and the menu's "Reveal the answer" row, are all hidden — and the
+board
 becomes read-only, because a stray tap on a finished grid would undo the win,
 restart the clock and have the game counted a second time.
 
