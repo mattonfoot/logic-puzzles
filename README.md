@@ -154,11 +154,12 @@ share a single edge rather than each drawing its own. Grid blocks, size cards,
 stat tiles, filter pills and the toolbar buttons all sit flush, so a row of them
 reads as one ruled table the way a printed puzzle page does.
 
-Inside a block there are no lines at all: the squares alternate white and a
-shade, like a checkerboard, and that shading is what keeps a row readable across
-the grid. The only rule left on the board is the one around each block, drawn at
-two pixels so it holds the whole structure on its own. A block's box carries
-that rule on each side and is measured to suit — `blockBox = cellSize * items +
+There are no lines on the board at all. Inside a block the squares alternate
+white and a shade, like a checkerboard, and that shading is what keeps a row
+readable across the grid; around each block is a two-pixel band painted in the
+page colour, so what separates one grid from the next is a gutter of background
+rather than a rule. A block's box carries that band on each side and is measured
+to suit — `blockBox = cellSize * items +
 2 * BLOCK_BORDER` — so the squares inside come out at exactly `cellSize` and
 line up with the labels beside them, and `fitCellSize` allows for the rules when
 it sizes the board.

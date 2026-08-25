@@ -28,10 +28,10 @@ const LABEL_LINE = 14;
 const CATEGORY_NAME = 20;
 const HEADER_HEIGHT = LABEL_RUN + CATEGORY_NAME;
 /**
- * The rule drawn around each pair grid. Squares inside a grid are told apart by
- * their shading rather than by lines, so this is the only rule on the board and
- * it carries the whole structure — hence heavier than a hairline. Blocks sit
- * flush, so the seam where two grids meet is twice this.
+ * The band drawn around each pair grid. It is painted in the page colour rather
+ * than as a line, so what separates one grid from the next is a gutter of
+ * background — the squares' own shading is left to do the ruling. Blocks sit
+ * flush, so the gutter where two grids meet is twice this.
  */
 const BLOCK_BORDER = 2;
 /** Width the set strip and row labels take on the left of the board. */
@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
   },
   block: {
     borderWidth: BLOCK_BORDER,
-    borderColor: palette.lineStrong,
+    borderColor: palette.bg,
     overflow: 'hidden',
   },
   cell: {
