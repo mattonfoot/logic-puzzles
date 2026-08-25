@@ -133,7 +133,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
             <Text style={styles.cardSubtitle}>Recent solve times, one column per puzzle</Text>
 
             <View style={styles.pillRow}>
-              {played.map((size, index) => {
+              {played.map((size) => {
                 const isSelected = size.sizeId === selected.sizeId;
                 return (
                   <Pressable
@@ -146,7 +146,6 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
                     }}
                     style={[
                       styles.pill,
-                      index > 0 && joinLeft,
                       {
                         borderColor: isSelected ? chart.series : palette.line,
                         backgroundColor: isSelected ? tint(chart.series, 0.12) : palette.surface,
@@ -414,6 +413,9 @@ const styles = StyleSheet.create({
   },
   pillRow: {
     flexDirection: 'row',
+    // Apart, for the same reason as the size buttons on the home screen: the
+    // chosen one's border would be painted over by the pill beside it.
+    gap: space(2),
     marginBottom: space(3),
   },
   pill: {

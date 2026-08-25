@@ -11,7 +11,7 @@ import type { SizeOption } from '../puzzle/types';
 import type { OverallStats } from '../stats/summary';
 import { haptics } from '../ui/haptics';
 import { Text } from '../ui/Text';
-import { border, joinLeft, palette, radius, shadow, space, tint } from '../ui/theme';
+import { border, palette, radius, shadow, space, tint } from '../ui/theme';
 import { AppButton } from '../components/AppButton';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 
@@ -114,7 +114,7 @@ export function HomeScreen({
 
         <Text style={styles.sectionLabel}>Grid size</Text>
         <View style={styles.sizeRow}>
-          {SIZES.map((option, index) => {
+          {SIZES.map((option) => {
             const selected = option.id === size.id;
             return (
               <Pressable
@@ -127,7 +127,6 @@ export function HomeScreen({
                 }}
                 style={({ pressed }) => [
                   styles.sizeCard,
-                  index > 0 && joinLeft,
                   {
                     borderColor: selected ? palette.accent : palette.line,
                     backgroundColor: selected ? tint(palette.accent, 0.12) : palette.surface,
@@ -287,6 +286,9 @@ const styles = StyleSheet.create({
   },
   sizeRow: {
     flexDirection: 'row',
+    // These sit apart rather than flush: the chosen size draws its border in the
+    // accent, and a neighbour sharing that edge paints over it.
+    gap: space(2),
   },
   sizeCard: {
     flex: 1,
