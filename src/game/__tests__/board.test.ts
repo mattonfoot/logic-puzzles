@@ -40,7 +40,7 @@ describe('marks', () => {
     expect(cellFromKey('nonsense')).toBeNull();
   });
 
-  it('records a cross as the player\'s own', () => {
+  it("records a cross as the player's own", () => {
     const cell = { c1: 0, i1: 1, c2: 1, i2: 2 };
     const marks = setMark({}, cell, 'no', options);
 
@@ -75,7 +75,7 @@ describe('crosses that follow from a tick', () => {
     expect(setMark(marks, tick, null, options)).toEqual({});
   });
 
-  it('keeps the player\'s own crosses when a tick is undone', () => {
+  it("keeps the player's own crosses when a tick is undone", () => {
     const own = { c1: 0, i1: 3, c2: 1, i2: 0 };
     const marks = setMark(setMark({}, tick, 'yes', options), own, 'no', options);
 

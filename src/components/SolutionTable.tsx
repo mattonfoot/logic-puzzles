@@ -87,9 +87,7 @@ export function SolutionTable({ puzzle, compact = false }: Props) {
         </ScrollView>
       </View>
 
-      {overflows ? (
-        <Text style={styles.hint}>Swipe the table for the other sets</Text>
-      ) : null}
+      {overflows ? <Text style={styles.hint}>Swipe the table for the other sets</Text> : null}
     </View>
   );
 }

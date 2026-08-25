@@ -14,7 +14,15 @@
 import { resolveClueTemplates } from './describe';
 import { createRng, randomSeed, type Rng } from './rng';
 import { contextFor, solveByDeduction, type SolveContext } from './solver';
-import type { Attribute, CategoryDef, Clue, Puzzle, PuzzleCategory, SizeOption, ThemeDef } from './types';
+import type {
+  Attribute,
+  CategoryDef,
+  Clue,
+  Puzzle,
+  PuzzleCategory,
+  SizeOption,
+  ThemeDef,
+} from './types';
 
 export interface GenerateOptions {
   /** One theme, or a pool for the generator to choose from. */
@@ -64,7 +72,9 @@ function pickCategories(theme: ThemeDef, size: SizeOption, rng: Rng): PuzzleCate
     if (!chosen.includes(category)) chosen.push(category);
   }
 
-  return [anchor, ...rng.shuffle(chosen)].map((category) => sampleCategory(category, size.items, rng));
+  return [anchor, ...rng.shuffle(chosen)].map((category) =>
+    sampleCategory(category, size.items, rng),
+  );
 }
 
 /** Draws `size` items at random from the category's pool. */
@@ -100,9 +110,7 @@ function entityOf(solution: number[][], category: number, item: number): number 
 function clueKey(clue: Clue): string {
   switch (clue.kind) {
     case 'link': {
-      const [x, y] = [clue.a, clue.b].sort(
-        (p, q) => p.category - q.category || p.item - q.item,
-      );
+      const [x, y] = [clue.a, clue.b].sort((p, q) => p.category - q.category || p.item - q.item);
       return `l${clue.positive ? '+' : '-'}:${x.category}.${x.item}:${y.category}.${y.item}`;
     }
     case 'either': {

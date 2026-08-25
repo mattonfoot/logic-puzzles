@@ -41,6 +41,7 @@ export const THEMES: ThemeDef[] = [
         id: 'astronaut',
         name: 'Astronaut',
         pattern: '{}',
+        // prettier-ignore
         items: words(
           'Nova', 'Rhea', 'Iris', 'Milo', 'Vega', 'Juno', 'Orin',
           'Cass', 'Elio', 'Suri', 'Dax', 'Noor', 'Kai', 'Wren',
@@ -50,6 +51,7 @@ export const THEMES: ThemeDef[] = [
         id: 'destination',
         name: 'Destination',
         pattern: 'the crew bound for {}',
+        // prettier-ignore
         items: words(
           'Mars', 'Venus', 'Titan', 'Europa', 'Ceres', 'Io', 'Luna',
           'Vesta', 'Callisto', 'Ganymede', 'Enceladus', 'Triton', 'Phobos', 'Deimos',
@@ -59,6 +61,7 @@ export const THEMES: ThemeDef[] = [
         id: 'ship',
         name: 'Ship',
         pattern: 'the {}',
+        // prettier-ignore
         items: words(
           'Kestrel', 'Corvus', 'Lyra', 'Orion', 'Pallas', 'Sable', 'Merlin',
           'Halcyon', 'Vesper', 'Nimbus', 'Aurora', 'Cygnus', 'Perseus', 'Zephyr',
@@ -68,6 +71,7 @@ export const THEMES: ThemeDef[] = [
         id: 'cargo',
         name: 'Cargo',
         pattern: 'the {} payload',
+        // prettier-ignore
         items: words(
           'Seed Vault', 'Ice Core', 'Solar Sail', 'Rover Kit', 'Med Pods',
           'Star Maps', 'Water Tank', 'Drone Bay', 'Soil Lab', 'Fuel Cells',
@@ -101,6 +105,7 @@ export const THEMES: ThemeDef[] = [
         id: 'customer',
         name: 'Customer',
         pattern: '{}',
+        // prettier-ignore
         items: words(
           'Alma', 'Basil', 'Dax', 'Esme', 'Fen', 'Grier', 'Hollis',
           'Ines', 'Jonas', 'Kit', 'Lena', 'Mika', 'Nell', 'Otto',
@@ -110,6 +115,7 @@ export const THEMES: ThemeDef[] = [
         id: 'drink',
         name: 'Drink',
         pattern: 'the {} drinker',
+        // prettier-ignore
         items: words(
           'Latte', 'Mocha', 'Chai', 'Cortado', 'Matcha', 'Espresso', 'Flat White',
           'Americano', 'Cappuccino', 'Macchiato', 'Cold Brew', 'Oat Latte', 'Mint Tea', 'Hot Choc',
@@ -119,6 +125,7 @@ export const THEMES: ThemeDef[] = [
         id: 'pastry',
         name: 'Pastry',
         pattern: 'the {}',
+        // prettier-ignore
         items: words(
           'Croissant', 'Cannelé', 'Scone', 'Éclair', 'Brioche', 'Tartlet', 'Danish',
           'Madeleine', 'Palmier', 'Doughnut', 'Muffin', 'Baklava', 'Cruffin', 'Turnover',
@@ -128,6 +135,7 @@ export const THEMES: ThemeDef[] = [
         id: 'seat',
         name: 'Seat',
         pattern: 'the {} table',
+        // prettier-ignore
         items: words(
           'Window', 'Corner', 'Patio', 'Counter', 'Loft', 'Fireside', 'Balcony',
           'Alcove', 'Bar Stool', 'Booth', 'Terrace', 'Garden', 'Nook', 'Bench',
@@ -146,7 +154,8 @@ export const THEMES: ThemeDef[] = [
       notLink: '{a} is not on the same ticket as {b}.',
       either: '{a} is on the same ticket as either {b} or {c}.',
       compare: 'The {noun} for {greater} came out {comparative} than for {lesser}.',
-      compareGap: 'The {noun} for {greater} came out exactly {gap} {unit} {comparative} than for {lesser}.',
+      compareGap:
+        'The {noun} for {greater} came out exactly {gap} {unit} {comparative} than for {lesser}.',
     },
   },
   {
@@ -160,6 +169,7 @@ export const THEMES: ThemeDef[] = [
         id: 'hero',
         name: 'Hero',
         pattern: '{}',
+        // prettier-ignore
         items: words(
           'Bran', 'Sorrel', 'Ivo', 'Wren', 'Tamsin', 'Kell', 'Rowan',
           'Fenn', 'Maeve', 'Osric', 'Perrin', 'Isolde', 'Garrick', 'Nyla',
@@ -169,6 +179,7 @@ export const THEMES: ThemeDef[] = [
         id: 'weapon',
         name: 'Weapon',
         pattern: 'the {} wielder',
+        // prettier-ignore
         items: words(
           'Ash Bow', 'Rune Axe', 'Gale Spear', 'Ember Blade', 'Frost Flail',
           'Thorn Whip', 'Storm Mace', 'Moon Dagger', 'Oak Staff', 'Bone Sling',
@@ -179,6 +190,7 @@ export const THEMES: ThemeDef[] = [
         id: 'beast',
         name: 'Beast',
         pattern: 'the {} slayer',
+        // prettier-ignore
         items: words(
           'Griffin', 'Wyvern', 'Basilisk', 'Kraken', 'Chimera', 'Sphinx', 'Manticore',
           'Hydra', 'Cyclops', 'Banshee', 'Golem', 'Harpy', 'Minotaur', 'Direwolf',
@@ -188,6 +200,7 @@ export const THEMES: ThemeDef[] = [
         id: 'realm',
         name: 'Realm',
         pattern: 'the champion of {}',
+        // prettier-ignore
         items: words(
           'Ashfell', 'Duskmoor', 'Highmere', 'Ironvale', 'Sablewood', 'Windreach',
           'Thornhold', 'Greymarch', 'Frostgate', 'Emberholt', 'Larkspur', 'Mistvale',
@@ -221,6 +234,7 @@ export const THEMES: ThemeDef[] = [
         id: 'diver',
         name: 'Diver',
         pattern: '{}',
+        // prettier-ignore
         items: words(
           'Pia', 'Rune', 'Sena', 'Tobin', 'Ada', 'Nico', 'Marlow',
           'Indra', 'Cleo', 'Bo', 'Yara', 'Elias', 'Suki', 'Rafa',
@@ -230,6 +244,7 @@ export const THEMES: ThemeDef[] = [
         id: 'species',
         name: 'Sighting',
         pattern: 'the {} spotter',
+        // prettier-ignore
         items: words(
           'Octopus', 'Manta', 'Turtle', 'Seahorse', 'Moray', 'Clownfish', 'Barracuda',
           'Stingray', 'Lionfish', 'Grouper', 'Pipefish', 'Reef Shark', 'Cuttlefish', 'Sea Urchin',
@@ -239,6 +254,7 @@ export const THEMES: ThemeDef[] = [
         id: 'gear',
         name: 'Gear',
         pattern: 'the diver with the {}',
+        // prettier-ignore
         items: words(
           'Red Fins', 'Blue Mask', 'Green Tank', 'Yellow Torch', 'Black Camera',
           'White Slate', 'Orange Reel', 'Pink Buoy', 'Silver Knife', 'Teal Compass',
@@ -249,6 +265,7 @@ export const THEMES: ThemeDef[] = [
         id: 'site',
         name: 'Site',
         pattern: 'the {} site',
+        // prettier-ignore
         items: words(
           'Blue Hole', 'Lace Wall', 'Shipwreck', 'Kelp Maze', 'Coral Arch', 'Night Cove',
           'Tide Pools', 'Anchor Bay', 'Sea Fan Bay', 'Lantern Reef', 'Sunken Pier',
@@ -282,6 +299,7 @@ export const THEMES: ThemeDef[] = [
         id: 'gardener',
         name: 'Gardener',
         pattern: '{}',
+        // prettier-ignore
         items: words(
           'Opal', 'Ferris', 'Hazel', 'Lark', 'Pim', 'Rosa', 'Bram',
           'Tilly', 'Emrys', 'Wilder', 'Junie', 'Alder', 'Posy', 'Marnie',
@@ -291,6 +309,7 @@ export const THEMES: ThemeDef[] = [
         id: 'flower',
         name: 'Flower',
         pattern: 'the {} grower',
+        // prettier-ignore
         items: words(
           'Dahlia', 'Peony', 'Iris', 'Tulip', 'Aster', 'Zinnia', 'Lupin',
           'Freesia', 'Marigold', 'Foxglove', 'Camellia', 'Sweet Pea', 'Snapdragon', 'Cosmos',
@@ -300,6 +319,7 @@ export const THEMES: ThemeDef[] = [
         id: 'pot',
         name: 'Pot',
         pattern: 'the {} pot',
+        // prettier-ignore
         items: words(
           'Terracotta', 'Cobalt', 'Ivory', 'Copper', 'Slate', 'Mint', 'Rust',
           'Cream', 'Indigo', 'Charcoal', 'Blush', 'Amber', 'Olive', 'Plum',
@@ -309,6 +329,7 @@ export const THEMES: ThemeDef[] = [
         id: 'tool',
         name: 'Tool',
         pattern: 'the {} owner',
+        // prettier-ignore
         items: words(
           'Trowel', 'Shears', 'Dibber', 'Rake', 'Sprayer', 'Gloves', 'Hoe',
           'Twine', 'Secateurs', 'Kneeler', 'Sieve', 'Hand Fork', 'Watering Can', 'Plant Labels',
@@ -319,7 +340,12 @@ export const THEMES: ThemeDef[] = [
         name: 'Height',
         pattern: 'the {} plant',
         items: numbers(20, 15, 14, (value) => `${value}cm`),
-        ordered: { noun: 'plant height', unit: 'centimetres', greater: 'taller', lesser: 'shorter' },
+        ordered: {
+          noun: 'plant height',
+          unit: 'centimetres',
+          greater: 'taller',
+          lesser: 'shorter',
+        },
       },
     ],
     clues: {

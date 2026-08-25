@@ -12,7 +12,10 @@ const puzzle = generatePuzzle({ theme: THEMES[3], size: SIZES[0], seed: 11 });
 const saved = {
   version: SAVE_VERSION,
   puzzle,
-  marks: { '0.0-1.1': byHand('yes'), '0.0-1.2': { mark: 'no' as const, source: 'auto' as const, from: '0.0-1.1' } },
+  marks: {
+    '0.0-1.1': byHand('yes'),
+    '0.0-1.2': { mark: 'no' as const, source: 'auto' as const, from: '0.0-1.1' },
+  },
   crossedOut: [1],
   seconds: 30,
   hintsUsed: 0,

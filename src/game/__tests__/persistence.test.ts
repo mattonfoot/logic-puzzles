@@ -32,7 +32,13 @@ function savedGame(overrides: Partial<SavedGame> = {}): SavedGame {
 }
 
 const completed = (overrides: Partial<CompletedGame> = {}): CompletedGame =>
-  completedGameFrom(puzzle, { seconds: 100, hintsUsed: 0, revealed: false, finishedAt: 1, ...overrides });
+  completedGameFrom(puzzle, {
+    seconds: 100,
+    hintsUsed: 0,
+    revealed: false,
+    finishedAt: 1,
+    ...overrides,
+  });
 
 describe('isSavedGame', () => {
   it('accepts a game it just wrote', () => {
@@ -108,7 +114,7 @@ describe('reading a board back', () => {
     expect(reviveMarks(JSON.parse(JSON.stringify(marks)))).toEqual(marks);
   });
 
-  it('treats a board written before marks had a source as the player\'s own', () => {
+  it("treats a board written before marks had a source as the player's own", () => {
     expect(reviveMarks({ '0.0-1.1': 'yes', '0.0-1.2': 'no' })).toEqual({
       '0.0-1.1': byHand('yes'),
       '0.0-1.2': byHand('no'),

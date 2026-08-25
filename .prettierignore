@@ -1,0 +1,10 @@
+node_modules
+dist
+.expo
+.screenshot-build
+docs/screenshots
+package-lock.json
+
+# Markdown is left alone: Prettier pads table cells out to the widest row, and
+# the screenshot table in the README would become unreadable in source.
+*.md

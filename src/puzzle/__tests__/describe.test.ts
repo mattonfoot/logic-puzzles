@@ -69,7 +69,12 @@ function puzzleWith(templates = resolveClueTemplates(theme)): Puzzle {
   };
 }
 
-const link: Clue = { kind: 'link', positive: true, a: { category: 0, item: 0 }, b: { category: 1, item: 1 } };
+const link: Clue = {
+  kind: 'link',
+  positive: true,
+  a: { category: 0, item: 0 },
+  b: { category: 1, item: 1 },
+};
 const notLink: Clue = { ...link, positive: false } as Clue;
 const either: Clue = {
   kind: 'either',

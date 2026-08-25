@@ -241,7 +241,9 @@ function applyClue(clue: Clue, grid: Grid, ctx: SolveContext): void {
       while (high) {
         const e = lowestBitIndex(high);
         high &= high - 1;
-        if (allowedOrderMask(grid, clue.order, values, e, lesserEntities, clue.gap, 'greater') === 0) {
+        if (
+          allowedOrderMask(grid, clue.order, values, e, lesserEntities, clue.gap, 'greater') === 0
+        ) {
           grid.remove(clue.greater.category, e, clue.greater.item);
         }
       }
@@ -249,7 +251,9 @@ function applyClue(clue: Clue, grid: Grid, ctx: SolveContext): void {
       while (low) {
         const e = lowestBitIndex(low);
         low &= low - 1;
-        if (allowedOrderMask(grid, clue.order, values, e, greaterEntities, clue.gap, 'lesser') === 0) {
+        if (
+          allowedOrderMask(grid, clue.order, values, e, greaterEntities, clue.gap, 'lesser') === 0
+        ) {
           grid.remove(clue.lesser.category, e, clue.lesser.item);
         }
       }

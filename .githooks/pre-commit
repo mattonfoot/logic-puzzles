@@ -1,0 +1,20 @@
+#!/bin/sh
+# Formats the staged files with Prettier and stages the result, so what lands in
+# a commit is always formatted. Enabled by `npm install`, which points
+# core.hooksPath at this directory; run `git commit --no-verify` to skip it.
+#
+# Note: a file staged in part is formatted and staged whole, since Prettier can
+# only work on the file as it sits on disk.
+set -e
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR | grep -Ei '\.(ts|tsx|js|jsx|mjs|cjs|json|md|css|html|yml|yaml)$' || true)
+[ -z "$staged" ] && exit 0
+
+# Ignored paths are dropped here rather than by Prettier, so nothing gets
+# re-staged that Prettier left alone.
+formatted=$(printf '%s\n' "$staged" | xargs npx prettier --ignore-unknown --list-different || true)
+[ -z "$formatted" ] && exit 0
+
+printf '%s\n' "$formatted" | xargs npx prettier --write >/dev/null
+printf '%s\n' "$formatted" | xargs git add
+printf 'Prettier formatted:\n%s\n' "$formatted"

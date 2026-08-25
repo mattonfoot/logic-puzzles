@@ -190,7 +190,9 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
                       day: 'numeric',
                       month: 'short',
                     })}
-                    {game.hintsUsed > 0 ? ` · ${game.hintsUsed} hint${game.hintsUsed === 1 ? '' : 's'}` : ' · no hints'}
+                    {game.hintsUsed > 0
+                      ? ` · ${game.hintsUsed} hint${game.hintsUsed === 1 ? '' : 's'}`
+                      : ' · no hints'}
                   </Text>
                 </View>
                 <Text style={[styles.gameTime, game.revealed && styles.gameTimeMuted]}>
@@ -265,15 +267,16 @@ function TrendBanner({ size }: { size: SizeStats }) {
     <View
       style={[
         styles.trendBanner,
-        { backgroundColor: tint(steady ? palette.ink : faster ? palette.success : palette.ink, 0.08) },
+        {
+          backgroundColor: tint(
+            steady ? palette.ink : faster ? palette.success : palette.ink,
+            0.08,
+          ),
+        },
       ]}
     >
       <Text style={[styles.trendHeadline, !steady && faster && { color: palette.success }]}>
-        {steady
-          ? 'Holding steady'
-          : faster
-            ? `${share}% faster lately`
-            : `${share}% slower lately`}
+        {steady ? 'Holding steady' : faster ? `${share}% faster lately` : `${share}% slower lately`}
       </Text>
       <Text style={styles.trendDetail}>
         Last {Math.min(size.solved, 5)} average {formatDuration(size.recentAverage)} vs{' '}

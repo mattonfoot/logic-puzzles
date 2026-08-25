@@ -70,8 +70,9 @@ describe('generatePuzzle', () => {
     it('records the seed it used, and rolls a new one when not given one', () => {
       expect(draw(4321).seed).toBe(4321);
 
-      const rolled = Array.from({ length: 25 }, () =>
-        generatePuzzle({ theme: THEMES, size: SIZES[0] }).seed,
+      const rolled = Array.from(
+        { length: 25 },
+        () => generatePuzzle({ theme: THEMES, size: SIZES[0] }).seed,
       );
       expect(new Set(rolled).size).toBe(rolled.length);
     });

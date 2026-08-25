@@ -13,8 +13,7 @@ export const DEFAULT_CLUE_TEMPLATES: ClueTemplates = {
   notLink: '{a} is not paired with {b}.',
   either: '{a} is paired with either {b} or {c}.',
   compare: 'The {noun} for {greater} is {comparative} than for {lesser}.',
-  compareGap:
-    'The {noun} for {greater} is exactly {gap} {unit} {comparative} than for {lesser}.',
+  compareGap: 'The {noun} for {greater} is exactly {gap} {unit} {comparative} than for {lesser}.',
 };
 
 export function resolveClueTemplates(theme: ThemeDef): ClueTemplates {

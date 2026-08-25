@@ -123,10 +123,7 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
           {/* Column headers: set name, then each item written up the page. */}
           <View style={[styles.row, { height: HEADER_HEIGHT }]}>
             {layout.colCategories.map((category) => (
-              <View
-                key={`head-${category}`}
-                style={[styles.columnBlock, { width: blockBox }]}
-              >
+              <View key={`head-${category}`} style={[styles.columnBlock, { width: blockBox }]}>
                 <Text style={[styles.categoryName, { color: puzzle.accent }]} numberOfLines={1}>
                   {puzzle.categories[category].name}
                 </Text>

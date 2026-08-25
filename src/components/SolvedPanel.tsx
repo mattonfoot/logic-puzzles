@@ -59,7 +59,10 @@ export function SolvedPanel({
           style={[
             styles.improvement,
             {
-              backgroundColor: tint(improvement.kind === 'best' ? puzzle.accent : palette.ink, 0.08),
+              backgroundColor: tint(
+                improvement.kind === 'best' ? puzzle.accent : palette.ink,
+                0.08,
+              ),
               borderColor: improvement.kind === 'best' ? puzzle.accent : palette.line,
             },
           ]}
@@ -117,7 +120,9 @@ function Stat({
   joined?: boolean;
 }) {
   return (
-    <View style={[styles.stat, joined && styles.statJoined, { backgroundColor: tint(accent, 0.1) }]}>
+    <View
+      style={[styles.stat, joined && styles.statJoined, { backgroundColor: tint(accent, 0.1) }]}
+    >
       <Text style={[styles.statValue, { color: accent }]}>{value}</Text>
       <Text style={styles.statLabel}>{label}</Text>
     </View>

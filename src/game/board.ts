@@ -35,9 +35,7 @@ export interface Cell {
 }
 
 export function normalise(cell: Cell): Cell {
-  return cell.c1 <= cell.c2
-    ? cell
-    : { c1: cell.c2, i1: cell.i2, c2: cell.c1, i2: cell.i1 };
+  return cell.c1 <= cell.c2 ? cell : { c1: cell.c2, i1: cell.i2, c2: cell.c1, i2: cell.i1 };
 }
 
 export function markKey(cell: Cell): string {

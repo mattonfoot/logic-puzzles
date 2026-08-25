@@ -54,8 +54,18 @@ describe('solve', () => {
   it('honours strict comparisons', () => {
     const clues: Clue[] = [
       // The cat owner is older than Ann, and Ann is older than the dog owner.
-      { kind: 'compare', order: 2, greater: { category: 1, item: 0 }, lesser: { category: 0, item: 0 } },
-      { kind: 'compare', order: 2, greater: { category: 0, item: 0 }, lesser: { category: 1, item: 1 } },
+      {
+        kind: 'compare',
+        order: 2,
+        greater: { category: 1, item: 0 },
+        lesser: { category: 0, item: 0 },
+      },
+      {
+        kind: 'compare',
+        order: 2,
+        greater: { category: 0, item: 0 },
+        lesser: { category: 1, item: 1 },
+      },
     ];
     // Ann owns neither pet and is stuck in the middle of the age order, which
     // leaves only the two ways of handing the cat and dog to Bo and Cy.

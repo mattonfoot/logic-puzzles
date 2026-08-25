@@ -27,8 +27,20 @@ Checks:
 ```bash
 npm test           # jest — puzzle engine, board, storage and statistics
 npm run typecheck  # tsc --noEmit
+npm run format     # prettier --write .
+npm run format:check  # prettier --check . (what CI would ask)
 npm run screenshots  # rebuild the screens in docs/screenshots (see below)
 ```
+
+Formatting is Prettier's, configured in `.prettierrc.json` — 100 columns and
+single quotes, which is what the code was already written to. `npm install`
+points `core.hooksPath` at `.githooks`, whose `pre-commit` formats the staged
+files and stages the result, so what lands in a commit is always formatted.
+`git commit --no-verify` skips it. Two things are left alone: Markdown, because
+Prettier pads table cells out to the widest row and the screenshot table here
+would become unreadable in source, and the item pools in `src/data/themes.ts`,
+which are hand-set as a table and carry a `// prettier-ignore` each. A file
+staged in part is formatted whole, since Prettier can only see what is on disk.
 
 For a standalone build, use EAS (`npx eas build -p ios`); the bundle identifier
 is set in `app.json` and should be changed to your own before building.

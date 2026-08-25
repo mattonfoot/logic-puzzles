@@ -35,7 +35,12 @@ function newestFirst(...games: CompletedGame[]): CompletedGame[] {
 describe('statsForSize', () => {
   it('reports nothing for a size that has never been played', () => {
     const stats = statsForSize([], SIZES[0]);
-    expect(stats).toMatchObject({ solved: 0, bestSeconds: null, averageSeconds: null, trend: null });
+    expect(stats).toMatchObject({
+      solved: 0,
+      bestSeconds: null,
+      averageSeconds: null,
+      trend: null,
+    });
     expect(stats.times).toEqual([]);
   });
 

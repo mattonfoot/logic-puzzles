@@ -66,15 +66,20 @@ export function HomeScreen({
             style={[
               styles.resumeCard,
               shadow.card,
-              { borderColor: savedGame.puzzle.accent, backgroundColor: tint(savedGame.puzzle.accent, 0.08) },
+              {
+                borderColor: savedGame.puzzle.accent,
+                backgroundColor: tint(savedGame.puzzle.accent, 0.08),
+              },
             ]}
           >
             <Text style={styles.resumeLabel}>Puzzle in progress</Text>
             <Text style={styles.resumeTitle}>
-              {savedGame.puzzle.themeEmoji} {savedGame.puzzle.themeName} · {savedGame.puzzle.size.label}
+              {savedGame.puzzle.themeEmoji} {savedGame.puzzle.themeName} ·{' '}
+              {savedGame.puzzle.size.label}
             </Text>
             <Text style={styles.resumeMeta}>
-              {Math.round(savedProgress * 100)}% filled in · {formatDuration(savedGame.seconds)} on the clock
+              {Math.round(savedProgress * 100)}% filled in · {formatDuration(savedGame.seconds)} on
+              the clock
             </Text>
             <View style={styles.resumeButtons}>
               <AppButton

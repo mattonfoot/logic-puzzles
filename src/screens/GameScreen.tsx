@@ -174,9 +174,12 @@ export function GameScreen({
     };
   }, [onSaveProgress]);
 
-  useEffect(() => () => {
-    if (statusTimer.current) clearTimeout(statusTimer.current);
-  }, []);
+  useEffect(
+    () => () => {
+      if (statusTimer.current) clearTimeout(statusTimer.current);
+    },
+    [],
+  );
 
   const flash = useCallback((message: string) => {
     setStatus(message);
@@ -477,7 +480,6 @@ export function GameScreen({
           )}
         </View>
       </View>
-
     </View>
   );
 }
