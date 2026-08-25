@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 export const palette = {
   /** Used by the setup and statistics screens, which have no theme of their own. */
   accent: '#4C6FFF',
-  bg: '#F6F3EC',
+  bg: '#F1EDE2',
   surface: '#FFFFFF',
   surfaceAlt: '#FBF9F3',
   /**

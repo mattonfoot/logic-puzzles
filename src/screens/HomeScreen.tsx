@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     left: 0,
-    backgroundColor: 'rgba(246, 243, 236, 0.72)',
+    backgroundColor: tint(palette.bg, 0.72),
     alignItems: 'center',
     justifyContent: 'center',
   },
