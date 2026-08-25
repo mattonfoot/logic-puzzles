@@ -1,6 +1,7 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View, type ViewStyle } from 'react-native';
+import { Pressable, StyleSheet, View, type ViewStyle } from 'react-native';
 
+import { Text } from '../ui/Text';
 import { palette, radius, shadow, space, tint } from '../ui/theme';
 
 type Variant = 'primary' | 'secondary' | 'ghost';

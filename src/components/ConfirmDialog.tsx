@@ -1,6 +1,7 @@
 import React from 'react';
-import { Modal, StyleSheet, Text, View } from 'react-native';
+import { Modal, StyleSheet, View } from 'react-native';
 
+import { Text } from '../ui/Text';
 import { palette, radius, shadow, space } from '../ui/theme';
 import { AppButton } from './AppButton';
 

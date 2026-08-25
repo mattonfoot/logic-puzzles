@@ -1,9 +1,10 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { formatDuration } from '../game/time';
 import type { Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
+import { Text } from '../ui/Text';
 import { border, palette, space, tint } from '../ui/theme';
 import { AppButton } from './AppButton';
 import { SolutionTable } from './SolutionTable';

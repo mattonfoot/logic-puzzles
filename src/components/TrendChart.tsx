@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { formatDuration } from '../game/time';
+import { Text } from '../ui/Text';
 import { chart, palette, radius, space } from '../ui/theme';
 
 interface Props {

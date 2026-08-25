@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
 import { getEntry, markKey, type Cell, type Marks } from '../game/board';
 import { boardLayout } from '../game/layout';
 import type { Attribute, Puzzle } from '../puzzle/types';
+import { Text } from '../ui/Text';
 import { palette, space, tint } from '../ui/theme';
 
 interface Props {

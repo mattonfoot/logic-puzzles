@@ -1,9 +1,10 @@
 import React from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { Puzzle } from '../puzzle/types';
 import { haptics } from '../ui/haptics';
+import { Text } from '../ui/Text';
 import { border, joinTop, palette, space, tint } from '../ui/theme';
 
 interface Props {

@@ -138,7 +138,7 @@ src/stats/summary.ts        history → per-size stats, streaks, improvement not
 src/storage/store.ts        the only module that touches AsyncStorage
 src/components/             GridBoard, SolutionTable, ClueList, SolvedPanel, …
 src/screens/                HomeScreen, GameScreen, GameMenuScreen, StatsScreen
-src/ui/                     palette, spacing, borders, haptics helpers
+src/ui/                     Text (the typeface), palette, spacing, borders, haptics
 ```
 
 ## How the board is laid out
@@ -159,6 +159,17 @@ Four sets therefore give a 3 × 3 arrangement of six grids, three sets a 2 × 2
 arrangement of three, and five sets a 4 × 4 arrangement of ten — every pair of
 sets exactly once, which is what makes cross-referencing possible: a tick in
 Astronaut × Ship can be carried into Ship × Launch without leaving the board.
+
+The typeface is **Outfit**, a geometric sans loaded from
+`@expo-google-fonts/outfit`. A custom family has one file per weight and
+`fontWeight` cannot pick between them — asking for 700 of a family with no bold
+face gets a synthetic one, which smears the letterforms — so `src/ui/Text.tsx`
+is a drop-in `Text` that reads the weight out of the style, swaps in the face
+that carries it, and drops the weight so nothing is emboldened twice. Every
+screen imports `Text` from there rather than from React Native, and `App.tsx`
+waits on `useFonts` before drawing so the app never reflows from a system font
+to this one. Swapping typeface means changing the package, the five names in
+`App.tsx`, and the map in `Text.tsx`.
 
 Nothing in the app is rounded and no bordered thing has a gap beside it: the
 `radius` scale in `src/ui/theme.ts` is zero throughout, and bordered neighbours

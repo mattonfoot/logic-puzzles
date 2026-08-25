@@ -1,8 +1,9 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { clueIcon, describeClue } from '../puzzle/describe';
 import type { Puzzle } from '../puzzle/types';
+import { Text } from '../ui/Text';
 import { palette, radius, space, tint } from '../ui/theme';
 
 interface Props {

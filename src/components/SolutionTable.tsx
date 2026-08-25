@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { solutionRows, type SolutionCell } from '../game/layout';
 import type { Puzzle } from '../puzzle/types';
+import { Text } from '../ui/Text';
 import { palette, space, tint } from '../ui/theme';
 
 interface Props {

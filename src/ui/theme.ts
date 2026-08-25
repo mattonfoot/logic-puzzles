@@ -58,11 +58,6 @@ export const joinTop = { marginTop: -border };
 
 export const space = (steps: number) => steps * 4;
 
-export const fontFamily = Platform.select({
-  ios: 'System',
-  default: undefined,
-});
-
 export const shadow = {
   card: Platform.select({
     ios: {

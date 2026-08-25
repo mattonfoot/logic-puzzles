@@ -1,3 +1,11 @@
+import {
+  Outfit_400Regular,
+  Outfit_500Medium,
+  Outfit_600SemiBold,
+  Outfit_700Bold,
+  Outfit_800ExtraBold,
+  useFonts,
+} from '@expo-google-fonts/outfit';
 import { StatusBar } from 'expo-status-bar';
 import React, { useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -18,6 +26,16 @@ import { palette } from './src/ui/theme';
 type Screen = 'home' | 'game' | 'stats';
 
 export default function App() {
+  // One file per weight; `src/ui/Text` picks between them. Until they are here
+  // the app draws in the system font, which reflows the moment they arrive, so
+  // it waits on the empty page instead.
+  const [fontsLoaded] = useFonts({
+    Outfit_400Regular,
+    Outfit_500Medium,
+    Outfit_600SemiBold,
+    Outfit_700Bold,
+    Outfit_800ExtraBold,
+  });
   const persistence = usePersistence();
 
   const [size, setSize] = useState<SizeOption>(SIZES[1]);
@@ -92,6 +110,8 @@ export default function App() {
     },
     [persistence, puzzle],
   );
+
+  if (!fontsLoaded) return <View style={styles.root} />;
 
   return (
     <SafeAreaProvider>
