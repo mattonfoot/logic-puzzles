@@ -169,7 +169,9 @@ There are no lines on the board at all. Inside a block the squares alternate
 white and a shade, like a checkerboard, and that shading is what keeps a row
 readable across the grid; around each block is a two-pixel band painted in the
 page colour, so what separates one grid from the next is a gutter of background
-rather than a rule. A block's box carries that band on each side and is measured
+rather than a rule. Both squares sit lighter than the page — `boardLight` at
+L\* 100 and `boardShade` at 97.2 against the page's 95.9 — so the grids read as
+paper laid on the page while still telling one square from the next. A block's box carries that band on each side and is measured
 to suit — `blockBox = cellSize * items +
 2 * BLOCK_BORDER` — so the squares inside come out at exactly `cellSize` and
 line up with the labels beside them, and `fitCellSize` allows for the rules when

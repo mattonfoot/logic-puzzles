@@ -6,8 +6,13 @@ export const palette = {
   bg: '#F6F3EC',
   surface: '#FFFFFF',
   surfaceAlt: '#FBF9F3',
-  /** Every other square of a pair grid, which is what rules the grid now. */
-  boardShade: '#F3EFE5',
+  /**
+   * The two squares of the board's checkerboard. Both sit lighter than the
+   * page, so the grid reads as paper laid on the page, and far enough apart to
+   * be told from one another at a glance.
+   */
+  boardLight: '#FFFFFF',
+  boardShade: '#F9F7F0',
   ink: '#1D2333',
   inkSoft: '#5C6379',
   inkFaint: '#98A0B3',

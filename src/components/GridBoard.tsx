@@ -206,7 +206,7 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
                                         ? tint(puzzle.accent, 0.07)
                                         : (rowItem + colItem) % 2 === 1
                                           ? palette.boardShade
-                                          : palette.surface,
+                                          : palette.boardLight,
                                   opacity: pressed ? 0.7 : 1,
                                 },
                               ]}
