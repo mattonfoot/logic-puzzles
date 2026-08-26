@@ -51,7 +51,7 @@ export function SetupScreen({
         contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + space(30) }]}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.sectionLabel}>Grid size</Text>
+        <Text style={styles.sectionLabel}>Difficulty</Text>
         <View style={styles.sizeRow}>
           {SIZES.map((option) => {
             const selected = option.id === size.id;
@@ -59,6 +59,7 @@ export function SetupScreen({
               <Pressable
                 key={option.id}
                 accessibilityRole="radio"
+                accessibilityLabel={`${option.difficulty}, ${option.label}`}
                 accessibilityState={{ selected }}
                 onPress={() => {
                   haptics.select();
@@ -74,16 +75,17 @@ export function SetupScreen({
                 ]}
               >
                 <Text style={[styles.sizeLabel, selected && { color: palette.accent }]}>
-                  {option.label}
+                  {option.difficulty}
                 </Text>
-                <Text style={styles.sizeBlurb}>{option.blurb}</Text>
+                <Text style={styles.sizeShape}>{option.label}</Text>
               </Pressable>
             );
           })}
         </View>
         <Text style={styles.sizeHint}>
-          {size.items} items in each of {size.categories} categories —{' '}
-          {(size.categories * (size.categories - 1)) / 2} grids to fill in.
+          {size.difficulty} is a {size.label} puzzle: {size.items} items in each of{' '}
+          {size.categories} categories, {(size.categories * (size.categories - 1)) / 2} grids to
+          fill in.
         </Text>
         {sizeStats && sizeStats.solved > 0 ? (
           <Text style={styles.sizeStats}>
@@ -115,7 +117,7 @@ export function SetupScreen({
           onPress={onStart}
         />
         <AppButton
-          label="Random size"
+          label="Random difficulty"
           variant="ghost"
           accent={palette.inkSoft}
           disabled={busy}
@@ -169,11 +171,11 @@ const makeStyles = (palette: Palette) =>
       alignItems: 'center',
     },
     sizeLabel: {
-      fontSize: 15,
+      fontSize: 14,
       fontWeight: '700',
       color: palette.ink,
     },
-    sizeBlurb: {
+    sizeShape: {
       fontSize: 11,
       color: palette.inkFaint,
       marginTop: space(0.5),

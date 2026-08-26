@@ -67,12 +67,13 @@ rest is the app behaving normally.
 
 1. **Start** — three links: **Play**, **Settings** and **Statistics**, plus the
    game you left in progress if there is one. Play opens the setup screen; pick
-   a grid size: 3 × 3 (warm-up), 4 × 4 (classic), 5 × 4 (tricky)
-   or 6 × 4 (expert). The first number is how many items each category holds, the
-   second how many categories take part. The theme is drawn when you press start
-   — one of five settings, its sets and its cast sampled from pools of fourteen
-   items each, so two puzzles rarely share a line-up. "Random size" rolls the
-   shape too.
+   a difficulty: **Beginner** (3 × 3), **Advanced** (4 × 4), **Expert** (5 × 4)
+   or **Pro** (6 × 4). The shape is what makes the difficulty: the first number
+   is how many items each category holds, the second how many categories take
+   part, so a Pro puzzle is six items across four categories and six grids to
+   fill. The theme is drawn when you press start — one of five settings, its
+   sets and its cast sampled from pools of fourteen items each, so two puzzles
+   rarely share a line-up. "Random difficulty" rolls that too.
 2. **Game** — the whole puzzle is drawn as one staircase of grids, the way a
    printed logic puzzle is laid out: every pair of sets meets in its own grid,
    so a four-set puzzle is a 3 × 3 arrangement holding six grids, and each grid

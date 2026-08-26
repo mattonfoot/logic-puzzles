@@ -112,8 +112,10 @@ export interface SizeOption {
   items: number;
   /** How many categories take part. */
   categories: number;
+  /** The shape, as the grid reads: "4 × 4". */
   label: string;
-  blurb: string;
+  /** What that shape asks of the player: "Beginner", "Pro". */
+  difficulty: string;
 }
 
 export interface Puzzle {
