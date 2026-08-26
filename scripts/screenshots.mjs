@@ -320,6 +320,9 @@ async function main() {
   await page.getByLabel('Back').click();
   await wait(page, 400);
   await startPuzzle(page);
+  // The board only takes marks once a clue has been read.
+  await page.getByLabel('Get next clue').click();
+  await wait(page, 400);
   // A few true pairings, so the card on the start page shows some progress.
   await solve(page, await puzzleInPlay(page), 3);
   await wait(page, 1000);

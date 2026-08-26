@@ -117,8 +117,10 @@ rest is the app behaving normally.
    printed logic puzzle is laid out: every pair of sets meets in its own grid,
    so a four-set puzzle is a 3 × 3 arrangement holding six grids, and each grid
    is items × items. Nothing on the screen scrolls: the board opens at the size
-   that fits the space it is given, with the clue in play beneath it. Tap a
-   square to cycle it blank → ✕ → ✓. A tick crosses out the rest of its row and
+   that fits the space it is given, with the clue in play beneath it. The board
+   takes no marks until you have read a clue — with nothing said about the
+   puzzle, a mark could only be a guess. After that, tap a square to cycle it
+   blank → ✕ → ✓. A tick crosses out the rest of its row and
    column for you, and cycling that tick back to blank takes those crosses away
    with it — anything you crossed by hand stays put. **Automatic crosses** and
    **Auto add facts** — which fills in a tick that follows from two others, so a

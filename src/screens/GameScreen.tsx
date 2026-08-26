@@ -258,13 +258,20 @@ export function GameScreen({
         flash('This puzzle is finished — Restart to play it again.');
         return;
       }
+      // Nothing can be worked out from a board nobody has said anything about,
+      // so a mark before the first clue would only ever be a guess.
+      if (!started) {
+        feedback.warn();
+        flash('Read a clue first — there is nothing to go on yet.');
+        return;
+      }
       feedback.mark();
       // The cycle follows what the square shows, so an automatic cross behaves
       // like any other: blank → ✕ → ✓ → blank. Whatever it lands on is the
       // player's own mark from then on.
       move((current) => setMark(current, cell, nextMark(getMark(current, cell)), boardOptions));
     },
-    [boardOptions, flash, move],
+    [boardOptions, flash, move, started],
   );
 
   const undo = useCallback(() => {
@@ -504,7 +511,9 @@ export function GameScreen({
             <Text style={styles.cardHint}>
               {solved
                 ? 'The finished board · Restart to play this puzzle again'
-                : 'Tap a square to cycle blank → ✕ → ✓'}
+                : started
+                  ? 'Tap a square to cycle blank → ✕ → ✓'
+                  : 'Read a clue to start marking the board'}
             </Text>
           </View>
         ) : (
