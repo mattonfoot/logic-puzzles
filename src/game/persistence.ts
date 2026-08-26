@@ -34,7 +34,10 @@ export interface CompletedGame {
   themeEmoji: string;
   accent: string;
   sizeId: string;
+  /** The shape, as the grid reads: "4 × 4". */
   sizeLabel: string;
+  /** What that shape is called: "Advanced". */
+  difficulty: string;
   seconds: number;
   /**
    * Clues read before it was finished; null for games played before we counted.
@@ -126,7 +129,9 @@ export function isHistory(value: unknown): value is History {
  * Games played before the clue table counted hints instead, which is a
  * different thing entirely — those are recorded as having no clue count rather
  * than being read as one, so the averages are drawn from games that were
- * actually measured. Everything else about them still stands.
+ * actually measured. Games from before the sizes were called by name fall back
+ * to the shape they stored, which is what they were called at the time.
+ * Everything else about them still stands.
  */
 export function reviveHistory(value: unknown): History | null {
   if (!isHistory(value)) return null;
@@ -135,6 +140,7 @@ export function reviveHistory(value: unknown): History | null {
     games: value.games.map((game) => ({
       ...game,
       cluesUsed: typeof game.cluesUsed === 'number' ? game.cluesUsed : null,
+      difficulty: typeof game.difficulty === 'string' ? game.difficulty : game.sizeLabel,
     })),
   };
 }
@@ -191,6 +197,7 @@ export function completedGameFrom(puzzle: Puzzle, input: CompletionInput): Compl
     accent: puzzle.accent,
     sizeId: puzzle.size.id,
     sizeLabel: puzzle.size.label,
+    difficulty: puzzle.size.difficulty,
     seconds: Math.max(0, Math.round(input.seconds)),
     cluesUsed: input.cluesUsed,
     revealed: input.revealed,

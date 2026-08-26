@@ -2,8 +2,8 @@ import type { CompletedGame } from '../../game/persistence';
 import { improvementFor, statsForSize, summarise, TREND_WINDOW } from '../summary';
 
 const SIZES = [
-  { id: 'sm', label: '4 × 4' },
-  { id: 'md', label: '5 × 4' },
+  { id: 'sm', label: '4 × 4', difficulty: 'Advanced' },
+  { id: 'md', label: '5 × 4', difficulty: 'Expert' },
 ];
 
 const DAY = 86_400_000;
@@ -18,6 +18,7 @@ function game(overrides: Partial<CompletedGame> = {}): CompletedGame {
     accent: '#4C6FFF',
     sizeId: 'sm',
     sizeLabel: '4 × 4',
+    difficulty: 'Advanced',
     seconds: 120,
     cluesUsed: 4,
     revealed: false,
@@ -47,7 +48,7 @@ describe('statsForSize', () => {
     const games = newestFirst(
       game({ seconds: 200 }),
       game({ seconds: 100 }),
-      game({ seconds: 300, sizeId: 'md', sizeLabel: '5 × 4' }),
+      game({ seconds: 300, sizeId: 'md', sizeLabel: '5 × 4', difficulty: 'Expert' }),
     );
     const stats = statsForSize(games, SIZES[0]);
     expect(stats.solved).toBe(2);
@@ -157,6 +158,9 @@ describe('improvementFor', () => {
     expect(result.kind).toBe('faster');
     expect(result.averageBefore).toBe(200);
     expect(result.headline).toContain('25% faster');
+    // Puzzles are called by their difficulty, not by their shape.
+    expect(result.headline).toContain('Advanced');
+    expect(result.headline).not.toContain('4 × 4');
     expect(result.rank).toBe(2);
   });
 
@@ -181,7 +185,9 @@ describe('improvementFor', () => {
   });
 
   it('only compares against the same grid size', () => {
-    const previous = [game({ seconds: 10, sizeId: 'md', sizeLabel: '5 × 4' })];
+    const previous = [
+      game({ seconds: 10, sizeId: 'md', sizeLabel: '5 × 4', difficulty: 'Expert' }),
+    ];
     expect(improvementFor(game({ seconds: 300 }), previous).kind).toBe('first');
   });
 });

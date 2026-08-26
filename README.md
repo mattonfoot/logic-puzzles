@@ -95,7 +95,7 @@ images in the same commit.
 | <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — play, settings, statistics, and the game left in progress. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the difficulty is the only choice, and picking one starts the puzzle. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
 | <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Menu** — behind the burger: the board settings, restart, and revealing the answer. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
 | <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, clues read, how it compares, the answer table. |
-| <img src="docs/screenshots/10-solved-grid.png" width="230" alt="The finished board"><br>**10. Finished board** — the grid tab after the win, one tap from the result. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, per-size bests and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Start page in night colours"><br>**12. Night** — the same start page in night colours, with a game waiting to be resumed. |
+| <img src="docs/screenshots/10-solved-grid.png" width="230" alt="The finished board"><br>**10. Finished board** — the grid tab after the win, one tap from the result. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Start page in night colours"><br>**12. Night** — the same start page in night colours, with a game waiting to be resumed. |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -169,7 +169,7 @@ rest is the app behaving normally.
    mid-puzzle costs nothing. The home screen offers to resume it, with the clock
    picking up where it left off and the same puzzle in front of you.
 8. **Statistics** — solved count, time played, day streak, clues read (in total
-   and per puzzle), a per-size table of best and average times, a chart of
+   and per puzzle), a table of best and average times by difficulty, a chart of
    recent solve times, and the list of recent games. Finishing a puzzle shows
    how that time compares with your earlier games at the same size.
 
@@ -180,7 +180,7 @@ App.tsx                     screen switching + puzzle generation entry point
 scripts/screenshots.mjs     drives the app in a browser to refresh docs/screenshots
 scripts/sounds.mjs          synthesises the three effects in assets/sounds
 src/data/themes.ts          the five themes: categories, item pools, clue wording
-src/data/sizes.ts           the four grid sizes
+src/data/sizes.ts           the four sizes, and the difficulty each is called
 src/puzzle/types.ts         puzzle, clue and theme model
 src/puzzle/rng.ts           seeded PRNG (a seed always rebuilds the same puzzle)
 src/puzzle/generator.ts     builds a solution, then a minimal clue set for it
@@ -194,7 +194,7 @@ src/game/persistence.ts     what gets written to disk, and the guards to read it
 src/game/usePersistence.ts  saved game + finished games as React state
 src/game/time.ts            duration formatting
 src/game/useTimer.ts        elapsed-time hook
-src/stats/summary.ts        history → per-size stats, streaks, improvement notes
+src/stats/summary.ts        history → stats per difficulty, streaks, improvement notes
 src/storage/store.ts        the only module that touches AsyncStorage
 src/components/             GridBoard, SolutionTable, ClueCard, SolvedPanel, …
 src/screens/                StartScreen, SetupScreen, SettingsScreen,
@@ -269,7 +269,7 @@ the toolbar buttons sit flush, so a group of them reads as one ruled table the
 way a printed puzzle page does. That is for parts of one thing, though, not for
 things that are separately readable: the statistics screen keeps its spacing —
 between its cards and between its stat tiles — and so do the two rows that mark
-a chosen item, the grid sizes on the home screen and the size filter on the
+a chosen item, the difficulties on the setup screen and the filter on the
 statistics screen, where a shared edge would paint over the selection's own
 border.
 

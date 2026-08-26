@@ -96,6 +96,7 @@ function sampleHistory() {
         accent,
         sizeId,
         sizeLabel,
+        difficulty: { xs: 'Beginner', sm: 'Advanced', md: 'Expert', lg: 'Pro' }[sizeId],
         seconds,
         cluesUsed,
         revealed: false,

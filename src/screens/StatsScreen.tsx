@@ -96,19 +96,21 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
 
         {played.length > 0 ? (
           <View style={[styles.card, shadow.card]}>
-            <Text style={styles.cardTitle}>By grid size</Text>
+            <Text style={styles.cardTitle}>By difficulty</Text>
             <View style={styles.sizeTable}>
               <View style={styles.sizeHeaderRow}>
-                <Text style={[styles.sizeHeaderCell, styles.sizeCellWide]}>Size</Text>
+                <Text style={styles.sizeHeaderWide}>Difficulty</Text>
                 <Text style={styles.sizeHeaderCell}>Solved</Text>
                 <Text style={styles.sizeHeaderCell}>Best</Text>
                 <Text style={styles.sizeHeaderCell}>Average</Text>
               </View>
               {stats.sizes.map((size) => (
                 <View key={size.sizeId} style={styles.sizeRow}>
-                  <Text style={[styles.sizeCell, styles.sizeCellWide, styles.sizeCellStrong]}>
-                    {size.sizeLabel}
-                  </Text>
+                  <View style={styles.sizeCellWide}>
+                    <Text style={styles.sizeCellName}>{size.difficulty}</Text>
+                    {/* The shape as well: it is what the difficulty means. */}
+                    <Text style={styles.sizeCellShape}>{size.sizeLabel}</Text>
+                  </View>
                   <Text style={styles.sizeCell}>{size.solved || '—'}</Text>
                   <Text style={styles.sizeCell}>
                     {size.bestSeconds === null ? '—' : formatDuration(size.bestSeconds)}
@@ -150,7 +152,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
                     ]}
                   >
                     <Text style={[styles.pillText, isSelected && { color: palette.chart.series }]}>
-                      {size.sizeLabel}
+                      {size.difficulty}
                     </Text>
                   </Pressable>
                 );
@@ -166,7 +168,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
               />
             ) : (
               <Text style={styles.cardSubtitle}>
-                One more {selected.sizeLabel} solve and the trend shows up here.
+                One more {selected.difficulty} solve and the trend shows up here.
               </Text>
             )}
           </View>
@@ -180,7 +182,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
                 <Text style={styles.gameEmoji}>{game.themeEmoji}</Text>
                 <View style={styles.gameText}>
                   <Text style={styles.gameTitle}>
-                    {game.themeName} · {game.sizeLabel}
+                    {game.themeName} · {game.difficulty}
                   </Text>
                   <Text style={styles.gameMeta}>
                     {new Date(game.finishedAt).toLocaleDateString(undefined, {
@@ -348,6 +350,9 @@ const makeStyles = (palette: Palette) =>
     },
     sizeRow: {
       flexDirection: 'row',
+      // The first cell carries two lines; the numbers sit against the middle
+      // of it rather than hanging from the top.
+      alignItems: 'center',
       paddingVertical: space(2.5),
       borderBottomWidth: 1,
       borderBottomColor: palette.line,
@@ -366,16 +371,29 @@ const makeStyles = (palette: Palette) =>
       color: palette.inkSoft,
       textAlign: 'right',
     },
-    sizeCellWide: {
-      flex: 1.2,
-      textAlign: 'left',
+    sizeHeaderWide: {
+      flex: 1.4,
+      fontSize: 11,
+      textTransform: 'uppercase',
+      letterSpacing: 0.6,
+      color: palette.inkFaint,
     },
-    sizeCellStrong: {
-      color: palette.ink,
+    sizeCellWide: {
+      flex: 1.4,
+    },
+    sizeCellName: {
+      fontSize: 13,
       fontWeight: '700',
+      color: palette.ink,
+    },
+    sizeCellShape: {
+      fontSize: 11,
+      color: palette.inkFaint,
+      marginTop: 1,
     },
     pillRow: {
       flexDirection: 'row',
+      flexWrap: 'wrap',
       // Apart, for the same reason as the size buttons on the home screen: the
       // chosen one's border would be painted over by the pill beside it.
       gap: space(2),

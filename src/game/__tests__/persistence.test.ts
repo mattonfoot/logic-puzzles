@@ -117,6 +117,13 @@ describe('reading the finished games back', () => {
     expect(revived?.games[0].cluesUsed).toBeNull();
   });
 
+  it('calls a game from before the sizes had names by the shape it stored', () => {
+    const { difficulty, ...older } = completed();
+    const revived = reviveHistory({ version: HISTORY_VERSION, games: [older] });
+
+    expect(revived?.games[0].difficulty).toBe(older.sizeLabel);
+  });
+
   it('keeps a count it does understand, and refuses another version', () => {
     const history = appendGame(EMPTY_HISTORY, completed({ cluesUsed: 4 }));
     expect(reviveHistory(JSON.parse(JSON.stringify(history)))?.games[0].cluesUsed).toBe(4);

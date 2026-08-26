@@ -16,7 +16,10 @@ const MIN_EARLIER = 2;
 
 export interface SizeStats {
   sizeId: string;
+  /** The shape, as the grid reads: "4 × 4". */
   sizeLabel: string;
+  /** What that shape is called: "Advanced". */
+  difficulty: string;
   solved: number;
   bestSeconds: number | null;
   averageSeconds: number | null;
@@ -97,7 +100,7 @@ function streaks(games: CompletedGame[], now: number): { current: number; longes
 
 export function statsForSize(
   games: CompletedGame[],
-  size: Pick<SizeOption, 'id' | 'label'>,
+  size: Pick<SizeOption, 'id' | 'label' | 'difficulty'>,
 ): SizeStats {
   // History arrives newest first; solve times read better oldest → newest.
   const solved = games.filter((game) => game.sizeId === size.id && !game.revealed);
@@ -110,6 +113,7 @@ export function statsForSize(
   return {
     sizeId: size.id,
     sizeLabel: size.label,
+    difficulty: size.difficulty,
     solved: solved.length,
     bestSeconds: times.length === 0 ? null : Math.min(...times),
     averageSeconds: mean(times),
@@ -131,7 +135,7 @@ export function statsForSize(
 
 export function summarise(
   games: CompletedGame[],
-  sizes: Pick<SizeOption, 'id' | 'label'>[],
+  sizes: Pick<SizeOption, 'id' | 'label' | 'difficulty'>[],
   now: number = Date.now(),
 ): OverallStats {
   const solvedGames = games.filter((game) => !game.revealed);
@@ -197,7 +201,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   if (previousBest === null) {
     return {
       kind: 'first',
-      headline: `First ${game.sizeLabel} in the books`,
+      headline: `First ${game.difficulty} in the books`,
       detail: `Time to beat next round: ${formatDuration(game.seconds)}${clues}.`,
       previousBest,
       averageBefore,
@@ -209,7 +213,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   if (game.seconds < previousBest) {
     return {
       kind: 'best',
-      headline: `New ${game.sizeLabel} best!`,
+      headline: `New ${game.difficulty} best!`,
       detail: `${formatDuration(previousBest - game.seconds)} faster than your old best of ${formatDuration(previousBest)}${clues}.`,
       previousBest,
       averageBefore,
@@ -222,7 +226,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
     const share = (averageBefore - game.seconds) / averageBefore;
     return {
       kind: 'faster',
-      headline: `${percent(share)} faster than your ${game.sizeLabel} average`,
+      headline: `${percent(share)} faster than your ${game.difficulty} average`,
       detail: `#${rank} of ${earlier.length + 1} · best is ${formatDuration(previousBest)}${clues}.`,
       previousBest,
       averageBefore,
@@ -233,7 +237,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
 
   return {
     kind: 'steady',
-    headline: `${game.sizeLabel} complete`,
+    headline: `${game.difficulty} complete`,
     detail: `${formatDuration(game.seconds - previousBest)} off your best of ${formatDuration(previousBest)}${clues}.`,
     previousBest,
     averageBefore,
