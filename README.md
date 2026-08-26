@@ -16,7 +16,7 @@ statistics screen shows whether you are getting quicker.
 ## Running it
 
 ```bash
-npm install
+npm install        # run this again after any pull that changes package.json
 npm run ios        # opens the iOS simulator (needs macOS + Xcode)
 npm start          # dev server; scan the QR code with Expo Go on a device
 npm run web        # browser preview, handy on a machine without Xcode
@@ -41,6 +41,10 @@ Prettier pads table cells out to the widest row and the screenshot table here
 would become unreadable in source, and the item pools in `src/data/themes.ts`,
 which are hand-set as a table and carry a `// prettier-ignore` each. A file
 staged in part is formatted whole, since Prettier can only see what is on disk.
+
+If Metro says it cannot resolve a package that is plainly in `package.json`, the
+tree on disk is behind the manifest: `npm install`, then `npx expo start -c` to
+throw away the bundler's cache.
 
 For a standalone build, use EAS (`npx eas build -p ios`); the bundle identifier
 is set in `app.json` and should be changed to your own before building.
