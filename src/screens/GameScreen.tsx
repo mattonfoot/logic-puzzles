@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ClueCard } from '../components/ClueCard';
 import { fitCellSize, GridBoard, MAX_CELL } from '../components/GridBoard';
+import { ItemCard } from '../components/ItemCard';
 import { SolvedPanel } from '../components/SolvedPanel';
 import { GameMenuScreen } from './GameMenuScreen';
 import {
@@ -95,6 +96,8 @@ export function GameScreen({
   // with the board, so a resumed game keeps the ones it was given.
   const [extraClues, setExtraClues] = useState<Clue[]>([]);
   const [lit, setLit] = useState(false);
+  // The item whose card is open, from a tap on its label in the grid.
+  const [inspecting, setInspecting] = useState<Attribute | null>(null);
   const [mistakes, setMistakes] = useState<Set<string>>(new Set());
   // Every board the player has moved on from, newest last, so a move can be
   // taken back. It lives for the session only — a resumed game starts fresh.
@@ -503,6 +506,10 @@ export function GameScreen({
                     highlight={highlight}
                     cellSize={cellSize}
                     onToggle={toggleCell}
+                    onInspect={(attr) => {
+                      feedback.tap();
+                      setInspecting(attr);
+                    }}
                   />
                 ) : null}
               </ScrollView>
@@ -529,6 +536,8 @@ export function GameScreen({
           />
         )}
       </View>
+
+      <ItemCard puzzle={inPlay} showing={inspecting} onClose={() => setInspecting(null)} />
 
       <View style={[styles.footer, { paddingBottom: insets.bottom + space(2) }]}>
         {/* The clue in play sits between the board and the buttons that work

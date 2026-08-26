@@ -1,28 +1,42 @@
 import { contextFor, satisfiesAll, solve, solveByDeduction } from '../solver';
-import type { Clue, PuzzleCategory } from '../types';
+import type { Clue, ItemDef, PuzzleCategory } from '../types';
+
+/** A bare item: these tests are about the logic, not the words. */
+const item = (label: string, value?: number): ItemDef => ({
+  label,
+  value,
+  icon: '·',
+  blurb: 'A thing that exists.',
+  traits: {},
+});
 
 const categories: PuzzleCategory[] = [
   {
     id: 'person',
     name: 'Person',
     pattern: '{}',
-    items: [{ label: 'Ann' }, { label: 'Bo' }, { label: 'Cy' }],
+    describes: 'the {}',
+    noun: 'thing',
+    traits: [],
+    items: [item('Ann'), item('Bo'), item('Cy')],
   },
   {
     id: 'pet',
     name: 'Pet',
     pattern: 'the {} owner',
-    items: [{ label: 'Cat' }, { label: 'Dog' }, { label: 'Newt' }],
+    describes: 'the {}',
+    noun: 'thing',
+    traits: [],
+    items: [item('Cat'), item('Dog'), item('Newt')],
   },
   {
     id: 'age',
     name: 'Age',
     pattern: 'the {} year old',
-    items: [
-      { label: '7', value: 7 },
-      { label: '9', value: 9 },
-      { label: '11', value: 11 },
-    ],
+    describes: 'the {}',
+    noun: 'thing',
+    traits: [],
+    items: [item('7', 7), item('9', 9), item('11', 11)],
     ordered: { noun: 'age', unit: 'years', greater: 'older', lesser: 'younger' },
   },
 ];
@@ -134,5 +148,41 @@ describe('solve', () => {
       { kind: 'link', positive: false, a: { category: 0, item: 0 }, b: { category: 1, item: 0 } },
     ];
     expect(solve(clues, ctx, 5).count).toBe(0);
+  });
+});
+
+describe('a clue about a described group', () => {
+  // Whoever owns the Cat and whoever owns the Dog are not Ann: one sentence,
+  // two crosses, and enough to pin Ann to the Newt.
+  const noSmallPet: Clue = {
+    kind: 'groupNot',
+    group: { category: 1, trait: 'size', value: 'small', items: [0, 1] },
+    b: { category: 0, item: 0 },
+  };
+
+  it('rules out every member of the group', () => {
+    // Three people, three pets, three ages: 6 × 6 arrangements before anyone
+    // says anything.
+    expect(solve([], ctx, 200).count).toBe(36);
+
+    const result = solve([noSmallPet], ctx, 200);
+    // Both crosses land, which leaves Ann with the only pet not covered.
+    expect(result.solution![1][0]).toBe(2);
+    expect(result.count).toBe(12);
+  });
+
+  it('is only true when the whole group misses', () => {
+    const withNewt = [
+      [0, 1, 2],
+      [2, 0, 1],
+      [0, 1, 2],
+    ];
+    const withCat = [
+      [0, 1, 2],
+      [0, 1, 2],
+      [0, 1, 2],
+    ];
+    expect(satisfiesAll([noSmallPet], withNewt, ctx)).toBe(true);
+    expect(satisfiesAll([noSmallPet], withCat, ctx)).toBe(false);
   });
 });

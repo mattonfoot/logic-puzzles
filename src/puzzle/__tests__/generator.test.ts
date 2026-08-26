@@ -139,8 +139,11 @@ describe('generatePuzzle', () => {
   });
 
   describe('the clue mix', () => {
+    // A group clue is a cross said once about several rows, so it counts with
+    // the links rather than with the flavour.
     const linkShare = (clues: { kind: string }[]) =>
-      clues.filter((clue) => clue.kind === 'link').length / clues.length;
+      clues.filter((clue) => clue.kind === 'link' || clue.kind === 'groupNot').length /
+      clues.length;
 
     it('leans on link clues — at least three in four, at every size', () => {
       for (const size of SIZES) {
@@ -160,7 +163,7 @@ describe('generatePuzzle', () => {
           kinds.add(clue.kind);
         }
       }
-      expect(kinds).toEqual(new Set(['link', 'either', 'compare']));
+      expect(kinds).toEqual(new Set(['link', 'either', 'compare', 'groupNot']));
     });
   });
 

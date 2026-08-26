@@ -13,6 +13,28 @@ export interface ItemDef {
   label: string;
   /** Ordered categories only: the numeric value used by comparison clues. */
   value?: number;
+  /** Emoji standing in for an illustration, shown on the item's card. */
+  icon: string;
+  /** A line about it, for the player who taps its label. */
+  blurb: string;
+  /** Trait id → this item's value for it, e.g. `{ hair: 'red' }`. */
+  traits: Record<string, string>;
+}
+
+/**
+ * Something the items of a category can be described by rather than named:
+ * hair colour, what a thing is made of, how big it is.
+ *
+ * `pattern` is the description without an article, with `{noun}` for what one
+ * member is called and `{}` for the value — "astronaut with {} hair" reads as
+ * "the astronaut with red hair", "no astronaut with red hair", or "an astronaut
+ * with red hair", depending on what the clue is doing with it.
+ */
+export interface TraitDef {
+  id: string;
+  /** Heading on the item's card, e.g. "Hair". */
+  label: string;
+  pattern: string;
 }
 
 /** Extra metadata that turns a category into an ordered (comparable) one. */
@@ -33,6 +55,20 @@ export interface CategoryDef {
   name: string;
   /** Sentence fragment for clue text; `{}` is replaced by the item label. */
   pattern: string;
+  /**
+   * The same fragment for an item that is being described rather than named;
+   * `{}` is replaced by the description. A clue about a weapon is really about
+   * the hero holding it, so "the {} wielder" has "the wielder of the {}" beside
+   * it, and "the wielder of the weapon made of bone" reads as it should.
+   *
+   * Write the articles in: the group and either-or wordings turn "the" into
+   * "no" and "a" where the sentence needs them.
+   */
+  describes: string;
+  /** What one member is called in a description, e.g. "ship". */
+  noun: string;
+  /** What its items can be described by instead of named. */
+  traits: TraitDef[];
   items: ItemDef[];
   ordered?: OrderedMeta;
 }
@@ -44,7 +80,7 @@ export interface CategoryDef {
  *
  * | Slot | Meaning |
  * |---|---|
- * | `{a}` `{b}` `{c}` | the attributes a link or either-or clue names |
+ * | `{a}` `{b}` `{c}` | the things a link, group or either-or clue names |
  * | `{greater}` `{lesser}` | the two sides of a comparison |
  * | `{noun}` | what the ordered set is called, e.g. "launch year" |
  * | `{comparative}` | which way the comparison runs, e.g. "later" |
@@ -58,6 +94,8 @@ export interface ClueTemplates {
   link: string;
   /** They do not. Needs `{a}` and `{b}`. */
   notLink: string;
+  /** None of a described group does. Needs `{a}` (the bare description) and `{b}`. */
+  groupNot: string;
   /** One of two options. Needs `{a}`, `{b}` and `{c}`. */
   either: string;
   /** A comparison. Needs `{greater}` and `{lesser}`. */
@@ -84,6 +122,9 @@ export interface PuzzleCategory {
   id: string;
   name: string;
   pattern: string;
+  describes: string;
+  noun: string;
+  traits: TraitDef[];
   items: ItemDef[];
   ordered?: OrderedMeta;
 }
@@ -94,9 +135,28 @@ export interface Attribute {
   item: number;
 }
 
+/**
+ * A description that picks out every item of one category sharing a trait
+ * value — "astronaut with red hair" — with the members it resolved to on this
+ * puzzle's cast kept alongside, so the logic never has to look them up again.
+ */
+export interface TraitGroup {
+  category: number;
+  trait: string;
+  value: string;
+  /** Item indices in that category, at least one. */
+  items: number[];
+}
+
 export type Clue =
   /** The two attributes belong to the same entity (positive) or not (negative). */
   | { kind: 'link'; positive: boolean; a: Attribute; b: Attribute }
+  /**
+   * Nothing the description covers shares an entity with `b` — one statement
+   * ruling out a whole group at once, which is what makes a description worth
+   * having: "no astronaut with red hair is on the Kestrel".
+   */
+  | { kind: 'groupNot'; group: TraitGroup; b: Attribute }
   /** The entity holding `a` also holds one of `options` (same category, two items). */
   | { kind: 'either'; a: Attribute; options: [Attribute, Attribute] }
   /**

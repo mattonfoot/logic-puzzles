@@ -57,6 +57,14 @@ export function clueMarks(clue: Clue, marks: Marks, puzzle: Puzzle): RequiredMar
     case 'link':
       return [{ cell: between(clue.a, clue.b), mark: clue.positive ? 'yes' : 'no' }];
 
+    case 'groupNot':
+      // One cross for every member of the described group: the whole point of
+      // saying it that way is that it settles several squares at once.
+      return clue.group.items.map((item) => ({
+        cell: between(at(clue.group.category, item), clue.b),
+        mark: 'no' as const,
+      }));
+
     case 'either': {
       const [first, second] = clue.options;
       const required: RequiredMark[] = [];

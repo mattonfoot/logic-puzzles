@@ -16,6 +16,8 @@ interface Props {
   highlight: Attribute[];
   cellSize: number;
   onToggle: (cell: Cell) => void;
+  /** A label was tapped: the player wants to know who or what that is. */
+  onInspect: (attr: Attribute) => void;
 }
 
 /** The smallest cell worth tapping, and the largest the zoom will go to. */
@@ -60,8 +62,19 @@ export function fitCellSize(puzzle: Puzzle, width: number, height: number): numb
  *
  * The set names and item labels down the left stay put while the blocks
  * themselves scroll sideways, so a wide board never loses its row headings.
+ *
+ * Every item label is a button: clues describe things as well as name them, so
+ * a tap on a label opens the card that says which is which.
  */
-export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onToggle }: Props) {
+export function GridBoard({
+  puzzle,
+  marks,
+  mistakes,
+  highlight,
+  cellSize,
+  onToggle,
+  onInspect,
+}: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const layout = useMemo(() => boardLayout(puzzle.categories.length), [puzzle]);
@@ -107,7 +120,16 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
 
             <View style={{ width: ROW_LABEL, paddingTop: BLOCK_BORDER }}>
               {puzzle.categories[rowCategory].items.map((item, index) => (
-                <View key={item.label} style={[styles.rowLabel, { height: cellSize }]}>
+                <Pressable
+                  key={item.label}
+                  accessibilityRole="button"
+                  accessibilityLabel={`About ${item.label}`}
+                  onPress={() => onInspect({ category: rowCategory, item: index })}
+                  style={({ pressed }) => [
+                    styles.rowLabel,
+                    { height: cellSize, opacity: pressed ? 0.6 : 1 },
+                  ]}
+                >
                   <Text
                     numberOfLines={1}
                     adjustsFontSizeToFit
@@ -115,7 +137,7 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
                   >
                     {item.label}
                   </Text>
-                </View>
+                </Pressable>
               ))}
             </View>
           </View>
@@ -133,7 +155,16 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
                 </Text>
                 <View style={styles.row}>
                   {puzzle.categories[category].items.map((item, index) => (
-                    <View key={item.label} style={[styles.columnLabel, { width: cellSize }]}>
+                    <Pressable
+                      key={item.label}
+                      accessibilityRole="button"
+                      accessibilityLabel={`About ${item.label}`}
+                      onPress={() => onInspect({ category, item: index })}
+                      style={({ pressed }) => [
+                        styles.columnLabel,
+                        { width: cellSize, opacity: pressed ? 0.6 : 1 },
+                      ]}
+                    >
                       {/* Absolutely placed so the label is not squeezed into the
                           column width before it rotates. */}
                       <Text
@@ -151,7 +182,7 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
                       >
                         {item.label}
                       </Text>
-                    </View>
+                    </Pressable>
                   ))}
                 </View>
               </View>

@@ -190,8 +190,24 @@ function allowedOrderMask(
   return allowed;
 }
 
+/** The plain "these two are not the same entity" rule. */
+function applyNotLink(a: Attribute, b: Attribute, grid: Grid): void {
+  const ea = grid.entities(a);
+  const eb = grid.entities(b);
+  if (popcount(ea) === 1) grid.remove(b.category, lowestBitIndex(ea), b.item);
+  if (popcount(eb) === 1) grid.remove(a.category, lowestBitIndex(eb), a.item);
+}
+
 function applyClue(clue: Clue, grid: Grid, ctx: SolveContext): void {
   switch (clue.kind) {
+    case 'groupNot': {
+      // A description rules out everything it covers, so the clue is the plain
+      // negative applied once per member.
+      for (const item of clue.group.items) {
+        applyNotLink({ category: clue.group.category, item }, clue.b, grid);
+      }
+      return;
+    }
     case 'link': {
       const ea = grid.entities(clue.a);
       const eb = grid.entities(clue.b);
@@ -211,8 +227,7 @@ function applyClue(clue: Clue, grid: Grid, ctx: SolveContext): void {
           grid.remove(clue.b.category, e, clue.b.item);
         }
       } else {
-        if (popcount(ea) === 1) grid.remove(clue.b.category, lowestBitIndex(ea), clue.b.item);
-        if (popcount(eb) === 1) grid.remove(clue.a.category, lowestBitIndex(eb), clue.a.item);
+        applyNotLink(clue.a, clue.b, grid);
       }
       return;
     }
@@ -301,6 +316,12 @@ function entityOf(solution: number[][], attr: Attribute): number {
 /** Exact check of one clue against a complete assignment. */
 export function satisfies(clue: Clue, solution: number[][], ctx: SolveContext): boolean {
   switch (clue.kind) {
+    case 'groupNot': {
+      const entity = entityOf(solution, clue.b);
+      return clue.group.items.every(
+        (item) => entityOf(solution, { category: clue.group.category, item }) !== entity,
+      );
+    }
     case 'link': {
       const same = entityOf(solution, clue.a) === entityOf(solution, clue.b);
       return clue.positive ? same : !same;

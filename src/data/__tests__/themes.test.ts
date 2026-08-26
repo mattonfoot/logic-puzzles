@@ -10,6 +10,7 @@ import { THEMES, themeById } from '../themes';
 const REQUIRED_SLOTS: Record<keyof ClueTemplates, string[]> = {
   link: ['{a}', '{b}'],
   notLink: ['{a}', '{b}'],
+  groupNot: ['{a}', '{b}'],
   either: ['{a}', '{b}', '{c}'],
   compare: ['{greater}', '{lesser}'],
   compareGap: ['{greater}', '{lesser}', '{gap}'],
@@ -21,6 +22,10 @@ const KNOWN_SLOTS = ['a', 'b', 'c', 'greater', 'lesser', 'noun', 'comparative', 
 const MIN_POOL = 12;
 /** Item labels are written sideways above narrow grid columns. */
 const MAX_LABEL = 14;
+/** The card has room for a line, and the player has patience for one. */
+const MAX_BLURB = 100;
+/** Up to four things worth knowing about an item; more is a biography. */
+const MAX_TRAITS = 4;
 const BIGGEST_PUZZLE = Math.max(...SIZES.map((size) => size.items));
 
 describe('themes', () => {
@@ -58,6 +63,69 @@ describe('themes', () => {
         expect(theme.categories[0].pattern).toBe('{}');
         for (const category of theme.categories) {
           expect(category.pattern).toContain('{}');
+        }
+      });
+
+      it('describes every item: an icon, a line about it, and its traits', () => {
+        for (const category of theme.categories) {
+          expect(category.noun.length).toBeGreaterThan(0);
+          expect(category.describes).toContain('{}');
+          // The frames are rewritten into "no ..." and "a ..." for group and
+          // either-or clues, which only works if the articles are written in.
+          expect(category.describes.startsWith('the ')).toBe(true);
+
+          expect(category.traits.length).toBeGreaterThan(0);
+          expect(category.traits.length).toBeLessThanOrEqual(MAX_TRAITS);
+          expect(new Set(category.traits.map((trait) => trait.id)).size).toBe(
+            category.traits.length,
+          );
+          for (const trait of category.traits) {
+            expect(trait.label.length).toBeGreaterThan(0);
+            expect(trait.pattern).toContain('{}');
+            expect(trait.pattern).toContain('{noun}');
+          }
+
+          for (const item of category.items) {
+            expect(`${item.label}: ${item.icon}`).toMatch(/: .+$/);
+            // A line, not an essay: it has a card to itself, not a page.
+            expect(item.blurb.length).toBeGreaterThan(20);
+            expect(item.blurb.length).toBeLessThanOrEqual(MAX_BLURB);
+            expect(item.blurb).toMatch(/[.!?]$/);
+
+            for (const trait of category.traits) {
+              const value = item.traits[trait.id];
+              expect(`${category.id}/${item.label}/${trait.id}: ${value}`).toMatch(/: .+$/);
+            }
+          }
+        }
+      });
+
+      it('has traits worth describing things by: some shared, some not', () => {
+        for (const category of theme.categories) {
+          for (const trait of category.traits) {
+            const counts = new Map<string, number>();
+            for (const item of category.items) {
+              const value = item.traits[trait.id];
+              counts.set(value, (counts.get(value) ?? 0) + 1);
+            }
+            // A trait every item answers the same way describes nothing.
+            expect(`${category.id}/${trait.id}`).toBeTruthy();
+            expect(counts.size).toBeGreaterThan(1);
+          }
+
+          // Somewhere in the category there is a value two items share, or no
+          // clue could ever talk about a group.
+          const shared = category.traits.some((trait) => {
+            const counts = new Map<string, number>();
+            for (const item of category.items) {
+              const value = item.traits[trait.id];
+              counts.set(value, (counts.get(value) ?? 0) + 1);
+            }
+            return [...counts.values()].some((count) => count > 1);
+          });
+          expect(`${category.id} shares a trait value`).toBe(
+            shared ? `${category.id} shares a trait value` : 'no shared trait value',
+          );
         }
       });
 

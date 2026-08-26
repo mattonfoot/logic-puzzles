@@ -2,7 +2,17 @@ import { SIZES } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
 import { DEFAULT_CLUE_TEMPLATES } from '../../puzzle/describe';
 import { clueKey, generatePuzzle } from '../../puzzle/generator';
-import type { Clue, Puzzle } from '../../puzzle/types';
+import type { Clue, ItemDef, Puzzle } from '../../puzzle/types';
+
+/** A bare item: these tests are about the logic, not the words. */
+const item = (label: string, value?: number): ItemDef => ({
+  label,
+  value,
+  icon: '·',
+  blurb: 'A thing that exists.',
+  traits: {},
+});
+
 import { byHand, isSolved, markKey, setMark, solvedMarks, type Cell, type Marks } from '../board';
 import { clueDone, clueMarks, cluesDone, inventClue, nextClue } from '../clues';
 
@@ -24,23 +34,28 @@ const puzzle: Puzzle = {
       id: 'hero',
       name: 'Hero',
       pattern: '{}',
-      items: [{ label: 'Kell' }, { label: 'Tamsin' }, { label: 'Ivo' }],
+      describes: 'the {}',
+      noun: 'thing',
+      traits: [],
+      items: [item('Kell'), item('Tamsin'), item('Ivo')],
     },
     {
       id: 'weapon',
       name: 'Weapon',
       pattern: 'the {}',
-      items: [{ label: 'Sabre' }, { label: 'Dagger' }, { label: 'Lance' }],
+      describes: 'the {}',
+      noun: 'thing',
+      traits: [],
+      items: [item('Sabre'), item('Dagger'), item('Lance')],
     },
     {
       id: 'reward',
       name: 'Reward',
       pattern: '{}',
-      items: [
-        { label: '90g', value: 90 },
-        { label: '105g', value: 105 },
-        { label: '165g', value: 165 },
-      ],
+      describes: 'the {}',
+      noun: 'thing',
+      traits: [],
+      items: [item('90g', 90), item('105g', 105), item('165g', 165)],
       ordered: { noun: 'reward', unit: 'gold', greater: 'larger', lesser: 'smaller' },
     },
   ],
@@ -92,6 +107,26 @@ describe('what a link clue asks for', () => {
     // The cross an automatic tick left behind counts as much as a hand one.
     const board = setMark({}, cell(0, 0, 1, 2), 'yes', { size: 3, autoEliminate: true });
     expect(clueDone(kellHasNoSabre, board, puzzle)).toBe(true);
+  });
+});
+
+describe('what a clue about a described group asks for', () => {
+  // "No hero with a wooden weapon is Kell": one sentence, one cross per weapon
+  // the description covers.
+  const clue: Clue = {
+    kind: 'groupNot',
+    group: { category: 1, trait: 'material', value: 'wood', items: [0, 2] },
+    b: { category: 0, item: 0 },
+  };
+
+  it('wants a cross against every member of the group', () => {
+    expect(keysOf(clue, {})).toEqual(['0.0-1.0=no', '0.0-1.2=no']);
+  });
+
+  it('is not finished until every one of them is down', () => {
+    const half = setMark({}, cell(0, 0, 1, 0), 'no', options);
+    expect(clueDone(clue, half, puzzle)).toBe(false);
+    expect(clueDone(clue, setMark(half, cell(0, 0, 1, 2), 'no', options), puzzle)).toBe(true);
   });
 });
 

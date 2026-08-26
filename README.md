@@ -95,7 +95,7 @@ images in the same commit.
 | <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — play, settings, statistics, and the game left in progress. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the difficulty is the only choice, and picking one starts the puzzle. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
 | <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Menu** — behind the burger: the board settings, restart, and revealing the answer. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
 | <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, clues read, how it compares, the answer table. |
-| <img src="docs/screenshots/10-solved-grid.png" width="230" alt="The finished board"><br>**10. Finished board** — the grid tab after the win, one tap from the result. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Start page in night colours"><br>**12. Night** — the same start page in night colours, with a game waiting to be resumed. |
+| <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item label"><br>**10. Item card** — tap any label to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Start page in night colours"><br>**12. Night** — the same start page in night colours, with a game waiting to be resumed. |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -128,8 +128,12 @@ rest is the app behaving normally.
    it over — can both be turned off, from the menu or from Settings. The set
    names and item labels stay pinned while the grids scroll sideways, and − / +
    resize the squares past the fit.
-3. **Clues arrive one at a time.** **Get next clue** puts one on the table under
-   the board; pressing it again replaces it with the next one that still has
+3. **Clues arrive one at a time.** They do not always use names: about a third
+   of the time a clue describes something instead — "the diver with green eyes",
+   "no payload made of glass" — and a description that covers two things says
+   something about both at once. The cards behind the labels are where those
+   descriptions are written down, which is what makes tapping them worth doing.
+   **Get next clue** puts one on the table under the board; pressing it again replaces it with the next one that still has
    something to say. Tap the clue to light up every row and column it talks
    about. Mark everything it says and the game agrees it is spent: the clue is
    struck through and fades back, and the button skips it from then on. A clue
@@ -183,7 +187,8 @@ rest is the app behaving normally.
 App.tsx                     screen switching + puzzle generation entry point
 scripts/screenshots.mjs     drives the app in a browser to refresh docs/screenshots
 scripts/sounds.mjs          synthesises the three effects in assets/sounds
-src/data/themes.ts          the five themes: categories, item pools, clue wording
+src/data/themes.ts          the five themes: categories, item pools with their
+                            icons, traits and descriptions, clue wording
 src/data/sizes.ts           the four sizes, and the difficulty each is called
 src/puzzle/types.ts         puzzle, clue and theme model
 src/puzzle/rng.ts           seeded PRNG (a seed always rebuilds the same puzzle)
@@ -200,7 +205,7 @@ src/game/time.ts            duration formatting
 src/game/useTimer.ts        elapsed-time hook
 src/stats/summary.ts        history → stats per difficulty, streaks, improvement notes
 src/storage/store.ts        the only module that touches AsyncStorage
-src/components/             GridBoard, SolutionTable, ClueCard, SolvedPanel, …
+src/components/             GridBoard, SolutionTable, ClueCard, ItemCard, …
 src/screens/                StartScreen, SetupScreen, SettingsScreen,
                             GameScreen, GameMenuScreen, StatsScreen
 src/game/settings.ts        the player's settings, and reading them back
@@ -433,6 +438,53 @@ it did not make. The WAVs are committed, so a normal build never runs it.
 Swapping one for a real recording means dropping a 16-bit mono WAV of the same
 name into that folder; nothing reads those numbers at runtime.
 
+## Items, traits and descriptions
+
+Every item in every category carries four things: its label, an icon, a line
+about it for the player who taps it, and a value for each of its category's
+**traits** — hair, eyes and star sign for people; what a thing is made of, how
+big it is, what it is for. There are at most four per category, and a test holds
+every item to all of them, so nothing turns up on a card with a blank in it.
+
+Traits exist so a clue can point at something without naming it. Each is written
+as a phrase with the noun in it — `{noun} with {} hair`, `{} {noun}`, `{noun}
+made of {}` — which reads as "astronaut with red hair" or "payload made of
+glass" with no article on the front, because what goes in front depends on what
+the clue is doing with it.
+
+A clue is about the *entity*, though, not the item: "the Bone Sling wielder" is a
+hero. So every category carries a second frame beside its `pattern` —
+`describes` — for an item that is being described rather than named: "the {}
+wielder" has "the wielder of the {}" beside it. The articles are written into
+the frame, and the wordings that need something other than "the" rewrite them:
+the first becomes **no** and the rest **a** for a group being ruled out ("no
+wielder of a weapon made of silver"), and all of them become **a** for one of
+several ("an owner of a small pet").
+
+Which brings the two ways a description gets used:
+
+- **In place of a name**, when it fits exactly one item in the cast. `describe.ts`
+  works out those descriptions per item, and a hash of the seed and the slot
+  decides — the same way every time a clue is read — whether to use one and which.
+  Roughly one slot in three, so the cards are worth reading and the clues are
+  still mostly plain.
+- **For a group**, in the `groupNot` clue: "no payload made of glass shares a
+  mission with the Kestrel" is one sentence that puts a cross against every
+  glass payload. The clue carries the item indices it resolved to alongside the
+  trait and value, so the solver and the board never look them up again, and it
+  is worth as much to a puzzle as several plain crosses — which is why a few are
+  offered up front, where they survive minimising. It counts as a link clue for
+  the three-in-four floor, because that is what it is: a cross, said once about
+  several rows.
+
+The either-or clue gets the same treatment for free: when its two options are
+exactly the cast's holders of one trait value, it is written as "paired with a
+payload made of glass" rather than naming both. Same statement, less to read.
+
+Only the traits the sampled cast actually varies by survive into a puzzle: one
+every item answers the same way describes nothing, so `sampleCategory` drops it
+before the generator ever sees it.
+
 ## How the puzzle engine works
 
 A puzzle has `size` **entities** and a handful of **categories**. Each entity
@@ -450,14 +502,15 @@ a relabelling of entities.
    whole puzzle, cast included.
 2. Build a pool of clues that are all *true* of that solution:
    - `A is paired with B` / `A is not paired with B`
+   - `No {description} is paired with B` — one statement about a described group
    - `A is paired with either B or C`
    - `The depth for A is deeper than for B`, optionally with an exact gap
 3. Add clues one at a time until propagation alone cracks the grid.
 4. Try removing every clue in turn, keeping the removal whenever the puzzle is
    still deducible. What is left is a minimal clue set.
 
-Link clues — the plain *is* and *is not* statements the grid is drawn for — make
-up **at least three quarters** of every finished puzzle. That is not something
+Link clues — the plain *is* and *is not* statements the grid is drawn for, group
+clues included — make up **at least three quarters** of every finished puzzle. That is not something
 the offer order can promise on its own, because which clues survive is decided
 by the deduction rather than by the pool: a single comparison can do the work of
 five crosses and stay in. So the generator spaces the flavour clues out among
@@ -486,11 +539,11 @@ that each generated puzzle has exactly one solution.
 ### Clue wording
 
 The sentences clues are written in belong to the themes, not to the code. Each
-theme can supply templates for the five kinds of clue, filled from named slots:
+theme can supply templates for the six kinds of clue, filled from named slots:
 
 | Slot | Meaning |
 |---|---|
-| `{a}` `{b}` `{c}` | the attributes a link or either-or clue names |
+| `{a}` `{b}` `{c}` | the things a link, group or either-or clue names or describes |
 | `{greater}` `{lesser}` | the two sides of a comparison |
 | `{noun}` | what the ordered set is called, e.g. "launch year" |
 | `{comparative}` | which way it runs, e.g. "later" |
@@ -501,6 +554,7 @@ So Cosmic Voyage says
 ```ts
 clues: {
   link: '{a} shares a mission with {b}.',
+  groupNot: 'No {a} shares a mission with {b}.',
   compare: '{greater} launches {comparative} than {lesser}.',
   compareGap: '{greater} launches exactly {gap} {unit} {comparative} than {lesser}.',
   …
@@ -578,12 +632,15 @@ before them for the longer-run trend the chart draws.
 ## Notes
 
 - The five themes live entirely in `src/data/themes.ts`. Adding one is a matter
-  of listing five categories with a pool of items each, marking the ordered
-  category, giving each category a `pattern` used to phrase clues
-  (`the {} mission`), and optionally a `clues` block to give the theme its own
-  voice. The pools hold fourteen items apiece — well over the six a
-  6 × 4 puzzle uses — which is what makes the draw feel fresh; a test keeps every
-  pool deep, distinct and short enough to fit the grid headings.
+  of listing five categories, each with its `pattern` and `describes` frames, a
+  `noun`, its traits, and a pool of items written as a table — label, icon, a
+  value per trait, and a line about it. The ordered category is written as a
+  `scale` instead: evenly spaced numbers, three bands, and a blurb per rung, with
+  its traits falling out of the numbers themselves. A `clues` block gives the
+  theme its own voice. The pools hold fourteen items apiece — well over the six a
+  6 × 4 puzzle uses — which is what makes the draw feel fresh; tests keep every
+  pool deep, distinct, short enough to fit the grid headings, and fully
+  described.
 - No backend and no analytics: everything is kept on the device, and clearing
   the statistics from the stats screen deletes it.
 - `npm run sounds` rewrites the three WAVs in `assets/sounds` from

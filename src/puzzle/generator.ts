@@ -88,6 +88,15 @@ function sampleCategory(category: CategoryDef, size: number, rng: Rng): PuzzleCa
     id: category.id,
     name: category.name,
     pattern: category.pattern,
+    describes: category.describes,
+    noun: category.noun,
+    // Only the traits the sampled cast actually varies by are worth keeping:
+    // one every item shares describes nothing, and one nobody has is noise.
+    traits: category.traits.filter((trait) => {
+      const values = new Set(items.map((item) => item.traits[trait.id]));
+      values.delete(undefined as unknown as string);
+      return values.size > 1;
+    }),
     items,
     ordered: category.ordered,
   };
@@ -118,6 +127,8 @@ export function clueKey(clue: Clue): string {
       const [x, y] = [clue.options[0], clue.options[1]].sort((p, q) => p.item - q.item);
       return `e:${clue.a.category}.${clue.a.item}:${x.category}.${x.item}:${y.item}`;
     }
+    case 'groupNot':
+      return `g:${clue.group.category}.${clue.group.trait}=${clue.group.value}:${clue.b.category}.${clue.b.item}`;
     case 'compare':
       return `c${clue.gap ?? '*'}:${clue.order}:${clue.greater.category}.${clue.greater.item}:${clue.lesser.category}.${clue.lesser.item}`;
   }
@@ -126,6 +137,8 @@ export function clueKey(clue: Clue): string {
 export interface Pools {
   positive: Clue[];
   negative: Clue[];
+  /** "No X with red hair is Y" — one statement ruling out a described group. */
+  group: Clue[];
   either: Clue[];
   compare: Clue[];
   compareGap: Clue[];
@@ -145,7 +158,14 @@ export function buildPools(
 ): Pools {
   const size = ctx.size;
   const count = ctx.categoryCount;
-  const pools: Pools = { positive: [], negative: [], either: [], compare: [], compareGap: [] };
+  const pools: Pools = {
+    positive: [],
+    negative: [],
+    group: [],
+    either: [],
+    compare: [],
+    compareGap: [],
+  };
 
   for (let c1 = 0; c1 < count; c1++) {
     for (let c2 = c1 + 1; c2 < count; c2++) {
@@ -180,6 +200,37 @@ export function buildPools(
     }
   }
 
+  // "No {description} is {b}" — true when nothing the description covers shares
+  // an entity with b, which rules out every one of them in a single sentence.
+  for (let cg = 0; cg < count; cg++) {
+    for (const trait of categories[cg].traits) {
+      const values = new Set(categories[cg].items.map((item) => item.traits[trait.id]));
+      for (const value of values) {
+        if (value === undefined) continue;
+        const items: number[] = [];
+        categories[cg].items.forEach((item, index) => {
+          if (item.traits[trait.id] === value) items.push(index);
+        });
+        // A description of one is just its name by another route; the point of
+        // these is to speak about several things at once.
+        if (items.length < 2 || items.length === size) continue;
+
+        const entities = new Set(items.map((item) => entityOf(solution, cg, item)));
+        for (let cb = 0; cb < count; cb++) {
+          if (cb === cg) continue;
+          for (let ib = 0; ib < size; ib++) {
+            if (entities.has(entityOf(solution, cb, ib))) continue;
+            pools.group.push({
+              kind: 'groupNot',
+              group: { category: cg, trait: trait.id, value, items },
+              b: attr(cb, ib),
+            });
+          }
+        }
+      }
+    }
+  }
+
   // Comparisons over each ordered category.
   for (let order = 0; order < count; order++) {
     const values = ctx.values[order];
@@ -209,6 +260,9 @@ export function buildPools(
  * Link clues — the plain "X is / isn't Y" statements — are what the grid is for,
  * so they carry most of the puzzle. The rest add flavour: comparisons and
  * either-ors that need a second thought before they touch the board.
+ *
+ * A group clue counts as a link: "no payload made of glass is on the Kestrel"
+ * is the same statement as a cross, said once about several rows.
  */
 const MIN_LINK_SHARE = 0.75;
 
@@ -217,7 +271,8 @@ const LINKS_PER_FLAVOUR = [3, 4, 6, 10, Infinity];
 
 function linkShare(clues: Clue[]): number {
   if (clues.length === 0) return 1;
-  return clues.filter((clue) => clue.kind === 'link').length / clues.length;
+  const links = clues.filter((clue) => clue.kind === 'link' || clue.kind === 'groupNot');
+  return links.length / clues.length;
 }
 
 /** A few direct matches are offered up front to keep the clue list short. */
@@ -236,11 +291,22 @@ function orderPool(pools: Pools, rng: Rng, linksPerFlavour: number): Clue[] {
   const compareGap = rng.shuffle(pools.compareGap).slice(0, Math.ceil(compare.length / 3));
   const either = rng.shuffle(pools.either);
   const positive = rng.shuffle(pools.positive);
+  // Group clues are worth more than a plain cross — they rule out several
+  // squares at once — so a good handful is offered rather than the whole pool.
+  const group = rng.shuffle(pools.group).slice(0, Math.max(4, negative.length / 4));
 
-  const flavour = rng.shuffle([...compare, ...compareGap, ...either.slice(0, either.length / 2)]);
+  const flavour = rng.shuffle([
+    ...compare,
+    ...compareGap,
+    ...group.slice(3),
+    ...either.slice(0, either.length / 2),
+  ]);
   const seeded = Math.max(1, Math.round(positive.length / SEED_MATCH_SHARE));
 
-  const mixed: Clue[] = positive.slice(0, seeded);
+  // A group clue rules out several squares in one sentence, so it is worth a
+  // lot to a puzzle — but only if it survives minimising, and what survives is
+  // mostly what was offered early. A couple lead, with the rest in the mix.
+  const mixed: Clue[] = [...positive.slice(0, seeded), ...group.slice(0, 3)];
   let n = 0;
   let f = 0;
   while (n < negative.length || f < flavour.length) {
@@ -268,7 +334,9 @@ function buildClues(
   for (const spacing of LINKS_PER_FLAVOUR) {
     const clues = assembleClues(pools, solution, ctx, rng, spacing);
     if (linkShare(clues) >= MIN_LINK_SHARE) return clues;
-    if (linkShare(clues) > linkShare(best)) best = clues;
+    // An empty set has no share worth comparing — it would beat every real
+    // attempt and hand back a puzzle with no clues at all.
+    if (best.length === 0 || linkShare(clues) > linkShare(best)) best = clues;
   }
   return best;
 }

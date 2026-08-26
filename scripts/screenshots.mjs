@@ -291,10 +291,15 @@ async function main() {
   await solve(page, puzzle);
   await shot('09-solved');
 
-  // 10. The finished board, one tap away from the result.
+  // 10. Who one of the labels on the board actually is: the card behind a tap,
+  // where the traits the clues describe things by are written down.
   await page.getByRole('tab', { name: 'Grid' }).click();
   await wait(page, 500);
-  await shot('10-solved-grid');
+  await page.locator('[aria-label^="About "]').first().click();
+  await wait(page, 700);
+  await shot('10-item-card');
+  await page.locator('[aria-label="Close"]').click({ position: { x: 12, y: 12 } });
+  await wait(page, 400);
 
   // 11. Statistics, shown with a sample history.
   await page.goto(origin, { waitUntil: 'networkidle' });
