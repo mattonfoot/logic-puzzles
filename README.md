@@ -93,7 +93,7 @@ images in the same commit.
 | | | |
 |---|---|---|
 | <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — play, settings, statistics, and the game left in progress. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the grid size is the only choice; the theme is drawn on start. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
-| <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Menu** — behind the burger: the board settings, and the three ways to leave the puzzle. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
+| <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Menu** — behind the burger: the board settings, restart, and revealing the answer. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
 | <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, clues read, how it compares, the answer table. |
 | <img src="docs/screenshots/10-solved-grid.png" width="230" alt="The finished board"><br>**10. Finished board** — the grid tab after the win, one tap from the result. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, per-size bests and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Start page in night colours"><br>**12. Night** — the same start page in night colours, with a game waiting to be resumed. |
 
@@ -155,10 +155,11 @@ rest is the app behaving normally.
 5. **The menu**, behind the burger at the top left, holds everything that acts
    on the game rather than on a square: the two board settings (the same ones
    the settings screen holds — they are the player's, not the puzzle's),
-   **Restart** (same puzzle, fresh board and clock), **New puzzle**, and
-   **Reveal the answer**, which is hidden once the puzzle is finished. The
-   `<<< back` link at the bottom left leaves for the home screen; the board is
-   saved either way.
+   **Restart** (same puzzle, fresh board and clock), and **Reveal the answer**,
+   which is hidden once the puzzle is finished. The `<<< back` link at the
+   bottom left goes back one step, to the setup screen the puzzle was chosen on,
+   so the next one is a tap away; the board is saved on the way out either way,
+   and the start page behind it offers to resume it.
 6. **Settings** — the board pair above; the colours: **night colours** for a
    warm near-black page, and **match the device** to follow the phone's own
    light and dark setting and turn with it; and **sound and feel**: how loud the
@@ -531,7 +532,7 @@ The seed is therefore never re-rolled for a puzzle already in play:
 
 | Action | Seed |
 |---|---|
-| Start puzzle / New puzzle | a new random seed |
+| Starting a puzzle | a new random seed |
 | **Restart** | unchanged — same theme, sets, items, answer and clues; only the board and the clock start over |
 | **Resume** | unchanged — the saved puzzle is stored whole and comes back as it was, clock included |
 

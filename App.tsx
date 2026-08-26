@@ -139,10 +139,15 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
     setScreen('stats');
   }, []);
 
+  /**
+   * Leaving a puzzle goes back one step, to the screen the puzzle was chosen
+   * on, rather than all the way home. The board is saved on the way out, so the
+   * game is still there to resume.
+   */
   const leaveGame = useCallback(() => {
     setPuzzle(null);
     setRestore(null);
-    setScreen('start');
+    setScreen('setup');
   }, []);
 
   const recordCompletion = useCallback(

@@ -19,16 +19,18 @@ interface Props {
   onToggleAutoEliminate: () => void;
   onToggleAutoFacts: () => void;
   onRestart: () => void;
-  onNewPuzzle: () => void;
   onReveal: () => void;
   onClose: () => void;
 }
 
 /**
  * Everything that acts on the game as a whole rather than on a square: what the
- * board works out for itself, and the three ways to leave the puzzle behind.
- * They live here so the playing screen carries only what a player reaches for
- * mid-puzzle.
+ * board works out for itself, and the two ways to end this puzzle. They live
+ * here so the playing screen carries only what a player reaches for mid-puzzle.
+ *
+ * Starting a different puzzle is not one of them: `<<< back` goes to the setup
+ * screen, which is where a puzzle is chosen, so the menu would only be offering
+ * a second door to the same room.
  */
 export function GameMenuScreen({
   puzzle,
@@ -38,7 +40,6 @@ export function GameMenuScreen({
   onToggleAutoEliminate,
   onToggleAutoFacts,
   onRestart,
-  onNewPuzzle,
   onReveal,
   onClose,
 }: Props) {
@@ -100,14 +101,6 @@ export function GameMenuScreen({
           icon="↻"
           accent={puzzle.accent}
           onPress={onRestart}
-        />
-        <MenuAction
-          label="New puzzle"
-          note="A new theme, cast and answer."
-          icon="✦"
-          accent={puzzle.accent}
-          joined
-          onPress={onNewPuzzle}
         />
         {solved ? null : (
           <MenuAction

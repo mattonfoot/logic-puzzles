@@ -393,7 +393,6 @@ export function GameScreen({
           restart();
           setMenuOpen(false);
         }}
-        onNewPuzzle={onNewPuzzle}
         onReveal={() => {
           reveal();
           setMenuOpen(false);

@@ -307,7 +307,7 @@ async function main() {
   await wait(page, 800);
   await shot('11-statistics', { fullPage: true });
 
-  // 12. Home again, with a game waiting to be resumed, in night colours., with a game waiting to be resumed.
+  // 12. Home again, in night colours, with a game waiting to be resumed.
   await page.getByLabel('Back').click();
   await wait(page, 500);
   await page.getByLabel('Settings').click();
@@ -322,7 +322,10 @@ async function main() {
   // A few true pairings, so the card on the start page shows some progress.
   await solve(page, await puzzleInPlay(page), 3);
   await wait(page, 1000);
+  // Leaving a puzzle goes back one step, to setup; the start page is one more.
   await page.getByLabel('Back to setup').click();
+  await wait(page, 700);
+  await page.getByLabel('Back').click();
   await wait(page, 700);
   await shot('12-resume-night');
 
