@@ -2,9 +2,7 @@ import React from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AppButton } from '../components/AppButton';
 import { SIZES } from '../data/sizes';
-import { THEMES } from '../data/themes';
 import { formatDuration } from '../game/time';
 import type { SizeOption } from '../puzzle/types';
 import type { OverallStats } from '../stats/summary';
@@ -71,17 +69,6 @@ export function SetupScreen({ busy, stats, onStart, onSurpriseMe, onBack }: Prop
             disabled={busy}
             onPress={onSurpriseMe}
           />
-        </View>
-
-        <View style={[styles.themeNote, shadow.card]}>
-          <Text style={styles.themeNoteLabel}>Theme</Text>
-          <Text style={styles.themeNoteTitle}>Drawn at random</Text>
-          <Text style={styles.themeNoteText}>
-            One of {THEMES.length} settings, with its sets and items picked from a much larger cast.
-          </Text>
-          <Text style={styles.themeNoteEmoji}>
-            {THEMES.map((option) => option.emoji).join('  ')}
-          </Text>
         </View>
       </ScrollView>
 
@@ -205,43 +192,6 @@ const makeStyles = (palette: Palette) =>
       fontSize: 12,
       color: palette.inkFaint,
       marginTop: space(0.5),
-    },
-    themeNote: {
-      backgroundColor: palette.surface,
-      borderWidth: border,
-      borderColor: palette.line,
-      padding: space(4),
-      marginTop: space(8),
-    },
-    themeNoteLabel: {
-      fontSize: 11,
-      fontWeight: '700',
-      letterSpacing: 1,
-      textTransform: 'uppercase',
-      color: palette.inkFaint,
-    },
-    themeNoteTitle: {
-      fontSize: 17,
-      fontWeight: '700',
-      color: palette.ink,
-      marginTop: space(1.5),
-    },
-    themeNoteText: {
-      fontSize: 13,
-      lineHeight: 19,
-      color: palette.inkSoft,
-      marginTop: space(1),
-    },
-    themeNoteEmoji: {
-      fontSize: 20,
-      marginTop: space(3),
-    },
-    footer: {
-      paddingHorizontal: space(5),
-      paddingTop: space(4),
-      backgroundColor: palette.bg,
-      borderTopWidth: border,
-      borderTopColor: palette.line,
     },
     busyOverlay: {
       position: 'absolute',
