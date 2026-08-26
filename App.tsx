@@ -166,11 +166,13 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           />
         ) : screen === 'setup' ? (
           <SetupScreen
-            size={size}
             busy={busy}
             stats={persistence.stats}
-            onSelectSize={setSize}
-            onStart={() => build(size)}
+            onStart={(chosen) => {
+              // Remembered so "new puzzle" from inside the game keeps the shape.
+              setSize(chosen);
+              build(chosen);
+            }}
             onSurpriseMe={surpriseMe}
             onBack={() => setScreen('start')}
           />

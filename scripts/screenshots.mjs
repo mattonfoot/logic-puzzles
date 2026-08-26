@@ -112,11 +112,11 @@ async function fresh(page, origin) {
   await wait(page, 900);
 }
 
-async function startPuzzle(page, size = '4 × 4') {
+async function startPuzzle(page, difficulty = 'Advanced') {
   await page.getByLabel('Play').click();
   await wait(page, 500);
-  await page.getByText(size, { exact: true }).click();
-  await page.getByText('Start puzzle').click();
+  // Picking a difficulty is starting the puzzle.
+  await page.getByLabel(new RegExp(`^${difficulty},`)).click();
   await wait(page, 1600);
 }
 

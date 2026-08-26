@@ -15,11 +15,10 @@ import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, shadow, space, tint, type Palette } from '../ui/theme';
 
 interface Props {
-  size: SizeOption;
   busy: boolean;
   stats: OverallStats;
-  onSelectSize: (size: SizeOption) => void;
-  onStart: () => void;
+  /** Picking a difficulty is starting the puzzle; there is nothing else to say. */
+  onStart: (size: SizeOption) => void;
   onSurpriseMe: () => void;
   onBack: () => void;
 }
@@ -29,74 +28,50 @@ interface Props {
  * player chooses. Everything else — the theme, the cast, the answer — is drawn
  * when the game starts.
  */
-export function SetupScreen({
-  size,
-  busy,
-  stats,
-  onSelectSize,
-  onStart,
-  onSurpriseMe,
-  onBack,
-}: Props) {
+export function SetupScreen({ busy, stats, onStart, onSurpriseMe, onBack }: Props) {
   const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const sizeStats = stats.sizes.find((entry) => entry.sizeId === size.id);
 
   return (
     <View style={styles.screen}>
       <ScreenHeader title="New puzzle" onBack={onBack} />
 
       <ScrollView
-        contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + space(30) }]}
+        contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + space(8) }]}
         showsVerticalScrollIndicator={false}
       >
         <Text style={styles.sectionLabel}>Difficulty</Text>
         <View style={styles.sizeRow}>
           {SIZES.map((option) => {
-            const selected = option.id === size.id;
+            const played = stats.sizes.find((entry) => entry.sizeId === option.id);
+            const best =
+              played && played.solved > 0
+                ? `best ${formatDuration(played.bestSeconds ?? 0)}`
+                : null;
             return (
-              <Pressable
+              <Choice
                 key={option.id}
-                accessibilityRole="radio"
-                accessibilityLabel={`${option.difficulty}, ${option.label}`}
-                accessibilityState={{ selected }}
-                onPress={() => {
-                  haptics.select();
-                  onSelectSize(option);
-                }}
-                style={({ pressed }) => [
-                  styles.sizeCard,
-                  {
-                    borderColor: selected ? palette.accent : palette.line,
-                    backgroundColor: selected ? tint(palette.accent, 0.12) : palette.surface,
-                    opacity: pressed ? 0.85 : 1,
-                  },
-                ]}
-              >
-                <Text style={[styles.sizeLabel, selected && { color: palette.accent }]}>
-                  {option.difficulty}
-                </Text>
-                <Text style={[styles.sizeShape, selected && { color: palette.accent }]}>
-                  {option.label}
-                </Text>
-              </Pressable>
+                title={option.difficulty}
+                note={`${option.items} items in each of ${option.categories} sets · ${
+                  (option.categories * (option.categories - 1)) / 2
+                } grids`}
+                aside={option.label}
+                footnote={best}
+                disabled={busy}
+                onPress={() => onStart(option)}
+              />
             );
           })}
+          <Choice
+            title="Surprise me!"
+            note="Any of the four, rolled for you"
+            aside="?"
+            accent
+            disabled={busy}
+            onPress={onSurpriseMe}
+          />
         </View>
-        <Text style={styles.sizeHint}>
-          {size.difficulty} is a {size.label} puzzle: {size.items} items in each of{' '}
-          {size.categories} categories, {(size.categories * (size.categories - 1)) / 2} grids to
-          fill in.
-        </Text>
-        {sizeStats && sizeStats.solved > 0 ? (
-          <Text style={styles.sizeStats}>
-            {sizeStats.solved} solved · best {formatDuration(sizeStats.bestSeconds ?? 0)}
-            {sizeStats.trend !== null && Math.abs(sizeStats.trend) >= 0.02
-              ? ` · lately ${Math.round(Math.abs(sizeStats.trend) * 100)}% ${sizeStats.trend > 0 ? 'faster' : 'slower'}`
-              : ''}
-          </Text>
-        ) : null}
 
         <View style={[styles.themeNote, shadow.card]}>
           <Text style={styles.themeNoteLabel}>Theme</Text>
@@ -110,24 +85,6 @@ export function SetupScreen({
         </View>
       </ScrollView>
 
-      <View style={[styles.footer, { paddingBottom: insets.bottom + space(4) }]}>
-        <AppButton
-          label={busy ? 'Building puzzle…' : 'Start puzzle'}
-          icon={busy ? '◦' : '▶'}
-          accent={palette.accent}
-          disabled={busy}
-          onPress={onStart}
-        />
-        <AppButton
-          label="Random difficulty"
-          variant="ghost"
-          accent={palette.inkSoft}
-          disabled={busy}
-          onPress={onSurpriseMe}
-          style={styles.surprise}
-        />
-      </View>
-
       {busy ? (
         // The generator runs on the JS thread; ActivityIndicator animates
         // natively, so it keeps spinning while the puzzle is being built.
@@ -139,6 +96,57 @@ export function SetupScreen({
         </View>
       ) : null}
     </View>
+  );
+}
+
+function Choice({
+  title,
+  note,
+  aside,
+  footnote,
+  accent = false,
+  disabled,
+  onPress,
+}: {
+  title: string;
+  note: string;
+  /** The shape, or a question mark for the one that rolls it. */
+  aside: string;
+  /** What the player has done at this difficulty before, if anything. */
+  footnote?: string | null;
+  accent?: boolean;
+  disabled: boolean;
+  onPress: () => void;
+}) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
+
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`${title}, ${note}`}
+      accessibilityState={{ disabled }}
+      disabled={disabled}
+      onPress={() => {
+        haptics.select();
+        onPress();
+      }}
+      style={({ pressed }) => [
+        styles.sizeCard,
+        {
+          borderColor: accent ? palette.accent : palette.line,
+          backgroundColor: accent ? tint(palette.accent, 0.1) : palette.surface,
+          opacity: pressed ? 0.85 : 1,
+        },
+      ]}
+    >
+      <View style={styles.sizeText}>
+        <Text style={[styles.sizeLabel, accent && { color: palette.accent }]}>{title}</Text>
+        <Text style={styles.sizeNote}>{note}</Text>
+        {footnote ? <Text style={styles.sizeStats}>{footnote}</Text> : null}
+      </View>
+      <Text style={[styles.sizeShape, accent && { color: palette.accent }]}>{aside}</Text>
+    </Pressable>
   );
 }
 
@@ -169,11 +177,20 @@ const makeStyles = (palette: Palette) =>
     },
     sizeCard: {
       flexDirection: 'row',
-      alignItems: 'baseline',
+      alignItems: 'center',
       justifyContent: 'space-between',
+      gap: space(3),
       borderWidth: border,
-      paddingVertical: space(3),
+      paddingVertical: space(3.5),
       paddingHorizontal: space(4),
+    },
+    sizeText: {
+      flex: 1,
+    },
+    sizeNote: {
+      fontSize: 12,
+      color: palette.inkSoft,
+      marginTop: space(0.5),
     },
     sizeLabel: {
       fontSize: 16,
@@ -184,15 +201,10 @@ const makeStyles = (palette: Palette) =>
       fontSize: 13,
       color: palette.inkFaint,
     },
-    sizeHint: {
-      fontSize: 13,
-      color: palette.inkSoft,
-      marginTop: space(3),
-    },
     sizeStats: {
-      fontSize: 13,
+      fontSize: 12,
       color: palette.inkFaint,
-      marginTop: space(1),
+      marginTop: space(0.5),
     },
     themeNote: {
       backgroundColor: palette.surface,
@@ -230,9 +242,6 @@ const makeStyles = (palette: Palette) =>
       backgroundColor: palette.bg,
       borderTopWidth: border,
       borderTopColor: palette.line,
-    },
-    surprise: {
-      marginTop: space(1),
     },
     busyOverlay: {
       position: 'absolute',
