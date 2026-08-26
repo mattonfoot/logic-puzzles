@@ -189,7 +189,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
                     })}
                     {game.cluesUsed === null
                       ? ''
-                      : ` · ${game.cluesUsed} of ${game.clueCount} clues`}
+                      : ` · ${game.cluesUsed} clue${game.cluesUsed === 1 ? '' : 's'}`}
                   </Text>
                 </View>
                 <Text style={[styles.gameTime, game.revealed && styles.gameTimeMuted]}>

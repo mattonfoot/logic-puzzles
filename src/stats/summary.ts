@@ -178,7 +178,9 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   const averageBefore = mean(times);
   const rank = times.filter((time) => time < game.seconds).length + 1;
   const clues =
-    game.cluesUsed === null ? '' : ` · ${game.cluesUsed} of ${game.clueCount} clues read`;
+    game.cluesUsed === null
+      ? ''
+      : ` · ${game.cluesUsed} clue${game.cluesUsed === 1 ? '' : 's'} read`;
 
   if (game.revealed) {
     return {

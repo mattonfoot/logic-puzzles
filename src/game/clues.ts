@@ -11,6 +11,9 @@
  * tick, or the tick that follows from the last blank in a row, are the grid's
  * rules rather than the clue's, and the board fills those in on its own.
  */
+import { buildPools, clueKey } from '../puzzle/generator';
+import { createRng } from '../puzzle/rng';
+import { contextFor } from '../puzzle/solver';
 import type { Attribute, Clue, Puzzle } from '../puzzle/types';
 import { getMark, type Cell, type Mark, type Marks } from './board';
 
@@ -123,12 +126,51 @@ export function cluesDone(marks: Marks, puzzle: Puzzle): Set<number> {
 /**
  * The clue to put on the table next: the one after `current` that still has
  * something to say, wrapping round to the start. A clue passed over comes back
- * on the next lap, and `null` means every clue is used up.
+ * on the next lap, and `null` means every clue is used up — which is what
+ * `inventClue` is for.
  */
 export function nextClue(current: number | null, done: Set<number>, total: number): number | null {
   for (let step = 1; step <= total; step++) {
     const index = ((current ?? -1) + step) % total;
     if (!done.has(index)) return index;
+  }
+  return null;
+}
+
+/**
+ * A clue nobody wrote down.
+ *
+ * A puzzle ships with the smallest set of clues that cracks it, so a player who
+ * has used them all and is still short of the answer has nowhere to go. Rather
+ * than stopping there, the game writes another: the generator's own pool holds
+ * every true statement about this solution, so one is picked that the board
+ * cannot already say and that has not been asked before.
+ *
+ * Least revealing first — a cross to rule something out, then the clues that
+ * need a second thought, and a plain "X is Y" only when nothing else is left,
+ * because that one hands over an answer rather than pointing at it. `attempt`
+ * (how many have been written so far) keeps successive ones from repeating.
+ *
+ * `null` means the board already says everything true about the puzzle, which
+ * on a board with no mistakes on it means the puzzle is finished.
+ */
+export function inventClue(puzzle: Puzzle, marks: Marks, attempt: number): Clue | null {
+  const rng = createRng(puzzle.seed + attempt + 1);
+  const ctx = contextFor(puzzle.categories, puzzle.size.items);
+  const pools = buildPools(puzzle.solution, puzzle.categories, ctx, rng);
+  const said = new Set(puzzle.clues.map(clueKey));
+
+  for (const pool of [
+    pools.negative,
+    pools.either,
+    pools.compare,
+    pools.compareGap,
+    pools.positive,
+  ]) {
+    const fresh = rng
+      .shuffle(pool)
+      .find((clue) => !said.has(clueKey(clue)) && !clueDone(clue, marks, puzzle));
+    if (fresh) return fresh;
   }
   return null;
 }

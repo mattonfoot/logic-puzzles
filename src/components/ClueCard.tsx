@@ -69,7 +69,7 @@ export function ClueCard({ puzzle, index, used, done, lit, onPress }: Props) {
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={`Clue ${index + 1} of ${puzzle.clues.length}${done ? ', used up' : ''}`}
+      accessibilityLabel={`Clue, ${used} read${done ? ', used up' : ''}`}
       accessibilityHint={lit ? 'Stop lighting it up on the grid' : 'Light it up on the grid'}
       onPress={onPress}
       style={({ pressed }) => [
@@ -93,8 +93,7 @@ export function ClueCard({ puzzle, index, used, done, lit, onPress }: Props) {
         </View>
         <View style={styles.text}>
           <Text style={styles.meta}>
-            Clue {index + 1} of {puzzle.clues.length} · {used} read
-            {done ? ' · used up' : ''}
+            {used} clue{used === 1 ? '' : 's'} read{done ? ' · used up' : ''}
           </Text>
           <Text style={[styles.clue, done && styles.clueDone]} numberOfLines={3}>
             {describeClue(clue, puzzle)}

@@ -20,12 +20,12 @@ import {
   type Cell,
   type Marks,
 } from '../game/board';
-import { cluesDone, nextClue } from '../game/clues';
+import { cluesDone, inventClue, nextClue } from '../game/clues';
 import { SAVE_VERSION, type SavedGame } from '../game/persistence';
 import type { CompletionInput } from '../game/usePersistence';
 import { formatDuration, useTimer } from '../game/useTimer';
 import { clueAttributes } from '../puzzle/describe';
-import type { Attribute, Puzzle } from '../puzzle/types';
+import type { Attribute, Clue, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { feedback } from '../ui/feedback';
 import { Text } from '../ui/Text';
@@ -91,6 +91,9 @@ export function GameScreen({
   // one is the cost of a hint here, so the set is what the statistics count.
   const [clueIndex, setClueIndex] = useState<number | null>(() => resumed?.clueIndex ?? null);
   const [cluesSeen, setCluesSeen] = useState<Set<number>>(() => new Set(resumed?.cluesSeen ?? []));
+  // Clues written for this game after the puzzle's own ran out. They are saved
+  // with the board, so a resumed game keeps the ones it was given.
+  const [extraClues, setExtraClues] = useState<Clue[]>([]);
   const [lit, setLit] = useState(false);
   const [mistakes, setMistakes] = useState<Set<string>>(new Set());
   // Every board the player has moved on from, newest last, so a move can be
@@ -109,10 +112,17 @@ export function GameScreen({
     [autoEliminate, autoFacts, puzzle.size.items],
   );
 
+  /** The puzzle plus whatever clues have been written for this game. */
+  const inPlay = useMemo(
+    () =>
+      extraClues.length === 0 ? puzzle : { ...puzzle, clues: [...puzzle.clues, ...extraClues] },
+    [extraClues, puzzle],
+  );
+
   const solved = useMemo(() => isSolved(marks, puzzle), [marks, puzzle]);
   // Which clues the board has caught up with. A clue is spent when every mark
   // it calls for is down, whoever worked it out.
-  const spent = useMemo(() => cluesDone(marks, puzzle), [marks, puzzle]);
+  const spent = useMemo(() => cluesDone(marks, inPlay), [marks, inPlay]);
   const wrong = useMemo(() => findMistakes(marks, puzzle), [marks, puzzle]);
   const stuck = flagged && wrong.length > 0;
   const filled = useMemo(() => progress(marks, puzzle), [marks, puzzle]);
@@ -151,8 +161,8 @@ export function GameScreen({
   }, [boardOptions]);
 
   const highlight = useMemo<Attribute[]>(
-    () => (lit && clueIndex !== null ? clueAttributes(puzzle.clues[clueIndex]) : []),
-    [clueIndex, lit, puzzle.clues],
+    () => (lit && clueIndex !== null ? clueAttributes(inPlay.clues[clueIndex]) : []),
+    [clueIndex, inPlay.clues, lit],
   );
 
   // A snapshot of the board that the autosave paths can read without having to
@@ -160,7 +170,9 @@ export function GameScreen({
   const snapshot = useRef<() => SavedGame>(() => ({}) as SavedGame);
   snapshot.current = () => ({
     version: SAVE_VERSION,
-    puzzle,
+    // Written clues ride along inside the puzzle, so picking the game back up
+    // brings them with it.
+    puzzle: inPlay,
     marks,
     cluesSeen: [...cluesSeen],
     clueIndex,
@@ -197,7 +209,7 @@ export function GameScreen({
     if (solved) return;
     const timer = setTimeout(() => onSaveProgress(snapshot.current()), 600);
     return () => clearTimeout(timer);
-  }, [marks, cluesSeen, clueIndex, solved, onSaveProgress]);
+  }, [marks, cluesSeen, clueIndex, extraClues, solved, onSaveProgress]);
 
   // Backgrounding the app and leaving the screen both save immediately.
   useEffect(() => {
@@ -317,20 +329,31 @@ export function GameScreen({
     }
     setFlagged(false);
 
-    const index = nextClue(clueIndex, spent, puzzle.clues.length);
-    if (index === null) {
-      flash('Every clue is used up — the rest is on the board.');
+    const index = nextClue(clueIndex, spent, inPlay.clues.length);
+    if (index === null || index === clueIndex) {
+      // Nothing else left to hand over: every clue is used up, or the only one
+      // still worth reading is the one already on the table. A puzzle carries
+      // the smallest set of clues that cracks it, so that is not the end of
+      // what can be said about it — write another and carry on.
+      const invented = inventClue(inPlay, marks, extraClues.length);
+      if (!invented) {
+        flash('Nothing left to say — it is all on the board.');
+        return;
+      }
+      feedback.tap();
+      const at = inPlay.clues.length;
+      setExtraClues((extras) => [...extras, invented]);
+      setClueIndex(at);
+      setCluesSeen((seen) => new Set(seen).add(at));
+      setTab('grid');
+      flash('The clues ran out, so here is a new one.');
       return;
     }
     feedback.tap();
     setTab('grid');
-    if (index === clueIndex) {
-      flash('That is the only clue with anything left to say.');
-      return;
-    }
     setClueIndex(index);
     setCluesSeen((seen) => (seen.has(index) ? seen : new Set(seen).add(index)));
-  }, [clueIndex, flash, puzzle.clues.length, spent, wrong]);
+  }, [clueIndex, extraClues.length, flash, inPlay, marks, spent, wrong]);
 
   const restart = useCallback(() => {
     feedback.tap();
@@ -341,6 +364,7 @@ export function GameScreen({
     setFlagged(false);
     setClueIndex(null);
     setCluesSeen(new Set());
+    setExtraClues([]);
     setLit(false);
     setRevealed(false);
     setTab('grid');
@@ -399,7 +423,8 @@ export function GameScreen({
             {puzzle.themeEmoji} {puzzle.themeName}
           </Text>
           <Text style={styles.headerSubtitle} numberOfLines={1}>
-            {puzzle.size.label} · {cluesSeen.size} of {puzzle.clues.length} clues · #{puzzle.seed}
+            {puzzle.size.label} · {cluesSeen.size} clue{cluesSeen.size === 1 ? '' : 's'} read · #
+            {puzzle.seed}
           </Text>
         </View>
         <Text style={[styles.timer, { color: puzzle.accent }]}>{formatDuration(seconds)}</Text>
@@ -498,7 +523,7 @@ export function GameScreen({
             it: read it, mark what it says, take the next one. */}
         {solved ? null : (
           <ClueCard
-            puzzle={puzzle}
+            puzzle={inPlay}
             index={clueIndex}
             used={cluesSeen.size}
             done={clueIndex !== null && spent.has(clueIndex)}

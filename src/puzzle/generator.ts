@@ -107,7 +107,8 @@ function entityOf(solution: number[][], category: number, item: number): number 
   return solution[category].indexOf(item);
 }
 
-function clueKey(clue: Clue): string {
+/** Identifies a clue by what it says, so the same statement is never offered twice. */
+export function clueKey(clue: Clue): string {
   switch (clue.kind) {
     case 'link': {
       const [x, y] = [clue.a, clue.b].sort((p, q) => p.category - q.category || p.item - q.item);
@@ -122,7 +123,7 @@ function clueKey(clue: Clue): string {
   }
 }
 
-interface Pools {
+export interface Pools {
   positive: Clue[];
   negative: Clue[];
   either: Clue[];
@@ -130,7 +131,13 @@ interface Pools {
   compareGap: Clue[];
 }
 
-function buildPools(
+/**
+ * Every true statement about this solution, sorted by kind.
+ *
+ * The generator draws the puzzle's own clues from here; the game draws on it
+ * again when a player runs the clue list dry and asks for another.
+ */
+export function buildPools(
   solution: number[][],
   categories: PuzzleCategory[],
   ctx: SolveContext,

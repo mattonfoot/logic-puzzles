@@ -20,7 +20,6 @@ function game(overrides: Partial<CompletedGame> = {}): CompletedGame {
     sizeLabel: '4 × 4',
     seconds: 120,
     cluesUsed: 4,
-    clueCount: 10,
     revealed: false,
     finishedAt: NOON,
     ...overrides,
@@ -167,7 +166,7 @@ describe('improvementFor', () => {
 
     expect(result.kind).toBe('steady');
     expect(result.detail).toContain('1:00 off your best');
-    expect(result.detail).toContain('3 of 10 clues read');
+    expect(result.detail).toContain('3 clues read');
   });
 
   it('says nothing about clues for a game played before they were counted', () => {

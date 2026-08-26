@@ -98,7 +98,6 @@ function sampleHistory() {
         sizeLabel,
         seconds,
         cluesUsed,
-        clueCount: 12,
         revealed: false,
         finishedAt: now - daysAgo * day - index * 3_600_000,
       }),
@@ -244,7 +243,7 @@ async function main() {
   const nextClue = page.getByLabel('Get next clue');
   await nextClue.click();
   await wait(page, 400);
-  const clueCard = page.getByLabel(/^Clue \d+ of \d+/);
+  const clueCard = page.getByLabel(/^Clue, /);
   await clueCard.click();
   await wait(page, 500);
   await shot('06-clue');
@@ -254,10 +253,10 @@ async function main() {
   // finishes, so that is the one to put on the table and answer.
   await clueCard.click();
   await wait(page, 300);
+  // Nothing is marked yet, so the button hands the clues over in order: one
+  // press is already spent on clue 0, so `plain` more presses lands on it.
   const plain = puzzle.clues.findIndex((clue) => clue.kind === 'link');
-  for (let index = 0; index < puzzle.clues.length; index++) {
-    const label = await clueCard.getAttribute('aria-label');
-    if (label?.startsWith(`Clue ${plain + 1} of `)) break;
+  for (let index = 0; index < plain; index++) {
     await nextClue.click();
     await wait(page, 300);
   }

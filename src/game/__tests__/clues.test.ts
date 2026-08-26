@@ -1,10 +1,10 @@
 import { SIZES } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
 import { DEFAULT_CLUE_TEMPLATES } from '../../puzzle/describe';
-import { generatePuzzle } from '../../puzzle/generator';
+import { clueKey, generatePuzzle } from '../../puzzle/generator';
 import type { Clue, Puzzle } from '../../puzzle/types';
-import { byHand, markKey, setMark, solvedMarks, type Cell, type Marks } from '../board';
-import { clueDone, clueMarks, cluesDone, nextClue } from '../clues';
+import { byHand, isSolved, markKey, setMark, solvedMarks, type Cell, type Marks } from '../board';
+import { clueDone, clueMarks, cluesDone, inventClue, nextClue } from '../clues';
 
 /**
  * Three heroes, three weapons, three rewards. Entity 0 is Kell with the Lance
@@ -206,5 +206,58 @@ describe('a whole puzzle', () => {
         byHand('no'),
     };
     expect(clueDone(clue, wrong, made)).toBe(false);
+  });
+});
+
+describe('writing a clue when the puzzle runs out', () => {
+  const made = generatePuzzle({ theme: THEMES, size: SIZES[0], seed: 7100 });
+  const withExtras = (extras: Clue[]) => ({ ...made, clues: [...made.clues, ...extras] });
+
+  it('says something true that the board does not already say', () => {
+    const clue = inventClue(made, {}, 0);
+    if (!clue) throw new Error('expected a clue');
+
+    // True of the puzzle: the finished board agrees with it.
+    expect(clueDone(clue, solvedMarks(made), made)).toBe(true);
+    // Worth reading: the board it was written for does not.
+    expect(clueDone(clue, {}, made)).toBe(false);
+  });
+
+  it('repeats neither itself nor the clues the puzzle came with', () => {
+    const extras: Clue[] = [];
+    for (let attempt = 0; attempt < 6; attempt++) {
+      const clue = inventClue(withExtras(extras), {}, attempt);
+      if (!clue) throw new Error('expected a clue');
+      extras.push(clue);
+    }
+
+    const keys = [...made.clues, ...extras].map(clueKey);
+    expect(new Set(keys).size).toBe(keys.length);
+  });
+
+  it('has nothing to write for a board that is already finished', () => {
+    expect(inventClue(made, solvedMarks(made), 0)).toBeNull();
+  });
+
+  it('carries a board all the way to the answer if the player keeps asking', () => {
+    // Read every clue, mark what it asks for, and ask for another when they run
+    // out: the written ones have to be enough to finish the puzzle on their own.
+    const options = { size: made.size.items, autoEliminate: true, autoFacts: true };
+    let board: Marks = {};
+    let extras: Clue[] = [];
+
+    for (let step = 0; step < 200 && !isSolved(board, made); step++) {
+      const puzzleNow = withExtras(extras);
+      const open = puzzleNow.clues.find((clue) => !clueDone(clue, board, puzzleNow));
+      const clue = open ?? inventClue(puzzleNow, board, extras.length);
+      if (!clue) break;
+      if (!open) extras = [...extras, clue];
+
+      for (const required of clueMarks(clue, board, puzzleNow)) {
+        board = setMark(board, required.cell, required.mark, options);
+      }
+    }
+
+    expect(isSolved(board, made)).toBe(true);
   });
 });

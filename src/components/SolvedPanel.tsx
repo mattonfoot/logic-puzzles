@@ -55,12 +55,7 @@ export function SolvedPanel({
 
       <View style={styles.stats}>
         <Stat label="Time" value={formatDuration(seconds)} accent={puzzle.accent} />
-        <Stat
-          label="Clues read"
-          value={`${cluesUsed} of ${puzzle.clues.length}`}
-          accent={puzzle.accent}
-          joined
-        />
+        <Stat label="Clues read" value={`${cluesUsed}`} accent={puzzle.accent} joined />
       </View>
 
       {improvement ? (

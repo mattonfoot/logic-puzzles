@@ -95,7 +95,6 @@ describe('completedGameFrom', () => {
       seed: puzzle.seed,
       themeId: puzzle.themeId,
       sizeId: puzzle.size.id,
-      clueCount: puzzle.clues.length,
       cluesUsed: 2,
       revealed: false,
       finishedAt: 123,

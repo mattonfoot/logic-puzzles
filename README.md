@@ -132,9 +132,12 @@ rest is the app behaving normally.
    about. Mark everything it says and the game agrees it is spent: the clue is
    struck through and fades back, and the button skips it from then on. A clue
    you pass over is not gone — the button wraps round to it on a later lap, by
-   which time the board may have enough on it for the clue to bite. How many
-   clues you read is the score the statistics keep, so working one harder before
-   asking for the next is the whole game.
+   which time the board may have enough on it for the clue to bite. **The clues
+   never run out**: a puzzle carries only the handful needed to crack it, so when
+   they are all spent the game writes you a new one, and another after that. How
+   many you read is the score the statistics keep — there is no total to read it
+   against, so working a clue harder before asking for the next is the whole
+   game.
 4. **Undo** takes back one mark at a time, autos and all. **Get next clue**
    looks at the board before it hands anything over: a puzzle has one answer, so
    a single mark that contradicts it puts the answer out of reach, and a clue
@@ -183,7 +186,8 @@ src/puzzle/generator.ts     builds a solution, then a minimal clue set for it
 src/puzzle/solver.ts        constraint solver: propagation + search
 src/puzzle/describe.ts      clue objects → sentences, using each theme's wording
 src/game/board.ts           the player's ticks and crosses, mistakes, win check
-src/game/clues.ts           what a clue asks of the board, and which are spent
+src/game/clues.ts           what a clue asks of the board, which are spent, and
+                            how a new one is written when they run out
 src/game/layout.ts          the staircase arrangement + the answer table
 src/game/persistence.ts     what gets written to disk, and the guards to read it
 src/game/usePersistence.ts  saved game + finished games as React state
@@ -334,12 +338,33 @@ the player made, which is what lets a single tick finish several clues at once.
 
 `nextClue` walks on from the clue on the table and wraps round, skipping the
 ones that are done, so a clue passed over early comes back on a later lap once
-the board has enough on it for it to bite; `null` means every clue is used up.
-The clue card strikes a spent clue through and fades it to 40% over 700ms rather
-than whipping it away, so the player sees which one they just finished.
+the board has enough on it for it to bite. The clue card strikes a spent clue
+through and fades it to 40% over 700ms rather than whipping it away, so the
+player sees which one they just finished.
 
-A property test pins both ends of this down: on an empty board no clue counts as
-done, and on a solved board every one of them does.
+**The clues never run out.** A puzzle ships with the smallest set that cracks
+it, so a player who has spent them all and is still short of the answer would
+otherwise have nowhere to go. When there is nothing left to hand over — every
+clue used up, or the only one still worth reading is the one already on the
+table — `inventClue` writes another. The generator's pool of true statements
+about the solution is rebuilt from the puzzle and searched for one the board
+cannot already say and that has not been asked before, least revealing first: a
+cross to rule something out, then the clues that need a second thought, and a
+plain "X is Y" only when nothing else is left, because that one hands over an
+answer rather than pointing at it. Written clues are appended to the puzzle's
+own list, which is what gets saved, so a resumed game keeps the ones it was
+given. `null` comes back only when everything true about the puzzle is already
+on the board, which on a board with no mistakes means it is finished.
+
+That is why nothing is counted out of a total: the number of clues a game takes
+is not fixed by the puzzle, so what the app shows and the statistics keep is
+simply how many were read.
+
+Property tests pin the ends down: on an empty board no clue counts as done, and
+on a solved board every one of them does; a written clue is always true (the
+finished board agrees with it) and always says something the board does not; and
+a board that only ever marks what it is told, asking for another clue whenever
+it runs out, reaches the answer.
 
 In `src/game/board.ts` every square records who marked it. A tap by the player
 is a `hand` mark; a cross the board adds because a tick rules out the rest of
@@ -519,8 +544,8 @@ Two things are stored, both under AsyncStorage, both versioned:
 
 | Key | Holds |
 |-----|-------|
-| `logic-grid:saved-game:v1` | the puzzle in progress: the whole puzzle, every tick and cross, which clues have been read and which is on the table, elapsed seconds |
-| `logic-grid:history:v1` | the last 300 finished games: time, clues read, how many the puzzle had, theme, size, whether it was revealed |
+| `logic-grid:saved-game:v1` | the puzzle in progress: the whole puzzle — including any clues written for this game — every tick and cross, which clues have been read and which is on the table, elapsed seconds |
+| `logic-grid:history:v1` | the last 300 finished games: time, clues read, theme, size, whether it was revealed |
 
 The saved game stores the generated puzzle itself rather than its seed, so a
 game in progress keeps playing exactly as it was even if the themes or the

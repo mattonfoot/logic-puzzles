@@ -36,10 +36,12 @@ export interface CompletedGame {
   sizeId: string;
   sizeLabel: string;
   seconds: number;
-  /** Clues read before it was finished; null for games played before we counted. */
+  /**
+   * Clues read before it was finished; null for games played before we counted.
+   * There is no total to read it against — a puzzle that runs out of clues
+   * writes more — so this is a count, not a share.
+   */
   cluesUsed: number | null;
-  /** How many clues the puzzle had to offer. */
-  clueCount: number;
   /** True when the player pressed "reveal" instead of solving it. */
   revealed: boolean;
   finishedAt: number;
@@ -133,7 +135,6 @@ export function reviveHistory(value: unknown): History | null {
     games: value.games.map((game) => ({
       ...game,
       cluesUsed: typeof game.cluesUsed === 'number' ? game.cluesUsed : null,
-      clueCount: typeof game.clueCount === 'number' ? game.clueCount : 0,
     })),
   };
 }
@@ -192,7 +193,6 @@ export function completedGameFrom(puzzle: Puzzle, input: CompletionInput): Compl
     sizeLabel: puzzle.size.label,
     seconds: Math.max(0, Math.round(input.seconds)),
     cluesUsed: input.cluesUsed,
-    clueCount: puzzle.clues.length,
     revealed: input.revealed,
     finishedAt: input.finishedAt,
   };
