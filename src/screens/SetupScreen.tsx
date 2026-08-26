@@ -77,7 +77,9 @@ export function SetupScreen({
                 <Text style={[styles.sizeLabel, selected && { color: palette.accent }]}>
                   {option.difficulty}
                 </Text>
-                <Text style={styles.sizeShape}>{option.label}</Text>
+                <Text style={[styles.sizeShape, selected && { color: palette.accent }]}>
+                  {option.label}
+                </Text>
               </Pressable>
             );
           })}
@@ -159,26 +161,28 @@ const makeStyles = (palette: Palette) =>
       marginBottom: space(3),
     },
     sizeRow: {
-      flexDirection: 'row',
-      // These sit apart rather than flush: the chosen size draws its border in
-      // the accent, and a neighbour sharing that edge paints over it.
+      // One under another, so each difficulty is a line to read rather than a
+      // box to decode. They sit apart rather than flush: the chosen one draws
+      // its border in the accent, and a neighbour sharing that edge paints
+      // over it.
       gap: space(2),
     },
     sizeCard: {
-      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'baseline',
+      justifyContent: 'space-between',
       borderWidth: border,
       paddingVertical: space(3),
-      alignItems: 'center',
+      paddingHorizontal: space(4),
     },
     sizeLabel: {
-      fontSize: 14,
+      fontSize: 16,
       fontWeight: '700',
       color: palette.ink,
     },
     sizeShape: {
-      fontSize: 11,
+      fontSize: 13,
       color: palette.inkFaint,
-      marginTop: space(0.5),
     },
     sizeHint: {
       fontSize: 13,
