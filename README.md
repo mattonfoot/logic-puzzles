@@ -144,7 +144,9 @@ rest is the app behaving normally.
    read against a board you can no longer solve is a clue wasted. When that has
    happened it says so, marks the squares that cannot be right, and offers
    **Rewind**, which takes moves back until the board can be solved again. The
-   timer stops when the last square is right. Finishing adds a second tab,
+   clock starts when you ask for the first clue — with nothing to go on there
+   is nothing to solve, so the time spent reading the sets is not part of it —
+   and stops when the last square is right. Finishing adds a second tab,
    **Solved**, which fills the screen with the clock, how many clues it took,
    how the game compares with your earlier ones, and **the answer as a table**:
    one row per person, one column per set, so the whole solution reads across in

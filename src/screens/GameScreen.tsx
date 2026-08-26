@@ -126,8 +126,12 @@ export function GameScreen({
   const wrong = useMemo(() => findMistakes(marks, puzzle), [marks, puzzle]);
   const stuck = flagged && wrong.length > 0;
   const filled = useMemo(() => progress(marks, puzzle), [marks, puzzle]);
+  // The clock starts when the player asks for their first clue, not when the
+  // board appears: with nothing to go on there is nothing to solve, so time
+  // spent reading the sets or picking the game back up is not part of it.
+  const started = cluesSeen.size > 0;
   const seconds = useTimer(
-    !solved,
+    started && !solved,
     `${puzzle.seed}:${attempt}`,
     attempt === 0 ? (resumed?.seconds ?? 0) : 0,
   );
