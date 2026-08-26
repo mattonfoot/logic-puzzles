@@ -5,7 +5,8 @@ import { formatDuration } from '../game/time';
 import type { Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { Text } from '../ui/Text';
-import { border, palette, space, tint } from '../ui/theme';
+import { useStyles, useTheme } from '../ui/ThemeProvider';
+import { border, space, tint, type Palette } from '../ui/theme';
 import { AppButton } from './AppButton';
 import { SolutionTable } from './SolutionTable';
 
@@ -37,6 +38,8 @@ export function SolvedPanel({
   onChangeSetup,
   onOpenStats,
 }: Props) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
   return (
     <ScrollView
       style={styles.fill}
@@ -120,6 +123,7 @@ function Stat({
   /** Sit flush against the block before it. */
   joined?: boolean;
 }) {
+  const styles = useStyles(makeStyles);
   return (
     <View
       style={[styles.stat, joined && styles.statJoined, { backgroundColor: tint(accent, 0.1) }]}
@@ -130,98 +134,99 @@ function Stat({
   );
 }
 
-const styles = StyleSheet.create({
-  fill: {
-    flex: 1,
-  },
-  content: {
-    alignItems: 'center',
-    paddingBottom: space(4),
-  },
-  answer: {
-    alignSelf: 'stretch',
-    marginTop: space(5),
-    paddingTop: space(4),
-    borderTopWidth: border,
-    borderTopColor: palette.line,
-  },
-  answerLabel: {
-    fontSize: 11,
-    fontWeight: '700',
-    letterSpacing: 0.8,
-    textTransform: 'uppercase',
-    color: palette.inkFaint,
-    marginBottom: space(2),
-  },
-  emoji: {
-    fontSize: 44,
-    marginTop: space(2),
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: palette.ink,
-    marginTop: space(2),
-  },
-  subtitle: {
-    fontSize: 14,
-    color: palette.inkSoft,
-    marginTop: space(1),
-  },
-  stats: {
-    flexDirection: 'row',
-    marginTop: space(5),
-    width: '100%',
-  },
-  improvement: {
-    width: '100%',
-    borderWidth: border,
-    padding: space(4),
-    marginTop: space(3),
-  },
-  improvementHeadline: {
-    fontSize: 15,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
-  improvementDetail: {
-    fontSize: 13,
-    lineHeight: 18,
-    color: palette.inkSoft,
-    textAlign: 'center',
-    marginTop: space(1),
-  },
-  secondaryRow: {
-    flexDirection: 'row',
-    alignSelf: 'stretch',
-  },
-  secondaryButton: {
-    flex: 1,
-    marginTop: space(1),
-    paddingHorizontal: space(2),
-  },
-  statJoined: {
-    borderLeftWidth: border,
-    borderLeftColor: palette.surface,
-  },
-  stat: {
-    flex: 1,
-    paddingVertical: space(3),
-    alignItems: 'center',
-  },
-  statValue: {
-    fontSize: 18,
-    fontWeight: '700',
-  },
-  statLabel: {
-    fontSize: 11,
-    textTransform: 'uppercase',
-    letterSpacing: 0.6,
-    color: palette.inkFaint,
-    marginTop: space(1),
-  },
-  button: {
-    alignSelf: 'stretch',
-    marginTop: space(4),
-  },
-});
+const makeStyles = (palette: Palette) =>
+  StyleSheet.create({
+    fill: {
+      flex: 1,
+    },
+    content: {
+      alignItems: 'center',
+      paddingBottom: space(4),
+    },
+    answer: {
+      alignSelf: 'stretch',
+      marginTop: space(5),
+      paddingTop: space(4),
+      borderTopWidth: border,
+      borderTopColor: palette.line,
+    },
+    answerLabel: {
+      fontSize: 11,
+      fontWeight: '700',
+      letterSpacing: 0.8,
+      textTransform: 'uppercase',
+      color: palette.inkFaint,
+      marginBottom: space(2),
+    },
+    emoji: {
+      fontSize: 44,
+      marginTop: space(2),
+    },
+    title: {
+      fontSize: 28,
+      fontWeight: '800',
+      color: palette.ink,
+      marginTop: space(2),
+    },
+    subtitle: {
+      fontSize: 14,
+      color: palette.inkSoft,
+      marginTop: space(1),
+    },
+    stats: {
+      flexDirection: 'row',
+      marginTop: space(5),
+      width: '100%',
+    },
+    improvement: {
+      width: '100%',
+      borderWidth: border,
+      padding: space(4),
+      marginTop: space(3),
+    },
+    improvementHeadline: {
+      fontSize: 15,
+      fontWeight: '700',
+      textAlign: 'center',
+    },
+    improvementDetail: {
+      fontSize: 13,
+      lineHeight: 18,
+      color: palette.inkSoft,
+      textAlign: 'center',
+      marginTop: space(1),
+    },
+    secondaryRow: {
+      flexDirection: 'row',
+      alignSelf: 'stretch',
+    },
+    secondaryButton: {
+      flex: 1,
+      marginTop: space(1),
+      paddingHorizontal: space(2),
+    },
+    statJoined: {
+      borderLeftWidth: border,
+      borderLeftColor: palette.surface,
+    },
+    stat: {
+      flex: 1,
+      paddingVertical: space(3),
+      alignItems: 'center',
+    },
+    statValue: {
+      fontSize: 18,
+      fontWeight: '700',
+    },
+    statLabel: {
+      fontSize: 11,
+      textTransform: 'uppercase',
+      letterSpacing: 0.6,
+      color: palette.inkFaint,
+      marginTop: space(1),
+    },
+    button: {
+      alignSelf: 'stretch',
+      marginTop: space(4),
+    },
+  });

@@ -4,7 +4,8 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { solutionRows, type SolutionCell } from '../game/layout';
 import type { Puzzle } from '../puzzle/types';
 import { Text } from '../ui/Text';
-import { palette, space, tint } from '../ui/theme';
+import { useStyles, useTheme } from '../ui/ThemeProvider';
+import { space, tint, type Palette } from '../ui/theme';
 
 interface Props {
   puzzle: Puzzle;
@@ -20,6 +21,7 @@ interface Props {
  * headings on one line each however long the set names are.
  */
 export function SolutionTable({ puzzle, compact = false }: Props) {
+  const styles = useStyles(makeStyles);
   const rows = solutionRows(puzzle);
   const [viewport, setViewport] = useState(0);
   const [content, setContent] = useState(0);
@@ -93,48 +95,49 @@ export function SolutionTable({ puzzle, compact = false }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-  },
-  pinned: {
-    borderRightWidth: 1,
-    borderRightColor: palette.line,
-  },
-  scroller: {
-    flexShrink: 1,
-  },
-  headerCell: {
-    justifyContent: 'flex-end',
-    paddingHorizontal: space(1.5),
-    paddingBottom: space(1),
-    borderBottomWidth: 1,
-    borderBottomColor: palette.line,
-  },
-  headerText: {
-    fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 0.5,
-    textTransform: 'uppercase',
-  },
-  cell: {
-    justifyContent: 'center',
-    paddingHorizontal: space(1.5),
-  },
-  cellText: {
-    fontSize: 13,
-    color: palette.inkSoft,
-  },
-  cellTextCompact: {
-    fontSize: 12,
-  },
-  cellTextLead: {
-    color: palette.ink,
-    fontWeight: '700',
-  },
-  hint: {
-    fontSize: 11,
-    color: palette.inkFaint,
-    marginTop: space(2),
-  },
-});
+const makeStyles = (palette: Palette) =>
+  StyleSheet.create({
+    row: {
+      flexDirection: 'row',
+    },
+    pinned: {
+      borderRightWidth: 1,
+      borderRightColor: palette.line,
+    },
+    scroller: {
+      flexShrink: 1,
+    },
+    headerCell: {
+      justifyContent: 'flex-end',
+      paddingHorizontal: space(1.5),
+      paddingBottom: space(1),
+      borderBottomWidth: 1,
+      borderBottomColor: palette.line,
+    },
+    headerText: {
+      fontSize: 10,
+      fontWeight: '700',
+      letterSpacing: 0.5,
+      textTransform: 'uppercase',
+    },
+    cell: {
+      justifyContent: 'center',
+      paddingHorizontal: space(1.5),
+    },
+    cellText: {
+      fontSize: 13,
+      color: palette.inkSoft,
+    },
+    cellTextCompact: {
+      fontSize: 12,
+    },
+    cellTextLead: {
+      color: palette.ink,
+      fontWeight: '700',
+    },
+    hint: {
+      fontSize: 11,
+      color: palette.inkFaint,
+      marginTop: space(2),
+    },
+  });

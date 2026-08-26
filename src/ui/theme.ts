@@ -1,17 +1,44 @@
 import { Platform } from 'react-native';
 
-export const palette = {
-  /** Used by the setup and statistics screens, which have no theme of their own. */
+/**
+ * Every colour the app draws with. Two of these exist — day and night — and
+ * `useTheme` hands the components whichever is in force, so a screen never
+ * names a colour, only a role.
+ */
+export interface Palette {
+  /** Used by the screens outside a puzzle, which have no theme of their own. */
+  accent: string;
+  bg: string;
+  surface: string;
+  surfaceAlt: string;
+  /**
+   * The two squares of the board's checkerboard. Both sit a little deeper than
+   * the page — a grid printed on the paper rather than laid on top of it — and
+   * far enough apart to be told from one another at a glance.
+   */
+  boardLight: string;
+  boardShade: string;
+  ink: string;
+  inkSoft: string;
+  inkFaint: string;
+  line: string;
+  lineStrong: string;
+  danger: string;
+  success: string;
+  /**
+   * Chart ink: one series hue (checked against the card behind it for
+   * lightness, chroma and 3:1 contrast) plus recessive gridline and baseline.
+   */
+  chart: { series: string; grid: string; reference: string };
+  /** Which way round this palette runs, for the status bar and the like. */
+  scheme: 'day' | 'night';
+}
+
+export const dayPalette: Palette = {
   accent: '#4C6FFF',
   bg: '#F6F3EC',
   surface: '#FFFFFF',
   surfaceAlt: '#FBF9F3',
-  /**
-   * The two squares of the board's checkerboard. Both sit a little deeper than
-   * the page — a grid printed on the paper rather than laid on top of it — and
-   * far enough apart to be told from one another at a glance. Near-white
-   * squares were tried and shimmered against the page; these are calm.
-   */
   boardLight: '#F1EEE4',
   boardShade: '#E7E1D4',
   ink: '#1D2333',
@@ -21,16 +48,33 @@ export const palette = {
   lineStrong: '#D2CAB6',
   danger: '#D6455D',
   success: '#2E9E6B',
+  chart: { series: '#2a78d6', grid: '#EBE6DA', reference: '#B7AF9C' },
+  scheme: 'day',
 };
 
 /**
- * Chart ink. One series hue (validated against the light card surface for
- * lightness, chroma and 3:1 contrast) plus recessive gridline and baseline.
+ * The same page at night. It is not the day palette inverted: the ground is a
+ * warm near-black rather than a pure one, the ink is a soft off-white so it
+ * does not glare, and the board's two squares sit a little *lighter* than the
+ * page — the same "printed on the paper" relationship read the other way up,
+ * because on a dark ground it is the ink that has to lift off the page.
  */
-export const chart = {
-  series: '#2a78d6',
-  grid: '#EBE6DA',
-  reference: '#B7AF9C',
+export const nightPalette: Palette = {
+  accent: '#8AA2FF',
+  bg: '#14161C',
+  surface: '#1B1E26',
+  surfaceAlt: '#20242D',
+  boardLight: '#232733',
+  boardShade: '#2C313F',
+  ink: '#ECEDF2',
+  inkSoft: '#A9B0C2',
+  inkFaint: '#6C748A',
+  line: '#2C313F',
+  lineStrong: '#3C4354',
+  danger: '#FF7A8E',
+  success: '#5FCF9B',
+  chart: { series: '#6E9BE8', grid: '#2C313F', reference: '#4A5265' },
+  scheme: 'night',
 };
 
 /**

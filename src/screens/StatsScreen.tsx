@@ -9,8 +9,10 @@ import type { CompletedGame } from '../game/persistence';
 import { formatDuration, formatSpan } from '../game/time';
 import type { OverallStats, SizeStats } from '../stats/summary';
 import { haptics } from '../ui/haptics';
+import { ScreenHeader } from '../ui/ScreenHeader';
 import { Text } from '../ui/Text';
-import { chart, palette, radius, shadow, space, tint } from '../ui/theme';
+import { useStyles, useTheme } from '../ui/ThemeProvider';
+import { radius, shadow, space, tint, type Palette } from '../ui/theme';
 
 interface Props {
   stats: OverallStats;
@@ -20,6 +22,8 @@ interface Props {
 }
 
 export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
   const insets = useSafeAreaInsets();
   const played = stats.sizes.filter((size) => size.solved > 0);
   const [sizeId, setSizeId] = useState<string | null>(null);
@@ -50,19 +54,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
 
   return (
     <View style={styles.screen}>
-      <View style={[styles.header, { paddingTop: insets.top + space(2) }]}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Back"
-          onPress={onBack}
-          style={styles.headerButton}
-          hitSlop={12}
-        >
-          <Text style={styles.headerButtonText}>‹</Text>
-        </Pressable>
-        <Text style={styles.headerTitle}>Statistics</Text>
-        <View style={styles.headerSpacer} />
-      </View>
+      <ScreenHeader title="Statistics" onBack={onBack} />
 
       <ScrollView
         contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + space(10) }]}
@@ -146,12 +138,14 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
                     style={[
                       styles.pill,
                       {
-                        borderColor: isSelected ? chart.series : palette.line,
-                        backgroundColor: isSelected ? tint(chart.series, 0.12) : palette.surface,
+                        borderColor: isSelected ? palette.chart.series : palette.line,
+                        backgroundColor: isSelected
+                          ? tint(palette.chart.series, 0.12)
+                          : palette.surface,
                       },
                     ]}
                   >
-                    <Text style={[styles.pillText, isSelected && { color: chart.series }]}>
+                    <Text style={[styles.pillText, isSelected && { color: palette.chart.series }]}>
                       {size.sizeLabel}
                     </Text>
                   </Pressable>
@@ -227,6 +221,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
 }
 
 function Tile({ label, value, hint }: { label: string; value: string; hint?: string }) {
+  const styles = useStyles(makeStyles);
   return (
     <View style={[styles.tile, shadow.card]}>
       <Text style={styles.tileValue}>{value}</Text>
@@ -238,6 +233,8 @@ function Tile({ label, value, hint }: { label: string; value: string; hint?: str
 
 /** The plain-language version of the trend the chart draws. */
 function TrendBanner({ size }: { size: SizeStats }) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
   if (size.trend === null || size.recentAverage === null || size.earlierAverage === null) {
     return (
       <Text style={styles.trendNeutral}>
@@ -274,236 +271,205 @@ function TrendBanner({ size }: { size: SizeStats }) {
   );
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: palette.bg,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: space(4),
-    paddingBottom: space(3),
-    gap: space(3),
-  },
-  headerButton: {
-    width: 34,
-    height: 34,
-    borderRadius: radius.pill,
-    backgroundColor: palette.surface,
-    borderWidth: 1,
-    borderColor: palette.line,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerButtonText: {
-    fontSize: 22,
-    lineHeight: 24,
-    color: palette.ink,
-    marginTop: -2,
-  },
-  headerSpacer: {
-    width: 34,
-  },
-  headerTitle: {
-    flex: 1,
-    fontSize: 17,
-    fontWeight: '700',
-    color: palette.ink,
-  },
-  content: {
-    paddingHorizontal: space(4),
-    paddingTop: space(2),
-    gap: space(3),
-  },
-  card: {
-    backgroundColor: palette.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: palette.line,
-    padding: space(4),
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: palette.ink,
-  },
-  cardSubtitle: {
-    fontSize: 12,
-    color: palette.inkFaint,
-    marginTop: space(0.5),
-    marginBottom: space(2),
-  },
-  tiles: {
-    gap: space(3),
-  },
-  tileRow: {
-    flexDirection: 'row',
-    gap: space(3),
-  },
-  tile: {
-    flex: 1,
-    backgroundColor: palette.surface,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: palette.line,
-    paddingVertical: space(3),
-    alignItems: 'center',
-  },
-  tileValue: {
-    fontSize: 20,
-    fontWeight: '800',
-    color: palette.ink,
-  },
-  tileLabel: {
-    fontSize: 11,
-    textTransform: 'uppercase',
-    letterSpacing: 0.6,
-    color: palette.inkFaint,
-    marginTop: space(1),
-  },
-  tileHint: {
-    fontSize: 10,
-    color: palette.inkFaint,
-    marginTop: 1,
-  },
-  sizeTable: {
-    marginTop: space(3),
-  },
-  sizeHeaderRow: {
-    flexDirection: 'row',
-    paddingBottom: space(2),
-    borderBottomWidth: 1,
-    borderBottomColor: palette.line,
-  },
-  sizeRow: {
-    flexDirection: 'row',
-    paddingVertical: space(2.5),
-    borderBottomWidth: 1,
-    borderBottomColor: palette.line,
-  },
-  sizeHeaderCell: {
-    flex: 1,
-    fontSize: 11,
-    textTransform: 'uppercase',
-    letterSpacing: 0.6,
-    color: palette.inkFaint,
-    textAlign: 'right',
-  },
-  sizeCell: {
-    flex: 1,
-    fontSize: 13,
-    color: palette.inkSoft,
-    textAlign: 'right',
-  },
-  sizeCellWide: {
-    flex: 1.2,
-    textAlign: 'left',
-  },
-  sizeCellStrong: {
-    color: palette.ink,
-    fontWeight: '700',
-  },
-  pillRow: {
-    flexDirection: 'row',
-    // Apart, for the same reason as the size buttons on the home screen: the
-    // chosen one's border would be painted over by the pill beside it.
-    gap: space(2),
-    marginBottom: space(3),
-  },
-  pill: {
-    borderRadius: radius.pill,
-    borderWidth: 1,
-    paddingHorizontal: space(3),
-    paddingVertical: space(1.5),
-  },
-  pillText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: palette.inkSoft,
-  },
-  trendBanner: {
-    borderRadius: radius.sm,
-    padding: space(3),
-    marginBottom: space(4),
-  },
-  trendHeadline: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: palette.ink,
-  },
-  trendDetail: {
-    fontSize: 12,
-    color: palette.inkSoft,
-    marginTop: space(0.5),
-  },
-  trendNeutral: {
-    fontSize: 13,
-    color: palette.inkSoft,
-    marginBottom: space(3),
-  },
-  gameRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space(3),
-    paddingVertical: space(2.5),
-    borderBottomWidth: 1,
-    borderBottomColor: palette.line,
-  },
-  gameEmoji: {
-    fontSize: 20,
-  },
-  gameText: {
-    flex: 1,
-  },
-  gameTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: palette.ink,
-  },
-  gameMeta: {
-    fontSize: 11,
-    color: palette.inkFaint,
-    marginTop: 1,
-  },
-  gameTime: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: palette.ink,
-    fontVariant: ['tabular-nums'],
-  },
-  gameTimeMuted: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: palette.inkFaint,
-  },
-  empty: {
-    alignItems: 'center',
-    paddingVertical: space(8),
-  },
-  emptyEmoji: {
-    fontSize: 32,
-  },
-  emptyTitle: {
-    fontSize: 17,
-    fontWeight: '700',
-    color: palette.ink,
-    marginTop: space(2),
-  },
-  emptyText: {
-    fontSize: 13,
-    lineHeight: 19,
-    color: palette.inkSoft,
-    textAlign: 'center',
-    marginTop: space(1),
-  },
-  clearButton: {
-    alignSelf: 'center',
-    paddingVertical: space(3),
-  },
-  clearText: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: palette.danger,
-  },
-});
+const makeStyles = (palette: Palette) =>
+  StyleSheet.create({
+    screen: {
+      flex: 1,
+      backgroundColor: palette.bg,
+    },
+    content: {
+      paddingHorizontal: space(4),
+      paddingTop: space(2),
+      gap: space(3),
+    },
+    card: {
+      backgroundColor: palette.surface,
+      borderRadius: radius.md,
+      borderWidth: 1,
+      borderColor: palette.line,
+      padding: space(4),
+    },
+    cardTitle: {
+      fontSize: 16,
+      fontWeight: '700',
+      color: palette.ink,
+    },
+    cardSubtitle: {
+      fontSize: 12,
+      color: palette.inkFaint,
+      marginTop: space(0.5),
+      marginBottom: space(2),
+    },
+    tiles: {
+      gap: space(3),
+    },
+    tileRow: {
+      flexDirection: 'row',
+      gap: space(3),
+    },
+    tile: {
+      flex: 1,
+      backgroundColor: palette.surface,
+      borderRadius: radius.md,
+      borderWidth: 1,
+      borderColor: palette.line,
+      paddingVertical: space(3),
+      alignItems: 'center',
+    },
+    tileValue: {
+      fontSize: 20,
+      fontWeight: '800',
+      color: palette.ink,
+    },
+    tileLabel: {
+      fontSize: 11,
+      textTransform: 'uppercase',
+      letterSpacing: 0.6,
+      color: palette.inkFaint,
+      marginTop: space(1),
+    },
+    tileHint: {
+      fontSize: 10,
+      color: palette.inkFaint,
+      marginTop: 1,
+    },
+    sizeTable: {
+      marginTop: space(3),
+    },
+    sizeHeaderRow: {
+      flexDirection: 'row',
+      paddingBottom: space(2),
+      borderBottomWidth: 1,
+      borderBottomColor: palette.line,
+    },
+    sizeRow: {
+      flexDirection: 'row',
+      paddingVertical: space(2.5),
+      borderBottomWidth: 1,
+      borderBottomColor: palette.line,
+    },
+    sizeHeaderCell: {
+      flex: 1,
+      fontSize: 11,
+      textTransform: 'uppercase',
+      letterSpacing: 0.6,
+      color: palette.inkFaint,
+      textAlign: 'right',
+    },
+    sizeCell: {
+      flex: 1,
+      fontSize: 13,
+      color: palette.inkSoft,
+      textAlign: 'right',
+    },
+    sizeCellWide: {
+      flex: 1.2,
+      textAlign: 'left',
+    },
+    sizeCellStrong: {
+      color: palette.ink,
+      fontWeight: '700',
+    },
+    pillRow: {
+      flexDirection: 'row',
+      // Apart, for the same reason as the size buttons on the home screen: the
+      // chosen one's border would be painted over by the pill beside it.
+      gap: space(2),
+      marginBottom: space(3),
+    },
+    pill: {
+      borderRadius: radius.pill,
+      borderWidth: 1,
+      paddingHorizontal: space(3),
+      paddingVertical: space(1.5),
+    },
+    pillText: {
+      fontSize: 12,
+      fontWeight: '600',
+      color: palette.inkSoft,
+    },
+    trendBanner: {
+      borderRadius: radius.sm,
+      padding: space(3),
+      marginBottom: space(4),
+    },
+    trendHeadline: {
+      fontSize: 14,
+      fontWeight: '700',
+      color: palette.ink,
+    },
+    trendDetail: {
+      fontSize: 12,
+      color: palette.inkSoft,
+      marginTop: space(0.5),
+    },
+    trendNeutral: {
+      fontSize: 13,
+      color: palette.inkSoft,
+      marginBottom: space(3),
+    },
+    gameRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space(3),
+      paddingVertical: space(2.5),
+      borderBottomWidth: 1,
+      borderBottomColor: palette.line,
+    },
+    gameEmoji: {
+      fontSize: 20,
+    },
+    gameText: {
+      flex: 1,
+    },
+    gameTitle: {
+      fontSize: 14,
+      fontWeight: '600',
+      color: palette.ink,
+    },
+    gameMeta: {
+      fontSize: 11,
+      color: palette.inkFaint,
+      marginTop: 1,
+    },
+    gameTime: {
+      fontSize: 14,
+      fontWeight: '700',
+      color: palette.ink,
+      fontVariant: ['tabular-nums'],
+    },
+    gameTimeMuted: {
+      fontSize: 12,
+      fontWeight: '600',
+      color: palette.inkFaint,
+    },
+    empty: {
+      alignItems: 'center',
+      paddingVertical: space(8),
+    },
+    emptyEmoji: {
+      fontSize: 32,
+    },
+    emptyTitle: {
+      fontSize: 17,
+      fontWeight: '700',
+      color: palette.ink,
+      marginTop: space(2),
+    },
+    emptyText: {
+      fontSize: 13,
+      lineHeight: 19,
+      color: palette.inkSoft,
+      textAlign: 'center',
+      marginTop: space(1),
+    },
+    clearButton: {
+      alignSelf: 'center',
+      paddingVertical: space(3),
+    },
+    clearText: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: palette.danger,
+    },
+  });

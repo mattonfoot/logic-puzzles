@@ -5,7 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { Puzzle } from '../puzzle/types';
 import { haptics } from '../ui/haptics';
 import { Text } from '../ui/Text';
-import { border, joinTop, palette, space, tint } from '../ui/theme';
+import { useStyles, useTheme } from '../ui/ThemeProvider';
+import { border, joinTop, space, tint, type Palette } from '../ui/theme';
 
 interface Props {
   puzzle: Puzzle;
@@ -41,6 +42,8 @@ export function GameMenuScreen({
   onReveal,
   onClose,
 }: Props) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
   const insets = useSafeAreaInsets();
   // Told with this puzzle's own sets, so the rule reads as something about the
   // game in front of the player rather than about letters.
@@ -137,6 +140,8 @@ function Setting({
   joined?: boolean;
   onPress: () => void;
 }) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
   return (
     <Pressable
       accessibilityRole="switch"
@@ -185,6 +190,7 @@ function MenuAction({
   joined?: boolean;
   onPress: () => void;
 }) {
+  const styles = useStyles(makeStyles);
   return (
     <Pressable
       accessibilityRole="button"
@@ -204,97 +210,98 @@ function MenuAction({
   );
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: palette.bg,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: space(4),
-    paddingBottom: space(3),
-    gap: space(3),
-    borderBottomWidth: border,
-    borderBottomColor: palette.line,
-  },
-  headerButton: {
-    width: 34,
-    height: 34,
-    backgroundColor: palette.surface,
-    borderWidth: border,
-    borderColor: palette.line,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerButtonText: {
-    fontSize: 15,
-    lineHeight: 18,
-    color: palette.ink,
-  },
-  headerCenter: {
-    flex: 1,
-  },
-  headerTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: palette.ink,
-  },
-  headerSubtitle: {
-    fontSize: 12,
-    color: palette.inkFaint,
-    marginTop: 1,
-  },
-  content: {
-    paddingHorizontal: space(4),
-    paddingTop: space(4),
-  },
-  sectionLabel: {
-    fontSize: 11,
-    fontWeight: '700',
-    letterSpacing: 1,
-    textTransform: 'uppercase',
-    color: palette.inkFaint,
-    marginTop: space(5),
-    marginBottom: space(2),
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space(3),
-    padding: space(4),
-    backgroundColor: palette.surface,
-    borderWidth: border,
-    borderColor: palette.line,
-  },
-  rowIcon: {
-    fontSize: 16,
-    width: 20,
-    textAlign: 'center',
-  },
-  rowText: {
-    flex: 1,
-  },
-  rowTitle: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: palette.ink,
-  },
-  rowNote: {
-    fontSize: 12,
-    lineHeight: 17,
-    color: palette.inkSoft,
-    marginTop: space(0.5),
-  },
-  switch: {
-    minWidth: 46,
-    paddingVertical: space(1),
-    paddingHorizontal: space(2),
-    borderWidth: border,
-    alignItems: 'center',
-  },
-  switchText: {
-    fontSize: 12,
-    fontWeight: '700',
-  },
-});
+const makeStyles = (palette: Palette) =>
+  StyleSheet.create({
+    screen: {
+      flex: 1,
+      backgroundColor: palette.bg,
+    },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: space(4),
+      paddingBottom: space(3),
+      gap: space(3),
+      borderBottomWidth: border,
+      borderBottomColor: palette.line,
+    },
+    headerButton: {
+      width: 34,
+      height: 34,
+      backgroundColor: palette.surface,
+      borderWidth: border,
+      borderColor: palette.line,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    headerButtonText: {
+      fontSize: 15,
+      lineHeight: 18,
+      color: palette.ink,
+    },
+    headerCenter: {
+      flex: 1,
+    },
+    headerTitle: {
+      fontSize: 16,
+      fontWeight: '700',
+      color: palette.ink,
+    },
+    headerSubtitle: {
+      fontSize: 12,
+      color: palette.inkFaint,
+      marginTop: 1,
+    },
+    content: {
+      paddingHorizontal: space(4),
+      paddingTop: space(4),
+    },
+    sectionLabel: {
+      fontSize: 11,
+      fontWeight: '700',
+      letterSpacing: 1,
+      textTransform: 'uppercase',
+      color: palette.inkFaint,
+      marginTop: space(5),
+      marginBottom: space(2),
+    },
+    row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space(3),
+      padding: space(4),
+      backgroundColor: palette.surface,
+      borderWidth: border,
+      borderColor: palette.line,
+    },
+    rowIcon: {
+      fontSize: 16,
+      width: 20,
+      textAlign: 'center',
+    },
+    rowText: {
+      flex: 1,
+    },
+    rowTitle: {
+      fontSize: 15,
+      fontWeight: '700',
+      color: palette.ink,
+    },
+    rowNote: {
+      fontSize: 12,
+      lineHeight: 17,
+      color: palette.inkSoft,
+      marginTop: space(0.5),
+    },
+    switch: {
+      minWidth: 46,
+      paddingVertical: space(1),
+      paddingHorizontal: space(2),
+      borderWidth: border,
+      alignItems: 'center',
+    },
+    switchText: {
+      fontSize: 12,
+      fontWeight: '700',
+    },
+  });

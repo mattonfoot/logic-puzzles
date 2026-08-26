@@ -4,7 +4,8 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { clueIcon, describeClue } from '../puzzle/describe';
 import type { Puzzle } from '../puzzle/types';
 import { Text } from '../ui/Text';
-import { palette, radius, space, tint } from '../ui/theme';
+import { useStyles, useTheme } from '../ui/ThemeProvider';
+import { radius, space, tint, type Palette } from '../ui/theme';
 
 interface Props {
   puzzle: Puzzle;
@@ -14,6 +15,8 @@ interface Props {
 }
 
 export function ClueList({ puzzle, crossedOut, onToggle, onFocus }: Props) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
   return (
     <View style={styles.list}>
       {puzzle.clues.map((clue, index) => {
@@ -49,36 +52,37 @@ export function ClueList({ puzzle, crossedOut, onToggle, onFocus }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  list: {
-    gap: space(1),
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: space(3),
-    paddingVertical: space(2.5),
-  },
-  badge: {
-    width: 26,
-    height: 26,
-    borderRadius: radius.sm,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  badgeText: {
-    fontSize: 13,
-    fontWeight: '700',
-  },
-  text: {
-    flex: 1,
-    fontSize: 15,
-    lineHeight: 21,
-    color: palette.ink,
-  },
-  textDone: {
-    color: palette.inkFaint,
-    textDecorationLine: 'line-through',
-  },
-});
+const makeStyles = (palette: Palette) =>
+  StyleSheet.create({
+    list: {
+      gap: space(1),
+    },
+    row: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      gap: space(3),
+      paddingVertical: space(2.5),
+    },
+    badge: {
+      width: 26,
+      height: 26,
+      borderRadius: radius.sm,
+      borderWidth: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    badgeText: {
+      fontSize: 13,
+      fontWeight: '700',
+    },
+    text: {
+      flex: 1,
+      fontSize: 15,
+      lineHeight: 21,
+      color: palette.ink,
+    },
+    textDone: {
+      color: palette.inkFaint,
+      textDecorationLine: 'line-through',
+    },
+  });

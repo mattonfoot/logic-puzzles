@@ -29,7 +29,8 @@ import type { Attribute, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { haptics } from '../ui/haptics';
 import { Text } from '../ui/Text';
-import { border, joinLeft, palette, radius, space, tint } from '../ui/theme';
+import { useStyles, useTheme } from '../ui/ThemeProvider';
+import { border, joinLeft, radius, space, tint, type Palette } from '../ui/theme';
 
 /** How much each press of the zoom buttons adds or takes away. */
 const ZOOM_STEP = 8;
@@ -40,6 +41,11 @@ type Tab = 'grid' | 'clues' | 'result';
 
 interface Props {
   puzzle: Puzzle;
+  /** The player's board settings, which live outside any one game. */
+  autoEliminate: boolean;
+  autoFacts: boolean;
+  onToggleAutoEliminate: () => void;
+  onToggleAutoFacts: () => void;
   /** Board to start from when the player is picking a game back up. */
   restore?: SavedGame | null;
   onExit: () => void;
@@ -59,6 +65,10 @@ interface Props {
  */
 export function GameScreen({
   puzzle,
+  autoEliminate,
+  autoFacts,
+  onToggleAutoEliminate,
+  onToggleAutoFacts,
   restore,
   onExit,
   onNewPuzzle,
@@ -66,6 +76,7 @@ export function GameScreen({
   onCompleted,
   onOpenStats,
 }: Props) {
+  const styles = useStyles(makeStyles);
   const insets = useSafeAreaInsets();
   const resumed = restore?.puzzle.seed === puzzle.seed ? restore : null;
 
@@ -86,8 +97,6 @@ export function GameScreen({
   // Set when a hint finds the board past saving; cleared as soon as it is not.
   const [flagged, setFlagged] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
-  const [autoEliminate, setAutoEliminate] = useState(true);
-  const [autoFacts, setAutoFacts] = useState(true);
   const [hintsUsed, setHintsUsed] = useState(() => resumed?.hintsUsed ?? 0);
   const [revealed, setRevealed] = useState(false);
   const [improvement, setImprovement] = useState<Improvement | null>(null);
@@ -126,6 +135,16 @@ export function GameScreen({
       current.width === width && current.height === height ? current : { width, height },
     );
   }, []);
+
+  // The settings can change from the menu or from the settings screen, so the
+  // board is brought back in line with them whenever they move rather than at
+  // the moment of the tap.
+  const applied = useRef(boardOptions);
+  useEffect(() => {
+    if (applied.current === boardOptions) return;
+    applied.current = boardOptions;
+    setMarks((current) => reconcile(current, boardOptions));
+  }, [boardOptions]);
 
   const highlight = useMemo<Attribute[]>(
     () => (focusedClue === null ? [] : clueAttributes(puzzle.clues[focusedClue])),
@@ -324,22 +343,6 @@ export function GameScreen({
     move(() => solvedMarks(puzzle));
   }, [move, puzzle]);
 
-  const toggleAutoEliminate = useCallback(() => {
-    setAutoEliminate((value) => {
-      const next = !value;
-      setMarks((current) => reconcile(current, { ...boardOptions, autoEliminate: next }));
-      return next;
-    });
-  }, [boardOptions]);
-
-  const toggleAutoFacts = useCallback(() => {
-    setAutoFacts((value) => {
-      const next = !value;
-      setMarks((current) => reconcile(current, { ...boardOptions, autoFacts: next }));
-      return next;
-    });
-  }, [boardOptions]);
-
   const toggleClue = useCallback((index: number) => {
     setCrossedOut((current) => {
       const next = new Set(current);
@@ -368,8 +371,8 @@ export function GameScreen({
         autoEliminate={autoEliminate}
         autoFacts={autoFacts}
         solved={solved}
-        onToggleAutoEliminate={toggleAutoEliminate}
-        onToggleAutoFacts={toggleAutoFacts}
+        onToggleAutoEliminate={onToggleAutoEliminate}
+        onToggleAutoFacts={onToggleAutoFacts}
         onRestart={() => {
           restart();
           setMenuOpen(false);
@@ -595,6 +598,8 @@ function TabButton({
   selected: boolean;
   onPress: () => void;
 }) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
   return (
     <Pressable
       accessibilityRole="tab"
@@ -641,6 +646,7 @@ function ZoomButton({
   joined?: boolean;
   onPress: () => void;
 }) {
+  const styles = useStyles(makeStyles);
   return (
     <Pressable
       accessibilityRole="button"
@@ -675,6 +681,7 @@ function ToolButton({
   disabled?: boolean;
   onPress: () => void;
 }) {
+  const styles = useStyles(makeStyles);
   return (
     <Pressable
       accessibilityRole="button"
@@ -697,245 +704,246 @@ function ToolButton({
   );
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: palette.bg,
-  },
-  fill: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: space(4),
-    paddingBottom: space(3),
-    gap: space(3),
-  },
-  headerButton: {
-    width: 34,
-    height: 34,
-    borderRadius: radius.pill,
-    backgroundColor: palette.surface,
-    borderWidth: 1,
-    borderColor: palette.line,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerButtonText: {
-    fontSize: 22,
-    lineHeight: 24,
-    color: palette.ink,
-    marginTop: -2,
-  },
-  headerCenter: {
-    flex: 1,
-  },
-  headerTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: palette.ink,
-  },
-  headerSubtitle: {
-    fontSize: 12,
-    color: palette.inkFaint,
-    marginTop: 1,
-  },
-  timer: {
-    fontSize: 17,
-    fontWeight: '700',
-    fontVariant: ['tabular-nums'],
-  },
-  progressTrack: {
-    height: 3,
-    backgroundColor: palette.line,
-  },
-  progressFill: {
-    height: 3,
-  },
-  tabs: {
-    flexDirection: 'row',
-    paddingHorizontal: space(4),
-    borderBottomWidth: 1,
-    borderBottomColor: palette.line,
-  },
-  tab: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: space(2),
-    paddingVertical: space(3),
-    borderBottomWidth: 2,
-    borderBottomColor: 'transparent',
-    marginBottom: -1,
-  },
-  tabLabel: {
-    fontSize: 15,
-    fontWeight: '700',
-  },
-  tabCount: {
-    minWidth: 22,
-    paddingHorizontal: space(1.5),
-    paddingVertical: 1,
-    borderRadius: radius.pill,
-    borderWidth: 1,
-    alignItems: 'center',
-  },
-  tabCountText: {
-    fontSize: 11,
-    fontWeight: '700',
-  },
-  tabBody: {
-    flex: 1,
-    paddingHorizontal: space(4),
-    paddingTop: space(3),
-  },
-  boardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: space(3),
-  },
-  clueScroll: {
-    paddingBottom: space(1),
-  },
-  boardScroll: {
-    // Centred, so a board that fits sits in the middle of the space rather
-    // than hanging from the top of it.
-    flexGrow: 1,
-    justifyContent: 'center',
-  },
-  zoomRow: {
-    flexDirection: 'row',
-  },
-  zoomButton: {
-    width: 32,
-    height: 32,
-    borderRadius: radius.pill,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: palette.surface,
-  },
-  zoomButtonText: {
-    fontSize: 17,
-    fontWeight: '700',
-    marginTop: -2,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: palette.ink,
-  },
-  cardSubtitle: {
-    fontSize: 12,
-    color: palette.inkFaint,
-    marginTop: space(0.5),
-    marginBottom: space(2),
-  },
-  cardHint: {
-    fontSize: 11,
-    color: palette.inkFaint,
-    marginTop: space(2),
-    textAlign: 'center',
-  },
-  focusStrip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: space(2),
-    marginTop: space(2),
-    paddingVertical: space(2),
-    paddingHorizontal: space(3),
-    borderWidth: 1,
-    borderRadius: radius.sm,
-    backgroundColor: palette.surfaceAlt,
-  },
-  focusText: {
-    flex: 1,
-    fontSize: 12,
-    lineHeight: 16,
-    color: palette.inkSoft,
-  },
-  focusClear: {
-    fontSize: 13,
-    fontWeight: '700',
-  },
-  footer: {
-    paddingHorizontal: space(4),
-    paddingTop: space(2),
-    gap: space(2),
-  },
-  rewind: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: space(3),
-    paddingVertical: space(2.5),
-    paddingHorizontal: space(3),
-    borderWidth: border,
-    borderColor: palette.danger,
-    backgroundColor: tint(palette.danger, 0.08),
-  },
-  rewindText: {
-    flex: 1,
-    fontSize: 13,
-    fontWeight: '600',
-    color: palette.danger,
-  },
-  rewindAction: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: palette.danger,
-  },
-  toolbar: {
-    flexDirection: 'row',
-  },
-  tool: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: space(1.5),
-    backgroundColor: palette.surface,
-    borderRadius: radius.pill,
-    borderWidth: 1,
-    paddingVertical: space(3),
-  },
-  toolIcon: {
-    fontSize: 13,
-  },
-  toolLabel: {
-    fontSize: 13,
-    fontWeight: '700',
-  },
-  status: {
-    minHeight: 32,
-    fontSize: 13,
-    color: palette.inkSoft,
-    textAlign: 'center',
-  },
-  footerLinks: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  back: {
-    fontSize: 13,
-    fontWeight: '600',
-    letterSpacing: 0.5,
-    color: palette.inkSoft,
-    paddingVertical: space(1),
-    paddingRight: space(4),
-  },
-  link: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: palette.inkSoft,
-  },
-  linkMuted: {
-    color: palette.inkFaint,
-  },
-  linkDivider: {
-    color: palette.inkFaint,
-  },
-});
+const makeStyles = (palette: Palette) =>
+  StyleSheet.create({
+    screen: {
+      flex: 1,
+      backgroundColor: palette.bg,
+    },
+    fill: {
+      flex: 1,
+    },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: space(4),
+      paddingBottom: space(3),
+      gap: space(3),
+    },
+    headerButton: {
+      width: 34,
+      height: 34,
+      borderRadius: radius.pill,
+      backgroundColor: palette.surface,
+      borderWidth: 1,
+      borderColor: palette.line,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    headerButtonText: {
+      fontSize: 22,
+      lineHeight: 24,
+      color: palette.ink,
+      marginTop: -2,
+    },
+    headerCenter: {
+      flex: 1,
+    },
+    headerTitle: {
+      fontSize: 16,
+      fontWeight: '700',
+      color: palette.ink,
+    },
+    headerSubtitle: {
+      fontSize: 12,
+      color: palette.inkFaint,
+      marginTop: 1,
+    },
+    timer: {
+      fontSize: 17,
+      fontWeight: '700',
+      fontVariant: ['tabular-nums'],
+    },
+    progressTrack: {
+      height: 3,
+      backgroundColor: palette.line,
+    },
+    progressFill: {
+      height: 3,
+    },
+    tabs: {
+      flexDirection: 'row',
+      paddingHorizontal: space(4),
+      borderBottomWidth: 1,
+      borderBottomColor: palette.line,
+    },
+    tab: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: space(2),
+      paddingVertical: space(3),
+      borderBottomWidth: 2,
+      borderBottomColor: 'transparent',
+      marginBottom: -1,
+    },
+    tabLabel: {
+      fontSize: 15,
+      fontWeight: '700',
+    },
+    tabCount: {
+      minWidth: 22,
+      paddingHorizontal: space(1.5),
+      paddingVertical: 1,
+      borderRadius: radius.pill,
+      borderWidth: 1,
+      alignItems: 'center',
+    },
+    tabCountText: {
+      fontSize: 11,
+      fontWeight: '700',
+    },
+    tabBody: {
+      flex: 1,
+      paddingHorizontal: space(4),
+      paddingTop: space(3),
+    },
+    boardHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: space(3),
+    },
+    clueScroll: {
+      paddingBottom: space(1),
+    },
+    boardScroll: {
+      // Centred, so a board that fits sits in the middle of the space rather
+      // than hanging from the top of it.
+      flexGrow: 1,
+      justifyContent: 'center',
+    },
+    zoomRow: {
+      flexDirection: 'row',
+    },
+    zoomButton: {
+      width: 32,
+      height: 32,
+      borderRadius: radius.pill,
+      borderWidth: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: palette.surface,
+    },
+    zoomButtonText: {
+      fontSize: 17,
+      fontWeight: '700',
+      marginTop: -2,
+    },
+    cardTitle: {
+      fontSize: 16,
+      fontWeight: '700',
+      color: palette.ink,
+    },
+    cardSubtitle: {
+      fontSize: 12,
+      color: palette.inkFaint,
+      marginTop: space(0.5),
+      marginBottom: space(2),
+    },
+    cardHint: {
+      fontSize: 11,
+      color: palette.inkFaint,
+      marginTop: space(2),
+      textAlign: 'center',
+    },
+    focusStrip: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space(2),
+      marginTop: space(2),
+      paddingVertical: space(2),
+      paddingHorizontal: space(3),
+      borderWidth: 1,
+      borderRadius: radius.sm,
+      backgroundColor: palette.surfaceAlt,
+    },
+    focusText: {
+      flex: 1,
+      fontSize: 12,
+      lineHeight: 16,
+      color: palette.inkSoft,
+    },
+    focusClear: {
+      fontSize: 13,
+      fontWeight: '700',
+    },
+    footer: {
+      paddingHorizontal: space(4),
+      paddingTop: space(2),
+      gap: space(2),
+    },
+    rewind: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: space(3),
+      paddingVertical: space(2.5),
+      paddingHorizontal: space(3),
+      borderWidth: border,
+      borderColor: palette.danger,
+      backgroundColor: tint(palette.danger, 0.08),
+    },
+    rewindText: {
+      flex: 1,
+      fontSize: 13,
+      fontWeight: '600',
+      color: palette.danger,
+    },
+    rewindAction: {
+      fontSize: 13,
+      fontWeight: '700',
+      color: palette.danger,
+    },
+    toolbar: {
+      flexDirection: 'row',
+    },
+    tool: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: space(1.5),
+      backgroundColor: palette.surface,
+      borderRadius: radius.pill,
+      borderWidth: 1,
+      paddingVertical: space(3),
+    },
+    toolIcon: {
+      fontSize: 13,
+    },
+    toolLabel: {
+      fontSize: 13,
+      fontWeight: '700',
+    },
+    status: {
+      minHeight: 32,
+      fontSize: 13,
+      color: palette.inkSoft,
+      textAlign: 'center',
+    },
+    footerLinks: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    back: {
+      fontSize: 13,
+      fontWeight: '600',
+      letterSpacing: 0.5,
+      color: palette.inkSoft,
+      paddingVertical: space(1),
+      paddingRight: space(4),
+    },
+    link: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: palette.inkSoft,
+    },
+    linkMuted: {
+      color: palette.inkFaint,
+    },
+    linkDivider: {
+      color: palette.inkFaint,
+    },
+  });

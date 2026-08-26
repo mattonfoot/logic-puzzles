@@ -8,6 +8,7 @@
  */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { reviveSettings, type Settings } from '../game/settings';
 import {
   EMPTY_HISTORY,
   isHistory,
@@ -19,6 +20,7 @@ import {
 const KEYS = {
   savedGame: 'logic-grid:saved-game:v1',
   history: 'logic-grid:history:v1',
+  settings: 'logic-grid:settings:v1',
 } as const;
 
 /** `revive` validates and, where a shape has moved on, migrates. */
@@ -57,4 +59,7 @@ export const storage = {
     (await readJson(KEYS.history, (value) => (isHistory(value) ? value : null))) ?? EMPTY_HISTORY,
   saveHistory: (history: History) => writeJson(KEYS.history, history),
   clearHistory: () => removeKey(KEYS.history),
+
+  loadSettings: () => readJson(KEYS.settings, reviveSettings),
+  saveSettings: (settings: Settings) => writeJson(KEYS.settings, settings),
 };

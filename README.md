@@ -54,10 +54,10 @@ images in the same commit.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-setup.png" width="230" alt="Setup screen"><br>**1. Setup** — the grid size is the only choice; the theme is drawn on start. | <img src="docs/screenshots/02-board.png" width="230" alt="Grid tab"><br>**2. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the tab. | <img src="docs/screenshots/03-menu.png" width="230" alt="Game menu"><br>**3. Menu** — behind the burger: the board setting, and the three ways to leave the puzzle. |
-| <img src="docs/screenshots/04-clues.png" width="230" alt="Clues tab"><br>**4. Clues** — the clue list on its own tab, with the count still to be used. | <img src="docs/screenshots/05-clue-focus.png" width="230" alt="Grid with a clue focused"><br>**5. Clue focus** — holding a clue lights up its rows and columns and brings you back to the grid. | <img src="docs/screenshots/06-stuck.png" width="230" alt="A board that can no longer be solved"><br>**6. Out of reach** — a hint checks the board first, and offers to rewind when the answer has been marked away. |
-| <img src="docs/screenshots/07-solved.png" width="230" alt="Solved tab"><br>**7. Solved** — the finish fills the screen on a tab of its own: time, hints, how it compares, the answer table. | <img src="docs/screenshots/08-solved-grid.png" width="230" alt="The finished board"><br>**8. Finished board** — the grid tab after the win, one tap from the result. | <img src="docs/screenshots/09-statistics.png" width="230" alt="Statistics screen"><br>**9. Statistics** — totals, per-size bests and the trend of recent solve times. |
-| <img src="docs/screenshots/10-resume.png" width="230" alt="Setup screen with a saved game"><br>**10. Resume** — the setup screen offering the game that was left in progress. | | |
+| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — play, settings, statistics, and the game left in progress. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the grid size is the only choice; the theme is drawn on start. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, and which colours the app draws in. |
+| <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the tab. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Menu** — behind the burger: the board settings, and the three ways to leave the puzzle. | <img src="docs/screenshots/06-clues.png" width="230" alt="Clues tab"><br>**6. Clues** — the clue list on its own tab, with the count still to be used. |
+| <img src="docs/screenshots/07-clue-focus.png" width="230" alt="Grid with a clue focused"><br>**7. Clue focus** — holding a clue lights up its rows and columns and brings you back to the grid. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — a hint checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, hints, how it compares, the answer table. |
+| <img src="docs/screenshots/10-solved-grid.png" width="230" alt="The finished board"><br>**10. Finished board** — the grid tab after the win, one tap from the result. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, per-size bests and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Start page in night colours"><br>**12. Night** — the same start page in night colours, with a game waiting to be resumed. |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -65,7 +65,9 @@ rest is the app behaving normally.
 
 ## How you play
 
-1. **Home** — pick a grid size: 3 × 3 (warm-up), 4 × 4 (classic), 5 × 4 (tricky)
+1. **Start** — three links: **Play**, **Settings** and **Statistics**, plus the
+   game you left in progress if there is one. Play opens the setup screen; pick
+   a grid size: 3 × 3 (warm-up), 4 × 4 (classic), 5 × 4 (tricky)
    or 6 × 4 (expert). The first number is how many items each category holds, the
    second how many categories take part. The theme is drawn when you press start
    — one of five settings, its sets and its cast sampled from pools of fourteen
@@ -82,8 +84,8 @@ rest is the app behaving normally.
    anything you crossed by hand stays put. **Automatic crosses** and **Auto add
    facts** — which fills in a tick that follows from two others, so a pairing
    carried across a shared entity lands on the board without you copying it
-   over — can both be turned off in the menu. The set names and item labels stay pinned while the
-   grids scroll sideways, and − / + resize the squares past the fit.
+   over — can both be turned off, from the menu or from Settings. The set names
+   and item labels stay pinned while the grids scroll sideways, and − / + resize the squares past the fit.
 3. **Clues** — the second tab, with the number still to be used on the tab
    itself. Tap a clue to cross it off once you have used it, or press and hold
    it to light up every row and column it talks about: that takes you to the
@@ -103,12 +105,17 @@ rest is the app behaving normally.
    where they were, so the finished board is one tap away — though it is
    read-only from then on, since changing it would undo the win.
 5. **The menu**, behind the burger at the top left, holds everything that acts
-   on the game rather than on a square: the two board settings,
+   on the game rather than on a square: the two board settings (the same ones
+   the settings screen holds — they are the player's, not the puzzle's),
    **Restart** (same puzzle, fresh board and clock), **New puzzle**, and
    **Reveal the answer**, which is hidden once the puzzle is finished. The
    `<<< back` link at the bottom left leaves for the home screen; the board is
    saved either way.
-6. **Come back later** — the board saves itself as you play, so closing the app
+6. **Settings** — the board pair above, and the colours: **night colours** for a
+   warm near-black page, and **match the device** to follow the phone's own
+   light and dark setting and turn with it. They are written to disk, so they
+   are the same the next time the app opens.
+7. **Come back later** — the board saves itself as you play, so closing the app
    mid-puzzle costs nothing. The home screen offers to resume it, with the clock
    picking up where it left off and the same puzzle in front of you.
 6. **Statistics** — solved count, time played, day streak, no-hint wins, a
@@ -137,8 +144,12 @@ src/game/useTimer.ts        elapsed-time hook
 src/stats/summary.ts        history → per-size stats, streaks, improvement notes
 src/storage/store.ts        the only module that touches AsyncStorage
 src/components/             GridBoard, SolutionTable, ClueList, SolvedPanel, …
-src/screens/                HomeScreen, GameScreen, GameMenuScreen, StatsScreen
-src/ui/                     Text (the typeface), palette, spacing, borders, haptics
+src/screens/                StartScreen, SetupScreen, SettingsScreen,
+                            GameScreen, GameMenuScreen, StatsScreen
+src/game/settings.ts        the player's settings, and reading them back
+src/game/useSettings.ts     those settings as React state, written as they change
+src/ui/                     Text, ThemeProvider (day/night), ScreenHeader,
+                            palettes, spacing, borders, haptics
 ```
 
 ## How the board is laid out
@@ -159,6 +170,28 @@ Four sets therefore give a 3 × 3 arrangement of six grids, three sets a 2 × 2
 arrangement of three, and five sets a 4 × 4 arrangement of ten — every pair of
 sets exactly once, which is what makes cross-referencing possible: a tick in
 Astronaut × Ship can be carried into Ship × Launch without leaving the board.
+
+## Colours
+
+There are two palettes, `dayPalette` and `nightPalette` in `src/ui/theme.ts`,
+and a screen never names a colour — only a role. `ThemeProvider` resolves the
+player's preference (day, night, or match the device) against what the device is
+actually doing and hands the result down; `useTheme()` reads it.
+
+`StyleSheet.create` bakes its colours in at the moment it runs, so a stylesheet
+written at module scope can never change scheme. Every component writes its
+stylesheet as a function of the palette instead — `const makeStyles = (palette)
+=> StyleSheet.create({...})` — and calls it through `useStyles`, which builds it
+once per palette rather than once per app. Switching schemes is then a context
+change, and everything below redraws.
+
+The night palette is not the day one inverted: the ground is a warm near-black
+rather than a pure one, the ink is a soft off-white so it does not glare, and
+the board's two squares sit a little *lighter* than the page — the same
+"printed on the paper" relationship read the other way up, because on a dark
+ground it is the ink that has to lift off the page.
+
+## Typography
 
 The typeface is **Outfit**, a geometric sans loaded from
 `@expo-google-fonts/outfit`. A custom family has one file per weight and

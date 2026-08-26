@@ -2,7 +2,8 @@ import React from 'react';
 import { Pressable, StyleSheet, View, type ViewStyle } from 'react-native';
 
 import { Text } from '../ui/Text';
-import { palette, radius, shadow, space, tint } from '../ui/theme';
+import { useStyles, useTheme } from '../ui/ThemeProvider';
+import { radius, shadow, space, tint, type Palette } from '../ui/theme';
 
 type Variant = 'primary' | 'secondary' | 'ghost';
 
@@ -20,16 +21,21 @@ export function AppButton({
   label,
   onPress,
   variant = 'primary',
-  accent = palette.ink,
+  accent,
   icon,
   disabled = false,
   style,
 }: Props) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
+  // The default is a colour, and colours now depend on the scheme, so it is
+  // resolved here rather than in the signature.
+  const tone = accent ?? palette.ink;
   const background =
-    variant === 'primary' ? accent : variant === 'secondary' ? palette.surface : 'transparent';
-  const color = variant === 'primary' ? '#FFFFFF' : accent;
+    variant === 'primary' ? tone : variant === 'secondary' ? palette.surface : 'transparent';
+  const color = variant === 'primary' ? palette.surface : tone;
   const border =
-    variant === 'secondary' ? tint(accent, 0.35) : variant === 'ghost' ? 'transparent' : accent;
+    variant === 'secondary' ? tint(tone, 0.35) : variant === 'ghost' ? 'transparent' : tone;
 
   return (
     <Pressable
@@ -58,25 +64,26 @@ export function AppButton({
   );
 }
 
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: radius.pill,
-    borderWidth: 1,
-    paddingVertical: space(3.5),
-    paddingHorizontal: space(5),
-  },
-  content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: space(2),
-  },
-  icon: {
-    fontSize: 15,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: '600',
-    letterSpacing: 0.2,
-  },
-});
+const makeStyles = (palette: Palette) =>
+  StyleSheet.create({
+    button: {
+      borderRadius: radius.pill,
+      borderWidth: 1,
+      paddingVertical: space(3.5),
+      paddingHorizontal: space(5),
+    },
+    content: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: space(2),
+    },
+    icon: {
+      fontSize: 15,
+    },
+    label: {
+      fontSize: 16,
+      fontWeight: '600',
+      letterSpacing: 0.2,
+    },
+  });

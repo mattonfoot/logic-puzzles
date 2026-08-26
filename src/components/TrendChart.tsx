@@ -3,7 +3,8 @@ import { Pressable, StyleSheet, View } from 'react-native';
 
 import { formatDuration } from '../game/time';
 import { Text } from '../ui/Text';
-import { chart, palette, radius, space } from '../ui/theme';
+import { useStyles, useTheme } from '../ui/ThemeProvider';
+import { radius, space, type Palette } from '../ui/theme';
 
 interface Props {
   /** Solve times in seconds, oldest → newest. */
@@ -23,6 +24,8 @@ const MIN_BAR = 4;
  * and tapping a column names it — no number sits on every bar.
  */
 export function TrendChart({ times, finishedAt, limit = 10 }: Props) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
   const [selected, setSelected] = useState<number | null>(null);
 
   const shown = times.slice(-limit);
@@ -59,7 +62,7 @@ export function TrendChart({ times, finishedAt, limit = 10 }: Props) {
                     styles.bar,
                     {
                       height: heightFor(value),
-                      backgroundColor: chart.series,
+                      backgroundColor: palette.chart.series,
                       opacity: isActive ? 1 : 0.55,
                     },
                   ]}
@@ -87,56 +90,57 @@ export function TrendChart({ times, finishedAt, limit = 10 }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  plot: {
-    height: PLOT_HEIGHT,
-    justifyContent: 'flex-end',
-  },
-  columns: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    gap: 2,
-    height: PLOT_HEIGHT,
-  },
-  column: {
-    flex: 1,
-    // Keeps two or three solves from turning into slabs.
-    maxWidth: 34,
-    height: PLOT_HEIGHT,
-    justifyContent: 'flex-end',
-  },
-  bar: {
-    borderTopLeftRadius: 4,
-    borderTopRightRadius: 4,
-  },
-  referenceLine: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    height: 1,
-    backgroundColor: chart.reference,
-  },
-  referenceLabel: {
-    position: 'absolute',
-    right: 0,
-    fontSize: 10,
-    color: palette.inkFaint,
-  },
-  baseline: {
-    height: 1,
-    backgroundColor: chart.grid,
-    marginBottom: space(2),
-  },
-  captionRow: {
-    gap: space(0.5),
-  },
-  caption: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: palette.ink,
-  },
-  captionMuted: {
-    fontSize: 11,
-    color: palette.inkFaint,
-  },
-});
+const makeStyles = (palette: Palette) =>
+  StyleSheet.create({
+    plot: {
+      height: PLOT_HEIGHT,
+      justifyContent: 'flex-end',
+    },
+    columns: {
+      flexDirection: 'row',
+      alignItems: 'flex-end',
+      gap: 2,
+      height: PLOT_HEIGHT,
+    },
+    column: {
+      flex: 1,
+      // Keeps two or three solves from turning into slabs.
+      maxWidth: 34,
+      height: PLOT_HEIGHT,
+      justifyContent: 'flex-end',
+    },
+    bar: {
+      borderTopLeftRadius: 4,
+      borderTopRightRadius: 4,
+    },
+    referenceLine: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      height: 1,
+      backgroundColor: palette.chart.reference,
+    },
+    referenceLabel: {
+      position: 'absolute',
+      right: 0,
+      fontSize: 10,
+      color: palette.inkFaint,
+    },
+    baseline: {
+      height: 1,
+      backgroundColor: palette.chart.grid,
+      marginBottom: space(2),
+    },
+    captionRow: {
+      gap: space(0.5),
+    },
+    caption: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: palette.ink,
+    },
+    captionMuted: {
+      fontSize: 11,
+      color: palette.inkFaint,
+    },
+  });

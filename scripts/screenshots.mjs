@@ -113,6 +113,8 @@ async function fresh(page, origin) {
 }
 
 async function startPuzzle(page, size = '4 × 4') {
+  await page.getByLabel('Play').click();
+  await wait(page, 500);
   await page.getByText(size, { exact: true }).click();
   await page.getByText('Start puzzle').click();
   await wait(page, 1600);
@@ -154,28 +156,42 @@ async function main() {
 
   console.log('Capturing screens:');
 
-  // 1. Setup — the only choice the player makes.
+  // 1. The start page: the three places the app goes.
   await fresh(page, origin);
-  await shot('01-setup');
+  await shot('01-start');
 
-  // 2. The grid tab, which is where a game opens.
+  // 2. Setup — the only choice the player makes about a puzzle.
+  await page.getByLabel('Play').click();
+  await wait(page, 500);
+  await shot('02-setup');
+
+  // 3. Settings, which outlive any one game.
+  await page.getByLabel('Back').click();
+  await wait(page, 400);
+  await page.getByLabel('Settings').click();
+  await wait(page, 500);
+  await shot('03-settings');
+  await page.getByLabel('Back').click();
+  await wait(page, 400);
+
+  // 4. The grid tab, which is where a game opens.
   await startPuzzle(page);
-  await shot('02-board');
+  await shot('04-board');
 
-  // 3. The menu, behind the burger: the one board setting and the three ways
+  // 5. The menu, behind the burger: the one board setting and the three ways
   // to leave the puzzle behind.
   await page.getByLabel('Menu').click();
   await wait(page, 500);
-  await shot('03-menu');
+  await shot('05-menu');
   await page.getByLabel('Close the menu').click();
   await wait(page, 400);
 
-  // 4. The clue list on its own tab.
+  // 6. The clue list on its own tab.
   await page.getByRole('tab', { name: /^Clues/ }).click();
   await wait(page, 400);
-  await shot('04-clues');
+  await shot('06-clues');
 
-  // 5. Holding a clue lights it up — and takes the player back to the grid.
+  // 7. Holding a clue lights it up — and takes the player back to the grid.
   const clue = page.locator('[role="checkbox"]').first();
   const box = await clue.boundingBox();
   await page.mouse.move(box.x + 40, box.y + 12);
@@ -183,9 +199,9 @@ async function main() {
   await wait(page, 900);
   await page.mouse.up();
   await wait(page, 600);
-  await shot('05-clue-focus');
+  await shot('07-clue-focus');
 
-  // 6. A board the answer can no longer be reached from, which is what a hint
+  // 8. A board the answer can no longer be reached from, which is what a hint
   // reports instead of helping. The script does not know the solution, so it
   // ticks squares until a hint says the board is past saving.
   await page.getByLabel('Stop lighting up this clue').click();
@@ -202,43 +218,51 @@ async function main() {
     await page.getByText('Hint', { exact: true }).first().click();
     await wait(page, 350);
   }
-  await shot('06-stuck');
+  await shot('08-stuck');
   if (await rewind.count()) {
     await rewind.click();
     await wait(page, 400);
   }
 
-  // 7. Finished: the result fills the screen, on a tab of its own.
+  // 9. Finished: the result fills the screen, on a tab of its own.
   await solveWithHints(page);
-  await shot('07-solved');
+  await shot('09-solved');
 
-  // 8. The finished board, one tap away from the result.
+  // 10. The finished board, one tap away from the result.
   await page.getByRole('tab', { name: 'Grid' }).click();
   await wait(page, 500);
-  await shot('08-solved-grid');
+  await shot('10-solved-grid');
 
-  // 9. Statistics, shown with a sample history.
+  // 11. Statistics, shown with a sample history.
   await page.goto(origin, { waitUntil: 'networkidle' });
   await page.evaluate((history) => {
     localStorage.clear();
     localStorage.setItem('logic-grid:history:v1', JSON.stringify(history));
   }, sampleHistory());
   await page.reload({ waitUntil: 'networkidle' });
-  await wait(page, 1000);
-  await page.getByText('Statistics').first().click();
+  await wait(page, 1200);
+  await page.getByLabel('Statistics').click();
   await wait(page, 800);
-  await shot('09-statistics', { fullPage: true });
+  await shot('11-statistics', { fullPage: true });
 
-  // 10. Home again, with a game waiting to be resumed.
+  // 12. Home again, with a game waiting to be resumed, in night colours., with a game waiting to be resumed.
   await page.getByLabel('Back').click();
   await wait(page, 500);
+  await page.getByLabel('Settings').click();
+  await wait(page, 500);
+  await page.getByLabel('Match the device').click();
+  await wait(page, 300);
+  await page.getByLabel('Night colours').click();
+  await wait(page, 400);
+  await page.getByLabel('Back').click();
+  await wait(page, 400);
   await startPuzzle(page);
   // Two hints put real ticks on the board, so the card shows some progress.
   await solveWithHints(page, 2);
   await wait(page, 1000);
   await page.getByLabel('Back to setup').click();
   await wait(page, 700);
-  await shot('10-resume');
+  await shot('12-resume-night');
 
   await browser.close();
   server.close();

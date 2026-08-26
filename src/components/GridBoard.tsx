@@ -5,7 +5,8 @@ import { getEntry, markKey, type Cell, type Marks } from '../game/board';
 import { boardLayout } from '../game/layout';
 import type { Attribute, Puzzle } from '../puzzle/types';
 import { Text } from '../ui/Text';
-import { palette, space, tint } from '../ui/theme';
+import { useStyles, useTheme } from '../ui/ThemeProvider';
+import { space, tint, type Palette } from '../ui/theme';
 
 interface Props {
   puzzle: Puzzle;
@@ -61,6 +62,8 @@ export function fitCellSize(puzzle: Puzzle, width: number, height: number): numb
  * themselves scroll sideways, so a wide board never loses its row headings.
  */
 export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onToggle }: Props) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
   const layout = useMemo(() => boardLayout(puzzle.categories.length), [puzzle]);
   const items = puzzle.size.items;
   // A block's box holds its own rule on each side, so the squares inside it
@@ -264,84 +267,85 @@ export function GridBoard({ puzzle, marks, mistakes, highlight, cellSize, onTogg
   );
 }
 
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-  },
-  columnBlock: {
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    height: HEADER_HEIGHT,
-  },
-  categoryName: {
-    fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 0.6,
-    textTransform: 'uppercase',
-    height: CATEGORY_NAME,
-  },
-  columnLabel: {
-    height: LABEL_RUN,
-  },
-  columnLabelText: {
-    // Rotated so long item names fit above narrow columns.
-    position: 'absolute',
-    height: LABEL_LINE,
-    lineHeight: LABEL_LINE,
-    transform: [{ rotate: '-90deg' }],
-    textAlign: 'right',
-    fontSize: 11,
-    fontWeight: '600',
-    color: palette.inkSoft,
-  },
-  categoryStrip: {
-    width: CATEGORY_STRIP,
-  },
-  categoryStripText: {
-    position: 'absolute',
-    height: LABEL_LINE,
-    lineHeight: LABEL_LINE,
-    transform: [{ rotate: '-90deg' }],
-    textAlign: 'center',
-    fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 0.6,
-    textTransform: 'uppercase',
-  },
-  rowLabel: {
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    paddingRight: space(2),
-  },
-  rowLabelText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: palette.ink,
-  },
-  labelLit: {
-    color: palette.ink,
-    textDecorationLine: 'underline',
-  },
-  block: {
-    borderWidth: BLOCK_BORDER,
-    borderColor: palette.bg,
-    overflow: 'hidden',
-  },
-  cell: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tick: {
-    fontWeight: '700',
-  },
-  cross: {
-    color: palette.inkSoft,
-  },
-  crossAuto: {
-    // Lighter than a cross the player made, but only just faint enough to tell
-    // them apart — the board's squares are tinted, so it cannot fade as far as
-    // it could against white.
-    color: palette.inkFaint,
-    opacity: 0.85,
-  },
-});
+const makeStyles = (palette: Palette) =>
+  StyleSheet.create({
+    row: {
+      flexDirection: 'row',
+    },
+    columnBlock: {
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      height: HEADER_HEIGHT,
+    },
+    categoryName: {
+      fontSize: 10,
+      fontWeight: '700',
+      letterSpacing: 0.6,
+      textTransform: 'uppercase',
+      height: CATEGORY_NAME,
+    },
+    columnLabel: {
+      height: LABEL_RUN,
+    },
+    columnLabelText: {
+      // Rotated so long item names fit above narrow columns.
+      position: 'absolute',
+      height: LABEL_LINE,
+      lineHeight: LABEL_LINE,
+      transform: [{ rotate: '-90deg' }],
+      textAlign: 'right',
+      fontSize: 11,
+      fontWeight: '600',
+      color: palette.inkSoft,
+    },
+    categoryStrip: {
+      width: CATEGORY_STRIP,
+    },
+    categoryStripText: {
+      position: 'absolute',
+      height: LABEL_LINE,
+      lineHeight: LABEL_LINE,
+      transform: [{ rotate: '-90deg' }],
+      textAlign: 'center',
+      fontSize: 10,
+      fontWeight: '700',
+      letterSpacing: 0.6,
+      textTransform: 'uppercase',
+    },
+    rowLabel: {
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+      paddingRight: space(2),
+    },
+    rowLabelText: {
+      fontSize: 12,
+      fontWeight: '600',
+      color: palette.ink,
+    },
+    labelLit: {
+      color: palette.ink,
+      textDecorationLine: 'underline',
+    },
+    block: {
+      borderWidth: BLOCK_BORDER,
+      borderColor: palette.bg,
+      overflow: 'hidden',
+    },
+    cell: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    tick: {
+      fontWeight: '700',
+    },
+    cross: {
+      color: palette.inkSoft,
+    },
+    crossAuto: {
+      // Lighter than a cross the player made, but only just faint enough to tell
+      // them apart — the board's squares are tinted, so it cannot fade as far as
+      // it could against white.
+      color: palette.inkFaint,
+      opacity: 0.85,
+    },
+  });

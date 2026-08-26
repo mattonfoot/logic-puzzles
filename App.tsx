@@ -15,15 +15,19 @@ import { SIZES, sizeById } from './src/data/sizes';
 import { THEMES } from './src/data/themes';
 import type { SavedGame } from './src/game/persistence';
 import { usePersistence } from './src/game/usePersistence';
+import { useSettings } from './src/game/useSettings';
 import { generatePuzzle } from './src/puzzle/generator';
 import { randomSeed } from './src/puzzle/rng';
 import type { Puzzle, SizeOption } from './src/puzzle/types';
 import { GameScreen } from './src/screens/GameScreen';
-import { HomeScreen } from './src/screens/HomeScreen';
+import { SettingsScreen } from './src/screens/SettingsScreen';
+import { SetupScreen } from './src/screens/SetupScreen';
+import { StartScreen } from './src/screens/StartScreen';
 import { StatsScreen } from './src/screens/StatsScreen';
-import { palette } from './src/ui/theme';
+import { ThemeProvider, useStyles, useTheme } from './src/ui/ThemeProvider';
+import type { Palette } from './src/ui/theme';
 
-type Screen = 'home' | 'game' | 'stats';
+type Screen = 'start' | 'setup' | 'settings' | 'stats' | 'game';
 
 export default function App() {
   // One file per weight; `src/ui/Text` picks between them. Until they are here
@@ -36,12 +40,40 @@ export default function App() {
     Outfit_700Bold,
     Outfit_800ExtraBold,
   });
+  const settings = useSettings();
+
+  if (!fontsLoaded || !settings.ready) return <Loading preference={settings.settings.colours} />;
+
+  return (
+    <ThemeProvider preference={settings.settings.colours}>
+      <Shell settings={settings} />
+    </ThemeProvider>
+  );
+}
+
+/** The empty page shown while the fonts and settings are read. */
+function Loading({ preference }: { preference: 'day' | 'night' | 'auto' }) {
+  return (
+    <ThemeProvider preference={preference}>
+      <Ground />
+    </ThemeProvider>
+  );
+}
+
+function Ground() {
+  const styles = useStyles(makeStyles);
+  return <View style={styles.root} />;
+}
+
+function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
   const persistence = usePersistence();
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
 
   const [size, setSize] = useState<SizeOption>(SIZES[1]);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [restore, setRestore] = useState<SavedGame | null>(null);
-  const [screen, setScreen] = useState<Screen>('home');
+  const [screen, setScreen] = useState<Screen>('start');
   const [busy, setBusy] = useState(false);
 
   /**
@@ -90,7 +122,7 @@ export default function App() {
     setScreen('game');
   }, [persistence.savedGame]);
 
-  /** Called from the win overlay: the puzzle is finished, so back goes home. */
+  /** Called from the solved tab: the puzzle is finished, so back goes home. */
   const openStatsAfterWin = useCallback(() => {
     setPuzzle(null);
     setRestore(null);
@@ -100,7 +132,7 @@ export default function App() {
   const leaveGame = useCallback(() => {
     setPuzzle(null);
     setRestore(null);
-    setScreen('home');
+    setScreen('start');
   }, []);
 
   const recordCompletion = useCallback(
@@ -111,23 +143,20 @@ export default function App() {
     [persistence, puzzle],
   );
 
-  if (!fontsLoaded) return <View style={styles.root} />;
-
   return (
     <SafeAreaProvider>
-      <StatusBar style="dark" />
+      <StatusBar style={palette.scheme === 'night' ? 'light' : 'dark'} />
       <View style={styles.root}>
-        {screen === 'stats' ? (
-          <StatsScreen
-            stats={persistence.stats}
-            history={persistence.history}
-            onBack={() => setScreen(puzzle ? 'game' : 'home')}
-            onClearHistory={persistence.clearHistory}
-          />
-        ) : screen === 'game' && puzzle ? (
+        {screen === 'game' && puzzle ? (
           <GameScreen
             key={puzzle.seed}
             puzzle={puzzle}
+            autoEliminate={settings.settings.autoEliminate}
+            autoFacts={settings.settings.autoFacts}
+            onToggleAutoEliminate={() =>
+              settings.update({ autoEliminate: !settings.settings.autoEliminate })
+            }
+            onToggleAutoFacts={() => settings.update({ autoFacts: !settings.settings.autoFacts })}
             restore={restore ?? persistence.savedGame}
             onExit={leaveGame}
             onNewPuzzle={() => build(size)}
@@ -135,18 +164,38 @@ export default function App() {
             onCompleted={recordCompletion}
             onOpenStats={openStatsAfterWin}
           />
-        ) : (
-          <HomeScreen
+        ) : screen === 'setup' ? (
+          <SetupScreen
             size={size}
             busy={busy}
-            savedGame={persistence.savedGame}
             stats={persistence.stats}
             onSelectSize={setSize}
             onStart={() => build(size)}
             onSurpriseMe={surpriseMe}
+            onBack={() => setScreen('start')}
+          />
+        ) : screen === 'settings' ? (
+          <SettingsScreen
+            settings={settings.settings}
+            onChange={settings.update}
+            onBack={() => setScreen(puzzle ? 'game' : 'start')}
+          />
+        ) : screen === 'stats' ? (
+          <StatsScreen
+            stats={persistence.stats}
+            history={persistence.history}
+            onBack={() => setScreen(puzzle ? 'game' : 'start')}
+            onClearHistory={persistence.clearHistory}
+          />
+        ) : (
+          <StartScreen
+            savedGame={persistence.savedGame}
+            stats={persistence.stats}
+            onPlay={() => setScreen('setup')}
+            onOpenSettings={() => setScreen('settings')}
+            onOpenStats={() => setScreen('stats')}
             onResume={resume}
             onDiscardSaved={persistence.discardSavedGame}
-            onOpenStats={() => setScreen('stats')}
           />
         )}
       </View>
@@ -154,9 +203,10 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: palette.bg,
-  },
-});
+const makeStyles = (palette: Palette) =>
+  StyleSheet.create({
+    root: {
+      flex: 1,
+      backgroundColor: palette.bg,
+    },
+  });
