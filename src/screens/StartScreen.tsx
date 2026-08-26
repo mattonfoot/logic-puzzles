@@ -8,7 +8,7 @@ import { progress } from '../game/board';
 import type { SavedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
 import type { OverallStats } from '../stats/summary';
-import { haptics } from '../ui/haptics';
+import { feedback } from '../ui/feedback';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, shadow, space, tint, type Palette } from '../ui/theme';
@@ -160,7 +160,7 @@ function StartLink({
       accessibilityRole="button"
       accessibilityLabel={label}
       onPress={() => {
-        haptics.select();
+        feedback.tap();
         onPress();
       }}
       style={({ pressed }) => [styles.link, shadow.card, { opacity: pressed ? 0.85 : 1 }]}

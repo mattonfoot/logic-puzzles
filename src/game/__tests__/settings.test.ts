@@ -1,6 +1,12 @@
 import { dayPalette, nightPalette } from '../../ui/theme';
 import { resolvePalette } from '../../ui/ThemeProvider';
-import { DEFAULT_SETTINGS, reviveSettings, SETTINGS_VERSION } from '../settings';
+import {
+  DEFAULT_SETTINGS,
+  reviveSettings,
+  SETTINGS_VERSION,
+  VOLUMES,
+  volumeStep,
+} from '../settings';
 
 describe('reading settings back', () => {
   it('round-trips what was written', () => {
@@ -25,6 +31,30 @@ describe('reading settings back', () => {
     expect(reviveSettings(null)).toBeNull();
     expect(reviveSettings('night')).toBeNull();
     expect(reviveSettings({ ...DEFAULT_SETTINGS, version: SETTINGS_VERSION + 1 })).toBeNull();
+  });
+});
+
+describe('volume', () => {
+  it('clamps a value from outside the range rather than throwing it away', () => {
+    expect(reviveSettings({ ...DEFAULT_SETTINGS, volume: 4 })?.volume).toBe(1);
+    expect(reviveSettings({ ...DEFAULT_SETTINGS, volume: -2 })?.volume).toBe(0);
+  });
+
+  it('falls back when it is not a number at all', () => {
+    expect(reviveSettings({ ...DEFAULT_SETTINGS, volume: 'loud' })?.volume).toBe(
+      DEFAULT_SETTINGS.volume,
+    );
+    expect(reviveSettings({ ...DEFAULT_SETTINGS, volume: Number.NaN })?.volume).toBe(
+      DEFAULT_SETTINGS.volume,
+    );
+  });
+
+  it('shows the nearest step for whatever is stored', () => {
+    expect(volumeStep(0).label).toBe('Off');
+    expect(volumeStep(1).label).toBe('Loud');
+    expect(volumeStep(0.55).label).toBe('Medium');
+    // A value from some older build still lands on a step rather than nothing.
+    expect(VOLUMES).toContain(volumeStep(0.42));
   });
 });
 

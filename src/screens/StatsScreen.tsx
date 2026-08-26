@@ -8,7 +8,7 @@ import { THEMES } from '../data/themes';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration, formatSpan } from '../game/time';
 import type { OverallStats, SizeStats } from '../stats/summary';
-import { haptics } from '../ui/haptics';
+import { feedback } from '../ui/feedback';
 import { ScreenHeader } from '../ui/ScreenHeader';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
@@ -47,7 +47,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
   );
 
   const clearEverything = () => {
-    haptics.warn();
+    feedback.warn();
     setConfirmingClear(false);
     onClearHistory();
   };
@@ -132,7 +132,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
                     accessibilityRole="tab"
                     accessibilityState={{ selected: isSelected }}
                     onPress={() => {
-                      haptics.select();
+                      feedback.tap();
                       setSizeId(size.sizeId);
                     }}
                     style={[

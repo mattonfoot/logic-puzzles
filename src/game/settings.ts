@@ -16,6 +16,28 @@ export interface Settings {
   autoFacts: boolean;
   /** Day, night, or whatever the device is doing. */
   colours: ColourPreference;
+  /** Whether the phone buzzes along with what it plays. */
+  haptics: boolean;
+  /** How loud the effects are, 0 (silent) to 1. */
+  volume: number;
+}
+
+/**
+ * The volumes the settings screen offers. A slider would be finer, but four
+ * named steps are easier to hit with a thumb and easier to describe.
+ */
+export const VOLUMES = [
+  { label: 'Off', value: 0 },
+  { label: 'Quiet', value: 0.3 },
+  { label: 'Medium', value: 0.6 },
+  { label: 'Loud', value: 1 },
+] as const;
+
+/** The step a stored volume belongs to, so an old or odd value still shows. */
+export function volumeStep(volume: number): (typeof VOLUMES)[number] {
+  return VOLUMES.reduce((closest, step) =>
+    Math.abs(step.value - volume) < Math.abs(closest.value - volume) ? step : closest,
+  );
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -23,6 +45,8 @@ export const DEFAULT_SETTINGS: Settings = {
   autoEliminate: true,
   autoFacts: true,
   colours: 'auto',
+  haptics: true,
+  volume: 0.6,
 };
 
 const PREFERENCES: ColourPreference[] = ['day', 'night', 'auto'];
@@ -46,5 +70,12 @@ export function reviveSettings(value: unknown): Settings | null {
       typeof raw.colours === 'string' && PREFERENCES.includes(raw.colours as ColourPreference)
         ? (raw.colours as ColourPreference)
         : DEFAULT_SETTINGS.colours,
+    haptics: typeof raw.haptics === 'boolean' ? raw.haptics : DEFAULT_SETTINGS.haptics,
+    // Clamped rather than refused: a volume outside the range is a value that
+    // means something, just not exactly what it says.
+    volume:
+      typeof raw.volume === 'number' && Number.isFinite(raw.volume)
+        ? Math.min(1, Math.max(0, raw.volume))
+        : DEFAULT_SETTINGS.volume,
   };
 }

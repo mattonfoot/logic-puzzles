@@ -8,7 +8,7 @@ import { THEMES } from '../data/themes';
 import { formatDuration } from '../game/time';
 import type { SizeOption } from '../puzzle/types';
 import type { OverallStats } from '../stats/summary';
-import { haptics } from '../ui/haptics';
+import { feedback } from '../ui/feedback';
 import { ScreenHeader } from '../ui/ScreenHeader';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
@@ -128,7 +128,7 @@ function Choice({
       accessibilityState={{ disabled }}
       disabled={disabled}
       onPress={() => {
-        haptics.select();
+        feedback.tap();
         onPress();
       }}
       style={({ pressed }) => [

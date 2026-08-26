@@ -3,7 +3,7 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { Puzzle } from '../puzzle/types';
-import { haptics } from '../ui/haptics';
+import { feedback } from '../ui/feedback';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, joinTop, space, tint, type Palette } from '../ui/theme';
@@ -148,7 +148,7 @@ function Setting({
       accessibilityLabel={label}
       accessibilityState={{ checked: on }}
       onPress={() => {
-        haptics.select();
+        feedback.tap();
         onPress();
       }}
       style={({ pressed }) => [styles.row, joined && joinTop, { opacity: pressed ? 0.8 : 1 }]}
@@ -196,7 +196,7 @@ function MenuAction({
       accessibilityRole="button"
       accessibilityLabel={label}
       onPress={() => {
-        haptics.select();
+        feedback.tap();
         onPress();
       }}
       style={({ pressed }) => [styles.row, joined && joinTop, { opacity: pressed ? 0.8 : 1 }]}

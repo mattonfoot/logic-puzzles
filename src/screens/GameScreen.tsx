@@ -27,7 +27,7 @@ import { formatDuration, useTimer } from '../game/useTimer';
 import { clueAttributes, describeClue } from '../puzzle/describe';
 import type { Attribute, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
-import { haptics } from '../ui/haptics';
+import { feedback } from '../ui/feedback';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, joinLeft, radius, space, tint, type Palette } from '../ui/theme';
@@ -168,7 +168,7 @@ export function GameScreen({
 
   useEffect(() => {
     if (!solved) return;
-    haptics.success();
+    feedback.success();
     // The finish is the news, so show it — the grid stays a tab away.
     setTab('result');
   }, [solved]);
@@ -238,7 +238,7 @@ export function GameScreen({
         flash('This puzzle is finished — Restart to play it again.');
         return;
       }
-      haptics.tap();
+      feedback.mark();
       // The cycle follows what the square shows, so an automatic cross behaves
       // like any other: blank → ✕ → ✓ → blank. Whatever it lands on is the
       // player's own mark from then on.
@@ -252,7 +252,7 @@ export function GameScreen({
       flash('Nothing to undo.');
       return;
     }
-    haptics.select();
+    feedback.tap();
     setMistakes(new Set());
     setHistory((past) => past.slice(0, -1));
     // Reconciled on the way back in, so a board recorded while Auto ✕ was on
@@ -262,7 +262,7 @@ export function GameScreen({
 
   /** Takes moves back until the answer is within reach again. */
   const rewind = useCallback(() => {
-    haptics.select();
+    feedback.tap();
     let past = history;
     let board: Marks | null = null;
     let steps = 0;
@@ -297,7 +297,7 @@ export function GameScreen({
    */
   const hint = useCallback(() => {
     if (wrong.length > 0) {
-      haptics.warn();
+      feedback.warn();
       setMistakes(new Set(wrong));
       setFlagged(true);
       // The marks are on the board, so that is where the answer is.
@@ -312,7 +312,7 @@ export function GameScreen({
       flash('Nothing left to reveal.');
       return;
     }
-    haptics.select();
+    feedback.tap();
     setHintsUsed((count) => count + 1);
     setTab('grid');
     move((current) => setMark(current, cell, 'yes', boardOptions));
@@ -322,7 +322,7 @@ export function GameScreen({
   }, [boardOptions, flash, marks, move, puzzle, wrong]);
 
   const restart = useCallback(() => {
-    haptics.select();
+    feedback.tap();
     setAttempt((count) => count + 1);
     setMarks({});
     setHistory([]);
@@ -337,7 +337,7 @@ export function GameScreen({
   }, [flash]);
 
   const reveal = useCallback(() => {
-    haptics.warn();
+    feedback.warn();
     setRevealed(true);
     setFlagged(false);
     move(() => solvedMarks(puzzle));
@@ -356,7 +356,7 @@ export function GameScreen({
   // so the hold takes the player there, and the clue rides along in the strip
   // under the board.
   const focusClue = useCallback((index: number) => {
-    haptics.select();
+    feedback.tap();
     setFocusedClue((current) => (current === index ? null : index));
     setTab('grid');
   }, []);
@@ -394,7 +394,7 @@ export function GameScreen({
           accessibilityRole="button"
           accessibilityLabel="Menu"
           onPress={() => {
-            haptics.select();
+            feedback.tap();
             setMenuOpen(true);
           }}
           style={styles.headerButton}

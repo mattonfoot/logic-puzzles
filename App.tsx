@@ -7,7 +7,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/outfit';
 import { StatusBar } from 'expo-status-bar';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -24,6 +24,7 @@ import { SettingsScreen } from './src/screens/SettingsScreen';
 import { SetupScreen } from './src/screens/SetupScreen';
 import { StartScreen } from './src/screens/StartScreen';
 import { StatsScreen } from './src/screens/StatsScreen';
+import { configureFeedback } from './src/ui/feedback';
 import { ThemeProvider, useStyles, useTheme } from './src/ui/ThemeProvider';
 import type { Palette } from './src/ui/theme';
 
@@ -41,6 +42,15 @@ export default function App() {
     Outfit_800ExtraBold,
   });
   const settings = useSettings();
+
+  // The effects fire from event handlers all over the app, so they read their
+  // settings from a module rather than a context; this keeps that in step.
+  useEffect(() => {
+    configureFeedback({
+      haptics: settings.settings.haptics,
+      volume: settings.settings.volume,
+    });
+  }, [settings.settings.haptics, settings.settings.volume]);
 
   if (!fontsLoaded || !settings.ready) return <Loading preference={settings.settings.colours} />;
 

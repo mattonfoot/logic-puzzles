@@ -33,6 +33,7 @@ const MIME = {
   '.ico': 'image/x-icon',
   '.svg': 'image/svg+xml',
   '.ttf': 'font/ttf',
+  '.wav': 'audio/wav',
 };
 
 const wait = (page, ms) => page.waitForTimeout(ms);

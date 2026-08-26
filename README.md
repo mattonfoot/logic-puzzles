@@ -30,6 +30,7 @@ npm run typecheck  # tsc --noEmit
 npm run format     # prettier --write .
 npm run format:check  # prettier --check . (what CI would ask)
 npm run screenshots  # rebuild the screens in docs/screenshots (see below)
+npm run sounds     # regenerate the three effects in assets/sounds (see below)
 ```
 
 Formatting is Prettier's, configured in `.prettierrc.json` — 100 columns and
@@ -58,7 +59,7 @@ images in the same commit.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — play, settings, statistics, and the game left in progress. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the grid size is the only choice; the theme is drawn on start. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, and which colours the app draws in. |
+| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — play, settings, statistics, and the game left in progress. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the grid size is the only choice; the theme is drawn on start. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
 | <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the tab. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Menu** — behind the burger: the board settings, and the three ways to leave the puzzle. | <img src="docs/screenshots/06-clues.png" width="230" alt="Clues tab"><br>**6. Clues** — the clue list on its own tab, with the count still to be used. |
 | <img src="docs/screenshots/07-clue-focus.png" width="230" alt="Grid with a clue focused"><br>**7. Clue focus** — holding a clue lights up its rows and columns and brings you back to the grid. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — a hint checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, hints, how it compares, the answer table. |
 | <img src="docs/screenshots/10-solved-grid.png" width="230" alt="The finished board"><br>**10. Finished board** — the grid tab after the win, one tap from the result. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, per-size bests and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Start page in night colours"><br>**12. Night** — the same start page in night colours, with a game waiting to be resumed. |
@@ -134,6 +135,7 @@ rest is the app behaving normally.
 ```
 App.tsx                     screen switching + puzzle generation entry point
 scripts/screenshots.mjs     drives the app in a browser to refresh docs/screenshots
+scripts/sounds.mjs          synthesises the three effects in assets/sounds
 src/data/themes.ts          the five themes: categories, item pools, clue wording
 src/data/sizes.ts           the four grid sizes
 src/puzzle/types.ts         puzzle, clue and theme model
@@ -155,7 +157,8 @@ src/screens/                StartScreen, SetupScreen, SettingsScreen,
 src/game/settings.ts        the player's settings, and reading them back
 src/game/useSettings.ts     those settings as React state, written as they change
 src/ui/                     Text, ThemeProvider (day/night), ScreenHeader,
-                            palettes, spacing, borders, haptics
+                            palettes, spacing, borders, sound and haptics
+assets/sounds/              the three effects, committed as 16-bit mono WAVs
 ```
 
 ## How the board is laid out
@@ -182,7 +185,10 @@ Astronaut × Ship can be carried into Ship × Launch without leaving the board.
 There are two palettes, `dayPalette` and `nightPalette` in `src/ui/theme.ts`,
 and a screen never names a colour — only a role. `ThemeProvider` resolves the
 player's preference (day, night, or match the device) against what the device is
-actually doing and hands the result down; `useTheme()` reads it.
+actually doing and hands the result down; `useTheme()` reads it. "Match the
+device" needs `userInterfaceStyle: "automatic"` in `app.json` to mean anything:
+pinned to `light`, iOS tells every app the device is in day colours whatever the
+player has set.
 
 `StyleSheet.create` bakes its colours in at the moment it runs, so a stylesheet
 written at module scope can never change scheme. Every component writes its
@@ -287,6 +293,41 @@ alone rather than marked with a pairing that cannot exist.
 entity and one column per set, ordered by the ordered set (earliest year,
 cheapest bill…) so it reads like the answer key of a printed puzzle. The table
 pins its first column and scrolls the rest, so set names never have to wrap.
+
+## Sound and feel
+
+Three effects and three haptics, behind one module. `src/ui/feedback.ts`
+exposes `feedback.tap`, `.mark`, `.success` and `.warn`; a call site says what
+happened — a navigation item was pressed, a square was marked, a puzzle was
+finished, a board went wrong — and never which file to play or which motor to
+run. `tap` is a selection buzz and a soft click, `mark` a light impact and a
+shorter, brighter one, `success` a success notification and a rising arpeggio,
+and `warn` is haptic only, because the app has nothing pleasant to say and
+saying it twice would be worse.
+
+Both are niceties, so every path swallows its own failure: a device with no
+haptic motor, a simulator with no speaker, or a player that will not load costs
+the effect and nothing else. The players are built on the first sound asked for,
+not at import, and the audio mode marks these as effects rather than media —
+they mix with whatever the player is listening to instead of interrupting it,
+and they respect the silent switch, because a puzzle game chirping through a
+muted phone is a bug.
+
+The settings live in a module-level value rather than a context. These fire from
+event handlers on nearly every screen, and threading a provider through all of
+them would buy nothing; `App` keeps that value in step with the stored settings
+from an effect. **Volume** is four steps (off, quiet, medium, loud) and
+**Vibration** is a switch — off means silent, and off on both means a game that
+makes no noise at all. Turning the volume down plays the tap at the volume being
+left behind, since that is the one the player just heard.
+
+The sounds are synthesised rather than sampled: `npm run sounds` writes
+`assets/sounds/{tap,mark,success}.wav` from `scripts/sounds.mjs` — three short
+tones from one scale (E5, A5, and the A major triad), shaped by the same
+envelope, so they sit together as one voice and the repository carries no audio
+it did not make. The WAVs are committed, so a normal build never runs it.
+Swapping one for a real recording means dropping a 16-bit mono WAV of the same
+name into that folder; nothing reads those numbers at runtime.
 
 ## How the puzzle engine works
 
@@ -438,6 +479,9 @@ before them for the longer-run trend the chart draws.
   pool deep, distinct and short enough to fit the grid headings.
 - No backend and no analytics: everything is kept on the device, and clearing
   the statistics from the stats screen deletes it.
+- `npm run sounds` rewrites the three WAVs in `assets/sounds` from
+  `scripts/sounds.mjs`. They are committed, so this is only needed after
+  changing how one of them is built.
 - `npm run screenshots` exports the app for web, serves that build, drives it in
   Chromium and rewrites `docs/screenshots`. Playwright's Chromium arrives with
   the dev dependencies (`npx playwright install chromium` if the download was
