@@ -15,7 +15,8 @@ interface Props {
   title?: string;
   puzzle: Puzzle;
   seconds: number;
-  hintsUsed: number;
+  /** How many of the puzzle's clues the player read. */
+  cluesUsed: number;
   /** How this game compares with earlier ones; null until stats have loaded. */
   improvement: Improvement | null;
   onPlayAgain: () => void;
@@ -32,7 +33,7 @@ export function SolvedPanel({
   title = 'Solved!',
   puzzle,
   seconds,
-  hintsUsed,
+  cluesUsed,
   improvement,
   onPlayAgain,
   onChangeSetup,
@@ -54,8 +55,12 @@ export function SolvedPanel({
 
       <View style={styles.stats}>
         <Stat label="Time" value={formatDuration(seconds)} accent={puzzle.accent} />
-        <Stat label="Clues" value={`${puzzle.clues.length}`} accent={puzzle.accent} joined />
-        <Stat label="Hints" value={`${hintsUsed}`} accent={puzzle.accent} joined />
+        <Stat
+          label="Clues read"
+          value={`${cluesUsed} of ${puzzle.clues.length}`}
+          accent={puzzle.accent}
+          joined
+        />
       </View>
 
       {improvement ? (

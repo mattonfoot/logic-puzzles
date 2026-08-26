@@ -70,23 +70,23 @@ function sampleHistory() {
   const now = Date.now();
   // Newest first, getting quicker over time so the trend has something to say.
   const games = [
-    ['cosmic', 'Cosmic Voyage', '🚀', '#4C6FFF', 'sm', '4 × 4', 214, 0, 0],
-    ['reef', 'Reef Dive', '🐠', '#0EA5A4', 'sm', '4 × 4', 236, 1, 0],
-    ['cafe', 'Corner Café', '☕️', '#C2703D', 'sm', '4 × 4', 259, 0, 1],
-    ['quest', 'Mythic Quest', '🗡️', '#7A5AF8', 'sm', '4 × 4', 288, 0, 1],
-    ['garden', 'Blue Ribbon Garden', '🌻', '#2F8F4E', 'sm', '4 × 4', 300, 0, 2],
-    ['cosmic', 'Cosmic Voyage', '🚀', '#4C6FFF', 'sm', '4 × 4', 310, 1, 2],
-    ['reef', 'Reef Dive', '🐠', '#0EA5A4', 'sm', '4 × 4', 325, 0, 3],
-    ['quest', 'Mythic Quest', '🗡️', '#7A5AF8', 'sm', '4 × 4', 340, 2, 3],
-    ['cafe', 'Corner Café', '☕️', '#C2703D', 'md', '5 × 4', 412, 1, 4],
-    ['garden', 'Blue Ribbon Garden', '🌻', '#2F8F4E', 'md', '5 × 4', 468, 0, 5],
-    ['cosmic', 'Cosmic Voyage', '🚀', '#4C6FFF', 'xs', '3 × 3', 96, 0, 5],
+    ['cosmic', 'Cosmic Voyage', '🚀', '#4C6FFF', 'sm', '4 × 4', 214, 7, 0],
+    ['reef', 'Reef Dive', '🐠', '#0EA5A4', 'sm', '4 × 4', 236, 9, 0],
+    ['cafe', 'Corner Café', '☕️', '#C2703D', 'sm', '4 × 4', 259, 8, 1],
+    ['quest', 'Mythic Quest', '🗡️', '#7A5AF8', 'sm', '4 × 4', 288, 10, 1],
+    ['garden', 'Blue Ribbon Garden', '🌻', '#2F8F4E', 'sm', '4 × 4', 300, 9, 2],
+    ['cosmic', 'Cosmic Voyage', '🚀', '#4C6FFF', 'sm', '4 × 4', 310, 12, 2],
+    ['reef', 'Reef Dive', '🐠', '#0EA5A4', 'sm', '4 × 4', 325, 11, 3],
+    ['quest', 'Mythic Quest', '🗡️', '#7A5AF8', 'sm', '4 × 4', 340, 12, 3],
+    ['cafe', 'Corner Café', '☕️', '#C2703D', 'md', '5 × 4', 412, 10, 4],
+    ['garden', 'Blue Ribbon Garden', '🌻', '#2F8F4E', 'md', '5 × 4', 468, 12, 5],
+    ['cosmic', 'Cosmic Voyage', '🚀', '#4C6FFF', 'xs', '3 × 3', 96, 4, 5],
   ];
   return {
     version: 1,
     games: games.map(
       (
-        [themeId, themeName, themeEmoji, accent, sizeId, sizeLabel, seconds, hintsUsed, daysAgo],
+        [themeId, themeName, themeEmoji, accent, sizeId, sizeLabel, seconds, cluesUsed, daysAgo],
         index,
       ) => ({
         seed: 1000 + index,
@@ -97,7 +97,7 @@ function sampleHistory() {
         sizeId,
         sizeLabel,
         seconds,
-        hintsUsed,
+        cluesUsed,
         clueCount: 12,
         revealed: false,
         finishedAt: now - daysAgo * day - index * 3_600_000,
@@ -121,14 +121,66 @@ async function startPuzzle(page, difficulty = 'Advanced') {
   await wait(page, 1600);
 }
 
-async function solveWithHints(page, taps = 30) {
-  for (let index = 0; index < taps; index++) {
-    await page
-      .getByText('Hint', { exact: true })
-      .first()
-      .click({ timeout: 4000 })
-      .catch(() => {});
-    await wait(page, 25);
+/**
+ * The puzzle in play, read out of the game the app saves as it goes. The board
+ * is the only place the answer lives, and the script needs it to tick squares
+ * on purpose rather than at random.
+ */
+async function puzzleInPlay(page) {
+  for (let attempt = 0; attempt < 20; attempt++) {
+    const saved = await page.evaluate(() => localStorage.getItem('logic-grid:saved-game:v1'));
+    if (saved) return JSON.parse(saved).puzzle;
+    await wait(page, 300);
+  }
+  throw new Error('no saved game to read the puzzle from');
+}
+
+const labelOf = (puzzle, category, item) => puzzle.categories[category].items[item].label;
+
+/**
+ * Cycles one square round to the mark asked for: 'matched' for a tick, 'ruled
+ * out' for a cross. The squares say which they are showing, so this works
+ * wherever the square sits in the staircase and whatever is already on it.
+ */
+async function mark(page, puzzle, c1, i1, c2, i2, want = 'matched') {
+  // The staircase draws each pair of sets once, and which of the two is the row
+  // depends on where the pair lands in it — so look for the square either way
+  // round rather than assuming.
+  const a = labelOf(puzzle, c1, i1);
+  const b = labelOf(puzzle, c2, i2);
+  const forward = page.locator(`[aria-label^="${a} and ${b}: "]`);
+  const backward = page.locator(`[aria-label^="${b} and ${a}: "]`);
+  const square = (await forward.count())
+    ? forward.first()
+    : (await backward.count())
+      ? backward.first()
+      : null;
+  if (!square) return;
+  for (let step = 0; step < 3; step++) {
+    // The board goes away the moment the puzzle is finished, so a square that
+    // stops answering is the run being over rather than a fault.
+    const label = await square.getAttribute('aria-label', { timeout: 2000 }).catch(() => null);
+    if (label === null || label.endsWith(want)) return;
+    await square.click();
+    await wait(page, 60);
+  }
+}
+
+const tick = (page, puzzle, c1, i1, c2, i2) => mark(page, puzzle, c1, i1, c2, i2, 'matched');
+
+/** Ticks the true pairings until the puzzle is finished, or `pairs` of them. */
+async function solve(page, puzzle, pairs = Infinity) {
+  const finished = page.getByRole('tab', { name: /^(Solved|Revealed)$/ });
+  let done = 0;
+  for (let c1 = 0; c1 < puzzle.categories.length; c1++) {
+    for (let c2 = c1 + 1; c2 < puzzle.categories.length; c2++) {
+      for (let entity = 0; entity < puzzle.size.items; entity++) {
+        // The rest of the board can follow from what is already ticked.
+        if (done >= pairs || (await finished.count())) return;
+        await tick(page, puzzle, c1, puzzle.solution[c1][entity], c2, puzzle.solution[c2][entity]);
+        done++;
+      }
+    }
   }
   await wait(page, 900);
 }
@@ -187,46 +239,56 @@ async function main() {
   await page.getByLabel('Close the menu').click();
   await wait(page, 400);
 
-  // 6. The clue list on its own tab.
-  await page.getByRole('tab', { name: /^Clues/ }).click();
+  // 6. A clue on the table, lit up on the grid.
+  const puzzle = await puzzleInPlay(page);
+  const nextClue = page.getByLabel('Get next clue');
+  await nextClue.click();
   await wait(page, 400);
-  await shot('06-clues');
+  const clueCard = page.getByLabel(/^Clue \d+ of \d+/);
+  await clueCard.click();
+  await wait(page, 500);
+  await shot('06-clue');
 
-  // 7. Holding a clue lights it up — and takes the player back to the grid.
-  const clue = page.locator('[role="checkbox"]').first();
-  const box = await clue.boundingBox();
-  await page.mouse.move(box.x + 40, box.y + 12);
-  await page.mouse.down();
-  await wait(page, 900);
-  await page.mouse.up();
-  await wait(page, 600);
-  await shot('07-clue-focus');
-
-  // 8. A board the answer can no longer be reached from, which is what a hint
-  // reports instead of helping. The script does not know the solution, so it
-  // ticks squares until a hint says the board is past saving.
-  await page.getByLabel('Stop lighting up this clue').click();
+  // 7. A clue once the board has caught up with it: struck through and faded,
+  // with nothing left to say. A plain "X is Y" is the one clue a single mark
+  // finishes, so that is the one to put on the table and answer.
+  await clueCard.click();
   await wait(page, 300);
-  const cells = page.locator('[role="button"][aria-label*=" and "]');
-  const rewind = page.getByLabel(/^Rewind/);
-  for (let index = 0; index < 10 && (await rewind.count()) === 0; index++) {
-    const label = await cells.nth(index).getAttribute('aria-label');
-    if (!label.endsWith('unknown')) continue;
-    await cells.nth(index).click();
-    await wait(page, 80);
-    await cells.nth(index).click();
-    await wait(page, 120);
-    await page.getByText('Hint', { exact: true }).first().click();
-    await wait(page, 350);
+  const plain = puzzle.clues.findIndex((clue) => clue.kind === 'link');
+  for (let index = 0; index < puzzle.clues.length; index++) {
+    const label = await clueCard.getAttribute('aria-label');
+    if (label?.startsWith(`Clue ${plain + 1} of `)) break;
+    await nextClue.click();
+    await wait(page, 300);
   }
+  const link = puzzle.clues[plain];
+  await mark(
+    page,
+    puzzle,
+    link.a.category,
+    link.a.item,
+    link.b.category,
+    link.b.item,
+    link.positive ? 'matched' : 'ruled out',
+  );
+  await wait(page, 1000);
+  await shot('07-clue-used');
+
+  // 8. A board the answer can no longer be reached from, which is what the
+  // clue button reports instead of handing over a clue.
+  const wrongEntity = (puzzle.solution[1][0] + 1) % puzzle.size.items;
+  await tick(page, puzzle, 0, puzzle.solution[0][0], 1, wrongEntity);
+  await nextClue.click();
+  await wait(page, 500);
   await shot('08-stuck');
+  const rewind = page.getByLabel(/^Rewind/);
   if (await rewind.count()) {
     await rewind.click();
     await wait(page, 400);
   }
 
   // 9. Finished: the result fills the screen, on a tab of its own.
-  await solveWithHints(page);
+  await solve(page, puzzle);
   await shot('09-solved');
 
   // 10. The finished board, one tap away from the result.
@@ -258,8 +320,8 @@ async function main() {
   await page.getByLabel('Back').click();
   await wait(page, 400);
   await startPuzzle(page);
-  // Two hints put real ticks on the board, so the card shows some progress.
-  await solveWithHints(page, 2);
+  // A few true pairings, so the card on the start page shows some progress.
+  await solve(page, await puzzleInPlay(page), 3);
   await wait(page, 1000);
   await page.getByLabel('Back to setup').click();
   await wait(page, 700);

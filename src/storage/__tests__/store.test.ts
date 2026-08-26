@@ -16,9 +16,9 @@ const saved = {
     '0.0-1.1': byHand('yes'),
     '0.0-1.2': { mark: 'no' as const, source: 'auto' as const, from: '0.0-1.1' },
   },
-  crossedOut: [1],
+  cluesSeen: [1],
+  clueIndex: 1,
   seconds: 30,
-  hintsUsed: 0,
   updatedAt: 5,
 };
 
@@ -43,7 +43,7 @@ describe('storage', () => {
   it('brings the history back', async () => {
     const history = appendGame(
       EMPTY_HISTORY,
-      completedGameFrom(puzzle, { seconds: 75, hintsUsed: 1, revealed: false, finishedAt: 9 }),
+      completedGameFrom(puzzle, { seconds: 75, cluesUsed: 1, revealed: false, finishedAt: 9 }),
     );
     await storage.saveHistory(history);
     expect(await storage.loadHistory()).toEqual(history);

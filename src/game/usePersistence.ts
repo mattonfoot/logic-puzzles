@@ -15,7 +15,8 @@ import type { Puzzle } from '../puzzle/types';
 
 export interface CompletionInput {
   seconds: number;
-  hintsUsed: number;
+  /** How many of the puzzle's clues the player read. */
+  cluesUsed: number;
   revealed: boolean;
 }
 

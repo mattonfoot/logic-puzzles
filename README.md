@@ -60,8 +60,8 @@ images in the same commit.
 | | | |
 |---|---|---|
 | <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — play, settings, statistics, and the game left in progress. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the grid size is the only choice; the theme is drawn on start. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
-| <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the tab. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Menu** — behind the burger: the board settings, and the three ways to leave the puzzle. | <img src="docs/screenshots/06-clues.png" width="230" alt="Clues tab"><br>**6. Clues** — the clue list on its own tab, with the count still to be used. |
-| <img src="docs/screenshots/07-clue-focus.png" width="230" alt="Grid with a clue focused"><br>**7. Clue focus** — holding a clue lights up its rows and columns and brings you back to the grid. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — a hint checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, hints, how it compares, the answer table. |
+| <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Menu** — behind the burger: the board settings, and the three ways to leave the puzzle. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
+| <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, clues read, how it compares, the answer table. |
 | <img src="docs/screenshots/10-solved-grid.png" width="230" alt="The finished board"><br>**10. Finished board** — the grid tab after the win, one tap from the result. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, per-size bests and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Start page in night colours"><br>**12. Night** — the same start page in night colours, with a game waiting to be resumed. |
 
 The theme differs from run to run because it is drawn at random, and the
@@ -83,34 +83,39 @@ rest is the app behaving normally.
 2. **Game** — the whole puzzle is drawn as one staircase of grids, the way a
    printed logic puzzle is laid out: every pair of sets meets in its own grid,
    so a four-set puzzle is a 3 × 3 arrangement holding six grids, and each grid
-   is items × items. The screen has two tabs — **Grid** and **Clues** — so the
-   board is never pushed off the top of a scroll to read a clue, and the board
-   opens at the size that fits the space the tab gives it. Tap a square to cycle
-   it blank → ✕ → ✓. A tick crosses out the rest of its row and column for you,
-   and cycling that tick back to blank takes those crosses away with it —
-   anything you crossed by hand stays put. **Automatic crosses** and **Auto add
-   facts** — which fills in a tick that follows from two others, so a pairing
-   carried across a shared entity lands on the board without you copying it
-   over — can both be turned off, from the menu or from Settings. The set names
-   and item labels stay pinned while the grids scroll sideways, and − / + resize the squares past the fit.
-3. **Clues** — the second tab, with the number still to be used on the tab
-   itself. Tap a clue to cross it off once you have used it, or press and hold
-   it to light up every row and column it talks about: that takes you to the
-   grid, with the clue named in a strip beneath the board until you dismiss it.
-4. **Undo** takes back one mark at a time, autos and all. **Hint** looks at the
-   board before it helps: a puzzle has one answer, so a single mark that
-   contradicts it puts the answer out of reach, and a hint towards a solution
-   you can no longer get to would be worse than none. When that has happened it
-   says so, marks the squares that cannot be right, and offers **Rewind**, which
-   takes moves back until the board can be solved again. Otherwise it places one
-   true pairing, as before. The timer stops when the last square is right.
-   Finishing opens a third tab, **Solved**, which fills the screen with the
-   clock, how the game compares with your earlier ones, and **the answer as a
-   table**: one row per person, one column per set, so the whole solution reads
-   across in a line. The first set stays pinned while the others scroll
-   sideways, which keeps every heading on one line. The grid and the clues stay
-   where they were, so the finished board is one tap away — though it is
-   read-only from then on, since changing it would undo the win.
+   is items × items. Nothing on the screen scrolls: the board opens at the size
+   that fits the space it is given, with the clue in play beneath it. Tap a
+   square to cycle it blank → ✕ → ✓. A tick crosses out the rest of its row and
+   column for you, and cycling that tick back to blank takes those crosses away
+   with it — anything you crossed by hand stays put. **Automatic crosses** and
+   **Auto add facts** — which fills in a tick that follows from two others, so a
+   pairing carried across a shared entity lands on the board without you copying
+   it over — can both be turned off, from the menu or from Settings. The set
+   names and item labels stay pinned while the grids scroll sideways, and − / +
+   resize the squares past the fit.
+3. **Clues arrive one at a time.** **Get next clue** puts one on the table under
+   the board; pressing it again replaces it with the next one that still has
+   something to say. Tap the clue to light up every row and column it talks
+   about. Mark everything it says and the game agrees it is spent: the clue is
+   struck through and fades back, and the button skips it from then on. A clue
+   you pass over is not gone — the button wraps round to it on a later lap, by
+   which time the board may have enough on it for the clue to bite. How many
+   clues you read is the score the statistics keep, so working one harder before
+   asking for the next is the whole game.
+4. **Undo** takes back one mark at a time, autos and all. **Get next clue**
+   looks at the board before it hands anything over: a puzzle has one answer, so
+   a single mark that contradicts it puts the answer out of reach, and a clue
+   read against a board you can no longer solve is a clue wasted. When that has
+   happened it says so, marks the squares that cannot be right, and offers
+   **Rewind**, which takes moves back until the board can be solved again. The
+   timer stops when the last square is right. Finishing adds a second tab,
+   **Solved**, which fills the screen with the clock, how many clues it took,
+   how the game compares with your earlier ones, and **the answer as a table**:
+   one row per person, one column per set, so the whole solution reads across in
+   a line. The first set stays pinned while the others scroll sideways, which
+   keeps every heading on one line. The board stays where it was, so the
+   finished grid is one tap away — though it is read-only from then on, since
+   changing it would undo the win.
 5. **The menu**, behind the burger at the top left, holds everything that acts
    on the game rather than on a square: the two board settings (the same ones
    the settings screen holds — they are the player's, not the puzzle's),
@@ -118,17 +123,18 @@ rest is the app behaving normally.
    **Reveal the answer**, which is hidden once the puzzle is finished. The
    `<<< back` link at the bottom left leaves for the home screen; the board is
    saved either way.
-6. **Settings** — the board pair above, and the colours: **night colours** for a
+6. **Settings** — the board pair above; the colours: **night colours** for a
    warm near-black page, and **match the device** to follow the phone's own
-   light and dark setting and turn with it. They are written to disk, so they
-   are the same the next time the app opens.
+   light and dark setting and turn with it; and **sound and feel**: how loud the
+   effects are, or off, and whether the phone buzzes with them. They are written
+   to disk, so they are the same the next time the app opens.
 7. **Come back later** — the board saves itself as you play, so closing the app
    mid-puzzle costs nothing. The home screen offers to resume it, with the clock
    picking up where it left off and the same puzzle in front of you.
-6. **Statistics** — solved count, time played, day streak, no-hint wins, a
-   per-size table of best and average times, a chart of recent solve times, and
-   the list of recent games. Finishing a puzzle shows how that time compares
-   with your earlier games at the same size.
+8. **Statistics** — solved count, time played, day streak, clues read (in total
+   and per puzzle), a per-size table of best and average times, a chart of
+   recent solve times, and the list of recent games. Finishing a puzzle shows
+   how that time compares with your earlier games at the same size.
 
 ## Project layout
 
@@ -143,7 +149,8 @@ src/puzzle/rng.ts           seeded PRNG (a seed always rebuilds the same puzzle)
 src/puzzle/generator.ts     builds a solution, then a minimal clue set for it
 src/puzzle/solver.ts        constraint solver: propagation + search
 src/puzzle/describe.ts      clue objects → sentences, using each theme's wording
-src/game/board.ts           the player's ticks and crosses, hints, win check
+src/game/board.ts           the player's ticks and crosses, mistakes, win check
+src/game/clues.ts           what a clue asks of the board, and which are spent
 src/game/layout.ts          the staircase arrangement + the answer table
 src/game/persistence.ts     what gets written to disk, and the guards to read it
 src/game/usePersistence.ts  saved game + finished games as React state
@@ -151,7 +158,7 @@ src/game/time.ts            duration formatting
 src/game/useTimer.ts        elapsed-time hook
 src/stats/summary.ts        history → per-size stats, streaks, improvement notes
 src/storage/store.ts        the only module that touches AsyncStorage
-src/components/             GridBoard, SolutionTable, ClueList, SolvedPanel, …
+src/components/             GridBoard, SolutionTable, ClueCard, SolvedPanel, …
 src/screens/                StartScreen, SetupScreen, SettingsScreen,
                             GameScreen, GameMenuScreen, StatsScreen
 src/game/settings.ts        the player's settings, and reading them back
@@ -242,30 +249,64 @@ to suit — `blockBox = cellSize * items +
 line up with the labels beside them, and `fitCellSize` allows for the rules when
 it sizes the board.
 
-The game screen holds that staircase and the clue list in two tabs of one
-fixed-height layout, with the toolbar pinned below both. Nothing about the
-screen scrolls: `fitCellSize` measures the space the tab actually leaves for the
-board — width *and* height, from an `onLayout` on the board area rather than
-from the window — and picks the largest cell whose whole staircase fits it. The
-zoom buttons go up from there, and only a board zoomed past its fit scrolls, in
-whichever direction it outgrew. The clue list scrolls inside its own tab when a
-puzzle carries more clues than a screen holds.
+The game screen is one fixed-height layout: the staircase, the clue in play
+beneath it, and the toolbar pinned below that. Nothing about it scrolls.
+`fitCellSize` measures the space actually left for the board — width *and*
+height, from an `onLayout` on the board area rather than from the window — and
+picks the largest cell whose whole staircase fits it. The zoom buttons go up
+from there, and only a board zoomed past its fit scrolls, in whichever direction
+it outgrew. `ClueCard` carries a fixed minimum height and shows at most three
+lines, so a long clue replacing a short one cannot resize the board under the
+player's finger.
 
 `isSolvable` is `findMistakes` read the other way round: a puzzle has exactly
 one answer, so a mark the answer contradicts is a mark nothing later can put
-right. That is what Hint tests before helping and what Rewind pops the undo
-stack towards; `clearMistakes` is the fallback for a board whose history has run
+right. That is what **Get next clue** tests before handing one
+over and what Rewind pops the undo stack towards; `clearMistakes` is the fallback for a board whose history has run
 out — a resumed game starts with an empty stack, so its undo history begins
 where the player picked it up. The stack itself is session-only and holds the
 last 200 boards.
 
-Winning adds a third tab rather than covering the board: `SolvedPanel` fills the
-tab body with the result, the tab bar grows a **Solved** tab, and the win
-selects it. Everything the finish made pointless goes with it — the Undo and
-Hint buttons, and the menu's "Reveal the answer" row, are all hidden — and the
-board
-becomes read-only, because a stray tap on a finished grid would undo the win,
-restart the clock and have the game counted a second time.
+Winning adds a tab rather than covering the board. There is no tab bar during
+play — there is only the board to show — so the bar appears at the finish with
+**Grid** and **Solved** in it, `SolvedPanel` fills the body, and the win selects
+it. Everything the finish made pointless goes with it — the clue card, the Undo
+and clue buttons, and the menu's "Reveal the answer" row are all hidden — and
+the board becomes read-only, because a stray tap on a finished grid would undo
+the win, restart the clock and have the game counted a second time.
+
+## Clues, one at a time
+
+There is no clue list. **Get next clue** puts one clue under the board and the
+next press replaces it, which makes reading a clue a decision — and the number
+of them the statistics keep.
+
+`src/game/clues.ts` decides when a clue is spent. `clueMarks` returns the
+squares one clue forces *given the board as it stands*, which is the same thing
+a player does when they re-read a clue after learning something: a plain link
+wants its tick or its cross; an either-or wants a cross on every option it
+leaves out, and names the survivor once the other is ruled out; a comparison
+separates the two entities it names and rules out the values at either end of
+the scale that nothing left on the other side could sit beyond. Because the
+board is read on the way in, the answer is a fixpoint — once every mark it lists
+is down, running it again lists the same ones and no more — so `clueDone` is
+simply "are they all there", and `cluesDone` is the set of clues the board has
+caught up with.
+
+Only what the clue itself says is counted. The crosses that follow from a tick,
+and the tick that follows from the last blank in a row, are the grid's rules
+rather than the clue's, and the board fills those in on its own. Who marked a
+square makes no difference either: a cross the board added counts as much as one
+the player made, which is what lets a single tick finish several clues at once.
+
+`nextClue` walks on from the clue on the table and wraps round, skipping the
+ones that are done, so a clue passed over early comes back on a later lap once
+the board has enough on it for it to bite; `null` means every clue is used up.
+The clue card strikes a spent clue through and fades it to 40% over 700ms rather
+than whipping it away, so the player sees which one they just finished.
+
+A property test pins both ends of this down: on an empty board no clue counts as
+done, and on a solved board every one of them does.
 
 In `src/game/board.ts` every square records who marked it. A tap by the player
 is a `hand` mark; a cross the board adds because a tick rules out the rest of
@@ -445,8 +486,8 @@ Two things are stored, both under AsyncStorage, both versioned:
 
 | Key | Holds |
 |-----|-------|
-| `logic-grid:saved-game:v1` | the puzzle in progress: the whole puzzle, every tick and cross, crossed-off clues, elapsed seconds, hints used |
-| `logic-grid:history:v1` | the last 300 finished games: time, hints, theme, size, whether it was revealed |
+| `logic-grid:saved-game:v1` | the puzzle in progress: the whole puzzle, every tick and cross, which clues have been read and which is on the table, elapsed seconds |
+| `logic-grid:history:v1` | the last 300 finished games: time, clues read, how many the puzzle had, theme, size, whether it was revealed |
 
 The saved game stores the generated puzzle itself rather than its seed, so a
 game in progress keeps playing exactly as it was even if the themes or the
@@ -463,6 +504,9 @@ screen; finishing a puzzle clears it.
 `src/stats/summary.ts` derives everything shown from the list of finished games
 — nothing aggregated is stored, so the numbers can never drift out of sync with
 the games behind them. Revealed puzzles are recorded but kept out of the times.
+Games finished before clues were counted store `null` rather than a zero, and
+are left out of the clue averages instead of flattering them: hints and clues
+were different measures, so the old number is not read as the new one.
 Improvement is measured two ways: `improvementFor` compares a game just
 finished with earlier games at the same size (personal best, share faster than
 average, rank), and `statsForSize` compares the last five solves with the five

@@ -9,6 +9,7 @@ import {
   HISTORY_VERSION,
   isHistory,
   isSavedGame,
+  reviveHistory,
   reviveMarks,
   reviveSavedGame,
   SAVE_VERSION,
@@ -23,22 +24,18 @@ function savedGame(overrides: Partial<SavedGame> = {}): SavedGame {
     version: SAVE_VERSION,
     puzzle,
     marks: setMark({}, { c1: 0, i1: 0, c2: 1, i2: 1 }, 'yes', { size: puzzle.size.items }),
-    crossedOut: [0, 2],
+    cluesSeen: [0, 2],
+    clueIndex: 2,
     seconds: 42,
-    hintsUsed: 1,
     updatedAt: 1_700_000_000_000,
     ...overrides,
   };
 }
 
-const completed = (overrides: Partial<CompletedGame> = {}): CompletedGame =>
-  completedGameFrom(puzzle, {
-    seconds: 100,
-    hintsUsed: 0,
-    revealed: false,
-    finishedAt: 1,
-    ...overrides,
-  });
+const completed = (overrides: Partial<CompletedGame> = {}): CompletedGame => ({
+  ...completedGameFrom(puzzle, { seconds: 100, cluesUsed: 0, revealed: false, finishedAt: 1 }),
+  ...overrides,
+});
 
 describe('isSavedGame', () => {
   it('accepts a game it just wrote', () => {
@@ -51,7 +48,8 @@ describe('isSavedGame', () => {
     expect(isSavedGame({})).toBe(false);
     expect(isSavedGame(savedGame({ puzzle: undefined as never }))).toBe(false);
     expect(isSavedGame(savedGame({ marks: undefined as never }))).toBe(false);
-    expect(isSavedGame(savedGame({ crossedOut: undefined as never }))).toBe(false);
+    expect(isSavedGame(savedGame({ cluesSeen: undefined as never }))).toBe(false);
+    expect(isSavedGame(savedGame({ clueIndex: 'first' as never }))).toBe(false);
   });
 
   it('rejects a save from another version', () => {
@@ -89,7 +87,7 @@ describe('completedGameFrom', () => {
   it('captures what the statistics need', () => {
     const game = completedGameFrom(puzzle, {
       seconds: 61.6,
-      hintsUsed: 2,
+      cluesUsed: 2,
       revealed: false,
       finishedAt: 123,
     });
@@ -98,11 +96,32 @@ describe('completedGameFrom', () => {
       themeId: puzzle.themeId,
       sizeId: puzzle.size.id,
       clueCount: puzzle.clues.length,
-      hintsUsed: 2,
+      cluesUsed: 2,
       revealed: false,
       finishedAt: 123,
     });
     expect(game.seconds).toBe(62);
+  });
+});
+
+describe('reading the finished games back', () => {
+  it('leaves a game from before clues were counted without a count', () => {
+    const { cluesUsed, ...older } = completed();
+    const revived = reviveHistory({
+      version: HISTORY_VERSION,
+      games: [{ ...older, hintsUsed: 3 }],
+    });
+
+    // Hints and clues are not the same measure, so the old number is dropped
+    // rather than read as a clue count — the game itself still counts.
+    expect(revived?.games).toHaveLength(1);
+    expect(revived?.games[0].cluesUsed).toBeNull();
+  });
+
+  it('keeps a count it does understand, and refuses another version', () => {
+    const history = appendGame(EMPTY_HISTORY, completed({ cluesUsed: 4 }));
+    expect(reviveHistory(JSON.parse(JSON.stringify(history)))?.games[0].cluesUsed).toBe(4);
+    expect(reviveHistory({ version: HISTORY_VERSION + 1, games: [] })).toBeNull();
   });
 });
 
@@ -131,6 +150,16 @@ describe('reading a board back', () => {
     const legacy = { ...savedGame(), marks: { [markKey(cell)]: 'yes' } };
     const revived = reviveSavedGame(JSON.parse(JSON.stringify(legacy)));
     expect(revived?.marks).toEqual({ [markKey(cell)]: byHand('yes') });
+  });
+
+  it('reads the clues a save from before the clue table had crossed off', () => {
+    const { cluesSeen, clueIndex, ...older } = savedGame();
+    const legacy = { ...older, crossedOut: [1, 3], hintsUsed: 2 };
+    const revived = reviveSavedGame(JSON.parse(JSON.stringify(legacy)));
+
+    // The clues they had crossed off are the ones they had read.
+    expect(revived?.cluesSeen).toEqual([1, 3]);
+    expect(revived?.clueIndex).toBeNull();
   });
 
   it('refuses a save it cannot make sense of', () => {

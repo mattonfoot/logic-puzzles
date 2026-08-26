@@ -2,13 +2,12 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AppState, LayoutChangeEvent, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ClueList } from '../components/ClueList';
+import { ClueCard } from '../components/ClueCard';
 import { fitCellSize, GridBoard, MAX_CELL } from '../components/GridBoard';
 import { SolvedPanel } from '../components/SolvedPanel';
 import { GameMenuScreen } from './GameMenuScreen';
 import {
   clearMistakes,
-  findHint,
   findMistakes,
   getMark,
   isSolvable,
@@ -21,10 +20,11 @@ import {
   type Cell,
   type Marks,
 } from '../game/board';
+import { cluesDone, nextClue } from '../game/clues';
 import { SAVE_VERSION, type SavedGame } from '../game/persistence';
 import type { CompletionInput } from '../game/usePersistence';
 import { formatDuration, useTimer } from '../game/useTimer';
-import { clueAttributes, describeClue } from '../puzzle/describe';
+import { clueAttributes } from '../puzzle/describe';
 import type { Attribute, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { feedback } from '../ui/feedback';
@@ -37,7 +37,7 @@ const ZOOM_STEP = 8;
 /** How many moves back the undo button can reach. */
 const UNDO_LIMIT = 200;
 
-type Tab = 'grid' | 'clues' | 'result';
+type Tab = 'grid' | 'result';
 
 interface Props {
   puzzle: Puzzle;
@@ -59,9 +59,10 @@ interface Props {
  * The board itself. App mounts one per puzzle (keyed by seed), so the initial
  * state can come straight from a resumed game.
  *
- * The grid and the clues are two tabs of one fixed-height screen rather than
- * one long scroll: the board opens at the size that fits the space it is given,
- * and reading a clue is a tap away instead of a scroll away.
+ * Nothing on the screen scrolls: the board opens at the size that fits the
+ * space it is given, and the clue being worked on sits under it. Clues arrive
+ * one at a time from the button rather than as a list to read down, which is
+ * what makes reading one a decision worth counting.
  */
 export function GameScreen({
   puzzle,
@@ -86,10 +87,11 @@ export function GameScreen({
   const [tab, setTab] = useState<Tab>('grid');
   const [menuOpen, setMenuOpen] = useState(false);
   const [marks, setMarks] = useState<Marks>(() => resumed?.marks ?? {});
-  const [focusedClue, setFocusedClue] = useState<number | null>(null);
-  const [crossedOut, setCrossedOut] = useState<Set<number>>(
-    () => new Set(resumed?.crossedOut ?? []),
-  );
+  // The clue on the table, and every clue the player has asked to see. Reading
+  // one is the cost of a hint here, so the set is what the statistics count.
+  const [clueIndex, setClueIndex] = useState<number | null>(() => resumed?.clueIndex ?? null);
+  const [cluesSeen, setCluesSeen] = useState<Set<number>>(() => new Set(resumed?.cluesSeen ?? []));
+  const [lit, setLit] = useState(false);
   const [mistakes, setMistakes] = useState<Set<string>>(new Set());
   // Every board the player has moved on from, newest last, so a move can be
   // taken back. It lives for the session only — a resumed game starts fresh.
@@ -97,7 +99,6 @@ export function GameScreen({
   // Set when a hint finds the board past saving; cleared as soon as it is not.
   const [flagged, setFlagged] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
-  const [hintsUsed, setHintsUsed] = useState(() => resumed?.hintsUsed ?? 0);
   const [revealed, setRevealed] = useState(false);
   const [improvement, setImprovement] = useState<Improvement | null>(null);
   const statusTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -109,6 +110,9 @@ export function GameScreen({
   );
 
   const solved = useMemo(() => isSolved(marks, puzzle), [marks, puzzle]);
+  // Which clues the board has caught up with. A clue is spent when every mark
+  // it calls for is down, whoever worked it out.
+  const spent = useMemo(() => cluesDone(marks, puzzle), [marks, puzzle]);
   const wrong = useMemo(() => findMistakes(marks, puzzle), [marks, puzzle]);
   const stuck = flagged && wrong.length > 0;
   const filled = useMemo(() => progress(marks, puzzle), [marks, puzzle]);
@@ -147,8 +151,8 @@ export function GameScreen({
   }, [boardOptions]);
 
   const highlight = useMemo<Attribute[]>(
-    () => (focusedClue === null ? [] : clueAttributes(puzzle.clues[focusedClue])),
-    [focusedClue, puzzle.clues],
+    () => (lit && clueIndex !== null ? clueAttributes(puzzle.clues[clueIndex]) : []),
+    [clueIndex, lit, puzzle.clues],
   );
 
   // A snapshot of the board that the autosave paths can read without having to
@@ -158,9 +162,9 @@ export function GameScreen({
     version: SAVE_VERSION,
     puzzle,
     marks,
-    crossedOut: [...crossedOut],
+    cluesSeen: [...cluesSeen],
+    clueIndex,
     seconds,
-    hintsUsed,
     updatedAt: Date.now(),
   });
   const finished = useRef(false);
@@ -177,7 +181,7 @@ export function GameScreen({
   useEffect(() => {
     if (!solved) return;
     let active = true;
-    void onCompleted({ seconds, hintsUsed, revealed }).then((result) => {
+    void onCompleted({ seconds, cluesUsed: cluesSeen.size, revealed }).then((result) => {
       if (active) setImprovement(result);
     });
     return () => {
@@ -193,7 +197,7 @@ export function GameScreen({
     if (solved) return;
     const timer = setTimeout(() => onSaveProgress(snapshot.current()), 600);
     return () => clearTimeout(timer);
-  }, [marks, crossedOut, hintsUsed, solved, onSaveProgress]);
+  }, [marks, cluesSeen, clueIndex, solved, onSaveProgress]);
 
   // Backgrounding the app and leaving the screen both save immediately.
   useEffect(() => {
@@ -291,35 +295,42 @@ export function GameScreen({
   }, [boardOptions, flash, history, puzzle]);
 
   /**
-   * Checks the board before it helps: a hint on top of a mark that contradicts
-   * the answer would be advice towards a solution the player can no longer
-   * reach, so say so instead and offer to wind it back.
+   * Puts the next clue on the table.
+   *
+   * The board is checked first: a clue read on top of a mark that contradicts
+   * the answer is a clue spent on a puzzle the player can no longer solve, so
+   * say so and offer to wind it back instead of handing one over.
+   *
+   * The clue that comes up is the next one with something left to say, wrapping
+   * round to the start — so a clue passed over early comes back later, once the
+   * board has enough on it for the clue to bite.
    */
-  const hint = useCallback(() => {
+  const showNextClue = useCallback(() => {
     if (wrong.length > 0) {
       feedback.warn();
       setMistakes(new Set(wrong));
       setFlagged(true);
       // The marks are on the board, so that is where the answer is.
       setTab('grid');
-      flash('A hint cannot help from here — the answer is out of reach.');
+      flash('A clue cannot help from here — the answer is out of reach.');
       return;
     }
     setFlagged(false);
 
-    const cell = findHint(marks, puzzle, (max) => Math.floor(Math.random() * max));
-    if (!cell) {
-      flash('Nothing left to reveal.');
+    const index = nextClue(clueIndex, spent, puzzle.clues.length);
+    if (index === null) {
+      flash('Every clue is used up — the rest is on the board.');
       return;
     }
     feedback.tap();
-    setHintsUsed((count) => count + 1);
     setTab('grid');
-    move((current) => setMark(current, cell, 'yes', boardOptions));
-    flash(
-      `Hint: ${puzzle.categories[cell.c1].items[cell.i1].label} goes with ${puzzle.categories[cell.c2].items[cell.i2].label}.`,
-    );
-  }, [boardOptions, flash, marks, move, puzzle, wrong]);
+    if (index === clueIndex) {
+      flash('That is the only clue with anything left to say.');
+      return;
+    }
+    setClueIndex(index);
+    setCluesSeen((seen) => (seen.has(index) ? seen : new Set(seen).add(index)));
+  }, [clueIndex, flash, puzzle.clues.length, spent, wrong]);
 
   const restart = useCallback(() => {
     feedback.tap();
@@ -328,9 +339,9 @@ export function GameScreen({
     setHistory([]);
     setMistakes(new Set());
     setFlagged(false);
-    setCrossedOut(new Set());
-    setFocusedClue(null);
-    setHintsUsed(0);
+    setClueIndex(null);
+    setCluesSeen(new Set());
+    setLit(false);
     setRevealed(false);
     setTab('grid');
     flash('Restarted — same puzzle, fresh board and clock.');
@@ -343,26 +354,7 @@ export function GameScreen({
     move(() => solvedMarks(puzzle));
   }, [move, puzzle]);
 
-  const toggleClue = useCallback((index: number) => {
-    setCrossedOut((current) => {
-      const next = new Set(current);
-      if (next.has(index)) next.delete(index);
-      else next.add(index);
-      return next;
-    });
-  }, []);
-
-  // Holding a clue lights up its rows and columns, which are on the other tab —
-  // so the hold takes the player there, and the clue rides along in the strip
-  // under the board.
-  const focusClue = useCallback((index: number) => {
-    feedback.tap();
-    setFocusedClue((current) => (current === index ? null : index));
-    setTab('grid');
-  }, []);
-
   const gridsShown = (puzzle.categories.length * (puzzle.categories.length - 1)) / 2;
-  const cluesLeft = puzzle.clues.length - crossedOut.size;
 
   if (menuOpen) {
     return (
@@ -407,7 +399,7 @@ export function GameScreen({
             {puzzle.themeEmoji} {puzzle.themeName}
           </Text>
           <Text style={styles.headerSubtitle} numberOfLines={1}>
-            {puzzle.size.label} · {puzzle.clues.length} clues · #{puzzle.seed}
+            {puzzle.size.label} · {cluesSeen.size} of {puzzle.clues.length} clues · #{puzzle.seed}
           </Text>
         </View>
         <Text style={[styles.timer, { color: puzzle.accent }]}>{formatDuration(seconds)}</Text>
@@ -422,29 +414,22 @@ export function GameScreen({
         />
       </View>
 
-      <View style={styles.tabs}>
-        <TabButton
-          label="Grid"
-          accent={puzzle.accent}
-          selected={tab === 'grid'}
-          onPress={() => setTab('grid')}
-        />
-        <TabButton
-          label="Clues"
-          count={cluesLeft}
-          accent={puzzle.accent}
-          selected={tab === 'clues'}
-          onPress={() => setTab('clues')}
-        />
-        {solved ? (
+      {solved ? (
+        <View style={styles.tabs}>
+          <TabButton
+            label="Grid"
+            accent={puzzle.accent}
+            selected={tab === 'grid'}
+            onPress={() => setTab('grid')}
+          />
           <TabButton
             label={revealed ? 'Revealed' : 'Solved'}
             accent={puzzle.accent}
             selected={tab === 'result'}
             onPress={() => setTab('result')}
           />
-        ) : null}
-      </View>
+        </View>
+      ) : null}
 
       <View style={styles.tabBody}>
         {tab === 'grid' ? (
@@ -488,51 +473,18 @@ export function GameScreen({
               </ScrollView>
             </View>
 
-            {focusedClue === null ? (
-              <Text style={styles.cardHint}>
-                {solved
-                  ? 'The finished board · Restart to play this puzzle again'
-                  : 'Tap a square to cycle blank → ✕ → ✓'}
-              </Text>
-            ) : (
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel="Stop lighting up this clue"
-                onPress={() => setFocusedClue(null)}
-                style={[styles.focusStrip, { borderColor: tint(puzzle.accent, 0.35) }]}
-              >
-                <Text style={styles.focusText} numberOfLines={2}>
-                  {describeClue(puzzle.clues[focusedClue], puzzle)}
-                </Text>
-                <Text style={[styles.focusClear, { color: puzzle.accent }]}>✕</Text>
-              </Pressable>
-            )}
-          </View>
-        ) : tab === 'clues' ? (
-          <View style={styles.fill}>
-            <Text style={styles.cardTitle}>Clues</Text>
-            <Text style={styles.cardSubtitle}>
-              Tap to cross one off · hold to light it up on the grid
+            <Text style={styles.cardHint}>
+              {solved
+                ? 'The finished board · Restart to play this puzzle again'
+                : 'Tap a square to cycle blank → ✕ → ✓'}
             </Text>
-            <ScrollView
-              style={styles.fill}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={styles.clueScroll}
-            >
-              <ClueList
-                puzzle={puzzle}
-                crossedOut={crossedOut}
-                onToggle={toggleClue}
-                onFocus={focusClue}
-              />
-            </ScrollView>
           </View>
         ) : (
           <SolvedPanel
             title={revealed ? 'Revealed' : 'Solved!'}
             puzzle={puzzle}
             seconds={seconds}
-            hintsUsed={hintsUsed}
+            cluesUsed={cluesSeen.size}
             improvement={improvement}
             onPlayAgain={onNewPuzzle}
             onChangeSetup={onExit}
@@ -542,6 +494,23 @@ export function GameScreen({
       </View>
 
       <View style={[styles.footer, { paddingBottom: insets.bottom + space(2) }]}>
+        {/* The clue in play sits between the board and the buttons that work
+            it: read it, mark what it says, take the next one. */}
+        {solved ? null : (
+          <ClueCard
+            puzzle={puzzle}
+            index={clueIndex}
+            used={cluesSeen.size}
+            done={clueIndex !== null && spent.has(clueIndex)}
+            lit={lit}
+            onPress={() => {
+              feedback.tap();
+              setLit((on) => !on);
+              setTab('grid');
+            }}
+          />
+        )}
+
         <Text style={styles.status} numberOfLines={2}>
           {status ?? ''}
         </Text>
@@ -570,7 +539,13 @@ export function GameScreen({
               disabled={history.length === 0}
               onPress={undo}
             />
-            <ToolButton label="Hint" icon="💡" joined accent={puzzle.accent} onPress={hint} />
+            <ToolButton
+              label="Get next clue"
+              icon="💡"
+              joined
+              accent={puzzle.accent}
+              onPress={showNextClue}
+            />
           </View>
         )}
 
@@ -586,14 +561,11 @@ export function GameScreen({
 
 function TabButton({
   label,
-  count,
   accent,
   selected,
   onPress,
 }: {
   label: string;
-  /** Shown as a pill beside the label — the clues still to be used. */
-  count?: number;
   accent: string;
   selected: boolean;
   onPress: () => void;
@@ -603,7 +575,7 @@ function TabButton({
   return (
     <Pressable
       accessibilityRole="tab"
-      accessibilityLabel={count === undefined ? label : `${label}, ${count} left`}
+      accessibilityLabel={label}
       accessibilityState={{ selected }}
       onPress={onPress}
       style={({ pressed }) => [
@@ -613,21 +585,6 @@ function TabButton({
       ]}
     >
       <Text style={[styles.tabLabel, { color: selected ? accent : palette.inkSoft }]}>{label}</Text>
-      {count === undefined ? null : (
-        <View
-          style={[
-            styles.tabCount,
-            {
-              backgroundColor: selected ? tint(accent, 0.12) : palette.surfaceAlt,
-              borderColor: selected ? tint(accent, 0.35) : palette.line,
-            },
-          ]}
-        >
-          <Text style={[styles.tabCountText, { color: selected ? accent : palette.inkFaint }]}>
-            {count}
-          </Text>
-        </View>
-      )}
     </Pressable>
   );
 }
@@ -782,18 +739,6 @@ const makeStyles = (palette: Palette) =>
       fontSize: 15,
       fontWeight: '700',
     },
-    tabCount: {
-      minWidth: 22,
-      paddingHorizontal: space(1.5),
-      paddingVertical: 1,
-      borderRadius: radius.pill,
-      borderWidth: 1,
-      alignItems: 'center',
-    },
-    tabCountText: {
-      fontSize: 11,
-      fontWeight: '700',
-    },
     tabBody: {
       flex: 1,
       paddingHorizontal: space(4),
@@ -804,9 +749,6 @@ const makeStyles = (palette: Palette) =>
       alignItems: 'center',
       justifyContent: 'space-between',
       marginBottom: space(3),
-    },
-    clueScroll: {
-      paddingBottom: space(1),
     },
     boardScroll: {
       // Centred, so a board that fits sits in the middle of the space rather
@@ -836,38 +778,11 @@ const makeStyles = (palette: Palette) =>
       fontWeight: '700',
       color: palette.ink,
     },
-    cardSubtitle: {
-      fontSize: 12,
-      color: palette.inkFaint,
-      marginTop: space(0.5),
-      marginBottom: space(2),
-    },
     cardHint: {
       fontSize: 11,
       color: palette.inkFaint,
       marginTop: space(2),
       textAlign: 'center',
-    },
-    focusStrip: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: space(2),
-      marginTop: space(2),
-      paddingVertical: space(2),
-      paddingHorizontal: space(3),
-      borderWidth: 1,
-      borderRadius: radius.sm,
-      backgroundColor: palette.surfaceAlt,
-    },
-    focusText: {
-      flex: 1,
-      fontSize: 12,
-      lineHeight: 16,
-      color: palette.inkSoft,
-    },
-    focusClear: {
-      fontSize: 13,
-      fontWeight: '700',
     },
     footer: {
       paddingHorizontal: space(4),
@@ -934,16 +849,5 @@ const makeStyles = (palette: Palette) =>
       color: palette.inkSoft,
       paddingVertical: space(1),
       paddingRight: space(4),
-    },
-    link: {
-      fontSize: 13,
-      fontWeight: '600',
-      color: palette.inkSoft,
-    },
-    linkMuted: {
-      color: palette.inkFaint,
-    },
-    linkDivider: {
-      color: palette.inkFaint,
     },
   });

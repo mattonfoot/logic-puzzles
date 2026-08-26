@@ -6,7 +6,6 @@ import {
   categoryPairs,
   cellFromKey,
   clearMistakes,
-  findHint,
   findMistakes,
   getEntry,
   getMark,
@@ -194,18 +193,6 @@ describe('board state', () => {
     const marks = { ...solution, [wrong]: byHand('yes') };
     expect(findMistakes(marks, puzzle)).toContain(wrong);
     expect(isSolved(marks, puzzle)).toBe(false);
-  });
-
-  it('hints only at pairings that are actually true', () => {
-    let marks: Marks = {};
-    let guard = 0;
-    while (!isSolved(marks, puzzle) && guard++ < 200) {
-      const cell = findHint(marks, puzzle, () => 0);
-      expect(cell).not.toBeNull();
-      marks = setMark(marks, cell!, 'yes', options);
-    }
-    expect(isSolved(marks, puzzle)).toBe(true);
-    expect(findHint(marks, puzzle, () => 0)).toBeNull();
   });
 
   it('lists one grid per pair of categories', () => {

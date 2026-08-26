@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { reviveSettings, type Settings } from '../game/settings';
 import {
   EMPTY_HISTORY,
-  isHistory,
+  reviveHistory,
   reviveSavedGame,
   type History,
   type SavedGame,
@@ -56,7 +56,7 @@ export const storage = {
   clearSavedGame: () => removeKey(KEYS.savedGame),
 
   loadHistory: async (): Promise<History> =>
-    (await readJson(KEYS.history, (value) => (isHistory(value) ? value : null))) ?? EMPTY_HISTORY,
+    (await readJson(KEYS.history, reviveHistory)) ?? EMPTY_HISTORY,
   saveHistory: (history: History) => writeJson(KEYS.history, history),
   clearHistory: () => removeKey(KEYS.history),
 

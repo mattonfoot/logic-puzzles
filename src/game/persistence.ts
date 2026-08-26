@@ -18,10 +18,11 @@ export interface SavedGame {
   version: number;
   puzzle: Puzzle;
   marks: Marks;
-  /** Indices of the clues the player has crossed off. */
-  crossedOut: number[];
+  /** Indices of the clues the player has asked to see. */
+  cluesSeen: number[];
+  /** The clue on the table when they left, if any. */
+  clueIndex: number | null;
   seconds: number;
-  hintsUsed: number;
   updatedAt: number;
 }
 
@@ -35,7 +36,9 @@ export interface CompletedGame {
   sizeId: string;
   sizeLabel: string;
   seconds: number;
-  hintsUsed: number;
+  /** Clues read before it was finished; null for games played before we counted. */
+  cluesUsed: number | null;
+  /** How many clues the puzzle had to offer. */
   clueCount: number;
   /** True when the player pressed "reveal" instead of solving it. */
   revealed: boolean;
@@ -94,8 +97,9 @@ export function isSavedGame(value: unknown): value is SavedGame {
   if (!isObject(value) || value.version !== SAVE_VERSION) return false;
   if (!isPuzzle(value.puzzle)) return false;
   if (!isObject(value.marks)) return false;
-  if (!Array.isArray(value.crossedOut)) return false;
-  return typeof value.seconds === 'number' && typeof value.hintsUsed === 'number';
+  if (!Array.isArray(value.cluesSeen)) return false;
+  if (value.clueIndex !== null && typeof value.clueIndex !== 'number') return false;
+  return typeof value.seconds === 'number';
 }
 
 function isCompletedGame(value: unknown): value is CompletedGame {
@@ -114,14 +118,51 @@ export function isHistory(value: unknown): value is History {
   return Array.isArray(value.games) && value.games.every(isCompletedGame);
 }
 
-/** Reads a saved game back, migrating the parts that have moved on. */
+/**
+ * Reads the finished games back.
+ *
+ * Games played before the clue table counted hints instead, which is a
+ * different thing entirely — those are recorded as having no clue count rather
+ * than being read as one, so the averages are drawn from games that were
+ * actually measured. Everything else about them still stands.
+ */
+export function reviveHistory(value: unknown): History | null {
+  if (!isHistory(value)) return null;
+  return {
+    version: value.version,
+    games: value.games.map((game) => ({
+      ...game,
+      cluesUsed: typeof game.cluesUsed === 'number' ? game.cluesUsed : null,
+      clueCount: typeof game.clueCount === 'number' ? game.clueCount : 0,
+    })),
+  };
+}
+
+/**
+ * Reads a saved game back, migrating the parts that have moved on.
+ *
+ * A save from before the clue table kept a list of clues the player had crossed
+ * off by hand and a count of hints; those crossed-off clues are the ones they
+ * had read, so they come across as the clues seen and the hint count is
+ * dropped. Nothing about the board itself changed, so the game resumes.
+ */
 export function reviveSavedGame(value: unknown): SavedGame | null {
   if (!isObject(value)) return null;
 
   const marks = reviveMarks(value.marks);
   if (!marks) return null;
 
-  const migrated = { ...value, marks };
+  const seen = Array.isArray(value.cluesSeen)
+    ? value.cluesSeen
+    : Array.isArray(value.crossedOut)
+      ? value.crossedOut
+      : [];
+  const migrated = {
+    ...value,
+    marks,
+    cluesSeen: seen.filter((index: unknown) => typeof index === 'number'),
+    clueIndex: typeof value.clueIndex === 'number' ? value.clueIndex : null,
+  };
   return isSavedGame(migrated) ? migrated : null;
 }
 
@@ -135,7 +176,7 @@ export function appendGame(history: History, game: CompletedGame, limit = HISTOR
 
 interface CompletionInput {
   seconds: number;
-  hintsUsed: number;
+  cluesUsed: number;
   revealed: boolean;
   finishedAt: number;
 }
@@ -150,7 +191,7 @@ export function completedGameFrom(puzzle: Puzzle, input: CompletionInput): Compl
     sizeId: puzzle.size.id,
     sizeLabel: puzzle.size.label,
     seconds: Math.max(0, Math.round(input.seconds)),
-    hintsUsed: input.hintsUsed,
+    cluesUsed: input.cluesUsed,
     clueCount: puzzle.clues.length,
     revealed: input.revealed,
     finishedAt: input.finishedAt,

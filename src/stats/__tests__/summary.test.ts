@@ -19,7 +19,7 @@ function game(overrides: Partial<CompletedGame> = {}): CompletedGame {
     sizeId: 'sm',
     sizeLabel: '4 × 4',
     seconds: 120,
-    hintsUsed: 0,
+    cluesUsed: 4,
     clueCount: 10,
     revealed: false,
     finishedAt: NOON,
@@ -84,19 +84,20 @@ describe('statsForSize', () => {
 });
 
 describe('summarise', () => {
-  it('counts solves, reveals, hints and themes', () => {
+  it('counts solves, reveals, clues and themes', () => {
     const games = newestFirst(
-      game({ seconds: 100, hintsUsed: 2 }),
-      game({ seconds: 150, themeId: 'reef' }),
-      game({ seconds: 10, revealed: true }),
+      game({ seconds: 100, cluesUsed: 2 }),
+      game({ seconds: 150, themeId: 'reef', cluesUsed: 6 }),
+      game({ seconds: 10, revealed: true, cluesUsed: 9 }),
     );
     const stats = summarise(games, SIZES, NOON);
 
     expect(stats.solved).toBe(2);
     expect(stats.revealed).toBe(1);
     expect(stats.totalSeconds).toBe(250);
-    expect(stats.hintsUsed).toBe(2);
-    expect(stats.noHintSolves).toBe(1);
+    // The revealed game is left out of both, as it is out of the times.
+    expect(stats.cluesUsed).toBe(8);
+    expect(stats.averageClues).toBe(4);
     expect(stats.themesPlayed).toBe(2);
     expect(stats.sizes.map((size) => size.sizeId)).toEqual(['sm', 'md']);
   });
@@ -162,15 +163,16 @@ describe('improvementFor', () => {
 
   it('is matter-of-fact about a slower game', () => {
     const previous = [game({ seconds: 100 })];
-    const result = improvementFor(game({ seconds: 160, hintsUsed: 3 }), previous);
+    const result = improvementFor(game({ seconds: 160, cluesUsed: 3 }), previous);
 
     expect(result.kind).toBe('steady');
     expect(result.detail).toContain('1:00 off your best');
-    expect(result.detail).not.toContain('no hints');
+    expect(result.detail).toContain('3 of 10 clues read');
   });
 
-  it('notes a hint-free solve', () => {
-    expect(improvementFor(game({ seconds: 90 }), []).detail).toContain('no hints');
+  it('says nothing about clues for a game played before they were counted', () => {
+    const detail = improvementFor(game({ seconds: 90, cluesUsed: null }), []).detail;
+    expect(detail).not.toContain('clues');
   });
 
   it('keeps revealed puzzles out of the comparison', () => {

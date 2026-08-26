@@ -83,8 +83,12 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
               />
             </View>
             <View style={styles.tileRow}>
-              <Tile label="No-hint wins" value={`${stats.noHintSolves}`} />
-              <Tile label="Hints used" value={`${stats.hintsUsed}`} />
+              <Tile label="Clues read" value={`${stats.cluesUsed}`} />
+              <Tile
+                label="Per puzzle"
+                value={stats.averageClues === null ? '—' : stats.averageClues.toFixed(1)}
+                hint="clues"
+              />
               <Tile label="Themes" value={`${stats.themesPlayed}/${THEMES.length}`} />
             </View>
           </View>
@@ -183,9 +187,9 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
                       day: 'numeric',
                       month: 'short',
                     })}
-                    {game.hintsUsed > 0
-                      ? ` · ${game.hintsUsed} hint${game.hintsUsed === 1 ? '' : 's'}`
-                      : ' · no hints'}
+                    {game.cluesUsed === null
+                      ? ''
+                      : ` · ${game.cluesUsed} of ${game.clueCount} clues`}
                   </Text>
                 </View>
                 <Text style={[styles.gameTime, game.revealed && styles.gameTimeMuted]}>

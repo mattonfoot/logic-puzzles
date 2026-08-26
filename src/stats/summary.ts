@@ -26,7 +26,8 @@ export interface SizeStats {
   earlierAverage: number | null;
   /** Fraction faster than the earlier window; positive means improving. */
   trend: number | null;
-  noHintSolves: number;
+  /** Mean clues read per solve, over the solves that recorded it. */
+  averageClues: number | null;
   lastPlayedAt: number | null;
   /** Solve times oldest → newest, for the trend chart. */
   times: number[];
@@ -36,8 +37,10 @@ export interface OverallStats {
   solved: number;
   revealed: number;
   totalSeconds: number;
-  hintsUsed: number;
-  noHintSolves: number;
+  /** Clues read across every solve that recorded them. */
+  cluesUsed: number;
+  /** Mean clues read per solve, over the solves that recorded it. */
+  averageClues: number | null;
   themesPlayed: number;
   currentStreak: number;
   longestStreak: number;
@@ -48,6 +51,15 @@ export interface OverallStats {
 
 const mean = (values: number[]): number | null =>
   values.length === 0 ? null : values.reduce((total, value) => total + value, 0) / values.length;
+
+/**
+ * The clue counts of the games that have one.
+ *
+ * Games finished before the clue table was counted store `null`, and averaging
+ * those in as zero would flatter the player; they are left out instead.
+ */
+const clueCounts = (games: CompletedGame[]): number[] =>
+  games.map((game) => game.cluesUsed).filter((used): used is number => used !== null);
 
 /** Local calendar day, so streaks line up with the player's own days. */
 function dayNumber(timestamp: number): number {
@@ -111,7 +123,7 @@ export function statsForSize(
       earlierWindow.length >= MIN_EARLIER
         ? (earlierAverage - recentAverage) / earlierAverage
         : null,
-    noHintSolves: solved.filter((game) => game.hintsUsed === 0).length,
+    averageClues: mean(clueCounts(solved)),
     lastPlayedAt: solved.length === 0 ? null : Math.max(...solved.map((g) => g.finishedAt)),
     times,
   };
@@ -129,8 +141,8 @@ export function summarise(
     solved: solvedGames.length,
     revealed: games.length - solvedGames.length,
     totalSeconds: solvedGames.reduce((total, game) => total + game.seconds, 0),
-    hintsUsed: solvedGames.reduce((total, game) => total + game.hintsUsed, 0),
-    noHintSolves: solvedGames.filter((game) => game.hintsUsed === 0).length,
+    cluesUsed: clueCounts(solvedGames).reduce((total, used) => total + used, 0),
+    averageClues: mean(clueCounts(solvedGames)),
     themesPlayed: new Set(solvedGames.map((game) => game.themeId)).size,
     currentStreak: current,
     longestStreak: longest,
@@ -165,7 +177,8 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   const previousBest = times.length === 0 ? null : Math.min(...times);
   const averageBefore = mean(times);
   const rank = times.filter((time) => time < game.seconds).length + 1;
-  const noHints = game.hintsUsed === 0 ? ' · solved with no hints' : '';
+  const clues =
+    game.cluesUsed === null ? '' : ` · ${game.cluesUsed} of ${game.clueCount} clues read`;
 
   if (game.revealed) {
     return {
@@ -183,7 +196,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
     return {
       kind: 'first',
       headline: `First ${game.sizeLabel} in the books`,
-      detail: `Time to beat next round: ${formatDuration(game.seconds)}${noHints}.`,
+      detail: `Time to beat next round: ${formatDuration(game.seconds)}${clues}.`,
       previousBest,
       averageBefore,
       rank: 1,
@@ -195,7 +208,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
     return {
       kind: 'best',
       headline: `New ${game.sizeLabel} best!`,
-      detail: `${formatDuration(previousBest - game.seconds)} faster than your old best of ${formatDuration(previousBest)}${noHints}.`,
+      detail: `${formatDuration(previousBest - game.seconds)} faster than your old best of ${formatDuration(previousBest)}${clues}.`,
       previousBest,
       averageBefore,
       rank: 1,
@@ -208,7 +221,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
     return {
       kind: 'faster',
       headline: `${percent(share)} faster than your ${game.sizeLabel} average`,
-      detail: `#${rank} of ${earlier.length + 1} · best is ${formatDuration(previousBest)}${noHints}.`,
+      detail: `#${rank} of ${earlier.length + 1} · best is ${formatDuration(previousBest)}${clues}.`,
       previousBest,
       averageBefore,
       rank,
@@ -219,7 +232,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   return {
     kind: 'steady',
     headline: `${game.sizeLabel} complete`,
-    detail: `${formatDuration(game.seconds - previousBest)} off your best of ${formatDuration(previousBest)}${noHints}.`,
+    detail: `${formatDuration(game.seconds - previousBest)} off your best of ${formatDuration(previousBest)}${clues}.`,
     previousBest,
     averageBefore,
     rank,

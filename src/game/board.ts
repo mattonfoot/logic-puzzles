@@ -286,19 +286,6 @@ export function progress(marks: Marks, puzzle: Puzzle): number {
   return total === 0 ? 0 : done / total;
 }
 
-/** A true pairing the player has not found yet, for the hint button. */
-export function findHint(marks: Marks, puzzle: Puzzle, roll: (max: number) => number): Cell | null {
-  const options: Cell[] = [];
-  for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
-    for (let i1 = 0; i1 < puzzle.size.items; i1++) {
-      const cell = { c1, i1, c2, i2: correctItem(puzzle, c1, i1, c2) };
-      if (getMark(marks, cell) !== 'yes') options.push(cell);
-    }
-  }
-  if (options.length === 0) return null;
-  return options[roll(options.length)];
-}
-
 /** The finished board, as though the player had marked every square. */
 export function solvedMarks(puzzle: Puzzle): Marks {
   const marks: Marks = {};
