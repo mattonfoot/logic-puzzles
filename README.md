@@ -50,6 +50,39 @@ throw away the bundler's cache.
 For a standalone build, use EAS (`npx eas build -p ios`); the bundle identifier
 is set in `app.json` and should be changed to your own before building.
 
+## Dependencies
+
+**The Expo SDK decides the versions, not npm.** Everything with a native side —
+React, React Native, and the `expo-*`, `react-native-*` and AsyncStorage
+packages — is pinned to what the SDK in use was built and tested against, which
+is often behind what npm calls latest. The list lives in
+`node_modules/expo/bundledNativeModules.json`, and `npx expo install --check`
+compares the manifest with it. Upgrading one of those on its own is how a
+managed app ends up with a JS package its native build does not match; they move
+together, when the SDK does.
+
+Two more that are held back on purpose:
+
+- **jest 29.** `jest-expo` 57 is built on jest 29 — its dependencies name
+  `babel-jest`, `jest-environment-jsdom` and `jest-snapshot` at `^29`, and
+  running the 30 runner over them mixes two versions of jest in one process.
+  It goes up when `jest-expo` does, and `@types/jest` follows it.
+- **`react` and `react-dom` at an exact 19.2.3**, the pair the SDK ships and
+  `react-test-renderer` is pinned to. A patch on one side only is the version
+  skew React warns about, so neither carries a range.
+
+Everything without a native side — TypeScript, Prettier, Playwright — tracks
+latest.
+
+### Security
+
+`npm audit` is clean apart from one advisory that has no fix published:
+
+| | |
+|---|---|
+| **uuid** (moderate, `<11.1.1`) | Fixed with an `overrides` entry in `package.json`. It arrives under `xcode`, which asks for `^7` and is four levels below anything this repo depends on directly, so an override is the only way to move it. `xcode` uses `uuid.v4()` to number the entries of a generated Xcode project, which the named exports of 14.x still cover. |
+| **image-size** (high, DoS in the ICNS, JXL and HEIF parsers) | No patched version exists — the advisory covers every release up to and including the current one. It comes in under Metro, which reads the dimensions of the images in `assets/` while bundling: build-time only, never shipped in the app, and the only images it is ever handed are the ones in this repository. Nothing to do but wait for a release; there is no override that fixes it, and forcing the 2.x major on Metro would break asset handling without clearing the advisory. |
+
 ## Screens
 
 Captured from the real build at iPhone proportions. **Regenerate these whenever
