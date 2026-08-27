@@ -183,12 +183,15 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           <SetupScreen
             busy={busy}
             stats={persistence.stats}
+            savedGame={persistence.savedGame}
             onStart={(chosen) => {
               // Remembered so "new puzzle" from inside the game keeps the shape.
               setSize(chosen);
               build(chosen);
             }}
             onSurpriseMe={surpriseMe}
+            onResume={resume}
+            onDiscardSaved={persistence.discardSavedGame}
             onBack={() => setScreen('start')}
           />
         ) : screen === 'settings' ? (
@@ -206,13 +209,11 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           />
         ) : (
           <StartScreen
-            savedGame={persistence.savedGame}
+            hasSavedGame={persistence.savedGame !== null}
             stats={persistence.stats}
             onPlay={() => setScreen('setup')}
             onOpenSettings={() => setScreen('settings')}
             onOpenStats={() => setScreen('stats')}
-            onResume={resume}
-            onDiscardSaved={persistence.discardSavedGame}
           />
         )}
       </View>

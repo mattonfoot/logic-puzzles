@@ -1,48 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { AppButton } from '../components/AppButton';
-import { ConfirmDialog } from '../components/ConfirmDialog';
-import { progress } from '../game/board';
-import type { SavedGame } from '../game/persistence';
-import { formatDuration } from '../game/time';
 import type { OverallStats } from '../stats/summary';
 import { feedback } from '../ui/feedback';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { border, shadow, space, tint, type Palette } from '../ui/theme';
+import { border, shadow, space, type Palette } from '../ui/theme';
 
 interface Props {
-  /** An unfinished game waiting to be picked back up, if there is one. */
-  savedGame: SavedGame | null;
+  /** Whether a game is waiting to be picked back up, which Play leads to. */
+  hasSavedGame: boolean;
   stats: OverallStats;
   onPlay: () => void;
   onOpenSettings: () => void;
   onOpenStats: () => void;
-  onResume: () => void;
-  onDiscardSaved: () => void;
 }
 
 /**
- * The front door: the three places the app goes, and the game left in progress
- * if there is one. Choosing what to play is a screen of its own, so this one
- * has nothing to decide.
+ * The front door: the three places the app goes. What to play is a screen of
+ * its own, and the game left in progress waits there too — behind the same
+ * Play — so this one has nothing to decide.
  */
-export function StartScreen({
-  savedGame,
-  stats,
-  onPlay,
-  onOpenSettings,
-  onOpenStats,
-  onResume,
-  onDiscardSaved,
-}: Props) {
+export function StartScreen({ hasSavedGame, stats, onPlay, onOpenSettings, onOpenStats }: Props) {
   const insets = useSafeAreaInsets();
-  const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const [confirmingDiscard, setConfirmingDiscard] = useState(false);
-  const savedProgress = savedGame ? progress(savedGame.marks, savedGame.puzzle) : 0;
 
   return (
     <View style={styles.screen}>
@@ -60,49 +42,14 @@ export function StartScreen({
           deduction — no guessing.
         </Text>
 
-        {savedGame ? (
-          <View
-            style={[
-              styles.resumeCard,
-              shadow.card,
-              {
-                borderColor: savedGame.puzzle.accent,
-                backgroundColor: tint(savedGame.puzzle.accent, 0.08),
-              },
-            ]}
-          >
-            <Text style={styles.resumeLabel}>Puzzle in progress</Text>
-            <Text style={styles.resumeTitle}>
-              {savedGame.puzzle.themeEmoji} {savedGame.puzzle.themeName} ·{' '}
-              {savedGame.puzzle.size.label}
-            </Text>
-            <Text style={styles.resumeMeta}>
-              {Math.round(savedProgress * 100)}% filled in · {formatDuration(savedGame.seconds)} on
-              the clock
-            </Text>
-            <View style={styles.resumeButtons}>
-              <AppButton
-                label="Resume"
-                icon="▶"
-                accent={savedGame.puzzle.accent}
-                onPress={onResume}
-                style={styles.resumeButton}
-              />
-              <AppButton
-                label="Discard"
-                variant="ghost"
-                accent={palette.inkSoft}
-                onPress={() => setConfirmingDiscard(true)}
-                style={styles.resumeButton}
-              />
-            </View>
-          </View>
-        ) : null}
-
         <View style={styles.links}>
           <StartLink
             label="Play"
-            note="Pick a size and start a new puzzle"
+            note={
+              hasSavedGame
+                ? 'Pick your game back up, or start a new one'
+                : 'Pick a difficulty and start a puzzle'
+            }
             icon="▶"
             onPress={onPlay}
           />
@@ -126,18 +73,6 @@ export function StartScreen({
           />
         </View>
       </ScrollView>
-
-      <ConfirmDialog
-        visible={confirmingDiscard}
-        title="Discard the saved puzzle?"
-        message="Your progress on it will be lost."
-        confirmLabel="Discard it"
-        onConfirm={() => {
-          setConfirmingDiscard(false);
-          onDiscardSaved();
-        }}
-        onCancel={() => setConfirmingDiscard(false)}
-      />
     </View>
   );
 }
@@ -203,37 +138,6 @@ const makeStyles = (palette: Palette) =>
       lineHeight: 22,
       color: palette.inkSoft,
       marginTop: space(2),
-    },
-    resumeCard: {
-      borderWidth: border,
-      padding: space(4),
-      marginTop: space(6),
-    },
-    resumeLabel: {
-      fontSize: 11,
-      fontWeight: '700',
-      letterSpacing: 1,
-      textTransform: 'uppercase',
-      color: palette.inkFaint,
-    },
-    resumeTitle: {
-      fontSize: 17,
-      fontWeight: '700',
-      color: palette.ink,
-      marginTop: space(1.5),
-    },
-    resumeMeta: {
-      fontSize: 13,
-      color: palette.inkSoft,
-      marginTop: space(1),
-    },
-    resumeButtons: {
-      flexDirection: 'row',
-      gap: space(2),
-      marginTop: space(3),
-    },
-    resumeButton: {
-      flex: 1,
     },
     links: {
       marginTop: space(6),

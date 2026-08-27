@@ -92,10 +92,10 @@ images in the same commit.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — play, settings, statistics, and the game left in progress. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the difficulty is the only choice, and picking one starts the puzzle. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
+| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the three places the app goes, and nothing to decide. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the game in progress, then the difficulties; picking one starts a puzzle. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
 | <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Menu** — behind the burger: the board settings, restart, and revealing the answer. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
 | <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, clues read, how it compares, the answer table. |
-| <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item label"><br>**10. Item card** — tap any label to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Start page in night colours"><br>**12. Night** — the same start page in night colours, with a game waiting to be resumed. |
+| <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item label"><br>**10. Item card** — tap any label to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Setup screen in night colours"><br>**12. Night** — the setup screen in night colours, with a game waiting to be resumed. |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -103,9 +103,10 @@ rest is the app behaving normally.
 
 ## How you play
 
-1. **Start** — three links: **Play**, **Settings** and **Statistics**, plus the
-   game you left in progress if there is one. Play opens the setup screen; pick
-   a difficulty and the puzzle starts — there is nothing else to decide, so
+1. **Start** — three links: **Play**, **Settings** and **Statistics**. Play
+   opens the setup screen, which is where a game you left in progress waits:
+   **Resume** picks it up with the clock where it stopped, **Discard** throws it
+   away, and below them the difficulties. Pick one and the puzzle starts — there is nothing else to decide, so
    there is nothing else to press. **Beginner** (3 × 3), **Advanced** (4 × 4),
    **Expert** (5 × 4), **Pro** (6 × 4), or **Surprise me!**, which rolls one of
    the four. The shape is what makes the difficulty: the first number is how
@@ -167,15 +168,15 @@ rest is the app behaving normally.
    which is hidden once the puzzle is finished. The `<<< back` link at the
    bottom left goes back one step, to the setup screen the puzzle was chosen on,
    so the next one is a tap away; the board is saved on the way out either way,
-   and the start page behind it offers to resume it.
+   and it is the first thing on that screen if you want it back.
 6. **Settings** — the board pair above; the colours: **night colours** for a
    warm near-black page, and **match the device** to follow the phone's own
    light and dark setting and turn with it; and **sound and feel**: how loud the
    effects are, or off, and whether the phone buzzes with them. They are written
    to disk, so they are the same the next time the app opens.
 7. **Come back later** — the board saves itself as you play, so closing the app
-   mid-puzzle costs nothing. The home screen offers to resume it, with the clock
-   picking up where it left off and the same puzzle in front of you.
+   mid-puzzle costs nothing. It is waiting on the setup screen when you come
+   back, with the clock where you left it and the same puzzle in front of you.
 8. **Statistics** — solved count, time played, day streak, clues read (in total
    and per puzzle), a table of best and average times by difficulty, a chart of
    recent solve times, and the list of recent games. Finishing a puzzle shows

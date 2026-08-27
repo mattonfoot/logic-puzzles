@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AppButton } from '../components/AppButton';
+import { ConfirmDialog } from '../components/ConfirmDialog';
 import { SIZES } from '../data/sizes';
+import { progress } from '../game/board';
+import type { SavedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
 import type { SizeOption } from '../puzzle/types';
 import type { OverallStats } from '../stats/summary';
@@ -15,9 +19,13 @@ import { border, shadow, space, tint, type Palette } from '../ui/theme';
 interface Props {
   busy: boolean;
   stats: OverallStats;
+  /** An unfinished game waiting to be picked back up, if there is one. */
+  savedGame: SavedGame | null;
   /** Picking a difficulty is starting the puzzle; there is nothing else to say. */
   onStart: (size: SizeOption) => void;
   onSurpriseMe: () => void;
+  onResume: () => void;
+  onDiscardSaved: () => void;
   onBack: () => void;
 }
 
@@ -25,11 +33,26 @@ interface Props {
  * What to play: how big the grid is, which is the only thing about a puzzle the
  * player chooses. Everything else — the theme, the cast, the answer — is drawn
  * when the game starts.
+ *
+ * The game already in progress sits at the top of the same screen, because this
+ * is where a player comes when they want to play something: leaving a puzzle
+ * lands here, and so does Play from the front door.
  */
-export function SetupScreen({ busy, stats, onStart, onSurpriseMe, onBack }: Props) {
+export function SetupScreen({
+  busy,
+  stats,
+  savedGame,
+  onStart,
+  onSurpriseMe,
+  onResume,
+  onDiscardSaved,
+  onBack,
+}: Props) {
   const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
+  const [confirmingDiscard, setConfirmingDiscard] = useState(false);
+  const savedProgress = savedGame ? progress(savedGame.marks, savedGame.puzzle) : 0;
 
   return (
     <View style={styles.screen}>
@@ -39,7 +62,46 @@ export function SetupScreen({ busy, stats, onStart, onSurpriseMe, onBack }: Prop
         contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + space(8) }]}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.sectionLabel}>Difficulty</Text>
+        {savedGame ? (
+          <View
+            style={[
+              styles.resumeCard,
+              shadow.card,
+              {
+                borderColor: savedGame.puzzle.accent,
+                backgroundColor: tint(savedGame.puzzle.accent, 0.08),
+              },
+            ]}
+          >
+            <Text style={styles.resumeLabel}>Puzzle in progress</Text>
+            <Text style={styles.resumeTitle}>
+              {savedGame.puzzle.themeEmoji} {savedGame.puzzle.themeName} ·{' '}
+              {savedGame.puzzle.size.label}
+            </Text>
+            <Text style={styles.resumeMeta}>
+              {Math.round(savedProgress * 100)}% filled in · {formatDuration(savedGame.seconds)} on
+              the clock
+            </Text>
+            <View style={styles.resumeButtons}>
+              <AppButton
+                label="Resume"
+                icon="▶"
+                accent={savedGame.puzzle.accent}
+                onPress={onResume}
+                style={styles.resumeButton}
+              />
+              <AppButton
+                label="Discard"
+                variant="ghost"
+                accent={palette.inkSoft}
+                onPress={() => setConfirmingDiscard(true)}
+                style={styles.resumeButton}
+              />
+            </View>
+          </View>
+        ) : null}
+
+        <Text style={styles.sectionLabel}>{savedGame ? 'Or start a new one' : 'Difficulty'}</Text>
         <View style={styles.sizeRow}>
           {SIZES.map((option) => {
             const played = stats.sizes.find((entry) => entry.sizeId === option.id);
@@ -71,6 +133,18 @@ export function SetupScreen({ busy, stats, onStart, onSurpriseMe, onBack }: Prop
           />
         </View>
       </ScrollView>
+
+      <ConfirmDialog
+        visible={confirmingDiscard}
+        title="Discard the saved puzzle?"
+        message="Your progress on it will be lost."
+        confirmLabel="Discard it"
+        onConfirm={() => {
+          setConfirmingDiscard(false);
+          onDiscardSaved();
+        }}
+        onCancel={() => setConfirmingDiscard(false)}
+      />
 
       {busy ? (
         // The generator runs on the JS thread; ActivityIndicator animates
@@ -146,6 +220,37 @@ const makeStyles = (palette: Palette) =>
     content: {
       paddingHorizontal: space(5),
       paddingTop: space(4),
+    },
+    resumeCard: {
+      borderWidth: border,
+      padding: space(4),
+      marginBottom: space(6),
+    },
+    resumeLabel: {
+      fontSize: 11,
+      fontWeight: '700',
+      letterSpacing: 1,
+      textTransform: 'uppercase',
+      color: palette.inkFaint,
+    },
+    resumeTitle: {
+      fontSize: 17,
+      fontWeight: '700',
+      color: palette.ink,
+      marginTop: space(1.5),
+    },
+    resumeMeta: {
+      fontSize: 13,
+      color: palette.inkSoft,
+      marginTop: space(1),
+    },
+    resumeButtons: {
+      flexDirection: 'row',
+      gap: space(2),
+      marginTop: space(3),
+    },
+    resumeButton: {
+      flex: 1,
     },
     sectionLabel: {
       fontSize: 11,
