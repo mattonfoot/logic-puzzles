@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { Puzzle } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
+import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, joinTop, space, tint, type Palette } from '../ui/theme';
@@ -33,9 +34,11 @@ interface Props {
  * goes to the setup screen, which is where a puzzle is chosen, so the menu would
  * only be offering a second door to the same room.
  *
- * The menu is a screen like any other, so it is left the same way: `◀ Back`
- * at the foot of it, rather than a cross in the corner the board uses for the
- * button that opened this.
+ * It is a screen like any other, so it names itself the same way — `RuledTitle`
+ * — and is left the same way: `◀ Back` at the foot of it, rather than a cross
+ * in the corner the board uses for the button that opened this. The puzzle it
+ * belongs to is named under the title, since these settings are read while a
+ * particular game is waiting behind them.
  */
 export function GameMenuScreen({
   puzzle,
@@ -58,18 +61,15 @@ export function GameMenuScreen({
 
   return (
     <View style={styles.screen}>
-      <View style={[styles.header, { paddingTop: insets.top + space(2) }]}>
-        <View style={styles.headerCenter}>
-          <Text style={styles.headerTitle} numberOfLines={1}>
-            Menu
-          </Text>
-          <Text style={styles.headerSubtitle} numberOfLines={1}>
-            {puzzle.themeName} · {puzzle.size.label} · #{puzzle.seed}
-          </Text>
-        </View>
-      </View>
+      <ScrollView
+        contentContainerStyle={[styles.content, { paddingTop: insets.top + space(5) }]}
+        showsVerticalScrollIndicator={false}
+      >
+        <RuledTitle>Puzzle settings</RuledTitle>
+        <Text style={styles.subtitle} numberOfLines={1}>
+          {puzzle.themeName} · {puzzle.size.label} · #{puzzle.seed}
+        </Text>
 
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <Text style={styles.sectionLabel}>Board</Text>
         <Setting
           label="Automatic crosses"
@@ -204,32 +204,14 @@ const makeStyles = (palette: Palette) =>
       flex: 1,
       backgroundColor: palette.bg,
     },
-    header: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingHorizontal: space(4),
-      paddingBottom: space(3),
-      gap: space(3),
-      borderBottomWidth: border,
-      borderBottomColor: palette.line,
-    },
-    headerCenter: {
-      flex: 1,
-    },
-    headerTitle: {
-      fontSize: 16,
-      fontWeight: '700',
-      color: palette.ink,
-    },
-    headerSubtitle: {
-      fontSize: 12,
-      color: palette.inkFaint,
-      marginTop: 1,
-    },
     content: {
       paddingHorizontal: space(4),
-      paddingTop: space(4),
       paddingBottom: space(6),
+    },
+    subtitle: {
+      fontSize: 12,
+      color: palette.inkFaint,
+      marginTop: space(1.5),
     },
     sectionLabel: {
       fontSize: 11,
