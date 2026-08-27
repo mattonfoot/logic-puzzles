@@ -28,6 +28,7 @@ import { formatDuration, useTimer } from '../game/useTimer';
 import { clueAttributes } from '../puzzle/describe';
 import type { Attribute, Clue, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
+import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
@@ -536,7 +537,7 @@ export function GameScreen({
 
       <ItemCard puzzle={inPlay} showing={inspecting} onClose={() => setInspecting(null)} />
 
-      <View style={[styles.footer, { paddingBottom: insets.bottom + space(2) }]}>
+      <View style={styles.footer}>
         {/* The clue in play sits between the board and the buttons that work
             it: read it, mark what it says, take the next one. */}
         {solved ? null : (
@@ -591,13 +592,9 @@ export function GameScreen({
             />
           </View>
         )}
-
-        <View style={styles.footerLinks}>
-          <Pressable accessibilityRole="button" accessibilityLabel="Back to setup" onPress={onExit}>
-            <Text style={styles.back}>&lt;&lt;&lt; back</Text>
-          </Pressable>
-        </View>
       </View>
+
+      <BackLink label="Back to setup" onPress={onExit} />
     </View>
   );
 }
@@ -886,17 +883,5 @@ const makeStyles = (palette: Palette) =>
       fontSize: 13,
       color: palette.inkSoft,
       textAlign: 'center',
-    },
-    footerLinks: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    back: {
-      fontSize: 13,
-      fontWeight: '600',
-      letterSpacing: 0.5,
-      color: palette.inkSoft,
-      paddingVertical: space(1),
-      paddingRight: space(4),
     },
   });

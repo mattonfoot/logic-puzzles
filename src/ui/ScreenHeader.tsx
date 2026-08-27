@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Text } from './Text';
@@ -10,28 +10,19 @@ interface Props {
   title: string;
   /** Second line, for whatever the screen is about. */
   subtitle?: string;
-  /** The glyph in the button: an arrow to go back, a cross to close. */
-  icon?: string;
-  label?: string;
-  onBack: () => void;
 }
 
-/** The bar every screen but the board and the start page wears. */
-export function ScreenHeader({ title, subtitle, icon = '‹', label = 'Back', onBack }: Props) {
+/**
+ * The bar every screen but the board and the start page wears: what the screen
+ * is, and nothing to press. The way back is `BackLink`, at the foot of the
+ * screen, which is where it is on every other screen too.
+ */
+export function ScreenHeader({ title, subtitle }: Props) {
   const insets = useSafeAreaInsets();
   const styles = useStyles(makeStyles);
 
   return (
     <View style={[styles.header, { paddingTop: insets.top + space(2) }]}>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={label}
-        onPress={onBack}
-        style={styles.button}
-        hitSlop={12}
-      >
-        <Text style={styles.buttonText}>{icon}</Text>
-      </Pressable>
       <View style={styles.text}>
         <Text style={styles.title} numberOfLines={1}>
           {title}
@@ -56,21 +47,6 @@ const makeStyles = (palette: Palette) =>
       gap: space(3),
       borderBottomWidth: border,
       borderBottomColor: palette.line,
-    },
-    button: {
-      width: 34,
-      height: 34,
-      backgroundColor: palette.surface,
-      borderWidth: border,
-      borderColor: palette.line,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    buttonText: {
-      fontSize: 18,
-      lineHeight: 22,
-      color: palette.ink,
-      marginTop: -2,
     },
     text: {
       flex: 1,

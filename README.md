@@ -167,10 +167,12 @@ rest is the app behaving normally.
    on the game rather than on a square: the two board settings (the same ones
    the settings screen holds — they are the player's, not the puzzle's),
    **Restart** (same puzzle, fresh board and clock), and **Reveal the answer**,
-   which is hidden once the puzzle is finished. The `<<< back` link at the
-   bottom left goes back one step, to the setup screen the puzzle was chosen on,
-   so the next one is a tap away; the board is saved on the way out either way,
-   and it is the first thing on that screen if you want it back.
+   which is hidden once the puzzle is finished. It is left the same way as
+   every other screen — `<<< back`, bottom left — which returns to the board.
+   The board's own `<<< back` goes back one step further, to the setup screen
+   the puzzle was chosen on, so the next one is a tap away; the board is saved
+   on the way out either way, and it is the first thing on that screen if you
+   want it back.
 6. **Settings** — the board pair above; the colours: **night colours** for a
    warm near-black page, and **match the device** to follow the phone's own
    light and dark setting and turn with it; and **sound and feel**: how loud the
@@ -183,6 +185,24 @@ rest is the app behaving normally.
    and per puzzle), a table of best and average times by difficulty, a chart of
    recent solve times, and the list of recent games. Finishing a puzzle shows
    how that time compares with your earlier games at the same size.
+
+## Getting around
+
+One rule, everywhere: **the way back is `<<< back`, at the bottom left.** Every
+screen but the start page has it, in the same words and the same place, and it
+goes back exactly one step.
+
+The top left is left to one thing: the **burger** on the board, which opens the
+game's menu. That is the only control in that corner anywhere in the app, so a
+tap there always means the same thing. A corner that goes back on one screen and
+opens something on another is a corner nobody trusts, which is why the header
+bar (`src/ui/ScreenHeader.tsx`) carries a title and nothing to press, and the
+menu is dismissed with `<<< back` rather than a cross where the burger was.
+
+`src/ui/BackLink.tsx` is the link itself — one component, so the wording, the
+tap feedback and the position cannot drift apart between screens. It also
+carries the bottom safe area, which makes it the last thing on a screen: the
+scrolling part above it never has to leave room for the home indicator.
 
 ## Project layout
 
@@ -217,6 +237,7 @@ src/game/settings.ts        the player's settings, and reading them back
 src/game/useSettings.ts     those settings as React state, written as they change
 src/ui/                     Text, ThemeProvider (day/night), ScreenHeader,
                             palettes, spacing, borders, sound and haptics
+src/ui/BackLink.tsx         the bottom-left `<<< back` link, the one way back
 src/ui/Icon.tsx             one silhouette, drawn in whatever colour it sits in
 src/ui/icons.generated.ts   the silhouettes as path data (generated, committed)
 assets/icons/               one SVG per item, theme and interface icon

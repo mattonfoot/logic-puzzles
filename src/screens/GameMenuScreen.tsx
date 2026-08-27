@@ -3,6 +3,7 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { Puzzle } from '../puzzle/types';
+import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
@@ -28,9 +29,13 @@ interface Props {
  * board works out for itself, and the two ways to end this puzzle. They live
  * here so the playing screen carries only what a player reaches for mid-puzzle.
  *
- * Starting a different puzzle is not one of them: `<<< back` goes to the setup
- * screen, which is where a puzzle is chosen, so the menu would only be offering
- * a second door to the same room.
+ * Starting a different puzzle is not one of them: the board's own `<<< back`
+ * goes to the setup screen, which is where a puzzle is chosen, so the menu would
+ * only be offering a second door to the same room.
+ *
+ * The menu is a screen like any other, so it is left the same way: `<<< back`
+ * at the foot of it, rather than a cross in the corner the board uses for the
+ * button that opened this.
  */
 export function GameMenuScreen({
   puzzle,
@@ -54,15 +59,6 @@ export function GameMenuScreen({
   return (
     <View style={styles.screen}>
       <View style={[styles.header, { paddingTop: insets.top + space(2) }]}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Close the menu"
-          onPress={onClose}
-          style={styles.headerButton}
-          hitSlop={12}
-        >
-          <Text style={styles.headerButtonText}>✕</Text>
-        </Pressable>
         <View style={styles.headerCenter}>
           <Text style={styles.headerTitle} numberOfLines={1}>
             Menu
@@ -73,10 +69,7 @@ export function GameMenuScreen({
         </View>
       </View>
 
-      <ScrollView
-        contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + space(6) }]}
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <Text style={styles.sectionLabel}>Board</Text>
         <Setting
           label="Automatic crosses"
@@ -113,6 +106,8 @@ export function GameMenuScreen({
           />
         )}
       </ScrollView>
+
+      <BackLink label="Back to the board" onPress={onClose} />
     </View>
   );
 }
@@ -218,20 +213,6 @@ const makeStyles = (palette: Palette) =>
       borderBottomWidth: border,
       borderBottomColor: palette.line,
     },
-    headerButton: {
-      width: 34,
-      height: 34,
-      backgroundColor: palette.surface,
-      borderWidth: border,
-      borderColor: palette.line,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    headerButtonText: {
-      fontSize: 15,
-      lineHeight: 18,
-      color: palette.ink,
-    },
     headerCenter: {
       flex: 1,
     },
@@ -248,6 +229,7 @@ const makeStyles = (palette: Palette) =>
     content: {
       paddingHorizontal: space(4),
       paddingTop: space(4),
+      paddingBottom: space(6),
     },
     sectionLabel: {
       fontSize: 11,

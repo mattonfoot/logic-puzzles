@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppButton } from '../components/AppButton';
 import { ConfirmDialog } from '../components/ConfirmDialog';
@@ -10,6 +9,7 @@ import type { SavedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
 import type { SizeOption } from '../puzzle/types';
 import type { OverallStats } from '../stats/summary';
+import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { ScreenHeader } from '../ui/ScreenHeader';
 import { Icon } from '../ui/Icon';
@@ -49,7 +49,6 @@ export function SetupScreen({
   onDiscardSaved,
   onBack,
 }: Props) {
-  const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const [confirmingDiscard, setConfirmingDiscard] = useState(false);
@@ -57,12 +56,9 @@ export function SetupScreen({
 
   return (
     <View style={styles.screen}>
-      <ScreenHeader title="New puzzle" onBack={onBack} />
+      <ScreenHeader title="New puzzle" />
 
-      <ScrollView
-        contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + space(8) }]}
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         {savedGame ? (
           <View
             style={[
@@ -136,6 +132,8 @@ export function SetupScreen({
           />
         </View>
       </ScrollView>
+
+      <BackLink label="Back" onPress={onBack} />
 
       <ConfirmDialog
         visible={confirmingDiscard}
@@ -223,6 +221,7 @@ const makeStyles = (palette: Palette) =>
     content: {
       paddingHorizontal: space(5),
       paddingTop: space(4),
+      paddingBottom: space(6),
     },
     resumeCard: {
       borderWidth: border,

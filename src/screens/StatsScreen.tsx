@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { TrendChart } from '../components/TrendChart';
@@ -8,6 +7,7 @@ import { THEMES } from '../data/themes';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration, formatSpan } from '../game/time';
 import type { OverallStats, SizeStats } from '../stats/summary';
+import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { ScreenHeader } from '../ui/ScreenHeader';
 import { Icon } from '../ui/Icon';
@@ -25,7 +25,6 @@ interface Props {
 export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const insets = useSafeAreaInsets();
   const played = stats.sizes.filter((size) => size.solved > 0);
   const [sizeId, setSizeId] = useState<string | null>(null);
   const [confirmingClear, setConfirmingClear] = useState(false);
@@ -55,12 +54,9 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
 
   return (
     <View style={styles.screen}>
-      <ScreenHeader title="Statistics" onBack={onBack} />
+      <ScreenHeader title="Statistics" />
 
-      <ScrollView
-        contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + space(10) }]}
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         {stats.solved === 0 ? (
           <View style={[styles.card, shadow.card, styles.empty]}>
             <View style={styles.emptyMark}>
@@ -218,6 +214,8 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
         ) : null}
       </ScrollView>
 
+      <BackLink label="Back" onPress={onBack} />
+
       <ConfirmDialog
         visible={confirmingClear}
         title="Clear statistics?"
@@ -291,6 +289,7 @@ const makeStyles = (palette: Palette) =>
     content: {
       paddingHorizontal: space(4),
       paddingTop: space(2),
+      paddingBottom: space(6),
       gap: space(3),
     },
     card: {

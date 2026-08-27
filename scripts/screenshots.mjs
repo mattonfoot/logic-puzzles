@@ -233,7 +233,7 @@ async function main() {
   await page.getByLabel('Menu').click();
   await wait(page, 500);
   await shot('05-menu');
-  await page.getByLabel('Close the menu').click();
+  await page.getByLabel('Back to the board').click();
   await wait(page, 400);
 
   // 6. A clue on the table, lit up on the grid.
