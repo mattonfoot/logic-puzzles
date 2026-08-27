@@ -17,7 +17,7 @@ import type { Clue, ItemDef, Puzzle, ThemeDef } from '../types';
 const item = (label: string, value?: number): ItemDef => ({
   label,
   value,
-  icon: '·',
+  icon: 'test/thing',
   blurb: 'A thing that exists.',
   traits: {},
 });
@@ -25,7 +25,7 @@ const item = (label: string, value?: number): ItemDef => ({
 const theme: ThemeDef = {
   id: 'test',
   name: 'Test',
-  emoji: '🧪',
+  icon: 'test/theme',
   blurb: 'For the tests',
   accent: '#000000',
   categories: [
@@ -73,7 +73,7 @@ function puzzleWith(templates = resolveClueTemplates(theme)): Puzzle {
     clueTemplates: templates,
     themeId: theme.id,
     themeName: theme.name,
-    themeEmoji: theme.emoji,
+    themeIcon: theme.icon,
     accent: theme.accent,
     size: SIZES[0],
     categories: theme.categories,

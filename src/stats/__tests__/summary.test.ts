@@ -14,7 +14,7 @@ function game(overrides: Partial<CompletedGame> = {}): CompletedGame {
     seed: 1,
     themeId: 'cosmic',
     themeName: 'Cosmic Voyage',
-    themeEmoji: '🚀',
+    themeIcon: 'cosmic/theme',
     accent: '#4C6FFF',
     sizeId: 'sm',
     sizeLabel: '4 × 4',

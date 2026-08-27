@@ -12,6 +12,7 @@ import type { SizeOption } from '../puzzle/types';
 import type { OverallStats } from '../stats/summary';
 import { feedback } from '../ui/feedback';
 import { ScreenHeader } from '../ui/ScreenHeader';
+import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, shadow, space, tint, type Palette } from '../ui/theme';
@@ -74,10 +75,12 @@ export function SetupScreen({
             ]}
           >
             <Text style={styles.resumeLabel}>Puzzle in progress</Text>
-            <Text style={styles.resumeTitle}>
-              {savedGame.puzzle.themeEmoji} {savedGame.puzzle.themeName} ·{' '}
-              {savedGame.puzzle.size.label}
-            </Text>
+            <View style={styles.resumeTitleRow}>
+              <Icon name={savedGame.puzzle.themeIcon} size={20} color={savedGame.puzzle.accent} />
+              <Text style={styles.resumeTitle}>
+                {savedGame.puzzle.themeName} · {savedGame.puzzle.size.label}
+              </Text>
+            </View>
             <Text style={styles.resumeMeta}>
               {Math.round(savedProgress * 100)}% filled in · {formatDuration(savedGame.seconds)} on
               the clock
@@ -233,11 +236,16 @@ const makeStyles = (palette: Palette) =>
       textTransform: 'uppercase',
       color: palette.inkFaint,
     },
+    resumeTitleRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space(2),
+      marginTop: space(1.5),
+    },
     resumeTitle: {
       fontSize: 17,
       fontWeight: '700',
       color: palette.ink,
-      marginTop: space(1.5),
     },
     resumeMeta: {
       fontSize: 13,

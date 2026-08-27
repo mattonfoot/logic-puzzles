@@ -31,6 +31,7 @@ npm run format     # prettier --write .
 npm run format:check  # prettier --check . (what CI would ask)
 npm run screenshots  # rebuild the screens in docs/screenshots (see below)
 npm run sounds     # regenerate the three effects in assets/sounds (see below)
+npm run icons      # redraw assets/icons and rebuild the path data (see below)
 ```
 
 Formatting is Prettier's, configured in `.prettierrc.json` — 100 columns and
@@ -189,8 +190,10 @@ rest is the app behaving normally.
 App.tsx                     screen switching + puzzle generation entry point
 scripts/screenshots.mjs     drives the app in a browser to refresh docs/screenshots
 scripts/sounds.mjs          synthesises the three effects in assets/sounds
+scripts/icons.mjs           draws the silhouettes and collects them into path data
+scripts/icons/              the drawing kit, and one module per theme
 src/data/themes.ts          the five themes: categories, item pools with their
-                            icons, traits and descriptions, clue wording
+                            traits and descriptions, clue wording
 src/data/sizes.ts           the four sizes, and the difficulty each is called
 src/puzzle/types.ts         puzzle, clue and theme model
 src/puzzle/rng.ts           seeded PRNG (a seed always rebuilds the same puzzle)
@@ -214,6 +217,9 @@ src/game/settings.ts        the player's settings, and reading them back
 src/game/useSettings.ts     those settings as React state, written as they change
 src/ui/                     Text, ThemeProvider (day/night), ScreenHeader,
                             palettes, spacing, borders, sound and haptics
+src/ui/Icon.tsx             one silhouette, drawn in whatever colour it sits in
+src/ui/icons.generated.ts   the silhouettes as path data (generated, committed)
+assets/icons/               one SVG per item, theme and interface icon
 assets/sounds/              the three effects, committed as 16-bit mono WAVs
 ```
 
@@ -445,6 +451,50 @@ it did not make. The WAVs are committed, so a normal build never runs it.
 Swapping one for a real recording means dropping a 16-bit mono WAV of the same
 name into that folder; nothing reads those numbers at runtime.
 
+## The icons
+
+Everything the app draws — every item, every theme, the lamp on the clue button
+and the chart on an empty statistics screen — is a **silhouette**: one closed
+shape, filled in one colour, in a 100 × 100 box. There is no artwork with a
+palette of its own, so an icon takes the colour of whatever it sits in and looks
+right in day mode, night mode and against a theme's accent without being drawn
+three times. 357 of them, one per entry, and a test fails if two share a path.
+
+They come from three places, in a line:
+
+```
+scripts/icons/*.mjs   →   assets/icons/**.svg   →   src/ui/icons.generated.ts
+   drawn in code            the artwork itself         what the app ships
+```
+
+`npm run icons` walks that line. `scripts/icons/draw.mjs` is a small drawing kit
+— `circle`, `poly`, `wedge`, `star`, `band`, `blob`, `hole` — and one module per
+theme says what each item looks like in terms of it. Anything that is a scale
+(a launch year, a bill, a depth, a plant's height) is drawn by
+`scripts/icons/scales.mjs` as a motif that **grows with the number**, so the
+fourteen rungs of one ladder read as a ladder. People are `people.mjs`: one body
+per theme and seventeen ways of wearing hair, each of which changes the *outline*
+of the head, because a silhouette has no face to tell anyone apart by.
+
+**The SVG files are the artwork, not a cache.** The script writes a file only if
+it is not already there, and then re-reads every file on disk to build the path
+data — so hand-editing an SVG, or replacing one wholesale with a drawing from
+somewhere else, is the supported way to change an icon, and the next run keeps
+it. Redrawing one from code means deleting its file first. `node scripts/icons.mjs
+--sheet` also writes `docs/icons.html`, a contact sheet of the lot, which is the
+quickest way to see whether a change made something worse.
+
+`src/ui/icons.generated.ts` is generated and committed: the app imports path
+data, never SVG files, so nothing is read from disk or parsed at runtime and an
+icon costs one `<Path>`. Prettier leaves that file alone — it would reflow the
+path data and the next run would put it back.
+
+Names are derived, not written down: `iconName(theme, category, label)` in
+`src/data/themes.ts` slugs the label into `cosmic/astronaut-juno`, so an item and
+its drawing cannot drift apart without a test noticing. An unknown name renders
+nothing rather than a broken box, which is what keeps a game saved before an item
+was renamed from crashing on open.
+
 ## Items, traits and descriptions
 
 Every item in every category carries four things: its label, an icon, a line
@@ -640,8 +690,9 @@ before them for the longer-run trend the chart draws.
 
 - The five themes live entirely in `src/data/themes.ts`. Adding one is a matter
   of listing five categories, each with its `pattern` and `describes` frames, a
-  `noun`, its traits, and a pool of items written as a table — label, icon, a
-  value per trait, and a line about it. The ordered category is written as a
+  `noun`, its traits, and a pool of items written as a table — label, a value
+  per trait, and a line about it. Icons are not listed: each item's is named
+  after it, and drawing the new ones is `npm run icons`. The ordered category is written as a
   `scale` instead: evenly spaced numbers, three bands, and a blurb per rung, with
   its traits falling out of the numbers themselves. A `clues` block gives the
   theme its own voice. The pools hold fourteen items apiece — well over the six a
@@ -653,6 +704,10 @@ before them for the longer-run trend the chart draws.
 - `npm run sounds` rewrites the three WAVs in `assets/sounds` from
   `scripts/sounds.mjs`. They are committed, so this is only needed after
   changing how one of them is built.
+- `npm run icons` redraws any missing SVG in `assets/icons` and rebuilds
+  `src/ui/icons.generated.ts` from every file there. It never overwrites one
+  that exists, so edit the SVG to change an icon and delete it to redraw it from
+  code; `--sheet` also refreshes the contact sheet at `docs/icons.html`.
 - `npm run screenshots` exports the app for web, serves that build, drives it in
   Chromium and rewrites `docs/screenshots`. Playwright's Chromium arrives with
   the dev dependencies (`npx playwright install chromium` if the download was

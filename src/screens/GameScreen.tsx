@@ -29,6 +29,7 @@ import { clueAttributes } from '../puzzle/describe';
 import type { Attribute, Clue, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { feedback } from '../ui/feedback';
+import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, joinLeft, radius, space, tint, type Palette } from '../ui/theme';
@@ -428,9 +429,12 @@ export function GameScreen({
           <Text style={styles.headerButtonText}>☰</Text>
         </Pressable>
         <View style={styles.headerCenter}>
-          <Text style={styles.headerTitle} numberOfLines={1}>
-            {puzzle.themeEmoji} {puzzle.themeName}
-          </Text>
+          <View style={styles.headerTitleRow}>
+            <Icon name={puzzle.themeIcon} size={16} color={puzzle.accent} />
+            <Text style={styles.headerTitle} numberOfLines={1}>
+              {puzzle.themeName}
+            </Text>
+          </View>
           <Text style={styles.headerSubtitle} numberOfLines={1}>
             {puzzle.size.label} · {cluesSeen.size} clue{cluesSeen.size === 1 ? '' : 's'} read · #
             {puzzle.seed}
@@ -580,7 +584,7 @@ export function GameScreen({
             />
             <ToolButton
               label="Get next clue"
-              icon="💡"
+              icon={<Icon name="ui/icon-clue" size={15} color={puzzle.accent} />}
               joined
               accent={puzzle.accent}
               onPress={showNextClue}
@@ -670,7 +674,8 @@ function ToolButton({
   onPress,
 }: {
   label: string;
-  icon: string;
+  /** A glyph or a drawing — whichever suits the tool. */
+  icon: React.ReactNode;
   accent: string;
   /** Share the left-hand edge with the button before it. */
   joined?: boolean;
@@ -694,7 +699,7 @@ function ToolButton({
         },
       ]}
     >
-      <Text style={styles.toolIcon}>{icon}</Text>
+      {typeof icon === 'string' ? <Text style={styles.toolIcon}>{icon}</Text> : icon}
       <Text style={[styles.toolLabel, { color: accent }]}>{label}</Text>
     </Pressable>
   );
@@ -734,6 +739,11 @@ const makeStyles = (palette: Palette) =>
     },
     headerCenter: {
       flex: 1,
+    },
+    headerTitleRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space(1.5),
     },
     headerTitle: {
       fontSize: 16,

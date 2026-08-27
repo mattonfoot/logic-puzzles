@@ -10,6 +10,7 @@ import { formatDuration, formatSpan } from '../game/time';
 import type { OverallStats, SizeStats } from '../stats/summary';
 import { feedback } from '../ui/feedback';
 import { ScreenHeader } from '../ui/ScreenHeader';
+import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { radius, shadow, space, tint, type Palette } from '../ui/theme';
@@ -62,7 +63,9 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
       >
         {stats.solved === 0 ? (
           <View style={[styles.card, shadow.card, styles.empty]}>
-            <Text style={styles.emptyEmoji}>📈</Text>
+            <View style={styles.emptyMark}>
+              <Icon name="ui/icon-chart" size={40} color={palette.inkFaint} />
+            </View>
             <Text style={styles.emptyTitle}>No finished puzzles yet</Text>
             <Text style={styles.emptyText}>
               Solve one and your time lands here. After a few, you will see whether you are getting
@@ -179,7 +182,9 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
             <Text style={styles.cardTitle}>Recent games</Text>
             {stats.recent.map((game) => (
               <View key={`${game.seed}-${game.finishedAt}`} style={styles.gameRow}>
-                <Text style={styles.gameEmoji}>{game.themeEmoji}</Text>
+                <View style={styles.gameMark}>
+                  <Icon name={game.themeIcon} size={22} color={game.accent} />
+                </View>
                 <View style={styles.gameText}>
                   <Text style={styles.gameTitle}>
                     {game.themeName} · {game.difficulty}
@@ -438,8 +443,9 @@ const makeStyles = (palette: Palette) =>
       borderBottomWidth: 1,
       borderBottomColor: palette.line,
     },
-    gameEmoji: {
-      fontSize: 20,
+    gameMark: {
+      width: 24,
+      alignItems: 'center',
     },
     gameText: {
       flex: 1,
@@ -469,8 +475,9 @@ const makeStyles = (palette: Palette) =>
       alignItems: 'center',
       paddingVertical: space(8),
     },
-    emptyEmoji: {
-      fontSize: 32,
+    emptyMark: {
+      alignItems: 'center',
+      marginBottom: space(1),
     },
     emptyTitle: {
       fontSize: 17,

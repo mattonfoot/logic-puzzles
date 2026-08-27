@@ -5,7 +5,7 @@ import type { Clue, ItemDef, PuzzleCategory } from '../types';
 const item = (label: string, value?: number): ItemDef => ({
   label,
   value,
-  icon: '·',
+  icon: 'test/thing',
   blurb: 'A thing that exists.',
   traits: {},
 });

@@ -13,7 +13,7 @@ export interface ItemDef {
   label: string;
   /** Ordered categories only: the numeric value used by comparison clues. */
   value?: number;
-  /** Emoji standing in for an illustration, shown on the item's card. */
+  /** The silhouette that stands for it: a name in `src/ui/icons.generated`. */
   icon: string;
   /** A line about it, for the player who taps its label. */
   blurb: string;
@@ -107,7 +107,8 @@ export interface ClueTemplates {
 export interface ThemeDef {
   id: string;
   name: string;
-  emoji: string;
+  /** The theme's own silhouette, by name. */
+  icon: string;
   blurb: string;
   /** Accent colour used across the UI when this theme is in play. */
   accent: string;
@@ -185,7 +186,7 @@ export interface Puzzle {
   clueTemplates: ClueTemplates;
   themeId: string;
   themeName: string;
-  themeEmoji: string;
+  themeIcon: string;
   accent: string;
   size: SizeOption;
   categories: PuzzleCategory[];

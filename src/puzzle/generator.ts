@@ -46,7 +46,7 @@ export function generatePuzzle({ theme: themeOrPool, size, seed }: GenerateOptio
     clueTemplates: resolveClueTemplates(theme),
     themeId: theme.id,
     themeName: theme.name,
-    themeEmoji: theme.emoji,
+    themeIcon: theme.icon,
     accent: theme.accent,
     size,
     categories,

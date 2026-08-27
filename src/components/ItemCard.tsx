@@ -3,6 +3,7 @@ import { Modal, Pressable, StyleSheet, View } from 'react-native';
 
 import type { Attribute, Puzzle } from '../puzzle/types';
 import { feedback } from '../ui/feedback';
+import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
 import { useStyles } from '../ui/ThemeProvider';
 import { border, shadow, space, tint, type Palette } from '../ui/theme';
@@ -44,7 +45,7 @@ export function ItemCard({ puzzle, showing, onClose }: Props) {
         <Pressable style={[styles.card, shadow.raised]} onPress={() => undefined}>
           <View style={styles.head}>
             <View style={[styles.icon, { backgroundColor: tint(puzzle.accent, 0.12) }]}>
-              <Text style={styles.iconText}>{item.icon}</Text>
+              <Icon name={item.icon} size={38} color={puzzle.accent} />
             </View>
             <View style={styles.headText}>
               <Text style={[styles.category, { color: puzzle.accent }]}>{category.name}</Text>
@@ -99,9 +100,6 @@ const makeStyles = (palette: Palette) =>
       height: 56,
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    iconText: {
-      fontSize: 30,
     },
     headText: {
       flex: 1,

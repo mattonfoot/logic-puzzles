@@ -8,7 +8,7 @@ import type { Clue, ItemDef, Puzzle } from '../../puzzle/types';
 const item = (label: string, value?: number): ItemDef => ({
   label,
   value,
-  icon: '·',
+  icon: 'test/thing',
   blurb: 'A thing that exists.',
   traits: {},
 });
@@ -26,7 +26,7 @@ const puzzle: Puzzle = {
   clueTemplates: DEFAULT_CLUE_TEMPLATES,
   themeId: 'test',
   themeName: 'Test',
-  themeEmoji: '🧪',
+  themeIcon: 'test/theme',
   accent: '#000000',
   size: { id: '3x3', items: 3, categories: 3, label: '3 × 3', difficulty: 'Beginner' },
   categories: [

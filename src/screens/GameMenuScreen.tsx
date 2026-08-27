@@ -68,7 +68,7 @@ export function GameMenuScreen({
             Menu
           </Text>
           <Text style={styles.headerSubtitle} numberOfLines={1}>
-            {puzzle.themeEmoji} {puzzle.themeName} · {puzzle.size.label} · #{puzzle.seed}
+            {puzzle.themeName} · {puzzle.size.label} · #{puzzle.seed}
           </Text>
         </View>
       </View>

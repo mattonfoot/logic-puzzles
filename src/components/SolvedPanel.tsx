@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { formatDuration } from '../game/time';
 import type { Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
+import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, space, tint, type Palette } from '../ui/theme';
@@ -39,7 +40,9 @@ export function SolvedPanel({ title = 'Solved!', puzzle, seconds, cluesUsed, imp
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      <Text style={styles.emoji}>{puzzle.themeEmoji}</Text>
+      <View style={styles.mark}>
+        <Icon name={puzzle.themeIcon} size={48} color={puzzle.accent} />
+      </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>
         {puzzle.themeName} · {puzzle.size.label}
@@ -126,8 +129,7 @@ const makeStyles = (palette: Palette) =>
       color: palette.inkFaint,
       marginBottom: space(2),
     },
-    emoji: {
-      fontSize: 44,
+    mark: {
       marginTop: space(2),
     },
     title: {

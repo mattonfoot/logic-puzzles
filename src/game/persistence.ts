@@ -31,7 +31,7 @@ export interface CompletedGame {
   seed: number;
   themeId: string;
   themeName: string;
-  themeEmoji: string;
+  themeIcon: string;
   accent: string;
   sizeId: string;
   /** The shape, as the grid reads: "4 × 4". */
@@ -141,6 +141,9 @@ export function reviveHistory(value: unknown): History | null {
       ...game,
       cluesUsed: typeof game.cluesUsed === 'number' ? game.cluesUsed : null,
       difficulty: typeof game.difficulty === 'string' ? game.difficulty : game.sizeLabel,
+      // Games from when themes were an emoji have no drawing to show; the row
+      // reads perfectly well without one.
+      themeIcon: typeof game.themeIcon === 'string' ? game.themeIcon : '',
     })),
   };
 }
@@ -193,7 +196,7 @@ export function completedGameFrom(puzzle: Puzzle, input: CompletionInput): Compl
     seed: puzzle.seed,
     themeId: puzzle.themeId,
     themeName: puzzle.themeName,
-    themeEmoji: puzzle.themeEmoji,
+    themeIcon: puzzle.themeIcon,
     accent: puzzle.accent,
     sizeId: puzzle.size.id,
     sizeLabel: puzzle.size.label,
