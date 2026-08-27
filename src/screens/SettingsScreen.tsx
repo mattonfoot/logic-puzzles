@@ -8,7 +8,7 @@ import { feedback } from '../ui/feedback';
 import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { border, joinTop, space, tint, type Palette } from '../ui/theme';
+import { space, type Palette } from '../ui/theme';
 
 interface Props {
   settings: Settings;
@@ -22,6 +22,11 @@ interface Props {
  * feels like. These outlive any one puzzle, which is why they are here rather
  * than in the game's own menu — though that menu reaches the board pair too,
  * since they are worth changing mid-puzzle.
+ *
+ * A list of names with a box or a slider against each, set at the size the rest
+ * of the app sets a choice. There is nothing explaining what a setting does:
+ * every one of them shows its effect the moment it is touched, and a paragraph
+ * under each name turned six switches into a page to read.
  */
 export function SettingsScreen({ settings, onChange, onBack }: Props) {
   const insets = useSafeAreaInsets();
@@ -37,94 +42,48 @@ export function SettingsScreen({ settings, onChange, onBack }: Props) {
       >
         <RuledTitle>Settings</RuledTitle>
 
-        <Text style={styles.sectionLabel}>Board</Text>
-        <Toggle
-          label="Automatic crosses"
-          note="A tick crosses out the rest of its row and column for you. Your own crosses stay either way."
-          on={settings.autoEliminate}
-          onPress={() => onChange({ autoEliminate: !settings.autoEliminate })}
-        />
-        <Toggle
-          label="Auto add facts"
-          note="A tick that follows from the ticks already down is filled in: if A goes with B and B goes with C, then A goes with C."
-          on={settings.autoFacts}
-          joined
-          onPress={() => onChange({ autoFacts: !settings.autoFacts })}
-        />
-
-        <Text style={styles.sectionLabel}>Colours</Text>
-        <Toggle
-          label="Match the device"
-          note="Follow the phone's own light and dark setting, and turn with it."
-          on={auto}
-          onPress={() =>
-            onChange({ colours: auto ? (palette.scheme === 'night' ? 'night' : 'day') : 'auto' })
-          }
-        />
-        <Toggle
-          label="Night colours"
-          note={
-            auto
-              ? `Set by the device, which is asking for ${palette.scheme === 'night' ? 'night' : 'day'} right now.`
-              : 'A warm near-black page, for reading in the dark.'
-          }
-          on={palette.scheme === 'night'}
-          disabled={auto}
-          joined
-          onPress={() => onChange({ colours: settings.colours === 'night' ? 'day' : 'night' })}
-        />
-
-        <Text style={styles.sectionLabel}>Sound and feel</Text>
-        <View style={styles.row}>
-          <View style={styles.rowText}>
-            <Text style={styles.rowTitle}>Volume</Text>
-            <Text style={styles.rowNote}>
-              How loud the taps, marks and the finish are. They mix with whatever else is playing,
-              and stay quiet when the phone is on silent.
-            </Text>
-          </View>
+        <View style={styles.list}>
+          <Check
+            label="Automatic crosses"
+            on={settings.autoEliminate}
+            onPress={() => onChange({ autoEliminate: !settings.autoEliminate })}
+          />
+          <Check
+            label="Auto add facts"
+            on={settings.autoFacts}
+            onPress={() => onChange({ autoFacts: !settings.autoFacts })}
+          />
+          <Check
+            label="Match the device"
+            on={auto}
+            onPress={() =>
+              onChange({ colours: auto ? (palette.scheme === 'night' ? 'night' : 'day') : 'auto' })
+            }
+          />
+          <Check
+            label="Night colours"
+            on={palette.scheme === 'night'}
+            // Shown as it stands, but the device is deciding it.
+            disabled={auto}
+            onPress={() => onChange({ colours: settings.colours === 'night' ? 'day' : 'night' })}
+          />
+          <Slider
+            label="Volume"
+            steps={VOLUMES.map((step) => step.label)}
+            index={VOLUMES.findIndex((step) => step.value === volumeStep(settings.volume).value)}
+            onChange={(index) => {
+              onChange({ volume: VOLUMES[index].value });
+              // Configured on the next render, so this plays at the volume being
+              // left behind — which is the one the player just heard.
+              feedback.tap();
+            }}
+          />
+          <Check
+            label="Vibration"
+            on={settings.haptics}
+            onPress={() => onChange({ haptics: !settings.haptics })}
+          />
         </View>
-        <View style={[styles.steps, joinTop]}>
-          {VOLUMES.map((step, index) => {
-            const chosen = step.value === volumeStep(settings.volume).value;
-            return (
-              <Pressable
-                key={step.label}
-                accessibilityRole="radio"
-                accessibilityLabel={`Volume ${step.label}`}
-                accessibilityState={{ selected: chosen }}
-                onPress={() => {
-                  onChange({ volume: step.value });
-                  // Configured on the next render, so this plays at the volume
-                  // being left behind — which is the one the player just heard.
-                  feedback.tap();
-                }}
-                style={({ pressed }) => [
-                  styles.step,
-                  index > 0 && { marginLeft: space(2) },
-                  {
-                    borderColor: chosen ? palette.accent : palette.line,
-                    backgroundColor: chosen ? tint(palette.accent, 0.12) : palette.surface,
-                    opacity: pressed ? 0.85 : 1,
-                  },
-                ]}
-              >
-                <Text
-                  style={[styles.stepText, { color: chosen ? palette.accent : palette.inkSoft }]}
-                >
-                  {step.label}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </View>
-        <Toggle
-          label="Vibration"
-          note="A short buzz alongside each sound, and a longer one when a puzzle is finished."
-          on={settings.haptics}
-          joined
-          onPress={() => onChange({ haptics: !settings.haptics })}
-        />
       </ScrollView>
 
       <BackLink label="Back" onPress={onBack} />
@@ -132,19 +91,15 @@ export function SettingsScreen({ settings, onChange, onBack }: Props) {
   );
 }
 
-function Toggle({
+/** A setting that is either on or off: a box, ticked or empty, and its name. */
+function Check({
   label,
-  note,
   on,
-  joined,
   disabled = false,
   onPress,
 }: {
   label: string;
-  note: string;
   on: boolean;
-  /** Share the top edge with the row before it. */
-  joined?: boolean;
   /** Shown, but decided elsewhere. */
   disabled?: boolean;
   onPress: () => void;
@@ -154,7 +109,7 @@ function Toggle({
 
   return (
     <Pressable
-      accessibilityRole="switch"
+      accessibilityRole="checkbox"
       accessibilityLabel={label}
       accessibilityState={{ checked: on, disabled }}
       disabled={disabled}
@@ -162,32 +117,87 @@ function Toggle({
         feedback.tap();
         onPress();
       }}
-      style={({ pressed }) => [
-        styles.row,
-        joined && joinTop,
-        { opacity: disabled ? 0.55 : pressed ? 0.8 : 1 },
-      ]}
+      style={({ pressed }) => [styles.row, { opacity: disabled ? 0.4 : pressed ? 0.6 : 1 }]}
     >
-      <View style={styles.rowText}>
-        <Text style={styles.rowTitle}>{label}</Text>
-        <Text style={styles.rowNote}>{note}</Text>
-      </View>
       <View
         style={[
-          styles.switch,
-          {
-            borderColor: on ? palette.accent : palette.line,
-            backgroundColor: on ? tint(palette.accent, 0.12) : palette.surfaceAlt,
-          },
+          styles.box,
+          { borderColor: palette.accent, backgroundColor: on ? palette.accent : 'transparent' },
         ]}
       >
-        <Text style={[styles.switchText, { color: on ? palette.accent : palette.inkFaint }]}>
-          {on ? 'On' : 'Off'}
-        </Text>
+        {on ? <Text style={[styles.tick, { color: palette.bg }]}>✓</Text> : null}
       </View>
+      <Text style={styles.label}>{label}</Text>
     </Pressable>
   );
 }
+
+/**
+ * A setting with a few settings between two ends: its name, then a line with
+ * the knob sitting where it currently is.
+ *
+ * The steps are named rather than numbered, so the track is divided into as
+ * many zones as there are and a tap lands on the nearest — no dragging, which
+ * on a four-position control is more work than it is worth.
+ */
+function Slider({
+  label,
+  steps,
+  index,
+  onChange,
+}: {
+  label: string;
+  steps: readonly string[];
+  index: number;
+  onChange: (index: number) => void;
+}) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
+  const at = Math.max(0, index);
+  // The knob's centre, as a share of the track: the first step sits on the
+  // left-hand end and the last on the right-hand one.
+  const along = steps.length > 1 ? at / (steps.length - 1) : 0;
+
+  return (
+    <View
+      style={styles.row}
+      accessibilityRole="adjustable"
+      accessibilityLabel={label}
+      accessibilityValue={{ text: steps[at], min: 0, max: steps.length - 1, now: at }}
+    >
+      <Text style={styles.label}>{label}</Text>
+      <View style={styles.track}>
+        <View style={[styles.rail, { backgroundColor: palette.accent }]} />
+        {/* Inset by half a knob at each end, so the knob's travel is the length
+            of the line it sits on and neither end hangs off it. */}
+        <View style={styles.knobTravel} pointerEvents="none">
+          <View
+            style={[
+              styles.knob,
+              { backgroundColor: palette.accent, left: `${along * 100}%`, marginLeft: -KNOB / 2 },
+            ]}
+          />
+        </View>
+        {/* One tap zone per step, laid over the line. */}
+        <View style={styles.zones}>
+          {steps.map((step, zone) => (
+            <Pressable
+              key={step}
+              accessibilityRole="button"
+              accessibilityLabel={`${label} ${step}`}
+              accessibilityState={{ selected: zone === at }}
+              onPress={() => onChange(zone)}
+              style={styles.zone}
+            />
+          ))}
+        </View>
+      </View>
+    </View>
+  );
+}
+
+/** The knob's diameter, which the track is sized around. */
+const KNOB = 16;
 
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
@@ -199,65 +209,70 @@ const makeStyles = (palette: Palette) =>
       paddingHorizontal: space(4),
       paddingBottom: space(6),
     },
-    sectionLabel: {
-      fontSize: 11,
-      fontWeight: '700',
-      letterSpacing: 1,
-      textTransform: 'uppercase',
-      color: palette.inkFaint,
-      marginTop: space(5),
-      marginBottom: space(2),
+    list: {
+      marginTop: space(4),
+      gap: space(2),
     },
     row: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: space(3),
-      padding: space(4),
-      backgroundColor: palette.surface,
-      borderWidth: border,
-      borderColor: palette.line,
+      paddingVertical: space(2),
     },
-    rowText: {
-      flex: 1,
-    },
-    rowTitle: {
-      fontSize: 15,
-      fontWeight: '700',
+    label: {
+      fontSize: 28,
+      lineHeight: 38,
+      fontWeight: '800',
+      letterSpacing: -0.6,
       color: palette.ink,
     },
-    rowNote: {
-      fontSize: 12,
-      lineHeight: 17,
-      color: palette.inkSoft,
-      marginTop: space(0.5),
-    },
-    switch: {
-      minWidth: 46,
-      paddingVertical: space(1),
-      paddingHorizontal: space(2),
-      borderWidth: border,
+    box: {
+      width: 26,
+      height: 26,
+      borderWidth: 2,
       alignItems: 'center',
+      justifyContent: 'center',
     },
-    switchText: {
-      fontSize: 12,
-      fontWeight: '700',
+    tick: {
+      fontSize: 15,
+      fontWeight: '800',
+      lineHeight: 18,
     },
-    steps: {
-      flexDirection: 'row',
-      backgroundColor: palette.surface,
-      borderWidth: border,
-      borderColor: palette.line,
-      padding: space(3),
-      paddingTop: 0,
-    },
-    step: {
+    track: {
       flex: 1,
-      borderWidth: border,
-      paddingVertical: space(2),
-      alignItems: 'center',
+      height: KNOB,
+      justifyContent: 'center',
+      paddingHorizontal: KNOB / 2,
+      marginRight: space(2),
     },
-    stepText: {
-      fontSize: 13,
-      fontWeight: '700',
+    rail: {
+      height: 2,
+    },
+    knobTravel: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: KNOB / 2,
+      right: KNOB / 2,
+    },
+    knob: {
+      position: 'absolute',
+      top: 0,
+      width: KNOB,
+      height: KNOB,
+      borderRadius: KNOB / 2,
+    },
+    zones: {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      flexDirection: 'row',
+      // Tall enough to hit without aiming, without moving the line.
+      marginVertical: -space(3),
+    },
+    zone: {
+      flex: 1,
     },
   });

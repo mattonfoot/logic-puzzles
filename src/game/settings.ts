@@ -23,8 +23,9 @@ export interface Settings {
 }
 
 /**
- * The volumes the settings screen offers. A slider would be finer, but four
- * named steps are easier to hit with a thumb and easier to describe.
+ * The volumes the settings screen offers, as the four stops on its slider.
+ * Finer than that is not worth the aim it would take, and four named steps are
+ * something a screen reader can say.
  */
 export const VOLUMES = [
   { label: 'Off', value: 0 },

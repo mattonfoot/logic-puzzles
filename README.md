@@ -93,7 +93,7 @@ images in the same commit.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Play** at the top of the bottom half, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
+| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Play** at the top of the bottom half, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — six names with a box or a slider against each, and nothing to read. |
 | <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Puzzle settings** — behind the burger: the board settings, restart, and revealing the answer. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
 | <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, clues read, how it compares, the answer table. |
 | <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item label"><br>**10. Item card** — tap any label to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Setup screen in night colours"><br>**12. Night** — the setup screen in night colours, with a game waiting to be resumed. |
@@ -184,11 +184,13 @@ rest is the app behaving normally.
    the puzzle was chosen on, so the next one is a tap away; the board is saved
    on the way out either way, and it is the first thing on that screen if you
    want it back.
-6. **Settings** — the board pair above; the colours: **night colours** for a
-   warm near-black page, and **match the device** to follow the phone's own
-   light and dark setting and turn with it; and **sound and feel**: how loud the
-   effects are, or off, and whether the phone buzzes with them. They are written
-   to disk, so they are the same the next time the app opens.
+6. **Settings** — six of them, as a list of names with a box or a slider
+   against each: the board pair above; **match the device**, which follows the
+   phone's own light and dark setting and turns with it, and **night colours**
+   for a warm near-black page when it does not; **volume**, in four steps from
+   off; and **vibration**. Nothing explains what any of them does, because all
+   six show their effect the moment they are touched. They are written to disk,
+   so they are the same the next time the app opens.
 7. **Come back later** — the board saves itself as you play, so closing the app
    mid-puzzle costs nothing. It is waiting on the setup screen when you come
    back, with the clock where you left it and the same puzzle in front of you.
@@ -480,8 +482,8 @@ muted phone is a bug.
 The settings live in a module-level value rather than a context. These fire from
 event handlers on nearly every screen, and threading a provider through all of
 them would buy nothing; `App` keeps that value in step with the stored settings
-from an effect. **Volume** is four steps (off, quiet, medium, loud) and
-**Vibration** is a switch — off means silent, and off on both means a game that
+from an effect. **Volume** is a four-step slider (off, quiet, medium, loud) and
+**Vibration** is a box — off means silent, and off on both means a game that
 makes no noise at all. Turning the volume down plays the tap at the volume being
 left behind, since that is the one the player just heard.
 
