@@ -27,7 +27,7 @@ import { StyleScreen } from './src/screens/StyleScreen';
 import { StatsScreen } from './src/screens/StatsScreen';
 import { configureFeedback } from './src/ui/feedback';
 import { ThemeProvider, useStyles, useTheme } from './src/ui/ThemeProvider';
-import type { Palette } from './src/ui/theme';
+import { inkOn, type Palette } from './src/ui/theme';
 
 type Screen = 'start' | 'setup' | 'settings' | 'style' | 'stats' | 'game';
 
@@ -141,9 +141,20 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
 
   return (
     <SafeAreaProvider>
-      {/* The start page runs a coloured panel up behind the status bar, so the
-          clock has to lift off that rather than off the page. */}
-      <StatusBar style={screen === 'start' || palette.scheme === 'night' ? 'light' : 'dark'} />
+      {/* Two screens run a coloured panel up behind the status bar, so the clock
+          has to lift off that rather than off the page — and which way round
+          depends on the colour, the same way the words on the panel do. */}
+      <StatusBar
+        style={
+          screen === 'start' || screen === 'setup'
+            ? inkOn(palette.accentGround, '#FFFFFF', palette.ink) === '#FFFFFF'
+              ? 'light'
+              : 'dark'
+            : palette.scheme === 'night'
+              ? 'light'
+              : 'dark'
+        }
+      />
       <View style={styles.root}>
         {screen === 'game' && puzzle ? (
           <GameScreen

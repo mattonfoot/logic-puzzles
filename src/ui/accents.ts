@@ -49,10 +49,13 @@ export const ACCENTS: Accent[] = [
     night: { primary: '#7AA8D0', secondary: '#4E88B5' },
   },
   {
+    // Its two colours serve in both schemes, swapping which leads: on a pale
+    // page the deeper one leads and the lighter one is the quiet half, and on a
+    // near-black one it is the other way round.
     id: 'violet',
     name: 'Violet',
-    day: { primary: '#6A45E0', secondary: '#A993E5' },
-    night: { primary: '#A996FF', secondary: '#6B60A0' },
+    day: { primary: '#9381FF', secondary: '#B8B8FF', bg: '#F8F7FF' },
+    night: { primary: '#B8B8FF', secondary: '#9381FF' },
   },
   {
     id: 'teal',

@@ -4,11 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Text } from './Text';
 import { useStyles, useTheme } from './ThemeProvider';
-import { space, type Palette } from './theme';
-
-/** White on the panel, and the same white held back for the lines around the name. */
-const ON_PANEL = '#FFFFFF';
-const ON_PANEL_SOFT = 'rgba(255, 255, 255, 0.82)';
+import { inkOn, space, tint, type Palette } from './theme';
 
 /**
  * The app's name on a block of the link colour: the top half of every screen
@@ -27,20 +23,28 @@ const ON_PANEL_SOFT = 'rgba(255, 255, 255, 0.82)';
  * `accent`: at night the accent is lightened so it can be read on a near-black
  * page, which leaves it too pale to carry white text, so the panel keeps the
  * daytime cut of the same colour in both schemes.
+ *
+ * The words on it are white or the page's own ink, whichever reads better on
+ * that ground. A deep navy takes white; a pale lilac cannot carry it, and gets
+ * ink instead. The colour is the player's, so the panel asks rather than
+ * assuming.
  */
 export function TitlePanel() {
   const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const ground = palette.accentGround;
+  const on = inkOn(ground, '#FFFFFF', palette.ink);
+  // The same ink held back, for the lines either side of the name.
+  const onSoft = tint(on, 0.82);
 
   return (
     <View style={[styles.panel, { backgroundColor: ground, paddingTop: insets.top + space(4) }]}>
-      <Text style={styles.eyebrow}>Freshly generated, never guessed</Text>
-      <Text style={styles.title} numberOfLines={1} adjustsFontSizeToFit>
+      <Text style={[styles.eyebrow, { color: onSoft }]}>Freshly generated, never guessed</Text>
+      <Text style={[styles.title, { color: on }]} numberOfLines={1} adjustsFontSizeToFit>
         Deduction
       </Text>
-      <Text style={styles.lede}>
+      <Text style={[styles.lede, { color: onSoft }]}>
         Every puzzle is built when you ask for it, with exactly one solution you can reach by pure
         deduction — no guessing.
       </Text>
@@ -64,7 +68,6 @@ const makeStyles = (_palette: Palette) =>
       fontSize: 12,
       letterSpacing: 1.2,
       textTransform: 'uppercase',
-      color: ON_PANEL_SOFT,
       fontWeight: '700',
     },
     title: {
@@ -74,7 +77,6 @@ const makeStyles = (_palette: Palette) =>
       fontSize: 64,
       lineHeight: 74,
       fontWeight: '800',
-      color: ON_PANEL,
       marginTop: space(2),
       letterSpacing: -2,
     },
@@ -82,7 +84,6 @@ const makeStyles = (_palette: Palette) =>
       fontSize: 16,
       lineHeight: 23,
       fontWeight: '600',
-      color: ON_PANEL_SOFT,
       marginTop: space(3),
     },
   });

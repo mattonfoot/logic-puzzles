@@ -140,6 +140,34 @@ export const shadow = {
   }),
 } as const;
 
+/** How much light a colour throws back, on the WCAG scale. */
+export function luminance(hex: string): number {
+  const channel = (at: number) => {
+    const value = parseInt(hex.slice(at, at + 2), 16) / 255;
+    return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * channel(1) + 0.7152 * channel(3) + 0.0722 * channel(5);
+}
+
+/** How far apart two colours are to read, 1 (identical) to 21 (black on white). */
+export function contrast(one: string, other: string): number {
+  const [light, dark] = [luminance(one), luminance(other)].sort((a, b) => b - a);
+  return (light + 0.05) / (dark + 0.05);
+}
+
+/**
+ * Whichever of two inks reads better on a given ground.
+ *
+ * The accent is the player's, and a colour light enough to be pleasant on a
+ * pale page is not always dark enough to carry white. Rather than ruling such a
+ * colour out, anything painted in the accent asks which ink to use — so a deep
+ * navy takes white and a pale lilac takes the page's own ink, and both stay
+ * readable.
+ */
+export function inkOn(ground: string, light: string, dark: string): string {
+  return contrast(ground, light) >= contrast(ground, dark) ? light : dark;
+}
+
 /** Two colours blended: `amount` of `towards` mixed into `hex`. */
 export function mix(hex: string, towards: string, amount: number): string {
   const channels = (value: string) => [1, 3, 5].map((at) => parseInt(value.slice(at, at + 2), 16));

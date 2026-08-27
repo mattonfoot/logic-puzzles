@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, View, type ViewStyle } from 'react-native';
 
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { radius, shadow, space, tint, type Palette } from '../ui/theme';
+import { inkOn, radius, shadow, space, tint, type Palette } from '../ui/theme';
 
 type Variant = 'primary' | 'secondary' | 'ghost';
 
@@ -33,7 +33,10 @@ export function AppButton({
   const tone = accent ?? palette.ink;
   const background =
     variant === 'primary' ? tone : variant === 'secondary' ? palette.surface : 'transparent';
-  const color = variant === 'primary' ? palette.surface : tone;
+  // A solid button is painted in the accent, and the accent is the player's:
+  // whether its label reads better in the surface or in the ink depends on
+  // which colour they picked.
+  const color = variant === 'primary' ? inkOn(tone, palette.surface, palette.ink) : tone;
   const border =
     variant === 'secondary' ? tint(tone, 0.35) : variant === 'ghost' ? 'transparent' : tone;
 

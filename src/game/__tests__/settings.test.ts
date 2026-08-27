@@ -1,5 +1,5 @@
 import { ACCENTS, accentById, DEFAULT_ACCENT, nextAccent } from '../../ui/accents';
-import { dayPalette, nightPalette, paletteSwatches } from '../../ui/theme';
+import { contrast, dayPalette, inkOn, nightPalette, paletteSwatches } from '../../ui/theme';
 import { resolvePalette } from '../../ui/ThemeProvider';
 import {
   DEFAULT_SETTINGS,
@@ -159,6 +159,18 @@ describe('the colours the player can choose', () => {
       expect(accent.day.primary).not.toBe(dayPalette.danger);
       expect(accent.night.primary).not.toBe(nightPalette.success);
       expect(accent.night.primary).not.toBe(nightPalette.danger);
+    }
+  });
+
+  it('has an ink that can be read on every primary', () => {
+    // Whatever the player picks, the panel it is painted on and the buttons
+    // filled with it have to carry their words. Large text needs 3:1.
+    for (const accent of ACCENTS) {
+      const ground = accent.day.primary;
+      const on = inkOn(ground, '#FFFFFF', dayPalette.ink);
+      expect(`${accent.id}: ${contrast(ground, on) >= 3 ? 'readable' : 'too close'}`).toBe(
+        `${accent.id}: readable`,
+      );
     }
   });
 

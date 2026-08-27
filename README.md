@@ -383,7 +383,7 @@ sit on — with a set per scheme:
 | Colour | Day primary | Day secondary | Day page | Night primary | Night secondary |
 |--------|-------------|---------------|----------|---------------|-----------------|
 | Blue | `#064789` | `#427AA1` | `#EBF2FA` | `#7AA8D0` | `#4E88B5` |
-| Violet | `#6A45E0` | `#A993E5` | — | `#A996FF` | `#6B60A0` |
+| Violet | `#9381FF` | `#B8B8FF` | `#F8F7FF` | `#B8B8FF` | `#9381FF` |
 | Teal | `#0F7C7B` | `#77B2AE` | — | `#4FC7C4` | `#357E7C` |
 | Green | `#2F8F4E` | `#89BC95` | — | `#6ACF72` | `#45834B` |
 | Rust | `#B25F2E` | `#D1A284` | — | `#E39A63` | `#8E6342` |
@@ -395,9 +395,19 @@ cool blue page reads as a mistake rather than as a choice. A colour with no page
 leaves the scheme's own alone, and its hand-picked shades stay exactly as they
 are.
 
+Violet's two colours serve both schemes, swapping which of them leads: on a pale
+page the deeper one leads and the lighter is the quiet half, and on a near-black
+one it is the other way round.
+
 The secondary is where the board draws a tick it worked out for itself, and the
 border on a clue still in play. Both were arbitrary tints of the accent before —
 a chosen colour is a better answer than 55% of another one.
+
+Anything painted in the accent asks which ink to put on it rather than assuming
+white: `inkOn` picks whichever of white and the page's own ink reads better on
+that ground, so the title panel and a solid button work with a deep navy and
+with a pale lilac alike, and the status bar follows the panel it sits on. A test
+holds every primary to at least 3:1 against whichever ink it gets.
 
 Green's night primary is a leaf green rather than the mint `success` uses at
 night: two greens a shade apart, one meaning "a personal best" and one meaning
