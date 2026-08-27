@@ -206,9 +206,10 @@ goes back exactly one step.
 The top left is left to one thing: the **burger** on the board, which opens the
 game's menu. That is the only control in that corner anywhere in the app, so a
 tap there always means the same thing. A corner that goes back on one screen and
-opens something on another is a corner nobody trusts, which is why the header
-bar naming a screen carries a title and nothing to press, and the
-menu is dismissed with `◀ Back` rather than a cross where the burger was.
+opens something on another is a corner nobody trusts, which is why no screen
+carries a header button at all — a screen's name is `RuledTitle`, which is text
+— and the menu is dismissed with `◀ Back` rather than a cross where the burger
+was.
 
 `src/ui/BackLink.tsx` is the link itself — one component, so the wording, the
 tap feedback and the position cannot drift apart between screens. Its triangle
@@ -252,8 +253,8 @@ src/screens/                StartScreen, SetupScreen, SettingsScreen,
                             GameScreen, GameMenuScreen, StatsScreen
 src/game/settings.ts        the player's settings, and reading them back
 src/game/useSettings.ts     those settings as React state, written as they change
-src/ui/                     Text, ThemeProvider (day/night), ScreenHeader,
-                            palettes, spacing, borders, sound and haptics
+src/ui/                     Text, ThemeProvider (day/night), palettes,
+                            spacing, borders, sound and haptics
 src/ui/BackLink.tsx         the bottom-left `◀ Back` link, the one way back
 src/ui/RuledTitle.tsx       a screen's name with a rule drawn out of the word
 src/ui/TitlePanel.tsx       the app's name on a block of the link colour, the

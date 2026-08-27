@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { TrendChart } from '../components/TrendChart';
@@ -9,8 +10,8 @@ import { formatDuration, formatSpan } from '../game/time';
 import type { OverallStats, SizeStats } from '../stats/summary';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
-import { ScreenHeader } from '../ui/ScreenHeader';
 import { Icon } from '../ui/Icon';
+import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { radius, shadow, space, tint, type Palette } from '../ui/theme';
@@ -23,6 +24,7 @@ interface Props {
 }
 
 export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
+  const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const played = stats.sizes.filter((size) => size.solved > 0);
@@ -54,9 +56,12 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
 
   return (
     <View style={styles.screen}>
-      <ScreenHeader title="Statistics" />
+      <ScrollView
+        contentContainerStyle={[styles.content, { paddingTop: insets.top + space(5) }]}
+        showsVerticalScrollIndicator={false}
+      >
+        <RuledTitle style={styles.title}>Statistics</RuledTitle>
 
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         {stats.solved === 0 ? (
           <View style={[styles.card, shadow.card, styles.empty]}>
             <View style={styles.emptyMark}>
@@ -288,9 +293,11 @@ const makeStyles = (palette: Palette) =>
     },
     content: {
       paddingHorizontal: space(4),
-      paddingTop: space(2),
       paddingBottom: space(6),
       gap: space(3),
+    },
+    title: {
+      marginBottom: space(1),
     },
     card: {
       backgroundColor: palette.surface,
