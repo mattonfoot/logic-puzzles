@@ -38,6 +38,17 @@ const MIME = {
 
 const wait = (page, ms) => page.waitForTimeout(ms);
 
+/** The height of the screen's own scroll view, or 0 when nothing scrolls. */
+const scrollHeight = (page) =>
+  page.evaluate(() => {
+    const scroller = [...document.querySelectorAll('div')].find(
+      (element) =>
+        element.scrollHeight > element.clientHeight + 40 &&
+        getComputedStyle(element).overflowY !== 'visible',
+    );
+    return scroller ? scroller.scrollHeight : 0;
+  });
+
 /** Scrolls the screen's own scroll view: nothing in the app scrolls the window. */
 const scrollBy = async (page, top) => {
   await page.evaluate((to) => {
@@ -216,6 +227,25 @@ async function main() {
     console.log(`  ✓ ${name}.png`);
   };
 
+  /**
+   * A screen captured whole, however long it is.
+   *
+   * `fullPage` grows the window, and nothing in the app scrolls the window —
+   * every screen scrolls inside its own view — so instead the window is grown
+   * until that view has nothing left to scroll, and put back afterwards.
+   */
+  const fullShot = async (name) => {
+    for (let attempt = 0; attempt < 6; attempt++) {
+      const height = await scrollHeight(page);
+      if (!height) break;
+      await page.setViewportSize({ width: VIEWPORT.width, height: Math.ceil(height) + 80 });
+      await wait(page, 500);
+    }
+    await shot(name);
+    await page.setViewportSize(VIEWPORT);
+    await wait(page, 400);
+  };
+
   console.log('Capturing screens:');
 
   // 1. The start page: the three places the app goes.
@@ -331,6 +361,8 @@ async function main() {
   await wait(page, 700);
   await shot('12-style');
 
+  await fullShot('style-day-full');
+
   // 13. The same page in night colours, which is the other half of the palette.
   await page.getByLabel('Back').click();
   await wait(page, 400);
@@ -343,6 +375,8 @@ async function main() {
   // Down to the swatches, which is what the page is for.
   await scrollBy(page, 620);
   await shot('13-style-night');
+  await scrollBy(page, 0);
+  await fullShot('style-night-full');
   await page.getByLabel('Back').click();
   await wait(page, 400);
 

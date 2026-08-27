@@ -344,6 +344,12 @@ The controls on it are the real components with this screen's own state, not
 pictures of them — a disabled checkbox drawn at the wrong opacity is exactly the
 sort of thing a mock-up hides.
 
+`npm run screenshots` also writes it whole, in both schemes, as
+`docs/screenshots/style-day-full.png` and `style-night-full.png`. Nothing in the
+app scrolls the window — every screen scrolls inside its own view — so
+Playwright's `fullPage` would only ever catch the first screenful; the capture
+grows the window until that view has nothing left to scroll instead.
+
 ### The colours
 
 The two schemes, as they stand:
