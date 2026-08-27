@@ -11,7 +11,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { SIZES, sizeById } from './src/data/sizes';
+import { SIZES } from './src/data/sizes';
 import { THEMES } from './src/data/themes';
 import type { SavedGame } from './src/game/persistence';
 import { usePersistence } from './src/game/usePersistence';
@@ -80,7 +80,6 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
 
-  const [size, setSize] = useState<SizeOption>(SIZES[1]);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [restore, setRestore] = useState<SavedGame | null>(null);
   const [screen, setScreen] = useState<Screen>('start');
@@ -112,38 +111,17 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
   );
 
   const surpriseMe = useCallback(() => {
-    const nextSize = SIZES[Math.floor(Math.random() * SIZES.length)];
-    setSize(nextSize);
-    build(nextSize);
+    build(SIZES[Math.floor(Math.random() * SIZES.length)]);
   }, [build]);
 
   const resume = useCallback(() => {
     const saved = persistence.savedGame;
     if (!saved) return;
-    // Line the size picker up with the resumed game, so "new puzzle" from
-    // inside it keeps the same shape.
-    try {
-      setSize(sizeById(saved.puzzle.size.id));
-    } catch {
-      // A size that no longer exists: the saved puzzle still plays.
-    }
     setRestore(saved);
     setPuzzle(saved.puzzle);
     setScreen('game');
   }, [persistence.savedGame]);
 
-  /** Called from the solved tab: the puzzle is finished, so back goes home. */
-  const openStatsAfterWin = useCallback(() => {
-    setPuzzle(null);
-    setRestore(null);
-    setScreen('stats');
-  }, []);
-
-  /**
-   * Leaving a puzzle goes back one step, to the screen the puzzle was chosen
-   * on, rather than all the way home. The board is saved on the way out, so the
-   * game is still there to resume.
-   */
   const leaveGame = useCallback(() => {
     setPuzzle(null);
     setRestore(null);
@@ -174,21 +152,15 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             onToggleAutoFacts={() => settings.update({ autoFacts: !settings.settings.autoFacts })}
             restore={restore ?? persistence.savedGame}
             onExit={leaveGame}
-            onNewPuzzle={() => build(size)}
             onSaveProgress={persistence.saveProgress}
             onCompleted={recordCompletion}
-            onOpenStats={openStatsAfterWin}
           />
         ) : screen === 'setup' ? (
           <SetupScreen
             busy={busy}
             stats={persistence.stats}
             savedGame={persistence.savedGame}
-            onStart={(chosen) => {
-              // Remembered so "new puzzle" from inside the game keeps the shape.
-              setSize(chosen);
-              build(chosen);
-            }}
+            onStart={build}
             onSurpriseMe={surpriseMe}
             onResume={resume}
             onDiscardSaved={persistence.discardSavedGame}

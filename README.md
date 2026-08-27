@@ -160,7 +160,8 @@ rest is the app behaving normally.
    a line. The first set stays pinned while the others scroll sideways, which
    keeps every heading on one line. The board stays where it was, so the
    finished grid is one tap away — though it is read-only from then on, since
-   changing it would undo the win.
+   changing it would undo the win. There is nothing to press on it: `<<< back`
+   leads to the setup screen, which is where the next puzzle is chosen.
 5. **The menu**, behind the burger at the top left, holds everything that acts
    on the game rather than on a square: the two board settings (the same ones
    the settings screen holds — they are the player's, not the puzzle's),
@@ -322,6 +323,11 @@ it. Everything the finish made pointless goes with it — the clue card, the Und
 and clue buttons, and the menu's "Reveal the answer" row are all hidden — and
 the board becomes read-only, because a stray tap on a finished grid would undo
 the win, restart the clock and have the game counted a second time.
+
+The result offers nothing to press either. Another puzzle, a different
+difficulty and the statistics are all where they always are, behind `<<< back`,
+so the panel is something to read rather than a junction to get past — and the
+app has one way out of a game rather than four.
 
 ## Clues, one at a time
 

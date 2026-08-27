@@ -7,7 +7,6 @@ import type { Improvement } from '../stats/summary';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, space, tint, type Palette } from '../ui/theme';
-import { AppButton } from './AppButton';
 import { SolutionTable } from './SolutionTable';
 
 interface Props {
@@ -19,26 +18,19 @@ interface Props {
   cluesUsed: number;
   /** How this game compares with earlier ones; null until stats have loaded. */
   improvement: Improvement | null;
-  onPlayAgain: () => void;
-  onChangeSetup: () => void;
-  onOpenStats: () => void;
 }
 
 /**
  * How the game finished: the clock, how it compares with earlier games, and the
  * answer as a table. It fills the tab it is shown in rather than covering the
  * board, so the finished grid stays one tap away.
+ *
+ * It offers nothing to press. Everything a player might want next — another
+ * puzzle, a different difficulty, their statistics — lives behind the same
+ * `<<< back` link as always, so the result is something to read rather than a
+ * junction to get past.
  */
-export function SolvedPanel({
-  title = 'Solved!',
-  puzzle,
-  seconds,
-  cluesUsed,
-  improvement,
-  onPlayAgain,
-  onChangeSetup,
-  onOpenStats,
-}: Props) {
+export function SolvedPanel({ title = 'Solved!', puzzle, seconds, cluesUsed, improvement }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   return (
@@ -82,30 +74,6 @@ export function SolvedPanel({
       <View style={styles.answer}>
         <Text style={styles.answerLabel}>The answer</Text>
         <SolutionTable puzzle={puzzle} compact />
-      </View>
-
-      <AppButton
-        label="New puzzle"
-        icon="↻"
-        accent={puzzle.accent}
-        onPress={onPlayAgain}
-        style={styles.button}
-      />
-      <View style={styles.secondaryRow}>
-        <AppButton
-          label="Statistics"
-          variant="ghost"
-          accent={palette.inkSoft}
-          onPress={onOpenStats}
-          style={styles.secondaryButton}
-        />
-        <AppButton
-          label="Change setup"
-          variant="ghost"
-          accent={palette.inkSoft}
-          onPress={onChangeSetup}
-          style={styles.secondaryButton}
-        />
       </View>
     </ScrollView>
   );
@@ -196,15 +164,6 @@ const makeStyles = (palette: Palette) =>
       textAlign: 'center',
       marginTop: space(1),
     },
-    secondaryRow: {
-      flexDirection: 'row',
-      alignSelf: 'stretch',
-    },
-    secondaryButton: {
-      flex: 1,
-      marginTop: space(1),
-      paddingHorizontal: space(2),
-    },
     statJoined: {
       borderLeftWidth: border,
       borderLeftColor: palette.surface,
@@ -224,9 +183,5 @@ const makeStyles = (palette: Palette) =>
       letterSpacing: 0.6,
       color: palette.inkFaint,
       marginTop: space(1),
-    },
-    button: {
-      alignSelf: 'stretch',
-      marginTop: space(4),
     },
   });

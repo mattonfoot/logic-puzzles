@@ -50,10 +50,8 @@ interface Props {
   /** Board to start from when the player is picking a game back up. */
   restore?: SavedGame | null;
   onExit: () => void;
-  onNewPuzzle: () => void;
   onSaveProgress: (game: SavedGame) => void;
   onCompleted: (input: CompletionInput) => Promise<Improvement>;
-  onOpenStats: () => void;
 }
 
 /**
@@ -73,10 +71,8 @@ export function GameScreen({
   onToggleAutoFacts,
   restore,
   onExit,
-  onNewPuzzle,
   onSaveProgress,
   onCompleted,
-  onOpenStats,
 }: Props) {
   const styles = useStyles(makeStyles);
   const insets = useSafeAreaInsets();
@@ -530,9 +526,6 @@ export function GameScreen({
             seconds={seconds}
             cluesUsed={cluesSeen.size}
             improvement={improvement}
-            onPlayAgain={onNewPuzzle}
-            onChangeSetup={onExit}
-            onOpenStats={onOpenStats}
           />
         )}
       </View>
