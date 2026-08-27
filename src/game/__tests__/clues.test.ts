@@ -27,7 +27,6 @@ const puzzle: Puzzle = {
   themeId: 'test',
   themeName: 'Test',
   themeIcon: 'test/theme',
-  accent: '#000000',
   size: { id: '3x3', items: 3, categories: 3, label: '3 × 3', difficulty: 'Beginner' },
   categories: [
     {

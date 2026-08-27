@@ -110,8 +110,6 @@ export interface ThemeDef {
   /** The theme's own silhouette, by name. */
   icon: string;
   blurb: string;
-  /** Accent colour used across the UI when this theme is in play. */
-  accent: string;
   /** The first category is always the anchor category. */
   categories: CategoryDef[];
   /** Wording for this theme's clues; anything omitted uses the default. */
@@ -187,7 +185,6 @@ export interface Puzzle {
   themeId: string;
   themeName: string;
   themeIcon: string;
-  accent: string;
   size: SizeOption;
   categories: PuzzleCategory[];
   /** solution[category][entity] = item index. */

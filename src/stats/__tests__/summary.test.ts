@@ -15,7 +15,6 @@ function game(overrides: Partial<CompletedGame> = {}): CompletedGame {
     themeId: 'cosmic',
     themeName: 'Cosmic Voyage',
     themeIcon: 'cosmic/theme',
-    accent: '#4C6FFF',
     sizeId: 'sm',
     sizeLabel: '4 × 4',
     difficulty: 'Advanced',

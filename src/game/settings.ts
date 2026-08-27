@@ -4,6 +4,7 @@
  * any one game, so they are written to disk and read back the same guarded way
  * as everything else.
  */
+import { ACCENTS, DEFAULT_ACCENT } from '../ui/accents';
 import type { ColourPreference } from '../ui/ThemeProvider';
 
 export const SETTINGS_VERSION = 1;
@@ -16,6 +17,8 @@ export interface Settings {
   autoFacts: boolean;
   /** Day, night, or whatever the device is doing. */
   colours: ColourPreference;
+  /** Which colour the app draws its links, marks and headings in. */
+  accent: string;
   /** Whether the phone buzzes along with what it plays. */
   haptics: boolean;
   /** How loud the effects are, 0 (silent) to 1. */
@@ -46,6 +49,7 @@ export const DEFAULT_SETTINGS: Settings = {
   autoEliminate: true,
   autoFacts: true,
   colours: 'auto',
+  accent: DEFAULT_ACCENT,
   haptics: true,
   volume: 0.6,
 };
@@ -71,6 +75,10 @@ export function reviveSettings(value: unknown): Settings | null {
       typeof raw.colours === 'string' && PREFERENCES.includes(raw.colours as ColourPreference)
         ? (raw.colours as ColourPreference)
         : DEFAULT_SETTINGS.colours,
+    accent:
+      typeof raw.accent === 'string' && ACCENTS.some((one) => one.id === raw.accent)
+        ? raw.accent
+        : DEFAULT_SETTINGS.accent,
     haptics: typeof raw.haptics === 'boolean' ? raw.haptics : DEFAULT_SETTINGS.haptics,
     // Clamped rather than refused: a volume outside the range is a value that
     // means something, just not exactly what it says.

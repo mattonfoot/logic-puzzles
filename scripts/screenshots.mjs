@@ -70,27 +70,26 @@ function sampleHistory() {
   const now = Date.now();
   // Newest first, getting quicker over time so the trend has something to say.
   const games = [
-    ['cosmic', 'Cosmic Voyage', '#4C6FFF', 'sm', '4 × 4', 214, 7, 0],
-    ['reef', 'Reef Dive', '#0EA5A4', 'sm', '4 × 4', 236, 9, 0],
-    ['cafe', 'Corner Café', '#C2703D', 'sm', '4 × 4', 259, 8, 1],
-    ['quest', 'Mythic Quest', '#7A5AF8', 'sm', '4 × 4', 288, 10, 1],
-    ['garden', 'Blue Ribbon Garden', '#2F8F4E', 'sm', '4 × 4', 300, 9, 2],
-    ['cosmic', 'Cosmic Voyage', '#4C6FFF', 'sm', '4 × 4', 310, 12, 2],
-    ['reef', 'Reef Dive', '#0EA5A4', 'sm', '4 × 4', 325, 11, 3],
-    ['quest', 'Mythic Quest', '#7A5AF8', 'sm', '4 × 4', 340, 12, 3],
-    ['cafe', 'Corner Café', '#C2703D', 'md', '5 × 4', 412, 10, 4],
-    ['garden', 'Blue Ribbon Garden', '#2F8F4E', 'md', '5 × 4', 468, 12, 5],
-    ['cosmic', 'Cosmic Voyage', '#4C6FFF', 'xs', '3 × 3', 96, 4, 5],
+    ['cosmic', 'Cosmic Voyage', 'sm', '4 × 4', 214, 7, 0],
+    ['reef', 'Reef Dive', 'sm', '4 × 4', 236, 9, 0],
+    ['cafe', 'Corner Café', 'sm', '4 × 4', 259, 8, 1],
+    ['quest', 'Mythic Quest', 'sm', '4 × 4', 288, 10, 1],
+    ['garden', 'Blue Ribbon Garden', 'sm', '4 × 4', 300, 9, 2],
+    ['cosmic', 'Cosmic Voyage', 'sm', '4 × 4', 310, 12, 2],
+    ['reef', 'Reef Dive', 'sm', '4 × 4', 325, 11, 3],
+    ['quest', 'Mythic Quest', 'sm', '4 × 4', 340, 12, 3],
+    ['cafe', 'Corner Café', 'md', '5 × 4', 412, 10, 4],
+    ['garden', 'Blue Ribbon Garden', 'md', '5 × 4', 468, 12, 5],
+    ['cosmic', 'Cosmic Voyage', 'xs', '3 × 3', 96, 4, 5],
   ];
   return {
     version: 1,
     games: games.map(
-      ([themeId, themeName, accent, sizeId, sizeLabel, seconds, cluesUsed, daysAgo], index) => ({
+      ([themeId, themeName, sizeId, sizeLabel, seconds, cluesUsed, daysAgo], index) => ({
         seed: 1000 + index,
         themeId,
         themeName,
         themeIcon: `${themeId}/theme`,
-        accent,
         sizeId,
         sizeLabel,
         difficulty: { xs: 'Beginner', sm: 'Advanced', md: 'Expert', lg: 'Pro' }[sizeId],

@@ -125,6 +125,45 @@ export function SliderRow({
 }
 
 /**
+ * A setting with a handful of named values and no order worth showing: its
+ * name, then the value it is on. Tapping moves to the next and wraps round.
+ *
+ * The value is drawn in the colour it names, which on the only one of these —
+ * the accent — makes the swatch and the label the same thing.
+ */
+export function CycleRow({
+  label,
+  value,
+  accent,
+  onPress,
+}: {
+  label: string;
+  value: string;
+  accent?: string;
+  onPress: () => void;
+}) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
+
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      accessibilityValue={{ text: value }}
+      accessibilityHint="Changes to the next one"
+      onPress={() => {
+        feedback.tap();
+        onPress();
+      }}
+      style={({ pressed }) => [styles.row, { opacity: pressed ? 0.6 : 1 }]}
+    >
+      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, styles.value, { color: accent ?? palette.accent }]}>{value}</Text>
+    </Pressable>
+  );
+}
+
+/**
  * Something the screen does rather than something it holds: a word on its own,
  * set the way the difficulties are on the setup screen.
  */
@@ -174,6 +213,12 @@ const makeStyles = (palette: Palette) =>
       fontWeight: '800',
       letterSpacing: -0.6,
       color: palette.ink,
+    },
+    value: {
+      // Pushed to the right-hand end of the row, where the slider's line ends.
+      flex: 1,
+      textAlign: 'right',
+      marginRight: space(2),
     },
     box: {
       width: 26,

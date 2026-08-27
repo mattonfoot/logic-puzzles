@@ -21,6 +21,7 @@ interface Props {
  * headings on one line each however long the set names are.
  */
 export function SolutionTable({ puzzle, compact = false }: Props) {
+  const palette = useTheme();
   const styles = useStyles(makeStyles);
   const rows = solutionRows(puzzle);
   const [viewport, setViewport] = useState(0);
@@ -38,7 +39,7 @@ export function SolutionTable({ puzzle, compact = false }: Props) {
         {
           width: columnWidth,
           height: rowHeight,
-          backgroundColor: index % 2 ? tint(puzzle.accent, 0.05) : 'transparent',
+          backgroundColor: index % 2 ? tint(palette.accent, 0.05) : 'transparent',
         },
       ]}
     >
@@ -54,7 +55,7 @@ export function SolutionTable({ puzzle, compact = false }: Props) {
 
   const header = (name: string) => (
     <View key={name} style={[styles.headerCell, { width: columnWidth, height: headerHeight }]}>
-      <Text numberOfLines={1} style={[styles.headerText, { color: puzzle.accent }]}>
+      <Text numberOfLines={1} style={[styles.headerText, { color: palette.accent }]}>
         {name}
       </Text>
     </View>

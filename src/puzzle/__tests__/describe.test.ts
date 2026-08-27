@@ -27,7 +27,6 @@ const theme: ThemeDef = {
   name: 'Test',
   icon: 'test/theme',
   blurb: 'For the tests',
-  accent: '#000000',
   categories: [
     {
       id: 'person',
@@ -74,7 +73,6 @@ function puzzleWith(templates = resolveClueTemplates(theme)): Puzzle {
     themeId: theme.id,
     themeName: theme.name,
     themeIcon: theme.icon,
-    accent: theme.accent,
     size: SIZES[0],
     categories: theme.categories,
     solution: [

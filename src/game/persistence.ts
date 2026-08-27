@@ -32,7 +32,6 @@ export interface CompletedGame {
   themeId: string;
   themeName: string;
   themeIcon: string;
-  accent: string;
   sizeId: string;
   /** The shape, as the grid reads: "4 × 4". */
   sizeLabel: string;
@@ -197,7 +196,6 @@ export function completedGameFrom(puzzle: Puzzle, input: CompletionInput): Compl
     themeId: puzzle.themeId,
     themeName: puzzle.themeName,
     themeIcon: puzzle.themeIcon,
-    accent: puzzle.accent,
     sizeId: puzzle.size.id,
     sizeLabel: puzzle.size.label,
     difficulty: puzzle.size.difficulty,

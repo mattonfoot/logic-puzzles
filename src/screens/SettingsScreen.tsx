@@ -5,8 +5,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { VOLUMES, volumeStep, type Settings } from '../game/settings';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
+import { accentById, nextAccent } from '../ui/accents';
 import { RuledTitle } from '../ui/RuledTitle';
-import { CheckRow, SliderRow } from '../ui/SettingRow';
+import { CheckRow, CycleRow, SliderRow } from '../ui/SettingRow';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { space, type Palette } from '../ui/theme';
 
@@ -61,6 +62,11 @@ export function SettingsScreen({ settings, onChange, onBack }: Props) {
             // Shown as it stands, but the device is deciding it.
             disabled={auto}
             onPress={() => onChange({ colours: settings.colours === 'night' ? 'day' : 'night' })}
+          />
+          <CycleRow
+            label="Colour"
+            value={accentById(settings.accent).name}
+            onPress={() => onChange({ accent: nextAccent(settings.accent).id })}
           />
           <SliderRow
             label="Volume"

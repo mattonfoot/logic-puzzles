@@ -6,8 +6,14 @@ import { Platform } from 'react-native';
  * names a colour, only a role.
  */
 export interface Palette {
-  /** Used by the screens outside a puzzle, which have no theme of their own. */
+  /** The colour the player chose, in the cut this scheme can read. */
   accent: string;
+  /**
+   * The same colour as a ground for white text — always the darker, daytime
+   * cut, because the title panel is painted in it in both schemes and the night
+   * cut is too light to carry white.
+   */
+  accentGround: string;
   bg: string;
   surface: string;
   surfaceAlt: string;
@@ -36,6 +42,7 @@ export interface Palette {
 
 export const dayPalette: Palette = {
   accent: '#4C6FFF',
+  accentGround: '#4C6FFF',
   bg: '#F6F3EC',
   surface: '#FFFFFF',
   surfaceAlt: '#FBF9F3',
@@ -61,6 +68,7 @@ export const dayPalette: Palette = {
  */
 export const nightPalette: Palette = {
   accent: '#8AA2FF',
+  accentGround: '#4C6FFF',
   bg: '#14161C',
   surface: '#1B1E26',
   surfaceAlt: '#20242D',

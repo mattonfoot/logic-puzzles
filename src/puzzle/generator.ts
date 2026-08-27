@@ -47,7 +47,6 @@ export function generatePuzzle({ theme: themeOrPool, size, seed }: GenerateOptio
     themeId: theme.id,
     themeName: theme.name,
     themeIcon: theme.icon,
-    accent: theme.accent,
     size,
     categories,
     solution,

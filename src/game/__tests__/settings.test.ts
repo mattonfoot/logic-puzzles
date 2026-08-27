@@ -1,3 +1,4 @@
+import { ACCENTS, accentById, DEFAULT_ACCENT, nextAccent } from '../../ui/accents';
 import { dayPalette, nightPalette } from '../../ui/theme';
 import { resolvePalette } from '../../ui/ThemeProvider';
 import {
@@ -60,13 +61,65 @@ describe('volume', () => {
 
 describe('which colours a preference means', () => {
   it('says what it is told', () => {
-    expect(resolvePalette('day', true)).toBe(dayPalette);
-    expect(resolvePalette('night', false)).toBe(nightPalette);
+    expect(resolvePalette('day', true)).toEqual(dayPalette);
+    expect(resolvePalette('night', false)).toEqual(nightPalette);
   });
 
   it('follows the device when asked to', () => {
-    expect(resolvePalette('auto', false)).toBe(dayPalette);
-    expect(resolvePalette('auto', true)).toBe(nightPalette);
+    expect(resolvePalette('auto', false)).toEqual(dayPalette);
+    expect(resolvePalette('auto', true)).toEqual(nightPalette);
+  });
+
+  it('takes the accent from the player and everything else from the scheme', () => {
+    for (const accent of ACCENTS) {
+      const day = resolvePalette('day', false, accent.id);
+      const night = resolvePalette('night', false, accent.id);
+      expect(day.accent).toBe(accent.day);
+      expect(night.accent).toBe(accent.night);
+      // The panel's ground is the daytime cut whichever scheme is in force, so
+      // the white on it stays readable after dark.
+      expect(day.accentGround).toBe(accent.day);
+      expect(night.accentGround).toBe(accent.day);
+      // The page itself does not move with the accent.
+      const bare = { accent: '', accentGround: '' };
+      expect({ ...day, ...bare }).toEqual({ ...dayPalette, ...bare });
+      expect({ ...night, ...bare }).toEqual({ ...nightPalette, ...bare });
+    }
+  });
+
+  it('falls back rather than drawing in nothing', () => {
+    expect(resolvePalette('day', false, 'a colour nobody chose').accent).toBe(
+      accentById(DEFAULT_ACCENT).day,
+    );
+  });
+});
+
+describe('the colours the player can choose', () => {
+  it('offers several, each named once', () => {
+    expect(ACCENTS.length).toBeGreaterThanOrEqual(3);
+    expect(new Set(ACCENTS.map((accent) => accent.id)).size).toBe(ACCENTS.length);
+    expect(new Set(ACCENTS.map((accent) => accent.name)).size).toBe(ACCENTS.length);
+  });
+
+  it('has a light cut and a dark one for each, so both schemes can read it', () => {
+    // A cheap stand-in for lightness: the sum of the channels.
+    const weight = (hex: string) =>
+      parseInt(hex.slice(1, 3), 16) + parseInt(hex.slice(3, 5), 16) + parseInt(hex.slice(5, 7), 16);
+    for (const accent of ACCENTS) {
+      expect(`${accent.id}: ${accent.day} then ${accent.night}`).toMatch(/^#?/);
+      expect(weight(accent.night)).toBeGreaterThan(weight(accent.day));
+    }
+  });
+
+  it('comes back round to where it started', () => {
+    let id = DEFAULT_ACCENT;
+    const seen = new Set<string>();
+    for (let step = 0; step < ACCENTS.length; step++) {
+      seen.add(id);
+      id = nextAccent(id).id;
+    }
+    expect(seen.size).toBe(ACCENTS.length);
+    expect(id).toBe(DEFAULT_ACCENT);
   });
 });
 

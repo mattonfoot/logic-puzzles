@@ -132,7 +132,6 @@ export const THEMES: ThemeDef[] = withIcons([
     name: 'Cosmic Voyage',
     icon: '',
     blurb: 'Crews, ships and launch windows',
-    accent: '#4C6FFF',
     categories: [
       set(
         {
@@ -301,7 +300,6 @@ export const THEMES: ThemeDef[] = withIcons([
     name: 'Corner Café',
     icon: '',
     blurb: 'Regulars, orders and the morning rush',
-    accent: '#C2703D',
     categories: [
       set(
         {
@@ -470,7 +468,6 @@ export const THEMES: ThemeDef[] = withIcons([
     name: 'Mythic Quest',
     icon: '',
     blurb: 'Heroes, beasts and hard-won gold',
-    accent: '#7A5AF8',
     categories: [
       set(
         {
@@ -638,7 +635,6 @@ export const THEMES: ThemeDef[] = withIcons([
     name: 'Reef Dive',
     icon: '',
     blurb: 'Divers, sightings and depth logs',
-    accent: '#0EA5A4',
     categories: [
       set(
         {
@@ -806,7 +802,6 @@ export const THEMES: ThemeDef[] = withIcons([
     name: 'Blue Ribbon Garden',
     icon: '',
     blurb: 'Growers, blooms and show-day heights',
-    accent: '#2F8F4E',
     categories: [
       set(
         {

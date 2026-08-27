@@ -5,7 +5,7 @@ import type { Attribute, Puzzle } from '../puzzle/types';
 import { feedback } from '../ui/feedback';
 import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
-import { useStyles } from '../ui/ThemeProvider';
+import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, shadow, space, tint, type Palette } from '../ui/theme';
 
 interface Props {
@@ -24,6 +24,7 @@ interface Props {
  * label on the board and the item introduces itself.
  */
 export function ItemCard({ puzzle, showing, onClose }: Props) {
+  const palette = useTheme();
   const styles = useStyles(makeStyles);
   if (!showing) return null;
 
@@ -44,11 +45,11 @@ export function ItemCard({ puzzle, showing, onClose }: Props) {
         {/* Taps inside the card stay inside it. */}
         <Pressable style={[styles.card, shadow.raised]} onPress={() => undefined}>
           <View style={styles.head}>
-            <View style={[styles.icon, { backgroundColor: tint(puzzle.accent, 0.12) }]}>
-              <Icon name={item.icon} size={38} color={puzzle.accent} />
+            <View style={[styles.icon, { backgroundColor: tint(palette.accent, 0.12) }]}>
+              <Icon name={item.icon} size={38} color={palette.accent} />
             </View>
             <View style={styles.headText}>
-              <Text style={[styles.category, { color: puzzle.accent }]}>{category.name}</Text>
+              <Text style={[styles.category, { color: palette.accent }]}>{category.name}</Text>
               <Text style={styles.label}>{item.label}</Text>
             </View>
           </View>

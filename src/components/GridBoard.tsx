@@ -110,7 +110,7 @@ export function GridBoard({
                     maxWidth: blockBox,
                     left: (CATEGORY_STRIP - blockBox) / 2,
                     top: (blockBox - LABEL_LINE) / 2,
-                    color: puzzle.accent,
+                    color: palette.accent,
                   },
                 ]}
               >
@@ -150,7 +150,7 @@ export function GridBoard({
           <View style={[styles.row, { height: HEADER_HEIGHT }]}>
             {layout.colCategories.map((category) => (
               <View key={`head-${category}`} style={[styles.columnBlock, { width: blockBox }]}>
-                <Text style={[styles.categoryName, { color: puzzle.accent }]} numberOfLines={1}>
+                <Text style={[styles.categoryName, { color: palette.accent }]} numberOfLines={1}>
                   {puzzle.categories[category].name}
                 </Text>
                 <View style={styles.row}>
@@ -236,9 +236,9 @@ export function GridBoard({
                                   backgroundColor: wrong
                                     ? tint(palette.danger, 0.16)
                                     : mark === 'yes'
-                                      ? tint(puzzle.accent, 0.16)
+                                      ? tint(palette.accent, 0.16)
                                       : crosshair
-                                        ? tint(puzzle.accent, 0.07)
+                                        ? tint(palette.accent, 0.07)
                                         : (rowItem + colItem) % 2 === 1
                                           ? palette.boardShade
                                           : palette.boardLight,
@@ -261,8 +261,8 @@ export function GridBoard({
                                       color: wrong
                                         ? palette.danger
                                         : entry?.source === 'auto'
-                                          ? tint(puzzle.accent, 0.55)
-                                          : puzzle.accent,
+                                          ? tint(palette.accent, 0.55)
+                                          : palette.accent,
                                     },
                                   ]}
                                 >

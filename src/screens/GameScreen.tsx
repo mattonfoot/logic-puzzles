@@ -47,8 +47,11 @@ interface Props {
   /** The player's board settings, which live outside any one game. */
   autoEliminate: boolean;
   autoFacts: boolean;
+  /** The colour the app is drawn in — the player's, reachable from the menu. */
+  accent: string;
   onToggleAutoEliminate: () => void;
   onToggleAutoFacts: () => void;
+  onChangeAccent: (accent: string) => void;
   /** Board to start from when the player is picking a game back up. */
   restore?: SavedGame | null;
   onExit: () => void;
@@ -69,13 +72,16 @@ export function GameScreen({
   puzzle,
   autoEliminate,
   autoFacts,
+  accent,
   onToggleAutoEliminate,
   onToggleAutoFacts,
+  onChangeAccent,
   restore,
   onExit,
   onSaveProgress,
   onCompleted,
 }: Props) {
+  const palette = useTheme();
   const styles = useStyles(makeStyles);
   const insets = useSafeAreaInsets();
   const resumed = restore?.puzzle.seed === puzzle.seed ? restore : null;
@@ -399,6 +405,8 @@ export function GameScreen({
         autoEliminate={autoEliminate}
         autoFacts={autoFacts}
         solved={solved}
+        accent={accent}
+        onChangeAccent={onChangeAccent}
         onToggleAutoEliminate={onToggleAutoEliminate}
         onToggleAutoFacts={onToggleAutoFacts}
         onRestart={() => {
@@ -431,7 +439,7 @@ export function GameScreen({
         </Pressable>
         <View style={styles.headerCenter}>
           <View style={styles.headerTitleRow}>
-            <Icon name={puzzle.themeIcon} size={16} color={puzzle.accent} />
+            <Icon name={puzzle.themeIcon} size={16} color={palette.accent} />
             <Text style={styles.headerTitle} numberOfLines={1}>
               {puzzle.themeName}
             </Text>
@@ -441,14 +449,14 @@ export function GameScreen({
             {puzzle.seed}
           </Text>
         </View>
-        <Text style={[styles.timer, { color: puzzle.accent }]}>{formatDuration(seconds)}</Text>
+        <Text style={[styles.timer, { color: palette.accent }]}>{formatDuration(seconds)}</Text>
       </View>
 
       <View style={styles.progressTrack}>
         <View
           style={[
             styles.progressFill,
-            { width: `${Math.round(filled * 100)}%`, backgroundColor: puzzle.accent },
+            { width: `${Math.round(filled * 100)}%`, backgroundColor: palette.accent },
           ]}
         />
       </View>
@@ -457,13 +465,13 @@ export function GameScreen({
         <View style={styles.tabs}>
           <TabButton
             label="Grid"
-            accent={puzzle.accent}
+            accent={palette.accent}
             selected={tab === 'grid'}
             onPress={() => setTab('grid')}
           />
           <TabButton
             label={revealed ? 'Revealed' : 'Solved'}
-            accent={puzzle.accent}
+            accent={palette.accent}
             selected={tab === 'result'}
             onPress={() => setTab('result')}
           />
@@ -480,14 +488,14 @@ export function GameScreen({
               <View style={styles.zoomRow}>
                 <ZoomButton
                   label="−"
-                  accent={puzzle.accent}
+                  accent={palette.accent}
                   disabled={zoom <= 0}
                   onPress={() => setZoom((step) => Math.max(0, step - ZOOM_STEP))}
                 />
                 <ZoomButton
                   label="+"
                   joined
-                  accent={puzzle.accent}
+                  accent={palette.accent}
                   disabled={cellSize >= MAX_CELL}
                   onPress={() => setZoom((step) => step + ZOOM_STEP)}
                 />
@@ -579,15 +587,15 @@ export function GameScreen({
             <ToolButton
               label="Undo"
               icon="↶"
-              accent={puzzle.accent}
+              accent={palette.accent}
               disabled={history.length === 0}
               onPress={undo}
             />
             <ToolButton
               label="Get next clue"
-              icon={<Icon name="ui/icon-clue" size={15} color={puzzle.accent} />}
+              icon={<Icon name="ui/icon-clue" size={15} color={palette.accent} />}
               joined
-              accent={puzzle.accent}
+              accent={palette.accent}
               onPress={showNextClue}
             />
           </View>

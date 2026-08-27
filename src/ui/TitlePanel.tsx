@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Text } from './Text';
 import { useStyles, useTheme } from './ThemeProvider';
-import { dayPalette, space, type Palette } from './theme';
+import { space, type Palette } from './theme';
 
 /** White on the panel, and the same white held back for the lines around the name. */
 const ON_PANEL = '#FFFFFF';
@@ -23,16 +23,16 @@ const ON_PANEL_SOFT = 'rgba(255, 255, 255, 0.82)';
  * on the way through.
  *
  * It runs up behind the status bar, so the name is the first thing on the
- * screen rather than the second. At night the accent is a pale lavender that
- * white cannot be read on, so the panel keeps the day cut of the same blue in
- * both palettes — the links below it still take the accent the rest of the app
- * is using.
+ * screen rather than the second. It is painted in `accentGround` rather than
+ * `accent`: at night the accent is lightened so it can be read on a near-black
+ * page, which leaves it too pale to carry white text, so the panel keeps the
+ * daytime cut of the same colour in both schemes.
  */
 export function TitlePanel() {
   const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const ground = palette.scheme === 'night' ? dayPalette.accent : palette.accent;
+  const ground = palette.accentGround;
 
   return (
     <View style={[styles.panel, { backgroundColor: ground, paddingTop: insets.top + space(4) }]}>

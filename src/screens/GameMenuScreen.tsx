@@ -5,8 +5,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import type { Puzzle } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
+import { accentById, nextAccent } from '../ui/accents';
 import { RuledTitle } from '../ui/RuledTitle';
-import { ActionRow, CheckRow } from '../ui/SettingRow';
+import { ActionRow, CheckRow, CycleRow } from '../ui/SettingRow';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { space, type Palette } from '../ui/theme';
@@ -19,6 +20,9 @@ interface Props {
   autoFacts: boolean;
   /** A finished puzzle has nothing left to reveal. */
   solved: boolean;
+  /** The colour the app is drawn in, which is the player's rather than the puzzle's. */
+  accent: string;
+  onChangeAccent: (accent: string) => void;
   onToggleAutoEliminate: () => void;
   onToggleAutoFacts: () => void;
   onRestart: () => void;
@@ -40,7 +44,9 @@ interface Props {
  * same way: `◀ Back` at the foot of it, rather than a cross in the corner the
  * board uses for the button that opened this. The puzzle it belongs to is named
  * under the title, since these are read while a particular game is waiting
- * behind them, and its accent is the colour they are drawn in.
+ * behind them. What is on it is the player's rather than the puzzle's — the
+ * board pair and the colour the app draws in — which is exactly why it is worth
+ * reaching without leaving the game.
  *
  * Both of the two actions throw away a board the player has filled in, and
  * neither carries a line saying so any more, so both ask first — the same way
@@ -51,6 +57,8 @@ export function GameMenuScreen({
   autoEliminate,
   autoFacts,
   solved,
+  accent,
+  onChangeAccent,
   onToggleAutoEliminate,
   onToggleAutoFacts,
   onRestart,
@@ -77,14 +85,19 @@ export function GameMenuScreen({
           <CheckRow
             label="Automatic crosses"
             on={autoEliminate}
-            accent={puzzle.accent}
+            accent={palette.accent}
             onPress={onToggleAutoEliminate}
           />
           <CheckRow
             label="Auto add facts"
             on={autoFacts}
-            accent={puzzle.accent}
+            accent={palette.accent}
             onPress={onToggleAutoFacts}
+          />
+          <CycleRow
+            label="Colour"
+            value={accentById(accent).name}
+            onPress={() => onChangeAccent(nextAccent(accent).id)}
           />
         </View>
 
@@ -95,7 +108,7 @@ export function GameMenuScreen({
         <View style={styles.list}>
           <ActionRow
             label="Restart"
-            accent={puzzle.accent}
+            accent={palette.accent}
             onPress={() => setConfirming('restart')}
           />
           {solved ? null : (

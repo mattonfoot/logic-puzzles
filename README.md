@@ -175,9 +175,10 @@ rest is the app behaving normally.
    changing it would undo the win. There is nothing to press on it: `◀ Back`
    leads to the setup screen, which is where the next puzzle is chosen.
 5. **Puzzle settings**, behind the burger at the top left, holds everything that acts
-   on the game rather than on a square: the two board settings, boxed and named
-   exactly as the settings screen has them (they are the player's, not the
-   puzzle's), then **Restart** (same puzzle, fresh board and clock) and
+   on the game rather than on a square: the two board settings and the colour,
+   boxed and named exactly as the settings screen has them (they are the
+   player's, not the puzzle's, which is why they are worth reaching mid-game),
+   then **Restart** (same puzzle, fresh board and clock) and
    **Reveal the answer**, which is hidden once the puzzle is finished. Both of
    those throw away a filled-in board, so both ask first. It is left the same way as
    every other screen — `◀ Back`, bottom left — which returns to the board.
@@ -185,13 +186,14 @@ rest is the app behaving normally.
    the puzzle was chosen on, so the next one is a tap away; the board is saved
    on the way out either way, and it is the first thing on that screen if you
    want it back.
-6. **Settings** — six of them, as a list of names with a box or a slider
-   against each: the board pair above; **match the device**, which follows the
-   phone's own light and dark setting and turns with it, and **night colours**
-   for a warm near-black page when it does not; **volume**, in four steps from
-   off; and **vibration**. Nothing explains what any of them does, because all
-   six show their effect the moment they are touched. They are written to disk,
-   so they are the same the next time the app opens.
+6. **Settings** — a list of names with a box, a slider or a value against
+   each: the board pair above; **match the device**, which follows the phone's
+   own light and dark setting and turns with it, and **night colours** for a
+   warm near-black page when it does not; **colour**, which cycles through the
+   five the app draws in and is reachable from the game's menu too; **volume**,
+   in four steps from off; and **vibration**. Nothing explains what any of them
+   does, because all of them show their effect the moment they are touched.
+   They are written to disk, so they are the same the next time the app opens.
 7. **Come back later** — the board saves itself as you play, so closing the app
    mid-puzzle costs nothing. It is waiting on the setup screen when you come
    back, with the clock where you left it and the same puzzle in front of you.
@@ -258,6 +260,7 @@ src/game/settings.ts        the player's settings, and reading them back
 src/game/useSettings.ts     those settings as React state, written as they change
 src/ui/                     Text, ThemeProvider (day/night), palettes,
                             spacing, borders, sound and haptics
+src/ui/accents.ts           the five colours the app can be drawn in
 src/ui/BackLink.tsx         the bottom-left `◀ Back` link, the one way back
 src/ui/RuledTitle.tsx       a screen's name with a rule drawn out of the word
 src/ui/SettingRow.tsx       the boxes, sliders and word-actions the two settings
@@ -311,6 +314,19 @@ rather than a pure one, the ink is a soft off-white so it does not glare, and
 the board's two squares sit a little *lighter* than the page — the same
 "printed on the paper" relationship read the other way up, because on a dark
 ground it is the ink that has to lift off the page.
+
+The **accent** is the one colour in the palette the player picks. A puzzle used
+to carry its own, which meant the app changed colour every time the generator
+rolled a different theme — a decision nobody made, taken away from the only
+person with an opinion about it. `src/ui/accents.ts` holds the five it can be
+instead, and the **Colour** row on the settings screen and on the game's own
+menu cycles through them; a theme now decides only what a puzzle is *about*.
+
+Each accent has two cuts. The `day` one is dark enough to carry white text; the
+`night` one is lightened so it can be read on a near-black page, which leaves it
+too pale for white. `resolvePalette` puts the right one in `accent` and always
+puts the day one in `accentGround`, which is what the title panel is painted in
+— so the panel is the same colour after dark and the white on it still reads.
 
 ## Typography
 
@@ -504,7 +520,7 @@ Everything the app draws — every item, every theme, the lamp on the clue butto
 and the chart on an empty statistics screen — is a **silhouette**: one closed
 shape, filled in one colour, in a 100 × 100 box. There is no artwork with a
 palette of its own, so an icon takes the colour of whatever it sits in and looks
-right in day mode, night mode and against a theme's accent without being drawn
+right in day mode, night mode and against the accent without being drawn
 three times. 357 of them, one per entry, and a test fails if two share a path.
 
 They come from three places, in a line:

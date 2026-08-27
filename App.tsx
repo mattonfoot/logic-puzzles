@@ -52,19 +52,21 @@ export default function App() {
     });
   }, [settings.settings.haptics, settings.settings.volume]);
 
-  if (!fontsLoaded || !settings.ready) return <Loading preference={settings.settings.colours} />;
+  if (!fontsLoaded || !settings.ready) {
+    return <Loading preference={settings.settings.colours} accent={settings.settings.accent} />;
+  }
 
   return (
-    <ThemeProvider preference={settings.settings.colours}>
+    <ThemeProvider preference={settings.settings.colours} accent={settings.settings.accent}>
       <Shell settings={settings} />
     </ThemeProvider>
   );
 }
 
 /** The empty page shown while the fonts and settings are read. */
-function Loading({ preference }: { preference: 'day' | 'night' | 'auto' }) {
+function Loading({ preference, accent }: { preference: 'day' | 'night' | 'auto'; accent: string }) {
   return (
-    <ThemeProvider preference={preference}>
+    <ThemeProvider preference={preference} accent={accent}>
       <Ground />
     </ThemeProvider>
   );
@@ -148,10 +150,12 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             puzzle={puzzle}
             autoEliminate={settings.settings.autoEliminate}
             autoFacts={settings.settings.autoFacts}
+            accent={settings.settings.accent}
             onToggleAutoEliminate={() =>
               settings.update({ autoEliminate: !settings.settings.autoEliminate })
             }
             onToggleAutoFacts={() => settings.update({ autoFacts: !settings.settings.autoFacts })}
+            onChangeAccent={(accent) => settings.update({ accent })}
             restore={restore ?? persistence.savedGame}
             onExit={leaveGame}
             onSaveProgress={persistence.saveProgress}

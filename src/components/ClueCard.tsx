@@ -74,7 +74,7 @@ export function ClueCard({ puzzle, index, used, done, lit, onPress }: Props) {
       onPress={onPress}
       style={({ pressed }) => [
         styles.card,
-        { borderColor: lit ? puzzle.accent : palette.line, opacity: pressed ? 0.85 : 1 },
+        { borderColor: lit ? palette.accent : palette.line, opacity: pressed ? 0.85 : 1 },
       ]}
     >
       <Animated.View style={[styles.row, { opacity: fade }]}>
@@ -82,12 +82,12 @@ export function ClueCard({ puzzle, index, used, done, lit, onPress }: Props) {
           style={[
             styles.badge,
             {
-              backgroundColor: done ? palette.surfaceAlt : tint(puzzle.accent, 0.12),
-              borderColor: done ? palette.line : tint(puzzle.accent, 0.35),
+              backgroundColor: done ? palette.surfaceAlt : tint(palette.accent, 0.12),
+              borderColor: done ? palette.line : tint(palette.accent, 0.35),
             },
           ]}
         >
-          <Text style={[styles.badgeText, { color: done ? palette.inkFaint : puzzle.accent }]}>
+          <Text style={[styles.badgeText, { color: done ? palette.inkFaint : palette.accent }]}>
             {clueIcon(clue)}
           </Text>
         </View>

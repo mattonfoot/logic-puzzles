@@ -74,14 +74,14 @@ export function SetupScreen({
                 styles.resumeCard,
                 shadow.card,
                 {
-                  borderColor: savedGame.puzzle.accent,
-                  backgroundColor: tint(savedGame.puzzle.accent, 0.08),
+                  borderColor: palette.accent,
+                  backgroundColor: tint(palette.accent, 0.08),
                 },
               ]}
             >
               <Text style={styles.resumeLabel}>Puzzle in progress</Text>
               <View style={styles.resumeTitleRow}>
-                <Icon name={savedGame.puzzle.themeIcon} size={20} color={savedGame.puzzle.accent} />
+                <Icon name={savedGame.puzzle.themeIcon} size={20} color={palette.accent} />
                 <Text style={styles.resumeTitle}>
                   {savedGame.puzzle.themeName} · {savedGame.puzzle.size.label}
                 </Text>
@@ -94,7 +94,7 @@ export function SetupScreen({
                 <AppButton
                   label="Resume"
                   icon="▶"
-                  accent={savedGame.puzzle.accent}
+                  accent={palette.accent}
                   onPress={onResume}
                   style={styles.resumeButton}
                 />

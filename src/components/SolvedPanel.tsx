@@ -41,7 +41,7 @@ export function SolvedPanel({ title = 'Solved!', puzzle, seconds, cluesUsed, imp
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.mark}>
-        <Icon name={puzzle.themeIcon} size={48} color={puzzle.accent} />
+        <Icon name={puzzle.themeIcon} size={48} color={palette.accent} />
       </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>
@@ -49,8 +49,8 @@ export function SolvedPanel({ title = 'Solved!', puzzle, seconds, cluesUsed, imp
       </Text>
 
       <View style={styles.stats}>
-        <Stat label="Time" value={formatDuration(seconds)} accent={puzzle.accent} />
-        <Stat label="Clues read" value={`${cluesUsed}`} accent={puzzle.accent} joined />
+        <Stat label="Time" value={formatDuration(seconds)} accent={palette.accent} />
+        <Stat label="Clues read" value={`${cluesUsed}`} accent={palette.accent} joined />
       </View>
 
       {improvement ? (
@@ -59,14 +59,14 @@ export function SolvedPanel({ title = 'Solved!', puzzle, seconds, cluesUsed, imp
             styles.improvement,
             {
               backgroundColor: tint(
-                improvement.kind === 'best' ? puzzle.accent : palette.ink,
+                improvement.kind === 'best' ? palette.accent : palette.ink,
                 0.08,
               ),
-              borderColor: improvement.kind === 'best' ? puzzle.accent : palette.line,
+              borderColor: improvement.kind === 'best' ? palette.accent : palette.line,
             },
           ]}
         >
-          <Text style={[styles.improvementHeadline, { color: puzzle.accent }]}>
+          <Text style={[styles.improvementHeadline, { color: palette.accent }]}>
             {improvement.kind === 'best' ? '🏆 ' : ''}
             {improvement.headline}
           </Text>

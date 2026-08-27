@@ -184,7 +184,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
             {stats.recent.map((game) => (
               <View key={`${game.seed}-${game.finishedAt}`} style={styles.gameRow}>
                 <View style={styles.gameMark}>
-                  <Icon name={game.themeIcon} size={22} color={game.accent} />
+                  <Icon name={game.themeIcon} size={22} color={palette.accent} />
                 </View>
                 <View style={styles.gameText}>
                   <Text style={styles.gameTitle}>
