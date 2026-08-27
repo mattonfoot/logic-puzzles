@@ -113,8 +113,9 @@ rest is the app behaving normally.
    rather than reading as a pair. Play opens the setup screen, which is the same page with its bottom half
    swapped — the panel above is the same block, given the same half — and is
    where a game you left in progress waits: **Resume** picks it up with the clock where it
-   stopped, **Discard** throws it away, and under a **Play** heading the
-   difficulties, set as a list of words the same size Play was. Pick one and the
+   stopped, **Discard** throws it away, and under a **Play** heading — with a
+   rule drawn out of the word to the right of it — the difficulties, set as a
+   list of words the same size Play was. Pick one and the
    puzzle starts — there is nothing else to decide, so there is nothing else to
    press. **Beginner** (3 × 3), **Advanced** (4 × 4), **Expert** (5 × 4),
    **Pro** (6 × 4), or **Surprise me!**, which rolls one of the four. The shapes

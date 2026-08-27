@@ -108,8 +108,10 @@ export function SetupScreen({
             </View>
           ) : null}
 
-          <Text style={styles.heading}>Play</Text>
-          <View style={styles.rule} />
+          <View style={styles.headingRow}>
+            <Text style={styles.heading}>Play</Text>
+            <View style={styles.headingLine} />
+          </View>
 
           <View style={styles.choices}>
             {SIZES.map((option) => (
@@ -247,16 +249,25 @@ const makeStyles = (palette: Palette) =>
     resumeButton: {
       flex: 1,
     },
+    headingRow: {
+      flexDirection: 'row',
+      // The line runs out of the word at the height of its middle.
+      alignItems: 'center',
+      gap: space(3),
+    },
     heading: {
       fontSize: 22,
       fontWeight: '800',
       letterSpacing: -0.5,
       color: palette.ink,
     },
-    rule: {
-      height: border,
-      backgroundColor: palette.line,
-      marginTop: space(2),
+    headingLine: {
+      flex: 1,
+      height: 2,
+      backgroundColor: palette.ink,
+      // Stops short of the edge, so it reads as a rule drawn out of the word
+      // rather than as the top of a box.
+      marginRight: space(4),
     },
     choices: {
       marginTop: space(4),
