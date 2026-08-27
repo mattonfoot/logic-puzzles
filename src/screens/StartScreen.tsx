@@ -16,15 +16,19 @@ interface Props {
 /**
  * The front door: what the app is, and the one thing to do about it.
  *
- * The screen is halved. The top half is the name and what it is, centred in it
- * with nothing to press — a page to land on. The bottom half is where the
- * pressing happens, and **Play** sits at the top of it, roughly under the
- * thumb, where the eye arrives after reading.
+ * The screen is halved. The top half is the name and what it is, sitting in the
+ * middle of it with nothing to press — a page to land on. The bottom half is
+ * where the pressing happens, and **Play** sits at the top of it, roughly under
+ * the thumb, where the eye arrives after reading.
  *
- * Settings and Statistics are text at the foot of the screen rather than
- * anything with a box round it. They are somewhere to go once, not the point of
- * the page, and putting them in a row of cards with Play made all three look
- * like the same size of decision.
+ * Everything hangs off the same left margin — eyebrow, name, description, Play
+ * — so the eye drops straight down one edge. The single exception is
+ * Statistics, which is pushed to the right so the two links at the foot sit in
+ * opposite corners rather than reading as a pair.
+ *
+ * Those two are text rather than anything with a box round it. They are
+ * somewhere to go once, not the point of the page, and putting them in a row of
+ * cards with Play made all three look like the same size of decision.
  */
 export function StartScreen({ onPlay, onOpenSettings, onOpenStats }: Props) {
   const insets = useSafeAreaInsets();
@@ -92,9 +96,9 @@ const makeStyles = (palette: Palette) =>
     // Two equal halves: what the app is, then what to do about it.
     top: {
       flex: 1,
-      alignItems: 'center',
+      alignItems: 'flex-start',
       justifyContent: 'center',
-      paddingHorizontal: space(6),
+      paddingHorizontal: space(5),
     },
     bottom: {
       flex: 1,
@@ -107,7 +111,6 @@ const makeStyles = (palette: Palette) =>
       textTransform: 'uppercase',
       color: palette.inkFaint,
       fontWeight: '700',
-      textAlign: 'center',
     },
     title: {
       fontSize: 40,
@@ -115,19 +118,17 @@ const makeStyles = (palette: Palette) =>
       color: palette.ink,
       marginTop: space(1),
       letterSpacing: -0.5,
-      textAlign: 'center',
     },
     lede: {
       fontSize: 15,
       lineHeight: 22,
       color: palette.inkSoft,
       marginTop: space(2),
-      textAlign: 'center',
     },
     play: {
-      alignSelf: 'center',
+      alignSelf: 'flex-start',
       paddingTop: space(6),
-      paddingHorizontal: space(6),
+      paddingRight: space(8),
       paddingBottom: space(2),
     },
     playText: {

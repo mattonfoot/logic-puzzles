@@ -104,11 +104,12 @@ rest is the app behaving normally.
 
 ## How you play
 
-1. **Start** — the screen is halved: what the app is, centred in the top half
-   with nothing to press, and **Play** at the top of the bottom half, large and
-   on its own. **Settings** and **Statistics** are text at the foot of the
-   screen, left and right — somewhere to go once rather than the point of the
-   page. Play opens the setup screen, which is where a game you left in progress waits:
+1. **Start** — the screen is halved: what the app is, in the middle of the top
+   half with nothing to press, and **Play** at the top of the bottom half, large
+   and on its own. Everything hangs off the same left margin so the eye drops
+   down one edge. **Settings** and **Statistics** are text at the foot of the
+   screen — Statistics pushed to the right so the two sit in opposite corners
+   rather than reading as a pair. Play opens the setup screen, which is where a game you left in progress waits:
    **Resume** picks it up with the clock where it stopped, **Discard** throws it
    away, and below them the difficulties. Pick one and the puzzle starts — there is nothing else to decide, so
    there is nothing else to press. **Beginner** (3 × 3), **Advanced** (4 × 4),
