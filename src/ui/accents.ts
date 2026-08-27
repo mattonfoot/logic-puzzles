@@ -54,8 +54,8 @@ export const ACCENTS: Accent[] = [
     // near-black one it is the other way round.
     id: 'violet',
     name: 'Violet',
-    day: { primary: '#9381FF', secondary: '#B8B8FF', bg: '#F8F7FF' },
-    night: { primary: '#B8B8FF', secondary: '#9381FF' },
+    day: { primary: '#7A64FF', secondary: '#8B8BE8', bg: '#F8F7FF' },
+    night: { primary: '#8B8BE8', secondary: '#7A64FF' },
   },
   {
     id: 'teal',

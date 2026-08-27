@@ -383,7 +383,7 @@ sit on — with a set per scheme:
 | Colour | Day primary | Day secondary | Day page | Night primary | Night secondary |
 |--------|-------------|---------------|----------|---------------|-----------------|
 | Blue | `#064789` | `#427AA1` | `#EBF2FA` | `#7AA8D0` | `#4E88B5` |
-| Violet | `#9381FF` | `#B8B8FF` | `#F8F7FF` | `#B8B8FF` | `#9381FF` |
+| Violet | `#7A64FF` | `#8B8BE8` | `#F8F7FF` | `#8B8BE8` | `#7A64FF` |
 | Teal | `#0F7C7B` | `#77B2AE` | — | `#4FC7C4` | `#357E7C` |
 | Green | `#2F8F4E` | `#89BC95` | — | `#6ACF72` | `#45834B` |
 | Rust | `#B25F2E` | `#D1A284` | — | `#E39A63` | `#8E6342` |
