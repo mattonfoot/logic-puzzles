@@ -22,12 +22,12 @@ interface Props {
  * where the pressing happens, and **Play** sits at the top of it, roughly under
  * the thumb, where the eye arrives after reading.
  *
- * The top half is `TitlePanel` — the same block of the link colour the setup
- * screen wears, given the whole half here because this is the one screen with
- * room for it.
+ * The top half is `TitlePanel`, the same block of the link colour the setup
+ * screen wears: stepping from here to there changes the bottom half of the
+ * screen and nothing else.
  *
- * Everything hangs off the same left margin — eyebrow, name, description, Play
- * — so the eye drops straight down one edge. The single exception is
+ * Everything hangs off the same left margin — the panel's words and Play — so
+ * the eye drops straight down one edge. The single exception is
  * Statistics, which is pushed to the right so the two links at the foot sit in
  * opposite corners rather than reading as a pair.
  *
@@ -42,12 +42,7 @@ export function StartScreen({ onPlay, onOpenSettings, onOpenStats }: Props) {
 
   return (
     <View style={styles.screen}>
-      <TitlePanel
-        size="hero"
-        style={styles.top}
-        eyebrow="Freshly generated, never guessed"
-        lede="Every puzzle is built when you ask for it, with exactly one solution you can reach by pure deduction — no guessing."
-      />
+      <TitlePanel />
 
       <View style={[styles.bottom, { paddingBottom: insets.bottom + space(3) }]}>
         <Pressable
@@ -96,10 +91,7 @@ const makeStyles = (palette: Palette) =>
       flex: 1,
       backgroundColor: palette.bg,
     },
-    // Two equal halves: what the app is, then what to do about it.
-    top: {
-      flex: 1,
-    },
+    // The panel is the top half; this is the other one.
     bottom: {
       flex: 1,
       justifyContent: 'space-between',

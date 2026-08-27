@@ -33,12 +33,15 @@ interface Props {
  * player chooses. Everything else — the theme, the cast, the answer — is drawn
  * when the game starts.
  *
- * It wears the same panel as the front door, so arriving here reads as the next
- * page of the same thing rather than as a different app. Under it the
- * difficulties are set as a list of words in the accent, the same way **Play**
- * is set on the front door: choosing one is the same size of decision as
- * pressing Play was, so it is drawn the same size. What each shape means is on
- * the board a second later, and was never the thing being chosen.
+ * It is the front door with its bottom half swapped: the same panel, given the
+ * same half of the screen, and under it the difficulties set as a list of words
+ * in the accent the same way **Play** is set on the front door. Choosing one is
+ * the same size of decision as pressing Play was, so it is drawn the same size.
+ * What each shape means is on the board a second later, and was never the thing
+ * being chosen.
+ *
+ * That leaves half a screen for five names and whatever game is waiting, so the
+ * bottom half scrolls. The way back sits under it rather than inside it.
  *
  * The game already in progress sits above them, because this is where a player
  * comes when they want to play something: leaving a puzzle lands here, and so
@@ -62,71 +65,73 @@ export function SetupScreen({
     <View style={styles.screen}>
       <TitlePanel />
 
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        {savedGame ? (
-          <View
-            style={[
-              styles.resumeCard,
-              shadow.card,
-              {
-                borderColor: savedGame.puzzle.accent,
-                backgroundColor: tint(savedGame.puzzle.accent, 0.08),
-              },
-            ]}
-          >
-            <Text style={styles.resumeLabel}>Puzzle in progress</Text>
-            <View style={styles.resumeTitleRow}>
-              <Icon name={savedGame.puzzle.themeIcon} size={20} color={savedGame.puzzle.accent} />
-              <Text style={styles.resumeTitle}>
-                {savedGame.puzzle.themeName} · {savedGame.puzzle.size.label}
+      <View style={styles.bottom}>
+        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+          {savedGame ? (
+            <View
+              style={[
+                styles.resumeCard,
+                shadow.card,
+                {
+                  borderColor: savedGame.puzzle.accent,
+                  backgroundColor: tint(savedGame.puzzle.accent, 0.08),
+                },
+              ]}
+            >
+              <Text style={styles.resumeLabel}>Puzzle in progress</Text>
+              <View style={styles.resumeTitleRow}>
+                <Icon name={savedGame.puzzle.themeIcon} size={20} color={savedGame.puzzle.accent} />
+                <Text style={styles.resumeTitle}>
+                  {savedGame.puzzle.themeName} · {savedGame.puzzle.size.label}
+                </Text>
+              </View>
+              <Text style={styles.resumeMeta}>
+                {Math.round(savedProgress * 100)}% filled in · {formatDuration(savedGame.seconds)}{' '}
+                on the clock
               </Text>
+              <View style={styles.resumeButtons}>
+                <AppButton
+                  label="Resume"
+                  icon="▶"
+                  accent={savedGame.puzzle.accent}
+                  onPress={onResume}
+                  style={styles.resumeButton}
+                />
+                <AppButton
+                  label="Discard"
+                  variant="ghost"
+                  accent={palette.inkSoft}
+                  onPress={() => setConfirmingDiscard(true)}
+                  style={styles.resumeButton}
+                />
+              </View>
             </View>
-            <Text style={styles.resumeMeta}>
-              {Math.round(savedProgress * 100)}% filled in · {formatDuration(savedGame.seconds)} on
-              the clock
-            </Text>
-            <View style={styles.resumeButtons}>
-              <AppButton
-                label="Resume"
-                icon="▶"
-                accent={savedGame.puzzle.accent}
-                onPress={onResume}
-                style={styles.resumeButton}
-              />
-              <AppButton
-                label="Discard"
-                variant="ghost"
-                accent={palette.inkSoft}
-                onPress={() => setConfirmingDiscard(true)}
-                style={styles.resumeButton}
-              />
-            </View>
-          </View>
-        ) : null}
+          ) : null}
 
-        <Text style={styles.heading}>Play</Text>
-        <View style={styles.rule} />
+          <Text style={styles.heading}>Play</Text>
+          <View style={styles.rule} />
 
-        <View style={styles.choices}>
-          {SIZES.map((option) => (
+          <View style={styles.choices}>
+            {SIZES.map((option) => (
+              <Choice
+                key={option.id}
+                label={option.difficulty}
+                hint={`${option.items} items in each of ${option.categories} sets`}
+                disabled={busy}
+                onPress={() => onStart(option)}
+              />
+            ))}
             <Choice
-              key={option.id}
-              label={option.difficulty}
-              hint={`${option.items} items in each of ${option.categories} sets`}
+              label="Surprise me!"
+              hint="Any of the four, rolled for you"
               disabled={busy}
-              onPress={() => onStart(option)}
+              onPress={onSurpriseMe}
             />
-          ))}
-          <Choice
-            label="Surprise me!"
-            hint="Any of the four, rolled for you"
-            disabled={busy}
-            onPress={onSurpriseMe}
-          />
-        </View>
-      </ScrollView>
+          </View>
+        </ScrollView>
 
-      <BackLink label="Back" onPress={onBack} />
+        <BackLink label="Back" onPress={onBack} />
+      </View>
 
       <ConfirmDialog
         visible={confirmingDiscard}
@@ -196,6 +201,10 @@ const makeStyles = (palette: Palette) =>
     screen: {
       flex: 1,
       backgroundColor: palette.bg,
+    },
+    // The panel is the top half; this is the other one.
+    bottom: {
+      flex: 1,
     },
     content: {
       paddingHorizontal: space(5),
