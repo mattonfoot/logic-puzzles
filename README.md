@@ -207,7 +207,7 @@ The top left is left to one thing: the **burger** on the board, which opens the
 game's menu. That is the only control in that corner anywhere in the app, so a
 tap there always means the same thing. A corner that goes back on one screen and
 opens something on another is a corner nobody trusts, which is why the header
-bar (`src/ui/ScreenHeader.tsx`) carries a title and nothing to press, and the
+bar naming a screen carries a title and nothing to press, and the
 menu is dismissed with `◀ Back` rather than a cross where the burger was.
 
 `src/ui/BackLink.tsx` is the link itself — one component, so the wording, the
@@ -255,6 +255,7 @@ src/game/useSettings.ts     those settings as React state, written as they chang
 src/ui/                     Text, ThemeProvider (day/night), ScreenHeader,
                             palettes, spacing, borders, sound and haptics
 src/ui/BackLink.tsx         the bottom-left `◀ Back` link, the one way back
+src/ui/RuledTitle.tsx       a screen's name with a rule drawn out of the word
 src/ui/TitlePanel.tsx       the app's name on a block of the link colour, the
                             top half of the front door and the setup screen
 src/ui/Icon.tsx             one silhouette, drawn in whatever colour it sits in

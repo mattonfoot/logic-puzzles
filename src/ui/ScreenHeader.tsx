@@ -13,9 +13,12 @@ interface Props {
 }
 
 /**
- * The bar every screen but the board and the start page wears: what the screen
- * is, and nothing to press. The way back is `BackLink`, at the foot of the
- * screen, which is where it is on every other screen too.
+ * A bar naming the screen, with nothing to press: the way back is `BackLink`,
+ * at the foot of the screen, which is where it is everywhere else too.
+ *
+ * The statistics screen is the last one wearing it. The setup and settings
+ * screens use `RuledTitle` instead, which sits in the scroll rather than above
+ * it.
  */
 export function ScreenHeader({ title, subtitle }: Props) {
   const insets = useSafeAreaInsets();

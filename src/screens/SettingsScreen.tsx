@@ -1,10 +1,11 @@
 import React from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { VOLUMES, volumeStep, type Settings } from '../game/settings';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
-import { ScreenHeader } from '../ui/ScreenHeader';
+import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, joinTop, space, tint, type Palette } from '../ui/theme';
@@ -23,15 +24,19 @@ interface Props {
  * since they are worth changing mid-puzzle.
  */
 export function SettingsScreen({ settings, onChange, onBack }: Props) {
+  const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const auto = settings.colours === 'auto';
 
   return (
     <View style={styles.screen}>
-      <ScreenHeader title="Settings" />
+      <ScrollView
+        contentContainerStyle={[styles.content, { paddingTop: insets.top + space(5) }]}
+        showsVerticalScrollIndicator={false}
+      >
+        <RuledTitle>Settings</RuledTitle>
 
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <Text style={styles.sectionLabel}>Board</Text>
         <Toggle
           label="Automatic crosses"
@@ -192,7 +197,6 @@ const makeStyles = (palette: Palette) =>
     },
     content: {
       paddingHorizontal: space(4),
-      paddingTop: space(2),
       paddingBottom: space(6),
     },
     sectionLabel: {

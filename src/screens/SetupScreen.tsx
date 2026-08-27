@@ -11,6 +11,7 @@ import type { SizeOption } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { Icon } from '../ui/Icon';
+import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { TitlePanel } from '../ui/TitlePanel';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
@@ -108,10 +109,7 @@ export function SetupScreen({
             </View>
           ) : null}
 
-          <View style={styles.headingRow}>
-            <Text style={styles.heading}>Play</Text>
-            <View style={styles.headingLine} />
-          </View>
+          <RuledTitle>Play</RuledTitle>
 
           <View style={styles.choices}>
             {SIZES.map((option) => (
@@ -248,26 +246,6 @@ const makeStyles = (palette: Palette) =>
     },
     resumeButton: {
       flex: 1,
-    },
-    headingRow: {
-      flexDirection: 'row',
-      // The line runs out of the word at the height of its middle.
-      alignItems: 'center',
-      gap: space(3),
-    },
-    heading: {
-      fontSize: 22,
-      fontWeight: '800',
-      letterSpacing: -0.5,
-      color: palette.ink,
-    },
-    headingLine: {
-      flex: 1,
-      height: 2,
-      backgroundColor: palette.ink,
-      // Stops short of the edge, so it reads as a rule drawn out of the word
-      // rather than as the top of a box.
-      marginRight: space(4),
     },
     choices: {
       marginTop: space(4),
