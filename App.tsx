@@ -181,8 +181,6 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           />
         ) : (
           <StartScreen
-            hasSavedGame={persistence.savedGame !== null}
-            stats={persistence.stats}
             onPlay={() => setScreen('setup')}
             onOpenSettings={() => setScreen('settings')}
             onOpenStats={() => setScreen('stats')}

@@ -93,7 +93,7 @@ images in the same commit.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the three places the app goes, and nothing to decide. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the game in progress, then the difficulties; picking one starts a puzzle. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
+| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name in the top half, **Play** at the top of the bottom half, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the game in progress, then the difficulties; picking one starts a puzzle. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
 | <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Menu** — behind the burger: the board settings, restart, and revealing the answer. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
 | <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, clues read, how it compares, the answer table. |
 | <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item label"><br>**10. Item card** — tap any label to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Setup screen in night colours"><br>**12. Night** — the setup screen in night colours, with a game waiting to be resumed. |
@@ -104,8 +104,11 @@ rest is the app behaving normally.
 
 ## How you play
 
-1. **Start** — three links: **Play**, **Settings** and **Statistics**. Play
-   opens the setup screen, which is where a game you left in progress waits:
+1. **Start** — the screen is halved: what the app is, centred in the top half
+   with nothing to press, and **Play** at the top of the bottom half, large and
+   on its own. **Settings** and **Statistics** are text at the foot of the
+   screen, left and right — somewhere to go once rather than the point of the
+   page. Play opens the setup screen, which is where a game you left in progress waits:
    **Resume** picks it up with the clock where it stopped, **Discard** throws it
    away, and below them the difficulties. Pick one and the puzzle starts — there is nothing else to decide, so
    there is nothing else to press. **Beginner** (3 × 3), **Advanced** (4 × 4),
@@ -203,6 +206,10 @@ menu is dismissed with `<<< back` rather than a cross where the burger was.
 tap feedback and the position cannot drift apart between screens. It also
 carries the bottom safe area, which makes it the last thing on a screen: the
 scrolling part above it never has to leave room for the home indicator.
+
+The start page is the one screen with nothing behind it, so it has no back link.
+Its bottom row is **Settings** and **Statistics** instead — plain text, left and
+right, in the place the eye has already learned to look.
 
 ## Project layout
 

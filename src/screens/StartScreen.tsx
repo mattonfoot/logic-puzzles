@@ -1,111 +1,84 @@
 import React from 'react';
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import type { OverallStats } from '../stats/summary';
 import { feedback } from '../ui/feedback';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { border, shadow, space, type Palette } from '../ui/theme';
+import { space, type Palette } from '../ui/theme';
 
 interface Props {
-  /** Whether a game is waiting to be picked back up, which Play leads to. */
-  hasSavedGame: boolean;
-  stats: OverallStats;
   onPlay: () => void;
   onOpenSettings: () => void;
   onOpenStats: () => void;
 }
 
 /**
- * The front door: the three places the app goes. What to play is a screen of
- * its own, and the game left in progress waits there too — behind the same
- * Play — so this one has nothing to decide.
+ * The front door: what the app is, and the one thing to do about it.
+ *
+ * The screen is halved. The top half is the name and what it is, centred in it
+ * with nothing to press — a page to land on. The bottom half is where the
+ * pressing happens, and **Play** sits at the top of it, roughly under the
+ * thumb, where the eye arrives after reading.
+ *
+ * Settings and Statistics are text at the foot of the screen rather than
+ * anything with a box round it. They are somewhere to go once, not the point of
+ * the page, and putting them in a row of cards with Play made all three look
+ * like the same size of decision.
  */
-export function StartScreen({ hasSavedGame, stats, onPlay, onOpenSettings, onOpenStats }: Props) {
+export function StartScreen({ onPlay, onOpenSettings, onOpenStats }: Props) {
   const insets = useSafeAreaInsets();
+  const palette = useTheme();
   const styles = useStyles(makeStyles);
 
   return (
     <View style={styles.screen}>
-      <ScrollView
-        contentContainerStyle={[
-          styles.content,
-          { paddingTop: insets.top + space(8), paddingBottom: insets.bottom + space(8) },
-        ]}
-        showsVerticalScrollIndicator={false}
-      >
+      <View style={[styles.top, { paddingTop: insets.top + space(4) }]}>
         <Text style={styles.eyebrow}>Deduction, freshly generated</Text>
         <Text style={styles.title}>Logic Grid</Text>
         <Text style={styles.lede}>
           Every puzzle is built when you ask for it, with exactly one solution you can reach by pure
           deduction — no guessing.
         </Text>
+      </View>
 
-        <View style={styles.links}>
-          <StartLink
-            label="Play"
-            note={
-              hasSavedGame
-                ? 'Pick your game back up, or start a new one'
-                : 'Pick a difficulty and start a puzzle'
-            }
-            icon="▶"
-            onPress={onPlay}
-          />
-          <StartLink
-            label="Settings"
-            note="How the board helps, and how the app looks"
-            icon="⚙"
-            onPress={onOpenSettings}
-          />
-          <StartLink
-            label="Statistics"
-            note={
-              stats.solved === 0
-                ? 'Finish a puzzle to start tracking your times'
-                : `${stats.solved} solved · ${
-                    stats.currentStreak > 0 ? `${stats.currentStreak}-day streak` : 'no streak yet'
-                  }`
-            }
-            icon="◴"
-            onPress={onOpenStats}
-          />
+      <View style={[styles.bottom, { paddingBottom: insets.bottom + space(3) }]}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Play"
+          onPress={() => {
+            feedback.tap();
+            onPlay();
+          }}
+          hitSlop={12}
+          style={({ pressed }) => [styles.play, { opacity: pressed ? 0.6 : 1 }]}
+        >
+          <Text style={[styles.playText, { color: palette.accent }]}>Play</Text>
+        </Pressable>
+
+        <View style={styles.footer}>
+          <FootLink label="Settings" onPress={onOpenSettings} />
+          <FootLink label="Statistics" onPress={onOpenStats} />
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 }
 
-function StartLink({
-  label,
-  note,
-  icon,
-  onPress,
-}: {
-  label: string;
-  note: string;
-  icon: string;
-  onPress: () => void;
-}) {
-  const palette = useTheme();
+function FootLink({ label, onPress }: { label: string; onPress: () => void }) {
   const styles = useStyles(makeStyles);
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
+      hitSlop={12}
       onPress={() => {
         feedback.tap();
         onPress();
       }}
-      style={({ pressed }) => [styles.link, shadow.card, { opacity: pressed ? 0.85 : 1 }]}
+      style={({ pressed }) => [styles.footLink, { opacity: pressed ? 0.6 : 1 }]}
     >
-      <Text style={[styles.linkIcon, { color: palette.accent }]}>{icon}</Text>
-      <View style={styles.linkText}>
-        <Text style={styles.linkLabel}>{label}</Text>
-        <Text style={styles.linkNote}>{note}</Text>
-      </View>
-      <Text style={styles.linkChevron}>›</Text>
+      <Text style={styles.footText}>{label}</Text>
     </Pressable>
   );
 }
@@ -116,7 +89,16 @@ const makeStyles = (palette: Palette) =>
       flex: 1,
       backgroundColor: palette.bg,
     },
-    content: {
+    // Two equal halves: what the app is, then what to do about it.
+    top: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: space(6),
+    },
+    bottom: {
+      flex: 1,
+      justifyContent: 'space-between',
       paddingHorizontal: space(5),
     },
     eyebrow: {
@@ -125,6 +107,7 @@ const makeStyles = (palette: Palette) =>
       textTransform: 'uppercase',
       color: palette.inkFaint,
       fontWeight: '700',
+      textAlign: 'center',
     },
     title: {
       fontSize: 40,
@@ -132,47 +115,39 @@ const makeStyles = (palette: Palette) =>
       color: palette.ink,
       marginTop: space(1),
       letterSpacing: -0.5,
+      textAlign: 'center',
     },
     lede: {
       fontSize: 15,
       lineHeight: 22,
       color: palette.inkSoft,
       marginTop: space(2),
-    },
-    links: {
-      marginTop: space(6),
-      gap: space(3),
-    },
-    link: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: space(3),
-      backgroundColor: palette.surface,
-      borderWidth: border,
-      borderColor: palette.line,
-      paddingVertical: space(4),
-      paddingHorizontal: space(4),
-    },
-    linkIcon: {
-      fontSize: 18,
-      width: 24,
       textAlign: 'center',
     },
-    linkText: {
-      flex: 1,
+    play: {
+      alignSelf: 'center',
+      paddingTop: space(6),
+      paddingHorizontal: space(6),
+      paddingBottom: space(2),
     },
-    linkLabel: {
-      fontSize: 18,
-      fontWeight: '700',
-      color: palette.ink,
+    playText: {
+      fontSize: 56,
+      lineHeight: 64,
+      fontWeight: '800',
+      letterSpacing: -1,
     },
-    linkNote: {
-      fontSize: 13,
+    footer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'flex-end',
+    },
+    footLink: {
+      paddingVertical: space(2),
+    },
+    footText: {
+      fontSize: 14,
+      fontWeight: '600',
+      letterSpacing: 0.3,
       color: palette.inkSoft,
-      marginTop: space(0.5),
-    },
-    linkChevron: {
-      fontSize: 24,
-      color: palette.inkFaint,
     },
   });
