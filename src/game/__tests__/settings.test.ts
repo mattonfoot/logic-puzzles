@@ -1,5 +1,5 @@
 import { ACCENTS, accentById, DEFAULT_ACCENT, nextAccent } from '../../ui/accents';
-import { dayPalette, nightPalette } from '../../ui/theme';
+import { dayPalette, nightPalette, paletteSwatches } from '../../ui/theme';
 import { resolvePalette } from '../../ui/ThemeProvider';
 import {
   DEFAULT_SETTINGS,
@@ -111,6 +111,17 @@ describe('the colours the player can choose', () => {
     }
   });
 
+  it('keeps out of the way of the colours that mean something', () => {
+    // A colour that all but matches "solved a personal best" is a colour that
+    // makes the message ambiguous.
+    for (const accent of ACCENTS) {
+      expect(accent.day).not.toBe(dayPalette.success);
+      expect(accent.day).not.toBe(dayPalette.danger);
+      expect(accent.night).not.toBe(nightPalette.success);
+      expect(accent.night).not.toBe(nightPalette.danger);
+    }
+  });
+
   it('comes back round to where it started', () => {
     let id = DEFAULT_ACCENT;
     const seen = new Set<string>();
@@ -120,6 +131,32 @@ describe('the colours the player can choose', () => {
     }
     expect(seen.size).toBe(ACCENTS.length);
     expect(id).toBe(DEFAULT_ACCENT);
+  });
+});
+
+describe('listing a palette', () => {
+  it('names every colour in it, and nothing that is not one', () => {
+    const swatches = paletteSwatches(dayPalette);
+    const roles = swatches.map((swatch) => swatch.role);
+
+    // Every plain colour on the palette, and every member of every group.
+    for (const [role, value] of Object.entries(dayPalette)) {
+      if (role === 'scheme') continue;
+      if (typeof value === 'string') {
+        expect(roles).toContain(role);
+      } else {
+        for (const inner of Object.keys(value)) expect(roles).toContain(`${role}.${inner}`);
+      }
+    }
+    expect(roles).not.toContain('scheme');
+    expect(new Set(roles).size).toBe(roles.length);
+    for (const swatch of swatches) {
+      expect(`${swatch.role}: ${swatch.value}`).toMatch(/: #[0-9a-fA-F]{6}$/);
+    }
+  });
+
+  it('tells the two schemes apart', () => {
+    expect(paletteSwatches(dayPalette)).not.toEqual(paletteSwatches(nightPalette));
   });
 });
 

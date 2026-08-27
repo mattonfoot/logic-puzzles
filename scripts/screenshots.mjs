@@ -38,6 +38,19 @@ const MIME = {
 
 const wait = (page, ms) => page.waitForTimeout(ms);
 
+/** Scrolls the screen's own scroll view: nothing in the app scrolls the window. */
+const scrollBy = async (page, top) => {
+  await page.evaluate((to) => {
+    const scroller = [...document.querySelectorAll('div')].find(
+      (element) =>
+        element.scrollHeight > element.clientHeight + 50 &&
+        getComputedStyle(element).overflowY !== 'visible',
+    );
+    if (scroller) scroller.scrollTop = to;
+  }, top);
+  await page.waitForTimeout(350);
+};
+
 function run(command, args) {
   return new Promise((resolvePromise, reject) => {
     const child = spawn(command, args, { cwd: ROOT, stdio: 'inherit' });
@@ -309,15 +322,31 @@ async function main() {
   await wait(page, 800);
   await shot('11-statistics', { fullPage: true });
 
-  // 12. The setup screen in night colours, with a game waiting to be resumed.
+  // 12. The style screen, which is where the palettes are judged.
   await page.getByLabel('Back').click();
   await wait(page, 500);
   await page.getByLabel('Settings').click();
   await wait(page, 500);
+  await page.getByLabel('Every colour').click();
+  await wait(page, 700);
+  await shot('12-style');
+
+  // 13. The same page in night colours, which is the other half of the palette.
+  await page.getByLabel('Back').click();
+  await wait(page, 400);
   await page.getByLabel('Match the device').click();
   await wait(page, 300);
   await page.getByLabel('Night colours').click();
   await wait(page, 400);
+  await page.getByLabel('Every colour').click();
+  await wait(page, 700);
+  // Down to the swatches, which is what the page is for.
+  await scrollBy(page, 620);
+  await shot('13-style-night');
+  await page.getByLabel('Back').click();
+  await wait(page, 400);
+
+  // 14. The setup screen in night colours, with a game waiting to be resumed.
   await page.getByLabel('Back').click();
   await wait(page, 400);
   await startPuzzle(page);
@@ -330,7 +359,7 @@ async function main() {
   // Leaving a puzzle lands on setup, which is where the game it left waits.
   await page.getByLabel('Back to setup').click();
   await wait(page, 900);
-  await shot('12-resume-night');
+  await shot('14-resume-night');
 
   await browser.close();
   server.close();

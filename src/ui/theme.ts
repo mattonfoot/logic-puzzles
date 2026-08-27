@@ -131,6 +131,28 @@ export const shadow = {
   }),
 } as const;
 
+/**
+ * Every colour in a palette, flattened to a list of role and value.
+ *
+ * The style screen draws from this rather than naming the roles itself, so a
+ * colour added to `Palette` turns up there without anyone remembering to list
+ * it. `scheme` is not a colour and drops out; `chart` is a group and is spread
+ * into one entry per member.
+ */
+export function paletteSwatches(palette: Palette): { role: string; value: string }[] {
+  const swatches: { role: string; value: string }[] = [];
+  for (const [role, value] of Object.entries(palette)) {
+    if (typeof value === 'string' && role !== 'scheme') {
+      swatches.push({ role, value });
+    } else if (value && typeof value === 'object') {
+      for (const [inner, hex] of Object.entries(value as Record<string, string>)) {
+        swatches.push({ role: `${role}.${inner}`, value: hex });
+      }
+    }
+  }
+  return swatches;
+}
+
 /** Flattens an accent colour to a soft background tint. */
 export function tint(hex: string, alpha: number): string {
   const value = hex.replace('#', '');

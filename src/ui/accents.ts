@@ -19,11 +19,17 @@ export interface Accent {
   night: string;
 }
 
+/**
+ * Green's night cut is a leaf green rather than the mint the night palette uses
+ * for `success`: two greens a shade apart, one of which means "a personal best"
+ * and one of which means nothing at all, is a distinction nobody can be asked
+ * to make.
+ */
 export const ACCENTS: Accent[] = [
   { id: 'blue', name: 'Blue', day: '#4C6FFF', night: '#8AA2FF' },
   { id: 'violet', name: 'Violet', day: '#6A45E0', night: '#A996FF' },
   { id: 'teal', name: 'Teal', day: '#0F7C7B', night: '#4FC7C4' },
-  { id: 'green', name: 'Green', day: '#2F8F4E', night: '#5FCF9B' },
+  { id: 'green', name: 'Green', day: '#2F8F4E', night: '#6ACF72' },
   { id: 'rust', name: 'Rust', day: '#B25F2E', night: '#E39A63' },
 ];
 

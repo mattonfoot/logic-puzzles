@@ -7,13 +7,14 @@ import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { accentById, nextAccent } from '../ui/accents';
 import { RuledTitle } from '../ui/RuledTitle';
-import { CheckRow, CycleRow, SliderRow } from '../ui/SettingRow';
+import { ActionRow, CheckRow, CycleRow, SliderRow } from '../ui/SettingRow';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { space, type Palette } from '../ui/theme';
 
 interface Props {
   settings: Settings;
   onChange: (change: Partial<Omit<Settings, 'version'>>) => void;
+  onOpenStyle: () => void;
   onBack: () => void;
 }
 
@@ -24,7 +25,7 @@ interface Props {
  * than in the game's own menu — though that menu reaches the board pair too,
  * since they are worth changing mid-puzzle, and sets them the same way.
  */
-export function SettingsScreen({ settings, onChange, onBack }: Props) {
+export function SettingsScreen({ settings, onChange, onOpenStyle, onBack }: Props) {
   const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
@@ -85,6 +86,14 @@ export function SettingsScreen({ settings, onChange, onBack }: Props) {
             onPress={() => onChange({ haptics: !settings.haptics })}
           />
         </View>
+
+        <View style={styles.section}>
+          <RuledTitle>Style</RuledTitle>
+        </View>
+
+        <View style={styles.list}>
+          <ActionRow label="Every colour" onPress={onOpenStyle} />
+        </View>
       </ScrollView>
 
       <BackLink label="Back" onPress={onBack} />
@@ -105,5 +114,8 @@ const makeStyles = (palette: Palette) =>
     list: {
       marginTop: space(4),
       gap: space(2),
+    },
+    section: {
+      marginTop: space(6),
     },
   });

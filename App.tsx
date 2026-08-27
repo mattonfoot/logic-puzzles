@@ -23,12 +23,13 @@ import { GameScreen } from './src/screens/GameScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
 import { SetupScreen } from './src/screens/SetupScreen';
 import { StartScreen } from './src/screens/StartScreen';
+import { StyleScreen } from './src/screens/StyleScreen';
 import { StatsScreen } from './src/screens/StatsScreen';
 import { configureFeedback } from './src/ui/feedback';
 import { ThemeProvider, useStyles, useTheme } from './src/ui/ThemeProvider';
 import type { Palette } from './src/ui/theme';
 
-type Screen = 'start' | 'setup' | 'settings' | 'stats' | 'game';
+type Screen = 'start' | 'setup' | 'settings' | 'style' | 'stats' | 'game';
 
 export default function App() {
   // One file per weight; `src/ui/Text` picks between them. Until they are here
@@ -175,7 +176,18 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           <SettingsScreen
             settings={settings.settings}
             onChange={settings.update}
+            onOpenStyle={() => setScreen('style')}
             onBack={() => setScreen(puzzle ? 'game' : 'start')}
+          />
+        ) : screen === 'style' ? (
+          <StyleScreen
+            accent={settings.settings.accent}
+            onChangeAccent={(accent) => settings.update({ accent })}
+            night={palette.scheme === 'night'}
+            onToggleNight={() =>
+              settings.update({ colours: palette.scheme === 'night' ? 'day' : 'night' })
+            }
+            onBack={() => setScreen('settings')}
           />
         ) : screen === 'stats' ? (
           <StatsScreen
