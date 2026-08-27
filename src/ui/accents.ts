@@ -7,16 +7,30 @@
  * now the player's, set once and kept, and a puzzle's theme decides only what
  * it is about.
  *
- * Each has two cuts. The `day` one is dark enough to carry white text, because
- * it is the ground the title panel is painted in on every screen before a
- * puzzle starts; the `night` one is light enough to read on a near-black page.
- * The panel keeps the day cut in both schemes for that reason.
+ * A colour is a small set rather than a single hue: a **primary** for links,
+ * ticks and headings, a **secondary** for the quieter half of the same job, and
+ * optionally the **page** they are meant to sit on. There is a set per scheme,
+ * because a colour that carries white text by day is too dark to read on a
+ * near-black page and the light cut that reads there cannot carry white.
  */
+export interface AccentCut {
+  /** Links, ticks, headings — and the ground the title panel is painted in. */
+  primary: string;
+  /** What the board fills in for itself, and anything the primary would shout. */
+  secondary: string;
+  /**
+   * The page, when this colour brings its own. The shades that sit on it — the
+   * board's squares, the lines, the quieter surface — are worked out from it,
+   * so they belong to the same page rather than to the one before it.
+   */
+  bg?: string;
+}
+
 export interface Accent {
   id: string;
   name: string;
-  day: string;
-  night: string;
+  day: AccentCut;
+  night: AccentCut;
 }
 
 /**
@@ -26,11 +40,38 @@ export interface Accent {
  * to make.
  */
 export const ACCENTS: Accent[] = [
-  { id: 'blue', name: 'Blue', day: '#4C6FFF', night: '#8AA2FF' },
-  { id: 'violet', name: 'Violet', day: '#6A45E0', night: '#A996FF' },
-  { id: 'teal', name: 'Teal', day: '#0F7C7B', night: '#4FC7C4' },
-  { id: 'green', name: 'Green', day: '#2F8F4E', night: '#6ACF72' },
-  { id: 'rust', name: 'Rust', day: '#B25F2E', night: '#E39A63' },
+  {
+    id: 'blue',
+    name: 'Blue',
+    // The one colour with a page of its own: a deep navy on a cool near-white,
+    // with the mid blue doing the quiet half of the work.
+    day: { primary: '#064789', secondary: '#427AA1', bg: '#EBF2FA' },
+    night: { primary: '#7AA8D0', secondary: '#4E88B5' },
+  },
+  {
+    id: 'violet',
+    name: 'Violet',
+    day: { primary: '#6A45E0', secondary: '#A993E5' },
+    night: { primary: '#A996FF', secondary: '#6B60A0' },
+  },
+  {
+    id: 'teal',
+    name: 'Teal',
+    day: { primary: '#0F7C7B', secondary: '#77B2AE' },
+    night: { primary: '#4FC7C4', secondary: '#357E7C' },
+  },
+  {
+    id: 'green',
+    name: 'Green',
+    day: { primary: '#2F8F4E', secondary: '#89BC95' },
+    night: { primary: '#6ACF72', secondary: '#45834B' },
+  },
+  {
+    id: 'rust',
+    name: 'Rust',
+    day: { primary: '#B25F2E', secondary: '#D1A284' },
+    night: { primary: '#E39A63', secondary: '#8E6342' },
+  },
 ];
 
 export const DEFAULT_ACCENT = ACCENTS[0].id;

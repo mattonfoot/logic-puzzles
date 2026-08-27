@@ -83,7 +83,7 @@ export function ClueCard({ puzzle, index, used, done, lit, onPress }: Props) {
             styles.badge,
             {
               backgroundColor: done ? palette.surfaceAlt : tint(palette.accent, 0.12),
-              borderColor: done ? palette.line : tint(palette.accent, 0.35),
+              borderColor: done ? palette.line : palette.accentSoft,
             },
           ]}
         >

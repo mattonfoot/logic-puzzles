@@ -357,8 +357,9 @@ The two schemes, as they stand:
 | Role | Day | Night | Where it lands |
 |------|-----|-------|----------------|
 | `accent` | set by the player | set by the player | links, ticks, headings, the timer |
-| `accentGround` | the accent's day cut | the accent's day cut | the title panel, in both schemes |
-| `bg` | `#F6F3EC` | `#14161C` | the page |
+| `accentSoft` | set by the player | set by the player | a tick the board worked out, a live clue's border |
+| `accentGround` | the colour's day primary | the colour's day primary | the title panel, in both schemes |
+| `bg` | `#F6F3EC`, or the colour's own | `#14161C` | the page |
 | `surface` | `#FFFFFF` | `#1B1E26` | cards |
 | `surfaceAlt` | `#FBF9F3` | `#20242D` | a card that is spent |
 | `boardLight` | `#F1EEE4` | `#232733` | the board's lighter square |
@@ -374,20 +375,34 @@ The two schemes, as they stand:
 | `chart.grid` | `#EBE6DA` | `#2C313F` | its gridlines |
 | `chart.reference` | `#B7AF9C` | `#4A5265` | its average line |
 
-And the five the player can pick between, day cut first:
+And the five the player can pick between. Each is a small set rather than a
+single hue — a **primary** for links, ticks and headings, a **secondary** for
+the quieter half of the same job, and optionally the **page** they are meant to
+sit on — with a set per scheme:
 
-| Colour | Day | Night |
-|--------|-----|-------|
-| Blue | `#4C6FFF` | `#8AA2FF` |
-| Violet | `#6A45E0` | `#A996FF` |
-| Teal | `#0F7C7B` | `#4FC7C4` |
-| Green | `#2F8F4E` | `#6ACF72` |
-| Rust | `#B25F2E` | `#E39A63` |
+| Colour | Day primary | Day secondary | Day page | Night primary | Night secondary |
+|--------|-------------|---------------|----------|---------------|-----------------|
+| Blue | `#064789` | `#427AA1` | `#EBF2FA` | `#7AA8D0` | `#4E88B5` |
+| Violet | `#6A45E0` | `#A993E5` | — | `#A996FF` | `#6B60A0` |
+| Teal | `#0F7C7B` | `#77B2AE` | — | `#4FC7C4` | `#357E7C` |
+| Green | `#2F8F4E` | `#89BC95` | — | `#6ACF72` | `#45834B` |
+| Rust | `#B25F2E` | `#D1A284` | — | `#E39A63` | `#8E6342` |
 
-Green's night cut is a leaf green rather than the mint `success` uses at night:
-two greens a shade apart, one meaning "a personal best" and one meaning nothing
-at all, is a distinction nobody can be asked to make. A test keeps every accent
-off both `success` and `danger` in both schemes.
+A colour with a page of its own brings the shades that sit on it too —
+`surfaceAlt`, `boardLight`, `boardShade`, `line` and `lineStrong` are mixed from
+that page by `pageShades`, because leaving the warm cream board squares on a
+cool blue page reads as a mistake rather than as a choice. A colour with no page
+leaves the scheme's own alone, and its hand-picked shades stay exactly as they
+are.
+
+The secondary is where the board draws a tick it worked out for itself, and the
+border on a clue still in play. Both were arbitrary tints of the accent before —
+a chosen colour is a better answer than 55% of another one.
+
+Green's night primary is a leaf green rather than the mint `success` uses at
+night: two greens a shade apart, one meaning "a personal best" and one meaning
+nothing at all, is a distinction nobody can be asked to make. A test keeps every
+primary off both `success` and `danger` in both schemes.
 
 ## Typography
 

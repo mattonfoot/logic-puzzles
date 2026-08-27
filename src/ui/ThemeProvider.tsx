@@ -2,7 +2,7 @@ import React, { createContext, useContext, useMemo } from 'react';
 import { StyleSheet, useColorScheme } from 'react-native';
 
 import { accentById, DEFAULT_ACCENT } from './accents';
-import { dayPalette, nightPalette, type Palette } from './theme';
+import { dayPalette, nightPalette, pageShades, type Palette } from './theme';
 
 /** What the player asked for, which is not always a colour scheme. */
 export type ColourPreference = 'day' | 'night' | 'auto';
@@ -13,9 +13,10 @@ const ThemeContext = createContext<Palette>(dayPalette);
  * The palette a preference resolves to, given what the device is doing and
  * which colour the player has chosen.
  *
- * The scheme decides everything but the accent; the accent is chosen separately
- * and has a cut for each scheme, so picking Teal does not mean a different
- * colour of page.
+ * The scheme decides the page and the ink; the colour decides the accent, its
+ * quieter partner, and — when it brings one — the page itself, along with the
+ * shades that sit on it. A colour with no page of its own leaves the scheme's
+ * alone, so picking Teal is a change of accent and nothing else.
  */
 export function resolvePalette(
   preference: ColourPreference,
@@ -25,7 +26,14 @@ export function resolvePalette(
   const night = preference === 'auto' ? systemIsDark : preference === 'night';
   const base = night ? nightPalette : dayPalette;
   const chosen = accentById(accent);
-  return { ...base, accent: night ? chosen.night : chosen.day, accentGround: chosen.day };
+  const cut = night ? chosen.night : chosen.day;
+  return {
+    ...base,
+    ...(cut.bg ? pageShades(cut.bg, base.ink, base.surface) : null),
+    accent: cut.primary,
+    accentSoft: cut.secondary,
+    accentGround: chosen.day.primary,
+  };
 }
 
 export function ThemeProvider({

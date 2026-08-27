@@ -60,37 +60,75 @@ describe('volume', () => {
 });
 
 describe('which colours a preference means', () => {
+  // Which scheme a palette came from, read off the parts a colour never moves.
+  const schemeOf = (palette: typeof dayPalette) => ({
+    scheme: palette.scheme,
+    ink: palette.ink,
+    surface: palette.surface,
+    danger: palette.danger,
+  });
+  const day = schemeOf(dayPalette);
+  const night = schemeOf(nightPalette);
+
   it('says what it is told', () => {
-    expect(resolvePalette('day', true)).toEqual(dayPalette);
-    expect(resolvePalette('night', false)).toEqual(nightPalette);
+    expect(schemeOf(resolvePalette('day', true))).toEqual(day);
+    expect(schemeOf(resolvePalette('night', false))).toEqual(night);
   });
 
   it('follows the device when asked to', () => {
-    expect(resolvePalette('auto', false)).toEqual(dayPalette);
-    expect(resolvePalette('auto', true)).toEqual(nightPalette);
+    expect(schemeOf(resolvePalette('auto', false))).toEqual(day);
+    expect(schemeOf(resolvePalette('auto', true))).toEqual(night);
+  });
+
+  it('leaves the scheme alone for a colour with no page of its own', () => {
+    const plain = ACCENTS.find((accent) => !accent.day.bg);
+    if (!plain) throw new Error('expected a colour with no page of its own');
+    const bare = { accent: '', accentSoft: '', accentGround: '' };
+    expect({ ...resolvePalette('day', false, plain.id), ...bare }).toEqual({
+      ...dayPalette,
+      ...bare,
+    });
   });
 
   it('takes the accent from the player and everything else from the scheme', () => {
     for (const accent of ACCENTS) {
       const day = resolvePalette('day', false, accent.id);
       const night = resolvePalette('night', false, accent.id);
-      expect(day.accent).toBe(accent.day);
-      expect(night.accent).toBe(accent.night);
-      // The panel's ground is the daytime cut whichever scheme is in force, so
-      // the white on it stays readable after dark.
-      expect(day.accentGround).toBe(accent.day);
-      expect(night.accentGround).toBe(accent.day);
-      // The page itself does not move with the accent.
-      const bare = { accent: '', accentGround: '' };
-      expect({ ...day, ...bare }).toEqual({ ...dayPalette, ...bare });
-      expect({ ...night, ...bare }).toEqual({ ...nightPalette, ...bare });
+      expect(day.accent).toBe(accent.day.primary);
+      expect(night.accent).toBe(accent.night.primary);
+      expect(day.accentSoft).toBe(accent.day.secondary);
+      expect(night.accentSoft).toBe(accent.night.secondary);
+      // The panel's ground is the daytime primary whichever scheme is in force,
+      // so the white on it stays readable after dark.
+      expect(day.accentGround).toBe(accent.day.primary);
+      expect(night.accentGround).toBe(accent.day.primary);
+
+      // The ink never moves with the colour, whatever else does.
+      expect(day.ink).toBe(dayPalette.ink);
+      expect(night.ink).toBe(nightPalette.ink);
+
+      // A colour with no page of its own leaves the scheme's alone.
+      if (!accent.day.bg) expect(day.bg).toBe(dayPalette.bg);
+      if (!accent.night.bg) expect(night.bg).toBe(nightPalette.bg);
     }
   });
 
   it('falls back rather than drawing in nothing', () => {
     expect(resolvePalette('day', false, 'a colour nobody chose').accent).toBe(
-      accentById(DEFAULT_ACCENT).day,
+      accentById(DEFAULT_ACCENT).day.primary,
     );
+  });
+
+  it('brings the shades that sit on a page along with the page', () => {
+    const withPage = ACCENTS.find((accent) => accent.day.bg);
+    if (!withPage) throw new Error('expected a colour that brings its own page');
+
+    const palette = resolvePalette('day', false, withPage.id);
+    expect(palette.bg).toBe(withPage.day.bg);
+    // Nothing sitting on that page is left over from the one before it.
+    for (const role of ['surfaceAlt', 'boardLight', 'boardShade', 'line', 'lineStrong'] as const) {
+      expect(`${role}: ${palette[role]}`).not.toBe(`${role}: ${dayPalette[role]}`);
+    }
   });
 });
 
@@ -106,8 +144,10 @@ describe('the colours the player can choose', () => {
     const weight = (hex: string) =>
       parseInt(hex.slice(1, 3), 16) + parseInt(hex.slice(3, 5), 16) + parseInt(hex.slice(5, 7), 16);
     for (const accent of ACCENTS) {
-      expect(`${accent.id}: ${accent.day} then ${accent.night}`).toMatch(/^#?/);
-      expect(weight(accent.night)).toBeGreaterThan(weight(accent.day));
+      expect(weight(accent.night.primary)).toBeGreaterThan(weight(accent.day.primary));
+      // The secondary is a quieter partner, not a second primary.
+      expect(accent.day.secondary).not.toBe(accent.day.primary);
+      expect(accent.night.secondary).not.toBe(accent.night.primary);
     }
   });
 
@@ -115,10 +155,10 @@ describe('the colours the player can choose', () => {
     // A colour that all but matches "solved a personal best" is a colour that
     // makes the message ambiguous.
     for (const accent of ACCENTS) {
-      expect(accent.day).not.toBe(dayPalette.success);
-      expect(accent.day).not.toBe(dayPalette.danger);
-      expect(accent.night).not.toBe(nightPalette.success);
-      expect(accent.night).not.toBe(nightPalette.danger);
+      expect(accent.day.primary).not.toBe(dayPalette.success);
+      expect(accent.day.primary).not.toBe(dayPalette.danger);
+      expect(accent.night.primary).not.toBe(nightPalette.success);
+      expect(accent.night.primary).not.toBe(nightPalette.danger);
     }
   });
 

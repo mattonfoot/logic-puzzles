@@ -71,8 +71,9 @@ export function StyleScreen({ accent, onChangeAccent, night, onToggleNight, onBa
 
         <Section title="The colours" />
         <Text style={styles.note}>
-          Two cuts each: the day one carries white text and is what the title panel is painted in,
-          the night one is light enough to read on a near-black page. Tap one to take it.
+          A set per scheme: primary, secondary, and the page when the colour brings one. The day
+          primary carries white text and is what the title panel is painted in; the night one is
+          light enough to read on a near-black page. Tap a row to take it.
         </Text>
         <View style={styles.swatches}>
           {ACCENTS.map((one) => (
@@ -87,14 +88,18 @@ export function StyleScreen({ accent, onChangeAccent, night, onToggleNight, onBa
               }}
               style={({ pressed }) => [styles.swatchRow, { opacity: pressed ? 0.6 : 1 }]}
             >
-              <View style={[styles.chip, { backgroundColor: one.day }]} />
-              <View style={[styles.chip, { backgroundColor: one.night }]} />
+              <View style={styles.cut}>
+                <View style={[styles.chip, { backgroundColor: one.day.primary }]} />
+                <View style={[styles.chip, { backgroundColor: one.day.secondary }]} />
+                <View style={[styles.chip, { backgroundColor: one.day.bg ?? 'transparent' }]} />
+              </View>
+              <View style={styles.cut}>
+                <View style={[styles.chip, { backgroundColor: one.night.primary }]} />
+                <View style={[styles.chip, { backgroundColor: one.night.secondary }]} />
+              </View>
               <Text style={[styles.swatchRole, one.id === accent && styles.swatchRoleOn]}>
                 {one.name}
                 {one.id === accent ? ' ·' : ''}
-              </Text>
-              <Text style={styles.swatchValue}>
-                {one.day.toUpperCase()} / {one.night.toUpperCase()}
               </Text>
             </Pressable>
           ))}
@@ -307,8 +312,12 @@ const makeStyles = (palette: Palette) =>
       borderBottomWidth: border,
       borderBottomColor: palette.line,
     },
+    cut: {
+      flexDirection: 'row',
+      gap: 2,
+    },
     chip: {
-      width: 30,
+      width: 22,
       height: 30,
       borderWidth: border,
       borderColor: palette.line,

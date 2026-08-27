@@ -9,6 +9,13 @@ export interface Palette {
   /** The colour the player chose, in the cut this scheme can read. */
   accent: string;
   /**
+   * A quieter partner to the accent: what the board fills in for itself, and
+   * anything the accent at full strength would shout. A colour that brings its
+   * own set names it; one that does not gets the accent mixed back towards the
+   * page.
+   */
+  accentSoft: string;
+  /**
    * The same colour as a ground for white text — always the darker, daytime
    * cut, because the title panel is painted in it in both schemes and the night
    * cut is too light to carry white.
@@ -42,6 +49,7 @@ export interface Palette {
 
 export const dayPalette: Palette = {
   accent: '#4C6FFF',
+  accentSoft: '#99AAF6',
   accentGround: '#4C6FFF',
   bg: '#F6F3EC',
   surface: '#FFFFFF',
@@ -68,6 +76,7 @@ export const dayPalette: Palette = {
  */
 export const nightPalette: Palette = {
   accent: '#8AA2FF',
+  accentSoft: '#596AA0',
   accentGround: '#4C6FFF',
   bg: '#14161C',
   surface: '#1B1E26',
@@ -130,6 +139,38 @@ export const shadow = {
     default: { elevation: 6 },
   }),
 } as const;
+
+/** Two colours blended: `amount` of `towards` mixed into `hex`. */
+export function mix(hex: string, towards: string, amount: number): string {
+  const channels = (value: string) => [1, 3, 5].map((at) => parseInt(value.slice(at, at + 2), 16));
+  const [r1, g1, b1] = channels(hex);
+  const [r2, g2, b2] = channels(towards);
+  const blend = (a: number, b: number) => Math.round(a + (b - a) * amount);
+  return `#${[blend(r1, r2), blend(g1, g2), blend(b1, b2)]
+    .map((channel) => channel.toString(16).padStart(2, '0'))
+    .join('')}`.toUpperCase();
+}
+
+/**
+ * The shades that sit directly on a page, worked out from the page itself.
+ *
+ * A colour that brings its own background brings these with it: leaving the
+ * board's warm cream squares and lines on a cool blue page reads as a mistake
+ * rather than as a choice. A colour that does not keeps the palette's own,
+ * which are hand-picked rather than mixed and stay exactly as they are.
+ */
+export function pageShades(bg: string, ink: string, paper: string) {
+  return {
+    bg,
+    // Lifted towards the surface it sits beside rather than towards the old
+    // page, so a cool page does not end up with a warm card on it.
+    surfaceAlt: mix(bg, paper, 0.5),
+    boardLight: mix(bg, ink, 0.035),
+    boardShade: mix(bg, ink, 0.095),
+    line: mix(bg, ink, 0.1),
+    lineStrong: mix(bg, ink, 0.2),
+  };
+}
 
 /**
  * Every colour in a palette, flattened to a list of role and value.

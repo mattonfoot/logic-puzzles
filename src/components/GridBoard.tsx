@@ -255,13 +255,13 @@ export function GridBoard({
                                       // The glyph gets the whole square, so a
                                       // big mark is centred rather than clipped.
                                       lineHeight: cellSize,
-                                      // A tick the board worked out sits lighter
-                                      // than one the player put down, the same
-                                      // way its crosses do.
+                                      // A tick the board worked out is drawn
+                                      // in the colour's quieter half, the same
+                                      // way its crosses sit lighter.
                                       color: wrong
                                         ? palette.danger
                                         : entry?.source === 'auto'
-                                          ? tint(palette.accent, 0.55)
+                                          ? palette.accentSoft
                                           : palette.accent,
                                     },
                                   ]}
