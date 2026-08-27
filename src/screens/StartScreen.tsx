@@ -5,7 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { feedback } from '../ui/feedback';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { dayPalette, space, type Palette } from '../ui/theme';
+import { space, type Palette } from '../ui/theme';
+import { TitlePanel } from '../ui/TitlePanel';
 
 interface Props {
   onPlay: () => void;
@@ -21,11 +22,9 @@ interface Props {
  * where the pressing happens, and **Play** sits at the top of it, roughly under
  * the thumb, where the eye arrives after reading.
  *
- * The top half is a block of the link colour with white text on it, so the
- * name arrives as a cover rather than as the first paragraph of a page. At
- * night the accent is a pale lavender that white cannot be read on, so the
- * panel keeps the day cut of the same blue in both palettes; the Play link
- * below it still takes the accent the rest of the app uses.
+ * The top half is `TitlePanel` — the same block of the link colour the setup
+ * screen wears, given the whole half here because this is the one screen with
+ * room for it.
  *
  * Everything hangs off the same left margin — eyebrow, name, description, Play
  * — so the eye drops straight down one edge. The single exception is
@@ -40,20 +39,15 @@ export function StartScreen({ onPlay, onOpenSettings, onOpenStats }: Props) {
   const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const panel = palette.scheme === 'night' ? dayPalette.accent : palette.accent;
 
   return (
     <View style={styles.screen}>
-      <View style={[styles.top, { backgroundColor: panel, paddingTop: insets.top + space(4) }]}>
-        <Text style={styles.eyebrow}>Freshly generated, never guessed</Text>
-        <Text style={styles.title} numberOfLines={1} adjustsFontSizeToFit>
-          Deduction
-        </Text>
-        <Text style={styles.lede}>
-          Every puzzle is built when you ask for it, with exactly one solution you can reach by pure
-          deduction — no guessing.
-        </Text>
-      </View>
+      <TitlePanel
+        size="hero"
+        style={styles.top}
+        eyebrow="Freshly generated, never guessed"
+        lede="Every puzzle is built when you ask for it, with exactly one solution you can reach by pure deduction — no guessing."
+      />
 
       <View style={[styles.bottom, { paddingBottom: insets.bottom + space(3) }]}>
         <Pressable
@@ -96,10 +90,6 @@ function FootLink({ label, onPress }: { label: string; onPress: () => void }) {
   );
 }
 
-/** White on the panel, and the same white held back for the lines around the name. */
-const ON_PANEL = '#FFFFFF';
-const ON_PANEL_SOFT = 'rgba(255, 255, 255, 0.82)';
-
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
     screen: {
@@ -109,39 +99,11 @@ const makeStyles = (palette: Palette) =>
     // Two equal halves: what the app is, then what to do about it.
     top: {
       flex: 1,
-      alignItems: 'flex-start',
-      justifyContent: 'center',
-      paddingHorizontal: space(5),
     },
     bottom: {
       flex: 1,
       justifyContent: 'space-between',
       paddingHorizontal: space(5),
-    },
-    eyebrow: {
-      fontSize: 12,
-      letterSpacing: 1.2,
-      textTransform: 'uppercase',
-      color: ON_PANEL_SOFT,
-      fontWeight: '700',
-    },
-    title: {
-      alignSelf: 'stretch',
-      // As large as the word goes: nine letters at 80pt overrun a phone's width
-      // before the margins, so the name is sized to fill the panel instead.
-      fontSize: 64,
-      lineHeight: 74,
-      fontWeight: '800',
-      color: ON_PANEL,
-      marginTop: space(2),
-      letterSpacing: -2,
-    },
-    lede: {
-      fontSize: 16,
-      lineHeight: 23,
-      fontWeight: '600',
-      color: ON_PANEL_SOFT,
-      marginTop: space(3),
     },
     play: {
       alignSelf: 'flex-start',

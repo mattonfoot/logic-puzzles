@@ -3,8 +3,9 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { feedback } from './feedback';
+import { Icon } from './Icon';
 import { Text } from './Text';
-import { useStyles } from './ThemeProvider';
+import { useStyles, useTheme } from './ThemeProvider';
 import { space, type Palette } from './theme';
 
 interface Props {
@@ -21,11 +22,15 @@ interface Props {
  * once. The top left is left to the board's menu button: a corner that
  * sometimes goes back and sometimes opens something is a corner nobody trusts.
  *
+ * The triangle is one of the app's own silhouettes rather than a typed glyph,
+ * so it is solid and the same shape on every platform.
+ *
  * It carries the bottom safe area, so it is the last thing on a screen — the
  * scrolling part above it does not need to leave room for the home indicator.
  */
 export function BackLink({ label = 'Back', onPress }: Props) {
   const insets = useSafeAreaInsets();
+  const palette = useTheme();
   const styles = useStyles(makeStyles);
 
   return (
@@ -40,7 +45,8 @@ export function BackLink({ label = 'Back', onPress }: Props) {
         }}
         style={({ pressed }) => [styles.hit, { opacity: pressed ? 0.6 : 1 }]}
       >
-        <Text style={styles.text}>&lt;&lt;&lt; back</Text>
+        <Icon name="ui/icon-back" size={11} color={palette.inkSoft} />
+        <Text style={styles.text}>Back</Text>
       </Pressable>
     </View>
   );
@@ -55,13 +61,16 @@ const makeStyles = (palette: Palette) =>
       paddingTop: space(2),
     },
     hit: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space(2),
       paddingVertical: space(1),
       paddingRight: space(4),
     },
     text: {
-      fontSize: 13,
+      fontSize: 14,
       fontWeight: '600',
-      letterSpacing: 0.5,
+      letterSpacing: 0.3,
       color: palette.inkSoft,
     },
   });

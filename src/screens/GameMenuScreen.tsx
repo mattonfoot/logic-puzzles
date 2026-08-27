@@ -29,11 +29,11 @@ interface Props {
  * board works out for itself, and the two ways to end this puzzle. They live
  * here so the playing screen carries only what a player reaches for mid-puzzle.
  *
- * Starting a different puzzle is not one of them: the board's own `<<< back`
+ * Starting a different puzzle is not one of them: the board's own `◀ Back`
  * goes to the setup screen, which is where a puzzle is chosen, so the menu would
  * only be offering a second door to the same room.
  *
- * The menu is a screen like any other, so it is left the same way: `<<< back`
+ * The menu is a screen like any other, so it is left the same way: `◀ Back`
  * at the foot of it, rather than a cross in the corner the board uses for the
  * button that opened this.
  */

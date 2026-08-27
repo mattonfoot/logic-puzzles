@@ -160,7 +160,6 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
         ) : screen === 'setup' ? (
           <SetupScreen
             busy={busy}
-            stats={persistence.stats}
             savedGame={persistence.savedGame}
             onStart={build}
             onSurpriseMe={surpriseMe}

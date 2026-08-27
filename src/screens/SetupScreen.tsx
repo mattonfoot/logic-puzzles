@@ -8,18 +8,16 @@ import { progress } from '../game/board';
 import type { SavedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
 import type { SizeOption } from '../puzzle/types';
-import type { OverallStats } from '../stats/summary';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
-import { ScreenHeader } from '../ui/ScreenHeader';
 import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
+import { TitlePanel } from '../ui/TitlePanel';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, shadow, space, tint, type Palette } from '../ui/theme';
 
 interface Props {
   busy: boolean;
-  stats: OverallStats;
   /** An unfinished game waiting to be picked back up, if there is one. */
   savedGame: SavedGame | null;
   /** Picking a difficulty is starting the puzzle; there is nothing else to say. */
@@ -35,13 +33,19 @@ interface Props {
  * player chooses. Everything else — the theme, the cast, the answer — is drawn
  * when the game starts.
  *
- * The game already in progress sits at the top of the same screen, because this
- * is where a player comes when they want to play something: leaving a puzzle
- * lands here, and so does Play from the front door.
+ * It wears the same panel as the front door, so arriving here reads as the next
+ * page of the same thing rather than as a different app. Under it the
+ * difficulties are set as a list of words in the accent, the same way **Play**
+ * is set on the front door: choosing one is the same size of decision as
+ * pressing Play was, so it is drawn the same size. What each shape means is on
+ * the board a second later, and was never the thing being chosen.
+ *
+ * The game already in progress sits above them, because this is where a player
+ * comes when they want to play something: leaving a puzzle lands here, and so
+ * does Play from the front door.
  */
 export function SetupScreen({
   busy,
-  stats,
   savedGame,
   onStart,
   onSurpriseMe,
@@ -56,7 +60,7 @@ export function SetupScreen({
 
   return (
     <View style={styles.screen}>
-      <ScreenHeader title="New puzzle" />
+      <TitlePanel />
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         {savedGame ? (
@@ -100,33 +104,22 @@ export function SetupScreen({
           </View>
         ) : null}
 
-        <Text style={styles.sectionLabel}>{savedGame ? 'Or start a new one' : 'Difficulty'}</Text>
-        <View style={styles.sizeRow}>
-          {SIZES.map((option) => {
-            const played = stats.sizes.find((entry) => entry.sizeId === option.id);
-            const best =
-              played && played.solved > 0
-                ? `best ${formatDuration(played.bestSeconds ?? 0)}`
-                : null;
-            return (
-              <Choice
-                key={option.id}
-                title={option.difficulty}
-                note={`${option.items} items in each of ${option.categories} sets · ${
-                  (option.categories * (option.categories - 1)) / 2
-                } grids`}
-                aside={option.label}
-                footnote={best}
-                disabled={busy}
-                onPress={() => onStart(option)}
-              />
-            );
-          })}
+        <Text style={styles.heading}>Play</Text>
+        <View style={styles.rule} />
+
+        <View style={styles.choices}>
+          {SIZES.map((option) => (
+            <Choice
+              key={option.id}
+              label={option.difficulty}
+              hint={`${option.items} items in each of ${option.categories} sets`}
+              disabled={busy}
+              onPress={() => onStart(option)}
+            />
+          ))}
           <Choice
-            title="Surprise me!"
-            note="Any of the four, rolled for you"
-            aside="?"
-            accent
+            label="Surprise me!"
+            hint="Any of the four, rolled for you"
             disabled={busy}
             onPress={onSurpriseMe}
           />
@@ -161,22 +154,19 @@ export function SetupScreen({
   );
 }
 
+/**
+ * One difficulty, as a word. The shape it stands for rides along as a hint, so
+ * a screen reader still hears what is being chosen without it being set on the
+ * page next to the name.
+ */
 function Choice({
-  title,
-  note,
-  aside,
-  footnote,
-  accent = false,
+  label,
+  hint,
   disabled,
   onPress,
 }: {
-  title: string;
-  note: string;
-  /** The shape, or a question mark for the one that rolls it. */
-  aside: string;
-  /** What the player has done at this difficulty before, if anything. */
-  footnote?: string | null;
-  accent?: boolean;
+  label: string;
+  hint: string;
   disabled: boolean;
   onPress: () => void;
 }) {
@@ -186,28 +176,17 @@ function Choice({
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={`${title}, ${note}`}
+      accessibilityLabel={label}
+      accessibilityHint={hint}
       accessibilityState={{ disabled }}
       disabled={disabled}
       onPress={() => {
         feedback.tap();
         onPress();
       }}
-      style={({ pressed }) => [
-        styles.sizeCard,
-        {
-          borderColor: accent ? palette.accent : palette.line,
-          backgroundColor: accent ? tint(palette.accent, 0.1) : palette.surface,
-          opacity: pressed ? 0.85 : 1,
-        },
-      ]}
+      style={({ pressed }) => [styles.choice, { opacity: disabled ? 0.4 : pressed ? 0.6 : 1 }]}
     >
-      <View style={styles.sizeText}>
-        <Text style={[styles.sizeLabel, accent && { color: palette.accent }]}>{title}</Text>
-        <Text style={styles.sizeNote}>{note}</Text>
-        {footnote ? <Text style={styles.sizeStats}>{footnote}</Text> : null}
-      </View>
-      <Text style={[styles.sizeShape, accent && { color: palette.accent }]}>{aside}</Text>
+      <Text style={[styles.choiceText, { color: palette.accent }]}>{label}</Text>
     </Pressable>
   );
 }
@@ -220,7 +199,7 @@ const makeStyles = (palette: Palette) =>
     },
     content: {
       paddingHorizontal: space(5),
-      paddingTop: space(4),
+      paddingTop: space(5),
       paddingBottom: space(6),
     },
     resumeCard: {
@@ -259,51 +238,30 @@ const makeStyles = (palette: Palette) =>
     resumeButton: {
       flex: 1,
     },
-    sectionLabel: {
-      fontSize: 11,
-      fontWeight: '700',
-      letterSpacing: 1,
-      textTransform: 'uppercase',
-      color: palette.inkFaint,
-      marginBottom: space(3),
-    },
-    sizeRow: {
-      // One under another, so each difficulty is a line to read rather than a
-      // box to decode. They sit apart rather than flush: the chosen one draws
-      // its border in the accent, and a neighbour sharing that edge paints
-      // over it.
-      gap: space(2),
-    },
-    sizeCard: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      gap: space(3),
-      borderWidth: border,
-      paddingVertical: space(3.5),
-      paddingHorizontal: space(4),
-    },
-    sizeText: {
-      flex: 1,
-    },
-    sizeNote: {
-      fontSize: 12,
-      color: palette.inkSoft,
-      marginTop: space(0.5),
-    },
-    sizeLabel: {
-      fontSize: 16,
-      fontWeight: '700',
+    heading: {
+      fontSize: 22,
+      fontWeight: '800',
+      letterSpacing: -0.5,
       color: palette.ink,
     },
-    sizeShape: {
-      fontSize: 13,
-      color: palette.inkFaint,
+    rule: {
+      height: border,
+      backgroundColor: palette.line,
+      marginTop: space(2),
     },
-    sizeStats: {
-      fontSize: 12,
-      color: palette.inkFaint,
-      marginTop: space(0.5),
+    choices: {
+      marginTop: space(4),
+    },
+    choice: {
+      alignSelf: 'flex-start',
+      paddingVertical: space(1),
+      paddingRight: space(6),
+    },
+    choiceText: {
+      fontSize: 38,
+      lineHeight: 48,
+      fontWeight: '800',
+      letterSpacing: -1,
     },
     busyOverlay: {
       position: 'absolute',

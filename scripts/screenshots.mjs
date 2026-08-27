@@ -114,7 +114,7 @@ async function startPuzzle(page, difficulty = 'Advanced') {
   await page.getByLabel('Play').click();
   await wait(page, 500);
   // Picking a difficulty is starting the puzzle.
-  await page.getByLabel(new RegExp(`^${difficulty},`)).click();
+  await page.getByLabel(difficulty, { exact: true }).click();
   await wait(page, 1600);
 }
 

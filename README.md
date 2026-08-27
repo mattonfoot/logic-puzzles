@@ -93,7 +93,7 @@ images in the same commit.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Play** at the top of the bottom half, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the game in progress, then the difficulties; picking one starts a puzzle. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
+| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Play** at the top of the bottom half, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the same panel, then the difficulties as words; picking one starts a puzzle. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
 | <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Menu** — behind the burger: the board settings, restart, and revealing the answer. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
 | <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, clues read, how it compares, the answer table. |
 | <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item label"><br>**10. Item card** — tap any label to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Setup screen in night colours"><br>**12. Night** — the setup screen in night colours, with a game waiting to be resumed. |
@@ -110,12 +110,16 @@ rest is the app behaving normally.
    with **Play** at the top of it, large and on its own. Everything hangs off the same left margin so the eye drops
    down one edge. **Settings** and **Statistics** are text at the foot of the
    screen — Statistics pushed to the right so the two sit in opposite corners
-   rather than reading as a pair. Play opens the setup screen, which is where a game you left in progress waits:
-   **Resume** picks it up with the clock where it stopped, **Discard** throws it
-   away, and below them the difficulties. Pick one and the puzzle starts — there is nothing else to decide, so
-   there is nothing else to press. **Beginner** (3 × 3), **Advanced** (4 × 4),
-   **Expert** (5 × 4), **Pro** (6 × 4), or **Surprise me!**, which rolls one of
-   the four. The shape is what makes the difficulty: the first number is how
+   rather than reading as a pair. Play opens the setup screen, which wears the same panel and is where a game you
+   left in progress waits: **Resume** picks it up with the clock where it
+   stopped, **Discard** throws it away, and under a **Play** heading the
+   difficulties, set as a list of words the same size Play was. Pick one and the
+   puzzle starts — there is nothing else to decide, so there is nothing else to
+   press. **Beginner** (3 × 3), **Advanced** (4 × 4), **Expert** (5 × 4),
+   **Pro** (6 × 4), or **Surprise me!**, which rolls one of the four. The shapes
+   are not printed beside the names — they are on the board a second later, and
+   were never the thing being chosen — but a screen reader still hears them. The
+   shape is what makes the difficulty: the first number is how
    many items each set holds, the second how many sets take part, so a Pro
    puzzle is six items across four sets and six grids to fill. The theme is
    drawn at that moment — one of five settings, its sets and its cast sampled
@@ -166,15 +170,15 @@ rest is the app behaving normally.
    a line. The first set stays pinned while the others scroll sideways, which
    keeps every heading on one line. The board stays where it was, so the
    finished grid is one tap away — though it is read-only from then on, since
-   changing it would undo the win. There is nothing to press on it: `<<< back`
+   changing it would undo the win. There is nothing to press on it: `◀ Back`
    leads to the setup screen, which is where the next puzzle is chosen.
 5. **The menu**, behind the burger at the top left, holds everything that acts
    on the game rather than on a square: the two board settings (the same ones
    the settings screen holds — they are the player's, not the puzzle's),
    **Restart** (same puzzle, fresh board and clock), and **Reveal the answer**,
    which is hidden once the puzzle is finished. It is left the same way as
-   every other screen — `<<< back`, bottom left — which returns to the board.
-   The board's own `<<< back` goes back one step further, to the setup screen
+   every other screen — `◀ Back`, bottom left — which returns to the board.
+   The board's own `◀ Back` goes back one step further, to the setup screen
    the puzzle was chosen on, so the next one is a tap away; the board is saved
    on the way out either way, and it is the first thing on that screen if you
    want it back.
@@ -193,7 +197,7 @@ rest is the app behaving normally.
 
 ## Getting around
 
-One rule, everywhere: **the way back is `<<< back`, at the bottom left.** Every
+One rule, everywhere: **the way back is `◀ Back`, at the bottom left.** Every
 screen but the start page has it, in the same words and the same place, and it
 goes back exactly one step.
 
@@ -202,12 +206,14 @@ game's menu. That is the only control in that corner anywhere in the app, so a
 tap there always means the same thing. A corner that goes back on one screen and
 opens something on another is a corner nobody trusts, which is why the header
 bar (`src/ui/ScreenHeader.tsx`) carries a title and nothing to press, and the
-menu is dismissed with `<<< back` rather than a cross where the burger was.
+menu is dismissed with `◀ Back` rather than a cross where the burger was.
 
 `src/ui/BackLink.tsx` is the link itself — one component, so the wording, the
-tap feedback and the position cannot drift apart between screens. It also
-carries the bottom safe area, which makes it the last thing on a screen: the
-scrolling part above it never has to leave room for the home indicator.
+tap feedback and the position cannot drift apart between screens. Its triangle
+is one of the app's own silhouettes rather than a typed glyph, so it is solid
+and the same shape everywhere. It also carries the bottom safe area, which makes
+it the last thing on a screen: the scrolling part above it never has to leave
+room for the home indicator.
 
 The start page is the one screen with nothing behind it, so it has no back link.
 Its bottom row is **Settings** and **Statistics** instead — plain text, left and
@@ -246,7 +252,8 @@ src/game/settings.ts        the player's settings, and reading them back
 src/game/useSettings.ts     those settings as React state, written as they change
 src/ui/                     Text, ThemeProvider (day/night), ScreenHeader,
                             palettes, spacing, borders, sound and haptics
-src/ui/BackLink.tsx         the bottom-left `<<< back` link, the one way back
+src/ui/BackLink.tsx         the bottom-left `◀ Back` link, the one way back
+src/ui/TitlePanel.tsx       the app's name on a block of the link colour
 src/ui/Icon.tsx             one silhouette, drawn in whatever colour it sits in
 src/ui/icons.generated.ts   the silhouettes as path data (generated, committed)
 assets/icons/               one SVG per item, theme and interface icon
@@ -361,7 +368,7 @@ the board becomes read-only, because a stray tap on a finished grid would undo
 the win, restart the clock and have the game counted a second time.
 
 The result offers nothing to press either. Another puzzle, a different
-difficulty and the statistics are all where they always are, behind `<<< back`,
+difficulty and the statistics are all where they always are, behind `◀ Back`,
 so the panel is something to read rather than a junction to get past — and the
 app has one way out of a game rather than four.
 

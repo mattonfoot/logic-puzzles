@@ -141,8 +141,18 @@ export const HEIGHTS = (labels) =>
     ];
   });
 
-/** The lamp on the clue button, and the chart the statistics screen starts with. */
+/**
+ * The interface's own shapes: the lamp on the clue button, the chart an empty
+ * statistics screen starts with, and the solid triangle on every back link.
+ */
 export const UI = {
+  back: [
+    poly([
+      [72, 14],
+      [72, 86],
+      [22, 50],
+    ]),
+  ],
   clue: [
     circle(50, 38, 26),
     poly([

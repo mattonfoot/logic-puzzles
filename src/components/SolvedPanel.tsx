@@ -28,7 +28,7 @@ interface Props {
  *
  * It offers nothing to press. Everything a player might want next — another
  * puzzle, a different difficulty, their statistics — lives behind the same
- * `<<< back` link as always, so the result is something to read rather than a
+ * `◀ Back` link as always, so the result is something to read rather than a
  * junction to get past.
  */
 export function SolvedPanel({ title = 'Solved!', puzzle, seconds, cluesUsed, improvement }: Props) {

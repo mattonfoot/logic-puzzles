@@ -55,12 +55,18 @@ describe('the icon set', () => {
     expect(ICON_BOX).toBe(100);
     for (const [name, path] of Object.entries(ICONS)) {
       expect(`${name}: ${path.startsWith('M') ? 'a path' : path}`).toBe(`${name}: a path`);
-      expect(path.length).toBeGreaterThan(20);
+      // A move, two segments and a close: the least a closed shape can be, and
+      // what the back arrow's triangle actually is.
+      const commands = path.match(/[MLACZ]/g) ?? [];
+      expect(`${name}: ${commands.length} commands`).toBe(
+        `${name}: ${Math.max(commands.length, 4)} commands`,
+      );
+      expect(path.endsWith('Z')).toBe(true);
     }
   });
 
   it('covers the icons the interface itself asks for', () => {
-    for (const name of ['ui/icon-clue', 'ui/icon-chart']) {
+    for (const name of ['ui/icon-clue', 'ui/icon-chart', 'ui/icon-back']) {
       expect(named(name)).toBe(drawn(name));
     }
   });

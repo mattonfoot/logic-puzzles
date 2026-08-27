@@ -139,6 +139,6 @@ export const REGISTRY = {
   },
   // Not a theme: the two pictures the app itself uses.
   ui: {
-    icon: { Clue: UI.clue, Chart: UI.chart },
+    icon: { Clue: UI.clue, Chart: UI.chart, Back: UI.back },
   },
 };
