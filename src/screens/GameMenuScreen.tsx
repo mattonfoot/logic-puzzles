@@ -1,14 +1,15 @@
-import React from 'react';
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { ConfirmDialog } from '../components/ConfirmDialog';
 import type { Puzzle } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
-import { feedback } from '../ui/feedback';
 import { RuledTitle } from '../ui/RuledTitle';
+import { ActionRow, CheckRow } from '../ui/SettingRow';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { border, joinTop, space, tint, type Palette } from '../ui/theme';
+import { space, type Palette } from '../ui/theme';
 
 interface Props {
   puzzle: Puzzle;
@@ -35,10 +36,15 @@ interface Props {
  * only be offering a second door to the same room.
  *
  * It is a screen like any other, so it names itself the same way — `RuledTitle`
- * — and is left the same way: `◀ Back` at the foot of it, rather than a cross
- * in the corner the board uses for the button that opened this. The puzzle it
- * belongs to is named under the title, since these settings are read while a
- * particular game is waiting behind them.
+ * — sets its two settings the way the settings screen does, and is left the
+ * same way: `◀ Back` at the foot of it, rather than a cross in the corner the
+ * board uses for the button that opened this. The puzzle it belongs to is named
+ * under the title, since these are read while a particular game is waiting
+ * behind them, and its accent is the colour they are drawn in.
+ *
+ * Both of the two actions throw away a board the player has filled in, and
+ * neither carries a line saying so any more, so both ask first — the same way
+ * discarding a saved game and clearing the statistics do.
  */
 export function GameMenuScreen({
   puzzle,
@@ -54,10 +60,7 @@ export function GameMenuScreen({
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const insets = useSafeAreaInsets();
-  // Told with this puzzle's own sets, so the rule reads as something about the
-  // game in front of the player rather than about letters.
-  const [first, second, third] = puzzle.categories.map((category) => category.name.toLowerCase());
-  const a = (word: string) => (/^[aeiou]/.test(word) ? `an ${word}` : `a ${word}`);
+  const [confirming, setConfirming] = useState<'restart' | 'reveal' | null>(null);
 
   return (
     <View style={styles.screen}>
@@ -70,131 +73,67 @@ export function GameMenuScreen({
           {puzzle.themeName} · {puzzle.size.label} · #{puzzle.seed}
         </Text>
 
-        <Text style={styles.sectionLabel}>Board</Text>
-        <Setting
-          label="Automatic crosses"
-          note="A tick crosses out the rest of its row and column for you. Your own crosses stay either way."
-          on={autoEliminate}
-          accent={puzzle.accent}
-          onPress={onToggleAutoEliminate}
-        />
-        <Setting
-          label="Auto add facts"
-          note={`A tick that follows from the ticks already down is filled in: if ${a(first)} goes with ${a(second)}, and that ${second} goes with ${a(third)}, then the ${first} and the ${third} are paired too.`}
-          on={autoFacts}
-          accent={puzzle.accent}
-          joined
-          onPress={onToggleAutoFacts}
-        />
-
-        <Text style={styles.sectionLabel}>This puzzle</Text>
-        <MenuAction
-          label="Restart"
-          note="Same puzzle, fresh board and clock."
-          icon="↻"
-          accent={puzzle.accent}
-          onPress={onRestart}
-        />
-        {solved ? null : (
-          <MenuAction
-            label="Reveal the answer"
-            note="Fills the board in and ends the game."
-            icon="◉"
-            accent={palette.danger}
-            joined
-            onPress={onReveal}
+        <View style={styles.list}>
+          <CheckRow
+            label="Automatic crosses"
+            on={autoEliminate}
+            accent={puzzle.accent}
+            onPress={onToggleAutoEliminate}
           />
-        )}
+          <CheckRow
+            label="Auto add facts"
+            on={autoFacts}
+            accent={puzzle.accent}
+            onPress={onToggleAutoFacts}
+          />
+        </View>
+
+        <View style={styles.section}>
+          <RuledTitle>This puzzle</RuledTitle>
+        </View>
+
+        <View style={styles.list}>
+          <ActionRow
+            label="Restart"
+            accent={puzzle.accent}
+            onPress={() => setConfirming('restart')}
+          />
+          {solved ? null : (
+            <ActionRow
+              label="Reveal the answer"
+              accent={palette.danger}
+              onPress={() => setConfirming('reveal')}
+            />
+          )}
+        </View>
       </ScrollView>
 
       <BackLink label="Back to the board" onPress={onClose} />
+
+      <ConfirmDialog
+        visible={confirming === 'restart'}
+        title="Restart this puzzle?"
+        message="The same puzzle comes back with an empty board and the clock at zero."
+        confirmLabel="Restart it"
+        onConfirm={() => {
+          setConfirming(null);
+          onRestart();
+        }}
+        onCancel={() => setConfirming(null)}
+      />
+
+      <ConfirmDialog
+        visible={confirming === 'reveal'}
+        title="Reveal the answer?"
+        message="The board is filled in and the game ends. It will not count as solved."
+        confirmLabel="Reveal it"
+        onConfirm={() => {
+          setConfirming(null);
+          onReveal();
+        }}
+        onCancel={() => setConfirming(null)}
+      />
     </View>
-  );
-}
-
-function Setting({
-  label,
-  note,
-  on,
-  accent,
-  joined,
-  onPress,
-}: {
-  label: string;
-  note: string;
-  on: boolean;
-  accent: string;
-  /** Share the top edge with the row before it. */
-  joined?: boolean;
-  onPress: () => void;
-}) {
-  const palette = useTheme();
-  const styles = useStyles(makeStyles);
-  return (
-    <Pressable
-      accessibilityRole="switch"
-      accessibilityLabel={label}
-      accessibilityState={{ checked: on }}
-      onPress={() => {
-        feedback.tap();
-        onPress();
-      }}
-      style={({ pressed }) => [styles.row, joined && joinTop, { opacity: pressed ? 0.8 : 1 }]}
-    >
-      <View style={styles.rowText}>
-        <Text style={styles.rowTitle}>{label}</Text>
-        <Text style={styles.rowNote}>{note}</Text>
-      </View>
-      <View
-        style={[
-          styles.switch,
-          {
-            borderColor: on ? accent : palette.line,
-            backgroundColor: on ? tint(accent, 0.12) : palette.surfaceAlt,
-          },
-        ]}
-      >
-        <Text style={[styles.switchText, { color: on ? accent : palette.inkFaint }]}>
-          {on ? 'On' : 'Off'}
-        </Text>
-      </View>
-    </Pressable>
-  );
-}
-
-function MenuAction({
-  label,
-  note,
-  icon,
-  accent,
-  joined,
-  onPress,
-}: {
-  label: string;
-  note: string;
-  icon: string;
-  accent: string;
-  /** Share the top edge with the row before it. */
-  joined?: boolean;
-  onPress: () => void;
-}) {
-  const styles = useStyles(makeStyles);
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={label}
-      onPress={() => {
-        feedback.tap();
-        onPress();
-      }}
-      style={({ pressed }) => [styles.row, joined && joinTop, { opacity: pressed ? 0.8 : 1 }]}
-    >
-      <Text style={[styles.rowIcon, { color: accent }]}>{icon}</Text>
-      <View style={styles.rowText}>
-        <Text style={[styles.rowTitle, { color: accent }]}>{label}</Text>
-        <Text style={styles.rowNote}>{note}</Text>
-      </View>
-    </Pressable>
   );
 }
 
@@ -213,52 +152,11 @@ const makeStyles = (palette: Palette) =>
       color: palette.inkFaint,
       marginTop: space(1.5),
     },
-    sectionLabel: {
-      fontSize: 11,
-      fontWeight: '700',
-      letterSpacing: 1,
-      textTransform: 'uppercase',
-      color: palette.inkFaint,
-      marginTop: space(5),
-      marginBottom: space(2),
+    list: {
+      marginTop: space(4),
+      gap: space(2),
     },
-    row: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: space(3),
-      padding: space(4),
-      backgroundColor: palette.surface,
-      borderWidth: border,
-      borderColor: palette.line,
-    },
-    rowIcon: {
-      fontSize: 16,
-      width: 20,
-      textAlign: 'center',
-    },
-    rowText: {
-      flex: 1,
-    },
-    rowTitle: {
-      fontSize: 15,
-      fontWeight: '700',
-      color: palette.ink,
-    },
-    rowNote: {
-      fontSize: 12,
-      lineHeight: 17,
-      color: palette.inkSoft,
-      marginTop: space(0.5),
-    },
-    switch: {
-      minWidth: 46,
-      paddingVertical: space(1),
-      paddingHorizontal: space(2),
-      borderWidth: border,
-      alignItems: 'center',
-    },
-    switchText: {
-      fontSize: 12,
-      fontWeight: '700',
+    section: {
+      marginTop: space(6),
     },
   });
