@@ -1,19 +1,19 @@
 {
   "expo": {
-    "name": "Logic Grid",
-    "slug": "logic-grid",
+    "name": "Deduction",
+    "slug": "deduction",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "logicgrid",
+    "scheme": "deduction",
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.example.logicgrid",
+      "bundleIdentifier": "com.example.deduction",
       "buildNumber": "1"
     },
     "android": {
-      "package": "com.example.logicgrid",
+      "package": "com.example.deduction",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",

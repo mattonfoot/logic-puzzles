@@ -1,4 +1,4 @@
-# Logic Grid
+# Deduction
 
 An iOS app (React Native + Expo, TypeScript) that generates a fresh logic-grid
 deduction puzzle every time you press start. You choose the **grid size**; the
@@ -93,7 +93,7 @@ images in the same commit.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name in the top half, **Play** at the top of the bottom half, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the game in progress, then the difficulties; picking one starts a puzzle. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
+| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Play** at the top of the bottom half, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the game in progress, then the difficulties; picking one starts a puzzle. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — what the board works out for you, which colours the app draws in, and what it sounds and feels like. |
 | <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Menu** — behind the burger: the board settings, restart, and revealing the answer. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
 | <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, clues read, how it compares, the answer table. |
 | <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item label"><br>**10. Item card** — tap any label to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-resume-night.png" width="230" alt="Setup screen in night colours"><br>**12. Night** — the setup screen in night colours, with a game waiting to be resumed. |
@@ -104,9 +104,10 @@ rest is the app behaving normally.
 
 ## How you play
 
-1. **Start** — the screen is halved: what the app is, in the middle of the top
-   half with nothing to press, and **Play** at the top of the bottom half, large
-   and on its own. Everything hangs off the same left margin so the eye drops
+1. **Start** — the screen is halved. The top half is a panel of the link
+   colour with the name and what the app is in white on it, sitting in the
+   middle of it with nothing to press; the bottom half is the page's own colour,
+   with **Play** at the top of it, large and on its own. Everything hangs off the same left margin so the eye drops
    down one edge. **Settings** and **Statistics** are text at the foot of the
    screen — Statistics pushed to the right so the two sit in opposite corners
    rather than reading as a pair. Play opens the setup screen, which is where a game you left in progress waits:
@@ -691,6 +692,10 @@ Two things are stored, both under AsyncStorage, both versioned:
 |-----|-------|
 | `logic-grid:saved-game:v1` | the puzzle in progress: the whole puzzle — including any clues written for this game — every tick and cross, which clues have been read and which is on the table, elapsed seconds |
 | `logic-grid:history:v1` | the last 300 finished games: time, clues read, theme, size, whether it was revealed |
+
+The keys keep the app's old name. Renaming them would leave every game already
+saved on a device unreadable, and a prefix nobody sees is not worth a player's
+half-finished puzzle.
 
 The saved game stores the generated puzzle itself rather than its seed, so a
 game in progress keeps playing exactly as it was even if the themes or the

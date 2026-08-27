@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { feedback } from '../ui/feedback';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { space, type Palette } from '../ui/theme';
+import { dayPalette, space, type Palette } from '../ui/theme';
 
 interface Props {
   onPlay: () => void;
@@ -21,6 +21,12 @@ interface Props {
  * where the pressing happens, and **Play** sits at the top of it, roughly under
  * the thumb, where the eye arrives after reading.
  *
+ * The top half is a block of the link colour with white text on it, so the
+ * name arrives as a cover rather than as the first paragraph of a page. At
+ * night the accent is a pale lavender that white cannot be read on, so the
+ * panel keeps the day cut of the same blue in both palettes; the Play link
+ * below it still takes the accent the rest of the app uses.
+ *
  * Everything hangs off the same left margin — eyebrow, name, description, Play
  * — so the eye drops straight down one edge. The single exception is
  * Statistics, which is pushed to the right so the two links at the foot sit in
@@ -34,12 +40,15 @@ export function StartScreen({ onPlay, onOpenSettings, onOpenStats }: Props) {
   const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
+  const panel = palette.scheme === 'night' ? dayPalette.accent : palette.accent;
 
   return (
     <View style={styles.screen}>
-      <View style={[styles.top, { paddingTop: insets.top + space(4) }]}>
-        <Text style={styles.eyebrow}>Deduction, freshly generated</Text>
-        <Text style={styles.title}>Logic Grid</Text>
+      <View style={[styles.top, { backgroundColor: panel, paddingTop: insets.top + space(4) }]}>
+        <Text style={styles.eyebrow}>Freshly generated, never guessed</Text>
+        <Text style={styles.title} numberOfLines={1} adjustsFontSizeToFit>
+          Deduction
+        </Text>
         <Text style={styles.lede}>
           Every puzzle is built when you ask for it, with exactly one solution you can reach by pure
           deduction — no guessing.
@@ -87,6 +96,10 @@ function FootLink({ label, onPress }: { label: string; onPress: () => void }) {
   );
 }
 
+/** White on the panel, and the same white held back for the lines around the name. */
+const ON_PANEL = '#FFFFFF';
+const ON_PANEL_SOFT = 'rgba(255, 255, 255, 0.82)';
+
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
     screen: {
@@ -109,21 +122,26 @@ const makeStyles = (palette: Palette) =>
       fontSize: 12,
       letterSpacing: 1.2,
       textTransform: 'uppercase',
-      color: palette.inkFaint,
+      color: ON_PANEL_SOFT,
       fontWeight: '700',
     },
     title: {
-      fontSize: 40,
+      alignSelf: 'stretch',
+      // As large as the word goes: nine letters at 80pt overrun a phone's width
+      // before the margins, so the name is sized to fill the panel instead.
+      fontSize: 64,
+      lineHeight: 74,
       fontWeight: '800',
-      color: palette.ink,
-      marginTop: space(1),
-      letterSpacing: -0.5,
+      color: ON_PANEL,
+      marginTop: space(2),
+      letterSpacing: -2,
     },
     lede: {
-      fontSize: 15,
-      lineHeight: 22,
-      color: palette.inkSoft,
-      marginTop: space(2),
+      fontSize: 16,
+      lineHeight: 23,
+      fontWeight: '600',
+      color: ON_PANEL_SOFT,
+      marginTop: space(3),
     },
     play: {
       alignSelf: 'flex-start',

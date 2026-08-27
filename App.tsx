@@ -138,7 +138,9 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
 
   return (
     <SafeAreaProvider>
-      <StatusBar style={palette.scheme === 'night' ? 'light' : 'dark'} />
+      {/* The start page runs a coloured panel up behind the status bar, so the
+          clock has to lift off that rather than off the page. */}
+      <StatusBar style={screen === 'start' || palette.scheme === 'night' ? 'light' : 'dark'} />
       <View style={styles.root}>
         {screen === 'game' && puzzle ? (
           <GameScreen
