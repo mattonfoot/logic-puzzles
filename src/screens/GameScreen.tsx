@@ -267,10 +267,12 @@ export function GameScreen({
         return;
       }
       // Nothing can be worked out from a board nobody has said anything about,
-      // so a mark before the first clue would only ever be a guess.
+      // so a mark before the first clue would only ever be a guess. The refusal
+      // is a buzz and nothing else: the clue panel is already sitting there
+      // saying to tap Clue for the first one, and a line repeating it is a
+      // second answer to a question the player can already see answered.
       if (!started) {
         feedback.warn();
-        flash('Read a clue first — there is nothing to go on yet.');
         return;
       }
       feedback.mark();
