@@ -17,8 +17,13 @@ interface Props {
 }
 
 /**
- * Confirmation for the two destructive actions. Written as a component rather
- * than `Alert.alert` so it behaves the same everywhere the app runs.
+ * The app's one window: a title, what is at stake, and the two ways out of it.
+ * It asks before anything destructive — discarding a saved game, clearing the
+ * statistics, restarting a board — and carries the one report worth stopping
+ * the game for, a board the answer can no longer be reached from.
+ *
+ * Written as a component rather than `Alert.alert` so it behaves the same
+ * everywhere the app runs.
  */
 export function ConfirmDialog({
   visible,

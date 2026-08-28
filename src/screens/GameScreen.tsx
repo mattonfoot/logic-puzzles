@@ -3,6 +3,7 @@ import { AppState, LayoutChangeEvent, Pressable, ScrollView, StyleSheet, View } 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ClueCard } from '../components/ClueCard';
+import { ConfirmDialog } from '../components/ConfirmDialog';
 import { fitCellSize, GridBoard, MAX_CELL } from '../components/GridBoard';
 import { ItemCard } from '../components/ItemCard';
 import { SolvedPanel } from '../components/SolvedPanel';
@@ -31,7 +32,7 @@ import { feedback } from '../ui/feedback';
 import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { border, joinLeft, radius, space, tint, type Palette } from '../ui/theme';
+import { joinLeft, radius, space, tint, type Palette } from '../ui/theme';
 
 /** How much each press of the zoom buttons adds or takes away. */
 const ZOOM_STEP = 8;
@@ -104,7 +105,8 @@ export function GameScreen({
   // Every board the player has moved on from, newest last, so a move can be
   // taken back. It lives for the session only — a resumed game starts fresh.
   const [history, setHistory] = useState<Marks[]>([]);
-  // Set when a hint finds the board past saving; cleared as soon as it is not.
+  // Set when the clue button finds the board past saving, which opens the
+  // window saying so; cleared by either of the two ways out of it.
   const [flagged, setFlagged] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [improvement, setImprovement] = useState<Improvement | null>(null);
@@ -327,8 +329,9 @@ export function GameScreen({
    * Puts the next clue on the table.
    *
    * The board is checked first: a clue read on top of a mark that contradicts
-   * the answer is a clue spent on a puzzle the player can no longer solve, so
-   * say so and offer to wind it back instead of handing one over.
+   * the answer is a clue spent on a puzzle the player can no longer solve. That
+   * stops the game rather than passing through it, so it opens a window saying
+   * what is wrong and offering to wind it back, instead of handing a clue over.
    *
    * The clue that comes up is the next one with something left to say, wrapping
    * round to the start — so a clue passed over early comes back later, once the
@@ -341,7 +344,6 @@ export function GameScreen({
       setFlagged(true);
       // The marks are on the board, so that is where the answer is.
       setTab('grid');
-      flash('A clue cannot help from here — the answer is out of reach.');
       return;
     }
     setFlagged(false);
@@ -534,23 +536,27 @@ export function GameScreen({
         <Text style={styles.status} numberOfLines={2}>
           {status ?? ''}
         </Text>
-
-        {stuck ? (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Rewind to a board that can still be solved"
-            onPress={rewind}
-            style={({ pressed }) => [styles.rewind, { opacity: pressed ? 0.8 : 1 }]}
-          >
-            <Text style={styles.rewindText}>
-              {wrong.length} mark{wrong.length === 1 ? '' : 's'} cannot be right
-            </Text>
-            <Text style={styles.rewindAction}>↶ Rewind</Text>
-          </Pressable>
-        ) : null}
       </View>
 
       <BackLink label="Back to setup" onPress={onExit} />
+
+      {/* What the clue button found, in a window rather than a line: a board
+          the answer cannot be reached from is the one thing worth stopping the
+          game for, and the two ways on from it are the window's two buttons. */}
+      <ConfirmDialog
+        visible={stuck}
+        title="A clue cannot help"
+        message={`${wrong.length} mark${wrong.length === 1 ? '' : 's'} on the board ${
+          wrong.length === 1 ? 'contradicts' : 'contradict'
+        } the answer, so there is nothing left for a clue to lead to. Rewinding takes moves back to the last board the puzzle can still be solved from. Close this and the marks that cannot be right stay lit on the grids, to sort out by hand.`}
+        confirmLabel="Rewind"
+        cancelLabel="Leave it to me"
+        onConfirm={() => {
+          setFlagged(false);
+          rewind();
+        }}
+        onCancel={() => setFlagged(false)}
+      />
     </View>
   );
 }
@@ -752,28 +758,6 @@ const makeStyles = (palette: Palette) =>
       paddingHorizontal: space(4),
       paddingTop: space(2),
       gap: space(2),
-    },
-    rewind: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      gap: space(3),
-      paddingVertical: space(2.5),
-      paddingHorizontal: space(3),
-      borderWidth: border,
-      borderColor: palette.danger,
-      backgroundColor: tint(palette.danger, 0.08),
-    },
-    rewindText: {
-      flex: 1,
-      fontSize: 13,
-      fontWeight: '600',
-      color: palette.danger,
-    },
-    rewindAction: {
-      fontSize: 13,
-      fontWeight: '700',
-      color: palette.danger,
     },
     play: {
       flexDirection: 'row',
