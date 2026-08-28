@@ -29,7 +29,6 @@ import type { Attribute, Clue, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
-import { Icon } from '../ui/Icon';
 import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
@@ -528,20 +527,32 @@ export function GameScreen({
       <ItemCard puzzle={inPlay} showing={inspecting} onClose={() => setInspecting(null)} />
 
       <View style={styles.footer}>
-        {/* The clue in play sits between the board and the buttons that work
-            it: read it, mark what it says, take the next one. */}
+        {/* The clue in play, with the two buttons that work it stacked beside
+            it: read it, mark what it says, take the next one. Nothing on a
+            finished board is left to undo or hint at, so the row goes with it. */}
         {solved ? null : (
-          <ClueCard
-            puzzle={inPlay}
-            index={clueIndex}
-            done={clueIndex !== null && spent.has(clueIndex)}
-            lit={lit}
-            onPress={() => {
-              feedback.tap();
-              setLit((on) => !on);
-              setTab('grid');
-            }}
-          />
+          <View style={styles.play}>
+            <View style={styles.tools}>
+              <ToolButton
+                label="Undo"
+                accent={palette.accent}
+                disabled={history.length === 0}
+                onPress={undo}
+              />
+              <ToolButton label="Clue" accent={palette.accent} onPress={showNextClue} />
+            </View>
+            <ClueCard
+              puzzle={inPlay}
+              index={clueIndex}
+              done={clueIndex !== null && spent.has(clueIndex)}
+              lit={lit}
+              onPress={() => {
+                feedback.tap();
+                setLit((on) => !on);
+                setTab('grid');
+              }}
+            />
+          </View>
         )}
 
         <Text style={styles.status} numberOfLines={2}>
@@ -561,26 +572,6 @@ export function GameScreen({
             <Text style={styles.rewindAction}>↶ Rewind</Text>
           </Pressable>
         ) : null}
-
-        {/* Nothing on a finished board is left to undo, hint at or eliminate. */}
-        {solved ? null : (
-          <View style={styles.toolbar}>
-            <ToolButton
-              label="Undo"
-              icon="↶"
-              accent={palette.accent}
-              disabled={history.length === 0}
-              onPress={undo}
-            />
-            <ToolButton
-              label="Get next clue"
-              icon={<Icon name="ui/icon-clue" size={15} color={palette.accent} />}
-              joined
-              accent={palette.accent}
-              onPress={showNextClue}
-            />
-          </View>
-        )}
       </View>
 
       <BackLink label="Back to setup" onPress={onExit} />
@@ -651,20 +642,15 @@ function ZoomButton({
   );
 }
 
+/** One of the two words beside the clue. */
 function ToolButton({
   label,
-  icon,
   accent,
-  joined,
   disabled = false,
   onPress,
 }: {
   label: string;
-  /** A glyph or a drawing — whichever suits the tool. */
-  icon: React.ReactNode;
   accent: string;
-  /** Share the left-hand edge with the button before it. */
-  joined?: boolean;
   disabled?: boolean;
   onPress: () => void;
 }) {
@@ -678,14 +664,12 @@ function ToolButton({
       onPress={onPress}
       style={({ pressed }) => [
         styles.tool,
-        joined && joinLeft,
         {
           borderColor: tint(accent, 0.4),
           opacity: disabled ? 0.4 : pressed ? 0.75 : 1,
         },
       ]}
     >
-      {typeof icon === 'string' ? <Text style={styles.toolIcon}>{icon}</Text> : icon}
       <Text style={[styles.toolLabel, { color: accent }]}>{label}</Text>
     </Pressable>
   );
@@ -832,25 +816,27 @@ const makeStyles = (palette: Palette) =>
       fontWeight: '700',
       color: palette.danger,
     },
-    toolbar: {
+    play: {
       flexDirection: 'row',
+      alignItems: 'stretch',
+      gap: space(2),
+    },
+    tools: {
+      // Two words, one above the other, as tall between them as the clue they
+      // work on is beside them.
+      width: 88,
+      gap: space(2),
     },
     tool: {
       flex: 1,
-      flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: space(1.5),
       backgroundColor: palette.surface,
       borderRadius: radius.pill,
       borderWidth: 1,
-      paddingVertical: space(3),
-    },
-    toolIcon: {
-      fontSize: 13,
     },
     toolLabel: {
-      fontSize: 13,
+      fontSize: 14,
       fontWeight: '700',
     },
     status: {

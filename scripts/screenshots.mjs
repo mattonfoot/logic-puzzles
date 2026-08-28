@@ -280,10 +280,10 @@ async function main() {
 
   // 6. A clue on the table, lit up on the grid.
   const puzzle = await puzzleInPlay(page);
-  const nextClue = page.getByLabel('Get next clue');
+  const nextClue = page.getByLabel('Clue', { exact: true });
   await nextClue.click();
   await wait(page, 400);
-  const clueCard = page.getByLabel(/^Clue$|^Clue, /);
+  const clueCard = page.getByLabel(/^Clue in play/);
   await clueCard.click();
   await wait(page, 500);
   await shot('06-clue');
@@ -385,7 +385,7 @@ async function main() {
   await wait(page, 400);
   await startPuzzle(page);
   // The board only takes marks once a clue has been read.
-  await page.getByLabel('Get next clue').click();
+  await page.getByLabel('Clue', { exact: true }).click();
   await wait(page, 400);
   // A few true pairings, so the card on the start page shows some progress.
   await solve(page, await puzzleInPlay(page), 3);

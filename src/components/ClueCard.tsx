@@ -67,7 +67,7 @@ export function ClueCard({ puzzle, index, done, lit, onPress }: Props) {
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={`Clue${done ? ', used up' : ''}`}
+      accessibilityLabel={`Clue in play${done ? ', used up' : ''}`}
       accessibilityHint={lit ? 'Stop lighting it up on the grid' : 'Light it up on the grid'}
       onPress={onPress}
       style={({ pressed }) => [
@@ -87,8 +87,10 @@ export function ClueCard({ puzzle, index, done, lit, onPress }: Props) {
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
     card: {
-      // Tall enough for the longest clue a puzzle throws up, so the board above
-      // keeps its size whichever one is showing.
+      // Takes the width the buttons beside it leave, and is tall enough for the
+      // longest clue a puzzle throws up, so the board above keeps its size
+      // whichever one is showing.
+      flex: 1,
       minHeight: 84,
       justifyContent: 'center',
       paddingVertical: space(2.5),

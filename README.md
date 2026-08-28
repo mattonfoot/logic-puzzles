@@ -151,10 +151,11 @@ rest is the app behaving normally.
    "no payload made of glass" — and a description that covers two things says
    something about both at once. The cards behind the labels are where those
    descriptions are written down, which is what makes tapping them worth doing.
-   **Get next clue** puts one on the table under the board — the sentence and
-   nothing else, no badge for what kind of clue it is and no running count of
-   how many have been read; pressing it again replaces it with the next one that
-   still has something to say. Tap the clue to light up every row and column it
+   **Clue** puts one on the table under the board — the sentence and nothing
+   else, no badge for what kind of clue it is and no running count of how many
+   have been read — with **Undo** stacked above it, the two words to the left of
+   the clue they work on; pressing it again replaces the clue with the next one
+   that still has something to say. Tap the clue to light up every row and column it
    talks about. Mark everything it says and the game agrees it is spent: the clue is
    struck through and fades back, and the button skips it from then on. A clue
    you pass over is not gone — the button wraps round to it on a later lap, by
@@ -164,7 +165,7 @@ rest is the app behaving normally.
    many you read is the score the statistics keep — there is no total to read it
    against, so working a clue harder before asking for the next is the whole
    game.
-4. **Undo** takes back one mark at a time, autos and all. **Get next clue**
+4. **Undo** takes back one mark at a time, autos and all. **Clue**
    looks at the board before it hands anything over: a puzzle has one answer, so
    a single mark that contradicts it puts the answer out of reach, and a clue
    read against a board you can no longer solve is a clue wasted. When that has
@@ -483,7 +484,7 @@ player's finger.
 
 `isSolvable` is `findMistakes` read the other way round: a puzzle has exactly
 one answer, so a mark the answer contradicts is a mark nothing later can put
-right. That is what **Get next clue** tests before handing one
+right. That is what **Clue** tests before handing one
 over and what Rewind pops the undo stack towards; `clearMistakes` is the fallback for a board whose history has run
 out — a resumed game starts with an empty stack, so its undo history begins
 where the player picked it up. The stack itself is session-only and holds the
@@ -503,7 +504,7 @@ app has one way out of a game rather than four.
 
 ## Clues, one at a time
 
-There is no clue list. **Get next clue** puts one clue under the board and the
+There is no clue list. **Clue** puts one clue under the board and the
 next press replaces it, which makes reading a clue a decision — and the number
 of them the statistics keep.
 
