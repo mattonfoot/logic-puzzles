@@ -371,9 +371,9 @@ The two schemes, as they stand:
 | `lineStrong` | `#D2CAB6` | `#3C4354` | the board's outer edge |
 | `danger` | `#D6455D` | `#FF7A8E` | revealing, discarding, a wrong mark |
 | `success` | `#2E9E6B` | `#5FCF9B` | a personal best, a faster run |
-| `chart.series` | `#2A78D6` | `#6E9BE8` | the bars on the trend |
-| `chart.grid` | `#EBE6DA` | `#2C313F` | its gridlines |
-| `chart.reference` | `#B7AF9C` | `#4A5265` | its average line |
+| `chart.series` | `#2A78D6`, or the colour itself | `#6E9BE8` | the bars on the trend |
+| `chart.grid` | `#EBE6DA`, or a shade of that page | `#2C313F` | its gridlines |
+| `chart.reference` | `#B7AF9C`, or a deeper one | `#4A5265` | its average line |
 
 And the five the player can pick between. Each is a small set rather than a
 single hue — a **primary** for links, ticks and headings, a **secondary** for
@@ -400,6 +400,11 @@ white card on a tinted page is the brightest thing on the screen, which is a lot
 of emphasis for something that only means "these belong together" — its border
 and its shadow already say that. The quieter surface goes the other way, a shade
 *into* the page rather than out of it.
+
+The chart goes with them: its gridline and its average line are page shades
+doing a chart's job, and its bars take the colour the app is drawn in. A chart
+in a different blue from everything around it, on a blue page, reads as an
+accident rather than as a second meaning.
 
 Violet's two colours serve both schemes, swapping which of them leads: on a pale
 page the deeper one leads and the lighter is the quiet half, and on a near-black

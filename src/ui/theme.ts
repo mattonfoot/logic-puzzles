@@ -192,8 +192,13 @@ export function mix(hex: string, towards: string, amount: number): string {
  * for something that only means "these belong together" — its border and its
  * shadow already say that. The quieter surface goes the other way instead,
  * a shade *into* the page rather than out of it.
+ *
+ * The chart goes with them. Its gridline and its average line are page shades
+ * doing a chart's job, and its bars take the colour the app is drawn in: a
+ * chart in a different blue from everything around it, on a blue page, reads as
+ * an accident rather than as a second meaning.
  */
-export function pageShades(bg: string, ink: string) {
+export function pageShades(bg: string, ink: string, series: string) {
   return {
     bg,
     surface: bg,
@@ -202,6 +207,13 @@ export function pageShades(bg: string, ink: string) {
     boardShade: mix(bg, ink, 0.095),
     line: mix(bg, ink, 0.1),
     lineStrong: mix(bg, ink, 0.2),
+    chart: {
+      series,
+      // Just short of `line`: a gridline is a hint of one.
+      grid: mix(bg, ink, 0.08),
+      // Deeper than any of them, because the average is a line worth reading.
+      reference: mix(bg, ink, 0.35),
+    },
   };
 }
 

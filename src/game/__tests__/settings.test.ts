@@ -132,6 +132,10 @@ describe('which colours a preference means', () => {
     for (const role of ['surfaceAlt', 'boardLight', 'boardShade', 'line', 'lineStrong'] as const) {
       expect(`${role}: ${palette[role]}`).not.toBe(`${role}: ${dayPalette[role]}`);
     }
+    // The chart is drawn on that page too, and in the colour it is drawn in.
+    expect(palette.chart.series).toBe(withPage.day.primary);
+    expect(palette.chart.grid).not.toBe(dayPalette.chart.grid);
+    expect(palette.chart.reference).not.toBe(dayPalette.chart.reference);
   });
 });
 
