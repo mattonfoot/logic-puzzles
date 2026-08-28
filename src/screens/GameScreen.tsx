@@ -675,13 +675,13 @@ const makeStyles = (palette: Palette) =>
       gap: space(3),
     },
     headerButton: {
-      width: 34,
+      // A glyph rather than a boxed button: the burger is a way out of the
+      // board, the same as the `◀ Back` at the foot of every other screen, and
+      // that one wears no chrome either. It keeps a button's worth of height so
+      // it is still comfortable to hit, and sits flush with the left margin the
+      // title and the seed line up on.
       height: 34,
-      borderRadius: radius.pill,
-      backgroundColor: palette.surface,
-      borderWidth: 1,
-      borderColor: palette.line,
-      alignItems: 'center',
+      alignItems: 'flex-start',
       justifyContent: 'center',
     },
     headerButtonText: {
