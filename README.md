@@ -72,9 +72,14 @@ guest inside another app.
 that installs on registered devices and survives being closed:
 
 ```bash
-npx eas-cli login             # an Expo account, free
-npm run build:ios             # eas build --platform ios --profile preview
+npm run eas:login             # an Expo account, free
+npm run build:ios             # a signed build on Expo's Macs
 ```
+
+The CLI is not installed — the scripts reach it with `npx eas-cli`, which
+fetches it on demand. Its own messages say to run `eas login` and `eas build`;
+those work only if you have installed it globally (`npm i -g eas-cli`), so use
+the scripts or put `npx` in front.
 
 The first run asks for an Apple ID and offers to create the signing certificate,
 the provisioning profile and the App ID for you; say yes to all three. It also
