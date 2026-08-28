@@ -94,7 +94,7 @@ images in the same commit.
 | | | |
 |---|---|---|
 | <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Play** at the top of the bottom half, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — six names with a box or a slider against each, and nothing to read. |
-| <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Puzzle settings** — behind the burger: the board pair, set the way the settings screen sets them, then the two ways to end the puzzle. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
+| <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
 | <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and offers to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, clues read, how it compares, the answer table. |
 | <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item label"><br>**10. Item card** — tap any label to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-style.png" width="230" alt="Style screen"><br>**12. Style** — every colour and every control on one page, for judging a palette. |
 | <img src="docs/screenshots/13-style-night.png" width="230" alt="Style screen in night colours"><br>**13. Style at night** — the same page, showing the other half of the palette. | <img src="docs/screenshots/14-resume-night.png" width="230" alt="Setup screen in night colours"><br>**14. Night** — the setup screen in night colours, with a game waiting to be resumed. | |
@@ -179,9 +179,10 @@ rest is the app behaving normally.
    on the game rather than on a square: the two board settings and the colour,
    boxed and named exactly as the settings screen has them (they are the
    player's, not the puzzle's, which is why they are worth reaching mid-game),
-   then **Restart** (same puzzle, fresh board and clock) and
-   **Reveal the answer**, which is hidden once the puzzle is finished. Both of
-   those throw away a filled-in board, so both ask first. It is left the same way as
+   then **Restart puzzle** (same puzzle, fresh board and clock), which throws
+   away a filled-in board and so asks first. There is no way to be shown the
+   answer: a puzzle that can be given up on is a puzzle nobody has to finish,
+   and finishing it is the whole of the game. It is left the same way as
    every other screen — `◀ Back`, bottom left — which returns to the board.
    The board's own `◀ Back` goes back one step further, to the setup screen
    the puzzle was chosen on, so the next one is a tap away; the board is saved
@@ -369,7 +370,7 @@ The two schemes, as they stand:
 | `inkFaint` | `#98A0B3` | `#6C748A` | labels, and what a row says underneath |
 | `line` | `#E7E1D4` | `#2C313F` | borders |
 | `lineStrong` | `#D2CAB6` | `#3C4354` | the board's outer edge |
-| `danger` | `#D6455D` | `#FF7A8E` | revealing, discarding, a wrong mark |
+| `danger` | `#D6455D` | `#FF7A8E` | discarding, clearing, a wrong mark |
 | `success` | `#2E9E6B` | `#5FCF9B` | a personal best, a faster run |
 | `chart.series` | `#2A78D6`, or the colour itself | `#6E9BE8` | the bars on the trend |
 | `chart.grid` | `#EBE6DA`, or a shade of that page | `#2C313F` | its gridlines |
@@ -485,9 +486,8 @@ last 200 boards.
 Winning adds a tab rather than covering the board. There is no tab bar during
 play — there is only the board to show — so the bar appears at the finish with
 **Grid** and **Solved** in it, `SolvedPanel` fills the body, and the win selects
-it. Everything the finish made pointless goes with it — the clue card, the Undo
-and clue buttons, and the menu's "Reveal the answer" row are all hidden — and
-the board becomes read-only, because a stray tap on a finished grid would undo
+it. Everything the finish made pointless goes with it — the clue card and the Undo
+and clue buttons are hidden — and the board becomes read-only, because a stray tap on a finished grid would undo
 the win, restart the clock and have the game counted a second time.
 
 The result offers nothing to press either. Another puzzle, a different
@@ -841,7 +841,9 @@ screen; finishing a puzzle clears it.
 
 `src/stats/summary.ts` derives everything shown from the list of finished games
 — nothing aggregated is stored, so the numbers can never drift out of sync with
-the games behind them. Revealed puzzles are recorded but kept out of the times.
+the games behind them. Nothing reveals a board any more, but a game recorded as
+revealed before that is still read as one and kept out of the times: dropping
+the handling would quietly fold those into a player's averages.
 Games finished before clues were counted store `null` rather than a zero, and
 are left out of the clue averages instead of flattering them: hints and clues
 were different measures, so the old number is not read as the new one.

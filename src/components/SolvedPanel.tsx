@@ -11,7 +11,7 @@ import { border, space, tint, type Palette } from '../ui/theme';
 import { SolutionTable } from './SolutionTable';
 
 interface Props {
-  /** "Solved!" normally, "Revealed" when the player asked for the answer. */
+  /** What the finish is called. */
   title?: string;
   puzzle: Puzzle;
   seconds: number;

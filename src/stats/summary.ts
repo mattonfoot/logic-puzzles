@@ -155,6 +155,12 @@ export function summarise(
   };
 }
 
+/**
+ * Nothing reveals a board any more, but games recorded as revealed before that
+ * are still on devices, so they are still read as revealed and still kept out
+ * of the times — folding them into a player's averages after the fact would be
+ * changing history rather than tidying up.
+ */
 export type ImprovementKind = 'revealed' | 'first' | 'best' | 'faster' | 'steady';
 
 /** The "how did that go?" note shown when a puzzle is finished. */

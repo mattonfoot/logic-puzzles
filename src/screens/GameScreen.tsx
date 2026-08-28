@@ -17,7 +17,6 @@ import {
   progress,
   reconcile,
   setMark,
-  solvedMarks,
   type Cell,
   type Marks,
 } from '../game/board';
@@ -109,7 +108,6 @@ export function GameScreen({
   // Set when a hint finds the board past saving; cleared as soon as it is not.
   const [flagged, setFlagged] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
-  const [revealed, setRevealed] = useState(false);
   const [improvement, setImprovement] = useState<Improvement | null>(null);
   const statusTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -204,7 +202,8 @@ export function GameScreen({
   useEffect(() => {
     if (!solved) return;
     let active = true;
-    void onCompleted({ seconds, cluesUsed: cluesSeen.size, revealed }).then((result) => {
+    // Nothing reveals a board any more, so a finished one was always solved.
+    void onCompleted({ seconds, cluesUsed: cluesSeen.size, revealed: false }).then((result) => {
       if (active) setImprovement(result);
     });
     return () => {
@@ -384,17 +383,9 @@ export function GameScreen({
     setCluesSeen(new Set());
     setExtraClues([]);
     setLit(false);
-    setRevealed(false);
     setTab('grid');
     flash('Restarted — same puzzle, fresh board and clock.');
   }, [flash]);
-
-  const reveal = useCallback(() => {
-    feedback.warn();
-    setRevealed(true);
-    setFlagged(false);
-    move(() => solvedMarks(puzzle));
-  }, [move, puzzle]);
 
   const gridsShown = (puzzle.categories.length * (puzzle.categories.length - 1)) / 2;
 
@@ -404,17 +395,12 @@ export function GameScreen({
         puzzle={puzzle}
         autoEliminate={autoEliminate}
         autoFacts={autoFacts}
-        solved={solved}
         accent={accent}
         onChangeAccent={onChangeAccent}
         onToggleAutoEliminate={onToggleAutoEliminate}
         onToggleAutoFacts={onToggleAutoFacts}
         onRestart={() => {
           restart();
-          setMenuOpen(false);
-        }}
-        onReveal={() => {
-          reveal();
           setMenuOpen(false);
         }}
         onClose={() => setMenuOpen(false)}
@@ -470,7 +456,7 @@ export function GameScreen({
             onPress={() => setTab('grid')}
           />
           <TabButton
-            label={revealed ? 'Revealed' : 'Solved'}
+            label="Solved"
             accent={palette.accent}
             selected={tab === 'result'}
             onPress={() => setTab('result')}
@@ -534,7 +520,7 @@ export function GameScreen({
           </View>
         ) : (
           <SolvedPanel
-            title={revealed ? 'Revealed' : 'Solved!'}
+            title="Solved!"
             puzzle={puzzle}
             seconds={seconds}
             cluesUsed={cluesSeen.size}

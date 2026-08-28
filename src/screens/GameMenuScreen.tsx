@@ -18,22 +18,22 @@ interface Props {
   autoEliminate: boolean;
   /** Whether ticks that follow from other ticks are filled in. */
   autoFacts: boolean;
-  /** A finished puzzle has nothing left to reveal. */
-  solved: boolean;
   /** The colour the app is drawn in, which is the player's rather than the puzzle's. */
   accent: string;
   onChangeAccent: (accent: string) => void;
   onToggleAutoEliminate: () => void;
   onToggleAutoFacts: () => void;
   onRestart: () => void;
-  onReveal: () => void;
   onClose: () => void;
 }
 
 /**
  * Everything that acts on the game as a whole rather than on a square: what the
- * board works out for itself, and the two ways to end this puzzle. They live
- * here so the playing screen carries only what a player reaches for mid-puzzle.
+ * board works out for itself, and starting this one over. They live here so the
+ * playing screen carries only what a player reaches for mid-puzzle.
+ *
+ * There is no way to be shown the answer. A puzzle that can be given up on is a
+ * puzzle nobody has to finish, and finishing it is the whole of the game.
  *
  * Starting a different puzzle is not one of them: the board's own `◀ Back`
  * goes to the setup screen, which is where a puzzle is chosen, so the menu would
@@ -48,27 +48,25 @@ interface Props {
  * board pair and the colour the app draws in — which is exactly why it is worth
  * reaching without leaving the game.
  *
- * Both of the two actions throw away a board the player has filled in, and
- * neither carries a line saying so any more, so both ask first — the same way
- * discarding a saved game and clearing the statistics do.
+ * Restarting throws away a board the player has filled in and no longer carries
+ * a line saying so, so it asks first — the same way discarding a saved game and
+ * clearing the statistics do.
  */
 export function GameMenuScreen({
   puzzle,
   autoEliminate,
   autoFacts,
-  solved,
   accent,
   onChangeAccent,
   onToggleAutoEliminate,
   onToggleAutoFacts,
   onRestart,
-  onReveal,
   onClose,
 }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const insets = useSafeAreaInsets();
-  const [confirming, setConfirming] = useState<'restart' | 'reveal' | null>(null);
+  const [confirming, setConfirming] = useState(false);
 
   return (
     <View style={styles.screen}>
@@ -78,7 +76,7 @@ export function GameMenuScreen({
       >
         <RuledTitle>Puzzle settings</RuledTitle>
         <Text style={styles.subtitle} numberOfLines={1}>
-          {puzzle.themeName} · {puzzle.size.label} · #{puzzle.seed}
+          #{puzzle.seed}
         </Text>
 
         <View style={styles.list}>
@@ -107,44 +105,25 @@ export function GameMenuScreen({
 
         <View style={styles.list}>
           <ActionRow
-            label="Restart"
+            label="Restart puzzle"
             accent={palette.accent}
-            onPress={() => setConfirming('restart')}
+            onPress={() => setConfirming(true)}
           />
-          {solved ? null : (
-            <ActionRow
-              label="Reveal the answer"
-              accent={palette.danger}
-              onPress={() => setConfirming('reveal')}
-            />
-          )}
         </View>
       </ScrollView>
 
       <BackLink label="Back to the board" onPress={onClose} />
 
       <ConfirmDialog
-        visible={confirming === 'restart'}
+        visible={confirming}
         title="Restart this puzzle?"
         message="The same puzzle comes back with an empty board and the clock at zero."
         confirmLabel="Restart it"
         onConfirm={() => {
-          setConfirming(null);
+          setConfirming(false);
           onRestart();
         }}
-        onCancel={() => setConfirming(null)}
-      />
-
-      <ConfirmDialog
-        visible={confirming === 'reveal'}
-        title="Reveal the answer?"
-        message="The board is filled in and the game ends. It will not count as solved."
-        confirmLabel="Reveal it"
-        onConfirm={() => {
-          setConfirming(null);
-          onReveal();
-        }}
-        onCancel={() => setConfirming(null)}
+        onCancel={() => setConfirming(false)}
       />
     </View>
   );
