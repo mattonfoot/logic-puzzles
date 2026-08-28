@@ -97,7 +97,7 @@ images in the same commit.
 | <img src="docs/screenshots/04-board.png" width="230" alt="The board"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
 | <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="A finished game"><br>**9. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. |
 | <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item label"><br>**10. Item card** — tap any picture on the board to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-style.png" width="230" alt="Style screen"><br>**12. Style** — every colour and every control on one page, for judging a palette. |
-| <img src="docs/screenshots/13-style-night.png" width="230" alt="Style screen in night colours"><br>**13. Style at night** — the same page, showing the other half of the palette. | <img src="docs/screenshots/14-resume-night.png" width="230" alt="Setup screen in night colours"><br>**14. Night** — the setup screen in night colours, with a game waiting to be resumed. | |
+| <img src="docs/screenshots/13-style-night.png" width="230" alt="Style screen in night colours"><br>**13. Style at night** — the same page, showing the other half of the palette. | <img src="docs/screenshots/14-resume-night.png" width="230" alt="Setup screen in night colours"><br>**14. Night** — the setup screen in night colours, with a game waiting behind **Continue**. | |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -113,12 +113,14 @@ rest is the app behaving normally.
    screen — Statistics pushed to the right so the two sit in opposite corners
    rather than reading as a pair. Play opens the setup screen, which is the same page with its bottom half
    swapped — the panel above is the same block, given the same half — and is
-   where a game you left in progress waits: **Resume** picks it up with the clock where it
-   stopped, **Discard** throws it away, and under a **Play** heading — with a
-   rule drawn out of the word to the right of it — the difficulties, set as a
-   list of words the same size Play was. Pick one and the
+   where a game you left in progress waits. Under a **Play** heading — with a
+   rule drawn out of the word to the right of it — comes a list of words the
+   same size Play was: **Continue**, if a game is waiting, and then the
+   difficulties. Pick one and the
    puzzle starts — there is nothing else to decide, so there is nothing else to
-   press. **Beginner** (3 × 3), **Advanced** (4 × 4), **Expert** (5 × 4),
+   press. Continue picks the saved game up with the clock where it stopped; a
+   difficulty replaces it, which is the only way to throw one away, since
+   choosing what to play instead is the same decision. **Beginner** (3 × 3), **Advanced** (4 × 4), **Expert** (5 × 4),
    **Pro** (6 × 4), or **Surprise me!**, which rolls one of the four. The shapes
    are not printed beside the names — they are on the board a second later, and
    were never the thing being chosen — but a screen reader still hears them. The
@@ -822,7 +824,7 @@ The seed is therefore never re-rolled for a puzzle already in play:
 |---|---|
 | Starting a puzzle | a new random seed |
 | **Restart** | unchanged — same theme, sets, items, answer and clues; only the board and the clock start over |
-| **Resume** | unchanged — the saved puzzle is stored whole and comes back as it was, clock included |
+| **Continue** | unchanged — the saved puzzle is stored whole and comes back as it was, clock included |
 
 The current seed is printed at the foot of the game screen, so a puzzle worth
 repeating can be identified.

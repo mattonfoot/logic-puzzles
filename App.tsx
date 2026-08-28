@@ -180,7 +180,6 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             onStart={build}
             onSurpriseMe={surpriseMe}
             onResume={resume}
-            onDiscardSaved={persistence.discardSavedGame}
             onBack={() => setScreen('start')}
           />
         ) : screen === 'settings' ? (

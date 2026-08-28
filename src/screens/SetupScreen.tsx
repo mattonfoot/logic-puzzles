@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
-import { AppButton } from '../components/AppButton';
-import { ConfirmDialog } from '../components/ConfirmDialog';
 import { SIZES } from '../data/sizes';
 import { progress } from '../game/board';
 import type { SavedGame } from '../game/persistence';
@@ -10,7 +8,6 @@ import { formatDuration } from '../game/time';
 import type { SizeOption } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
-import { Icon } from '../ui/Icon';
 import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { TitlePanel } from '../ui/TitlePanel';
@@ -25,7 +22,6 @@ interface Props {
   onStart: (size: SizeOption) => void;
   onSurpriseMe: () => void;
   onResume: () => void;
-  onDiscardSaved: () => void;
   onBack: () => void;
 }
 
@@ -44,23 +40,21 @@ interface Props {
  * That leaves half a screen for five names and whatever game is waiting, so the
  * bottom half scrolls. The way back sits under it rather than inside it.
  *
- * The game already in progress sits above them, because this is where a player
- * comes when they want to play something: leaving a puzzle lands here, and so
- * does Play from the front door.
+ * A game already in progress is the first of them — **Continue**, in the same
+ * words as the rest — because this is where a player comes when they want to
+ * play something: leaving a puzzle lands here, and so does Play from the front
+ * door. It carries no card of its own. How far in it was and what it was about
+ * are answers to a question nobody asks on the way back to a game they left ten
+ * minutes ago, and the board itself says both the moment it opens. They are
+ * still read out as the link's hint, for a player who is being read the screen.
+ *
+ * There is nothing here for throwing that game away either: picking any
+ * difficulty replaces it, which is the same decision made by choosing what to
+ * do instead of what to stop.
  */
-export function SetupScreen({
-  busy,
-  savedGame,
-  onStart,
-  onSurpriseMe,
-  onResume,
-  onDiscardSaved,
-  onBack,
-}: Props) {
+export function SetupScreen({ busy, savedGame, onStart, onSurpriseMe, onResume, onBack }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const [confirmingDiscard, setConfirmingDiscard] = useState(false);
-  const savedProgress = savedGame ? progress(savedGame.marks, savedGame.puzzle) : 0;
 
   return (
     <View style={styles.screen}>
@@ -68,50 +62,19 @@ export function SetupScreen({
 
       <View style={styles.bottom}>
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-          {savedGame ? (
-            <View
-              style={[
-                styles.resumeCard,
-                shadow.card,
-                {
-                  borderColor: palette.accent,
-                  backgroundColor: tint(palette.accent, 0.08),
-                },
-              ]}
-            >
-              <Text style={styles.resumeLabel}>Puzzle in progress</Text>
-              <View style={styles.resumeTitleRow}>
-                <Icon name={savedGame.puzzle.themeIcon} size={20} color={palette.accent} />
-                <Text style={styles.resumeTitle}>
-                  {savedGame.puzzle.themeName} · {savedGame.puzzle.size.label}
-                </Text>
-              </View>
-              <Text style={styles.resumeMeta}>
-                {Math.round(savedProgress * 100)}% filled in · {formatDuration(savedGame.seconds)}{' '}
-                on the clock
-              </Text>
-              <View style={styles.resumeButtons}>
-                <AppButton
-                  label="Resume"
-                  icon="▶"
-                  accent={palette.accent}
-                  onPress={onResume}
-                  style={styles.resumeButton}
-                />
-                <AppButton
-                  label="Discard"
-                  variant="ghost"
-                  accent={palette.inkSoft}
-                  onPress={() => setConfirmingDiscard(true)}
-                  style={styles.resumeButton}
-                />
-              </View>
-            </View>
-          ) : null}
-
           <RuledTitle>Play</RuledTitle>
 
           <View style={styles.choices}>
+            {savedGame ? (
+              <Choice
+                label="Continue"
+                hint={`${savedGame.puzzle.themeName}, ${savedGame.puzzle.size.label}, ${Math.round(
+                  progress(savedGame.marks, savedGame.puzzle) * 100,
+                )}% filled in, ${formatDuration(savedGame.seconds)} on the clock`}
+                disabled={busy}
+                onPress={onResume}
+              />
+            ) : null}
             {SIZES.map((option) => (
               <Choice
                 key={option.id}
@@ -132,18 +95,6 @@ export function SetupScreen({
 
         <BackLink label="Back" onPress={onBack} />
       </View>
-
-      <ConfirmDialog
-        visible={confirmingDiscard}
-        title="Discard the saved puzzle?"
-        message="Your progress on it will be lost."
-        confirmLabel="Discard it"
-        onConfirm={() => {
-          setConfirmingDiscard(false);
-          onDiscardSaved();
-        }}
-        onCancel={() => setConfirmingDiscard(false)}
-      />
 
       {busy ? (
         // The generator runs on the JS thread; ActivityIndicator animates
@@ -210,42 +161,6 @@ const makeStyles = (palette: Palette) =>
       paddingHorizontal: space(5),
       paddingTop: space(5),
       paddingBottom: space(6),
-    },
-    resumeCard: {
-      borderWidth: border,
-      padding: space(4),
-      marginBottom: space(6),
-    },
-    resumeLabel: {
-      fontSize: 11,
-      fontWeight: '700',
-      letterSpacing: 1,
-      textTransform: 'uppercase',
-      color: palette.inkFaint,
-    },
-    resumeTitleRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: space(2),
-      marginTop: space(1.5),
-    },
-    resumeTitle: {
-      fontSize: 17,
-      fontWeight: '700',
-      color: palette.ink,
-    },
-    resumeMeta: {
-      fontSize: 13,
-      color: palette.inkSoft,
-      marginTop: space(1),
-    },
-    resumeButtons: {
-      flexDirection: 'row',
-      gap: space(2),
-      marginTop: space(3),
-    },
-    resumeButton: {
-      flex: 1,
     },
     choices: {
       marginTop: space(4),
