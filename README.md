@@ -20,6 +20,7 @@ npm install        # run this again after any pull that changes package.json
 npm run ios        # opens the iOS simulator (needs macOS + Xcode)
 npm start          # dev server; scan the QR code with Expo Go on a device
 npm run web        # browser preview, handy on a machine without Xcode
+npm run build:ios  # a signed .ipa from EAS — see "Onto an iPhone" below
 ```
 
 Checks:
@@ -48,8 +49,60 @@ If Metro says it cannot resolve a package that is plainly in `package.json`, the
 tree on disk is behind the manifest: `npm install`, then `npx expo start -c` to
 throw away the bundler's cache.
 
-For a standalone build, use EAS (`npx eas build -p ios`); the bundle identifier
-is set in `app.json` and should be changed to your own before building.
+## Onto an iPhone
+
+Three ways, cheapest first. The first needs nothing but the phone.
+
+**1. Expo Go — no build, no Apple account.** Every native module the app uses
+(`expo-audio`, `expo-haptics`, `expo-font`, `async-storage`, `react-native-svg`,
+`react-native-safe-area-context`) ships inside Expo Go, so the app runs there as
+it is:
+
+```bash
+npm start                     # then scan the QR code with the iPhone's camera
+npm start -- --tunnel         # if the phone is not on the same network
+```
+
+Install **Expo Go** from the App Store first. This is the fastest way to look at
+a change on real hardware, and the JS reloads as you edit. What it cannot show
+you is the app's own icon, its splash screen, or how it behaves when it is not a
+guest inside another app.
+
+**2. A signed build you keep — EAS, `preview` profile.** This produces an `.ipa`
+that installs on registered devices and survives being closed:
+
+```bash
+npx eas-cli login             # an Expo account, free
+npm run build:ios             # eas build --platform ios --profile preview
+```
+
+The first run asks for an Apple ID and offers to create the signing certificate,
+the provisioning profile and the App ID for you; say yes to all three. It also
+asks which devices to provision — `npx eas-cli device:create` registers an
+iPhone by UDID, which the phone gives up by opening the link EAS shows you. The
+build runs on Expo's Macs and hands back a URL; open it on the registered phone
+and it installs.
+
+An **Apple Developer Program membership** is needed for this — ad-hoc
+distribution is not something a free Apple ID can do. The alternative is
+TestFlight (`npx eas-cli build --platform ios --profile production` then
+`npx eas-cli submit --platform ios`), which needs the same membership but no
+UDIDs and gives up to 10,000 testers.
+
+**3. Your own Mac.** With Xcode installed, `npx expo run:ios --device` generates
+the native project, builds it and installs it over the cable. A free Apple ID
+can sign this one, though the app expires after seven days.
+
+Whichever route: **the bundle identifier is `com.mattonfoot.deduction`**, set in
+`app.json`. It has to be unique across the App Store and match the team the
+build is signed by, so change it before the first build if that is not yours —
+after the first build it is what identifies the app, and changing it makes a
+different app.
+
+`/ios` and `/android` are not in the repo. Expo generates them from `app.json`
+whenever a build needs them, so the config is the source of truth and there is
+no native project to keep in step by hand. `npx expo prebuild --platform ios`
+writes one out if you want to look at it.
 
 ## Dependencies
 

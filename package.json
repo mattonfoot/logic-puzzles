@@ -8,6 +8,8 @@
     "ios": "expo start --ios",
     "android": "expo start --android",
     "web": "expo start --web",
+    "build:ios": "eas build --platform ios --profile preview",
+    "build:ios:dev": "eas build --platform ios --profile development",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
