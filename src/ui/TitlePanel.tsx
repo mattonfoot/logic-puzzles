@@ -25,8 +25,8 @@ import { inkOn, space, tint, type Palette } from './theme';
  * daytime cut of the same colour in both schemes.
  *
  * The line above the name runs into it — "One solution, never guessed, pure…"
- * and then the word itself, which is what the app is called and what it asks of
- * you. Nothing sits under it: a paragraph explaining the game to somebody who
+ * and then "…Deduction", the word picking the sentence back up where the line
+ * above dropped it. It is what the app is called and what it asks of you. Nothing sits under it: a paragraph explaining the game to somebody who
  * has already installed it is a paragraph nobody reads twice, and the two lines
  * that are left say it in six words.
  *
@@ -48,7 +48,7 @@ export function TitlePanel() {
     <View style={[styles.panel, { backgroundColor: ground, paddingTop: insets.top + space(4) }]}>
       <Text style={[styles.eyebrow, { color: onSoft }]}>One solution, never guessed, pure…</Text>
       <Text style={[styles.title, { color: on }]} numberOfLines={1} adjustsFontSizeToFit>
-        Deduction
+        …Deduction
       </Text>
     </View>
   );
@@ -74,9 +74,11 @@ const makeStyles = (_palette: Palette) =>
     },
     title: {
       alignSelf: 'stretch',
-      // As large as the word goes: nine letters at 80pt overrun a phone's width
-      // before the margins, so the name is sized to fill the panel instead.
-      fontSize: 64,
+      // As large as the words go. Nine letters and a leading ellipsis at 64pt
+      // measure 344 points, which is nine more than a 375-point phone leaves
+      // between the margins; at 62 they fit every iPhone still supported
+      // outright, rather than leaning on `adjustsFontSizeToFit` to save them.
+      fontSize: 62,
       lineHeight: 74,
       fontWeight: '800',
       marginTop: space(2),

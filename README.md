@@ -180,7 +180,8 @@ rest is the app behaving normally.
 1. **Start** — the screen is halved. The top half is a panel of the link
    colour carrying two lines in white, sitting in the middle of it with nothing
    to press: "One solution, never guessed, pure…" and then, in the largest type
-   the app has, **Deduction** — the name and the sentence it finishes. Nothing
+   the app has, **…Deduction** — the name picking the sentence back up where the
+   line above dropped it. Nothing
    is written under it; the bottom half is the page's own colour,
    with **Play** at the top of it, large and on its own. Everything hangs off the same left margin so the eye drops
    down one edge. **Settings** and **Statistics** are text at the foot of the
