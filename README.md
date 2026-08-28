@@ -115,7 +115,9 @@ rest is the app behaving normally.
    where a game you left in progress waits: **Continue**, one word above
    everything else, which picks it up with the clock where it stopped. Under it
    a **Play** heading — with a rule drawn out of the word to the right of it —
-   and the difficulties, set as a list of words the same size Play was. Pick one
+   and the difficulties, set as a list of words as large as the half they stand
+   in allows — the whole list is on the screen at once, since a word that has to
+   be scrolled to might as well not be there. Pick one
    and the
    puzzle starts — there is nothing else to decide, so there is nothing else to
    press. Starting one replaces the saved game, which is the only way to throw

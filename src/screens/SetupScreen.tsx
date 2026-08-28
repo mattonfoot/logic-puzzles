@@ -166,22 +166,26 @@ const makeStyles = (palette: Palette) =>
     content: {
       paddingHorizontal: space(5),
       paddingTop: space(5),
-      paddingBottom: space(6),
+      paddingBottom: space(5),
     },
     waiting: {
-      marginBottom: space(5),
+      marginBottom: space(4),
     },
     choices: {
-      marginTop: space(4),
+      marginTop: space(3),
     },
     choice: {
       alignSelf: 'flex-start',
-      paddingVertical: space(1),
+      paddingVertical: space(0.75),
       paddingRight: space(6),
     },
     choiceText: {
-      fontSize: 38,
-      lineHeight: 48,
+      // Sized so the whole list — Continue, four difficulties and Surprise me!
+      // — stands in the half of the screen the panel leaves, on the phone this
+      // is drawn for. A word that has to be scrolled to is a word that might as
+      // well not be on the screen.
+      fontSize: 33,
+      lineHeight: 40,
       fontWeight: '800',
       letterSpacing: -1,
     },
