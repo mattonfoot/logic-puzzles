@@ -38,30 +38,6 @@ const MIME = {
 
 const wait = (page, ms) => page.waitForTimeout(ms);
 
-/** The height of the screen's own scroll view, or 0 when nothing scrolls. */
-const scrollHeight = (page) =>
-  page.evaluate(() => {
-    const scroller = [...document.querySelectorAll('div')].find(
-      (element) =>
-        element.scrollHeight > element.clientHeight + 40 &&
-        getComputedStyle(element).overflowY !== 'visible',
-    );
-    return scroller ? scroller.scrollHeight : 0;
-  });
-
-/** Scrolls the screen's own scroll view: nothing in the app scrolls the window. */
-const scrollBy = async (page, top) => {
-  await page.evaluate((to) => {
-    const scroller = [...document.querySelectorAll('div')].find(
-      (element) =>
-        element.scrollHeight > element.clientHeight + 50 &&
-        getComputedStyle(element).overflowY !== 'visible',
-    );
-    if (scroller) scroller.scrollTop = to;
-  }, top);
-  await page.waitForTimeout(350);
-};
-
 function run(command, args) {
   return new Promise((resolvePromise, reject) => {
     const child = spawn(command, args, { cwd: ROOT, stdio: 'inherit' });
@@ -227,25 +203,6 @@ async function main() {
     console.log(`  ✓ ${name}.png`);
   };
 
-  /**
-   * A screen captured whole, however long it is.
-   *
-   * `fullPage` grows the window, and nothing in the app scrolls the window —
-   * every screen scrolls inside its own view — so instead the window is grown
-   * until that view has nothing left to scroll, and put back afterwards.
-   */
-  const fullShot = async (name) => {
-    for (let attempt = 0; attempt < 6; attempt++) {
-      const height = await scrollHeight(page);
-      if (!height) break;
-      await page.setViewportSize({ width: VIEWPORT.width, height: Math.ceil(height) + 80 });
-      await wait(page, 500);
-    }
-    await shot(name);
-    await page.setViewportSize(VIEWPORT);
-    await wait(page, 400);
-  };
-
   console.log('Capturing screens:');
 
   // 1. The start page: the three places the app goes.
@@ -331,13 +288,13 @@ async function main() {
   // the finish, since a finished game shows its result rather than the board.
   await page.locator('[aria-label^="About "]').first().click();
   await wait(page, 700);
-  await shot('10-item-card');
+  await shot('09-item-card');
   await page.locator('[aria-label="Close"]').click({ position: { x: 12, y: 12 } });
   await wait(page, 400);
 
   // 10. Finished: the result is the screen, and the board is behind it.
   await solve(page, puzzle);
-  await shot('09-solved');
+  await shot('10-solved');
 
   // 11. Statistics, shown with a sample history.
   await page.goto(origin, { waitUntil: 'networkidle' });
@@ -351,35 +308,15 @@ async function main() {
   await wait(page, 800);
   await shot('11-statistics', { fullPage: true });
 
-  // 12. The style screen, which is where the palettes are judged.
+  // 12. The setup screen in night colours, with a game waiting to be resumed.
   await page.getByLabel('Back').click();
   await wait(page, 500);
   await page.getByLabel('Settings').click();
   await wait(page, 500);
-  await page.getByLabel('Every colour').click();
-  await wait(page, 700);
-  await shot('12-style');
-
-  await fullShot('style-day-full');
-
-  // 13. The same page in night colours, which is the other half of the palette.
-  await page.getByLabel('Back').click();
-  await wait(page, 400);
   await page.getByLabel('Match the device').click();
   await wait(page, 300);
   await page.getByLabel('Night colours').click();
   await wait(page, 400);
-  await page.getByLabel('Every colour').click();
-  await wait(page, 700);
-  // Down to the swatches, which is what the page is for.
-  await scrollBy(page, 620);
-  await shot('13-style-night');
-  await scrollBy(page, 0);
-  await fullShot('style-night-full');
-  await page.getByLabel('Back').click();
-  await wait(page, 400);
-
-  // 14. The setup screen in night colours, with a game waiting to be resumed.
   await page.getByLabel('Back').click();
   await wait(page, 400);
   await startPuzzle(page);
@@ -392,7 +329,7 @@ async function main() {
   // Leaving a puzzle lands on setup, which is where the game it left waits.
   await page.getByLabel('Back to setup').click();
   await wait(page, 900);
-  await shot('14-resume-night');
+  await shot('12-night');
 
   await browser.close();
   server.close();

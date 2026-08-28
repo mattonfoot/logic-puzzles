@@ -220,10 +220,11 @@ export function pageShades(bg: string, ink: string, series: string) {
 /**
  * Every colour in a palette, flattened to a list of role and value.
  *
- * The style screen draws from this rather than naming the roles itself, so a
- * colour added to `Palette` turns up there without anyone remembering to list
- * it. `scheme` is not a colour and drops out; `chart` is a group and is spread
- * into one entry per member.
+ * What the palette tests hold the two schemes to: every role a real hex, and
+ * one scheme naming every colour the other does. It reads the palette rather
+ * than naming the roles itself, so a colour added to `Palette` is covered
+ * without anyone remembering to list it. `scheme` is not a colour and drops
+ * out; `chart` is a group and is spread into one entry per member.
  */
 export function paletteSwatches(palette: Palette): { role: string; value: string }[] {
   const swatches: { role: string; value: string }[] = [];

@@ -95,9 +95,8 @@ images in the same commit.
 |---|---|---|
 | <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Play** at the top of the bottom half, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — six names with a box or a slider against each, and nothing to read. |
 | <img src="docs/screenshots/04-board.png" width="230" alt="The board"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
-| <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="A finished game"><br>**9. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. |
-| <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item label"><br>**10. Item card** — tap any picture on the board to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-style.png" width="230" alt="Style screen"><br>**12. Style** — every colour and every control on one page, for judging a palette. |
-| <img src="docs/screenshots/13-style-night.png" width="230" alt="Style screen in night colours"><br>**13. Style at night** — the same page, showing the other half of the palette. | <img src="docs/screenshots/14-resume-night.png" width="230" alt="Setup screen in night colours"><br>**14. Night** — the setup screen in night colours, with a game waiting behind **Continue**. | |
+| <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/09-item-card.png" width="230" alt="The card behind an item's picture"><br>**9. Item card** — tap any picture on the board to meet it: an icon, a line about it, and the traits clues describe it by. |
+| <img src="docs/screenshots/10-solved.png" width="230" alt="A finished game"><br>**10. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-night.png" width="230" alt="Setup screen in night colours"><br>**12. Night** — the setup screen in night colours, with a game waiting behind **Continue**. |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -272,7 +271,7 @@ src/stats/summary.ts        history → stats per difficulty, streaks, improveme
 src/storage/store.ts        the only module that touches AsyncStorage
 src/components/             GridBoard, SolutionTable, ClueCard, ItemCard, …
 src/screens/                StartScreen, SetupScreen, SettingsScreen,
-                            StyleScreen, GameScreen, GameMenuScreen, StatsScreen
+                            GameScreen, GameMenuScreen, StatsScreen
 src/game/settings.ts        the player's settings, and reading them back
 src/game/useSettings.ts     those settings as React state, written as they change
 src/ui/                     Text, ThemeProvider (day/night), palettes,
@@ -344,27 +343,6 @@ Each accent has two cuts. The `day` one is dark enough to carry white text; the
 too pale for white. `resolvePalette` puts the right one in `accent` and always
 puts the day one in `accentGround`, which is what the title panel is painted in
 — so the panel is the same colour after dark and the white on it still reads.
-
-### The style screen
-
-`src/screens/StyleScreen.tsx`, behind **Every colour** at the foot of the
-settings screen, is where a palette is judged: every colour listed with its
-role and its hex, every accent with both cuts, the type scale, and live
-versions of every control, surface, board square and icon tile the app draws.
-Change a colour in `theme.ts` or `accents.ts` and it shows up there against
-everything it is used for, rather than as a hex in a file. The swatch list is
-built by `paletteSwatches`, so a colour added to `Palette` appears on the screen
-without anyone having to remember to list it, and a test holds it to that.
-
-The controls on it are the real components with this screen's own state, not
-pictures of them — a disabled checkbox drawn at the wrong opacity is exactly the
-sort of thing a mock-up hides.
-
-`npm run screenshots` also writes it whole, in both schemes, as
-`docs/screenshots/style-day-full.png` and `style-night-full.png`. Nothing in the
-app scrolls the window — every screen scrolls inside its own view — so
-Playwright's `fullPage` would only ever catch the first screenful; the capture
-grows the window until that view has nothing left to scroll instead.
 
 ### The colours
 
