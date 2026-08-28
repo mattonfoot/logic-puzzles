@@ -360,8 +360,8 @@ The two schemes, as they stand:
 | `accentSoft` | set by the player | set by the player | a tick the board worked out, a live clue's border |
 | `accentGround` | the colour's day primary | the colour's day primary | the title panel, in both schemes |
 | `bg` | `#F6F3EC`, or the colour's own | `#14161C` | the page |
-| `surface` | `#FFFFFF` | `#1B1E26` | cards |
-| `surfaceAlt` | `#FBF9F3` | `#20242D` | a card that is spent |
+| `surface` | `#FFFFFF`, or the colour's own page | `#1B1E26` | cards |
+| `surfaceAlt` | `#FBF9F3`, or a shade into that page | `#20242D` | a card that is spent |
 | `boardLight` | `#F1EEE4` | `#232733` | the board's lighter square |
 | `boardShade` | `#E7E1D4` | `#2C313F` | the board's darker square |
 | `ink` | `#1D2333` | `#ECEDF2` | everything you read |
@@ -389,11 +389,17 @@ sit on — with a set per scheme:
 | Rust | `#B25F2E` | `#D1A284` | — | `#E39A63` | `#8E6342` |
 
 A colour with a page of its own brings the shades that sit on it too —
-`surfaceAlt`, `boardLight`, `boardShade`, `line` and `lineStrong` are mixed from
-that page by `pageShades`, because leaving the warm cream board squares on a
-cool blue page reads as a mistake rather than as a choice. A colour with no page
-leaves the scheme's own alone, and its hand-picked shades stay exactly as they
-are.
+`surface`, `surfaceAlt`, `boardLight`, `boardShade`, `line` and `lineStrong` are
+worked out from that page by `pageShades`, because leaving the warm cream board
+squares on a cool blue page reads as a mistake rather than as a choice. A colour
+with no page leaves the scheme's own alone, and its hand-picked shades stay
+exactly as they are.
+
+On such a page a card **is** the page rather than a white sheet laid on it: a
+white card on a tinted page is the brightest thing on the screen, which is a lot
+of emphasis for something that only means "these belong together" — its border
+and its shadow already say that. The quieter surface goes the other way, a shade
+*into* the page rather than out of it.
 
 Violet's two colours serve both schemes, swapping which of them leads: on a pale
 page the deeper one leads and the lighter is the quiet half, and on a near-black

@@ -29,7 +29,7 @@ export function resolvePalette(
   const cut = night ? chosen.night : chosen.day;
   return {
     ...base,
-    ...(cut.bg ? pageShades(cut.bg, base.ink, base.surface) : null),
+    ...(cut.bg ? pageShades(cut.bg, base.ink) : null),
     accent: cut.primary,
     accentSoft: cut.secondary,
     accentGround: chosen.day.primary,

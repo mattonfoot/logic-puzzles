@@ -61,10 +61,11 @@ describe('volume', () => {
 
 describe('which colours a preference means', () => {
   // Which scheme a palette came from, read off the parts a colour never moves.
+  // Not the surfaces: a colour that brings its own page brings those with it.
   const schemeOf = (palette: typeof dayPalette) => ({
     scheme: palette.scheme,
     ink: palette.ink,
-    surface: palette.surface,
+    inkFaint: palette.inkFaint,
     danger: palette.danger,
   });
   const day = schemeOf(dayPalette);
@@ -126,6 +127,8 @@ describe('which colours a preference means', () => {
     const palette = resolvePalette('day', false, withPage.id);
     expect(palette.bg).toBe(withPage.day.bg);
     // Nothing sitting on that page is left over from the one before it.
+    // A card is the page here, not a white sheet laid on it.
+    expect(palette.surface).toBe(withPage.day.bg);
     for (const role of ['surfaceAlt', 'boardLight', 'boardShade', 'line', 'lineStrong'] as const) {
       expect(`${role}: ${palette[role]}`).not.toBe(`${role}: ${dayPalette[role]}`);
     }

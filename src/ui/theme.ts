@@ -186,13 +186,18 @@ export function mix(hex: string, towards: string, amount: number): string {
  * board's warm cream squares and lines on a cool blue page reads as a mistake
  * rather than as a choice. A colour that does not keeps the palette's own,
  * which are hand-picked rather than mixed and stay exactly as they are.
+ *
+ * A card is the page rather than a white sheet laid on it. On a tinted page a
+ * white card is the brightest thing on the screen, which is a lot of emphasis
+ * for something that only means "these belong together" — its border and its
+ * shadow already say that. The quieter surface goes the other way instead,
+ * a shade *into* the page rather than out of it.
  */
-export function pageShades(bg: string, ink: string, paper: string) {
+export function pageShades(bg: string, ink: string) {
   return {
     bg,
-    // Lifted towards the surface it sits beside rather than towards the old
-    // page, so a cool page does not end up with a warm card on it.
-    surfaceAlt: mix(bg, paper, 0.5),
+    surface: bg,
+    surfaceAlt: mix(bg, ink, 0.045),
     boardLight: mix(bg, ink, 0.035),
     boardShade: mix(bg, ink, 0.095),
     line: mix(bg, ink, 0.1),
