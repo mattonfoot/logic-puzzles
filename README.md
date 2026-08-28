@@ -98,6 +98,21 @@ UDIDs and gives up to 10,000 testers.
 the native project, builds it and installs it over the cable. A free Apple ID
 can sign this one, though the app expires after seven days.
 
+### "Developer Mode is needed"
+
+A phone thing, not a build thing. Since iOS 16 a device will install a
+development-signed app and then refuse to launch it until Developer Mode is
+turned on. On the phone: **Settings → Privacy & Security → Developer Mode**,
+switch it on, let it restart, then tap **Turn On** at the prompt and enter the
+passcode. The menu only appears once such an app has been installed, and the
+setting sticks — it is asked for once per device, not once per build.
+
+Ad-hoc builds do not ask for it, so being asked says the build was signed with a
+development profile: a development-client build (`npm run build:ios:dev`), one
+installed from Xcode, or a `preview` build whose credentials EAS took from a
+free Apple ID rather than a paid team. `npx eas-cli credentials` says which
+profile a build was signed with.
+
 Whichever route: **the bundle identifier is `com.mattonfoot.deduction`**, set in
 `app.json`. It has to be unique across the App Store and match the team the
 build is signed by, so change it before the first build if that is not yours —
