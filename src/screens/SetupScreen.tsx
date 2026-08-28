@@ -40,10 +40,13 @@ interface Props {
  * That leaves half a screen for five names and whatever game is waiting, so the
  * bottom half scrolls. The way back sits under it rather than inside it.
  *
- * A game already in progress is the first of them — **Continue**, in the same
- * words as the rest — because this is where a player comes when they want to
- * play something: leaving a puzzle lands here, and so does Play from the front
- * door. It carries no card of its own. How far in it was and what it was about
+ * A game already in progress sits above the **Play** heading, as one word —
+ * **Continue** — set the same size as the difficulties under it. It is not one
+ * of them: they start something, it goes back to something, and standing above
+ * the heading rather than at the top of its list says so without a word of
+ * explanation. It is first because this is where a player comes when they want
+ * to play something: leaving a puzzle lands here, and so does Play from the
+ * front door. It carries no card of its own. How far in it was and what it was about
  * are answers to a question nobody asks on the way back to a game they left ten
  * minutes ago, and the board itself says both the moment it opens. They are
  * still read out as the link's hint, for a player who is being read the screen.
@@ -62,10 +65,8 @@ export function SetupScreen({ busy, savedGame, onStart, onSurpriseMe, onResume, 
 
       <View style={styles.bottom}>
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-          <RuledTitle>Play</RuledTitle>
-
-          <View style={styles.choices}>
-            {savedGame ? (
+          {savedGame ? (
+            <View style={styles.waiting}>
               <Choice
                 label="Continue"
                 hint={`${savedGame.puzzle.themeName}, ${savedGame.puzzle.size.label}, ${Math.round(
@@ -74,7 +75,12 @@ export function SetupScreen({ busy, savedGame, onStart, onSurpriseMe, onResume, 
                 disabled={busy}
                 onPress={onResume}
               />
-            ) : null}
+            </View>
+          ) : null}
+
+          <RuledTitle>Play</RuledTitle>
+
+          <View style={styles.choices}>
             {SIZES.map((option) => (
               <Choice
                 key={option.id}
@@ -161,6 +167,9 @@ const makeStyles = (palette: Palette) =>
       paddingHorizontal: space(5),
       paddingTop: space(5),
       paddingBottom: space(6),
+    },
+    waiting: {
+      marginBottom: space(5),
     },
     choices: {
       marginTop: space(4),

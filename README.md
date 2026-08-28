@@ -113,14 +113,14 @@ rest is the app behaving normally.
    screen — Statistics pushed to the right so the two sit in opposite corners
    rather than reading as a pair. Play opens the setup screen, which is the same page with its bottom half
    swapped — the panel above is the same block, given the same half — and is
-   where a game you left in progress waits. Under a **Play** heading — with a
-   rule drawn out of the word to the right of it — comes a list of words the
-   same size Play was: **Continue**, if a game is waiting, and then the
-   difficulties. Pick one and the
+   where a game you left in progress waits: **Continue**, one word above
+   everything else, which picks it up with the clock where it stopped. Under it
+   a **Play** heading — with a rule drawn out of the word to the right of it —
+   and the difficulties, set as a list of words the same size Play was. Pick one
+   and the
    puzzle starts — there is nothing else to decide, so there is nothing else to
-   press. Continue picks the saved game up with the clock where it stopped; a
-   difficulty replaces it, which is the only way to throw one away, since
-   choosing what to play instead is the same decision. **Beginner** (3 × 3), **Advanced** (4 × 4), **Expert** (5 × 4),
+   press. Starting one replaces the saved game, which is the only way to throw
+   one away, since choosing what to play instead is the same decision. **Beginner** (3 × 3), **Advanced** (4 × 4), **Expert** (5 × 4),
    **Pro** (6 × 4), or **Surprise me!**, which rolls one of the four. The shapes
    are not printed beside the names — they are on the board a second later, and
    were never the thing being chosen — but a screen reader still hears them. The
