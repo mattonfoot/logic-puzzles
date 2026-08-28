@@ -1,18 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Pressable, StyleSheet, View } from 'react-native';
 
-import { clueIcon, describeClue } from '../puzzle/describe';
+import { describeClue } from '../puzzle/describe';
 import type { Puzzle } from '../puzzle/types';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { border, space, tint, type Palette } from '../ui/theme';
+import { border, space, type Palette } from '../ui/theme';
 
 interface Props {
   puzzle: Puzzle;
   /** Which clue is on the table, or null before the first one is asked for. */
   index: number | null;
-  /** How many clues have been read, including this one. */
-  used: number;
   /** The board already says everything this clue says. */
   done: boolean;
   /** Its rows and columns are lit up on the grid. */
@@ -35,7 +33,7 @@ const FADE_MS = 700;
  * Its height does not change with the clue, because the board above is sized to
  * the space left over and would jump about if it did.
  */
-export function ClueCard({ puzzle, index, used, done, lit, onPress }: Props) {
+export function ClueCard({ puzzle, index, done, lit, onPress }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const fade = useRef(new Animated.Value(1)).current;
@@ -69,7 +67,7 @@ export function ClueCard({ puzzle, index, used, done, lit, onPress }: Props) {
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={`Clue, ${used} read${done ? ', used up' : ''}`}
+      accessibilityLabel={`Clue${done ? ', used up' : ''}`}
       accessibilityHint={lit ? 'Stop lighting it up on the grid' : 'Light it up on the grid'}
       onPress={onPress}
       style={({ pressed }) => [
@@ -78,27 +76,9 @@ export function ClueCard({ puzzle, index, used, done, lit, onPress }: Props) {
       ]}
     >
       <Animated.View style={[styles.row, { opacity: fade }]}>
-        <View
-          style={[
-            styles.badge,
-            {
-              backgroundColor: done ? palette.surfaceAlt : tint(palette.accent, 0.12),
-              borderColor: done ? palette.line : palette.accentSoft,
-            },
-          ]}
-        >
-          <Text style={[styles.badgeText, { color: done ? palette.inkFaint : palette.accent }]}>
-            {clueIcon(clue)}
-          </Text>
-        </View>
-        <View style={styles.text}>
-          <Text style={styles.meta}>
-            {used} clue{used === 1 ? '' : 's'} read{done ? ' · used up' : ''}
-          </Text>
-          <Text style={[styles.clue, done && styles.clueDone]} numberOfLines={3}>
-            {describeClue(clue, puzzle)}
-          </Text>
-        </View>
+        <Text style={[styles.clue, done && styles.clueDone]} numberOfLines={3}>
+          {describeClue(clue, puzzle)}
+        </Text>
       </Animated.View>
     </Pressable>
   );
@@ -129,31 +109,9 @@ const makeStyles = (palette: Palette) =>
     row: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: space(3),
-    },
-    badge: {
-      width: 28,
-      height: 28,
-      borderWidth: border,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    badgeText: {
-      fontSize: 14,
-      fontWeight: '700',
-    },
-    text: {
-      flex: 1,
-    },
-    meta: {
-      fontSize: 10,
-      fontWeight: '700',
-      letterSpacing: 0.8,
-      textTransform: 'uppercase',
-      color: palette.inkFaint,
-      marginBottom: space(1),
     },
     clue: {
+      flex: 1,
       fontSize: 14,
       lineHeight: 19,
       color: palette.ink,

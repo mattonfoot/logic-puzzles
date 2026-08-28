@@ -151,9 +151,11 @@ rest is the app behaving normally.
    "no payload made of glass" — and a description that covers two things says
    something about both at once. The cards behind the labels are where those
    descriptions are written down, which is what makes tapping them worth doing.
-   **Get next clue** puts one on the table under the board; pressing it again replaces it with the next one that still has
-   something to say. Tap the clue to light up every row and column it talks
-   about. Mark everything it says and the game agrees it is spent: the clue is
+   **Get next clue** puts one on the table under the board — the sentence and
+   nothing else, no badge for what kind of clue it is and no running count of
+   how many have been read; pressing it again replaces it with the next one that
+   still has something to say. Tap the clue to light up every row and column it
+   talks about. Mark everything it says and the game agrees it is spent: the clue is
    struck through and fades back, and the button skips it from then on. A clue
    you pass over is not gone — the button wraps round to it on a later lap, by
    which time the board may have enough on it for the clue to bite. **The clues

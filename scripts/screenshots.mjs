@@ -283,7 +283,7 @@ async function main() {
   const nextClue = page.getByLabel('Get next clue');
   await nextClue.click();
   await wait(page, 400);
-  const clueCard = page.getByLabel(/^Clue, /);
+  const clueCard = page.getByLabel(/^Clue$|^Clue, /);
   await clueCard.click();
   await wait(page, 500);
   await shot('06-clue');

@@ -230,19 +230,6 @@ export function describeClue(clue: Clue, puzzle: Puzzle): string {
   }
 }
 
-export function clueIcon(clue: Clue): string {
-  switch (clue.kind) {
-    case 'link':
-      return clue.positive ? '✓' : '✕';
-    case 'groupNot':
-      return '⊘';
-    case 'either':
-      return '?';
-    case 'compare':
-      return '⋚';
-  }
-}
-
 /** Every attribute a clue talks about — used to highlight the grid. */
 export function clueAttributes(clue: Clue): Attribute[] {
   switch (clue.kind) {

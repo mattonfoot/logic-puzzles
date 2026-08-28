@@ -534,7 +534,6 @@ export function GameScreen({
           <ClueCard
             puzzle={inPlay}
             index={clueIndex}
-            used={cluesSeen.size}
             done={clueIndex !== null && spent.has(clueIndex)}
             lit={lit}
             onPress={() => {

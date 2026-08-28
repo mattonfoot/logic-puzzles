@@ -3,7 +3,6 @@ import { THEMES } from '../../data/themes';
 import {
   DEFAULT_CLUE_TEMPLATES,
   clueAttributes,
-  clueIcon,
   describeClue,
   itemsWithTrait,
   resolveClueTemplates,
@@ -153,9 +152,8 @@ describe('describeClue', () => {
     expect(text).not.toContain('{');
   });
 
-  it('names the attributes a clue points at, and gives it an icon', () => {
+  it('names the attributes a clue points at', () => {
     expect(clueAttributes(either)).toHaveLength(3);
-    expect(clueIcon(link)).not.toBe(clueIcon(notLink));
   });
 });
 
@@ -256,7 +254,6 @@ describe('describing something instead of naming it', () => {
       b: { category: 0, item: 2 },
     };
     expect(describeClue(clue, puzzle)).toBe('No owner of a small pet lives with Cy.');
-    expect(clueIcon(clue)).toBe('⊘');
     expect(clueAttributes(clue)).toEqual([
       { category: 0, item: 2 },
       { category: 1, item: 0 },
