@@ -4,9 +4,10 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { getEntry, markKey, type Cell, type Marks } from '../game/board';
 import { boardLayout } from '../game/layout';
 import type { Attribute, Puzzle } from '../puzzle/types';
+import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { space, tint, type Palette } from '../ui/theme';
+import { tint, type Palette } from '../ui/theme';
 
 interface Props {
   puzzle: Puzzle;
@@ -25,12 +26,17 @@ export const MIN_CELL = 18;
 export const MAX_CELL = 46;
 
 const CATEGORY_STRIP = 14;
-const ROW_LABEL = 76;
-/** Room the rotated item labels get to write in — the longest item names fit. */
-const LABEL_RUN = 88;
 const LABEL_LINE = 14;
 const CATEGORY_NAME = 20;
-const HEADER_HEIGHT = LABEL_RUN + CATEGORY_NAME;
+/** Between the row of pictures down the left and the first block of squares. */
+const LABEL_GAP = 8;
+/**
+ * How much of its square a picture fills. Nearly all of it: the drawings carry
+ * their own margin inside the box they are drawn in, and at the size a heading
+ * gets there is none to spare — what tells two of a set apart is a hat or a
+ * fringe, a few points across.
+ */
+const ICON_SCALE = 0.94;
 /**
  * The band drawn around each pair grid. It is painted in the page colour rather
  * than as a line, so what separates one grid from the next is a gutter of
@@ -38,20 +44,23 @@ const HEADER_HEIGHT = LABEL_RUN + CATEGORY_NAME;
  * flush, so the gutter where two grids meet is twice this.
  */
 const BLOCK_BORDER = 2;
-/** Width the set strip and row labels take on the left of the board. */
-const BOARD_LABELS = CATEGORY_STRIP + ROW_LABEL;
-
 /**
  * The largest cell whose whole staircase fits the space given — the size the
  * board opens at, so a puzzle needs no scrolling in either direction until the
  * player zooms in past it.
+ *
+ * An item is labelled by its own picture, drawn in a square the size of a cell,
+ * so the headings grow and shrink with the board rather than holding a fixed
+ * margin: there are `items × rows` squares plus the one the picture sits in,
+ * on both axes.
  */
 export function fitCellSize(puzzle: Puzzle, width: number, height: number): number {
   const rows = puzzle.categories.length - 1;
   const items = puzzle.size.items;
   const rules = rows * BLOCK_BORDER * 2;
-  const byWidth = (width - BOARD_LABELS - rules) / (items * rows);
-  const byHeight = (height - HEADER_HEIGHT - rules) / (items * rows);
+  const squares = items * rows + 1;
+  const byWidth = (width - CATEGORY_STRIP - LABEL_GAP - rules) / squares;
+  const byHeight = (height - CATEGORY_NAME - rules) / squares;
   return Math.max(MIN_CELL, Math.min(MAX_CELL, Math.floor(Math.min(byWidth, byHeight))));
 }
 
@@ -60,11 +69,19 @@ export function fitCellSize(puzzle: Puzzle, width: number, height: number): numb
  * laid out: every pair of sets meets in its own block, so a mark made in one
  * block can be cross-referenced against the others without leaving the board.
  *
- * The set names and item labels down the left stay put while the blocks
- * themselves scroll sideways, so a wide board never loses its row headings.
+ * An item is headed by its own picture rather than its name, on both axes. A
+ * name long enough to read has to be turned on its side above a column and
+ * shortened beside a row, and the two readings of the same item then look
+ * nothing like each other; a silhouette is the same shape whichever edge it
+ * sits on, and reads at a glance while the eye is on the squares. It costs the
+ * board nothing either — the headings are now one square deep instead of the
+ * best part of a hundred points, and the squares take what they leave.
  *
- * Every item label is a button: clues describe things as well as name them, so
- * a tap on a label opens the card that says which is which.
+ * The picture is a button, which is what the item card is for: clues describe
+ * things as well as name them, so a tap says which is which, in words.
+ *
+ * The set names and pictures down the left stay put while the blocks themselves
+ * scroll sideways, so a wide board never loses its row headings.
  */
 export function GridBoard({
   puzzle,
@@ -83,6 +100,10 @@ export function GridBoard({
   // measure exactly `cellSize` and line up with the labels beside them.
   const blockSize = cellSize * items;
   const blockBox = blockSize + BLOCK_BORDER * 2;
+  // A picture gets a square the size of a cell, so the headings are as tall and
+  // as wide as one row and one column of the board.
+  const iconSize = Math.round(cellSize * ICON_SCALE);
+  const headerHeight = CATEGORY_NAME + cellSize;
 
   const lit = useMemo(
     () => new Set(highlight.map((attr) => `${attr.category}.${attr.item}`)),
@@ -97,7 +118,7 @@ export function GridBoard({
     <View style={styles.row}>
       {/* Pinned: the set names and the item labels for each block row. */}
       <View>
-        <View style={{ height: HEADER_HEIGHT }} />
+        <View style={{ height: headerHeight }} />
         {layout.rowCategories.map((rowCategory) => (
           <View key={`labels-${rowCategory}`} style={[styles.row, { height: blockBox }]}>
             <View style={[styles.categoryStrip, { height: blockBox }]}>
@@ -118,7 +139,7 @@ export function GridBoard({
               </Text>
             </View>
 
-            <View style={{ width: ROW_LABEL, paddingTop: BLOCK_BORDER }}>
+            <View style={{ width: cellSize + LABEL_GAP, paddingTop: BLOCK_BORDER }}>
               {puzzle.categories[rowCategory].items.map((item, index) => (
                 <Pressable
                   key={item.label}
@@ -130,13 +151,11 @@ export function GridBoard({
                     { height: cellSize, opacity: pressed ? 0.6 : 1 },
                   ]}
                 >
-                  <Text
-                    numberOfLines={1}
-                    adjustsFontSizeToFit
-                    style={[styles.rowLabelText, isLit(rowCategory, index) && styles.labelLit]}
-                  >
-                    {item.label}
-                  </Text>
+                  <Icon
+                    name={item.icon}
+                    size={iconSize}
+                    color={isLit(rowCategory, index) ? palette.accent : palette.inkSoft}
+                  />
                 </Pressable>
               ))}
             </View>
@@ -147,9 +166,12 @@ export function GridBoard({
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View>
           {/* Column headers: set name, then each item written up the page. */}
-          <View style={[styles.row, { height: HEADER_HEIGHT }]}>
+          <View style={[styles.row, { height: headerHeight }]}>
             {layout.colCategories.map((category) => (
-              <View key={`head-${category}`} style={[styles.columnBlock, { width: blockBox }]}>
+              <View
+                key={`head-${category}`}
+                style={[styles.columnBlock, { width: blockBox, height: headerHeight }]}
+              >
                 <Text style={[styles.categoryName, { color: palette.accent }]} numberOfLines={1}>
                   {puzzle.categories[category].name}
                 </Text>
@@ -162,26 +184,14 @@ export function GridBoard({
                       onPress={() => onInspect({ category, item: index })}
                       style={({ pressed }) => [
                         styles.columnLabel,
-                        { width: cellSize, opacity: pressed ? 0.6 : 1 },
+                        { width: cellSize, height: cellSize, opacity: pressed ? 0.6 : 1 },
                       ]}
                     >
-                      {/* Absolutely placed so the label is not squeezed into the
-                          column width before it rotates. */}
-                      <Text
-                        numberOfLines={1}
-                        style={[
-                          styles.columnLabelText,
-                          {
-                            width: LABEL_RUN,
-                            maxWidth: LABEL_RUN,
-                            left: (cellSize - LABEL_RUN) / 2,
-                            top: (LABEL_RUN - LABEL_LINE) / 2,
-                          },
-                          isLit(category, index) && styles.labelLit,
-                        ]}
-                      >
-                        {item.label}
-                      </Text>
+                      <Icon
+                        name={item.icon}
+                        size={iconSize}
+                        color={isLit(category, index) ? palette.accent : palette.inkSoft}
+                      />
                     </Pressable>
                   ))}
                 </View>
@@ -306,7 +316,6 @@ const makeStyles = (palette: Palette) =>
     columnBlock: {
       alignItems: 'center',
       justifyContent: 'flex-end',
-      height: HEADER_HEIGHT,
     },
     categoryName: {
       fontSize: 10,
@@ -316,18 +325,8 @@ const makeStyles = (palette: Palette) =>
       height: CATEGORY_NAME,
     },
     columnLabel: {
-      height: LABEL_RUN,
-    },
-    columnLabelText: {
-      // Rotated so long item names fit above narrow columns.
-      position: 'absolute',
-      height: LABEL_LINE,
-      lineHeight: LABEL_LINE,
-      transform: [{ rotate: '-90deg' }],
-      textAlign: 'right',
-      fontSize: 11,
-      fontWeight: '600',
-      color: palette.inkSoft,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     categoryStrip: {
       width: CATEGORY_STRIP,
@@ -346,16 +345,7 @@ const makeStyles = (palette: Palette) =>
     rowLabel: {
       justifyContent: 'center',
       alignItems: 'flex-end',
-      paddingRight: space(2),
-    },
-    rowLabelText: {
-      fontSize: 12,
-      fontWeight: '600',
-      color: palette.ink,
-    },
-    labelLit: {
-      color: palette.ink,
-      textDecorationLine: 'underline',
+      paddingRight: LABEL_GAP,
     },
     block: {
       borderWidth: BLOCK_BORDER,

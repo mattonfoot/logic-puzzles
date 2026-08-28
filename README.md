@@ -96,7 +96,7 @@ images in the same commit.
 | <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Play** at the top of the bottom half, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — six names with a box or a slider against each, and nothing to read. |
 | <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
 | <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, clues read, how it compares, the answer table. |
-| <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item label"><br>**10. Item card** — tap any label to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-style.png" width="230" alt="Style screen"><br>**12. Style** — every colour and every control on one page, for judging a palette. |
+| <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item label"><br>**10. Item card** — tap any picture on the board to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-style.png" width="230" alt="Style screen"><br>**12. Style** — every colour and every control on one page, for judging a palette. |
 | <img src="docs/screenshots/13-style-night.png" width="230" alt="Style screen in night colours"><br>**13. Style at night** — the same page, showing the other half of the palette. | <img src="docs/screenshots/14-resume-night.png" width="230" alt="Setup screen in night colours"><br>**14. Night** — the setup screen in night colours, with a game waiting to be resumed. | |
 
 The theme differs from run to run because it is drawn at random, and the
@@ -134,7 +134,11 @@ rest is the app behaving normally.
    out at the finish. The whole puzzle is drawn as one staircase of grids, the way a
    printed logic puzzle is laid out: every pair of sets meets in its own grid,
    so a four-set puzzle is a 3 × 3 arrangement holding six grids, and each grid
-   is items × items. Nothing on the screen scrolls: the board opens at the size
+   is items × items. Each item is headed by its own silhouette rather than its
+   name, on both axes: a name long enough to read has to be turned on its side
+   above a column, and a picture is the same shape whichever edge of the board
+   it sits on. Tap one to open the card that says, in words, which is which.
+   Nothing on the screen scrolls: the board opens at the size
    that fits the space it is given, with the clue in play beneath it. The board
    takes no marks until you have read a clue — with nothing said about the
    puzzle, a mark could only be a guess. After that, tap a square to cycle it
@@ -144,7 +148,7 @@ rest is the app behaving normally.
    **Auto add facts** — which fills in a tick that follows from two others, so a
    pairing carried across a shared entity lands on the board without you copying
    it over — can both be turned off, from the menu or from Settings. The set
-   names and item labels stay pinned while the grids scroll sideways, and − / +
+   names and item pictures stay pinned while the grids scroll sideways, and − / +
    resize the squares past the fit.
 3. **Clues arrive one at a time.** They do not always use names: about a third
    of the time a clue describes something instead — "the diver with green eyes",
