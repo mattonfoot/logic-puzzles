@@ -489,13 +489,16 @@ export function GameScreen({
               </ScrollView>
             </View>
 
-            <Text style={styles.cardHint}>
-              {solved
-                ? 'The finished board · Restart to play this puzzle again'
-                : started
-                  ? 'Tap a square to cycle blank → ✕ → ✓'
-                  : 'Read a clue to start marking the board'}
-            </Text>
+            {/* A finished board still says what it is, since it takes no more
+                marks and the reason is not otherwise on the screen. A board
+                still in play says nothing: how to read a clue and how to mark a
+                square are learnt once, and a line repeating them every game is
+                furniture. */}
+            {solved ? (
+              <Text style={styles.cardHint}>
+                The finished board · Restart to play this puzzle again
+              </Text>
+            ) : null}
           </View>
         ) : (
           <SolvedPanel
