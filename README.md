@@ -178,8 +178,10 @@ rest is the app behaving normally.
 ## How you play
 
 1. **Start** — the screen is halved. The top half is a panel of the link
-   colour with the name and what the app is in white on it, sitting in the
-   middle of it with nothing to press; the bottom half is the page's own colour,
+   colour carrying two lines in white, sitting in the middle of it with nothing
+   to press: "One solution, never guessed, pure…" and then, in the largest type
+   the app has, **Deduction** — the name and the sentence it finishes. Nothing
+   is written under it; the bottom half is the page's own colour,
    with **Play** at the top of it, large and on its own. Everything hangs off the same left margin so the eye drops
    down one edge. **Settings** and **Statistics** are text at the foot of the
    screen — Statistics pushed to the right so the two sit in opposite corners

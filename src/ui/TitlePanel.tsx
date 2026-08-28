@@ -24,6 +24,12 @@ import { inkOn, space, tint, type Palette } from './theme';
  * page, which leaves it too pale to carry white text, so the panel keeps the
  * daytime cut of the same colour in both schemes.
  *
+ * The line above the name runs into it — "One solution, never guessed, pure…"
+ * and then the word itself, which is what the app is called and what it asks of
+ * you. Nothing sits under it: a paragraph explaining the game to somebody who
+ * has already installed it is a paragraph nobody reads twice, and the two lines
+ * that are left say it in six words.
+ *
  * The words on it are white or the page's own ink, whichever reads better on
  * that ground. A deep navy takes white; a pale lilac cannot carry it, and gets
  * ink instead. The colour is the player's, so the panel asks rather than
@@ -40,13 +46,9 @@ export function TitlePanel() {
 
   return (
     <View style={[styles.panel, { backgroundColor: ground, paddingTop: insets.top + space(4) }]}>
-      <Text style={[styles.eyebrow, { color: onSoft }]}>Freshly generated, never guessed</Text>
+      <Text style={[styles.eyebrow, { color: onSoft }]}>One solution, never guessed, pure…</Text>
       <Text style={[styles.title, { color: on }]} numberOfLines={1} adjustsFontSizeToFit>
         Deduction
-      </Text>
-      <Text style={[styles.lede, { color: onSoft }]}>
-        Every puzzle is built when you ask for it, with exactly one solution you can reach by pure
-        deduction — no guessing.
       </Text>
     </View>
   );
@@ -79,11 +81,5 @@ const makeStyles = (_palette: Palette) =>
       fontWeight: '800',
       marginTop: space(2),
       letterSpacing: -2,
-    },
-    lede: {
-      fontSize: 16,
-      lineHeight: 23,
-      fontWeight: '600',
-      marginTop: space(3),
     },
   });
