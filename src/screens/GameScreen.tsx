@@ -451,24 +451,6 @@ export function GameScreen({
       <View style={styles.tabBody}>
         {tab === 'grid' ? (
           <View style={styles.fill}>
-            <View style={styles.boardHeader}>
-              <View style={styles.zoomRow}>
-                <ZoomButton
-                  label="−"
-                  accent={palette.accent}
-                  disabled={zoom <= 0}
-                  onPress={() => setZoom((step) => Math.max(0, step - ZOOM_STEP))}
-                />
-                <ZoomButton
-                  label="+"
-                  joined
-                  accent={palette.accent}
-                  disabled={cellSize >= MAX_CELL}
-                  onPress={() => setZoom((step) => step + ZOOM_STEP)}
-                />
-              </View>
-            </View>
-
             <View style={styles.fill} onLayout={measureBoard}>
               <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -489,6 +471,37 @@ export function GameScreen({
                   />
                 ) : null}
               </ScrollView>
+            </View>
+
+            {/* The zoom pair sits at the foot of the board, right above the
+                clue it leaves room for, rather than on a line of its own at
+                the top: it is reached while looking at the squares, and every
+                point it is not taking up above them is another point of
+                board.
+                What the app has to say goes on the same line, in the room the
+                pair leaves beside it. A message that shows for two seconds
+                should not hold a band of screen open for the rest of the game,
+                and a board that resized every time one arrived would be worse
+                than either. */}
+            <View style={styles.zoomRow}>
+              <Text style={styles.status} numberOfLines={2}>
+                {status ?? ''}
+              </Text>
+              <View style={styles.zoomPair}>
+                <ZoomButton
+                  label="−"
+                  accent={palette.accent}
+                  disabled={zoom <= 0}
+                  onPress={() => setZoom((step) => Math.max(0, step - ZOOM_STEP))}
+                />
+                <ZoomButton
+                  label="+"
+                  joined
+                  accent={palette.accent}
+                  disabled={cellSize >= MAX_CELL}
+                  onPress={() => setZoom((step) => step + ZOOM_STEP)}
+                />
+              </View>
             </View>
           </View>
         ) : (
@@ -532,10 +545,6 @@ export function GameScreen({
             />
           </View>
         )}
-
-        <Text style={styles.status} numberOfLines={2}>
-          {status ?? ''}
-        </Text>
       </View>
 
       <BackLink label="Back to setup" onPress={onExit} />
@@ -724,13 +733,6 @@ const makeStyles = (palette: Palette) =>
       paddingHorizontal: space(4),
       paddingTop: space(3),
     },
-    boardHeader: {
-      flexDirection: 'row',
-      // The zoom pair is all that is left on this line, and it belongs on the
-      // right-hand end of it.
-      justifyContent: 'flex-end',
-      marginBottom: space(3),
-    },
     boardScroll: {
       // Centred, so a board that fits sits in the middle of the space rather
       // than hanging from the top of it.
@@ -738,6 +740,17 @@ const makeStyles = (palette: Palette) =>
       justifyContent: 'center',
     },
     zoomRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      // Under the board: whatever the app is saying on the left, the zoom pair
+      // on the right-hand end.
+      gap: space(3),
+      marginTop: space(2),
+    },
+    zoomPair: {
+      // The two share an edge, so they are a pair rather than two buttons that
+      // happen to be near each other. Their own row, since the line they sit on
+      // spaces what it holds.
       flexDirection: 'row',
     },
     zoomButton: {
@@ -757,7 +770,9 @@ const makeStyles = (palette: Palette) =>
     footer: {
       paddingHorizontal: space(4),
       paddingTop: space(2),
-      gap: space(2),
+      // The clue and its two buttons run straight into the `◀ Back` under
+      // them; what used to sit between was an empty status line, and the space
+      // it held open is board now.
     },
     play: {
       flexDirection: 'row',
@@ -783,9 +798,8 @@ const makeStyles = (palette: Palette) =>
       fontWeight: '700',
     },
     status: {
-      minHeight: 32,
+      flex: 1,
       fontSize: 13,
       color: palette.inkSoft,
-      textAlign: 'center',
     },
   });
