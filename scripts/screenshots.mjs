@@ -190,7 +190,7 @@ const tick = (page, puzzle, c1, i1, c2, i2) => mark(page, puzzle, c1, i1, c2, i2
 
 /** Ticks the true pairings until the puzzle is finished, or `pairs` of them. */
 async function solve(page, puzzle, pairs = Infinity) {
-  const finished = page.getByRole('tab', { name: /^(Solved|Revealed)$/ });
+  const finished = page.getByText('Solved!', { exact: true });
   let done = 0;
   for (let c1 = 0; c1 < puzzle.categories.length; c1++) {
     for (let c2 = c1 + 1; c2 < puzzle.categories.length; c2++) {
@@ -326,19 +326,18 @@ async function main() {
     await wait(page, 400);
   }
 
-  // 9. Finished: the result fills the screen, on a tab of its own.
-  await solve(page, puzzle);
-  await shot('09-solved');
-
-  // 10. Who one of the labels on the board actually is: the card behind a tap,
-  // where the traits the clues describe things by are written down.
-  await page.getByRole('tab', { name: 'Grid' }).click();
-  await wait(page, 500);
+  // 9. Who one of the pictures on the board actually is: the card behind a tap,
+  // where the traits the clues describe things by are written down. Shot before
+  // the finish, since a finished game shows its result rather than the board.
   await page.locator('[aria-label^="About "]').first().click();
   await wait(page, 700);
   await shot('10-item-card');
   await page.locator('[aria-label="Close"]').click({ position: { x: 12, y: 12 } });
   await wait(page, 400);
+
+  // 10. Finished: the result is the screen, and the board is behind it.
+  await solve(page, puzzle);
+  await shot('09-solved');
 
   // 11. Statistics, shown with a sample history.
   await page.goto(origin, { waitUntil: 'networkidle' });

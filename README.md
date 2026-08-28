@@ -94,8 +94,8 @@ images in the same commit.
 | | | |
 |---|---|---|
 | <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Play** at the top of the bottom half, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — six names with a box or a slider against each, and nothing to read. |
-| <img src="docs/screenshots/04-board.png" width="230" alt="Grid tab"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
-| <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="Solved tab"><br>**9. Solved** — the finish fills the screen on a tab of its own: time, clues read, how it compares, the answer table. |
+| <img src="docs/screenshots/04-board.png" width="230" alt="The board"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
+| <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/09-solved.png" width="230" alt="A finished game"><br>**9. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. |
 | <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item label"><br>**10. Item card** — tap any picture on the board to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-style.png" width="230" alt="Style screen"><br>**12. Style** — every colour and every control on one page, for judging a palette. |
 | <img src="docs/screenshots/13-style-night.png" width="230" alt="Style screen in night colours"><br>**13. Style at night** — the same page, showing the other half of the palette. | <img src="docs/screenshots/14-resume-night.png" width="230" alt="Setup screen in night colours"><br>**14. Night** — the setup screen in night colours, with a game waiting to be resumed. | |
 
@@ -179,15 +179,15 @@ rest is the app behaving normally.
    the squares that cannot be right lit up, to sort out by hand. The
    clock starts when you ask for the first clue — with nothing to go on there
    is nothing to solve, so the time spent reading the sets is not part of it —
-   and stops when the last square is right. Finishing adds a second tab,
-   **Solved**, which fills the screen with the clock, how many clues it took,
-   how the game compares with your earlier ones, and **the answer as a table**:
-   one row per person, one column per set, so the whole solution reads across in
-   a line. The first set stays pinned while the others scroll sideways, which
-   keeps every heading on one line. The board stays where it was, so the
-   finished grid is one tap away — though it is read-only from then on, since
-   changing it would undo the win. There is nothing to press on it: `◀ Back`
-   leads to the setup screen, which is where the next puzzle is chosen.
+   and stops when the last square is right. Finishing replaces the board with
+   the result: the clock, how many clues it took, how the game compares with
+   your earlier ones, and **the answer as a table** — one row per person, one
+   column per set, so the whole solution reads across in a line. The first set
+   stays pinned while the others scroll sideways, which keeps every heading on
+   one line. The grid does not come back: a solved board takes no more marks,
+   and the answer above it says everything the squares would. There is nothing
+   to press: `◀ Back` leads to the setup screen, which is where the next puzzle
+   is chosen.
 5. **Puzzle settings**, behind the burger at the top left, holds everything that acts
    on the game rather than on a square: the two board settings and the colour,
    boxed and named exactly as the settings screen has them (they are the

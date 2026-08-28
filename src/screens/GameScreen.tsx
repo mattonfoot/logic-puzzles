@@ -39,8 +39,6 @@ const ZOOM_STEP = 8;
 /** How many moves back the undo button can reach. */
 const UNDO_LIMIT = 200;
 
-type Tab = 'grid' | 'result';
-
 interface Props {
   puzzle: Puzzle;
   /** The player's board settings, which live outside any one game. */
@@ -88,7 +86,6 @@ export function GameScreen({
   // Bumped by "Restart": the puzzle stays exactly as it is — same seed, same
   // theme, sets and items — while the board and the clock start over.
   const [attempt, setAttempt] = useState(0);
-  const [tab, setTab] = useState<Tab>('grid');
   const [menuOpen, setMenuOpen] = useState(false);
   const [marks, setMarks] = useState<Marks>(() => resumed?.marks ?? {});
   // The clue on the table, and every clue the player has asked to see. Reading
@@ -144,7 +141,7 @@ export function GameScreen({
   );
 
   // The whole staircase is drawn at once, so the cell size decides whether it
-  // fits. It is measured against the space the tab actually leaves for it, and
+  // fits. It is measured against the space the board is actually left, and
   // the player can zoom in from there; a zoomed-in board scrolls both ways.
   const [boardArea, setBoardArea] = useState({ width: 0, height: 0 });
   const fitCell = useMemo(
@@ -196,8 +193,6 @@ export function GameScreen({
   useEffect(() => {
     if (!solved) return;
     feedback.success();
-    // The finish is the news, so show it — the grid stays a tab away.
-    setTab('result');
   }, [solved]);
 
   // Record the finish once, and ask how it compares with earlier games.
@@ -344,8 +339,6 @@ export function GameScreen({
       feedback.warn();
       setMistakes(new Set(wrong));
       setFlagged(true);
-      // The marks are on the board, so that is where the answer is.
-      setTab('grid');
       return;
     }
     setFlagged(false);
@@ -366,12 +359,10 @@ export function GameScreen({
       setExtraClues((extras) => [...extras, invented]);
       setClueIndex(at);
       setCluesSeen((seen) => new Set(seen).add(at));
-      setTab('grid');
       flash('The clues ran out, so here is a new one.');
       return;
     }
     feedback.tap();
-    setTab('grid');
     setClueIndex(index);
     setCluesSeen((seen) => (seen.has(index) ? seen : new Set(seen).add(index)));
   }, [clueIndex, extraClues.length, flash, inPlay, marks, spent, wrong]);
@@ -387,7 +378,6 @@ export function GameScreen({
     setCluesSeen(new Set());
     setExtraClues([]);
     setLit(false);
-    setTab('grid');
     flash('Restarted — same puzzle, fresh board and clock.');
   }, [flash]);
 
@@ -433,25 +423,16 @@ export function GameScreen({
         </View>
       </View>
 
-      {solved ? (
-        <View style={styles.tabs}>
-          <TabButton
-            label="Grid"
-            accent={palette.accent}
-            selected={tab === 'grid'}
-            onPress={() => setTab('grid')}
+      <View style={styles.body}>
+        {solved ? (
+          <SolvedPanel
+            title="Solved!"
+            puzzle={puzzle}
+            seconds={seconds}
+            cluesUsed={cluesSeen.size}
+            improvement={improvement}
           />
-          <TabButton
-            label="Solved"
-            accent={palette.accent}
-            selected={tab === 'result'}
-            onPress={() => setTab('result')}
-          />
-        </View>
-      ) : null}
-
-      <View style={styles.tabBody}>
-        {tab === 'grid' ? (
+        ) : (
           <View style={styles.fill}>
             <View style={styles.fill} onLayout={measureBoard}>
               <ScrollView
@@ -506,14 +487,6 @@ export function GameScreen({
               </View>
             </View>
           </View>
-        ) : (
-          <SolvedPanel
-            title="Solved!"
-            puzzle={puzzle}
-            seconds={seconds}
-            cluesUsed={cluesSeen.size}
-            improvement={improvement}
-          />
         )}
       </View>
 
@@ -542,7 +515,6 @@ export function GameScreen({
               onPress={() => {
                 feedback.tap();
                 setLit((on) => !on);
-                setTab('grid');
               }}
             />
           </View>
@@ -569,36 +541,6 @@ export function GameScreen({
         onCancel={() => setFlagged(false)}
       />
     </View>
-  );
-}
-
-function TabButton({
-  label,
-  accent,
-  selected,
-  onPress,
-}: {
-  label: string;
-  accent: string;
-  selected: boolean;
-  onPress: () => void;
-}) {
-  const palette = useTheme();
-  const styles = useStyles(makeStyles);
-  return (
-    <Pressable
-      accessibilityRole="tab"
-      accessibilityLabel={label}
-      accessibilityState={{ selected }}
-      onPress={onPress}
-      style={({ pressed }) => [
-        styles.tab,
-        selected && { borderBottomColor: accent },
-        { opacity: pressed ? 0.7 : 1 },
-      ]}
-    >
-      <Text style={[styles.tabLabel, { color: selected ? accent : palette.inkSoft }]}>{label}</Text>
-    </Pressable>
   );
 }
 
@@ -709,28 +651,7 @@ const makeStyles = (palette: Palette) =>
       color: palette.inkFaint,
       marginTop: space(1.5),
     },
-    tabs: {
-      flexDirection: 'row',
-      paddingHorizontal: space(4),
-      borderBottomWidth: 1,
-      borderBottomColor: palette.line,
-    },
-    tab: {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: space(2),
-      paddingVertical: space(3),
-      borderBottomWidth: 2,
-      borderBottomColor: 'transparent',
-      marginBottom: -1,
-    },
-    tabLabel: {
-      fontSize: 15,
-      fontWeight: '700',
-    },
-    tabBody: {
+    body: {
       flex: 1,
       paddingHorizontal: space(4),
       paddingTop: space(3),
