@@ -245,9 +245,9 @@ async function main() {
   await wait(page, 500);
   await shot('06-clue');
 
-  // 7. A clue once the board has caught up with it: struck through and faded,
-  // with nothing left to say. A plain "X is Y" is the one clue a single mark
-  // finishes, so that is the one to put on the table and answer.
+  // Some marks on the board before the shots that need one. The clue panel
+  // reads the same once its marks are down — the game does not say which clues
+  // are spent — so there is nothing here worth its own capture.
   await clueCard.click();
   await wait(page, 300);
   // Nothing is marked yet, so the button hands the clues over in order: one
@@ -268,35 +268,34 @@ async function main() {
     link.positive ? 'matched' : 'ruled out',
   );
   await wait(page, 1000);
-  await shot('07-clue-used');
 
-  // 8. A board the answer can no longer be reached from, which is what the
+  // 7. A board the answer can no longer be reached from, which is what the
   // clue button reports instead of handing over a clue.
   const wrongEntity = (puzzle.solution[1][0] + 1) % puzzle.size.items;
   await tick(page, puzzle, 0, puzzle.solution[0][0], 1, wrongEntity);
   await nextClue.click();
   await wait(page, 500);
-  await shot('08-stuck');
+  await shot('07-stuck');
   const rewind = page.getByLabel(/^Rewind/);
   if (await rewind.count()) {
     await rewind.click();
     await wait(page, 400);
   }
 
-  // 9. Who one of the pictures on the board actually is: the card behind a tap,
+  // 8. Who one of the pictures on the board actually is: the card behind a tap,
   // where the traits the clues describe things by are written down. Shot before
   // the finish, since a finished game shows its result rather than the board.
   await page.locator('[aria-label^="About "]').first().click();
   await wait(page, 700);
-  await shot('09-item-card');
+  await shot('08-item-card');
   await page.locator('[aria-label="Close"]').click({ position: { x: 12, y: 12 } });
   await wait(page, 400);
 
-  // 10. Finished: the result is the screen, and the board is behind it.
+  // 9. Finished: the result is the screen, and the board is behind it.
   await solve(page, puzzle);
-  await shot('10-solved');
+  await shot('09-solved');
 
-  // 11. Statistics, shown with a sample history.
+  // 10. Statistics, shown with a sample history.
   await page.goto(origin, { waitUntil: 'networkidle' });
   await page.evaluate((history) => {
     localStorage.clear();
@@ -306,9 +305,9 @@ async function main() {
   await wait(page, 1200);
   await page.getByLabel('Statistics').click();
   await wait(page, 800);
-  await shot('11-statistics', { fullPage: true });
+  await shot('10-statistics', { fullPage: true });
 
-  // 12. The setup screen in night colours, with a game waiting to be resumed.
+  // 11. The setup screen in night colours, with a game waiting to be resumed.
   await page.getByLabel('Back').click();
   await wait(page, 500);
   await page.getByLabel('Settings').click();
@@ -329,7 +328,7 @@ async function main() {
   // Leaving a puzzle lands on setup, which is where the game it left waits.
   await page.getByLabel('Back to setup').click();
   await wait(page, 900);
-  await shot('12-night');
+  await shot('11-night');
 
   await browser.close();
   server.close();

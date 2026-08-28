@@ -168,8 +168,8 @@ images in the same commit.
 |---|---|---|
 | <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Play** at the top of the bottom half, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — six names with a box or a slider against each, and nothing to read. |
 | <img src="docs/screenshots/04-board.png" width="230" alt="The board"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
-| <img src="docs/screenshots/07-clue-used.png" width="230" alt="A clue the board has caught up with"><br>**7. Used up** — mark everything a clue says and it strikes itself through and fades. | <img src="docs/screenshots/08-stuck.png" width="230" alt="A board that can no longer be solved"><br>**8. Out of reach** — the clue button checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/09-item-card.png" width="230" alt="The card behind an item's picture"><br>**9. Item card** — tap any picture on the board to meet it: an icon, a line about it, and the traits clues describe it by. |
-| <img src="docs/screenshots/10-solved.png" width="230" alt="A finished game"><br>**10. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. | <img src="docs/screenshots/11-statistics.png" width="230" alt="Statistics screen"><br>**11. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/12-night.png" width="230" alt="Setup screen in night colours"><br>**12. Night** — the setup screen in night colours, with a game waiting behind **Continue**. |
+| <img src="docs/screenshots/07-stuck.png" width="230" alt="A board that can no longer be solved"><br>**7. Out of reach** — the clue button checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/08-item-card.png" width="230" alt="The card behind an item's picture"><br>**8. Item card** — tap any picture on the board to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/09-solved.png" width="230" alt="A finished game"><br>**9. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. |
+| <img src="docs/screenshots/10-statistics.png" width="230" alt="Statistics screen"><br>**10. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/11-night.png" width="230" alt="Setup screen in night colours"><br>**11. Night** — the setup screen in night colours, with a game waiting behind **Continue**. | |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -236,12 +236,16 @@ rest is the app behaving normally.
    have been read — with **Undo** stacked above it, the two words to the left of
    the clue they work on; pressing it again replaces the clue with the next one
    that still has something to say. Tap the clue to light up every row and column it
-   talks about. Mark everything it says and the game agrees it is spent: the clue is
-   struck through and fades back, and the button skips it from then on. A clue
+   talks about. The clue reads the same whether or not the board has caught up
+   with it: the game tracks which clues are spent, since that is how the button
+   knows which to hand over next, but it does not say — whether a clue still has
+   something to give is the thing worth working out, and a panel that struck
+   itself through would be marking your work. A clue
    you pass over is not gone — the button wraps round to it on a later lap, by
    which time the board may have enough on it for the clue to bite. **The clues
-   never run out**: a puzzle carries only the handful needed to crack it, so when
-   they are all spent the game writes you a new one, and another after that. How
+   never run out**, and nothing announces it: a puzzle carries only the handful
+   needed to crack it, so when they are all spent the game writes you a new one,
+   and another after that, each arriving like any other clue. How
    many you read is the score the statistics keep — there is no total to read it
    against, so working a clue harder before asking for the next is the whole
    game.
@@ -430,7 +434,7 @@ The two schemes, as they stand:
 | `accentGround` | the colour's day primary | the colour's day primary | the title panel, in both schemes |
 | `bg` | `#F6F3EC`, or the colour's own | `#14161C` | the page |
 | `surface` | `#FFFFFF`, or the colour's own page | `#1B1E26` | cards |
-| `surfaceAlt` | `#FBF9F3`, or a shade into that page | `#20242D` | a card that is spent |
+| `surfaceAlt` | `#FBF9F3`, or a shade into that page | `#20242D` | a card with nothing on it yet |
 | `boardLight` | `#F1EEE4` | `#232733` | the board's lighter square |
 | `boardShade` | `#E7E1D4` | `#2C313F` | the board's darker square |
 | `ink` | `#1D2333` | `#ECEDF2` | everything you read |
@@ -589,9 +593,9 @@ the player made, which is what lets a single tick finish several clues at once.
 
 `nextClue` walks on from the clue on the table and wraps round, skipping the
 ones that are done, so a clue passed over early comes back on a later lap once
-the board has enough on it for it to bite. The clue card strikes a spent clue
-through and fades it to 40% over 700ms rather than whipping it away, so the
-player sees which one they just finished.
+the board has enough on it for it to bite. Which clues are spent is the
+button's business and nobody else's: the card draws a clue the same either way,
+so working out whether one still has something to give is left to the player.
 
 **The clues never run out.** A puzzle ships with the smallest set that cracks
 it, so a player who has spent them all and is still short of the answer would
@@ -605,7 +609,14 @@ plain "X is Y" only when nothing else is left, because that one hands over an
 answer rather than pointing at it. Written clues are appended to the puzzle's
 own list, which is what gets saved, so a resumed game keeps the ones it was
 given. `null` comes back only when everything true about the puzzle is already
-on the board, which on a board with no mistakes means it is finished.
+on the board, which on a board with no mistakes means it is finished; the button
+answers that with a buzz and nothing else, since a board with everything on it
+is a board the player can see.
+
+None of this is announced. A clue written on the spot arrives exactly as the
+puzzle's own do — no line saying the clues ran out, no line saying a fresh one
+was written — because where a clue came from is bookkeeping, and being told the
+game is improvising is being told the puzzle is over.
 
 That is why nothing is counted out of a total: the number of clues a game takes
 is not fixed by the puzzle, so what the app shows and the statistics keep is

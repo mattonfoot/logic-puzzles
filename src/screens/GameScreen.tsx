@@ -348,10 +348,15 @@ export function GameScreen({
       // Nothing else left to hand over: every clue is used up, or the only one
       // still worth reading is the one already on the table. A puzzle carries
       // the smallest set of clues that cracks it, so that is not the end of
-      // what can be said about it — write another and carry on.
+      // what can be said about it — write another and carry on. The player is
+      // not told any of this: a clue written on the spot is a clue like the
+      // others, and where it came from is bookkeeping.
       const invented = inventClue(inPlay, marks, extraClues.length);
       if (!invented) {
-        flash('Nothing left to say — it is all on the board.');
+        // Nothing left that has not already been said. The refusal is a buzz,
+        // not a line: a board with everything on it is a board the player can
+        // see, and being told so is being told to look harder.
+        feedback.warn();
         return;
       }
       feedback.tap();
@@ -359,7 +364,6 @@ export function GameScreen({
       setExtraClues((extras) => [...extras, invented]);
       setClueIndex(at);
       setCluesSeen((seen) => new Set(seen).add(at));
-      flash('The clues ran out, so here is a new one.');
       return;
     }
     feedback.tap();
@@ -510,7 +514,6 @@ export function GameScreen({
             <ClueCard
               puzzle={inPlay}
               index={clueIndex}
-              done={clueIndex !== null && spent.has(clueIndex)}
               lit={lit}
               onPress={() => {
                 feedback.tap();
