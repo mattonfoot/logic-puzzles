@@ -14,7 +14,6 @@ import {
   isSolvable,
   isSolved,
   nextMark,
-  progress,
   reconcile,
   setMark,
   type Cell,
@@ -130,7 +129,6 @@ export function GameScreen({
   const spent = useMemo(() => cluesDone(marks, inPlay), [marks, inPlay]);
   const wrong = useMemo(() => findMistakes(marks, puzzle), [marks, puzzle]);
   const stuck = flagged && wrong.length > 0;
-  const filled = useMemo(() => progress(marks, puzzle), [marks, puzzle]);
   // The clock starts when the player asks for their first clue, not when the
   // board appears: with nothing to go on there is nothing to solve, so time
   // spent reading the sets or picking the game back up is not part of it. It is
@@ -389,8 +387,6 @@ export function GameScreen({
     flash('Restarted — same puzzle, fresh board and clock.');
   }, [flash]);
 
-  const gridsShown = (puzzle.categories.length * (puzzle.categories.length - 1)) / 2;
-
   if (menuOpen) {
     return (
       <GameMenuScreen
@@ -433,15 +429,6 @@ export function GameScreen({
         </View>
       </View>
 
-      <View style={styles.progressTrack}>
-        <View
-          style={[
-            styles.progressFill,
-            { width: `${Math.round(filled * 100)}%`, backgroundColor: palette.accent },
-          ]}
-        />
-      </View>
-
       {solved ? (
         <View style={styles.tabs}>
           <TabButton
@@ -463,9 +450,6 @@ export function GameScreen({
         {tab === 'grid' ? (
           <View style={styles.fill}>
             <View style={styles.boardHeader}>
-              <Text style={styles.cardTitle}>
-                {puzzle.categories.length} sets · {gridsShown} grids
-              </Text>
               <View style={styles.zoomRow}>
                 <ZoomButton
                   label="−"
@@ -716,13 +700,6 @@ const makeStyles = (palette: Palette) =>
       color: palette.inkFaint,
       marginTop: space(1.5),
     },
-    progressTrack: {
-      height: 3,
-      backgroundColor: palette.line,
-    },
-    progressFill: {
-      height: 3,
-    },
     tabs: {
       flexDirection: 'row',
       paddingHorizontal: space(4),
@@ -751,8 +728,9 @@ const makeStyles = (palette: Palette) =>
     },
     boardHeader: {
       flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
+      // The zoom pair is all that is left on this line, and it belongs on the
+      // right-hand end of it.
+      justifyContent: 'flex-end',
       marginBottom: space(3),
     },
     boardScroll: {
@@ -777,11 +755,6 @@ const makeStyles = (palette: Palette) =>
       fontSize: 17,
       fontWeight: '700',
       marginTop: -2,
-    },
-    cardTitle: {
-      fontSize: 16,
-      fontWeight: '700',
-      color: palette.ink,
     },
     cardHint: {
       fontSize: 11,

@@ -364,7 +364,7 @@ The two schemes, as they stand:
 
 | Role | Day | Night | Where it lands |
 |------|-----|-------|----------------|
-| `accent` | set by the player | set by the player | links, ticks, headings, the progress bar |
+| `accent` | set by the player | set by the player | links, ticks, headings, a chosen difficulty |
 | `accentSoft` | set by the player | set by the player | a tick the board worked out, a live clue's border |
 | `accentGround` | the colour's day primary | the colour's day primary | the title panel, in both schemes |
 | `bg` | `#F6F3EC`, or the colour's own | `#14161C` | the page |

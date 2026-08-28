@@ -56,7 +56,7 @@ export function ClueCard({ puzzle, index, done, lit, onPress }: Props) {
     return (
       <View style={[styles.card, styles.empty]}>
         <Text style={styles.emptyText}>
-          No clue on the table. Tap “Get next clue” to read the first one.
+          No clue on the table. Tap “Clue” to read the first one.
         </Text>
       </View>
     );
