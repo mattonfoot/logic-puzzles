@@ -488,17 +488,6 @@ export function GameScreen({
                 ) : null}
               </ScrollView>
             </View>
-
-            {/* A finished board still says what it is, since it takes no more
-                marks and the reason is not otherwise on the screen. A board
-                still in play says nothing: how to read a clue and how to mark a
-                square are learnt once, and a line repeating them every game is
-                furniture. */}
-            {solved ? (
-              <Text style={styles.cardHint}>
-                The finished board · Restart to play this puzzle again
-              </Text>
-            ) : null}
           </View>
         ) : (
           <SolvedPanel
@@ -758,12 +747,6 @@ const makeStyles = (palette: Palette) =>
       fontSize: 17,
       fontWeight: '700',
       marginTop: -2,
-    },
-    cardHint: {
-      fontSize: 11,
-      color: palette.inkFaint,
-      marginTop: space(2),
-      textAlign: 'center',
     },
     footer: {
       paddingHorizontal: space(4),
