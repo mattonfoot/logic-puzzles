@@ -127,7 +127,11 @@ rest is the app behaving normally.
    puzzle is six items across four sets and six grids to fill. The theme is
    drawn at that moment — one of five settings, its sets and its cast sampled
    from pools of fourteen items each, so two puzzles rarely share a line-up.
-2. **Game** — the whole puzzle is drawn as one staircase of grids, the way a
+2. **Game** — the board names the puzzle's theme in the same ruled title every
+   other screen uses, with the burger beside it and the seed underneath, and
+   nothing else: no clock, because one counting up is a thing to watch rather
+   than a thing to use. The time is still kept, saved with the game and read
+   out at the finish. The whole puzzle is drawn as one staircase of grids, the way a
    printed logic puzzle is laid out: every pair of sets meets in its own grid,
    so a four-set puzzle is a 3 × 3 arrangement holding six grids, and each grid
    is items × items. Nothing on the screen scrolls: the board opens at the size
@@ -357,7 +361,7 @@ The two schemes, as they stand:
 
 | Role | Day | Night | Where it lands |
 |------|-----|-------|----------------|
-| `accent` | set by the player | set by the player | links, ticks, headings, the timer |
+| `accent` | set by the player | set by the player | links, ticks, headings, the progress bar |
 | `accentSoft` | set by the player | set by the player | a tick the board worked out, a live clue's border |
 | `accentGround` | the colour's day primary | the colour's day primary | the title panel, in both schemes |
 | `bg` | `#F6F3EC`, or the colour's own | `#14161C` | the page |

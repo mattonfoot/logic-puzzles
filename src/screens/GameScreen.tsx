@@ -23,13 +23,14 @@ import {
 import { cluesDone, inventClue, nextClue } from '../game/clues';
 import { SAVE_VERSION, type SavedGame } from '../game/persistence';
 import type { CompletionInput } from '../game/usePersistence';
-import { formatDuration, useTimer } from '../game/useTimer';
+import { useTimer } from '../game/useTimer';
 import { clueAttributes } from '../puzzle/describe';
 import type { Attribute, Clue, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { Icon } from '../ui/Icon';
+import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, joinLeft, radius, space, tint, type Palette } from '../ui/theme';
@@ -133,7 +134,9 @@ export function GameScreen({
   const filled = useMemo(() => progress(marks, puzzle), [marks, puzzle]);
   // The clock starts when the player asks for their first clue, not when the
   // board appears: with nothing to go on there is nothing to solve, so time
-  // spent reading the sets or picking the game back up is not part of it.
+  // spent reading the sets or picking the game back up is not part of it. It is
+  // not shown while playing — a clock counting up is a thing to watch rather
+  // than a thing to use — but it is kept, saved, and read out at the finish.
   const started = cluesSeen.size > 0;
   const seconds = useTimer(
     started && !solved,
@@ -410,7 +413,7 @@ export function GameScreen({
 
   return (
     <View style={styles.screen}>
-      <View style={[styles.header, { paddingTop: insets.top + space(2) }]}>
+      <View style={[styles.header, { paddingTop: insets.top + space(4) }]}>
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Menu"
@@ -424,18 +427,11 @@ export function GameScreen({
           <Text style={styles.headerButtonText}>☰</Text>
         </Pressable>
         <View style={styles.headerCenter}>
-          <View style={styles.headerTitleRow}>
-            <Icon name={puzzle.themeIcon} size={16} color={palette.accent} />
-            <Text style={styles.headerTitle} numberOfLines={1}>
-              {puzzle.themeName}
-            </Text>
-          </View>
+          <RuledTitle>{puzzle.themeName}</RuledTitle>
           <Text style={styles.headerSubtitle} numberOfLines={1}>
-            {puzzle.size.label} · {cluesSeen.size} clue{cluesSeen.size === 1 ? '' : 's'} read · #
-            {puzzle.seed}
+            #{puzzle.seed}
           </Text>
         </View>
-        <Text style={[styles.timer, { color: palette.accent }]}>{formatDuration(seconds)}</Text>
       </View>
 
       <View style={styles.progressTrack}>
@@ -707,7 +703,8 @@ const makeStyles = (palette: Palette) =>
     },
     header: {
       flexDirection: 'row',
-      alignItems: 'center',
+      // The burger sits with the title rather than with the line under it.
+      alignItems: 'flex-start',
       paddingHorizontal: space(4),
       paddingBottom: space(3),
       gap: space(3),
@@ -731,25 +728,10 @@ const makeStyles = (palette: Palette) =>
     headerCenter: {
       flex: 1,
     },
-    headerTitleRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: space(1.5),
-    },
-    headerTitle: {
-      fontSize: 16,
-      fontWeight: '700',
-      color: palette.ink,
-    },
     headerSubtitle: {
       fontSize: 12,
       color: palette.inkFaint,
-      marginTop: 1,
-    },
-    timer: {
-      fontSize: 17,
-      fontWeight: '700',
-      fontVariant: ['tabular-nums'],
+      marginTop: space(1.5),
     },
     progressTrack: {
       height: 3,
