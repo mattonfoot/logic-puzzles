@@ -109,11 +109,13 @@ async function fresh(page, origin) {
   await wait(page, 900);
 }
 
-async function startPuzzle(page, difficulty = 'Advanced') {
-  await page.getByLabel('Play').click();
+async function startPuzzle(page, difficulty = 'Advanced', number = 1) {
+  await page.getByLabel('Play', { exact: true }).click();
   await wait(page, 500);
-  // Picking a difficulty is starting the puzzle.
+  // A difficulty opens its numbered list; the number is the puzzle's seed.
   await page.getByLabel(difficulty, { exact: true }).click();
+  await wait(page, 500);
+  await page.getByLabel(`Game ${number}`, { exact: true }).click();
   await wait(page, 1600);
 }
 
@@ -209,33 +211,47 @@ async function main() {
   await fresh(page, origin);
   await shot('01-start');
 
-  // 2. Setup — the only choice the player makes about a puzzle.
-  await page.getByLabel('Play').click();
+  // 2. The difficulties, the first of the two things a player chooses.
+  await page.getByLabel('Play', { exact: true }).click();
   await wait(page, 500);
   await shot('02-setup');
 
-  // 3. Settings, which outlive any one game.
+  // 3. The numbered games at that difficulty, which is the second.
+  await page.getByLabel('Advanced', { exact: true }).click();
+  await wait(page, 600);
+  await shot('03-numbers');
+  await page.getByLabel('Back to the difficulties').click();
+  await wait(page, 400);
   await page.getByLabel('Back').click();
   await wait(page, 400);
+
+  // 4. Today's four challenges, the other way in.
+  await page.getByLabel('Daily', { exact: true }).click();
+  await wait(page, 600);
+  await shot('04-daily');
+  await page.getByLabel('Back').click();
+  await wait(page, 400);
+
+  // 5. Settings, which outlive any one game.
   await page.getByLabel('Settings').click();
   await wait(page, 500);
-  await shot('03-settings');
+  await shot('05-settings');
   await page.getByLabel('Back').click();
   await wait(page, 400);
 
-  // 4. The grid tab, which is where a game opens.
+  // 6. The board, which is where a game opens.
   await startPuzzle(page);
-  await shot('04-board');
+  await shot('06-board');
 
-  // 5. The menu, behind the burger: the one board setting and the three ways
+  // 7. The menu, behind the burger: the one board setting and the three ways
   // to leave the puzzle behind.
   await page.getByLabel('Menu').click();
   await wait(page, 500);
-  await shot('05-menu');
+  await shot('07-menu');
   await page.getByLabel('Back to the board').click();
   await wait(page, 400);
 
-  // 6. A clue on the table, lit up on the grid.
+  // 8. A clue on the table, lit up on the grid.
   const puzzle = await puzzleInPlay(page);
   const nextClue = page.getByLabel('Clue', { exact: true });
   await nextClue.click();
@@ -243,7 +259,7 @@ async function main() {
   const clueCard = page.getByLabel(/^Clue in play/);
   await clueCard.click();
   await wait(page, 500);
-  await shot('06-clue');
+  await shot('08-clue');
 
   // Some marks on the board before the shots that need one. The clue panel
   // reads the same once its marks are down — the game does not say which clues
@@ -269,33 +285,33 @@ async function main() {
   );
   await wait(page, 1000);
 
-  // 7. A board the answer can no longer be reached from, which is what the
+  // 9. A board the answer can no longer be reached from, which is what the
   // clue button reports instead of handing over a clue.
   const wrongEntity = (puzzle.solution[1][0] + 1) % puzzle.size.items;
   await tick(page, puzzle, 0, puzzle.solution[0][0], 1, wrongEntity);
   await nextClue.click();
   await wait(page, 500);
-  await shot('07-stuck');
+  await shot('09-stuck');
   const rewind = page.getByLabel(/^Rewind/);
   if (await rewind.count()) {
     await rewind.click();
     await wait(page, 400);
   }
 
-  // 8. Who one of the pictures on the board actually is: the card behind a tap,
+  // 10. Who one of the pictures on the board actually is: the card behind a tap,
   // where the traits the clues describe things by are written down. Shot before
   // the finish, since a finished game shows its result rather than the board.
   await page.locator('[aria-label^="About "]').first().click();
   await wait(page, 700);
-  await shot('08-item-card');
+  await shot('10-item-card');
   await page.locator('[aria-label="Close"]').click({ position: { x: 12, y: 12 } });
   await wait(page, 400);
 
-  // 9. Finished: the result is the screen, and the board is behind it.
+  // 11. Finished: the result is the screen, and the board is behind it.
   await solve(page, puzzle);
-  await shot('09-solved');
+  await shot('11-solved');
 
-  // 10. Statistics, shown with a sample history.
+  // 12. Statistics, shown with a sample history.
   await page.goto(origin, { waitUntil: 'networkidle' });
   await page.evaluate((history) => {
     localStorage.clear();
@@ -305,9 +321,9 @@ async function main() {
   await wait(page, 1200);
   await page.getByLabel('Statistics').click();
   await wait(page, 800);
-  await shot('10-statistics', { fullPage: true });
+  await shot('12-statistics', { fullPage: true });
 
-  // 11. The setup screen in night colours, with a game waiting to be resumed.
+  // 13. The setup screen in night colours, with a game waiting to be resumed.
   await page.getByLabel('Back').click();
   await wait(page, 500);
   await page.getByLabel('Settings').click();
@@ -325,10 +341,13 @@ async function main() {
   // A few true pairings, so the card on the start page shows some progress.
   await solve(page, await puzzleInPlay(page), 3);
   await wait(page, 1000);
-  // Leaving a puzzle lands on setup, which is where the game it left waits.
+  // Leaving a puzzle lands on the list it was started from; the setup screen,
+  // where the game it left waits, is one step further back.
   await page.getByLabel('Back to setup').click();
+  await wait(page, 600);
+  await page.getByLabel('Back to the difficulties').click();
   await wait(page, 900);
-  await shot('11-night');
+  await shot('13-night');
 
   await browser.close();
   server.close();

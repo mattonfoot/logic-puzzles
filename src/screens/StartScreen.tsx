@@ -9,6 +9,7 @@ import { space, type Palette } from '../ui/theme';
 import { TitlePanel } from '../ui/TitlePanel';
 
 interface Props {
+  onDaily: () => void;
   onPlay: () => void;
   onOpenSettings: () => void;
   onOpenStats: () => void;
@@ -19,25 +20,29 @@ interface Props {
  *
  * The screen is halved. The top half is the name and what it is, sitting in the
  * middle of it with nothing to press — a page to land on. The bottom half is
- * where the pressing happens, and **Play** sits at the top of it, roughly under
- * the thumb, where the eye arrives after reading.
+ * where the pressing happens: **Daily** and then **Play**, at the top of it,
+ * roughly under the thumb, where the eye arrives after reading.
+ *
+ * Daily leads, because it is the one that expires. Play is there every day and
+ * will keep; today's four challenges will not. A rule between them says they
+ * are two different offers rather than a list of two — one is what to play
+ * today, the other is everything else.
  *
  * The top half is `TitlePanel`, the same block of the link colour the setup
  * screen wears: stepping from here to there changes the bottom half of the
  * screen and nothing else.
  *
- * Everything hangs off the same left margin — the panel's words and Play — so
- * the eye drops straight down one edge. The single exception is
+ * Everything hangs off the same left margin — the panel's words and both doors
+ * — so the eye drops straight down one edge. The single exception is
  * Statistics, which is pushed to the right so the two links at the foot sit in
  * opposite corners rather than reading as a pair.
  *
  * Those two are text rather than anything with a box round it. They are
  * somewhere to go once, not the point of the page, and putting them in a row of
- * cards with Play made all three look like the same size of decision.
+ * cards with the two doors made them all look like the same size of decision.
  */
-export function StartScreen({ onPlay, onOpenSettings, onOpenStats }: Props) {
+export function StartScreen({ onDaily, onPlay, onOpenSettings, onOpenStats }: Props) {
   const insets = useSafeAreaInsets();
-  const palette = useTheme();
   const styles = useStyles(makeStyles);
 
   return (
@@ -45,18 +50,11 @@ export function StartScreen({ onPlay, onOpenSettings, onOpenStats }: Props) {
       <TitlePanel />
 
       <View style={[styles.bottom, { paddingBottom: insets.bottom + space(3) }]}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Play"
-          onPress={() => {
-            feedback.tap();
-            onPlay();
-          }}
-          hitSlop={12}
-          style={({ pressed }) => [styles.play, { opacity: pressed ? 0.6 : 1 }]}
-        >
-          <Text style={[styles.playText, { color: palette.accent }]}>Play</Text>
-        </Pressable>
+        <View style={styles.doors}>
+          <Door label="Daily" onPress={onDaily} />
+          <View style={styles.rule} />
+          <Door label="Play" onPress={onPlay} />
+        </View>
 
         <View style={styles.footer}>
           <FootLink label="Settings" onPress={onOpenSettings} />
@@ -64,6 +62,26 @@ export function StartScreen({ onPlay, onOpenSettings, onOpenStats }: Props) {
         </View>
       </View>
     </View>
+  );
+}
+
+/** One of the two ways in, set as large as the app sets anything. */
+function Door({ label, onPress }: { label: string; onPress: () => void }) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      onPress={() => {
+        feedback.tap();
+        onPress();
+      }}
+      hitSlop={12}
+      style={({ pressed }) => [styles.door, { opacity: pressed ? 0.6 : 1 }]}
+    >
+      <Text style={[styles.doorText, { color: palette.accent }]}>{label}</Text>
+    </Pressable>
   );
 }
 
@@ -97,17 +115,27 @@ const makeStyles = (palette: Palette) =>
       justifyContent: 'space-between',
       paddingHorizontal: space(5),
     },
-    play: {
-      alignSelf: 'flex-start',
-      paddingTop: space(6),
-      paddingRight: space(8),
-      paddingBottom: space(2),
+    doors: {
+      paddingTop: space(5),
     },
-    playText: {
+    door: {
+      alignSelf: 'flex-start',
+      paddingVertical: space(1),
+      paddingRight: space(8),
+    },
+    doorText: {
       fontSize: 56,
       lineHeight: 64,
       fontWeight: '800',
       letterSpacing: -1,
+    },
+    rule: {
+      // Between the two, not under both: it separates rather than underlines,
+      // so it stops short of the right-hand edge the way the ruled titles do.
+      height: 2,
+      backgroundColor: palette.line,
+      marginVertical: space(2),
+      marginRight: space(4),
     },
     footer: {
       flexDirection: 'row',

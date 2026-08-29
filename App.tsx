@@ -11,15 +11,17 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { SIZES } from './src/data/sizes';
 import { THEMES } from './src/data/themes';
-import type { SavedGame } from './src/game/persistence';
+import { dailySeed } from './src/game/library';
+import type { CompletedGame, SavedGame } from './src/game/persistence';
 import { usePersistence } from './src/game/usePersistence';
 import { useSettings } from './src/game/useSettings';
 import { generatePuzzle } from './src/puzzle/generator';
-import { randomSeed } from './src/puzzle/rng';
 import type { Puzzle, SizeOption } from './src/puzzle/types';
+import { DailyScreen } from './src/screens/DailyScreen';
 import { GameScreen } from './src/screens/GameScreen';
+import { NumbersScreen } from './src/screens/NumbersScreen';
+import { ResultScreen } from './src/screens/ResultScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
 import { SetupScreen } from './src/screens/SetupScreen';
 import { StartScreen } from './src/screens/StartScreen';
@@ -28,7 +30,7 @@ import { configureFeedback } from './src/ui/feedback';
 import { ThemeProvider, useStyles, useTheme } from './src/ui/ThemeProvider';
 import { inkOn, type Palette } from './src/ui/theme';
 
-type Screen = 'start' | 'setup' | 'settings' | 'stats' | 'game';
+type Screen = 'start' | 'daily' | 'setup' | 'numbers' | 'result' | 'settings' | 'stats' | 'game';
 
 export default function App() {
   // One file per weight; `src/ui/Text` picks between them. Until they are here
@@ -86,24 +88,33 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
   const [restore, setRestore] = useState<SavedGame | null>(null);
   const [screen, setScreen] = useState<Screen>('start');
   const [busy, setBusy] = useState(false);
+  // The difficulty whose numbered list is open, and the finished game being
+  // read back. Both are set on the way in and cleared by going back.
+  const [chosen, setChosen] = useState<SizeOption | null>(null);
+  const [result, setResult] = useState<CompletedGame | null>(null);
+  // Where leaving a game returns to: the list it was started from.
+  const [cameFrom, setCameFrom] = useState<Screen>('numbers');
 
   /**
-   * Every new puzzle gets its own random seed, and that seed decides everything
+   * Builds the puzzle a seed and a shape name, and opens it.
+   *
+   * Nothing is rolled here any more. A numbered game takes its number as the
+   * seed and the daily challenge takes the date's, so every puzzle in the app
+   * can be named and asked for again — and the seed still decides everything
    * the player is not choosing: the theme, the sets in play, the items in them,
-   * the solution and the clues. Resuming or restarting keeps the puzzle that
-   * seed produced, so the same cast comes back.
+   * the solution and the clues.
    *
    * Generation is synchronous and can take a beat on the bigger grids, so we
-   * hand a frame back to the UI first and let the button show its busy state.
+   * hand a frame back to the UI first and let the list show its busy state.
    */
   const build = useCallback(
-    (nextSize: SizeOption) => {
+    (nextSize: SizeOption, seed: number, from: Screen) => {
       setBusy(true);
-      const seed = randomSeed();
       setTimeout(() => {
         // Starting a new puzzle replaces whatever was in progress.
         persistence.discardSavedGame();
         setRestore(null);
+        setCameFrom(from);
         setPuzzle(generatePuzzle({ theme: THEMES, size: nextSize, seed }));
         setScreen('game');
         setBusy(false);
@@ -112,23 +123,20 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
     [persistence],
   );
 
-  const surpriseMe = useCallback(() => {
-    build(SIZES[Math.floor(Math.random() * SIZES.length)]);
-  }, [build]);
-
   const resume = useCallback(() => {
     const saved = persistence.savedGame;
     if (!saved) return;
     setRestore(saved);
     setPuzzle(saved.puzzle);
+    setCameFrom('setup');
     setScreen('game');
   }, [persistence.savedGame]);
 
   const leaveGame = useCallback(() => {
     setPuzzle(null);
     setRestore(null);
-    setScreen('setup');
-  }, []);
+    setScreen(cameFrom);
+  }, [cameFrom]);
 
   const recordCompletion = useCallback(
     (input: Parameters<typeof persistence.recordCompletion>[1]) => {
@@ -176,11 +184,34 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           <SetupScreen
             busy={busy}
             savedGame={persistence.savedGame}
-            onStart={build}
-            onSurpriseMe={surpriseMe}
+            onChoose={(size) => {
+              setChosen(size);
+              setScreen('numbers');
+            }}
             onResume={resume}
             onBack={() => setScreen('start')}
           />
+        ) : screen === 'numbers' && chosen ? (
+          <NumbersScreen
+            size={chosen}
+            busy={busy}
+            history={persistence.history}
+            onPlay={(number) => build(chosen, number, 'numbers')}
+            onBack={() => setScreen('setup')}
+          />
+        ) : screen === 'daily' ? (
+          <DailyScreen
+            busy={busy}
+            history={persistence.history}
+            onPlay={(size) => build(size, dailySeed(), 'daily')}
+            onShowResult={(game) => {
+              setResult(game);
+              setScreen('result');
+            }}
+            onBack={() => setScreen('start')}
+          />
+        ) : screen === 'result' && result ? (
+          <ResultScreen game={result} onBack={() => setScreen('daily')} />
         ) : screen === 'settings' ? (
           <SettingsScreen
             settings={settings.settings}
@@ -196,6 +227,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           />
         ) : (
           <StartScreen
+            onDaily={() => setScreen('daily')}
             onPlay={() => setScreen('setup')}
             onOpenSettings={() => setScreen('settings')}
             onOpenStats={() => setScreen('stats')}

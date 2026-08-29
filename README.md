@@ -166,10 +166,11 @@ images in the same commit.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Play** at the top of the bottom half, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="Setup screen"><br>**2. Setup** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-settings.png" width="230" alt="Settings screen"><br>**3. Settings** — six names with a box or a slider against each, and nothing to read. |
-| <img src="docs/screenshots/04-board.png" width="230" alt="The board"><br>**4. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/05-menu.png" width="230" alt="Game menu"><br>**5. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/06-clue.png" width="230" alt="A clue on the table"><br>**6. Clue** — one clue at a time, under the board, lit up on the grids it talks about. |
-| <img src="docs/screenshots/07-stuck.png" width="230" alt="A board that can no longer be solved"><br>**7. Out of reach** — the clue button checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/08-item-card.png" width="230" alt="The card behind an item's picture"><br>**8. Item card** — tap any picture on the board to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/09-solved.png" width="230" alt="A finished game"><br>**9. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. |
-| <img src="docs/screenshots/10-statistics.png" width="230" alt="Statistics screen"><br>**10. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/11-night.png" width="230" alt="Setup screen in night colours"><br>**11. Night** — the setup screen in night colours, with a game waiting behind **Continue**. | |
+| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered games"><br>**3. Numbered games** — every game at that difficulty, counting from one, twelve to a page, with your time beside the ones you have finished. |
+| <img src="docs/screenshots/04-daily.png" width="230" alt="Daily challenges"><br>**4. Daily** — today's four, one per difficulty. A finished one shows its time and opens the result instead of a board. | <img src="docs/screenshots/05-settings.png" width="230" alt="Settings screen"><br>**5. Settings** — seven names with a box or a slider against each, and nothing to read. | <img src="docs/screenshots/06-board.png" width="230" alt="The board"><br>**6. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. |
+| <img src="docs/screenshots/07-menu.png" width="230" alt="Game menu"><br>**7. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/08-clue.png" width="230" alt="A clue on the table"><br>**8. Clue** — one clue at a time, under the board, lit up on the grids it talks about. | <img src="docs/screenshots/09-stuck.png" width="230" alt="A board that can no longer be solved"><br>**9. Out of reach** — the clue button checks the board first, and stops with a window offering to rewind when the answer has been marked away. |
+| <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item's picture"><br>**10. Item card** — tap any picture on the board to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-solved.png" width="230" alt="A finished game"><br>**11. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. | <img src="docs/screenshots/12-statistics.png" width="230" alt="Statistics screen"><br>**12. Statistics** — totals, bests by difficulty and the trend of recent solve times. |
+| <img src="docs/screenshots/13-night.png" width="230" alt="Setup screen in night colours"><br>**13. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | | |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -181,32 +182,44 @@ rest is the app behaving normally.
    colour carrying two lines in white, sitting in the middle of it with nothing
    to press: "One solution, never guessed, pure…" and then, in the largest type
    the app has, **…Deduction** — the name picking the sentence back up where the
-   line above dropped it. Nothing
-   is written under it; the bottom half is the page's own colour,
-   with **Play** at the top of it, large and on its own. Everything hangs off the same left margin so the eye drops
+   line above dropped it. Nothing is written under it; the bottom half is the
+   page's own colour and holds the two ways in, **Daily** above **Play** with a
+   rule between them. Everything hangs off the same left margin so the eye drops
    down one edge. **Settings** and **Statistics** are text at the foot of the
    screen — Statistics pushed to the right so the two sit in opposite corners
-   rather than reading as a pair. Play opens the setup screen, which is the same page with its bottom half
+   rather than reading as a pair.
+2. **Play** opens the difficulties, which is the same page with its bottom half
    swapped — the panel above is the same block, given the same half — and is
    where a game you left in progress waits: **Continue**, one word above
    everything else, which picks it up with the clock where it stopped. Under it
    a **Play** heading — with a rule drawn out of the word to the right of it —
-   and the difficulties, set as a list of words as large as the half they stand
-   in allows — the whole list is on the screen at once, since a word that has to
-   be scrolled to might as well not be there. Pick one
-   and the
-   puzzle starts — there is nothing else to decide, so there is nothing else to
-   press. Starting one replaces the saved game, which is the only way to throw
-   one away, since choosing what to play instead is the same decision. **Beginner** (3 × 3), **Advanced** (4 × 4), **Expert** (5 × 4),
-   **Pro** (6 × 4), or **Surprise me!**, which rolls one of the four. The shapes
-   are not printed beside the names — they are on the board a second later, and
-   were never the thing being chosen — but a screen reader still hears them. The
-   shape is what makes the difficulty: the first number is how
-   many items each set holds, the second how many sets take part, so a Pro
-   puzzle is six items across four sets and six grids to fill. The theme is
-   drawn at that moment — one of five settings, its sets and its cast sampled
-   from pools of fourteen items each, so two puzzles rarely share a line-up.
-2. **Game** — the board names the puzzle's theme in the same ruled title every
+   and **Beginner** (3 × 3), **Advanced** (4 × 4), **Expert** (5 × 4) and
+   **Pro** (6 × 4), set as a list of words as large as the half they stand in
+   allows: the whole list is on the screen at once, since a word that has to be
+   scrolled to might as well not be there. The shapes are not printed beside the
+   names — they are on the board a minute later, and were never the thing being
+   chosen — but a screen reader still hears them. The shape is what makes the
+   difficulty: the first number is how many items each set holds, the second how
+   many sets take part, so a Pro puzzle is six items across four sets and six
+   grids to fill.
+3. **A difficulty opens its games, numbered from one.** A puzzle is decided
+   entirely by its seed and its shape, and the generator is deterministic, so
+   the number *is* the puzzle: game 7 at Expert holds the same cast, the same
+   answer and the same clues on anybody's phone, this year or next. Pick one and
+   it starts — that number becomes the seed. The list is paged rather than
+   scrolled, twelve to a page, with **Previous** and **Next** at the foot of it;
+   a game you have already finished carries its time on the right of its number,
+   which is both the fact that it is done and something to beat. Starting any
+   game replaces the one saved in progress, which is the only way to throw one
+   away, since choosing what to play instead is the same decision.
+4. **Daily** is the other way in: today's four challenges, one per difficulty,
+   seeded by the date so everybody gets the same four on the same day. Each is
+   played once — finish one and its row shows the time instead, and pressing it
+   opens the result rather than a board. Tomorrow the date moves the seed on and
+   all four are open again. The theme, as everywhere, is drawn by the seed: one
+   of five settings, its sets and its cast sampled from pools of fourteen items
+   each, so two puzzles rarely share a line-up.
+5. **Game** — the board names the puzzle's theme in the same ruled title every
    other screen uses, with the burger beside it and the seed underneath, and
    nothing else: no clock, because one counting up is a thing to watch rather
    than a thing to use. The time is still kept, saved with the game and read
@@ -229,7 +242,7 @@ rest is the app behaving normally.
    it over — can both be turned off, from the menu or from Settings. The set
    names and item pictures stay pinned while the grids scroll sideways, and − / +
    resize the squares past the fit.
-3. **Clues arrive one at a time.** They do not always use names: about a third
+6. **Clues arrive one at a time.** They do not always use names: about a third
    of the time a clue describes something instead — "the diver with green eyes",
    "no payload made of glass" — and a description that covers two things says
    something about both at once. The cards behind the labels are where those
@@ -252,7 +265,7 @@ rest is the app behaving normally.
    many you read is the score the statistics keep — there is no total to read it
    against, so working a clue harder before asking for the next is the whole
    game.
-4. **Undo** takes back one mark at a time, autos and all. **Clue**
+7. **Undo** takes back one mark at a time, autos and all. **Clue**
    looks at the board before it hands anything over: a puzzle has one answer, so
    a single mark that contradicts it puts the answer out of reach, and a clue
    read against a board you can no longer solve is a clue wasted. When that has
@@ -271,7 +284,7 @@ rest is the app behaving normally.
    and the answer above it says everything the squares would. There is nothing
    to press: `◀ Back` leads to the setup screen, which is where the next puzzle
    is chosen.
-5. **Puzzle settings**, behind the burger at the top left, holds everything that acts
+8. **Puzzle settings**, behind the burger at the top left, holds everything that acts
    on the game rather than on a square: the two board settings and the colour,
    boxed and named exactly as the settings screen has them (they are the
    player's, not the puzzle's, which is why they are worth reaching mid-game),
@@ -284,7 +297,7 @@ rest is the app behaving normally.
    the puzzle was chosen on, so the next one is a tap away; the board is saved
    on the way out either way, and it is the first thing on that screen if you
    want it back.
-6. **Settings** — a list of names with a box, a slider or a value against
+9. **Settings** — a list of names with a box, a slider or a value against
    each: the board pair above; **match the device**, which follows the phone's
    own light and dark setting and turns with it, and **night colours** for a
    warm near-black page when it does not; **colour**, which cycles through the
@@ -292,10 +305,11 @@ rest is the app behaving normally.
    in four steps from off; and **vibration**. Nothing explains what any of them
    does, because all of them show their effect the moment they are touched.
    They are written to disk, so they are the same the next time the app opens.
-7. **Come back later** — the board saves itself as you play, so closing the app
-   mid-puzzle costs nothing. It is waiting on the setup screen when you come
-   back, with the clock where you left it and the same puzzle in front of you.
-8. **Statistics** — solved count, time played, day streak, clues read (in total
+10. **Come back later** — the board saves itself as you play, so closing the app
+   mid-puzzle costs nothing. It is waiting behind **Continue** on the difficulty
+   screen when you come back, with the clock where you left it and the same
+   puzzle in front of you.
+11. **Statistics** — solved count, time played, day streak, clues read (in total
    and per puzzle), a table of best and average times by difficulty, a chart of
    recent solve times, and the list of recent games. Finishing a puzzle shows
    how that time compares with your earlier games at the same size.
@@ -342,6 +356,7 @@ src/puzzle/generator.ts     builds a solution, then a minimal clue set for it
 src/puzzle/solver.ts        constraint solver: propagation + search
 src/puzzle/describe.ts      clue objects → sentences, using each theme's wording
 src/game/board.ts           the player's ticks and crosses, mistakes, win check
+src/game/library.ts         the numbered catalogue and the daily seed
 src/game/clues.ts           what a clue asks of the board, which are spent, and
                             how a new one is written when they run out
 src/game/layout.ts          the staircase arrangement + the answer table
@@ -352,7 +367,8 @@ src/game/useTimer.ts        elapsed-time hook
 src/stats/summary.ts        history → stats per difficulty, streaks, improvement notes
 src/storage/store.ts        the only module that touches AsyncStorage
 src/components/             GridBoard, SolutionTable, ClueCard, ItemCard, …
-src/screens/                StartScreen, SetupScreen, SettingsScreen,
+src/screens/                StartScreen, SetupScreen, NumbersScreen,
+                            DailyScreen, ResultScreen, SettingsScreen,
                             GameScreen, GameMenuScreen, StatsScreen
 src/game/settings.ts        the player's settings, and reading them back
 src/game/useSettings.ts     those settings as React state, written as they change
@@ -889,12 +905,23 @@ The seed is therefore never re-rolled for a puzzle already in play:
 
 | Action | Seed |
 |---|---|
-| Starting a puzzle | a new random seed |
+| A numbered game | the number itself: game 7 is seed 7 |
+| A daily challenge | the year × the month × the date |
 | **Restart** | unchanged — same theme, sets, items, answer and clues; only the board and the clock start over |
 | **Continue** | unchanged — the saved puzzle is stored whole and comes back as it was, clock included |
 
-The current seed is printed at the foot of the game screen, so a puzzle worth
-repeating can be identified.
+Nothing is rolled any more. Every puzzle in the app can be named and asked for
+again, which is what makes a numbered list a catalogue rather than a wall of
+strangers, and what lets two people compare a time on game 7. The seed is
+printed under the title on the game screen.
+
+Because the daily seed is a **product**, it cannot tell one day from another on
+its own: every date whose month times date comes to the same number shares it,
+so the 12th of February, the 8th of March and the 6th of April all seed on the
+year times 24 and hand out the same puzzle. `dailyDone` therefore checks the
+calendar day as well as the seed, so finishing one of those days does not spend
+the others. Seeding on `year × 10000 + month × 100 + day` would give every date
+its own puzzle and make the check unnecessary.
 
 ## Persistence and statistics
 

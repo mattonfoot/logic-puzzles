@@ -18,17 +18,17 @@ interface Props {
   busy: boolean;
   /** An unfinished game waiting to be picked back up, if there is one. */
   savedGame: SavedGame | null;
-  /** Picking a difficulty is starting the puzzle; there is nothing else to say. */
-  onStart: (size: SizeOption) => void;
-  onSurpriseMe: () => void;
+  /** Picking a difficulty opens the numbered list of games at that shape. */
+  onChoose: (size: SizeOption) => void;
   onResume: () => void;
   onBack: () => void;
 }
 
 /**
- * What to play: how big the grid is, which is the only thing about a puzzle the
- * player chooses. Everything else — the theme, the cast, the answer — is drawn
- * when the game starts.
+ * How big the grid is — the first of the two things a player chooses. The other
+ * is which numbered game to play, on the screen a difficulty leads to, and
+ * everything else about a puzzle falls out of that number: the theme, the cast,
+ * the answer and the clues.
  *
  * It is the front door with its bottom half swapped: the same panel, given the
  * same half of the screen, and under it the difficulties set as a list of words
@@ -55,7 +55,7 @@ interface Props {
  * difficulty replaces it, which is the same decision made by choosing what to
  * do instead of what to stop.
  */
-export function SetupScreen({ busy, savedGame, onStart, onSurpriseMe, onResume, onBack }: Props) {
+export function SetupScreen({ busy, savedGame, onChoose, onResume, onBack }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
 
@@ -87,15 +87,9 @@ export function SetupScreen({ busy, savedGame, onStart, onSurpriseMe, onResume, 
                 label={option.difficulty}
                 hint={`${option.items} items in each of ${option.categories} sets`}
                 disabled={busy}
-                onPress={() => onStart(option)}
+                onPress={() => onChoose(option)}
               />
             ))}
-            <Choice
-              label="Surprise me!"
-              hint="Any of the four, rolled for you"
-              disabled={busy}
-              onPress={onSurpriseMe}
-            />
           </View>
         </ScrollView>
 
@@ -180,10 +174,10 @@ const makeStyles = (palette: Palette) =>
       paddingRight: space(6),
     },
     choiceText: {
-      // Sized so the whole list — Continue, four difficulties and Surprise me!
-      // — stands in the half of the screen the panel leaves, on the phone this
-      // is drawn for. A word that has to be scrolled to is a word that might as
-      // well not be on the screen.
+      // Sized so the whole list — Continue and the four difficulties — stands
+      // in the half of the screen the panel leaves, on the phone this is drawn
+      // for. A word that has to be scrolled to is a word that might as well not
+      // be on the screen.
       fontSize: 33,
       lineHeight: 40,
       fontWeight: '800',
