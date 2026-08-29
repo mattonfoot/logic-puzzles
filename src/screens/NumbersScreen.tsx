@@ -31,9 +31,12 @@ interface Props {
  * or next. That turns a wall of random games into something with an order to
  * work through, and gives two players something to compare.
  *
- * A game already finished carries its time on the right of its number. That is
- * the whole of the record kept here — no ticks, no stars — because a time is
- * both the fact that it is done and a thing to beat.
+ * Every puzzle carries a box on the left, empty until it is finished and then
+ * ticked, and a finished one carries its time on the right as well. The box is
+ * the one thing readable at a glance down a column — a row of them says how far
+ * through a difficulty you are without reading a word — and the time beside it
+ * is the thing to beat. They are drawn the way the settings screen draws a
+ * checkbox, because that is what they are.
  *
  * It wears the same panel the front door and the difficulties do, given the
  * same half of the screen, so walking Play → a difficulty → a number changes
@@ -69,11 +72,12 @@ export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
                 <Pressable
                   key={number}
                   accessibilityRole="button"
-                  accessibilityLabel={`Game ${number}`}
+                  accessibilityLabel={`Puzzle ${number}`}
+                  // A screen reader hears the box as the state it stands for.
+                  accessibilityState={{ checked: Boolean(game), disabled: busy }}
                   accessibilityHint={
-                    game ? `Finished in ${formatDuration(game.seconds)}` : `${size.label}`
+                    game ? `Finished in ${formatDuration(game.seconds)}` : size.label
                   }
-                  accessibilityState={{ disabled: busy }}
                   disabled={busy}
                   onPress={() => {
                     feedback.tap();
@@ -81,7 +85,18 @@ export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
                   }}
                   style={({ pressed }) => [styles.row, { opacity: busy ? 0.4 : pressed ? 0.6 : 1 }]}
                 >
-                  <Text style={[styles.number, { color: palette.accent }]}>{number}</Text>
+                  <View
+                    style={[
+                      styles.box,
+                      {
+                        borderColor: palette.accent,
+                        backgroundColor: game ? palette.accent : 'transparent',
+                      },
+                    ]}
+                  >
+                    {game ? <Text style={[styles.tick, { color: palette.bg }]}>✓</Text> : null}
+                  </View>
+                  <Text style={[styles.number, { color: palette.accent }]}>Puzzle {number}</Text>
                   {game ? <Text style={styles.time}>{formatDuration(game.seconds)}</Text> : null}
                 </Pressable>
               );
@@ -172,10 +187,25 @@ const makeStyles = (palette: Palette) =>
     row: {
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      gap: space(3),
       paddingVertical: space(1),
     },
+    box: {
+      width: 26,
+      height: 26,
+      borderWidth: 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    tick: {
+      fontSize: 15,
+      fontWeight: '800',
+      lineHeight: 18,
+    },
     number: {
+      // Takes the room between the box and the time, so every time on the page
+      // lines up on the right-hand edge whatever the numbers beside them run to.
+      flex: 1,
       fontSize: 26,
       lineHeight: 34,
       fontWeight: '800',

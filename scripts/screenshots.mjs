@@ -115,7 +115,7 @@ async function startPuzzle(page, difficulty = 'Advanced', number = 1) {
   // A difficulty opens its numbered list; the number is the puzzle's seed.
   await page.getByLabel(difficulty, { exact: true }).click();
   await wait(page, 500);
-  await page.getByLabel(`Game ${number}`, { exact: true }).click();
+  await page.getByLabel(`Puzzle ${number}`, { exact: true }).click();
   await wait(page, 1600);
 }
 

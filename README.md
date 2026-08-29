@@ -166,7 +166,7 @@ images in the same commit.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered games"><br>**3. Numbered games** — every game at that difficulty, counting from one, six to a page, with your time beside the ones you have finished. |
+| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered games"><br>**3. Numbered puzzles** — every puzzle at that difficulty, counting from one, six to a page, each with a box that ticks when you finish it and your time beside it. |
 | <img src="docs/screenshots/04-daily.png" width="230" alt="Daily challenges"><br>**4. Daily** — today's four, one per difficulty. A finished one shows its time and opens the result instead of a board. | <img src="docs/screenshots/05-settings.png" width="230" alt="Settings screen"><br>**5. Settings** — seven names with a box or a slider against each, and nothing to read. | <img src="docs/screenshots/06-board.png" width="230" alt="The board"><br>**6. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. |
 | <img src="docs/screenshots/07-menu.png" width="230" alt="Game menu"><br>**7. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/08-clue.png" width="230" alt="A clue on the table"><br>**8. Clue** — one clue at a time, under the board, lit up on the grids it talks about. | <img src="docs/screenshots/09-stuck.png" width="230" alt="A board that can no longer be solved"><br>**9. Out of reach** — the clue button checks the board first, and stops with a window offering to rewind when the answer has been marked away. |
 | <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item's picture"><br>**10. Item card** — tap any picture on the board to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-solved.png" width="230" alt="A finished game"><br>**11. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. | <img src="docs/screenshots/12-statistics.png" width="230" alt="Statistics screen"><br>**12. Statistics** — totals, bests by difficulty and the trend of recent solve times. |
@@ -210,9 +210,12 @@ rest is the app behaving normally.
    answer and the same clues on anybody's phone, this year or next. Pick one and
    it starts — that number becomes the seed. The list is paged rather than
    scrolled, six to a page — which is what the half of the screen under the
-   panel holds — with **Previous** and **Next** under it;
-   a game you have already finished carries its time on the right of its number,
-   which is both the fact that it is done and something to beat. Starting any
+   panel holds — with **Previous** and **Next** under it. Every row is
+   **Puzzle 7** with a box on its left, empty until you finish it and then
+   ticked, drawn the way the settings screen draws a checkbox because that is
+   what it is: a column of them says how far through a difficulty you are
+   without reading a word. A finished one carries its time on the right as well,
+   which is the thing to beat. Starting any
    game replaces the one saved in progress, which is the only way to throw one
    away, since choosing what to play instead is the same decision.
 4. **Daily** is the other way in, under the same panel: today's four
