@@ -31,7 +31,8 @@ function finished(overrides: Partial<CompletedGame> = {}): CompletedGame {
 
 describe('pageNumbers', () => {
   it('counts from one on the first page', () => {
-    expect(pageNumbers(0)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+    expect(pageNumbers(0)).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(pageNumbers(0)).toHaveLength(PAGE_SIZE);
   });
 
   it('carries on where the page before it stopped', () => {
@@ -66,6 +67,7 @@ describe('findCompleted', () => {
 describe('completedOnPage', () => {
   it('finds every game on the page and no others', () => {
     const history = [finished({ seed: 2 }), finished({ seed: 40 }), finished({ seed: 5 })];
+    // 40 is off this page; 2 and 5 are on it.
     const found = completedOnPage(history, 'sm', pageNumbers(0));
     expect([...found.keys()].sort((a, b) => a - b)).toEqual([2, 5]);
   });
@@ -78,8 +80,28 @@ describe('completedOnPage', () => {
 });
 
 describe('dailySeed', () => {
-  it('is the year times the month times the date, counting months from one', () => {
-    expect(dailySeed(new Date(2026, 7, 29))).toBe(2026 * 8 * 29);
+  it('reads the date straight off the calendar', () => {
+    expect(dailySeed(new Date(2026, 7, 29))).toBe(20260829);
+    expect(dailySeed(new Date(2026, 0, 2))).toBe(20260102);
+  });
+
+  it('gives every date in a four-year span its own puzzle', () => {
+    const seen = new Map<number, string>();
+    const day = new Date(2024, 0, 1);
+    while (day.getFullYear() < 2028) {
+      const seed = dailySeed(day);
+      const key = dayKey(day);
+      expect(seen.has(seed)).toBe(false);
+      seen.set(seed, key);
+      day.setDate(day.getDate() + 1);
+    }
+    // Four years including a leap day.
+    expect(seen.size).toBe(1461);
+  });
+
+  it('runs in calendar order, so a later date is a larger number', () => {
+    expect(dailySeed(new Date(2026, 1, 12))).toBeLessThan(dailySeed(new Date(2026, 2, 8)));
+    expect(dailySeed(new Date(2026, 11, 31))).toBeLessThan(dailySeed(new Date(2027, 0, 1)));
   });
 
   it('gives every shape the same seed on a given day', () => {
@@ -117,16 +139,19 @@ describe('dailyDone', () => {
     expect(dailyDone(history, 'sm', today)).toBeNull();
   });
 
-  it('does not count a day that only shares the seed', () => {
-    // February 12th and March 8th both seed on the year times 24, so the seed
-    // cannot tell them apart and the date has to.
-    const february = new Date(2026, 1, 12);
-    const march = new Date(2026, 2, 8);
-    expect(dailySeed(february)).toBe(dailySeed(march));
+  it('does not count yesterday', () => {
+    const yesterday = new Date(2026, 7, 28);
+    const history = [finished({ seed: dailySeed(yesterday), finishedAt: yesterday.getTime() })];
+    expect(dailyDone(history, 'sm', yesterday)).not.toBeNull();
+    expect(dailyDone(history, 'sm', today)).toBeNull();
+  });
 
-    const history = [finished({ seed: dailySeed(february), finishedAt: february.getTime() })];
-    expect(dailyDone(history, 'sm', february)).not.toBeNull();
-    expect(dailyDone(history, 'sm', march)).toBeNull();
+  it('does not count a numbered game that happens to carry the date as its seed', () => {
+    // The two share a seed space, so a game numbered 20260829 would answer for
+    // the 29th of August if the day were not checked as well.
+    const lastYear = new Date(2025, 5, 5).getTime();
+    const history = [finished({ seed, finishedAt: lastYear })];
+    expect(dailyDone(history, 'sm', today)).toBeNull();
   });
 
   it('is nothing before the day is played', () => {

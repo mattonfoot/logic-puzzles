@@ -166,7 +166,7 @@ images in the same commit.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered games"><br>**3. Numbered games** — every game at that difficulty, counting from one, twelve to a page, with your time beside the ones you have finished. |
+| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered games"><br>**3. Numbered games** — every game at that difficulty, counting from one, six to a page, with your time beside the ones you have finished. |
 | <img src="docs/screenshots/04-daily.png" width="230" alt="Daily challenges"><br>**4. Daily** — today's four, one per difficulty. A finished one shows its time and opens the result instead of a board. | <img src="docs/screenshots/05-settings.png" width="230" alt="Settings screen"><br>**5. Settings** — seven names with a box or a slider against each, and nothing to read. | <img src="docs/screenshots/06-board.png" width="230" alt="The board"><br>**6. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. |
 | <img src="docs/screenshots/07-menu.png" width="230" alt="Game menu"><br>**7. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/08-clue.png" width="230" alt="A clue on the table"><br>**8. Clue** — one clue at a time, under the board, lit up on the grids it talks about. | <img src="docs/screenshots/09-stuck.png" width="230" alt="A board that can no longer be solved"><br>**9. Out of reach** — the clue button checks the board first, and stops with a window offering to rewind when the answer has been marked away. |
 | <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item's picture"><br>**10. Item card** — tap any picture on the board to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-solved.png" width="230" alt="A finished game"><br>**11. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. | <img src="docs/screenshots/12-statistics.png" width="230" alt="Statistics screen"><br>**12. Statistics** — totals, bests by difficulty and the trend of recent solve times. |
@@ -189,7 +189,9 @@ rest is the app behaving normally.
    screen — Statistics pushed to the right so the two sit in opposite corners
    rather than reading as a pair.
 2. **Play** opens the difficulties, which is the same page with its bottom half
-   swapped — the panel above is the same block, given the same half — and is
+   swapped — the panel above is the same block, given the same half, as it is on
+   every screen before a board: Play → a difficulty → a number changes the
+   bottom half three times and never the top. It is
    where a game you left in progress waits: **Continue**, one word above
    everything else, which picks it up with the clock where it stopped. Under it
    a **Play** heading — with a rule drawn out of the word to the right of it —
@@ -207,13 +209,15 @@ rest is the app behaving normally.
    the number *is* the puzzle: game 7 at Expert holds the same cast, the same
    answer and the same clues on anybody's phone, this year or next. Pick one and
    it starts — that number becomes the seed. The list is paged rather than
-   scrolled, twelve to a page, with **Previous** and **Next** at the foot of it;
+   scrolled, six to a page — which is what the half of the screen under the
+   panel holds — with **Previous** and **Next** under it;
    a game you have already finished carries its time on the right of its number,
    which is both the fact that it is done and something to beat. Starting any
    game replaces the one saved in progress, which is the only way to throw one
    away, since choosing what to play instead is the same decision.
-4. **Daily** is the other way in: today's four challenges, one per difficulty,
-   seeded by the date so everybody gets the same four on the same day. Each is
+4. **Daily** is the other way in, under the same panel: today's four
+   challenges, one per difficulty, seeded by the date so everybody gets the same
+   four on the same day. Each is
    played once — finish one and its row shows the time instead, and pressing it
    opens the result rather than a board. Tomorrow the date moves the seed on and
    all four are open again. The theme, as everywhere, is drawn by the seed: one
@@ -380,7 +384,7 @@ src/ui/RuledTitle.tsx       a screen's name with a rule drawn out of the word
 src/ui/SettingRow.tsx       the boxes, sliders and word-actions the two settings
                             screens are made of
 src/ui/TitlePanel.tsx       the app's name on a block of the link colour, the
-                            top half of the front door and the setup screen
+                            top half of every screen before a board
 src/ui/Icon.tsx             one silhouette, drawn in whatever colour it sits in
 src/ui/icons.generated.ts   the silhouettes as path data (generated, committed)
 assets/icons/               one SVG per item, theme and interface icon
@@ -906,7 +910,7 @@ The seed is therefore never re-rolled for a puzzle already in play:
 | Action | Seed |
 |---|---|
 | A numbered game | the number itself: game 7 is seed 7 |
-| A daily challenge | the year × the month × the date |
+| A daily challenge | the date read off the calendar: `20260829` |
 | **Restart** | unchanged — same theme, sets, items, answer and clues; only the board and the clock start over |
 | **Continue** | unchanged — the saved puzzle is stored whole and comes back as it was, clock included |
 
@@ -915,13 +919,17 @@ again, which is what makes a numbered list a catalogue rather than a wall of
 strangers, and what lets two people compare a time on game 7. The seed is
 printed under the title on the game screen.
 
-Because the daily seed is a **product**, it cannot tell one day from another on
-its own: every date whose month times date comes to the same number shares it,
-so the 12th of February, the 8th of March and the 6th of April all seed on the
-year times 24 and hand out the same puzzle. `dailyDone` therefore checks the
-calendar day as well as the seed, so finishing one of those days does not spend
-the others. Seeding on `year × 10000 + month × 100 + day` would give every date
-its own puzzle and make the check unnecessary.
+The daily seed packs the three parts of the date into their own columns —
+`year × 10000 + month × 100 + day` — so every date gets its own puzzle and the
+numbers run in calendar order. Multiplying them together, which is the obvious
+thing to reach for, does not: the 12th of February, the 8th of March and the 6th
+of April all come to the year times 24, and would have handed out the same
+puzzle three times a year. A test walks four years a day at a time and holds
+every seed to being unseen.
+
+`dailyDone` still checks the calendar day as well as the seed. The two kinds of
+game share one seed space, so a numbered game 20,260,829 would otherwise answer
+for the 29th of August.
 
 ## Persistence and statistics
 

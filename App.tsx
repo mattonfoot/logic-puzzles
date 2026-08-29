@@ -32,6 +32,9 @@ import { inkOn, type Palette } from './src/ui/theme';
 
 type Screen = 'start' | 'daily' | 'setup' | 'numbers' | 'result' | 'settings' | 'stats' | 'game';
 
+/** The screens that wear `TitlePanel`, which is what the status bar reads off. */
+const PANELLED = new Set<Screen>(['start', 'setup', 'numbers', 'daily']);
+
 export default function App() {
   // One file per weight; `src/ui/Text` picks between them. Until they are here
   // the app draws in the system font, which reflows the moment they arrive, so
@@ -148,12 +151,13 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
 
   return (
     <SafeAreaProvider>
-      {/* Two screens run a coloured panel up behind the status bar, so the clock
-          has to lift off that rather than off the page — and which way round
-          depends on the colour, the same way the words on the panel do. */}
+      {/* Every screen before a board runs a coloured panel up behind the status
+          bar, so the clock has to lift off that rather than off the page — and
+          which way round depends on the colour, the same way the words on the
+          panel do. */}
       <StatusBar
         style={
-          screen === 'start' || screen === 'setup'
+          PANELLED.has(screen)
             ? inkOn(palette.accentGround, '#FFFFFF', palette.ink) === '#FFFFFF'
               ? 'light'
               : 'dark'

@@ -11,9 +11,9 @@ import { inkOn, space, tint, type Palette } from './theme';
  * the player passes through before a puzzle starts.
  *
  * The words live here rather than being passed in, and so does its height: the
- * point of it is that the front door and the setup screen show the *same*
- * panel, so going from one to the other changes the bottom half of the screen
- * and nothing else. It is the top half exactly — a flex basis rather than a
+ * point of it is that the front door, the difficulties, the numbered games and
+ * the daily challenges show the *same* panel, so walking through them changes
+ * the bottom half of the screen four times and never the top. It is the top half exactly — a flex basis rather than a
  * share of what is left over, because two screens whose lower halves are padded
  * differently would otherwise split a few points apart and the name would jump
  * on the way through.

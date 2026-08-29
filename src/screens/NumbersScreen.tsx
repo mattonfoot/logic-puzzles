@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
 import { completedOnPage, pageNumbers } from '../game/library';
 import type { CompletedGame } from '../game/persistence';
@@ -12,6 +11,7 @@ import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, shadow, space, tint, type Palette } from '../ui/theme';
+import { TitlePanel } from '../ui/TitlePanel';
 
 interface Props {
   size: SizeOption;
@@ -35,13 +35,17 @@ interface Props {
  * the whole of the record kept here — no ticks, no stars — because a time is
  * both the fact that it is done and a thing to beat.
  *
- * The list is paged rather than scrolled. A page holds twelve, and the two
- * links that move between them sit under it, where the eye ends up.
+ * It wears the same panel the front door and the difficulties do, given the
+ * same half of the screen, so walking Play → a difficulty → a number changes
+ * the bottom half three times and never the top. That leaves half a screen for
+ * the numbers, which is why a page holds six: the list is paged rather than
+ * scrolled, and a page that has to be scrolled to be read is a page that has
+ * lost the point of being one. The two links that move between them sit at the
+ * foot, where the eye ends up.
  */
 export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const insets = useSafeAreaInsets();
   const [page, setPage] = useState(0);
 
   const numbers = useMemo(() => pageNumbers(page), [page]);
@@ -52,51 +56,55 @@ export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
 
   return (
     <View style={styles.screen}>
-      <View style={[styles.content, { paddingTop: insets.top + space(5) }]}>
-        <RuledTitle>{`Play ${size.difficulty}`}</RuledTitle>
+      <TitlePanel />
 
-        <View style={styles.list}>
-          {numbers.map((number) => {
-            const game = done.get(number);
-            return (
-              <Pressable
-                key={number}
-                accessibilityRole="button"
-                accessibilityLabel={`Game ${number}`}
-                accessibilityHint={
-                  game ? `Finished in ${formatDuration(game.seconds)}` : `${size.label}`
-                }
-                accessibilityState={{ disabled: busy }}
-                disabled={busy}
-                onPress={() => {
-                  feedback.tap();
-                  onPlay(number);
-                }}
-                style={({ pressed }) => [styles.row, { opacity: busy ? 0.4 : pressed ? 0.6 : 1 }]}
-              >
-                <Text style={[styles.number, { color: palette.accent }]}>{number}</Text>
-                {game ? <Text style={styles.time}>{formatDuration(game.seconds)}</Text> : null}
-              </Pressable>
-            );
-          })}
+      <View style={styles.bottom}>
+        <View style={styles.content}>
+          <RuledTitle>{`Play ${size.difficulty}`}</RuledTitle>
+
+          <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
+            {numbers.map((number) => {
+              const game = done.get(number);
+              return (
+                <Pressable
+                  key={number}
+                  accessibilityRole="button"
+                  accessibilityLabel={`Game ${number}`}
+                  accessibilityHint={
+                    game ? `Finished in ${formatDuration(game.seconds)}` : `${size.label}`
+                  }
+                  accessibilityState={{ disabled: busy }}
+                  disabled={busy}
+                  onPress={() => {
+                    feedback.tap();
+                    onPlay(number);
+                  }}
+                  style={({ pressed }) => [styles.row, { opacity: busy ? 0.4 : pressed ? 0.6 : 1 }]}
+                >
+                  <Text style={[styles.number, { color: palette.accent }]}>{number}</Text>
+                  {game ? <Text style={styles.time}>{formatDuration(game.seconds)}</Text> : null}
+                </Pressable>
+              );
+            })}
+          </ScrollView>
+
+          {/* Under the list and at the foot of it, so the two sit where a page
+              ends rather than floating halfway up with nothing beneath them. The
+              first page has nothing before it, so Previous is drawn held back
+              rather than moved — a row that changes shape as you page through it
+              is a row you have to find again each time. */}
+          <View style={styles.pager}>
+            <PageLink
+              label="Previous"
+              disabled={page === 0 || busy}
+              onPress={() => setPage((at) => Math.max(0, at - 1))}
+            />
+            <PageLink label="Next" disabled={busy} onPress={() => setPage((at) => at + 1)} />
+          </View>
         </View>
 
-        {/* Under the list and at the foot of it, so the two sit where a page
-            ends rather than floating halfway up with nothing beneath them. The
-            first page has nothing before it, so Previous is drawn held back
-            rather than moved — a row that changes shape as you page through it
-            is a row you have to find again each time. */}
-        <View style={styles.pager}>
-          <PageLink
-            label="Previous"
-            disabled={page === 0 || busy}
-            onPress={() => setPage((at) => Math.max(0, at - 1))}
-          />
-          <PageLink label="Next" disabled={busy} onPress={() => setPage((at) => at + 1)} />
-        </View>
+        <BackLink label="Back to the difficulties" onPress={onBack} />
       </View>
-
-      <BackLink label="Back to the difficulties" onPress={onBack} />
 
       {busy ? (
         <View style={styles.busyOverlay} pointerEvents="auto">
@@ -144,12 +152,22 @@ const makeStyles = (palette: Palette) =>
       flex: 1,
       backgroundColor: palette.bg,
     },
+    // The panel is the top half; this is the other one.
+    bottom: {
+      flex: 1,
+    },
     content: {
       flex: 1,
-      paddingHorizontal: space(4),
+      paddingHorizontal: space(5),
+      paddingTop: space(4),
     },
     list: {
-      marginTop: space(3),
+      paddingTop: space(3),
+      // Six fit the half of the screen this stands in on the phones this is
+      // drawn for. A shorter one scrolls the numbers rather than pushing the
+      // pager off the bottom, which is the one thing on the screen that has to
+      // stay put for the list to be usable at all.
+      paddingBottom: space(2),
     },
     row: {
       flexDirection: 'row',
@@ -171,9 +189,7 @@ const makeStyles = (palette: Palette) =>
     pager: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      // Takes up whatever the list leaves, which puts it on the bottom edge.
-      marginTop: 'auto',
-      paddingTop: space(4),
+      paddingTop: space(2),
     },
     pageText: {
       fontSize: 16,

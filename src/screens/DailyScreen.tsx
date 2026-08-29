@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
 import { SIZES } from '../data/sizes';
 import { dailyDone } from '../game/library';
@@ -13,6 +12,7 @@ import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, shadow, space, tint, type Palette } from '../ui/theme';
+import { TitlePanel } from '../ui/TitlePanel';
 
 interface Props {
   busy: boolean;
@@ -35,11 +35,14 @@ interface Props {
  *
  * "Once" means today rather than ever. Tomorrow the date moves the seed on and
  * all four are open again.
+ *
+ * It wears the front door's panel in the top half, the way every screen before
+ * a board does, so the two ways in look like two halves of the same page rather
+ * than two different apps.
  */
 export function DailyScreen({ busy, history, onPlay, onShowResult, onBack }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const insets = useSafeAreaInsets();
 
   // Resolved once per render rather than per row, so every row reads the same
   // clock even if one is drawn either side of midnight.
@@ -51,40 +54,44 @@ export function DailyScreen({ busy, history, onPlay, onShowResult, onBack }: Pro
 
   return (
     <View style={styles.screen}>
-      <View style={[styles.content, { paddingTop: insets.top + space(5) }]}>
-        <RuledTitle>Daily challenges</RuledTitle>
+      <TitlePanel />
 
-        <View style={styles.list}>
-          {SIZES.map((size) => {
-            const game = done.get(size.id) ?? null;
-            return (
-              <Pressable
-                key={size.id}
-                accessibilityRole="button"
-                accessibilityLabel={size.difficulty}
-                accessibilityHint={
-                  game ? `Done in ${formatDuration(game.seconds)} — opens the result` : size.label
-                }
-                accessibilityState={{ disabled: busy }}
-                disabled={busy}
-                onPress={() => {
-                  feedback.tap();
-                  if (game) onShowResult(game);
-                  else onPlay(size);
-                }}
-                style={({ pressed }) => [styles.row, { opacity: busy ? 0.4 : pressed ? 0.6 : 1 }]}
-              >
-                <Text style={[styles.name, { color: game ? palette.inkSoft : palette.accent }]}>
-                  {size.difficulty}
-                </Text>
-                {game ? <Text style={styles.time}>{formatDuration(game.seconds)}</Text> : null}
-              </Pressable>
-            );
-          })}
+      <View style={styles.bottom}>
+        <View style={styles.content}>
+          <RuledTitle>Daily challenges</RuledTitle>
+
+          <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
+            {SIZES.map((size) => {
+              const game = done.get(size.id) ?? null;
+              return (
+                <Pressable
+                  key={size.id}
+                  accessibilityRole="button"
+                  accessibilityLabel={size.difficulty}
+                  accessibilityHint={
+                    game ? `Done in ${formatDuration(game.seconds)} — opens the result` : size.label
+                  }
+                  accessibilityState={{ disabled: busy }}
+                  disabled={busy}
+                  onPress={() => {
+                    feedback.tap();
+                    if (game) onShowResult(game);
+                    else onPlay(size);
+                  }}
+                  style={({ pressed }) => [styles.row, { opacity: busy ? 0.4 : pressed ? 0.6 : 1 }]}
+                >
+                  <Text style={[styles.name, { color: game ? palette.inkSoft : palette.accent }]}>
+                    {size.difficulty}
+                  </Text>
+                  {game ? <Text style={styles.time}>{formatDuration(game.seconds)}</Text> : null}
+                </Pressable>
+              );
+            })}
+          </ScrollView>
         </View>
-      </View>
 
-      <BackLink label="Back" onPress={onBack} />
+        <BackLink label="Back" onPress={onBack} />
+      </View>
 
       {busy ? (
         <View style={styles.busyOverlay} pointerEvents="auto">
@@ -104,12 +111,18 @@ const makeStyles = (palette: Palette) =>
       flex: 1,
       backgroundColor: palette.bg,
     },
+    // The panel is the top half; this is the other one.
+    bottom: {
+      flex: 1,
+    },
     content: {
       flex: 1,
-      paddingHorizontal: space(4),
+      paddingHorizontal: space(5),
+      paddingTop: space(4),
     },
     list: {
-      marginTop: space(4),
+      paddingTop: space(4),
+      paddingBottom: space(4),
     },
     row: {
       flexDirection: 'row',
