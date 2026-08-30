@@ -166,11 +166,11 @@ images in the same commit.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered games"><br>**3. Numbered puzzles** — every puzzle at that difficulty, counting from one, six to a page, each with a box that ticks when you finish it and your time beside it. |
+| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered puzzles"><br>**3. Numbered puzzles** — every puzzle at that difficulty, counting from one, six to a page, each with a box that ticks when you finish it and your time beside it. |
 | <img src="docs/screenshots/04-daily.png" width="230" alt="Daily challenges"><br>**4. Daily** — today's four, one per difficulty. A finished one shows its time and opens the result instead of a board. | <img src="docs/screenshots/05-settings.png" width="230" alt="Settings screen"><br>**5. Settings** — seven names with a box or a slider against each, and nothing to read. | <img src="docs/screenshots/06-board.png" width="230" alt="The board"><br>**6. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. |
-| <img src="docs/screenshots/07-menu.png" width="230" alt="Game menu"><br>**7. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/08-clue.png" width="230" alt="A clue on the table"><br>**8. Clue** — one clue at a time, under the board, lit up on the grids it talks about. | <img src="docs/screenshots/09-stuck.png" width="230" alt="A board that can no longer be solved"><br>**9. Out of reach** — the clue button checks the board first, and stops with a window offering to rewind when the answer has been marked away. |
-| <img src="docs/screenshots/10-item-card.png" width="230" alt="The card behind an item's picture"><br>**10. Item card** — tap any picture on the board to meet it: an icon, a line about it, and the traits clues describe it by. | <img src="docs/screenshots/11-solved.png" width="230" alt="A finished game"><br>**11. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. | <img src="docs/screenshots/12-statistics.png" width="230" alt="Statistics screen"><br>**12. Statistics** — totals, bests by difficulty and the trend of recent solve times. |
-| <img src="docs/screenshots/13-night.png" width="230" alt="Setup screen in night colours"><br>**13. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | | |
+| <img src="docs/screenshots/07-menu.png" width="230" alt="Game menu"><br>**7. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/08-clue.png" width="230" alt="The clue window"><br>**8. Clue** — one clue at a time, in a window with the room to read it, and the pair that moves between the ones you have read. | <img src="docs/screenshots/09-highlight.png" width="230" alt="A clue lit up on the grids"><br>**9. Highlight** — the button at the bottom right lights every row and column the clue talks about. |
+| <img src="docs/screenshots/10-stuck.png" width="230" alt="A board that can no longer be solved"><br>**10. Out of reach** — asking for a new clue checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/11-item-card.png" width="230" alt="The card behind an item's picture"><br>**11. Item card** — tap any picture on the board to meet it, and page through the rest of its set. | <img src="docs/screenshots/12-solved.png" width="230" alt="A finished game"><br>**12. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. |
+| <img src="docs/screenshots/13-statistics.png" width="230" alt="Statistics screen"><br>**13. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/14-night.png" width="230" alt="Setup screen in night colours"><br>**14. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -253,13 +253,22 @@ rest is the app behaving normally.
    of the time a clue describes something instead — "the diver with green eyes",
    "no payload made of glass" — and a description that covers two things says
    something about both at once. The cards behind the labels are where those
-   descriptions are written down, which is what makes tapping them worth doing.
-   **Clue** puts one on the table under the board — the sentence and nothing
-   else, no badge for what kind of clue it is and no running count of how many
-   have been read — with **Undo** stacked above it, the two words to the left of
-   the clue they work on; pressing it again replaces the clue with the next one
-   that still has something to say. Tap the clue to light up every row and column it
-   talks about. The clue reads the same whether or not the board has caught up
+   descriptions are written down, which is what makes tapping them worth doing;
+   **Previous** and **Next** on the card walk the rest of the set, since a
+   description is a question about all of them rather than about the one whose
+   picture was tapped.
+   **Clue** opens a window with one clue in it — the sentence and nothing else,
+   no badge for what kind it is — with **Previous** and **Next** under it.
+   Previous walks back through the clues you have already read, which is free.
+   Next walks forward through them and, at the end of them, asks for a new one:
+   the same press, and the same cost, so reading a clue stays the one decision
+   the game counts and cannot be got round by walking forwards. The window is
+   there because a clue needs the room — the longest ones name two things by
+   description apiece and ran off the end of the panel this used to be. **Undo**
+   sits beside Clue at the bottom left, and **Highlight** at the bottom right
+   lights up every row and column the clue in play talks about; it fills with
+   the colour while it is on, so the board does not have to be read to find out.
+   A clue reads the same whether or not the board has caught up
    with it: the game tracks which clues are spent, since that is how the button
    knows which to hand over next, but it does not say — whether a clue still has
    something to give is the thing worth working out, and a panel that struck
@@ -373,7 +382,7 @@ src/game/time.ts            duration formatting
 src/game/useTimer.ts        elapsed-time hook
 src/stats/summary.ts        history → stats per difficulty, streaks, improvement notes
 src/storage/store.ts        the only module that touches AsyncStorage
-src/components/             GridBoard, SolutionTable, ClueCard, ItemCard, …
+src/components/             GridBoard, SolutionTable, CluePopup, ItemCard, …
 src/screens/                StartScreen, SetupScreen, NumbersScreen,
                             DailyScreen, ResultScreen, SettingsScreen,
                             GameScreen, GameMenuScreen, StatsScreen
@@ -388,6 +397,7 @@ src/ui/SettingRow.tsx       the boxes, sliders and word-actions the two settings
                             screens are made of
 src/ui/TitlePanel.tsx       the app's name on a block of the link colour, the
                             top half of every screen before a board
+src/ui/Pager.tsx            Previous and Next, shared by the three lists
 src/ui/Icon.tsx             one silhouette, drawn in whatever colour it sits in
 src/ui/icons.generated.ts   the silhouettes as path data (generated, committed)
 assets/icons/               one SVG per item, theme and interface icon
@@ -563,15 +573,15 @@ to suit — `blockBox = cellSize * items +
 line up with the labels beside them, and `fitCellSize` allows for the rules when
 it sizes the board.
 
-The game screen is one fixed-height layout: the staircase, the clue in play
-beneath it, and the toolbar pinned below that. Nothing about it scrolls.
-`fitCellSize` measures the space actually left for the board — width *and*
-height, from an `onLayout` on the board area rather than from the window — and
-picks the largest cell whose whole staircase fits it. The zoom buttons go up
-from there, and only a board zoomed past its fit scrolls, in whichever direction
-it outgrew. `ClueCard` carries a fixed minimum height and shows at most three
-lines, so a long clue replacing a short one cannot resize the board under the
-player's finger.
+The game screen is one fixed-height layout: the zoom pair and whatever the app
+has to say on a line above, the staircase, and the toolbar pinned below.
+Nothing about it scrolls. `fitCellSize` measures the space actually left for the
+board — width *and* height, from an `onLayout` on the board area rather than
+from the window — and picks the largest cell whose whole staircase fits it. The
+zoom buttons go up from there, and only a board zoomed past its fit scrolls, in
+whichever direction it outgrew. The clue lives in a window rather than on the
+screen, so nothing a clue says can resize the board under the player's finger —
+and the board keeps the room a clue panel used to take.
 
 `isSolvable` is `findMistakes` read the other way round: a puzzle has exactly
 one answer, so a mark the answer contradicts is a mark nothing later can put
@@ -595,9 +605,10 @@ app has one way out of a game rather than four.
 
 ## Clues, one at a time
 
-There is no clue list. **Clue** puts one clue under the board and the
-next press replaces it, which makes reading a clue a decision — and the number
-of them the statistics keep.
+There is no clue list. **Clue** opens a window holding one clue, and **Next**
+past the end of the ones already read asks for another, which makes reading a
+clue a decision — and the number of them the statistics keep. Going back through
+what you have been told is free; going on is not.
 
 `src/game/clues.ts` decides when a clue is spent. `clueMarks` returns the
 squares one clue forces *given the board as it stands*, which is the same thing

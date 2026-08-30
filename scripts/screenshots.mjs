@@ -251,27 +251,35 @@ async function main() {
   await page.getByLabel('Back to the board').click();
   await wait(page, 400);
 
-  // 8. A clue on the table, lit up on the grid.
+  // 8. The clue, in the window the Clue button opens, with the pair that moves
+  // between the ones read.
   const puzzle = await puzzleInPlay(page);
-  const nextClue = page.getByLabel('Clue', { exact: true });
-  await nextClue.click();
-  await wait(page, 400);
-  const clueCard = page.getByLabel(/^Clue in play/);
-  await clueCard.click();
-  await wait(page, 500);
+  const clueButton = page.getByLabel('Clue', { exact: true });
+  const nextClue = page.getByLabel('Next', { exact: true });
+  const closeWindow = () => page.getByLabel('Close').click({ position: { x: 12, y: 12 } });
+  await clueButton.click();
+  await wait(page, 600);
   await shot('08-clue');
+  await closeWindow();
+  await wait(page, 400);
 
-  // Some marks on the board before the shots that need one. The clue panel
-  // reads the same once its marks are down — the game does not say which clues
-  // are spent — so there is nothing here worth its own capture.
-  await clueCard.click();
-  await wait(page, 300);
-  // Nothing is marked yet, so the button hands the clues over in order: one
-  // press is already spent on clue 0, so `plain` more presses lands on it.
+  // 9. The same clue lit up on the grids it talks about, which is what the
+  // button on the right of the row does.
+  await page.getByLabel('Highlight', { exact: true }).click();
+  await wait(page, 500);
+  await shot('09-highlight');
+
+  // Some marks on the board before the shots that need one. Nothing is marked
+  // yet, so the button hands the clues over in order: one press is already
+  // spent on clue 0, so `plain` more presses lands on it.
   const plain = puzzle.clues.findIndex((clue) => clue.kind === 'link');
   for (let index = 0; index < plain; index++) {
-    await nextClue.click();
+    await clueButton.click();
     await wait(page, 300);
+    await nextClue.click();
+    await wait(page, 400);
+    await closeWindow();
+    await wait(page, 250);
   }
   const link = puzzle.clues[plain];
   await mark(
@@ -285,33 +293,37 @@ async function main() {
   );
   await wait(page, 1000);
 
-  // 9. A board the answer can no longer be reached from, which is what the
+  // 10. A board the answer can no longer be reached from, which is what the
   // clue button reports instead of handing over a clue.
   const wrongEntity = (puzzle.solution[1][0] + 1) % puzzle.size.items;
   await tick(page, puzzle, 0, puzzle.solution[0][0], 1, wrongEntity);
+  // Asking for a *new* clue is what checks the board, so this is Clue and then
+  // Next past the end of the ones already read.
+  await clueButton.click();
+  await wait(page, 400);
   await nextClue.click();
-  await wait(page, 500);
-  await shot('09-stuck');
+  await wait(page, 600);
+  await shot('10-stuck');
   const rewind = page.getByLabel(/^Rewind/);
   if (await rewind.count()) {
     await rewind.click();
     await wait(page, 400);
   }
 
-  // 10. Who one of the pictures on the board actually is: the card behind a tap,
+  // 11. Who one of the pictures on the board actually is: the card behind a tap,
   // where the traits the clues describe things by are written down. Shot before
   // the finish, since a finished game shows its result rather than the board.
   await page.locator('[aria-label^="About "]').first().click();
   await wait(page, 700);
-  await shot('10-item-card');
+  await shot('11-item-card');
   await page.locator('[aria-label="Close"]').click({ position: { x: 12, y: 12 } });
   await wait(page, 400);
 
-  // 11. Finished: the result is the screen, and the board is behind it.
+  // 12. Finished: the result is the screen, and the board is behind it.
   await solve(page, puzzle);
-  await shot('11-solved');
+  await shot('12-solved');
 
-  // 12. Statistics, shown with a sample history.
+  // 13. Statistics, shown with a sample history.
   await page.goto(origin, { waitUntil: 'networkidle' });
   await page.evaluate((history) => {
     localStorage.clear();
@@ -321,9 +333,9 @@ async function main() {
   await wait(page, 1200);
   await page.getByLabel('Statistics').click();
   await wait(page, 800);
-  await shot('12-statistics', { fullPage: true });
+  await shot('13-statistics', { fullPage: true });
 
-  // 13. The setup screen in night colours, with a game waiting to be resumed.
+  // 14. The setup screen in night colours, with a game waiting to be resumed.
   await page.getByLabel('Back').click();
   await wait(page, 500);
   await page.getByLabel('Settings').click();
@@ -335,8 +347,11 @@ async function main() {
   await page.getByLabel('Back').click();
   await wait(page, 400);
   await startPuzzle(page);
-  // The board only takes marks once a clue has been read.
+  // The board only takes marks once a clue has been read, and the window it
+  // arrives in has to be shut before the squares can be reached.
   await page.getByLabel('Clue', { exact: true }).click();
+  await wait(page, 500);
+  await page.getByLabel('Close').click({ position: { x: 12, y: 12 } });
   await wait(page, 400);
   // A few true pairings, so the card on the start page shows some progress.
   await solve(page, await puzzleInPlay(page), 3);
@@ -347,7 +362,7 @@ async function main() {
   await wait(page, 600);
   await page.getByLabel('Back to the difficulties').click();
   await wait(page, 900);
-  await shot('13-night');
+  await shot('14-night');
 
   await browser.close();
   server.close();

@@ -7,6 +7,7 @@ import { formatDuration } from '../game/time';
 import type { SizeOption } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
+import { Pager } from '../ui/Pager';
 import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
@@ -44,7 +45,7 @@ interface Props {
  * the numbers, which is why a page holds six: the list is paged rather than
  * scrolled, and a page that has to be scrolled to be read is a page that has
  * lost the point of being one. The two links that move between them sit at the
- * foot, where the eye ends up.
+ * foot, where the eye ends up — the same pair the item card and the clue use.
  */
 export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
   const palette = useTheme();
@@ -104,17 +105,14 @@ export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
           </ScrollView>
 
           {/* Under the list and at the foot of it, so the two sit where a page
-              ends rather than floating halfway up with nothing beneath them. The
-              first page has nothing before it, so Previous is drawn held back
-              rather than moved — a row that changes shape as you page through it
-              is a row you have to find again each time. */}
+              ends rather than floating halfway up with nothing beneath them. */}
           <View style={styles.pager}>
-            <PageLink
-              label="Previous"
-              disabled={page === 0 || busy}
-              onPress={() => setPage((at) => Math.max(0, at - 1))}
+            <Pager
+              previousDisabled={page === 0 || busy}
+              nextDisabled={busy}
+              onPrevious={() => setPage((at) => Math.max(0, at - 1))}
+              onNext={() => setPage((at) => at + 1)}
             />
-            <PageLink label="Next" disabled={busy} onPress={() => setPage((at) => at + 1)} />
           </View>
         </View>
 
@@ -130,34 +128,6 @@ export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
         </View>
       ) : null}
     </View>
-  );
-}
-
-function PageLink({
-  label,
-  disabled,
-  onPress,
-}: {
-  label: string;
-  disabled: boolean;
-  onPress: () => void;
-}) {
-  const styles = useStyles(makeStyles);
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={label}
-      accessibilityState={{ disabled }}
-      disabled={disabled}
-      hitSlop={12}
-      onPress={() => {
-        feedback.tap();
-        onPress();
-      }}
-      style={({ pressed }) => [styles.pageLink, { opacity: disabled ? 0.3 : pressed ? 0.6 : 1 }]}
-    >
-      <Text style={styles.pageText}>{label}</Text>
-    </Pressable>
   );
 }
 
@@ -217,18 +187,7 @@ const makeStyles = (palette: Palette) =>
       color: palette.inkSoft,
     },
     pager: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
       paddingTop: space(2),
-    },
-    pageText: {
-      fontSize: 16,
-      fontWeight: '700',
-      letterSpacing: 0.3,
-      color: palette.accent,
-    },
-    pageLink: {
-      paddingVertical: space(2),
     },
     busyOverlay: {
       position: 'absolute',

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AppState, LayoutChangeEvent, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ClueCard } from '../components/ClueCard';
+import { CluePopup } from '../components/CluePopup';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { fitCellSize, GridBoard, MAX_CELL } from '../components/GridBoard';
 import { ItemCard } from '../components/ItemCard';
@@ -32,7 +32,7 @@ import { feedback } from '../ui/feedback';
 import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { joinLeft, radius, space, tint, type Palette } from '../ui/theme';
+import { inkOn, joinLeft, radius, space, tint, type Palette } from '../ui/theme';
 
 /** How much each press of the zoom buttons adds or takes away. */
 const ZOOM_STEP = 8;
@@ -96,6 +96,9 @@ export function GameScreen({
   // with the board, so a resumed game keeps the ones it was given.
   const [extraClues, setExtraClues] = useState<Clue[]>([]);
   const [lit, setLit] = useState(false);
+  // Whether the clue window is open. It opens on the Clue button and on a new
+  // clue arriving, so a clue is always read rather than glanced at.
+  const [clueOpen, setClueOpen] = useState(false);
   // The item whose card is open, from a tap on its label in the grid.
   const [inspecting, setInspecting] = useState<Attribute | null>(null);
   const [mistakes, setMistakes] = useState<Set<string>>(new Set());
@@ -167,6 +170,11 @@ export function GameScreen({
     applied.current = boardOptions;
     setMarks((current) => reconcile(current, boardOptions));
   }, [boardOptions]);
+
+  // The clues read, oldest first — a Set keeps what went in in the order it went
+  // in, which is the order they were handed over.
+  const seen = useMemo(() => [...cluesSeen], [cluesSeen]);
+  const at = clueIndex === null ? -1 : seen.indexOf(clueIndex);
 
   const highlight = useMemo<Attribute[]>(
     () => (lit && clueIndex !== null ? clueAttributes(inPlay.clues[clueIndex]) : []),
@@ -339,6 +347,9 @@ export function GameScreen({
       feedback.warn();
       setMistakes(new Set(wrong));
       setFlagged(true);
+      // The window that says so is the only thing worth looking at, and the
+      // marks it is about are on the board behind it.
+      setClueOpen(false);
       return;
     }
     setFlagged(false);
@@ -360,16 +371,41 @@ export function GameScreen({
         return;
       }
       feedback.tap();
-      const at = inPlay.clues.length;
+      const next = inPlay.clues.length;
       setExtraClues((extras) => [...extras, invented]);
-      setClueIndex(at);
-      setCluesSeen((seen) => new Set(seen).add(at));
+      setClueIndex(next);
+      setCluesSeen((read) => new Set(read).add(next));
+      setClueOpen(true);
       return;
     }
     feedback.tap();
     setClueIndex(index);
-    setCluesSeen((seen) => (seen.has(index) ? seen : new Set(seen).add(index)));
+    setCluesSeen((read) => (read.has(index) ? read : new Set(read).add(index)));
+    setClueOpen(true);
   }, [clueIndex, extraClues.length, flash, inPlay, marks, spent, wrong]);
+
+  /**
+   * Back through the clues already read. Free, because being reminded what you
+   * were told is not being told anything.
+   */
+  const previousClue = useCallback(() => {
+    if (at <= 0) return;
+    feedback.tap();
+    setClueIndex(seen[at - 1]);
+  }, [at, seen]);
+
+  /**
+   * On through them, and past the end of them for a new one — which is the same
+   * press the Clue button makes, and costs the same.
+   */
+  const forwardClue = useCallback(() => {
+    if (at >= 0 && at < seen.length - 1) {
+      feedback.tap();
+      setClueIndex(seen[at + 1]);
+      return;
+    }
+    showNextClue();
+  }, [at, seen, showNextClue]);
 
   const restart = useCallback(() => {
     feedback.tap();
@@ -382,6 +418,7 @@ export function GameScreen({
     setCluesSeen(new Set());
     setExtraClues([]);
     setLit(false);
+    setClueOpen(false);
     flash('Restarted — same puzzle, fresh board and clock.');
   }, [flash]);
 
@@ -438,6 +475,32 @@ export function GameScreen({
           />
         ) : (
           <View style={styles.fill}>
+            {/* Above the board, on the right: the zoom pair, with whatever the
+                app has to say in the room it leaves beside it. A message that
+                shows for two seconds should not hold a band of screen open for
+                the rest of the game, and a board that resized every time one
+                arrived would be worse than either. */}
+            <View style={styles.zoomRow}>
+              <Text style={styles.status} numberOfLines={2}>
+                {status ?? ''}
+              </Text>
+              <View style={styles.zoomPair}>
+                <ZoomButton
+                  label="−"
+                  accent={palette.accent}
+                  disabled={zoom <= 0}
+                  onPress={() => setZoom((step) => Math.max(0, step - ZOOM_STEP))}
+                />
+                <ZoomButton
+                  label="+"
+                  joined
+                  accent={palette.accent}
+                  disabled={cellSize >= MAX_CELL}
+                  onPress={() => setZoom((step) => step + ZOOM_STEP)}
+                />
+              </View>
+            </View>
+
             <View style={styles.fill} onLayout={measureBoard}>
               <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -459,47 +522,22 @@ export function GameScreen({
                 ) : null}
               </ScrollView>
             </View>
-
-            {/* The zoom pair sits at the foot of the board, right above the
-                clue it leaves room for, rather than on a line of its own at
-                the top: it is reached while looking at the squares, and every
-                point it is not taking up above them is another point of
-                board.
-                What the app has to say goes on the same line, in the room the
-                pair leaves beside it. A message that shows for two seconds
-                should not hold a band of screen open for the rest of the game,
-                and a board that resized every time one arrived would be worse
-                than either. */}
-            <View style={styles.zoomRow}>
-              <Text style={styles.status} numberOfLines={2}>
-                {status ?? ''}
-              </Text>
-              <View style={styles.zoomPair}>
-                <ZoomButton
-                  label="−"
-                  accent={palette.accent}
-                  disabled={zoom <= 0}
-                  onPress={() => setZoom((step) => Math.max(0, step - ZOOM_STEP))}
-                />
-                <ZoomButton
-                  label="+"
-                  joined
-                  accent={palette.accent}
-                  disabled={cellSize >= MAX_CELL}
-                  onPress={() => setZoom((step) => step + ZOOM_STEP)}
-                />
-              </View>
-            </View>
           </View>
         )}
       </View>
 
-      <ItemCard puzzle={inPlay} showing={inspecting} onClose={() => setInspecting(null)} />
+      <ItemCard
+        puzzle={inPlay}
+        showing={inspecting}
+        onShow={setInspecting}
+        onClose={() => setInspecting(null)}
+      />
 
       <View style={styles.footer}>
-        {/* The clue in play, with the two buttons that work it stacked beside
-            it: read it, mark what it says, take the next one. Nothing on a
-            finished board is left to undo or hint at, so the row goes with it. */}
+        {/* What the board is worked with: taking a mark back and reading a clue
+            on the left, and on the right the one that lights the clue up on the
+            grids it talks about. Nothing on a finished board is left to undo,
+            hint at or light up, so the row goes with it. */}
         {solved ? null : (
           <View style={styles.play}>
             <View style={styles.tools}>
@@ -509,12 +547,23 @@ export function GameScreen({
                 disabled={history.length === 0}
                 onPress={undo}
               />
-              <ToolButton label="Clue" accent={palette.accent} onPress={showNextClue} />
+              <ToolButton
+                label="Clue"
+                accent={palette.accent}
+                onPress={() => {
+                  // A clue already read opens where it was left; the first press
+                  // of the game has nothing to open, so it asks for one.
+                  feedback.tap();
+                  if (clueIndex === null) showNextClue();
+                  else setClueOpen(true);
+                }}
+              />
             </View>
-            <ClueCard
-              puzzle={inPlay}
-              index={clueIndex}
-              lit={lit}
+            <ToolButton
+              label="Highlight"
+              accent={palette.accent}
+              active={lit}
+              disabled={clueIndex === null}
               onPress={() => {
                 feedback.tap();
                 setLit((on) => !on);
@@ -523,6 +572,18 @@ export function GameScreen({
           </View>
         )}
       </View>
+
+      <CluePopup
+        visible={clueOpen && !solved}
+        puzzle={inPlay}
+        index={clueIndex}
+        position={at + 1}
+        total={seen.length}
+        previousDisabled={at <= 0}
+        onPrevious={previousClue}
+        onNext={forwardClue}
+        onClose={() => setClueOpen(false)}
+      />
 
       <BackLink label="Back to setup" onPress={onExit} />
 
@@ -581,34 +642,52 @@ function ZoomButton({
 }
 
 /** One of the two words beside the clue. */
+/**
+ * One of the words the board is worked with.
+ *
+ * `active` is for the one that is a switch rather than an action: it fills with
+ * the colour instead of outlining it, so a glance says whether the highlight is
+ * on without having to look at the board to find out.
+ */
 function ToolButton({
   label,
   accent,
   disabled = false,
+  active = false,
   onPress,
 }: {
   label: string;
   accent: string;
   disabled?: boolean;
+  active?: boolean;
   onPress: () => void;
 }) {
+  const palette = useTheme();
   const styles = useStyles(makeStyles);
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
-      accessibilityState={{ disabled }}
+      accessibilityState={{ disabled, selected: active }}
       disabled={disabled}
       onPress={onPress}
       style={({ pressed }) => [
         styles.tool,
         {
-          borderColor: tint(accent, 0.4),
+          borderColor: active ? accent : tint(accent, 0.4),
+          backgroundColor: active ? accent : palette.surface,
           opacity: disabled ? 0.4 : pressed ? 0.75 : 1,
         },
       ]}
     >
-      <Text style={[styles.toolLabel, { color: accent }]}>{label}</Text>
+      <Text
+        style={[
+          styles.toolLabel,
+          { color: active ? inkOn(accent, '#FFFFFF', palette.ink) : accent },
+        ]}
+      >
+        {label}
+      </Text>
     </Pressable>
   );
 }
@@ -702,20 +781,21 @@ const makeStyles = (palette: Palette) =>
     },
     play: {
       flexDirection: 'row',
-      alignItems: 'stretch',
+      alignItems: 'center',
+      // The two that work the clue at one end, the one that lights it at the
+      // other, and the board's own width between them.
+      justifyContent: 'space-between',
       gap: space(2),
     },
     tools: {
-      // Two words, one above the other, as tall between them as the clue they
-      // work on is beside them.
-      width: 88,
+      flexDirection: 'row',
       gap: space(2),
     },
     tool: {
-      flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: palette.surface,
+      paddingVertical: space(2.5),
+      paddingHorizontal: space(4),
       borderRadius: radius.pill,
       borderWidth: 1,
     },
