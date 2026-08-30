@@ -3,6 +3,7 @@ import { Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
 import { briefingFor } from '../data/briefings';
 import type { Puzzle } from '../puzzle/types';
+import { t } from '../i18n';
 import { feedback } from '../ui/feedback';
 import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
@@ -38,7 +39,7 @@ export function BriefingPopup({ visible, puzzle, onClose }: Props) {
     <Modal visible transparent animationType="fade" onRequestClose={onClose}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel="Close"
+        accessibilityLabel={t('common.close')}
         style={styles.backdrop}
         onPress={() => {
           feedback.tap();
@@ -63,7 +64,7 @@ export function BriefingPopup({ visible, puzzle, onClose }: Props) {
             <Text style={styles.body}>{briefing.body}</Text>
           </ScrollView>
 
-          <Text style={styles.dismiss}>Tap outside to close</Text>
+          <Text style={styles.dismiss}>{t('common.tapOutside')}</Text>
         </Pressable>
       </Pressable>
     </Modal>

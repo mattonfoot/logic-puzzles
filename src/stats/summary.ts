@@ -6,6 +6,7 @@
  */
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
+import { plural, t } from '../i18n';
 import type { SizeOption } from '../puzzle/types';
 
 /** How many recent games make up the "lately" window used for trends. */
@@ -175,7 +176,8 @@ export interface Improvement {
   solvedBefore: number;
 }
 
-const percent = (fraction: number): string => `${Math.round(Math.abs(fraction) * 100)}%`;
+/** A share as a whole number, for a string that supplies its own per-cent sign. */
+const percentOf = (fraction: number): number => Math.round(Math.abs(fraction) * 100);
 
 /**
  * Compares a finished game with the player's earlier games at the same size.
@@ -187,16 +189,13 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   const previousBest = times.length === 0 ? null : Math.min(...times);
   const averageBefore = mean(times);
   const rank = times.filter((time) => time < game.seconds).length + 1;
-  const clues =
-    game.cluesUsed === null
-      ? ''
-      : ` · ${game.cluesUsed} clue${game.cluesUsed === 1 ? '' : 's'} read`;
+  const clues = game.cluesUsed === null ? '' : plural('improvement.clues', game.cluesUsed);
 
   if (game.revealed) {
     return {
       kind: 'revealed',
-      headline: 'Solution revealed',
-      detail: 'Revealed puzzles are kept out of your times.',
+      headline: t('improvement.revealed.headline'),
+      detail: t('improvement.revealed.detail'),
       previousBest,
       averageBefore,
       rank: null,
@@ -207,8 +206,11 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   if (previousBest === null) {
     return {
       kind: 'first',
-      headline: `First ${game.difficulty} in the books`,
-      detail: `Time to beat next round: ${formatDuration(game.seconds)}${clues}.`,
+      headline: t('improvement.first.headline', { difficulty: game.difficulty }),
+      detail: t('improvement.first.detail', {
+        clock: formatDuration(game.seconds),
+        clues,
+      }),
       previousBest,
       averageBefore,
       rank: 1,
@@ -219,8 +221,12 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   if (game.seconds < previousBest) {
     return {
       kind: 'best',
-      headline: `New ${game.difficulty} best!`,
-      detail: `${formatDuration(previousBest - game.seconds)} faster than your old best of ${formatDuration(previousBest)}${clues}.`,
+      headline: t('improvement.best.headline', { difficulty: game.difficulty }),
+      detail: t('improvement.best.detail', {
+        gap: formatDuration(previousBest - game.seconds),
+        best: formatDuration(previousBest),
+        clues,
+      }),
       previousBest,
       averageBefore,
       rank: 1,
@@ -232,8 +238,16 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
     const share = (averageBefore - game.seconds) / averageBefore;
     return {
       kind: 'faster',
-      headline: `${percent(share)} faster than your ${game.difficulty} average`,
-      detail: `#${rank} of ${earlier.length + 1} · best is ${formatDuration(previousBest)}${clues}.`,
+      headline: t('improvement.faster.headline', {
+        percent: percentOf(share),
+        difficulty: game.difficulty,
+      }),
+      detail: t('improvement.faster.detail', {
+        rank: String(rank),
+        total: earlier.length + 1,
+        best: formatDuration(previousBest),
+        clues,
+      }),
       previousBest,
       averageBefore,
       rank,
@@ -243,8 +257,12 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
 
   return {
     kind: 'steady',
-    headline: `${game.difficulty} complete`,
-    detail: `${formatDuration(game.seconds - previousBest)} off your best of ${formatDuration(previousBest)}${clues}.`,
+    headline: t('improvement.steady.headline', { difficulty: game.difficulty }),
+    detail: t('improvement.steady.detail', {
+      gap: formatDuration(game.seconds - previousBest),
+      best: formatDuration(previousBest),
+      clues,
+    }),
     previousBest,
     averageBefore,
     rank,

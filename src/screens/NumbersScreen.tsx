@@ -4,6 +4,7 @@ import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'reac
 import { completedOnPage, pageNumbers } from '../game/library';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
+import { t } from '../i18n';
 import type { SizeOption } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
@@ -64,7 +65,7 @@ export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
 
       <View style={styles.bottom}>
         <View style={styles.content}>
-          <RuledTitle>{`Play ${size.difficulty}`}</RuledTitle>
+          <RuledTitle>{t('numbers.title', { difficulty: size.difficulty })}</RuledTitle>
 
           <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
             {numbers.map((number) => {
@@ -73,11 +74,13 @@ export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
                 <Pressable
                   key={number}
                   accessibilityRole="button"
-                  accessibilityLabel={`Puzzle ${number}`}
+                  accessibilityLabel={t('numbers.puzzle', { number })}
                   // A screen reader hears the box as the state it stands for.
                   accessibilityState={{ checked: Boolean(game), disabled: busy }}
                   accessibilityHint={
-                    game ? `Finished in ${formatDuration(game.seconds)}` : size.label
+                    game
+                      ? t('numbers.finishedHint', { clock: formatDuration(game.seconds) })
+                      : size.label
                   }
                   disabled={busy}
                   onPress={() => {
@@ -97,7 +100,9 @@ export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
                   >
                     {game ? <Text style={[styles.tick, { color: palette.bg }]}>✓</Text> : null}
                   </View>
-                  <Text style={[styles.number, { color: palette.accent }]}>Puzzle {number}</Text>
+                  <Text style={[styles.number, { color: palette.accent }]}>
+                    {t('numbers.puzzle', { number })}
+                  </Text>
                   {game ? <Text style={styles.time}>{formatDuration(game.seconds)}</Text> : null}
                 </Pressable>
               );
@@ -116,14 +121,14 @@ export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
           </View>
         </View>
 
-        <BackLink label="Back to the difficulties" onPress={onBack} />
+        <BackLink label={t('numbers.back')} onPress={onBack} />
       </View>
 
       {busy ? (
         <View style={styles.busyOverlay} pointerEvents="auto">
           <View style={[styles.busyCard, shadow.card]}>
             <ActivityIndicator color={palette.accent} />
-            <Text style={styles.busyText}>Building your puzzle…</Text>
+            <Text style={styles.busyText}>{t('common.building')}</Text>
           </View>
         </View>
       ) : null}

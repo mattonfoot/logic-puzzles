@@ -1,12 +1,12 @@
 import { generatePuzzle } from '../../puzzle/generator';
-import { BRIEFINGS, briefingFor } from '../briefings';
+import { briefingFor, briefingsFor } from '../briefings';
 import { SIZES } from '../sizes';
 import { THEMES } from '../themes';
 
 describe('BRIEFINGS', () => {
   it('has a story for every theme', () => {
     for (const theme of THEMES) {
-      expect(BRIEFINGS[theme.id]?.length ?? 0).toBeGreaterThan(0);
+      expect(briefingsFor(theme.id).length).toBeGreaterThan(0);
     }
   });
 
@@ -16,7 +16,7 @@ describe('BRIEFINGS', () => {
     // describing a puzzle with no cargo in it.
     for (const theme of THEMES) {
       const optional = theme.categories.slice(1);
-      for (const briefing of BRIEFINGS[theme.id]) {
+      for (const briefing of briefingsFor(theme.id)) {
         const words = `${briefing.title} ${briefing.body}`.toLowerCase();
         for (const category of optional) {
           expect(words).not.toContain(category.name.toLowerCase());
@@ -27,8 +27,8 @@ describe('BRIEFINGS', () => {
   });
 
   it('says what happened rather than trailing off', () => {
-    for (const list of Object.values(BRIEFINGS)) {
-      for (const briefing of list) {
+    for (const theme of THEMES) {
+      for (const briefing of briefingsFor(theme.id)) {
         expect(briefing.title.length).toBeGreaterThan(0);
         expect(briefing.body.length).toBeGreaterThan(80);
         expect(briefing.body.trim()).toMatch(/[.!?]$/);
@@ -68,6 +68,6 @@ describe('briefingFor', () => {
     for (let seed = 1; seed <= 60; seed++) {
       seen.add(briefingFor(generatePuzzle({ theme, size: SIZES[0], seed })).title);
     }
-    expect(seen.size).toBe(BRIEFINGS[theme.id].length);
+    expect(seen.size).toBe(briefingsFor(theme.id).length);
   });
 });

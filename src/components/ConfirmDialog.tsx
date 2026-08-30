@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 
+import { t } from '../i18n';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { radius, shadow, space, type Palette } from '../ui/theme';
@@ -30,7 +31,7 @@ export function ConfirmDialog({
   title,
   message,
   confirmLabel,
-  cancelLabel = 'Keep it',
+  cancelLabel,
   onConfirm,
   onCancel,
 }: Props) {
@@ -49,7 +50,7 @@ export function ConfirmDialog({
             style={styles.button}
           />
           <AppButton
-            label={cancelLabel}
+            label={cancelLabel ?? t('common.keepIt')}
             variant="ghost"
             accent={palette.inkSoft}
             onPress={onCancel}

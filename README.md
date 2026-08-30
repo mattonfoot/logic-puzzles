@@ -33,6 +33,7 @@ npm run format:check  # prettier --check . (what CI would ask)
 npm run screenshots  # rebuild the screens in docs/screenshots (see below)
 npm run sounds     # regenerate the three effects in assets/sounds (see below)
 npm run icons      # redraw assets/icons and rebuild the path data (see below)
+npm run locale     # rebuild the strings from locales/en-HB.yaml (see below)
 ```
 
 Formatting is Prettier's, configured in `.prettierrc.json` — 100 columns and
@@ -384,6 +385,8 @@ src/data/themes.ts          the five themes: categories, item pools with their
                             traits and descriptions, clue wording
 src/data/sizes.ts           the four sizes, and the difficulty each is called
 src/data/openers.ts         who is supposed to have said a clue
+locales/en-HB.yaml          every word the app says — the language file
+src/i18n/                   t(), plural(), and the module built from that file
 src/data/briefings.ts       why anybody wants the puzzle solved
 src/puzzle/types.ts         puzzle, clue and theme model
 src/puzzle/rng.ts           seeded PRNG (a seed always rebuilds the same puzzle)
@@ -621,6 +624,41 @@ The result offers nothing to press either. Another puzzle, a different
 difficulty and the statistics are all where they always are, behind `◀ Back`,
 so the panel is something to read rather than a junction to get past — and the
 app has one way out of a game rather than four.
+
+## The words
+
+**Every word the app says is in `locales/en-HB.yaml`.** Nothing user-facing is
+written in a component: screens, buttons, hints, confirmations, the clue
+openers, the briefings, the difficulty names, the colour names and the
+statistics wording all come from that file, and `t('numbers.puzzle', { number })`
+is how a screen asks for one.
+
+Metro cannot import YAML, and a parser in the bundle would be a parser on every
+phone reading a file that never changes at runtime. So the YAML is the source
+and `npm run locale` builds it into `src/i18n/strings.generated.ts`, which is
+what ships and what is committed — the same arrangement the icons use, for the
+same reason. A test holds every string the app would say to still appearing in
+the YAML, so a wording change without the rebuild fails rather than quietly
+shipping the old words.
+
+The keys are a generated union type, so `t('does.not.exist')` is a compile error
+rather than a blank space on a screen. Placeholders are `{braced}` and are
+filled in by the caller, which is what lets another language put the words round
+one in a different order. A key ending `.one` / `.other` is a count, chosen by
+`plural(key, n)`; English wants two forms and puts the boundary at one, and a
+language that wants more changes that function and the shape of those keys
+together.
+
+Adding a language means another YAML beside this one and a choice of which to
+build. Nothing that calls `t` has to change, which is the point of doing this
+before there is a second language rather than after.
+
+**What is not in it:** the themes' item names, their one-line blurbs and their
+trait values, which are still in `src/data/themes.ts`. An item's name is
+load-bearing as well as readable — `iconName` derives the file name of its
+drawing from it, and a test enforces the two agree — so moving those means
+decoupling the icon naming first. The theme *names* and blurbs are in the
+language file; the cast is not.
 
 ## Clues, one at a time
 

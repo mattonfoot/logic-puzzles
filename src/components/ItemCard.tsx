@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
 
 import type { Attribute, Puzzle } from '../puzzle/types';
+import { t } from '../i18n';
 import { feedback } from '../ui/feedback';
 import { Icon } from '../ui/Icon';
 import { Pager } from '../ui/Pager';
@@ -48,7 +49,7 @@ export function ItemCard({ puzzle, showing, onShow, onClose }: Props) {
     <Modal visible transparent animationType="fade" onRequestClose={onClose}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel="Close"
+        accessibilityLabel={t('common.close')}
         style={styles.backdrop}
         onPress={() => {
           feedback.tap();
@@ -84,13 +85,16 @@ export function ItemCard({ puzzle, showing, onShow, onClose }: Props) {
             <Pager
               previousDisabled={first}
               nextDisabled={last}
-              middle={`${showing.item + 1} of ${category.items.length}`}
+              middle={t('common.position', {
+                at: showing.item + 1,
+                total: category.items.length,
+              })}
               onPrevious={() => onShow({ category: showing.category, item: showing.item - 1 })}
               onNext={() => onShow({ category: showing.category, item: showing.item + 1 })}
             />
           </View>
 
-          <Text style={styles.dismiss}>Tap outside to close</Text>
+          <Text style={styles.dismiss}>{t('common.tapOutside')}</Text>
         </Pressable>
       </Pressable>
     </Modal>

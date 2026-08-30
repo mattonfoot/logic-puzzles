@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { t } from '../i18n';
 import { Text } from './Text';
 import { useStyles, useTheme } from './ThemeProvider';
 import { inkOn, space, tint, type Palette } from './theme';
@@ -46,9 +47,9 @@ export function TitlePanel() {
 
   return (
     <View style={[styles.panel, { backgroundColor: ground, paddingTop: insets.top + space(4) }]}>
-      <Text style={[styles.eyebrow, { color: onSoft }]}>One solution, never guessed, pure…</Text>
+      <Text style={[styles.eyebrow, { color: onSoft }]}>{t('app.tagline')}</Text>
       <Text style={[styles.title, { color: on }]} numberOfLines={1} adjustsFontSizeToFit>
-        …Deduction
+        {t('app.name')}
       </Text>
     </View>
   );

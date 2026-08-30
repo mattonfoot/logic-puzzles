@@ -2,6 +2,7 @@ import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { t } from '../i18n';
 import { feedback } from '../ui/feedback';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
@@ -51,14 +52,14 @@ export function StartScreen({ onDaily, onPlay, onOpenSettings, onOpenStats }: Pr
 
       <View style={[styles.bottom, { paddingBottom: insets.bottom + space(3) }]}>
         <View style={styles.doors}>
-          <Door label="Daily" onPress={onDaily} />
+          <Door label={t('start.daily')} onPress={onDaily} />
           <View style={styles.rule} />
-          <Door label="Play" onPress={onPlay} />
+          <Door label={t('start.play')} onPress={onPlay} />
         </View>
 
         <View style={styles.footer}>
-          <FootLink label="Settings" onPress={onOpenSettings} />
-          <FootLink label="Statistics" onPress={onOpenStats} />
+          <FootLink label={t('start.settings')} onPress={onOpenSettings} />
+          <FootLink label={t('start.statistics')} onPress={onOpenStats} />
         </View>
       </View>
     </View>

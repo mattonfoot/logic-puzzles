@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { formatDuration } from '../game/time';
+import { t } from '../i18n';
 import type { Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { Icon } from '../ui/Icon';
@@ -31,7 +32,7 @@ interface Props {
  * `◀ Back` link as always, so the result is something to read rather than a
  * junction to get past.
  */
-export function SolvedPanel({ title = 'Solved!', puzzle, seconds, cluesUsed, improvement }: Props) {
+export function SolvedPanel({ title, puzzle, seconds, cluesUsed, improvement }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   return (
@@ -43,14 +44,14 @@ export function SolvedPanel({ title = 'Solved!', puzzle, seconds, cluesUsed, imp
       <View style={styles.mark}>
         <Icon name={puzzle.themeIcon} size={48} color={palette.accent} />
       </View>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>{title ?? t('solved.title')}</Text>
       <Text style={styles.subtitle}>
-        {puzzle.themeName} · {puzzle.size.label}
+        {t('solved.subtitle', { theme: puzzle.themeName, size: puzzle.size.label })}
       </Text>
 
       <View style={styles.stats}>
-        <Stat label="Time" value={formatDuration(seconds)} accent={palette.accent} />
-        <Stat label="Clues read" value={`${cluesUsed}`} accent={palette.accent} joined />
+        <Stat label={t('solved.time')} value={formatDuration(seconds)} accent={palette.accent} />
+        <Stat label={t('solved.cluesRead')} value={`${cluesUsed}`} accent={palette.accent} joined />
       </View>
 
       {improvement ? (
@@ -75,7 +76,7 @@ export function SolvedPanel({ title = 'Solved!', puzzle, seconds, cluesUsed, imp
       ) : null}
 
       <View style={styles.answer}>
-        <Text style={styles.answerLabel}>The answer</Text>
+        <Text style={styles.answerLabel}>{t('solved.answer')}</Text>
         <SolutionTable puzzle={puzzle} compact />
       </View>
     </ScrollView>

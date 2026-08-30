@@ -4,6 +4,7 @@
  * any one game, so they are written to disk and read back the same guarded way
  * as everything else.
  */
+import { t } from '../i18n';
 import { ACCENTS, DEFAULT_ACCENT } from '../ui/accents';
 import type { ColourPreference } from '../ui/ThemeProvider';
 
@@ -31,10 +32,10 @@ export interface Settings {
  * something a screen reader can say.
  */
 export const VOLUMES = [
-  { label: 'Off', value: 0 },
-  { label: 'Quiet', value: 0.3 },
-  { label: 'Medium', value: 0.6 },
-  { label: 'Loud', value: 1 },
+  { label: t('volumes.off'), value: 0 },
+  { label: t('volumes.quiet'), value: 0.3 },
+  { label: t('volumes.medium'), value: 0.6 },
+  { label: t('volumes.loud'), value: 1 },
 ] as const;
 
 /** The step a stored volume belongs to, so an old or odd value still shows. */

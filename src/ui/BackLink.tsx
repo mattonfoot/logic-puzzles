@@ -2,6 +2,7 @@ import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { t } from '../i18n';
 import { feedback } from './feedback';
 import { Icon } from './Icon';
 import { Text } from './Text';
@@ -28,7 +29,7 @@ interface Props {
  * It carries the bottom safe area, so it is the last thing on a screen — the
  * scrolling part above it does not need to leave room for the home indicator.
  */
-export function BackLink({ label = 'Back', onPress }: Props) {
+export function BackLink({ label, onPress }: Props) {
   const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
@@ -37,7 +38,7 @@ export function BackLink({ label = 'Back', onPress }: Props) {
     <View style={[styles.bar, { paddingBottom: insets.bottom + space(2) }]}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={label}
+        accessibilityLabel={label ?? t('common.back')}
         hitSlop={12}
         onPress={() => {
           feedback.tap();
@@ -46,7 +47,7 @@ export function BackLink({ label = 'Back', onPress }: Props) {
         style={({ pressed }) => [styles.hit, { opacity: pressed ? 0.6 : 1 }]}
       >
         <Icon name="ui/icon-back" size={11} color={palette.inkSoft} />
-        <Text style={styles.text}>Back</Text>
+        <Text style={styles.text}>{t('common.back')}</Text>
       </Pressable>
     </View>
   );

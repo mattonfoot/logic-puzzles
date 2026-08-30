@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { solutionRows, type SolutionCell } from '../game/layout';
 import type { Puzzle } from '../puzzle/types';
+import { t } from '../i18n';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { space, tint, type Palette } from '../ui/theme';
@@ -91,7 +92,7 @@ export function SolutionTable({ puzzle, compact = false }: Props) {
         </ScrollView>
       </View>
 
-      {overflows ? <Text style={styles.hint}>Swipe the table for the other sets</Text> : null}
+      {overflows ? <Text style={styles.hint}>{t('solved.swipe')}</Text> : null}
     </View>
   );
 }

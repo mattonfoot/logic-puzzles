@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { VOLUMES, volumeStep, type Settings } from '../game/settings';
+import { t } from '../i18n';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { accentById, nextAccent } from '../ui/accents';
@@ -36,40 +37,40 @@ export function SettingsScreen({ settings, onChange, onBack }: Props) {
         contentContainerStyle={[styles.content, { paddingTop: insets.top + space(5) }]}
         showsVerticalScrollIndicator={false}
       >
-        <RuledTitle>Settings</RuledTitle>
+        <RuledTitle>{t('settings.title')}</RuledTitle>
 
         <View style={styles.list}>
           <CheckRow
-            label="Automatic crosses"
+            label={t('settings.automaticCrosses')}
             on={settings.autoEliminate}
             onPress={() => onChange({ autoEliminate: !settings.autoEliminate })}
           />
           <CheckRow
-            label="Auto add facts"
+            label={t('settings.autoAddFacts')}
             on={settings.autoFacts}
             onPress={() => onChange({ autoFacts: !settings.autoFacts })}
           />
           <CheckRow
-            label="Match the device"
+            label={t('settings.matchDevice')}
             on={auto}
             onPress={() =>
               onChange({ colours: auto ? (palette.scheme === 'night' ? 'night' : 'day') : 'auto' })
             }
           />
           <CheckRow
-            label="Night colours"
+            label={t('settings.nightColours')}
             on={palette.scheme === 'night'}
             // Shown as it stands, but the device is deciding it.
             disabled={auto}
             onPress={() => onChange({ colours: settings.colours === 'night' ? 'day' : 'night' })}
           />
           <CycleRow
-            label="Colour"
+            label={t('settings.colour')}
             value={accentById(settings.accent).name}
             onPress={() => onChange({ accent: nextAccent(settings.accent).id })}
           />
           <SliderRow
-            label="Volume"
+            label={t('settings.volume')}
             steps={VOLUMES.map((step) => step.label)}
             index={VOLUMES.findIndex((step) => step.value === volumeStep(settings.volume).value)}
             onChange={(index) => {
@@ -80,14 +81,14 @@ export function SettingsScreen({ settings, onChange, onBack }: Props) {
             }}
           />
           <CheckRow
-            label="Vibration"
+            label={t('settings.vibration')}
             on={settings.haptics}
             onPress={() => onChange({ haptics: !settings.haptics })}
           />
         </View>
       </ScrollView>
 
-      <BackLink label="Back" onPress={onBack} />
+      <BackLink label={t('settings.back')} onPress={onBack} />
     </View>
   );
 }

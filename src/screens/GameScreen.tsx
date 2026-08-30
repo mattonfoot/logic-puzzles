@@ -24,6 +24,7 @@ import {
 import { cluesDone, inventClue, nextClue } from '../game/clues';
 import { SAVE_VERSION, type SavedGame } from '../game/persistence';
 import type { CompletionInput } from '../game/usePersistence';
+import { plural, t } from '../i18n';
 import { useTimer } from '../game/useTimer';
 import { clueAttributes } from '../puzzle/describe';
 import type { Attribute, Clue, Puzzle } from '../puzzle/types';
@@ -34,6 +35,10 @@ import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { inkOn, joinLeft, radius, space, tint, type Palette } from '../ui/theme';
+
+/** The two zoom glyphs: signs rather than words, so they are not translated. */
+const ZOOM_OUT = '−';
+const ZOOM_IN = '+';
 
 /** How much each press of the zoom buttons adds or takes away. */
 const ZOOM_STEP = 8;
@@ -271,7 +276,7 @@ export function GameScreen({
       // A finished board is read-only: a stray tap would undo the win, restart
       // the clock and have the game counted twice.
       if (finished.current) {
-        flash('This puzzle is finished — Restart to play it again.');
+        flash(t('game.status.finished'));
         return;
       }
       // Nothing can be worked out from a board nobody has said anything about,
@@ -294,7 +299,7 @@ export function GameScreen({
 
   const undo = useCallback(() => {
     if (history.length === 0) {
-      flash('Nothing to undo.');
+      flash(t('game.status.nothingToUndo'));
       return;
     }
     feedback.tap();
@@ -326,13 +331,13 @@ export function GameScreen({
     setMistakes(new Set());
     if (board) {
       setMarks(board);
-      flash(`Rewound ${steps} move${steps === 1 ? '' : 's'} to a board that can still be solved.`);
+      flash(plural('game.status.rewound', steps, { steps }));
       return;
     }
     // Nothing recorded is clean — a resumed board can start out wrong, and its
     // history begins where the player picked it up. Take the bad marks off.
     setMarks((current) => clearMistakes(current, puzzle, boardOptions));
-    flash('Took off the marks that cannot be right.');
+    flash(t('game.status.clearedMistakes'));
   }, [boardOptions, flash, history, puzzle]);
 
   /**
@@ -424,7 +429,7 @@ export function GameScreen({
     setExtraClues([]);
     setLit(false);
     setClueOpen(false);
-    flash('Restarted — same puzzle, fresh board and clock.');
+    flash(t('game.status.restarted'));
   }, [flash]);
 
   if (menuOpen) {
@@ -451,7 +456,7 @@ export function GameScreen({
       <View style={[styles.header, { paddingTop: insets.top + space(4) }]}>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Menu"
+          accessibilityLabel={t('game.menu')}
           onPress={() => {
             feedback.tap();
             setMenuOpen(true);
@@ -464,7 +469,7 @@ export function GameScreen({
         <View style={styles.headerCenter}>
           <RuledTitle>{puzzle.themeName}</RuledTitle>
           <Text style={styles.headerSubtitle} numberOfLines={1}>
-            #{puzzle.seed}
+            {t('game.seed', { seed: puzzle.seed })}
           </Text>
         </View>
       </View>
@@ -472,7 +477,7 @@ export function GameScreen({
       <View style={styles.body}>
         {solved ? (
           <SolvedPanel
-            title="Solved!"
+            title={t('solved.title')}
             puzzle={puzzle}
             seconds={seconds}
             cluesUsed={cluesSeen.size}
@@ -491,13 +496,13 @@ export function GameScreen({
               </Text>
               <View style={styles.zoomPair}>
                 <ZoomButton
-                  label="−"
+                  label={ZOOM_OUT}
                   accent={palette.accent}
                   disabled={zoom <= 0}
                   onPress={() => setZoom((step) => Math.max(0, step - ZOOM_STEP))}
                 />
                 <ZoomButton
-                  label="+"
+                  label={ZOOM_IN}
                   joined
                   accent={palette.accent}
                   disabled={cellSize >= MAX_CELL}
@@ -548,13 +553,13 @@ export function GameScreen({
           <View style={styles.play}>
             <View style={styles.tools}>
               <ToolButton
-                label="Undo"
+                label={t('game.undo')}
                 accent={palette.accent}
                 disabled={history.length === 0}
                 onPress={undo}
               />
               <ToolButton
-                label="Clue"
+                label={t('game.clue')}
                 accent={palette.accent}
                 onPress={() => {
                   // A clue already read opens where it was left; the first press
@@ -567,7 +572,7 @@ export function GameScreen({
             </View>
             <View style={styles.tools}>
               <ToolButton
-                label="Info"
+                label={t('game.info')}
                 accent={palette.accent}
                 onPress={() => {
                   feedback.tap();
@@ -575,7 +580,7 @@ export function GameScreen({
                 }}
               />
               <ToolButton
-                label="Highlight"
+                label={t('game.highlight')}
                 accent={palette.accent}
                 active={lit}
                 disabled={clueIndex === null}
@@ -607,19 +612,17 @@ export function GameScreen({
         onClose={() => setClueOpen(false)}
       />
 
-      <BackLink label="Back to setup" onPress={onExit} />
+      <BackLink label={t('game.back')} onPress={onExit} />
 
       {/* What the clue button found, in a window rather than a line: a board
           the answer cannot be reached from is the one thing worth stopping the
           game for, and the two ways on from it are the window's two buttons. */}
       <ConfirmDialog
         visible={stuck}
-        title="A clue cannot help"
-        message={`${wrong.length} mark${wrong.length === 1 ? '' : 's'} on the board ${
-          wrong.length === 1 ? 'contradicts' : 'contradict'
-        } the answer, so there is nothing left for a clue to lead to. Rewinding takes moves back to the last board the puzzle can still be solved from. Close this and the marks that cannot be right stay lit on the grids, to sort out by hand.`}
-        confirmLabel="Rewind"
-        cancelLabel="Leave it to me"
+        title={t('game.stuck.title')}
+        message={plural('game.stuck.body', wrong.length)}
+        confirmLabel={t('game.stuck.rewind')}
+        cancelLabel={t('game.stuck.leaveIt')}
         onConfirm={() => {
           setFlagged(false);
           rewind();
@@ -648,7 +651,7 @@ function ZoomButton({
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={label === '+' ? 'Zoom in' : 'Zoom out'}
+      accessibilityLabel={label === ZOOM_IN ? t('game.zoomIn') : t('game.zoomOut')}
       accessibilityState={{ disabled }}
       disabled={disabled}
       onPress={onPress}

@@ -13,6 +13,8 @@
  * because a colour that carries white text by day is too dark to read on a
  * near-black page and the light cut that reads there cannot carry white.
  */
+import { t } from '../i18n';
+
 export interface AccentCut {
   /** Links, ticks, headings — and the ground the title panel is painted in. */
   primary: string;
@@ -42,7 +44,7 @@ export interface Accent {
 export const ACCENTS: Accent[] = [
   {
     id: 'blue',
-    name: 'Blue',
+    name: t('accents.blue'),
     // The one colour with a page of its own: a deep navy on a cool near-white,
     // with the mid blue doing the quiet half of the work.
     day: { primary: '#064789', secondary: '#427AA1', bg: '#EBF2FA' },
@@ -53,25 +55,25 @@ export const ACCENTS: Accent[] = [
     // page the deeper one leads and the lighter one is the quiet half, and on a
     // near-black one it is the other way round.
     id: 'violet',
-    name: 'Violet',
+    name: t('accents.violet'),
     day: { primary: '#7A64FF', secondary: '#8B8BE8', bg: '#F8F7FF' },
     night: { primary: '#8B8BE8', secondary: '#7A64FF' },
   },
   {
     id: 'teal',
-    name: 'Teal',
+    name: t('accents.teal'),
     day: { primary: '#0F7C7B', secondary: '#77B2AE' },
     night: { primary: '#4FC7C4', secondary: '#357E7C' },
   },
   {
     id: 'green',
-    name: 'Green',
+    name: t('accents.green'),
     day: { primary: '#2F8F4E', secondary: '#89BC95' },
     night: { primary: '#6ACF72', secondary: '#45834B' },
   },
   {
     id: 'rust',
-    name: 'Rust',
+    name: t('accents.rust'),
     day: { primary: '#B25F2E', secondary: '#D1A284' },
     night: { primary: '#E39A63', secondary: '#8E6342' },
   },

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
+import { t } from '../i18n';
 import { feedback } from './feedback';
 import { Text } from './Text';
 import { useStyles, useTheme } from './ThemeProvider';
@@ -31,9 +32,13 @@ export function Pager({ onPrevious, onNext, previousDisabled, nextDisabled, midd
   const styles = useStyles(makeStyles);
   return (
     <View style={styles.row}>
-      <PageLink label="Previous" disabled={Boolean(previousDisabled)} onPress={onPrevious} />
+      <PageLink
+        label={t('common.previous')}
+        disabled={Boolean(previousDisabled)}
+        onPress={onPrevious}
+      />
       {middle ? <Text style={styles.middle}>{middle}</Text> : null}
-      <PageLink label="Next" disabled={Boolean(nextDisabled)} onPress={onNext} />
+      <PageLink label={t('common.next')} disabled={Boolean(nextDisabled)} onPress={onNext} />
     </View>
   );
 }

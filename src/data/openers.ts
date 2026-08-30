@@ -7,30 +7,17 @@
  * the numbers filed off, and costs nothing: the opener says who, never what, so
  * it cannot help or mislead.
  *
+ * The lines are in `locales/en-HB.yaml`; this decides which one a clue gets.
  * `{noun}` is the theme's own word for one member of its anchor set — diver,
  * gardener, astronaut — which every theme already carries for its clue wording.
  * The ones that use it sound like the puzzle; the ones that do not sound like a
  * bystander, and both belong.
  */
+import { fill, STRINGS } from '../i18n';
 import { createRng } from '../puzzle/rng';
 import type { Puzzle } from '../puzzle/types';
 
-export const OPENERS: string[] = [
-  'Someone commented that',
-  'An observer mentioned that',
-  'One {noun} remembered that',
-  'Another {noun} was sure that',
-  'Word went round that',
-  'It was noted at the time that',
-  'Somebody swore blind that',
-  'One {noun} let slip that',
-  'The record shows that',
-  'A bystander insisted that',
-  'Nobody disputes that',
-  'One {noun} recalled that',
-  'It is generally agreed that',
-  'Another {noun} put it that',
-];
+export const OPENERS: readonly string[] = STRINGS.clue.openers;
 
 /**
  * The opener for one clue, which is the same one every time it is read.
@@ -44,5 +31,5 @@ export function clueOpener(puzzle: Puzzle, index: number): string {
   // Spread apart so neighbouring clues do not draw neighbouring openers; the
   // multiplier is a prime, which is all it has to be.
   const rng = createRng(puzzle.seed + (index + 1) * 7919);
-  return rng.pick(OPENERS).replace('{noun}', puzzle.categories[0].noun);
+  return fill(rng.pick(OPENERS), { noun: puzzle.categories[0].noun });
 }

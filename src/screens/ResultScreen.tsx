@@ -6,6 +6,7 @@ import { SolvedPanel } from '../components/SolvedPanel';
 import { sizeById } from '../data/sizes';
 import { THEMES } from '../data/themes';
 import type { CompletedGame } from '../game/persistence';
+import { t } from '../i18n';
 import { generatePuzzle } from '../puzzle/generator';
 import { BackLink } from '../ui/BackLink';
 import { space, type Palette } from '../ui/theme';
@@ -41,7 +42,7 @@ export function ResultScreen({ game, onBack }: Props) {
     <View style={styles.screen}>
       <View style={[styles.body, { paddingTop: insets.top + space(4) }]}>
         <SolvedPanel
-          title="Solved!"
+          title={t('solved.title')}
           puzzle={puzzle}
           seconds={game.seconds}
           cluesUsed={game.cluesUsed ?? 0}
@@ -51,7 +52,7 @@ export function ResultScreen({ game, onBack }: Props) {
         />
       </View>
 
-      <BackLink label="Back" onPress={onBack} />
+      <BackLink label={t('common.back')} onPress={onBack} />
     </View>
   );
 }

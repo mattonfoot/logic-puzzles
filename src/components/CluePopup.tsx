@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
 
 import { clueOpener } from '../data/openers';
+import { t } from '../i18n';
 import { describeClue } from '../puzzle/describe';
 import type { Puzzle } from '../puzzle/types';
 import { feedback } from '../ui/feedback';
@@ -66,7 +67,7 @@ export function CluePopup({
     <Modal visible transparent animationType="fade" onRequestClose={onClose}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel="Close"
+        accessibilityLabel={t('common.close')}
         style={styles.backdrop}
         onPress={() => {
           feedback.tap();
@@ -76,25 +77,23 @@ export function CluePopup({
         {/* Taps inside the window stay inside it. */}
         <Pressable style={[styles.card, shadow.raised]} onPress={() => undefined}>
           <Text style={[styles.opener, { color: palette.accent }]}>
-            {index === null ? 'Nobody has said anything yet…' : `${clueOpener(puzzle, index)}…`}
+            {index === null ? t('clue.noneYet') : `${clueOpener(puzzle, index)}…`}
           </Text>
 
-          <Text style={styles.clue} accessibilityLabel="Clue in play">
-            {index === null
-              ? 'Tap Next for the first clue.'
-              : describeClue(puzzle.clues[index], puzzle)}
+          <Text style={styles.clue} accessibilityLabel={t('clue.inPlay')}>
+            {index === null ? t('clue.noneYetBody') : describeClue(puzzle.clues[index], puzzle)}
           </Text>
 
           <View style={styles.pager}>
             <Pager
               previousDisabled={previousDisabled}
-              middle={index === null ? undefined : `${position} of ${total}`}
+              middle={index === null ? undefined : t('common.position', { at: position, total })}
               onPrevious={onPrevious}
               onNext={onNext}
             />
           </View>
 
-          <Text style={styles.dismiss}>Tap outside to close</Text>
+          <Text style={styles.dismiss}>{t('common.tapOutside')}</Text>
         </Pressable>
       </Pressable>
     </Modal>

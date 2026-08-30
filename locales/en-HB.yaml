@@ -1,0 +1,311 @@
+# Deduction — en-HB
+#
+# Every word the app says, in one file. Change the wording here and run
+# `npm run locale`; that rewrites src/i18n/strings.generated.ts, which is what
+# the app actually imports, and a test fails if the two are ever out of step.
+#
+# Placeholders are {braced} and are filled in by the code that reads the string,
+# so the words either side of one can be reordered freely — which is the point
+# of them, and the first thing another language will want to do.
+#
+# Anything ending in `.one` / `.other` is a count: `.one` is used when the number
+# is exactly one and `.other` for everything else, including zero.
+#
+# What is NOT here: the puzzle themes' item names, their one-line blurbs and
+# their trait values, which are still in src/data/themes.ts. An item's name is
+# load-bearing as well as readable — the file name of its drawing is derived
+# from it, and a test enforces that — so translating those means decoupling the
+# icon naming first. Everything the interface says, and every word of the
+# narrative around a puzzle, is here.
+
+app:
+  # The name is the last line of the sentence above it, so the two are written
+  # as a pair: "One solution, never guessed, pure…" then "…Deduction".
+  name: '…Deduction'
+  tagline: One solution, never guessed, pure…
+
+common:
+  back: Back
+  close: Close
+  next: Next
+  previous: Previous
+  # Under a window, saying how to be rid of it.
+  tapOutside: Tap outside to close
+  # "3 of 8" — a position in a run, used by the item card and the clue window.
+  position: '{at} of {total}'
+  building: Building your puzzle…
+  keepIt: Keep it
+
+start:
+  daily: Daily
+  play: Play
+  settings: Settings
+  statistics: Statistics
+
+setup:
+  title: Play
+  continue: Continue
+  # Read out for Continue: what is waiting behind it.
+  continueHint: '{theme}, {size}, {percent}% filled in, {clock} on the clock'
+  # Read out for a difficulty: the shape it stands for.
+  difficultyHint: '{items} items in each of {sets} sets'
+  back: Back
+
+numbers:
+  # The heading over the numbered list: "Play Expert".
+  title: Play {difficulty}
+  # Every row of it.
+  puzzle: Puzzle {number}
+  finishedHint: Finished in {clock}
+  back: Back to the difficulties
+
+daily:
+  title: Daily challenges
+  doneHint: Done in {clock} — opens the result
+  back: Back
+
+game:
+  menu: Menu
+  undo: Undo
+  clue: Clue
+  info: Info
+  highlight: Highlight
+  zoomIn: Zoom in
+  zoomOut: Zoom out
+  back: Back to setup
+  # The seed, under the puzzle's name.
+  seed: '#{seed}'
+  status:
+    nothingToUndo: Nothing to undo.
+    finished: This puzzle is finished — Restart to play it again.
+    restarted: Restarted — same puzzle, fresh board and clock.
+    clearedMistakes: Took off the marks that cannot be right.
+    rewound:
+      one: Rewound {steps} move to a board that can still be solved.
+      other: Rewound {steps} moves to a board that can still be solved.
+  # The window that opens when the answer has been marked away.
+  stuck:
+    title: A clue cannot help
+    body:
+      one: 1 mark on the board contradicts the answer, so there is nothing left for a clue to lead to. Rewinding takes moves back to the last board the puzzle can still be solved from. Close this and the mark that cannot be right stays lit on the grids, to sort out by hand.
+      other: '{count} marks on the board contradict the answer, so there is nothing left for a clue to lead to. Rewinding takes moves back to the last board the puzzle can still be solved from. Close this and the marks that cannot be right stay lit on the grids, to sort out by hand.'
+    rewind: Rewind
+    leaveIt: Leave it to me
+
+clue:
+  # Read out for the clue itself, so a screen reader can find it.
+  inPlay: Clue in play
+  noneYet: Nobody has said anything yet…
+  noneYetBody: Tap Next for the first clue.
+  # Who is supposed to have said a clue. One is drawn from the puzzle's seed and
+  # the clue's own number, so a clue keeps its line. {noun} is the theme's word
+  # for one of its cast — diver, gardener, astronaut — and the lines that use it
+  # sound like the puzzle rather than like a bystander.
+  openers:
+    - Someone commented that
+    - An observer mentioned that
+    - One {noun} remembered that
+    - Another {noun} was sure that
+    - Word went round that
+    - It was noted at the time that
+    - Somebody swore blind that
+    - One {noun} let slip that
+    - The record shows that
+    - A bystander insisted that
+    - Nobody disputes that
+    - One {noun} recalled that
+    - It is generally agreed that
+    - Another {noun} put it that
+
+item:
+  # The heading over an item's traits on its card is the trait's own label, which
+  # lives with the theme. Nothing else on the card is fixed wording.
+  aboutHint: About {label}
+
+briefings:
+  # What went wrong, and why anybody wants it sorted out. Three per theme; the
+  # puzzle's seed picks one and keeps it.
+  #
+  # A briefing must name no set except the anchor — which sets a puzzle plays
+  # with is sampled from its theme, so a briefing promising a cargo manifest
+  # would sometimes describe a puzzle with no cargo in it. A test holds every
+  # line below to that. {noun} is the anchor's own word and is always safe.
+  fallback:
+    title: Nobody wrote it down
+    body: Everything about this was recorded carefully, and then it was not. What is left is what people remember, said one piece at a time — and between them, if you are careful, it comes to exactly one answer.
+  themes:
+    cosmic:
+      - title: The manifest took a walk
+        body: The only printed copy of the flight paperwork was being read on the observation deck when somebody demonstrated the airlock. It is now in a slow orbit of its own, along with the pen. Nothing leaves the pad until every line of it has been put back, and the window closes on Thursday.
+      - title: Filed by committee
+        body: Three departments each kept their own records so that nothing could possibly go missing, and each department has since misplaced a different half of theirs. Between them they are certain of everything except which {noun} is on which flight. The rockets are fuelled and the crews are being polite about it.
+      - title: The computer was very confident
+        body: The scheduling system reconciled the roster overnight, congratulated itself, and assigned every {noun} to the same berth on the same flight. It cannot be persuaded to explain how. The engineers are working from the crew room whiteboard and whatever anyone can swear to.
+    cafe:
+      - title: The order pad met the mop bucket
+        body: The morning rush was survived, the pad was set down on the wrong end of the counter, and the wrong end of the counter was where the bucket went over. The ink is a memory. The till has to balance by close, and until it does nobody knows who owes what.
+      - title: The new machine ate everything
+        body: The card reader was upgraded on Tuesday and has since forgotten Monday, Wednesday and the concept of a receipt. Every regular came in, every regular was served, and the record of it is a shrug. The owner is being extremely calm about this in a way that is worrying everybody.
+      - title: A very helpful customer
+        body: Somebody tidied the counter as a kindness, and in doing so squared up every scrap of paper on it into one beautiful pile in no order whatsoever. Everyone remembers their own morning perfectly and nobody remembers anyone else’s. The lunch shift starts in an hour.
+    quest:
+      - title: The bard has been embellishing
+        body: The only account of the campaign is a ballad, and the ballad rhymes rather than reports. Every verse is true in some order, but the order is whichever one scanned. The guild will not pay out on a song, so somebody has to work out who actually did what.
+      - title: The ledger was eaten
+        body: The quest ledger was kept in a locked chest, guarded by something that was later persuaded the chest was food. What survives is the memory of a tavern full of witnesses, none of whom were sober and all of whom were there. Nothing gets paid out until the claims agree with each other.
+      - title: Everyone tells it differently
+        body: Everyone came back at once, everyone had done something worth telling, and every account begins with the word "obviously". They cannot all be right and none of them will go first. The guildmaster wants it settled before the drinks do it for him.
+    reef:
+      - title: The dive log went for a dive
+        body: The log was on the transom, and then the swell was on the transom, and now the log is somewhere between the boat and the sea floor. Everyone surfaced happy and nobody wrote anything down. The permit needs the day’s numbers filed by Friday or the whole trip goes unrecorded.
+      - title: Everything came off one line
+        body: Somebody rinsed everything at once, hung it on one line, and left it to the wind to decide whose was whose. Every {noun} is certain what they saw and vague about what they wore. The insurance form asks for both.
+      - title: The tender was rewriting history
+        body: The boat tender kept the day’s notes on their hand, which then met a wave, sun cream and a towel in that order. What is left is four smudges and one word that might be "eel". The dive centre would like a version to pin on the board.
+    garden:
+      - title: The entry cards blew away
+        body: The show marquee was open at both ends when the wind found it, and the entry cards left in a hurry. The entries are still on their benches, magnificent and entirely anonymous. Judging starts at two and the rosettes have to go to the right benches.
+      - title: A very thorough watering
+        body: The sprinkler was set on a timer by somebody who does not trust timers, and so was also set off by hand. The paperwork was under the sprinkler. Every {noun} knows exactly what they grew and has firm opinions about everyone else’s.
+      - title: The judge is new
+        body: This year’s judge reorganised the benches for a better light, which was thoughtful, and did it before the cards were checked, which was not. Nobody doubts the measurements; nobody can say whose they are. The blue ribbon is not going anywhere until this is straightened out.
+
+menu:
+  title: Puzzle settings
+  thisPuzzle: This puzzle
+  automaticCrosses: Automatic crosses
+  autoAddFacts: Auto add facts
+  colour: Colour
+  restart: Restart puzzle
+  back: Back to the board
+  confirm:
+    title: Restart this puzzle?
+    body: The same puzzle comes back with an empty board and the clock at zero.
+    confirmLabel: Restart it
+
+settings:
+  title: Settings
+  automaticCrosses: Automatic crosses
+  autoAddFacts: Auto add facts
+  matchDevice: Match the device
+  nightColours: Night colours
+  colour: Colour
+  volume: Volume
+  vibration: Vibration
+  back: Back
+
+solved:
+  title: Solved!
+  # "Reef Dive · 5 × 4"
+  subtitle: '{theme} · {size}'
+  time: Time
+  cluesRead: Clues read
+  answer: The answer
+  swipe: Swipe the table for the other sets
+
+improvement:
+  revealed:
+    headline: Solution revealed
+    detail: Revealed puzzles are kept out of your times.
+  first:
+    headline: First {difficulty} in the books
+    detail: 'Time to beat next round: {clock}{clues}.'
+  best:
+    headline: New {difficulty} best!
+    detail: '{gap} faster than your old best of {best}{clues}.'
+  faster:
+    headline: '{percent}% faster than your {difficulty} average'
+    detail: '#{rank} of {total} · best is {best}{clues}.'
+  steady:
+    headline: '{difficulty} complete'
+    detail: '{gap} off your best of {best}{clues}.'
+  # Tacked onto the end of a detail line above.
+  clues:
+    one: ' · 1 clue read'
+    other: ' · {count} clues read'
+
+stats:
+  title: Statistics
+  solved: Solved
+  timePlayed: Time played
+  streak: Streak
+  bestStreak: best {days}d
+  cluesRead: Clues read
+  perPuzzle: Per puzzle
+  themes: Themes
+  byDifficulty: By difficulty
+  difficulty: Difficulty
+  best: Best
+  average: Average
+  gettingFaster: Are you getting faster?
+  chartCaption: Recent solve times, one column per puzzle
+  fasterLately: '{percent}% faster lately'
+  slowerLately: '{percent}% slower lately'
+  holdingSteady: Holding steady
+  recentGames: Recent games
+  empty: No finished puzzles yet
+  emptyBody: Solve one and your time lands here. After a few, you will see whether you are getting quicker.
+  clearStatistics: Clear statistics
+  clues:
+    one: ' · 1 clue'
+    other: ' · {count} clues'
+  perPuzzleUnit: clues
+  trendPending: '{solved} solved · best {best}. A few more and the trend below fills in.'
+  trendDetail: Last {count} average {recent} vs {earlier} before that.
+  confirm:
+    title: Clear statistics?
+    body: This deletes every finished game and all your times. It cannot be undone.
+    confirmLabel: Clear statistics
+    cancelLabel: Keep them
+  back: Back
+
+# The four shapes a puzzle comes in. `label` is how the grid reads and is
+# arithmetic rather than language; `difficulty` is what it is called.
+sizes:
+  xs:
+    difficulty: Beginner
+    label: 3 × 3
+  sm:
+    difficulty: Advanced
+    label: 4 × 4
+  md:
+    difficulty: Expert
+    label: 5 × 4
+  lg:
+    difficulty: Pro
+    label: 6 × 4
+
+# The colours the app can be drawn in.
+accents:
+  blue: Blue
+  violet: Violet
+  teal: Teal
+  green: Green
+  rust: Rust
+
+# The four steps of the volume slider.
+volumes:
+  off: 'Off'
+  quiet: Quiet
+  medium: Medium
+  loud: Loud
+
+# What each puzzle theme is called, and the line under it. The cast, their
+# one-line descriptions and their traits are still in src/data/themes.ts — see
+# the note at the top of this file.
+themes:
+  cosmic:
+    name: Cosmic Voyage
+    blurb: Crews, ships and launch windows
+  cafe:
+    name: Corner Café
+    blurb: Regulars, orders and the morning rush
+  quest:
+    name: Mythic Quest
+    blurb: Heroes, beasts and hard-won gold
+  reef:
+    name: Reef Dive
+    blurb: Divers, sightings and depth logs
+  garden:
+    name: Blue Ribbon Garden
+    blurb: Growers, blooms and show-day heights

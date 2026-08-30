@@ -23,6 +23,7 @@
  * a theme leaves out falls back to the neutral wording in
  * `DEFAULT_CLUE_TEMPLATES`, so a new theme can ship with none of them.
  */
+import { t } from '../i18n';
 import type { CategoryDef, ItemDef, OrderedMeta, ThemeDef, TraitDef } from '../puzzle/types';
 
 /**
@@ -129,9 +130,9 @@ const PERSON_TRAITS: TraitDef[] = [
 export const THEMES: ThemeDef[] = withIcons([
   {
     id: 'cosmic',
-    name: 'Cosmic Voyage',
+    name: t('themes.cosmic.name'),
     icon: '',
-    blurb: 'Crews, ships and launch windows',
+    blurb: t('themes.cosmic.blurb'),
     categories: [
       set(
         {
@@ -297,9 +298,9 @@ export const THEMES: ThemeDef[] = withIcons([
   },
   {
     id: 'cafe',
-    name: 'Corner Café',
+    name: t('themes.cafe.name'),
     icon: '',
-    blurb: 'Regulars, orders and the morning rush',
+    blurb: t('themes.cafe.blurb'),
     categories: [
       set(
         {
@@ -465,9 +466,9 @@ export const THEMES: ThemeDef[] = withIcons([
   },
   {
     id: 'quest',
-    name: 'Mythic Quest',
+    name: t('themes.quest.name'),
     icon: '',
-    blurb: 'Heroes, beasts and hard-won gold',
+    blurb: t('themes.quest.blurb'),
     categories: [
       set(
         {
@@ -632,9 +633,9 @@ export const THEMES: ThemeDef[] = withIcons([
   },
   {
     id: 'reef',
-    name: 'Reef Dive',
+    name: t('themes.reef.name'),
     icon: '',
-    blurb: 'Divers, sightings and depth logs',
+    blurb: t('themes.reef.blurb'),
     categories: [
       set(
         {
@@ -799,9 +800,9 @@ export const THEMES: ThemeDef[] = withIcons([
   },
   {
     id: 'garden',
-    name: 'Blue Ribbon Garden',
+    name: t('themes.garden.name'),
     icon: '',
-    blurb: 'Growers, blooms and show-day heights',
+    blurb: t('themes.garden.blurb'),
     categories: [
       set(
         {

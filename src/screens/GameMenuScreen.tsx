@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ConfirmDialog } from '../components/ConfirmDialog';
+import { t } from '../i18n';
 import type { Puzzle } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
 import { accentById, nextAccent } from '../ui/accents';
@@ -74,51 +75,51 @@ export function GameMenuScreen({
         contentContainerStyle={[styles.content, { paddingTop: insets.top + space(5) }]}
         showsVerticalScrollIndicator={false}
       >
-        <RuledTitle>Puzzle settings</RuledTitle>
+        <RuledTitle>{t('menu.title')}</RuledTitle>
         <Text style={styles.subtitle} numberOfLines={1}>
-          #{puzzle.seed}
+          {t('game.seed', { seed: puzzle.seed })}
         </Text>
 
         <View style={styles.list}>
           <CheckRow
-            label="Automatic crosses"
+            label={t('menu.automaticCrosses')}
             on={autoEliminate}
             accent={palette.accent}
             onPress={onToggleAutoEliminate}
           />
           <CheckRow
-            label="Auto add facts"
+            label={t('menu.autoAddFacts')}
             on={autoFacts}
             accent={palette.accent}
             onPress={onToggleAutoFacts}
           />
           <CycleRow
-            label="Colour"
+            label={t('menu.colour')}
             value={accentById(accent).name}
             onPress={() => onChangeAccent(nextAccent(accent).id)}
           />
         </View>
 
         <View style={styles.section}>
-          <RuledTitle>This puzzle</RuledTitle>
+          <RuledTitle>{t('menu.thisPuzzle')}</RuledTitle>
         </View>
 
         <View style={styles.list}>
           <ActionRow
-            label="Restart puzzle"
+            label={t('menu.restart')}
             accent={palette.accent}
             onPress={() => setConfirming(true)}
           />
         </View>
       </ScrollView>
 
-      <BackLink label="Back to the board" onPress={onClose} />
+      <BackLink label={t('menu.back')} onPress={onClose} />
 
       <ConfirmDialog
         visible={confirming}
-        title="Restart this puzzle?"
-        message="The same puzzle comes back with an empty board and the clock at zero."
-        confirmLabel="Restart it"
+        title={t('menu.confirm.title')}
+        message={t('menu.confirm.body')}
+        confirmLabel={t('menu.confirm.confirmLabel')}
         onConfirm={() => {
           setConfirming(false);
           onRestart();

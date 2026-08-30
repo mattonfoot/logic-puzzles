@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { TrendChart } from '../components/TrendChart';
 import { THEMES } from '../data/themes';
+import { plural, t } from '../i18n';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration, formatSpan } from '../game/time';
 import type { OverallStats, SizeStats } from '../stats/summary';
@@ -60,53 +61,50 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
         contentContainerStyle={[styles.content, { paddingTop: insets.top + space(5) }]}
         showsVerticalScrollIndicator={false}
       >
-        <RuledTitle style={styles.title}>Statistics</RuledTitle>
+        <RuledTitle style={styles.title}>{t('stats.title')}</RuledTitle>
 
         {stats.solved === 0 ? (
           <View style={[styles.card, shadow.card, styles.empty]}>
             <View style={styles.emptyMark}>
               <Icon name="ui/icon-chart" size={40} color={palette.inkFaint} />
             </View>
-            <Text style={styles.emptyTitle}>No finished puzzles yet</Text>
-            <Text style={styles.emptyText}>
-              Solve one and your time lands here. After a few, you will see whether you are getting
-              quicker.
-            </Text>
+            <Text style={styles.emptyTitle}>{t('stats.empty')}</Text>
+            <Text style={styles.emptyText}>{t('stats.emptyBody')}</Text>
           </View>
         ) : null}
 
         {stats.solved > 0 ? (
           <View style={styles.tiles}>
             <View style={styles.tileRow}>
-              <Tile label="Solved" value={`${stats.solved}`} />
-              <Tile label="Time played" value={formatSpan(stats.totalSeconds)} />
+              <Tile label={t('stats.solved')} value={`${stats.solved}`} />
+              <Tile label={t('stats.timePlayed')} value={formatSpan(stats.totalSeconds)} />
               <Tile
-                label="Streak"
+                label={t('stats.streak')}
                 value={`${stats.currentStreak}d`}
-                hint={`best ${stats.longestStreak}d`}
+                hint={t('stats.bestStreak', { days: stats.longestStreak })}
               />
             </View>
             <View style={styles.tileRow}>
-              <Tile label="Clues read" value={`${stats.cluesUsed}`} />
+              <Tile label={t('stats.cluesRead')} value={`${stats.cluesUsed}`} />
               <Tile
-                label="Per puzzle"
+                label={t('stats.perPuzzle')}
                 value={stats.averageClues === null ? '—' : stats.averageClues.toFixed(1)}
-                hint="clues"
+                hint={t('stats.perPuzzleUnit')}
               />
-              <Tile label="Themes" value={`${stats.themesPlayed}/${THEMES.length}`} />
+              <Tile label={t('stats.themes')} value={`${stats.themesPlayed}/${THEMES.length}`} />
             </View>
           </View>
         ) : null}
 
         {played.length > 0 ? (
           <View style={[styles.card, shadow.card]}>
-            <Text style={styles.cardTitle}>By difficulty</Text>
+            <Text style={styles.cardTitle}>{t('stats.byDifficulty')}</Text>
             <View style={styles.sizeTable}>
               <View style={styles.sizeHeaderRow}>
-                <Text style={styles.sizeHeaderWide}>Difficulty</Text>
-                <Text style={styles.sizeHeaderCell}>Solved</Text>
-                <Text style={styles.sizeHeaderCell}>Best</Text>
-                <Text style={styles.sizeHeaderCell}>Average</Text>
+                <Text style={styles.sizeHeaderWide}>{t('stats.difficulty')}</Text>
+                <Text style={styles.sizeHeaderCell}>{t('stats.solved')}</Text>
+                <Text style={styles.sizeHeaderCell}>{t('stats.best')}</Text>
+                <Text style={styles.sizeHeaderCell}>{t('stats.average')}</Text>
               </View>
               {stats.sizes.map((size) => (
                 <View key={size.sizeId} style={styles.sizeRow}>
@@ -130,8 +128,8 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
 
         {selected ? (
           <View style={[styles.card, shadow.card]}>
-            <Text style={styles.cardTitle}>Are you getting faster?</Text>
-            <Text style={styles.cardSubtitle}>Recent solve times, one column per puzzle</Text>
+            <Text style={styles.cardTitle}>{t('stats.gettingFaster')}</Text>
+            <Text style={styles.cardSubtitle}>{t('stats.chartCaption')}</Text>
 
             <View style={styles.pillRow}>
               {played.map((size) => {
@@ -180,7 +178,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
 
         {history.length > 0 ? (
           <View style={[styles.card, shadow.card]}>
-            <Text style={styles.cardTitle}>Recent games</Text>
+            <Text style={styles.cardTitle}>{t('stats.recentGames')}</Text>
             {stats.recent.map((game) => (
               <View key={`${game.seed}-${game.finishedAt}`} style={styles.gameRow}>
                 <View style={styles.gameMark}>
@@ -195,9 +193,7 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
                       day: 'numeric',
                       month: 'short',
                     })}
-                    {game.cluesUsed === null
-                      ? ''
-                      : ` · ${game.cluesUsed} clue${game.cluesUsed === 1 ? '' : 's'}`}
+                    {game.cluesUsed === null ? '' : plural('stats.clues', game.cluesUsed)}
                   </Text>
                 </View>
                 <Text style={[styles.gameTime, game.revealed && styles.gameTimeMuted]}>
@@ -214,19 +210,19 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
             onPress={() => setConfirmingClear(true)}
             style={styles.clearButton}
           >
-            <Text style={styles.clearText}>Clear statistics</Text>
+            <Text style={styles.clearText}>{t('stats.clearStatistics')}</Text>
           </Pressable>
         ) : null}
       </ScrollView>
 
-      <BackLink label="Back" onPress={onBack} />
+      <BackLink label={t('stats.back')} onPress={onBack} />
 
       <ConfirmDialog
         visible={confirmingClear}
-        title="Clear statistics?"
-        message="This deletes every finished game and all your times. It cannot be undone."
-        confirmLabel="Clear statistics"
-        cancelLabel="Keep them"
+        title={t('stats.confirm.title')}
+        message={t('stats.confirm.body')}
+        confirmLabel={t('stats.confirm.confirmLabel')}
+        cancelLabel={t('stats.confirm.cancelLabel')}
         onConfirm={clearEverything}
         onCancel={() => setConfirmingClear(false)}
       />
@@ -252,8 +248,10 @@ function TrendBanner({ size }: { size: SizeStats }) {
   if (size.trend === null || size.recentAverage === null || size.earlierAverage === null) {
     return (
       <Text style={styles.trendNeutral}>
-        {size.solved} solved · best {formatDuration(size.bestSeconds ?? 0)}. A few more and the
-        trend below fills in.
+        {t('stats.trendPending', {
+          solved: size.solved,
+          best: formatDuration(size.bestSeconds ?? 0),
+        })}
       </Text>
     );
   }
@@ -275,11 +273,18 @@ function TrendBanner({ size }: { size: SizeStats }) {
       ]}
     >
       <Text style={[styles.trendHeadline, !steady && faster && { color: palette.success }]}>
-        {steady ? 'Holding steady' : faster ? `${share}% faster lately` : `${share}% slower lately`}
+        {steady
+          ? t('stats.holdingSteady')
+          : faster
+            ? t('stats.fasterLately', { percent: share })
+            : t('stats.slowerLately', { percent: share })}
       </Text>
       <Text style={styles.trendDetail}>
-        Last {Math.min(size.solved, 5)} average {formatDuration(size.recentAverage)} vs{' '}
-        {formatDuration(size.earlierAverage)} before that.
+        {t('stats.trendDetail', {
+          count: Math.min(size.solved, 5),
+          recent: formatDuration(size.recentAverage),
+          earlier: formatDuration(size.earlierAverage),
+        })}
       </Text>
     </View>
   );

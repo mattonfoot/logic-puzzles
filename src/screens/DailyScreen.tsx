@@ -5,6 +5,7 @@ import { SIZES } from '../data/sizes';
 import { dailyDone } from '../game/library';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
+import { t } from '../i18n';
 import type { SizeOption } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
@@ -58,7 +59,7 @@ export function DailyScreen({ busy, history, onPlay, onShowResult, onBack }: Pro
 
       <View style={styles.bottom}>
         <View style={styles.content}>
-          <RuledTitle>Daily challenges</RuledTitle>
+          <RuledTitle>{t('daily.title')}</RuledTitle>
 
           <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
             {SIZES.map((size) => {
@@ -69,7 +70,7 @@ export function DailyScreen({ busy, history, onPlay, onShowResult, onBack }: Pro
                   accessibilityRole="button"
                   accessibilityLabel={size.difficulty}
                   accessibilityHint={
-                    game ? `Done in ${formatDuration(game.seconds)} — opens the result` : size.label
+                    game ? t('daily.doneHint', { clock: formatDuration(game.seconds) }) : size.label
                   }
                   accessibilityState={{ disabled: busy }}
                   disabled={busy}
@@ -90,14 +91,14 @@ export function DailyScreen({ busy, history, onPlay, onShowResult, onBack }: Pro
           </ScrollView>
         </View>
 
-        <BackLink label="Back" onPress={onBack} />
+        <BackLink label={t('daily.back')} onPress={onBack} />
       </View>
 
       {busy ? (
         <View style={styles.busyOverlay} pointerEvents="auto">
           <View style={[styles.busyCard, shadow.card]}>
             <ActivityIndicator color={palette.accent} />
-            <Text style={styles.busyText}>Building your puzzle…</Text>
+            <Text style={styles.busyText}>{t('common.building')}</Text>
           </View>
         </View>
       ) : null}

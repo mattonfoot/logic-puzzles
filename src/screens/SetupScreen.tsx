@@ -5,6 +5,7 @@ import { SIZES } from '../data/sizes';
 import { progress } from '../game/board';
 import type { SavedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
+import { t } from '../i18n';
 import type { SizeOption } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
@@ -68,24 +69,30 @@ export function SetupScreen({ busy, savedGame, onChoose, onResume, onBack }: Pro
           {savedGame ? (
             <View style={styles.waiting}>
               <Choice
-                label="Continue"
-                hint={`${savedGame.puzzle.themeName}, ${savedGame.puzzle.size.label}, ${Math.round(
-                  progress(savedGame.marks, savedGame.puzzle) * 100,
-                )}% filled in, ${formatDuration(savedGame.seconds)} on the clock`}
+                label={t('setup.continue')}
+                hint={t('setup.continueHint', {
+                  theme: savedGame.puzzle.themeName,
+                  size: savedGame.puzzle.size.label,
+                  percent: Math.round(progress(savedGame.marks, savedGame.puzzle) * 100),
+                  clock: formatDuration(savedGame.seconds),
+                })}
                 disabled={busy}
                 onPress={onResume}
               />
             </View>
           ) : null}
 
-          <RuledTitle>Play</RuledTitle>
+          <RuledTitle>{t('setup.title')}</RuledTitle>
 
           <View style={styles.choices}>
             {SIZES.map((option) => (
               <Choice
                 key={option.id}
                 label={option.difficulty}
-                hint={`${option.items} items in each of ${option.categories} sets`}
+                hint={t('setup.difficultyHint', {
+                  items: option.items,
+                  sets: option.categories,
+                })}
                 disabled={busy}
                 onPress={() => onChoose(option)}
               />
@@ -93,7 +100,7 @@ export function SetupScreen({ busy, savedGame, onChoose, onResume, onBack }: Pro
           </View>
         </ScrollView>
 
-        <BackLink label="Back" onPress={onBack} />
+        <BackLink label={t('setup.back')} onPress={onBack} />
       </View>
 
       {busy ? (
@@ -102,7 +109,7 @@ export function SetupScreen({ busy, savedGame, onChoose, onResume, onBack }: Pro
         <View style={styles.busyOverlay} pointerEvents="auto">
           <View style={[styles.busyCard, shadow.card]}>
             <ActivityIndicator color={palette.accent} />
-            <Text style={styles.busyText}>Building your puzzle…</Text>
+            <Text style={styles.busyText}>{t('common.building')}</Text>
           </View>
         </View>
       ) : null}
