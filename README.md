@@ -167,10 +167,10 @@ images in the same commit.
 | | | |
 |---|---|---|
 | <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered puzzles"><br>**3. Numbered puzzles** — every puzzle at that difficulty, counting from one, six to a page, each with a box that ticks when you finish it and your time beside it. |
-| <img src="docs/screenshots/04-daily.png" width="230" alt="Daily challenges"><br>**4. Daily** — today's four, one per difficulty. A finished one shows its time and opens the result instead of a board. | <img src="docs/screenshots/05-settings.png" width="230" alt="Settings screen"><br>**5. Settings** — seven names with a box or a slider against each, and nothing to read. | <img src="docs/screenshots/06-board.png" width="230" alt="The board"><br>**6. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. |
-| <img src="docs/screenshots/07-menu.png" width="230" alt="Game menu"><br>**7. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/08-clue.png" width="230" alt="The clue window"><br>**8. Clue** — one clue at a time, in a window with the room to read it, under a line saying who is supposed to have said it, and the pair that moves between the ones you have read. | <img src="docs/screenshots/09-highlight.png" width="230" alt="A clue lit up on the grids"><br>**9. Highlight** — the button at the bottom right lights every row and column the clue talks about. |
-| <img src="docs/screenshots/10-stuck.png" width="230" alt="A board that can no longer be solved"><br>**10. Out of reach** — asking for a new clue checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/11-item-card.png" width="230" alt="The card behind an item's picture"><br>**11. Item card** — tap any picture on the board to meet it, and page through the rest of its set. | <img src="docs/screenshots/12-solved.png" width="230" alt="A finished game"><br>**12. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. |
-| <img src="docs/screenshots/13-statistics.png" width="230" alt="Statistics screen"><br>**13. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/14-night.png" width="230" alt="Setup screen in night colours"><br>**14. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | |
+| <img src="docs/screenshots/04-daily.png" width="230" alt="Daily challenges"><br>**4. Daily** — today's four, one per difficulty. A finished one shows its time and opens the result instead of a board. | <img src="docs/screenshots/05-settings.png" width="230" alt="Settings screen"><br>**5. Settings** — seven names with a box or a slider against each, and nothing to read. | <img src="docs/screenshots/06-briefing.png" width="230" alt="The briefing a puzzle opens with"><br>**6. Briefing** — what went wrong and why anybody wants it sorted out. It opens with the puzzle and waits behind **Info** afterwards. |
+| <img src="docs/screenshots/07-board.png" width="230" alt="The board"><br>**7. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/08-menu.png" width="230" alt="Game menu"><br>**8. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/09-clue.png" width="230" alt="The clue window"><br>**9. Clue** — one clue at a time, in a window with the room to read it, under a line saying who is supposed to have said it. |
+| <img src="docs/screenshots/10-highlight.png" width="230" alt="A clue lit up on the grids"><br>**10. Highlight** — the button at the bottom right lights every row and column the clue talks about. | <img src="docs/screenshots/11-stuck.png" width="230" alt="A board that can no longer be solved"><br>**11. Out of reach** — asking for a new clue checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/12-item-card.png" width="230" alt="The card behind an item's picture"><br>**12. Item card** — tap any picture on the board to meet it, and page through the rest of its set. |
+| <img src="docs/screenshots/13-solved.png" width="230" alt="A finished game"><br>**13. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. | <img src="docs/screenshots/14-statistics.png" width="230" alt="Statistics screen"><br>**14. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/15-night.png" width="230" alt="Setup screen in night colours"><br>**15. Night** — the difficulties in night colours, with a game waiting behind **Continue**. |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -226,7 +226,16 @@ rest is the app behaving normally.
    all four are open again. The theme, as everywhere, is drawn by the seed: one
    of five settings, its sets and its cast sampled from pools of fourteen items
    each, so two puzzles rarely share a line-up.
-5. **Game** — the board names the puzzle's theme in the same ruled title every
+5. **A puzzle introduces itself.** Before the board is anything to look at, a
+   window says what went wrong and why it matters — a manifest out of the
+   airlock, an order pad under a mop bucket, entry cards blown out of a show
+   marquee — because a logic grid is a table of facts about people who do not
+   exist until somebody says what is at stake. Three are written per theme and
+   the seed picks one, so a puzzle keeps its story and two people comparing
+   puzzle 7 are talking about the same disaster. It says what happened and never
+   what the answer is, so it costs nothing and is not counted; **Info** in the
+   bottom row opens it again, for a game picked up a day later.
+6. **Game** — the board names the puzzle's theme in the same ruled title every
    other screen uses, with the burger beside it and the seed underneath, and
    nothing else: no clock, because one counting up is a thing to watch rather
    than a thing to use. The time is still kept, saved with the game and read
@@ -249,7 +258,7 @@ rest is the app behaving normally.
    it over — can both be turned off, from the menu or from Settings. The set
    names and item pictures stay pinned while the grids scroll sideways, and − / +
    resize the squares past the fit.
-6. **Clues arrive one at a time.** They do not always use names: about a third
+7. **Clues arrive one at a time.** They do not always use names: about a third
    of the time a clue describes something instead — "the diver with green eyes",
    "no payload made of glass" — and a description that covers two things says
    something about both at once. The cards behind the labels are where those
@@ -271,9 +280,11 @@ rest is the app behaving normally.
    the game counts and cannot be got round by walking forwards. The window is
    there because a clue needs the room — the longest ones name two things by
    description apiece and ran off the end of the panel this used to be. **Undo**
-   sits beside Clue at the bottom left, and **Highlight** at the bottom right
-   lights up every row and column the clue in play talks about; it fills with
-   the colour while it is on, so the board does not have to be read to find out.
+   sits beside Clue at the bottom left. On the right are the two that show you
+   something rather than change anything: **Info**, which opens the briefing
+   again, and **Highlight**, which lights up every row and column the clue in
+   play talks about — it fills with the colour while it is on, so the board does
+   not have to be read to find out.
    A clue reads the same whether or not the board has caught up
    with it: the game tracks which clues are spent, since that is how the button
    knows which to hand over next, but it does not say — whether a clue still has
@@ -287,7 +298,7 @@ rest is the app behaving normally.
    many you read is the score the statistics keep — there is no total to read it
    against, so working a clue harder before asking for the next is the whole
    game.
-7. **Undo** takes back one mark at a time, autos and all. **Clue**
+8. **Undo** takes back one mark at a time, autos and all. **Clue**
    looks at the board before it hands anything over: a puzzle has one answer, so
    a single mark that contradicts it puts the answer out of reach, and a clue
    read against a board you can no longer solve is a clue wasted. When that has
@@ -306,7 +317,7 @@ rest is the app behaving normally.
    and the answer above it says everything the squares would. There is nothing
    to press: `◀ Back` leads to the setup screen, which is where the next puzzle
    is chosen.
-8. **Puzzle settings**, behind the burger at the top left, holds everything that acts
+9. **Puzzle settings**, behind the burger at the top left, holds everything that acts
    on the game rather than on a square: the two board settings and the colour,
    boxed and named exactly as the settings screen has them (they are the
    player's, not the puzzle's, which is why they are worth reaching mid-game),
@@ -319,7 +330,7 @@ rest is the app behaving normally.
    the puzzle was chosen on, so the next one is a tap away; the board is saved
    on the way out either way, and it is the first thing on that screen if you
    want it back.
-9. **Settings** — a list of names with a box, a slider or a value against
+10. **Settings** — a list of names with a box, a slider or a value against
    each: the board pair above; **match the device**, which follows the phone's
    own light and dark setting and turns with it, and **night colours** for a
    warm near-black page when it does not; **colour**, which cycles through the
@@ -327,11 +338,11 @@ rest is the app behaving normally.
    in four steps from off; and **vibration**. Nothing explains what any of them
    does, because all of them show their effect the moment they are touched.
    They are written to disk, so they are the same the next time the app opens.
-10. **Come back later** — the board saves itself as you play, so closing the app
+11. **Come back later** — the board saves itself as you play, so closing the app
    mid-puzzle costs nothing. It is waiting behind **Continue** on the difficulty
    screen when you come back, with the clock where you left it and the same
    puzzle in front of you.
-11. **Statistics** — solved count, time played, day streak, clues read (in total
+12. **Statistics** — solved count, time played, day streak, clues read (in total
    and per puzzle), a table of best and average times by difficulty, a chart of
    recent solve times, and the list of recent games. Finishing a puzzle shows
    how that time compares with your earlier games at the same size.
@@ -373,6 +384,7 @@ src/data/themes.ts          the five themes: categories, item pools with their
                             traits and descriptions, clue wording
 src/data/sizes.ts           the four sizes, and the difficulty each is called
 src/data/openers.ts         who is supposed to have said a clue
+src/data/briefings.ts       why anybody wants the puzzle solved
 src/puzzle/types.ts         puzzle, clue and theme model
 src/puzzle/rng.ts           seeded PRNG (a seed always rebuilds the same puzzle)
 src/puzzle/generator.ts     builds a solution, then a minimal clue set for it
@@ -617,7 +629,15 @@ past the end of the ones already read asks for another, which makes reading a
 clue a decision — and the number of them the statistics keep. Going back through
 what you have been told is free; going on is not.
 
-Above each one, `src/data/openers.ts` says who is supposed to have said it. The
+`src/data/briefings.ts` holds what the puzzle is about: three scenes per theme,
+drawn by the seed, saying what went wrong and why it has to be worked out. They
+name no set except the anchor — which sets a puzzle plays with is sampled from
+the theme, so a briefing promising a cargo manifest would sometimes be describing
+a puzzle with no cargo in it, and a test holds every line of them to that. They
+say what happened and never what the answer is, so opening one is free and
+uncounted, unlike a clue.
+
+Above each clue, `src/data/openers.ts` says who is supposed to have said it. The
 list is fourteen lines, four of which use `{noun}` — the theme's own word for
 one member of its anchor set, which every theme already carries for its clue
 wording, so a reef puzzle says "One diver remembered that…" and a café one says

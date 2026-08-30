@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AppState, LayoutChangeEvent, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { BriefingPopup } from '../components/BriefingPopup';
 import { CluePopup } from '../components/CluePopup';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { fitCellSize, GridBoard, MAX_CELL } from '../components/GridBoard';
@@ -99,6 +100,10 @@ export function GameScreen({
   // Whether the clue window is open. It opens on the Clue button and on a new
   // clue arriving, so a clue is always read rather than glanced at.
   const [clueOpen, setClueOpen] = useState(false);
+  // The story behind the puzzle, which introduces itself when a game starts and
+  // waits behind Info afterwards. A game picked back up does not re-introduce
+  // itself: the player was in the middle of it a moment ago.
+  const [briefingOpen, setBriefingOpen] = useState(!resumed);
   // The item whose card is open, from a tap on its label in the grid.
   const [inspecting, setInspecting] = useState<Attribute | null>(null);
   const [mistakes, setMistakes] = useState<Set<string>>(new Set());
@@ -537,7 +542,8 @@ export function GameScreen({
         {/* What the board is worked with: taking a mark back and reading a clue
             on the left, and on the right the one that lights the clue up on the
             grids it talks about. Nothing on a finished board is left to undo,
-            hint at or light up, so the row goes with it. */}
+            hint at, light up or be told the reason for, so the row goes with
+            it. */}
         {solved ? null : (
           <View style={styles.play}>
             <View style={styles.tools}>
@@ -559,19 +565,35 @@ export function GameScreen({
                 }}
               />
             </View>
-            <ToolButton
-              label="Highlight"
-              accent={palette.accent}
-              active={lit}
-              disabled={clueIndex === null}
-              onPress={() => {
-                feedback.tap();
-                setLit((on) => !on);
-              }}
-            />
+            <View style={styles.tools}>
+              <ToolButton
+                label="Info"
+                accent={palette.accent}
+                onPress={() => {
+                  feedback.tap();
+                  setBriefingOpen(true);
+                }}
+              />
+              <ToolButton
+                label="Highlight"
+                accent={palette.accent}
+                active={lit}
+                disabled={clueIndex === null}
+                onPress={() => {
+                  feedback.tap();
+                  setLit((on) => !on);
+                }}
+              />
+            </View>
           </View>
         )}
       </View>
+
+      <BriefingPopup
+        visible={briefingOpen && !solved}
+        puzzle={puzzle}
+        onClose={() => setBriefingOpen(false)}
+      />
 
       <CluePopup
         visible={clueOpen && !solved}
