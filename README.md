@@ -168,7 +168,7 @@ images in the same commit.
 |---|---|---|
 | <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered puzzles"><br>**3. Numbered puzzles** — every puzzle at that difficulty, counting from one, six to a page, each with a box that ticks when you finish it and your time beside it. |
 | <img src="docs/screenshots/04-daily.png" width="230" alt="Daily challenges"><br>**4. Daily** — today's four, one per difficulty. A finished one shows its time and opens the result instead of a board. | <img src="docs/screenshots/05-settings.png" width="230" alt="Settings screen"><br>**5. Settings** — seven names with a box or a slider against each, and nothing to read. | <img src="docs/screenshots/06-board.png" width="230" alt="The board"><br>**6. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. |
-| <img src="docs/screenshots/07-menu.png" width="230" alt="Game menu"><br>**7. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/08-clue.png" width="230" alt="The clue window"><br>**8. Clue** — one clue at a time, in a window with the room to read it, and the pair that moves between the ones you have read. | <img src="docs/screenshots/09-highlight.png" width="230" alt="A clue lit up on the grids"><br>**9. Highlight** — the button at the bottom right lights every row and column the clue talks about. |
+| <img src="docs/screenshots/07-menu.png" width="230" alt="Game menu"><br>**7. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/08-clue.png" width="230" alt="The clue window"><br>**8. Clue** — one clue at a time, in a window with the room to read it, under a line saying who is supposed to have said it, and the pair that moves between the ones you have read. | <img src="docs/screenshots/09-highlight.png" width="230" alt="A clue lit up on the grids"><br>**9. Highlight** — the button at the bottom right lights every row and column the clue talks about. |
 | <img src="docs/screenshots/10-stuck.png" width="230" alt="A board that can no longer be solved"><br>**10. Out of reach** — asking for a new clue checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/11-item-card.png" width="230" alt="The card behind an item's picture"><br>**11. Item card** — tap any picture on the board to meet it, and page through the rest of its set. | <img src="docs/screenshots/12-solved.png" width="230" alt="A finished game"><br>**12. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. |
 | <img src="docs/screenshots/13-statistics.png" width="230" alt="Statistics screen"><br>**13. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/14-night.png" width="230" alt="Setup screen in night colours"><br>**14. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | |
 
@@ -257,8 +257,14 @@ rest is the app behaving normally.
    **Previous** and **Next** on the card walk the rest of the set, since a
    description is a question about all of them rather than about the one whose
    picture was tapped.
-   **Clue** opens a window with one clue in it — the sentence and nothing else,
-   no badge for what kind it is — with **Previous** and **Next** under it.
+   **Clue** opens a window with one clue in it, under a line saying who is
+   supposed to have said it — "One diver remembered that…", "Word went round
+   that…" — drawn from the seed and the clue's own number, so it is the same
+   line every time that clue is read. The ones that name somebody use the
+   theme's own word for one of its cast. It says who, never what, so it cannot
+   help or mislead: a clue is a bare fact, and a bare fact is nobody's.
+   **Previous** and **Next** sit under it, with which clue you are on between
+   them.
    Previous walks back through the clues you have already read, which is free.
    Next walks forward through them and, at the end of them, asks for a new one:
    the same press, and the same cost, so reading a clue stays the one decision
@@ -366,6 +372,7 @@ scripts/icons/              the drawing kit, and one module per theme
 src/data/themes.ts          the five themes: categories, item pools with their
                             traits and descriptions, clue wording
 src/data/sizes.ts           the four sizes, and the difficulty each is called
+src/data/openers.ts         who is supposed to have said a clue
 src/puzzle/types.ts         puzzle, clue and theme model
 src/puzzle/rng.ts           seeded PRNG (a seed always rebuilds the same puzzle)
 src/puzzle/generator.ts     builds a solution, then a minimal clue set for it
@@ -594,8 +601,8 @@ last 200 boards.
 Winning adds a tab rather than covering the board. There is no tab bar during
 play — there is only the board to show — so the bar appears at the finish with
 **Grid** and **Solved** in it, `SolvedPanel` fills the body, and the win selects
-it. Everything the finish made pointless goes with it — the clue card and the Undo
-and clue buttons are hidden — and the board becomes read-only, because a stray tap on a finished grid would undo
+it. Everything the finish made pointless goes with it — the row of buttons is
+hidden — and the board becomes read-only, because a stray tap on a finished grid would undo
 the win, restart the clock and have the game counted a second time.
 
 The result offers nothing to press either. Another puzzle, a different
@@ -609,6 +616,16 @@ There is no clue list. **Clue** opens a window holding one clue, and **Next**
 past the end of the ones already read asks for another, which makes reading a
 clue a decision — and the number of them the statistics keep. Going back through
 what you have been told is free; going on is not.
+
+Above each one, `src/data/openers.ts` says who is supposed to have said it. The
+list is fourteen lines, four of which use `{noun}` — the theme's own word for
+one member of its anchor set, which every theme already carries for its clue
+wording, so a reef puzzle says "One diver remembered that…" and a café one says
+"One customer remembered that…". Which line a clue gets is drawn from the
+puzzle's seed and the clue's own index rather than rolled when the window opens:
+paging back to a clue brings back the clue you read, and a game picked up
+tomorrow is the game you left. Nothing is stored — the seed is enough to say it
+again. An opener says who and never what, so it cannot help or mislead.
 
 `src/game/clues.ts` decides when a clue is spent. `clueMarks` returns the
 squares one clue forces *given the board as it stands*, which is the same thing

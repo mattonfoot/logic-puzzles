@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
 
+import { clueOpener } from '../data/openers';
 import { describeClue } from '../puzzle/describe';
 import type { Puzzle } from '../puzzle/types';
 import { feedback } from '../ui/feedback';
@@ -39,6 +40,12 @@ interface Props {
  * makes, and the same cost. Reading a clue is the one decision the game counts,
  * so it cannot be got round by walking forwards: going back through what you
  * have already been told is free, going on is not.
+ *
+ * Above the clue is who is supposed to have said it — "One diver remembered
+ * that…" — which turns a bare fact into something people are talking about.
+ * Which clue you are on goes between Previous and Next, where the item card
+ * already keeps its count, so the top of the window is the puzzle's voice
+ * rather than the app's bookkeeping.
  */
 export function CluePopup({
   visible,
@@ -68,8 +75,8 @@ export function CluePopup({
       >
         {/* Taps inside the window stay inside it. */}
         <Pressable style={[styles.card, shadow.raised]} onPress={() => undefined}>
-          <Text style={[styles.eyebrow, { color: palette.accent }]}>
-            {index === null ? 'No clue yet' : `Clue ${position} of ${total}`}
+          <Text style={[styles.opener, { color: palette.accent }]}>
+            {index === null ? 'Nobody has said anything yet…' : `${clueOpener(puzzle, index)}…`}
           </Text>
 
           <Text style={styles.clue} accessibilityLabel="Clue in play">
@@ -79,7 +86,12 @@ export function CluePopup({
           </Text>
 
           <View style={styles.pager}>
-            <Pager previousDisabled={previousDisabled} onPrevious={onPrevious} onNext={onNext} />
+            <Pager
+              previousDisabled={previousDisabled}
+              middle={index === null ? undefined : `${position} of ${total}`}
+              onPrevious={onPrevious}
+              onNext={onNext}
+            />
           </View>
 
           <Text style={styles.dismiss}>Tap outside to close</Text>
@@ -106,11 +118,13 @@ const makeStyles = (palette: Palette) =>
       borderColor: palette.line,
       padding: space(5),
     },
-    eyebrow: {
-      fontSize: 11,
+    opener: {
+      // Spoken rather than filed: sentence case and a little larger than the
+      // labels elsewhere, because it is the first half of what is being read
+      // rather than a heading over it.
+      fontSize: 14,
+      lineHeight: 20,
       fontWeight: '700',
-      letterSpacing: 1,
-      textTransform: 'uppercase',
     },
     clue: {
       // No line limit: the window is here so that the longest clue a puzzle can
@@ -119,7 +133,7 @@ const makeStyles = (palette: Palette) =>
       lineHeight: 26,
       fontWeight: '600',
       color: palette.ink,
-      marginTop: space(3),
+      marginTop: space(2),
     },
     pager: {
       marginTop: space(4),
