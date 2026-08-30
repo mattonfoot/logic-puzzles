@@ -42,8 +42,7 @@ points `core.hooksPath` at `.githooks`, whose `pre-commit` formats the staged
 files and stages the result, so what lands in a commit is always formatted.
 `git commit --no-verify` skips it. Two things are left alone: Markdown, because
 Prettier pads table cells out to the widest row and the screenshot table here
-would become unreadable in source, and the item pools in `src/data/themes.ts`,
-which are hand-set as a table and carry a `// prettier-ignore` each. A file
+would become unreadable in source. A file
 staged in part is formatted whole, since Prettier can only see what is on disk.
 
 If Metro says it cannot resolve a package that is plainly in `package.json`, the
@@ -381,8 +380,8 @@ scripts/screenshots.mjs     drives the app in a browser to refresh docs/screensh
 scripts/sounds.mjs          synthesises the three effects in assets/sounds
 scripts/icons.mjs           draws the silhouettes and collects them into path data
 scripts/icons/              the drawing kit, and one module per theme
-src/data/themes.ts          the five themes: categories, item pools with their
-                            traits and descriptions, clue wording
+src/data/themes.ts          the five themes as a skeleton: which sets, which
+                            items, in what order — the words are in the locale
 src/data/sizes.ts           the four sizes, and the difficulty each is called
 src/data/openers.ts         who is supposed to have said a clue
 locales/en-HB.yaml          every word the app says — the language file
@@ -653,12 +652,18 @@ Adding a language means another YAML beside this one and a choice of which to
 build. Nothing that calls `t` has to change, which is the point of doing this
 before there is a second language rather than after.
 
-**What is not in it:** the themes' item names, their one-line blurbs and their
-trait values, which are still in `src/data/themes.ts`. An item's name is
-load-bearing as well as readable — `iconName` derives the file name of its
-drawing from it, and a test enforces the two agree — so moving those means
-decoupling the icon naming first. The theme *names* and blurbs are in the
-language file; the cast is not.
+That includes the whole cast. All five themes' set names, item names, one-line
+blurbs, trait values, describing patterns and clue templates are in the language
+file under `themes.<theme>.categories.<set>`, and `src/data/themes.ts` is now
+the skeleton they hang on: which sets a theme plays with, which items are in
+them, in what order, and the numbers the ordered ones compare by. It went from
+1,007 lines to 221.
+
+That was possible because an item now has an **id** — `nova`, `seed-vault` — and
+`iconName` builds the file name of its drawing from the id rather than from its
+label. Before, renaming an item silently broke its picture, which made the cast
+untranslatable; now a label is only a label. The ids are exactly the slugs the
+labels used to produce, so not one drawing was renamed.
 
 ## Clues, one at a time
 
@@ -840,11 +845,13 @@ data, never SVG files, so nothing is read from disk or parsed at runtime and an
 icon costs one `<Path>`. Prettier leaves that file alone — it would reflow the
 path data and the next run would put it back.
 
-Names are derived, not written down: `iconName(theme, category, label)` in
-`src/data/themes.ts` slugs the label into `cosmic/astronaut-juno`, so an item and
-its drawing cannot drift apart without a test noticing. An unknown name renders
-nothing rather than a broken box, which is what keeps a game saved before an item
-was renamed from crashing on open.
+Names are derived, not written down: `iconName(theme, category, itemId)` in
+`src/data/themes.ts` builds `cosmic/astronaut-juno`, so an item and its drawing
+cannot drift apart without a test noticing. It is built from the item's **id**
+rather than its label, which is what lets a label be rewritten or translated
+without the picture going missing. An unknown name renders nothing rather than a
+broken box, which is what keeps a game saved before an item was renamed from
+crashing on open.
 
 ## Items, traits and descriptions
 
@@ -1060,17 +1067,16 @@ before them for the longer-run trend the chart draws.
 
 ## Notes
 
-- The five themes live entirely in `src/data/themes.ts`. Adding one is a matter
-  of listing five categories, each with its `pattern` and `describes` frames, a
-  `noun`, its traits, and a pool of items written as a table — label, a value
-  per trait, and a line about it. Icons are not listed: each item's is named
-  after it, and drawing the new ones is `npm run icons`. The ordered category is written as a
-  `scale` instead: evenly spaced numbers, three bands, and a blurb per rung, with
-  its traits falling out of the numbers themselves. A `clues` block gives the
-  theme its own voice. The pools hold fourteen items apiece — well over the six a
+- A theme is written in two halves. `src/data/themes.ts` says which five
+  categories it plays with, which items are in each and in what order, and the
+  numbers an ordered category compares by; `locales/en-HB.yaml` says what all of
+  it is called — set names, the `pattern` and `describes` frames, the `noun`,
+  the traits, and every item's label, blurb and trait values, plus a `clues`
+  block for the theme's own voice. Adding one means a block in each. Icons are
+  not listed: each item's is named after its id, and drawing the new ones is
+  `npm run icons`. The pools hold fourteen items apiece — well over the six a
   6 × 4 puzzle uses — which is what makes the draw feel fresh; tests keep every
-  pool deep, distinct, short enough to fit the grid headings, and fully
-  described.
+  pool deep enough and every item drawn and described.
 - No backend and no analytics: everything is kept on the device, and clearing
   the statistics from the stats screen deletes it.
 - `npm run sounds` rewrites the three WAVs in `assets/sounds` from

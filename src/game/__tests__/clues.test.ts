@@ -6,6 +6,7 @@ import type { Clue, ItemDef, Puzzle } from '../../puzzle/types';
 
 /** A bare item: these tests are about the logic, not the words. */
 const item = (label: string, value?: number): ItemDef => ({
+  id: label.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
   label,
   value,
   icon: 'test/thing',

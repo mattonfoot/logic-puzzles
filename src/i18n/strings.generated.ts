@@ -307,22 +307,3713 @@ export const STRINGS = {
     cosmic: {
       name: 'Cosmic Voyage',
       blurb: 'Crews, ships and launch windows',
+      clues: {
+        link: '{a} shares a mission with {b}.',
+        notLink: '{a} does not share a mission with {b}.',
+        groupNot: 'No {a} shares a mission with {b}.',
+        either: '{a} shares a mission with either {b} or {c}.',
+        compare: '{greater} launches {comparative} than {lesser}.',
+        compareGap: '{greater} launches exactly {gap} {unit} {comparative} than {lesser}.',
+      },
+      categories: {
+        astronaut: {
+          name: 'Astronaut',
+          pattern: '{}',
+          describes: 'the {}',
+          noun: 'astronaut',
+          traits: {
+            hair: {
+              label: 'Hair',
+              pattern: '{noun} with {} hair',
+            },
+            eyes: {
+              label: 'Eyes',
+              pattern: '{noun} with {} eyes',
+            },
+            sign: {
+              label: 'Star sign',
+              pattern: '{noun} born under {}',
+            },
+          },
+          items: {
+            nova: {
+              label: 'Nova',
+              blurb: 'Files every flight plan in crayon. They keep being approved.',
+              traits: {
+                hair: 'red',
+                eyes: 'green',
+                sign: 'Aries',
+              },
+            },
+            rhea: {
+              label: 'Rhea',
+              blurb: 'Sleeps through re-entry. Has never once missed a meal.',
+              traits: {
+                hair: 'silver',
+                eyes: 'grey',
+                sign: 'Taurus',
+              },
+            },
+            iris: {
+              label: 'Iris',
+              blurb: 'Talks to the ship. Maintains the ship started it.',
+              traits: {
+                hair: 'black',
+                eyes: 'brown',
+                sign: 'Gemini',
+              },
+            },
+            milo: {
+              label: 'Milo',
+              blurb: 'Packed three spare toothbrushes and no spare socks.',
+              traits: {
+                hair: 'blonde',
+                eyes: 'blue',
+                sign: 'Cancer',
+              },
+            },
+            vega: {
+              label: 'Vega',
+              blurb: 'Salutes the airlock. The airlock has stopped saluting back.',
+              traits: {
+                hair: 'red',
+                eyes: 'hazel',
+                sign: 'Leo',
+              },
+            },
+            juno: {
+              label: 'Juno',
+              blurb: 'Labels everything on board, including the labels.',
+              traits: {
+                hair: 'brown',
+                eyes: 'brown',
+                sign: 'Virgo',
+              },
+            },
+            orin: {
+              label: 'Orin',
+              blurb: 'Swears a comet winked at him. Twice, and on the record.',
+              traits: {
+                hair: 'silver',
+                eyes: 'blue',
+                sign: 'Libra',
+              },
+            },
+            cass: {
+              label: 'Cass',
+              blurb: 'Grows basil in a spare helmet. It is thriving; morale is not.',
+              traits: {
+                hair: 'black',
+                eyes: 'green',
+                sign: 'Scorpio',
+              },
+            },
+            elio: {
+              label: 'Elio',
+              blurb: 'Hums through docking. Hums louder through emergencies.',
+              traits: {
+                hair: 'brown',
+                eyes: 'grey',
+                sign: 'Sagittarius',
+              },
+            },
+            suri: {
+              label: 'Suri',
+              blurb: 'Wins every weightless card game and will not say how.',
+              traits: {
+                hair: 'black',
+                eyes: 'hazel',
+                sign: 'Capricorn',
+              },
+            },
+            dax: {
+              label: 'Dax',
+              blurb: 'Named the coffee machine and now takes its side in disputes.',
+              traits: {
+                hair: 'blonde',
+                eyes: 'brown',
+                sign: 'Aquarius',
+              },
+            },
+            noor: {
+              label: 'Noor',
+              blurb: 'Sketches each world on the way down. The sketches never match.',
+              traits: {
+                hair: 'black',
+                eyes: 'brown',
+                sign: 'Pisces',
+              },
+            },
+            kai: {
+              label: 'Kai',
+              blurb: 'Volunteers for every spacewalk, chiefly for the view.',
+              traits: {
+                hair: 'brown',
+                eyes: 'blue',
+                sign: 'Aries',
+              },
+            },
+            wren: {
+              label: 'Wren',
+              blurb: 'Keeps an orbital diary. Entry one reads: still up here.',
+              traits: {
+                hair: 'red',
+                eyes: 'grey',
+                sign: 'Leo',
+              },
+            },
+          },
+        },
+        destination: {
+          name: 'Destination',
+          pattern: 'the crew bound for {}',
+          describes: 'the crew bound for the {}',
+          noun: 'world',
+          traits: {
+            kind: {
+              label: 'Kind',
+              pattern: '{noun} that is a {}',
+            },
+            surface: {
+              label: 'Surface',
+              pattern: '{noun} with a {} surface',
+            },
+            gravity: {
+              label: 'Gravity',
+              pattern: '{noun} with {} gravity',
+            },
+          },
+          items: {
+            mars: {
+              label: 'Mars',
+              blurb: 'Red, windy, and entirely without a gift shop.',
+              traits: {
+                kind: 'planet',
+                surface: 'dusty',
+                gravity: 'middling',
+              },
+            },
+            venus: {
+              label: 'Venus',
+              blurb: 'Hot enough to melt a probe. Lovely from a great distance.',
+              traits: {
+                kind: 'planet',
+                surface: 'volcanic',
+                gravity: 'heavy',
+              },
+            },
+            titan: {
+              label: 'Titan',
+              blurb: 'Has lakes. None of them are water. None of them are for swimming.',
+              traits: {
+                kind: 'moon',
+                surface: 'frozen',
+                gravity: 'feeble',
+              },
+            },
+            europa: {
+              label: 'Europa',
+              blurb: 'Ice on top, ocean beneath, and something nobody wants to meet.',
+              traits: {
+                kind: 'moon',
+                surface: 'frozen',
+                gravity: 'feeble',
+              },
+            },
+            ceres: {
+              label: 'Ceres',
+              blurb: 'The largest thing in the asteroid belt, which is faint praise.',
+              traits: {
+                kind: 'dwarf planet',
+                surface: 'rocky',
+                gravity: 'feeble',
+              },
+            },
+            io: {
+              label: 'Io',
+              blurb: 'Four hundred volcanoes and not one fire escape.',
+              traits: {
+                kind: 'moon',
+                surface: 'volcanic',
+                gravity: 'feeble',
+              },
+            },
+            luna: {
+              label: 'Luna',
+              blurb: "Close, grey, and covered in other people's footprints.",
+              traits: {
+                kind: 'moon',
+                surface: 'dusty',
+                gravity: 'light',
+              },
+            },
+            vesta: {
+              label: 'Vesta',
+              blurb: 'A lump with a mountain on it twice the height of Everest.',
+              traits: {
+                kind: 'asteroid',
+                surface: 'rocky',
+                gravity: 'feeble',
+              },
+            },
+            callisto: {
+              label: 'Callisto',
+              blurb: 'The most cratered thing in the system, and quietly proud of it.',
+              traits: {
+                kind: 'moon',
+                surface: 'rocky',
+                gravity: 'light',
+              },
+            },
+            ganymede: {
+              label: 'Ganymede',
+              blurb: 'Bigger than Mercury and still filed under moon.',
+              traits: {
+                kind: 'moon',
+                surface: 'frozen',
+                gravity: 'light',
+              },
+            },
+            enceladus: {
+              label: 'Enceladus',
+              blurb: 'Sprays water into space. Nobody has asked it to stop.',
+              traits: {
+                kind: 'moon',
+                surface: 'frozen',
+                gravity: 'feeble',
+              },
+            },
+            triton: {
+              label: 'Triton',
+              blurb: 'Orbits backwards, deliberately, out of what looks like spite.',
+              traits: {
+                kind: 'moon',
+                surface: 'frozen',
+                gravity: 'feeble',
+              },
+            },
+            phobos: {
+              label: 'Phobos',
+              blurb: 'Potato-shaped and slowly falling. There is no particular rush.',
+              traits: {
+                kind: 'moon',
+                surface: 'rocky',
+                gravity: 'feeble',
+              },
+            },
+            deimos: {
+              label: 'Deimos',
+              blurb: 'The smaller, quieter one. It prefers things that way.',
+              traits: {
+                kind: 'moon',
+                surface: 'dusty',
+                gravity: 'feeble',
+              },
+            },
+          },
+        },
+        ship: {
+          name: 'Ship',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'ship',
+          traits: {
+            hull: {
+              label: 'Hull',
+              pattern: '{noun} made of {}',
+            },
+            size: {
+              label: 'Size',
+              pattern: '{} {noun}',
+            },
+            engine: {
+              label: 'Engine',
+              pattern: '{noun} with {} engines',
+            },
+          },
+          items: {
+            kestrel: {
+              label: 'Kestrel',
+              blurb: 'Fast, loud, and fond of announcing both.',
+              traits: {
+                hull: 'steel',
+                size: 'small',
+                engine: 'nuclear',
+              },
+            },
+            corvus: {
+              label: 'Corvus',
+              blurb: 'Black as a pocket. Impossible to find in the dark.',
+              traits: {
+                hull: 'carbon',
+                size: 'small',
+                engine: 'ion',
+              },
+            },
+            lyra: {
+              label: 'Lyra',
+              blurb: 'Sings on re-entry. The engineers have given up explaining it.',
+              traits: {
+                hull: 'carbon',
+                size: 'mid-sized',
+                engine: 'solar',
+              },
+            },
+            orion: {
+              label: 'Orion',
+              blurb: 'Built for grandeur. Turns like a cathedral.',
+              traits: {
+                hull: 'steel',
+                size: 'huge',
+                engine: 'nuclear',
+              },
+            },
+            pallas: {
+              label: 'Pallas',
+              blurb: 'Carries everything. Finds nothing when asked.',
+              traits: {
+                hull: 'titanium',
+                size: 'huge',
+                engine: 'solar',
+              },
+            },
+            sable: {
+              label: 'Sable',
+              blurb: 'Silent running as standard, chiefly to unnerve visitors.',
+              traits: {
+                hull: 'carbon',
+                size: 'small',
+                engine: 'ion',
+              },
+            },
+            merlin: {
+              label: 'Merlin',
+              blurb: 'Reliable to a fault, and the fault is a rattling hatch.',
+              traits: {
+                hull: 'steel',
+                size: 'mid-sized',
+                engine: 'nuclear',
+              },
+            },
+            halcyon: {
+              label: 'Halcyon',
+              blurb: 'The calmest ship in the fleet. Nothing has gone wrong yet.',
+              traits: {
+                hull: 'titanium',
+                size: 'mid-sized',
+                engine: 'solar',
+              },
+            },
+            vesper: {
+              label: 'Vesper',
+              blurb: 'Only truly happy after sundown, whatever that means out here.',
+              traits: {
+                hull: 'copper',
+                size: 'small',
+                engine: 'ion',
+              },
+            },
+            nimbus: {
+              label: 'Nimbus',
+              blurb: 'Leaves a cloud behind it. Nobody has traced the source.',
+              traits: {
+                hull: 'carbon',
+                size: 'huge',
+                engine: 'solar',
+              },
+            },
+            aurora: {
+              label: 'Aurora',
+              blurb: 'Glows faintly. The crew have stopped mentioning it.',
+              traits: {
+                hull: 'copper',
+                size: 'mid-sized',
+                engine: 'ion',
+              },
+            },
+            cygnus: {
+              label: 'Cygnus',
+              blurb: 'Long-necked, long-winded, and long overdue a refit.',
+              traits: {
+                hull: 'steel',
+                size: 'huge',
+                engine: 'nuclear',
+              },
+            },
+            perseus: {
+              label: 'Perseus',
+              blurb: 'Named for a hero. Handles like a filing cabinet.',
+              traits: {
+                hull: 'titanium',
+                size: 'mid-sized',
+                engine: 'solar',
+              },
+            },
+            zephyr: {
+              label: 'Zephyr',
+              blurb: 'Light enough to be pushed by sunlight and vain about it.',
+              traits: {
+                hull: 'copper',
+                size: 'small',
+                engine: 'ion',
+              },
+            },
+          },
+        },
+        cargo: {
+          name: 'Cargo',
+          pattern: 'the {} payload',
+          describes: 'the {}',
+          noun: 'payload',
+          traits: {
+            weight: {
+              label: 'Weight',
+              pattern: '{} {noun}',
+            },
+            material: {
+              label: 'Made of',
+              pattern: '{noun} made of {}',
+            },
+            care: {
+              label: 'Handling',
+              pattern: '{} {noun}',
+            },
+          },
+          items: {
+            'seed-vault': {
+              label: 'Seed Vault',
+              blurb: 'Every crop humanity has, in a box the size of a fridge.',
+              traits: {
+                weight: 'middling',
+                material: 'metal',
+                care: 'fragile',
+              },
+            },
+            'ice-core': {
+              label: 'Ice Core',
+              blurb: 'A very old winter, kept in a tube and thoroughly resented.',
+              traits: {
+                weight: 'heavy',
+                material: 'glass',
+                care: 'fragile',
+              },
+            },
+            'solar-sail': {
+              label: 'Solar Sail',
+              blurb: 'Acres of mirror, folded like a napkin, opened once.',
+              traits: {
+                weight: 'light',
+                material: 'fabric',
+                care: 'fragile',
+              },
+            },
+            'rover-kit': {
+              label: 'Rover Kit',
+              blurb: 'Some assembly required. The instructions were left behind.',
+              traits: {
+                weight: 'heavy',
+                material: 'metal',
+                care: 'rugged',
+              },
+            },
+            'med-pods': {
+              label: 'Med Pods',
+              blurb: 'Six beds and a cheerful voice that will not be turned off.',
+              traits: {
+                weight: 'middling',
+                material: 'plastic',
+                care: 'fragile',
+              },
+            },
+            'star-maps': {
+              label: 'Star Maps',
+              blurb: 'Printed, because screens have opinions about radiation.',
+              traits: {
+                weight: 'light',
+                material: 'paper',
+                care: 'fragile',
+              },
+            },
+            'water-tank': {
+              label: 'Water Tank',
+              blurb: 'Two tonnes of drinking water and one very serious lid.',
+              traits: {
+                weight: 'heavy',
+                material: 'metal',
+                care: 'rugged',
+              },
+            },
+            'drone-bay': {
+              label: 'Drone Bay',
+              blurb: 'Eight little scouts, all of which return in a mood.',
+              traits: {
+                weight: 'heavy',
+                material: 'metal',
+                care: 'rugged',
+              },
+            },
+            'soil-lab': {
+              label: 'Soil Lab',
+              blurb: 'Where dirt is asked, politely, whether anything ever lived in it.',
+              traits: {
+                weight: 'middling',
+                material: 'glass',
+                care: 'fragile',
+              },
+            },
+            'fuel-cells': {
+              label: 'Fuel Cells',
+              blurb: 'Enough power for the trip home, assuming nobody charges a kettle.',
+              traits: {
+                weight: 'heavy',
+                material: 'metal',
+                care: 'rugged',
+              },
+            },
+            greenhouse: {
+              label: 'Greenhouse',
+              blurb: 'Tomatoes in orbit. They taste of homesickness.',
+              traits: {
+                weight: 'middling',
+                material: 'glass',
+                care: 'fragile',
+              },
+            },
+            'repair-kit': {
+              label: 'Repair Kit',
+              blurb: 'Tape, wire and hope, in roughly that proportion.',
+              traits: {
+                weight: 'middling',
+                material: 'metal',
+                care: 'rugged',
+              },
+            },
+            'comms-mast': {
+              label: 'Comms Mast',
+              blurb: 'Points at home. Does nothing else, and does it well.',
+              traits: {
+                weight: 'light',
+                material: 'metal',
+                care: 'fragile',
+              },
+            },
+            'sample-case': {
+              label: 'Sample Case',
+              blurb: 'Empty on the way out. Nobody agrees on what fills it.',
+              traits: {
+                weight: 'light',
+                material: 'plastic',
+                care: 'rugged',
+              },
+            },
+          },
+        },
+        launch: {
+          name: 'Launch',
+          pattern: 'the {} launch',
+          describes: 'the {}',
+          noun: 'launch',
+          ordered: {
+            noun: 'launch year',
+            unit: 'years',
+            greater: 'later',
+            lesser: 'earlier',
+          },
+          traits: {
+            band: {
+              label: 'Window',
+              pattern: '{} {noun}',
+            },
+            parity: {
+              label: 'Number',
+              pattern: '{noun} in an {} year',
+            },
+          },
+          items: {
+            '2031': {
+              label: '2031',
+              blurb: 'The 2031 window. Everything still smells of new upholstery.',
+              traits: {
+                band: 'early',
+                parity: 'odd',
+              },
+            },
+            '2032': {
+              label: '2032',
+              blurb: 'The 2032 window. Booked out by a school trip and rebooked in a hurry.',
+              traits: {
+                band: 'early',
+                parity: 'even',
+              },
+            },
+            '2033': {
+              label: '2033',
+              blurb: 'The 2033 window. Delayed twice for weather on a world with no weather.',
+              traits: {
+                band: 'early',
+                parity: 'odd',
+              },
+            },
+            '2034': {
+              label: '2034',
+              blurb: 'The 2034 window. The one with the famous countdown mishap.',
+              traits: {
+                band: 'early',
+                parity: 'even',
+              },
+            },
+            '2035': {
+              label: '2035',
+              blurb: 'The 2035 window. Sponsored, briefly, by a soft drink.',
+              traits: {
+                band: 'early',
+                parity: 'odd',
+              },
+            },
+            '2036': {
+              label: '2036',
+              blurb: 'The 2036 window. The crew insisted on real coffee and got it.',
+              traits: {
+                band: 'middling',
+                parity: 'even',
+              },
+            },
+            '2037': {
+              label: '2037',
+              blurb: 'The 2037 window. Launched an hour early because nobody objected.',
+              traits: {
+                band: 'middling',
+                parity: 'odd',
+              },
+            },
+            '2038': {
+              label: '2038',
+              blurb: 'The 2038 window. Rained off, then launched through the rain anyway.',
+              traits: {
+                band: 'middling',
+                parity: 'even',
+              },
+            },
+            '2039': {
+              label: '2039',
+              blurb: 'The 2039 window. Best sandwiches of any mission, by common consent.',
+              traits: {
+                band: 'middling',
+                parity: 'odd',
+              },
+            },
+            '2040': {
+              label: '2040',
+              blurb: 'The 2040 window. Someone left a cat toy aboard. It is still up there.',
+              traits: {
+                band: 'middling',
+                parity: 'even',
+              },
+            },
+            '2041': {
+              label: '2041',
+              blurb: 'The 2041 window. The last launch before the pad was repainted.',
+              traits: {
+                band: 'late',
+                parity: 'odd',
+              },
+            },
+            '2042': {
+              label: '2042',
+              blurb: 'The 2042 window. Held for a passing satellite that was in no hurry.',
+              traits: {
+                band: 'late',
+                parity: 'even',
+              },
+            },
+            '2043': {
+              label: '2043',
+              blurb: 'The 2043 window. Watched by more people than the moon landings.',
+              traits: {
+                band: 'late',
+                parity: 'odd',
+              },
+            },
+            '2044': {
+              label: '2044',
+              blurb: 'The 2044 window. The one they will be talking about in the canteen.',
+              traits: {
+                band: 'late',
+                parity: 'even',
+              },
+            },
+          },
+        },
+      },
     },
     cafe: {
       name: 'Corner Café',
       blurb: 'Regulars, orders and the morning rush',
+      clues: {
+        link: '{a} is on the same ticket as {b}.',
+        notLink: '{a} is not on the same ticket as {b}.',
+        groupNot: 'No {a} is on the same ticket as {b}.',
+        either: '{a} is on the same ticket as either {b} or {c}.',
+        compare: 'The {noun} for {greater} came out {comparative} than for {lesser}.',
+        compareGap:
+          'The {noun} for {greater} came out exactly {gap} {unit} {comparative} than for {lesser}.',
+      },
+      categories: {
+        customer: {
+          name: 'Customer',
+          pattern: '{}',
+          describes: 'the {}',
+          noun: 'customer',
+          traits: {
+            hair: {
+              label: 'Hair',
+              pattern: '{noun} with {} hair',
+            },
+            eyes: {
+              label: 'Eyes',
+              pattern: '{noun} with {} eyes',
+            },
+            sign: {
+              label: 'Star sign',
+              pattern: '{noun} born under {}',
+            },
+          },
+          items: {
+            alma: {
+              label: 'Alma',
+              blurb: 'Orders the same thing daily and reads the menu each time.',
+              traits: {
+                hair: 'silver',
+                eyes: 'blue',
+                sign: 'Aries',
+              },
+            },
+            basil: {
+              label: 'Basil',
+              blurb: 'Brings his own mug. It is larger than the café allows for.',
+              traits: {
+                hair: 'black',
+                eyes: 'brown',
+                sign: 'Taurus',
+              },
+            },
+            dax: {
+              label: 'Dax',
+              blurb: 'Answers emails aloud. Nobody has found the courage to mention it.',
+              traits: {
+                hair: 'blonde',
+                eyes: 'green',
+                sign: 'Gemini',
+              },
+            },
+            esme: {
+              label: 'Esme',
+              blurb: 'Tips in coins, always exact, always counted twice.',
+              traits: {
+                hair: 'red',
+                eyes: 'hazel',
+                sign: 'Cancer',
+              },
+            },
+            fen: {
+              label: 'Fen',
+              blurb: 'Sits down before ordering, as though daring the staff.',
+              traits: {
+                hair: 'black',
+                eyes: 'grey',
+                sign: 'Leo',
+              },
+            },
+            grier: {
+              label: 'Grier',
+              blurb: 'Does the crossword in pen and finishes it in ink of two colours.',
+              traits: {
+                hair: 'silver',
+                eyes: 'brown',
+                sign: 'Virgo',
+              },
+            },
+            hollis: {
+              label: 'Hollis',
+              blurb: 'Has strong views on foam and is not shy about them.',
+              traits: {
+                hair: 'brown',
+                eyes: 'blue',
+                sign: 'Libra',
+              },
+            },
+            ines: {
+              label: 'Ines',
+              blurb: 'Reads a chapter, leaves, returns for the next one at noon.',
+              traits: {
+                hair: 'brown',
+                eyes: 'brown',
+                sign: 'Scorpio',
+              },
+            },
+            jonas: {
+              label: 'Jonas',
+              blurb: 'Claims the corner table is his. It has never been his.',
+              traits: {
+                hair: 'blonde',
+                eyes: 'blue',
+                sign: 'Sagittarius',
+              },
+            },
+            kit: {
+              label: 'Kit',
+              blurb: 'Brings the dog. The dog has its own regular order.',
+              traits: {
+                hair: 'red',
+                eyes: 'green',
+                sign: 'Capricorn',
+              },
+            },
+            lena: {
+              label: 'Lena',
+              blurb: 'Photographs the pastry before eating it. Every single time.',
+              traits: {
+                hair: 'black',
+                eyes: 'hazel',
+                sign: 'Aquarius',
+              },
+            },
+            mika: {
+              label: 'Mika',
+              blurb: 'Comes for the wifi, stays for the arguments about the wifi.',
+              traits: {
+                hair: 'brown',
+                eyes: 'grey',
+                sign: 'Pisces',
+              },
+            },
+            nell: {
+              label: 'Nell',
+              blurb: 'Knows every regular by order rather than by name.',
+              traits: {
+                hair: 'silver',
+                eyes: 'green',
+                sign: 'Aries',
+              },
+            },
+            otto: {
+              label: 'Otto',
+              blurb: 'Reads the paper back to front and will explain why if asked.',
+              traits: {
+                hair: 'no',
+                eyes: 'brown',
+                sign: 'Leo',
+              },
+            },
+          },
+        },
+        drink: {
+          name: 'Drink',
+          pattern: 'the {} drinker',
+          describes: 'the drinker of the {}',
+          noun: 'drink',
+          traits: {
+            served: {
+              label: 'Served',
+              pattern: '{} {noun}',
+            },
+            strength: {
+              label: 'Strength',
+              pattern: '{} {noun}',
+            },
+            milk: {
+              label: 'Milk',
+              pattern: '{noun} {}',
+            },
+          },
+          items: {
+            latte: {
+              label: 'Latte',
+              blurb: 'More milk than coffee, and honest about it.',
+              traits: {
+                served: 'hot',
+                strength: 'gentle',
+                milk: 'with milk',
+              },
+            },
+            mocha: {
+              label: 'Mocha',
+              blurb: 'Pudding in a cup, ordered with a straight face.',
+              traits: {
+                served: 'hot',
+                strength: 'gentle',
+                milk: 'with milk',
+              },
+            },
+            chai: {
+              label: 'Chai',
+              blurb: 'Spiced, sweet, and always a little too hot to start.',
+              traits: {
+                served: 'hot',
+                strength: 'gentle',
+                milk: 'with milk',
+              },
+            },
+            cortado: {
+              label: 'Cortado',
+              blurb: 'Small, serious, and gone in three sips.',
+              traits: {
+                served: 'hot',
+                strength: 'strong',
+                milk: 'with milk',
+              },
+            },
+            matcha: {
+              label: 'Matcha',
+              blurb: 'Bright green and quietly smug about the antioxidants.',
+              traits: {
+                served: 'hot',
+                strength: 'gentle',
+                milk: 'with milk',
+              },
+            },
+            espresso: {
+              label: 'Espresso',
+              blurb: 'A thimble of pure intent.',
+              traits: {
+                served: 'hot',
+                strength: 'strong',
+                milk: 'without milk',
+              },
+            },
+            'flat-white': {
+              label: 'Flat White',
+              blurb: 'The subject of a long-running dispute with the latte.',
+              traits: {
+                served: 'hot',
+                strength: 'strong',
+                milk: 'with milk',
+              },
+            },
+            americano: {
+              label: 'Americano',
+              blurb: 'An espresso that has been talked down from the ledge.',
+              traits: {
+                served: 'hot',
+                strength: 'strong',
+                milk: 'without milk',
+              },
+            },
+            cappuccino: {
+              label: 'Cappuccino',
+              blurb: 'One third foam, and the third everyone argues about.',
+              traits: {
+                served: 'hot',
+                strength: 'strong',
+                milk: 'with milk',
+              },
+            },
+            macchiato: {
+              label: 'Macchiato',
+              blurb: 'Espresso wearing the smallest possible hat.',
+              traits: {
+                served: 'hot',
+                strength: 'strong',
+                milk: 'with milk',
+              },
+            },
+            'cold-brew': {
+              label: 'Cold Brew',
+              blurb: 'Steeped overnight by someone who plans ahead.',
+              traits: {
+                served: 'iced',
+                strength: 'strong',
+                milk: 'without milk',
+              },
+            },
+            'oat-latte': {
+              label: 'Oat Latte',
+              blurb: 'The milk that started a thousand conversations.',
+              traits: {
+                served: 'hot',
+                strength: 'gentle',
+                milk: 'with milk',
+              },
+            },
+            'mint-tea': {
+              label: 'Mint Tea',
+              blurb: 'Ordered after a large lunch, without exception.',
+              traits: {
+                served: 'hot',
+                strength: 'gentle',
+                milk: 'without milk',
+              },
+            },
+            'hot-choc': {
+              label: 'Hot Choc',
+              blurb: 'Comes with marshmallows whether or not anyone asked.',
+              traits: {
+                served: 'hot',
+                strength: 'gentle',
+                milk: 'with milk',
+              },
+            },
+          },
+        },
+        pastry: {
+          name: 'Pastry',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'pastry',
+          traits: {
+            texture: {
+              label: 'Texture',
+              pattern: '{} {noun}',
+            },
+            filling: {
+              label: 'Filled with',
+              pattern: '{noun} filled with {}',
+            },
+            size: {
+              label: 'Size',
+              pattern: '{} {noun}',
+            },
+          },
+          items: {
+            croissant: {
+              label: 'Croissant',
+              blurb: 'Leaves a trail across the table that outlives the meal.',
+              traits: {
+                texture: 'flaky',
+                filling: 'nothing',
+                size: 'big',
+              },
+            },
+            cannel: {
+              label: 'Cannelé',
+              blurb: 'Burnt on purpose. Do not attempt to send it back.',
+              traits: {
+                texture: 'crisp',
+                filling: 'custard',
+                size: 'small',
+              },
+            },
+            scone: {
+              label: 'Scone',
+              blurb: 'Starts a war about the order of jam and cream.',
+              traits: {
+                texture: 'crumbly',
+                filling: 'nothing',
+                size: 'big',
+              },
+            },
+            clair: {
+              label: 'Éclair',
+              blurb: 'Impossible to eat with dignity. Nobody manages it.',
+              traits: {
+                texture: 'soft',
+                filling: 'cream',
+                size: 'big',
+              },
+            },
+            brioche: {
+              label: 'Brioche',
+              blurb: 'More butter than bread, which is the entire point.',
+              traits: {
+                texture: 'soft',
+                filling: 'nothing',
+                size: 'big',
+              },
+            },
+            tartlet: {
+              label: 'Tartlet',
+              blurb: 'Glazed to a shine you can check your hair in.',
+              traits: {
+                texture: 'crisp',
+                filling: 'fruit',
+                size: 'small',
+              },
+            },
+            danish: {
+              label: 'Danish',
+              blurb: 'Named after a country that would like a word about it.',
+              traits: {
+                texture: 'flaky',
+                filling: 'fruit',
+                size: 'big',
+              },
+            },
+            madeleine: {
+              label: 'Madeleine',
+              blurb: 'One bite of it and you are nine years old again.',
+              traits: {
+                texture: 'soft',
+                filling: 'nothing',
+                size: 'small',
+              },
+            },
+            palmier: {
+              label: 'Palmier',
+              blurb: 'All edges, no middle, and gone before the coffee lands.',
+              traits: {
+                texture: 'crisp',
+                filling: 'nothing',
+                size: 'small',
+              },
+            },
+            doughnut: {
+              label: 'Doughnut',
+              blurb: 'The jam is always in the last bite or the first. Never both.',
+              traits: {
+                texture: 'soft',
+                filling: 'jam',
+                size: 'big',
+              },
+            },
+            muffin: {
+              label: 'Muffin',
+              blurb: 'A cake pretending, for breakfast purposes, to be bread.',
+              traits: {
+                texture: 'crumbly',
+                filling: 'fruit',
+                size: 'big',
+              },
+            },
+            baklava: {
+              label: 'Baklava',
+              blurb: 'Forty layers, all of them sticky, none of them regretted.',
+              traits: {
+                texture: 'flaky',
+                filling: 'nuts',
+                size: 'small',
+              },
+            },
+            cruffin: {
+              label: 'Cruffin',
+              blurb: 'A croissant and a muffin, filed as neither.',
+              traits: {
+                texture: 'flaky',
+                filling: 'cream',
+                size: 'big',
+              },
+            },
+            turnover: {
+              label: 'Turnover',
+              blurb: 'Molten inside for far longer than seems physically fair.',
+              traits: {
+                texture: 'flaky',
+                filling: 'fruit',
+                size: 'big',
+              },
+            },
+          },
+        },
+        seat: {
+          name: 'Seat',
+          pattern: 'the {} table',
+          describes: 'the {}',
+          noun: 'table',
+          traits: {
+            where: {
+              label: 'Where',
+              pattern: '{noun} {}',
+            },
+            size: {
+              label: 'Size',
+              pattern: '{} {noun}',
+            },
+            light: {
+              label: 'Light',
+              pattern: '{noun} in the {}',
+            },
+          },
+          items: {
+            window: {
+              label: 'Window',
+              blurb: 'Best for watching the street judge your order.',
+              traits: {
+                where: 'indoors',
+                size: 'roomy',
+                light: 'sun',
+              },
+            },
+            corner: {
+              label: 'Corner',
+              blurb: 'Where the laptops go to nest for the afternoon.',
+              traits: {
+                where: 'indoors',
+                size: 'snug',
+                light: 'shade',
+              },
+            },
+            patio: {
+              label: 'Patio',
+              blurb: 'Charming for eleven minutes a year.',
+              traits: {
+                where: 'outdoors',
+                size: 'roomy',
+                light: 'sun',
+              },
+            },
+            counter: {
+              label: 'Counter',
+              blurb: 'A front-row seat to the machine and the swearing.',
+              traits: {
+                where: 'indoors',
+                size: 'snug',
+                light: 'shade',
+              },
+            },
+            loft: {
+              label: 'Loft',
+              blurb: 'Up the creaking stairs. Nobody is ever sent to find you.',
+              traits: {
+                where: 'indoors',
+                size: 'roomy',
+                light: 'shade',
+              },
+            },
+            fireside: {
+              label: 'Fireside',
+              blurb: 'Warm enough that leaving becomes a whole decision.',
+              traits: {
+                where: 'indoors',
+                size: 'snug',
+                light: 'shade',
+              },
+            },
+            balcony: {
+              label: 'Balcony',
+              blurb: 'Two chairs, one railing, and a queue for both.',
+              traits: {
+                where: 'outdoors',
+                size: 'snug',
+                light: 'sun',
+              },
+            },
+            alcove: {
+              label: 'Alcove',
+              blurb: 'Nobody finds you here, including the staff with your order.',
+              traits: {
+                where: 'indoors',
+                size: 'snug',
+                light: 'shade',
+              },
+            },
+            'bar-stool': {
+              label: 'Bar Stool',
+              blurb: 'Comfortable for exactly as long as one coffee lasts.',
+              traits: {
+                where: 'indoors',
+                size: 'snug',
+                light: 'sun',
+              },
+            },
+            booth: {
+              label: 'Booth',
+              blurb: 'Seats four, occupied by one and a great many bags.',
+              traits: {
+                where: 'indoors',
+                size: 'roomy',
+                light: 'shade',
+              },
+            },
+            terrace: {
+              label: 'Terrace',
+              blurb: 'Sunny, breezy, and one gust from losing every napkin.',
+              traits: {
+                where: 'outdoors',
+                size: 'roomy',
+                light: 'sun',
+              },
+            },
+            garden: {
+              label: 'Garden',
+              blurb: 'Shared with a robin who has learned about crumbs.',
+              traits: {
+                where: 'outdoors',
+                size: 'roomy',
+                light: 'shade',
+              },
+            },
+            nook: {
+              label: 'Nook',
+              blurb: 'Shelved on three sides. The books are glued in place.',
+              traits: {
+                where: 'indoors',
+                size: 'snug',
+                light: 'shade',
+              },
+            },
+            bench: {
+              label: 'Bench',
+              blurb: 'Seats three politely, or two people with strong opinions.',
+              traits: {
+                where: 'outdoors',
+                size: 'roomy',
+                light: 'sun',
+              },
+            },
+          },
+        },
+        bill: {
+          name: 'Bill',
+          pattern: 'the {} bill',
+          describes: 'the {}',
+          noun: 'bill',
+          ordered: {
+            noun: 'bill',
+            unit: 'dollars',
+            greater: 'higher',
+            lesser: 'lower',
+          },
+          traits: {
+            band: {
+              label: 'Size',
+              pattern: '{} {noun}',
+            },
+            parity: {
+              label: 'Number',
+              pattern: '{noun} with an {} number',
+            },
+          },
+          items: {
+            '4': {
+              label: '$4',
+              blurb: 'A $4 ticket. Paid in coins, counted twice, correct both times.',
+              traits: {
+                band: 'modest',
+                parity: 'even',
+              },
+            },
+            '5': {
+              label: '$5',
+              blurb: 'A $5 ticket. The smallest order anyone has admitted to.',
+              traits: {
+                band: 'modest',
+                parity: 'odd',
+              },
+            },
+            '6': {
+              label: '$6',
+              blurb: 'A $6 ticket. Rounded up, because the tip jar was watching.',
+              traits: {
+                band: 'modest',
+                parity: 'even',
+              },
+            },
+            '7': {
+              label: '$7',
+              blurb: 'A $7 ticket. Split three ways after some very slow arithmetic.',
+              traits: {
+                band: 'modest',
+                parity: 'odd',
+              },
+            },
+            '8': {
+              label: '$8',
+              blurb: 'A $8 ticket. Settled by card, then queried, then settled again.',
+              traits: {
+                band: 'modest',
+                parity: 'even',
+              },
+            },
+            '9': {
+              label: '$9',
+              blurb: 'A $9 ticket. Includes one pastry that was denied at the till.',
+              traits: {
+                band: 'middling',
+                parity: 'odd',
+              },
+            },
+            '10': {
+              label: '$10',
+              blurb: 'A $10 ticket. Exactly the price of a quiet hour, apparently.',
+              traits: {
+                band: 'middling',
+                parity: 'even',
+              },
+            },
+            '11': {
+              label: '$11',
+              blurb: 'A $11 ticket. Somebody was buying for a friend and regretting it.',
+              traits: {
+                band: 'middling',
+                parity: 'odd',
+              },
+            },
+            '12': {
+              label: '$12',
+              blurb: 'A $12 ticket. Two drinks and a great deal of foam.',
+              traits: {
+                band: 'middling',
+                parity: 'even',
+              },
+            },
+            '13': {
+              label: '$13',
+              blurb: 'A $13 ticket. The morning the oat milk went up and nobody warned anyone.',
+              traits: {
+                band: 'middling',
+                parity: 'odd',
+              },
+            },
+            '14': {
+              label: '$14',
+              blurb: 'A $14 ticket. A round for the table, bravely announced.',
+              traits: {
+                band: 'steep',
+                parity: 'even',
+              },
+            },
+            '15': {
+              label: '$15',
+              blurb: 'A $15 ticket. Paid with a note so large the till sighed.',
+              traits: {
+                band: 'steep',
+                parity: 'odd',
+              },
+            },
+            '16': {
+              label: '$16',
+              blurb: 'A $16 ticket. The record, until the office came in on Friday.',
+              traits: {
+                band: 'steep',
+                parity: 'even',
+              },
+            },
+            '17': {
+              label: '$17',
+              blurb: 'A $17 ticket. Framed behind the counter, unofficially.',
+              traits: {
+                band: 'steep',
+                parity: 'odd',
+              },
+            },
+          },
+        },
+      },
     },
     quest: {
       name: 'Mythic Quest',
       blurb: 'Heroes, beasts and hard-won gold',
+      clues: {
+        link: '{a} is none other than {b}.',
+        notLink: '{a} is not {b}.',
+        groupNot: 'No {a} is {b}.',
+        either: '{a} is either {b} or {c}.',
+        compare: '{greater} claimed a {comparative} {noun} than {lesser}.',
+        compareGap: '{greater} claimed exactly {gap} {unit} more than {lesser}.',
+      },
+      categories: {
+        hero: {
+          name: 'Hero',
+          pattern: '{}',
+          describes: 'the {}',
+          noun: 'hero',
+          traits: {
+            hair: {
+              label: 'Hair',
+              pattern: '{noun} with {} hair',
+            },
+            eyes: {
+              label: 'Eyes',
+              pattern: '{noun} with {} eyes',
+            },
+            sign: {
+              label: 'Star sign',
+              pattern: '{noun} born under {}',
+            },
+          },
+          items: {
+            bran: {
+              label: 'Bran',
+              blurb: 'Swore an oath on a bridge and has been explaining it ever since.',
+              traits: {
+                hair: 'black',
+                eyes: 'brown',
+                sign: 'Aries',
+              },
+            },
+            sorrel: {
+              label: 'Sorrel',
+              blurb: 'Fights beautifully. Navigates like a dropped map.',
+              traits: {
+                hair: 'red',
+                eyes: 'green',
+                sign: 'Taurus',
+              },
+            },
+            ivo: {
+              label: 'Ivo',
+              blurb: 'Retired three times. Keeps being invited back by circumstance.',
+              traits: {
+                hair: 'silver',
+                eyes: 'grey',
+                sign: 'Gemini',
+              },
+            },
+            wren: {
+              label: 'Wren',
+              blurb: 'Small, quick, and responsible for most of the shouting.',
+              traits: {
+                hair: 'black',
+                eyes: 'hazel',
+                sign: 'Cancer',
+              },
+            },
+            tamsin: {
+              label: 'Tamsin',
+              blurb: 'Rides ahead. Waits at the crossroads with a smug expression.',
+              traits: {
+                hair: 'blonde',
+                eyes: 'blue',
+                sign: 'Leo',
+              },
+            },
+            kell: {
+              label: 'Kell',
+              blurb: 'Counts the gold before the fight, which is considered rude.',
+              traits: {
+                hair: 'black',
+                eyes: 'green',
+                sign: 'Virgo',
+              },
+            },
+            rowan: {
+              label: 'Rowan',
+              blurb: 'Talks to horses. The horses appear to answer.',
+              traits: {
+                hair: 'red',
+                eyes: 'brown',
+                sign: 'Libra',
+              },
+            },
+            fenn: {
+              label: 'Fenn',
+              blurb: 'Once slew a beast by accident and has never once corrected anyone.',
+              traits: {
+                hair: 'brown',
+                eyes: 'blue',
+                sign: 'Scorpio',
+              },
+            },
+            maeve: {
+              label: 'Maeve',
+              blurb: 'Carries a lute she cannot play into every single tavern.',
+              traits: {
+                hair: 'silver',
+                eyes: 'green',
+                sign: 'Sagittarius',
+              },
+            },
+            osric: {
+              label: 'Osric',
+              blurb: 'Insists on a prophecy before breakfast. Any prophecy.',
+              traits: {
+                hair: 'silver',
+                eyes: 'brown',
+                sign: 'Capricorn',
+              },
+            },
+            perrin: {
+              label: 'Perrin',
+              blurb: 'Youngest of the company and the only one who packs food.',
+              traits: {
+                hair: 'brown',
+                eyes: 'hazel',
+                sign: 'Aquarius',
+              },
+            },
+            isolde: {
+              label: 'Isolde',
+              blurb: 'Sharpens her blade during conversations. It is not a threat.',
+              traits: {
+                hair: 'brown',
+                eyes: 'grey',
+                sign: 'Pisces',
+              },
+            },
+            garrick: {
+              label: 'Garrick',
+              blurb: 'Arrives silently, leaves loudly, bills generously.',
+              traits: {
+                hair: 'black',
+                eyes: 'brown',
+                sign: 'Aries',
+              },
+            },
+            nyla: {
+              label: 'Nyla',
+              blurb: 'Has a battle cry. Nobody has worked out what it means.',
+              traits: {
+                hair: 'red',
+                eyes: 'blue',
+                sign: 'Leo',
+              },
+            },
+          },
+        },
+        weapon: {
+          name: 'Weapon',
+          pattern: 'the {} wielder',
+          describes: 'the wielder of the {}',
+          noun: 'weapon',
+          traits: {
+            material: {
+              label: 'Made of',
+              pattern: '{noun} made of {}',
+            },
+            reach: {
+              label: 'Reach',
+              pattern: '{} {noun}',
+            },
+            weight: {
+              label: 'Weight',
+              pattern: '{} {noun}',
+            },
+          },
+          items: {
+            'ash-bow': {
+              label: 'Ash Bow',
+              blurb: 'Draws smooth as a promise. Twice as likely to be broken.',
+              traits: {
+                material: 'wood',
+                reach: 'long',
+                weight: 'light',
+              },
+            },
+            'rune-axe': {
+              label: 'Rune Axe',
+              blurb: 'Carved with words nobody living can read. Probably a warranty.',
+              traits: {
+                material: 'iron',
+                reach: 'short',
+                weight: 'heavy',
+              },
+            },
+            'gale-spear': {
+              label: 'Gale Spear',
+              blurb: 'Whistles in flight, which ruins every ambush it is part of.',
+              traits: {
+                material: 'wood',
+                reach: 'long',
+                weight: 'light',
+              },
+            },
+            'ember-blade': {
+              label: 'Ember Blade',
+              blurb: 'Warm to the touch. Terrible in a scabbard, superb in a snowstorm.',
+              traits: {
+                material: 'iron',
+                reach: 'short',
+                weight: 'light',
+              },
+            },
+            'frost-flail': {
+              label: 'Frost Flail',
+              blurb: 'Leaves a rime on everything, including its owner.',
+              traits: {
+                material: 'iron',
+                reach: 'short',
+                weight: 'heavy',
+              },
+            },
+            'thorn-whip': {
+              label: 'Thorn Whip',
+              blurb: 'Beautiful. Has drawn more of its owner’s blood than anyone else’s.',
+              traits: {
+                material: 'leather',
+                reach: 'long',
+                weight: 'light',
+              },
+            },
+            'storm-mace': {
+              label: 'Storm Mace',
+              blurb: 'Attracts lightning. Best carried by somebody else.',
+              traits: {
+                material: 'iron',
+                reach: 'short',
+                weight: 'heavy',
+              },
+            },
+            'moon-dagger': {
+              label: 'Moon Dagger',
+              blurb: 'Only sharp after dark, which is when it is needed.',
+              traits: {
+                material: 'silver',
+                reach: 'short',
+                weight: 'light',
+              },
+            },
+            'oak-staff': {
+              label: 'Oak Staff',
+              blurb: 'A walking stick with ideas above its station.',
+              traits: {
+                material: 'wood',
+                reach: 'long',
+                weight: 'heavy',
+              },
+            },
+            'bone-sling': {
+              label: 'Bone Sling',
+              blurb: 'Cheap, quiet, and unreasonably effective against giants.',
+              traits: {
+                material: 'bone',
+                reach: 'short',
+                weight: 'light',
+              },
+            },
+            'star-lance': {
+              label: 'Star Lance',
+              blurb: 'Fell from the sky. Nobody has asked it to leave.',
+              traits: {
+                material: 'silver',
+                reach: 'long',
+                weight: 'heavy',
+              },
+            },
+            'wind-sabre': {
+              label: 'Wind Sabre',
+              blurb: 'Cuts on the backswing, which surprises everyone once.',
+              traits: {
+                material: 'silver',
+                reach: 'long',
+                weight: 'light',
+              },
+            },
+            'shadow-pike': {
+              label: 'Shadow Pike',
+              blurb: 'Casts no shadow, which is considered showing off.',
+              traits: {
+                material: 'bone',
+                reach: 'long',
+                weight: 'heavy',
+              },
+            },
+            'iron-halberd': {
+              label: 'Iron Halberd',
+              blurb: 'Requires two hands, a wide room and a forgiving ceiling.',
+              traits: {
+                material: 'iron',
+                reach: 'long',
+                weight: 'heavy',
+              },
+            },
+          },
+        },
+        beast: {
+          name: 'Beast',
+          pattern: 'the {} slayer',
+          describes: 'the slayer of the {}',
+          noun: 'beast',
+          traits: {
+            size: {
+              label: 'Size',
+              pattern: '{} {noun}',
+            },
+            home: {
+              label: 'Lairs in the',
+              pattern: '{noun} from the {}',
+            },
+            temper: {
+              label: 'Temper',
+              pattern: '{} {noun}',
+            },
+          },
+          items: {
+            griffin: {
+              label: 'Griffin',
+              blurb: 'Half eagle, half lion, entirely convinced of its own importance.',
+              traits: {
+                size: 'huge',
+                home: 'mountains',
+                temper: 'proud',
+              },
+            },
+            wyvern: {
+              label: 'Wyvern',
+              blurb: 'Two legs, one temper, no interest in negotiation.',
+              traits: {
+                size: 'huge',
+                home: 'mountains',
+                temper: 'fierce',
+              },
+            },
+            basilisk: {
+              label: 'Basilisk',
+              blurb: 'Do not meet its eye. Do not meet its other eye either.',
+              traits: {
+                size: 'small',
+                home: 'caves',
+                temper: 'sly',
+              },
+            },
+            kraken: {
+              label: 'Kraken',
+              blurb: 'The reason the harbour tax is what it is.',
+              traits: {
+                size: 'huge',
+                home: 'sea',
+                temper: 'fierce',
+              },
+            },
+            chimera: {
+              label: 'Chimera',
+              blurb: 'Three heads, none of which agree on lunch.',
+              traits: {
+                size: 'huge',
+                home: 'mountains',
+                temper: 'fierce',
+              },
+            },
+            sphinx: {
+              label: 'Sphinx',
+              blurb: 'Asks a riddle. Is visibly bored of the answer.',
+              traits: {
+                size: 'huge',
+                home: 'desert',
+                temper: 'sly',
+              },
+            },
+            manticore: {
+              label: 'Manticore',
+              blurb: 'Tail like a quiver. Manners like a tax collector.',
+              traits: {
+                size: 'huge',
+                home: 'desert',
+                temper: 'fierce',
+              },
+            },
+            hydra: {
+              label: 'Hydra',
+              blurb: 'Cut off one head and you have made the day considerably worse.',
+              traits: {
+                size: 'huge',
+                home: 'marshes',
+                temper: 'fierce',
+              },
+            },
+            cyclops: {
+              label: 'Cyclops',
+              blurb: 'Terrible depth perception, excellent grudge retention.',
+              traits: {
+                size: 'huge',
+                home: 'caves',
+                temper: 'proud',
+              },
+            },
+            banshee: {
+              label: 'Banshee',
+              blurb: 'Announces deaths. Has never once been thanked for it.',
+              traits: {
+                size: 'small',
+                home: 'marshes',
+                temper: 'sly',
+              },
+            },
+            golem: {
+              label: 'Golem',
+              blurb: 'Follows the last instruction it was given, forever, to the letter.',
+              traits: {
+                size: 'huge',
+                home: 'caves',
+                temper: 'calm',
+              },
+            },
+            harpy: {
+              label: 'Harpy',
+              blurb: 'Steals food, insults the cook, leaves a feather as receipt.',
+              traits: {
+                size: 'small',
+                home: 'mountains',
+                temper: 'sly',
+              },
+            },
+            minotaur: {
+              label: 'Minotaur',
+              blurb: 'Knows the way out. Has decided not to share it.',
+              traits: {
+                size: 'huge',
+                home: 'caves',
+                temper: 'fierce',
+              },
+            },
+            direwolf: {
+              label: 'Direwolf',
+              blurb: 'Runs with a pack of six and takes all the credit.',
+              traits: {
+                size: 'small',
+                home: 'forest',
+                temper: 'proud',
+              },
+            },
+          },
+        },
+        realm: {
+          name: 'Realm',
+          pattern: 'the champion of {}',
+          describes: 'the champion of the {}',
+          noun: 'realm',
+          traits: {
+            land: {
+              label: 'Land',
+              pattern: '{noun} of {}',
+            },
+            weather: {
+              label: 'Weather',
+              pattern: '{noun} with {} weather',
+            },
+            size: {
+              label: 'Size',
+              pattern: '{} {noun}',
+            },
+          },
+          items: {
+            ashfell: {
+              label: 'Ashfell',
+              blurb: 'Everything is grey and everyone insists it is character.',
+              traits: {
+                land: 'mountains',
+                weather: 'dry',
+                size: 'small',
+              },
+            },
+            duskmoor: {
+              label: 'Duskmoor',
+              blurb: 'The sun sets at three and apologises for nothing.',
+              traits: {
+                land: 'marshes',
+                weather: 'wet',
+                size: 'great',
+              },
+            },
+            highmere: {
+              label: 'Highmere',
+              blurb: 'Thin air, thick accents, excellent cheese.',
+              traits: {
+                land: 'mountains',
+                weather: 'cold',
+                size: 'great',
+              },
+            },
+            ironvale: {
+              label: 'Ironvale',
+              blurb: 'Makes half the swords in the world and complains about the noise.',
+              traits: {
+                land: 'mountains',
+                weather: 'dry',
+                size: 'great',
+              },
+            },
+            sablewood: {
+              label: 'Sablewood',
+              blurb: 'Dark by noon. The trees are said to keep notes.',
+              traits: {
+                land: 'forest',
+                weather: 'wet',
+                size: 'great',
+              },
+            },
+            windreach: {
+              label: 'Windreach',
+              blurb: 'Hats are a formality here. Nobody bothers.',
+              traits: {
+                land: 'coast',
+                weather: 'cold',
+                size: 'small',
+              },
+            },
+            thornhold: {
+              label: 'Thornhold',
+              blurb: 'Walled, moated, and famous for a hedge nobody can get through.',
+              traits: {
+                land: 'forest',
+                weather: 'dry',
+                size: 'small',
+              },
+            },
+            greymarch: {
+              label: 'Greymarch',
+              blurb: 'Fog with a flag. The border moves when it feels like it.',
+              traits: {
+                land: 'marshes',
+                weather: 'wet',
+                size: 'great',
+              },
+            },
+            frostgate: {
+              label: 'Frostgate',
+              blurb: 'Six months of winter, then a stern autumn.',
+              traits: {
+                land: 'mountains',
+                weather: 'cold',
+                size: 'small',
+              },
+            },
+            emberholt: {
+              label: 'Emberholt',
+              blurb: 'Warm all year from something underground nobody discusses.',
+              traits: {
+                land: 'forest',
+                weather: 'dry',
+                size: 'small',
+              },
+            },
+            larkspur: {
+              label: 'Larkspur',
+              blurb: 'Blossom everywhere. Suspiciously cheerful for a war-torn age.',
+              traits: {
+                land: 'coast',
+                weather: 'mild',
+                size: 'small',
+              },
+            },
+            mistvale: {
+              label: 'Mistvale',
+              blurb: 'Visitors get lost. Locals claim this is a feature.',
+              traits: {
+                land: 'marshes',
+                weather: 'wet',
+                size: 'small',
+              },
+            },
+            stonebrook: {
+              label: 'Stonebrook',
+              blurb: 'Every building is grey and every story is longer than it needs to be.',
+              traits: {
+                land: 'coast',
+                weather: 'mild',
+                size: 'great',
+              },
+            },
+            ravenfen: {
+              label: 'Ravenfen',
+              blurb: 'The birds outnumber the people and know it.',
+              traits: {
+                land: 'marshes',
+                weather: 'cold',
+                size: 'small',
+              },
+            },
+          },
+        },
+        reward: {
+          name: 'Reward',
+          pattern: 'the {} reward',
+          describes: 'the {}',
+          noun: 'reward',
+          ordered: {
+            noun: 'reward',
+            unit: 'gold',
+            greater: 'larger',
+            lesser: 'smaller',
+          },
+          traits: {
+            band: {
+              label: 'Purse',
+              pattern: '{} {noun}',
+            },
+            parity: {
+              label: 'Number',
+              pattern: '{noun} with an {} number',
+            },
+          },
+          items: {
+            '30g': {
+              label: '30g',
+              blurb: 'A 30g purse. Barely covers the horse feed and the bandages.',
+              traits: {
+                band: 'small',
+                parity: 'even',
+              },
+            },
+            '45g': {
+              label: '45g',
+              blurb: 'A 45g purse. Paid in copper, weighed in front of witnesses.',
+              traits: {
+                band: 'small',
+                parity: 'odd',
+              },
+            },
+            '60g': {
+              label: '60g',
+              blurb: 'A 60g purse. The village emptied its jar and looked hopeful.',
+              traits: {
+                band: 'small',
+                parity: 'even',
+              },
+            },
+            '75g': {
+              label: '75g',
+              blurb: 'A 75g purse. Half up front, the rest promised on a handshake.',
+              traits: {
+                band: 'small',
+                parity: 'odd',
+              },
+            },
+            '90g': {
+              label: '90g',
+              blurb: 'A 90g purse. Enough for a decent inn and one terrible decision.',
+              traits: {
+                band: 'small',
+                parity: 'even',
+              },
+            },
+            '105g': {
+              label: '105g',
+              blurb: 'A 105g purse. Comes with a goat that nobody asked about.',
+              traits: {
+                band: 'fair',
+                parity: 'odd',
+              },
+            },
+            '120g': {
+              label: '120g',
+              blurb: 'A 120g purse. The bard demanded a share before the fight began.',
+              traits: {
+                band: 'fair',
+                parity: 'even',
+              },
+            },
+            '135g': {
+              label: '135g',
+              blurb: 'A 135g purse. The mayor made a speech, which cost extra.',
+              traits: {
+                band: 'fair',
+                parity: 'odd',
+              },
+            },
+            '150g': {
+              label: '150g',
+              blurb: 'A 150g purse. Delivered in a chest too heavy for one hero.',
+              traits: {
+                band: 'fair',
+                parity: 'even',
+              },
+            },
+            '165g': {
+              label: '165g',
+              blurb: 'A 165g purse. Enough to retire on, briefly, in a cheap realm.',
+              traits: {
+                band: 'fair',
+                parity: 'odd',
+              },
+            },
+            '180g': {
+              label: '180g',
+              blurb: 'A 180g purse. Paid in old coin with an unfamiliar king on it.',
+              traits: {
+                band: 'princely',
+                parity: 'even',
+              },
+            },
+            '195g': {
+              label: '195g',
+              blurb: 'A 195g purse. The kind that attracts a second set of bandits.',
+              traits: {
+                band: 'princely',
+                parity: 'odd',
+              },
+            },
+            '210g': {
+              label: '210g',
+              blurb: 'A 210g purse. Sung about for three counties and two generations.',
+              traits: {
+                band: 'princely',
+                parity: 'even',
+              },
+            },
+            '225g': {
+              label: '225g',
+              blurb: 'A 225g purse. The largest since the dragon business, and still talked of.',
+              traits: {
+                band: 'princely',
+                parity: 'odd',
+              },
+            },
+          },
+        },
+      },
     },
     reef: {
       name: 'Reef Dive',
       blurb: 'Divers, sightings and depth logs',
+      clues: {
+        link: '{a} and {b} were on the same dive.',
+        notLink: '{a} and {b} were not on the same dive.',
+        groupNot: 'No {a} was on the same dive as {b}.',
+        either: '{a} was on the same dive as either {b} or {c}.',
+        compare: '{greater} went {comparative} than {lesser}.',
+        compareGap: '{greater} went exactly {gap} {unit} {comparative} than {lesser}.',
+      },
+      categories: {
+        diver: {
+          name: 'Diver',
+          pattern: '{}',
+          describes: 'the {}',
+          noun: 'diver',
+          traits: {
+            hair: {
+              label: 'Hair',
+              pattern: '{noun} with {} hair',
+            },
+            eyes: {
+              label: 'Eyes',
+              pattern: '{noun} with {} eyes',
+            },
+            sign: {
+              label: 'Star sign',
+              pattern: '{noun} born under {}',
+            },
+          },
+          items: {
+            pia: {
+              label: 'Pia',
+              blurb: 'Checks her gauge every ninety seconds and denies doing it.',
+              traits: {
+                hair: 'red',
+                eyes: 'green',
+                sign: 'Aries',
+              },
+            },
+            rune: {
+              label: 'Rune',
+              blurb: 'Surfaces last, always, and never says what he was looking at.',
+              traits: {
+                hair: 'black',
+                eyes: 'blue',
+                sign: 'Taurus',
+              },
+            },
+            sena: {
+              label: 'Sena',
+              blurb: 'Names every fish she meets. Recognises several by sight.',
+              traits: {
+                hair: 'black',
+                eyes: 'brown',
+                sign: 'Gemini',
+              },
+            },
+            tobin: {
+              label: 'Tobin',
+              blurb: 'Sings underwater. It sounds exactly as good as it should.',
+              traits: {
+                hair: 'blonde',
+                eyes: 'grey',
+                sign: 'Cancer',
+              },
+            },
+            ada: {
+              label: 'Ada',
+              blurb: 'Forty years in the water and one story she will not tell.',
+              traits: {
+                hair: 'silver',
+                eyes: 'hazel',
+                sign: 'Leo',
+              },
+            },
+            nico: {
+              label: 'Nico',
+              blurb: 'Draws the reef in pencil on a slate, then loses the slate.',
+              traits: {
+                hair: 'brown',
+                eyes: 'brown',
+                sign: 'Virgo',
+              },
+            },
+            marlow: {
+              label: 'Marlow',
+              blurb: 'Has a boat, a theory, and a great deal of time.',
+              traits: {
+                hair: 'silver',
+                eyes: 'blue',
+                sign: 'Libra',
+              },
+            },
+            indra: {
+              label: 'Indra',
+              blurb: 'Descends like a stone and comes up like a cork.',
+              traits: {
+                hair: 'black',
+                eyes: 'green',
+                sign: 'Scorpio',
+              },
+            },
+            cleo: {
+              label: 'Cleo',
+              blurb: 'Photographs everything. The camera is bigger than she is.',
+              traits: {
+                hair: 'brown',
+                eyes: 'grey',
+                sign: 'Sagittarius',
+              },
+            },
+            bo: {
+              label: 'Bo',
+              blurb: 'Claims to have met the same turtle four years running.',
+              traits: {
+                hair: 'red',
+                eyes: 'brown',
+                sign: 'Capricorn',
+              },
+            },
+            yara: {
+              label: 'Yara',
+              blurb: 'Logs every dive in a book that has been underwater twice.',
+              traits: {
+                hair: 'red',
+                eyes: 'hazel',
+                sign: 'Aquarius',
+              },
+            },
+            elias: {
+              label: 'Elias',
+              blurb: 'Talks about currents at dinner until somebody changes the subject.',
+              traits: {
+                hair: 'brown',
+                eyes: 'blue',
+                sign: 'Pisces',
+              },
+            },
+            suki: {
+              label: 'Suki',
+              blurb: 'The only one who enjoys the safety stop.',
+              traits: {
+                hair: 'blonde',
+                eyes: 'green',
+                sign: 'Aries',
+              },
+            },
+            rafa: {
+              label: 'Rafa',
+              blurb: 'Fixes everyone else’s gear and forgets to check his own.',
+              traits: {
+                hair: 'no',
+                eyes: 'brown',
+                sign: 'Leo',
+              },
+            },
+          },
+        },
+        species: {
+          name: 'Sighting',
+          pattern: 'the {} spotter',
+          describes: 'the spotter of the {}',
+          noun: 'creature',
+          traits: {
+            size: {
+              label: 'Size',
+              pattern: '{} {noun}',
+            },
+            danger: {
+              label: 'Danger',
+              pattern: '{} {noun}',
+            },
+            body: {
+              label: 'Body',
+              pattern: '{noun} with {}',
+            },
+          },
+          items: {
+            octopus: {
+              label: 'Octopus',
+              blurb: 'Solves the puzzle, takes the treat, judges the scientist.',
+              traits: {
+                size: 'big',
+                danger: 'harmless',
+                body: 'no bones',
+              },
+            },
+            manta: {
+              label: 'Manta',
+              blurb: 'Five metres across and glides past like a rumour.',
+              traits: {
+                size: 'big',
+                danger: 'harmless',
+                body: 'smooth skin',
+              },
+            },
+            turtle: {
+              label: 'Turtle',
+              blurb: 'Older than the boat, the crew, and most of the harbour.',
+              traits: {
+                size: 'big',
+                danger: 'harmless',
+                body: 'a shell',
+              },
+            },
+            seahorse: {
+              label: 'Seahorse',
+              blurb: 'Holds on with its tail and refuses to be photographed.',
+              traits: {
+                size: 'tiny',
+                danger: 'harmless',
+                body: 'armour',
+              },
+            },
+            moray: {
+              label: 'Moray',
+              blurb: 'Lives in a hole and looks permanently unimpressed.',
+              traits: {
+                size: 'big',
+                danger: 'venomous',
+                body: 'smooth skin',
+              },
+            },
+            clownfish: {
+              label: 'Clownfish',
+              blurb: 'Owns one anemone and defends it against the entire ocean.',
+              traits: {
+                size: 'tiny',
+                danger: 'harmless',
+                body: 'smooth skin',
+              },
+            },
+            barracuda: {
+              label: 'Barracuda',
+              blurb: 'All teeth and no small talk.',
+              traits: {
+                size: 'big',
+                danger: 'venomous',
+                body: 'smooth skin',
+              },
+            },
+            stingray: {
+              label: 'Stingray',
+              blurb: 'Sleeps under the sand and dislikes being stepped on.',
+              traits: {
+                size: 'big',
+                danger: 'venomous',
+                body: 'smooth skin',
+              },
+            },
+            lionfish: {
+              label: 'Lionfish',
+              blurb: 'Dressed for a ball it will never be invited to.',
+              traits: {
+                size: 'tiny',
+                danger: 'venomous',
+                body: 'spines',
+              },
+            },
+            grouper: {
+              label: 'Grouper',
+              blurb: 'Follows divers about hoping to be handed something.',
+              traits: {
+                size: 'big',
+                danger: 'harmless',
+                body: 'smooth skin',
+              },
+            },
+            pipefish: {
+              label: 'Pipefish',
+              blurb: 'A seahorse that has been through a mangle.',
+              traits: {
+                size: 'tiny',
+                danger: 'harmless',
+                body: 'armour',
+              },
+            },
+            'reef-shark': {
+              label: 'Reef Shark',
+              blurb: 'Far more frightened of you, allegedly.',
+              traits: {
+                size: 'big',
+                danger: 'venomous',
+                body: 'smooth skin',
+              },
+            },
+            cuttlefish: {
+              label: 'Cuttlefish',
+              blurb: 'Changes colour mid-sentence to win the argument.',
+              traits: {
+                size: 'tiny',
+                danger: 'harmless',
+                body: 'no bones',
+              },
+            },
+            'sea-urchin': {
+              label: 'Sea Urchin',
+              blurb: 'Does nothing at all, extremely painfully.',
+              traits: {
+                size: 'tiny',
+                danger: 'venomous',
+                body: 'spines',
+              },
+            },
+          },
+        },
+        gear: {
+          name: 'Gear',
+          pattern: 'the diver with the {}',
+          describes: 'the diver with the {}',
+          noun: 'kit',
+          traits: {
+            material: {
+              label: 'Made of',
+              pattern: '{noun} made of {}',
+            },
+            use: {
+              label: 'For',
+              pattern: '{noun} for {}',
+            },
+            size: {
+              label: 'Size',
+              pattern: '{} {noun}',
+            },
+          },
+          items: {
+            'red-fins': {
+              label: 'Red Fins',
+              blurb: 'Bought a size too large and worn with three pairs of socks.',
+              traits: {
+                material: 'rubber',
+                use: 'swimming',
+                size: 'big',
+              },
+            },
+            'blue-mask': {
+              label: 'Blue Mask',
+              blurb: 'Fogs up at the worst possible moment, every dive.',
+              traits: {
+                material: 'glass',
+                use: 'seeing',
+                size: 'small',
+              },
+            },
+            'green-tank': {
+              label: 'Green Tank',
+              blurb: 'Heavier out of the water than anyone expects.',
+              traits: {
+                material: 'steel',
+                use: 'breathing',
+                size: 'big',
+              },
+            },
+            'yellow-torch': {
+              label: 'Yellow Torch',
+              blurb: 'Bright enough to annoy an eel from ten metres.',
+              traits: {
+                material: 'steel',
+                use: 'seeing',
+                size: 'small',
+              },
+            },
+            'black-camera': {
+              label: 'Black Camera',
+              blurb: 'Insured for more than the boat it travels on.',
+              traits: {
+                material: 'glass',
+                use: 'recording',
+                size: 'big',
+              },
+            },
+            'white-slate': {
+              label: 'White Slate',
+              blurb: 'Where the great underwater conversations happen, badly spelled.',
+              traits: {
+                material: 'plastic',
+                use: 'recording',
+                size: 'small',
+              },
+            },
+            'orange-reel': {
+              label: 'Orange Reel',
+              blurb: 'Two hundred metres of line and one very important knot.',
+              traits: {
+                material: 'plastic',
+                use: 'safety',
+                size: 'small',
+              },
+            },
+            'pink-buoy': {
+              label: 'Pink Buoy',
+              blurb: 'Deployed at the end. Visible from the boat, in theory.',
+              traits: {
+                material: 'rubber',
+                use: 'safety',
+                size: 'big',
+              },
+            },
+            'silver-knife': {
+              label: 'Silver Knife',
+              blurb: 'For cutting nets. Used, so far, on a sandwich.',
+              traits: {
+                material: 'steel',
+                use: 'safety',
+                size: 'small',
+              },
+            },
+            'teal-compass': {
+              label: 'Teal Compass',
+              blurb: 'Points north. The reef declines to.',
+              traits: {
+                material: 'glass',
+                use: 'finding the way',
+                size: 'small',
+              },
+            },
+            'grey-gloves': {
+              label: 'Grey Gloves',
+              blurb: 'Saved one set of knuckles and lost one wedding ring.',
+              traits: {
+                material: 'rubber',
+                use: 'safety',
+                size: 'small',
+              },
+            },
+            'amber-lamp': {
+              label: 'Amber Lamp',
+              blurb: 'The colour of a late afternoon, forty metres down.',
+              traits: {
+                material: 'glass',
+                use: 'seeing',
+                size: 'big',
+              },
+            },
+            'coral-flag': {
+              label: 'Coral Flag',
+              blurb: 'Warns boats off. Boats occasionally read it.',
+              traits: {
+                material: 'plastic',
+                use: 'safety',
+                size: 'big',
+              },
+            },
+            'navy-hood': {
+              label: 'Navy Hood',
+              blurb: 'Keeps the head warm and the ears completely useless.',
+              traits: {
+                material: 'rubber',
+                use: 'warmth',
+                size: 'small',
+              },
+            },
+          },
+        },
+        site: {
+          name: 'Site',
+          pattern: 'the {} site',
+          describes: 'the {}',
+          noun: 'site',
+          traits: {
+            terrain: {
+              label: 'Terrain',
+              pattern: '{noun} of {}',
+            },
+            current: {
+              label: 'Current',
+              pattern: '{noun} with a {} current',
+            },
+            light: {
+              label: 'Light',
+              pattern: '{} {noun}',
+            },
+          },
+          items: {
+            'blue-hole': {
+              label: 'Blue Hole',
+              blurb: 'Goes down further than the guidebook is willing to print.',
+              traits: {
+                terrain: 'caves',
+                current: 'calm',
+                light: 'dark',
+              },
+            },
+            'lace-wall': {
+              label: 'Lace Wall',
+              blurb: 'Fan coral for a hundred metres. Nobody talks on the way back.',
+              traits: {
+                terrain: 'walls',
+                current: 'strong',
+                light: 'bright',
+              },
+            },
+            shipwreck: {
+              label: 'Shipwreck',
+              blurb: 'A cargo of teapots, still stacked, still waiting.',
+              traits: {
+                terrain: 'wreckage',
+                current: 'calm',
+                light: 'dark',
+              },
+            },
+            'kelp-maze': {
+              label: 'Kelp Maze',
+              blurb: 'Easy to enter. The exit is a matter of opinion.',
+              traits: {
+                terrain: 'weed',
+                current: 'calm',
+                light: 'dark',
+              },
+            },
+            'coral-arch': {
+              label: 'Coral Arch',
+              blurb: 'Swim through it for luck. Everyone does. Nobody admits why.',
+              traits: {
+                terrain: 'walls',
+                current: 'strong',
+                light: 'bright',
+              },
+            },
+            'night-cove': {
+              label: 'Night Cove',
+              blurb: 'Only worth diving after dark, which puts most people off.',
+              traits: {
+                terrain: 'sand',
+                current: 'calm',
+                light: 'dark',
+              },
+            },
+            'tide-pools': {
+              label: 'Tide Pools',
+              blurb: 'Waist deep and full of things pretending to be rocks.',
+              traits: {
+                terrain: 'sand',
+                current: 'strong',
+                light: 'bright',
+              },
+            },
+            'anchor-bay': {
+              label: 'Anchor Bay',
+              blurb: 'Two centuries of lost anchors, arranged by accident.',
+              traits: {
+                terrain: 'sand',
+                current: 'calm',
+                light: 'bright',
+              },
+            },
+            'sea-fan-bay': {
+              label: 'Sea Fan Bay',
+              blurb: 'Purple as a bruise and twice as photogenic.',
+              traits: {
+                terrain: 'walls',
+                current: 'calm',
+                light: 'bright',
+              },
+            },
+            'lantern-reef': {
+              label: 'Lantern Reef',
+              blurb: 'Glows at dusk. The science is disputed; the sight is not.',
+              traits: {
+                terrain: 'walls',
+                current: 'calm',
+                light: 'bright',
+              },
+            },
+            'sunken-pier': {
+              label: 'Sunken Pier',
+              blurb: 'The town moved. The pier stayed exactly where it was.',
+              traits: {
+                terrain: 'wreckage',
+                current: 'strong',
+                light: 'dark',
+              },
+            },
+            'green-lagoon': {
+              label: 'Green Lagoon',
+              blurb: 'Warm, shallow, and greener than seems entirely healthy.',
+              traits: {
+                terrain: 'weed',
+                current: 'calm',
+                light: 'bright',
+              },
+            },
+            'cavern-ridge': {
+              label: 'Cavern Ridge',
+              blurb: 'A torch, a line, and a firm word with yourself.',
+              traits: {
+                terrain: 'caves',
+                current: 'strong',
+                light: 'dark',
+              },
+            },
+            'turtle-point': {
+              label: 'Turtle Point',
+              blurb: 'Named optimistically. Delivers about one time in three.',
+              traits: {
+                terrain: 'sand',
+                current: 'calm',
+                light: 'bright',
+              },
+            },
+          },
+        },
+        depth: {
+          name: 'Depth',
+          pattern: 'the diver at {}',
+          describes: 'the diver at a {}',
+          noun: 'depth',
+          ordered: {
+            noun: 'depth',
+            unit: 'metres',
+            greater: 'deeper',
+            lesser: 'shallower',
+          },
+          traits: {
+            band: {
+              label: 'Range',
+              pattern: '{} {noun}',
+            },
+            parity: {
+              label: 'Number',
+              pattern: '{noun} with an {} number',
+            },
+          },
+          items: {
+            '10m': {
+              label: '10m',
+              blurb: 'A 10m dive. Snorkellers keep asking what the fuss is about.',
+              traits: {
+                band: 'shallow',
+                parity: 'even',
+              },
+            },
+            '15m': {
+              label: '15m',
+              blurb: 'A 15m dive. Warm, bright, and over far too quickly.',
+              traits: {
+                band: 'shallow',
+                parity: 'odd',
+              },
+            },
+            '20m': {
+              label: '20m',
+              blurb: 'A 20m dive. The colours start quietly leaving at this point.',
+              traits: {
+                band: 'shallow',
+                parity: 'even',
+              },
+            },
+            '25m': {
+              label: '25m',
+              blurb: 'A 25m dive. Red is already gone. Nobody misses it yet.',
+              traits: {
+                band: 'shallow',
+                parity: 'odd',
+              },
+            },
+            '30m': {
+              label: '30m',
+              blurb: 'A 30m dive. Long enough down to forget the surface exists.',
+              traits: {
+                band: 'shallow',
+                parity: 'even',
+              },
+            },
+            '35m': {
+              label: '35m',
+              blurb: 'A 35m dive. Where the interesting fish stop being shy.',
+              traits: {
+                band: 'middling',
+                parity: 'odd',
+              },
+            },
+            '40m': {
+              label: '40m',
+              blurb: 'A 40m dive. The gauge becomes a topic of conversation.',
+              traits: {
+                band: 'middling',
+                parity: 'even',
+              },
+            },
+            '45m': {
+              label: '45m',
+              blurb: 'A 45m dive. Cold enough to make the hood seem sensible.',
+              traits: {
+                band: 'middling',
+                parity: 'odd',
+              },
+            },
+            '50m': {
+              label: '50m',
+              blurb: 'A 50m dive. The torch comes on and stays on.',
+              traits: {
+                band: 'middling',
+                parity: 'even',
+              },
+            },
+            '55m': {
+              label: '55m',
+              blurb: 'A 55m dive. Deep enough that the boat sounds like a rumour.',
+              traits: {
+                band: 'middling',
+                parity: 'odd',
+              },
+            },
+            '60m': {
+              label: '60m',
+              blurb: 'A 60m dive. Two divers, one line, and a great deal of trust.',
+              traits: {
+                band: 'deep',
+                parity: 'even',
+              },
+            },
+            '65m': {
+              label: '65m',
+              blurb: 'A 65m dive. The safety stop is no longer optional in anyone’s mind.',
+              traits: {
+                band: 'deep',
+                parity: 'odd',
+              },
+            },
+            '70m': {
+              label: '70m',
+              blurb: 'A 70m dive. Written up in the log twice, for emphasis.',
+              traits: {
+                band: 'deep',
+                parity: 'even',
+              },
+            },
+            '75m': {
+              label: '75m',
+              blurb: 'A 75m dive. The one they buy each other drinks over.',
+              traits: {
+                band: 'deep',
+                parity: 'odd',
+              },
+            },
+          },
+        },
+      },
     },
     garden: {
       name: 'Blue Ribbon Garden',
       blurb: 'Growers, blooms and show-day heights',
+      clues: {
+        link: '{a} and {b} are the same entry.',
+        notLink: '{a} and {b} are different entries.',
+        groupNot: 'No {a} is the same entry as {b}.',
+        either: '{a} is the same entry as either {b} or {c}.',
+        compare: '{greater} stands {comparative} than {lesser}.',
+        compareGap: '{greater} stands exactly {gap} {unit} {comparative} than {lesser}.',
+      },
+      categories: {
+        gardener: {
+          name: 'Gardener',
+          pattern: '{}',
+          describes: 'the {}',
+          noun: 'gardener',
+          traits: {
+            hair: {
+              label: 'Hair',
+              pattern: '{noun} with {} hair',
+            },
+            eyes: {
+              label: 'Eyes',
+              pattern: '{noun} with {} eyes',
+            },
+            sign: {
+              label: 'Star sign',
+              pattern: '{noun} born under {}',
+            },
+          },
+          items: {
+            opal: {
+              label: 'Opal',
+              blurb: 'Has won this show eleven times and mentions it every year.',
+              traits: {
+                hair: 'silver',
+                eyes: 'blue',
+                sign: 'Aries',
+              },
+            },
+            ferris: {
+              label: 'Ferris',
+              blurb: 'Talks to the slugs. Negotiates. Loses.',
+              traits: {
+                hair: 'black',
+                eyes: 'brown',
+                sign: 'Taurus',
+              },
+            },
+            hazel: {
+              label: 'Hazel',
+              blurb: 'Prunes on a strict schedule the plants have never agreed to.',
+              traits: {
+                hair: 'red',
+                eyes: 'green',
+                sign: 'Gemini',
+              },
+            },
+            lark: {
+              label: 'Lark',
+              blurb: 'Waters at dawn to avoid conversation with neighbours.',
+              traits: {
+                hair: 'brown',
+                eyes: 'grey',
+                sign: 'Cancer',
+              },
+            },
+            pim: {
+              label: 'Pim',
+              blurb: 'Grows one enormous thing a year and nothing else at all.',
+              traits: {
+                hair: 'blonde',
+                eyes: 'hazel',
+                sign: 'Leo',
+              },
+            },
+            rosa: {
+              label: 'Rosa',
+              blurb: 'Keeps a compost heap the council has asked about twice.',
+              traits: {
+                hair: 'black',
+                eyes: 'brown',
+                sign: 'Virgo',
+              },
+            },
+            bram: {
+              label: 'Bram',
+              blurb: 'Believes in manure the way other people believe in medicine.',
+              traits: {
+                hair: 'silver',
+                eyes: 'blue',
+                sign: 'Libra',
+              },
+            },
+            tilly: {
+              label: 'Tilly',
+              blurb: 'Twelve years old and already feared in the vegetable tent.',
+              traits: {
+                hair: 'blonde',
+                eyes: 'green',
+                sign: 'Scorpio',
+              },
+            },
+            emrys: {
+              label: 'Emrys',
+              blurb: 'Names each plant after a relative and reports on their health.',
+              traits: {
+                hair: 'brown',
+                eyes: 'brown',
+                sign: 'Sagittarius',
+              },
+            },
+            wilder: {
+              label: 'Wilder',
+              blurb: 'Lets it all grow wild and wins the wildlife prize every time.',
+              traits: {
+                hair: 'red',
+                eyes: 'grey',
+                sign: 'Capricorn',
+              },
+            },
+            junie: {
+              label: 'Junie',
+              blurb: 'Deadheads other people’s roses on the walk home.',
+              traits: {
+                hair: 'brown',
+                eyes: 'hazel',
+                sign: 'Aquarius',
+              },
+            },
+            alder: {
+              label: 'Alder',
+              blurb: 'Has a greenhouse warmer than his house and no regrets.',
+              traits: {
+                hair: 'black',
+                eyes: 'green',
+                sign: 'Pisces',
+              },
+            },
+            posy: {
+              label: 'Posy',
+              blurb: 'Judged the show for years. Entering it is her retirement.',
+              traits: {
+                hair: 'silver',
+                eyes: 'brown',
+                sign: 'Aries',
+              },
+            },
+            marnie: {
+              label: 'Marnie',
+              blurb: 'Swears by seaweed and will bring you some, unasked.',
+              traits: {
+                hair: 'red',
+                eyes: 'blue',
+                sign: 'Leo',
+              },
+            },
+          },
+        },
+        flower: {
+          name: 'Flower',
+          pattern: 'the {} grower',
+          describes: 'the grower of the {}',
+          noun: 'bloom',
+          traits: {
+            colour: {
+              label: 'Colour',
+              pattern: '{} {noun}',
+            },
+            scent: {
+              label: 'Scent',
+              pattern: '{noun} that smells {}',
+            },
+            petals: {
+              label: 'Petals',
+              pattern: '{noun} with {} petals',
+            },
+          },
+          items: {
+            dahlia: {
+              label: 'Dahlia',
+              blurb: 'A firework that has agreed to hold still for the judging.',
+              traits: {
+                colour: 'red',
+                scent: 'faint',
+                petals: 'many',
+              },
+            },
+            peony: {
+              label: 'Peony',
+              blurb: 'Blooms for a fortnight and sulks for the rest of the year.',
+              traits: {
+                colour: 'pink',
+                scent: 'sweet',
+                petals: 'many',
+              },
+            },
+            iris: {
+              label: 'Iris',
+              blurb: 'Named after a rainbow and behaves accordingly.',
+              traits: {
+                colour: 'purple',
+                scent: 'faint',
+                petals: 'few',
+              },
+            },
+            tulip: {
+              label: 'Tulip',
+              blurb: 'Once worth a house. Now worth a polite nod.',
+              traits: {
+                colour: 'red',
+                scent: 'faint',
+                petals: 'few',
+              },
+            },
+            aster: {
+              label: 'Aster',
+              blurb: 'A star that keeps flowering when everything else has given up.',
+              traits: {
+                colour: 'purple',
+                scent: 'faint',
+                petals: 'many',
+              },
+            },
+            zinnia: {
+              label: 'Zinnia',
+              blurb: 'Cut it and it grows back twice, out of spite.',
+              traits: {
+                colour: 'orange',
+                scent: 'faint',
+                petals: 'many',
+              },
+            },
+            lupin: {
+              label: 'Lupin',
+              blurb: 'A spire of flowers and a magnet for every aphid in the county.',
+              traits: {
+                colour: 'purple',
+                scent: 'peppery',
+                petals: 'many',
+              },
+            },
+            freesia: {
+              label: 'Freesia',
+              blurb: 'Smells better than anything else in the tent and knows it.',
+              traits: {
+                colour: 'white',
+                scent: 'sweet',
+                petals: 'few',
+              },
+            },
+            marigold: {
+              label: 'Marigold',
+              blurb: 'Planted to protect the vegetables. Steals the show instead.',
+              traits: {
+                colour: 'orange',
+                scent: 'peppery',
+                petals: 'many',
+              },
+            },
+            foxglove: {
+              label: 'Foxglove',
+              blurb: 'Beautiful, statuesque, and not to be eaten under any circumstances.',
+              traits: {
+                colour: 'pink',
+                scent: 'faint',
+                petals: 'many',
+              },
+            },
+            camellia: {
+              label: 'Camellia',
+              blurb: 'Drops every petal the night before the show, without fail.',
+              traits: {
+                colour: 'pink',
+                scent: 'faint',
+                petals: 'many',
+              },
+            },
+            'sweet-pea': {
+              label: 'Sweet Pea',
+              blurb: 'The more you pick it the harder it works. A rare arrangement.',
+              traits: {
+                colour: 'white',
+                scent: 'sweet',
+                petals: 'few',
+              },
+            },
+            snapdragon: {
+              label: 'Snapdragon',
+              blurb: 'Squeeze the flower and it talks. Children are delighted; judges are not.',
+              traits: {
+                colour: 'orange',
+                scent: 'faint',
+                petals: 'few',
+              },
+            },
+            cosmos: {
+              label: 'Cosmos',
+              blurb: 'Grows six feet tall in poor soil and looks delicate doing it.',
+              traits: {
+                colour: 'white',
+                scent: 'faint',
+                petals: 'few',
+              },
+            },
+          },
+        },
+        pot: {
+          name: 'Pot',
+          pattern: 'the {} pot',
+          describes: 'the {}',
+          noun: 'pot',
+          traits: {
+            material: {
+              label: 'Made of',
+              pattern: '{noun} made of {}',
+            },
+            size: {
+              label: 'Size',
+              pattern: '{} {noun}',
+            },
+            finish: {
+              label: 'Finish',
+              pattern: '{noun} with a {} finish',
+            },
+          },
+          items: {
+            terracotta: {
+              label: 'Terracotta',
+              blurb: 'Chipped on one side, which the owner calls provenance.',
+              traits: {
+                material: 'clay',
+                size: 'big',
+                finish: 'matt',
+              },
+            },
+            cobalt: {
+              label: 'Cobalt',
+              blurb: 'Blue enough to be seen from the far end of the allotment.',
+              traits: {
+                material: 'glazed clay',
+                size: 'big',
+                finish: 'glossy',
+              },
+            },
+            ivory: {
+              label: 'Ivory',
+              blurb: 'Shows every speck of soil and is repotted indoors, carefully.',
+              traits: {
+                material: 'glazed clay',
+                size: 'small',
+                finish: 'glossy',
+              },
+            },
+            copper: {
+              label: 'Copper',
+              blurb: 'Went green in a fortnight and looks better for it.',
+              traits: {
+                material: 'metal',
+                size: 'small',
+                finish: 'glossy',
+              },
+            },
+            slate: {
+              label: 'Slate',
+              blurb: 'Weighs as much as the plant and twice as much when watered.',
+              traits: {
+                material: 'stone',
+                size: 'big',
+                finish: 'matt',
+              },
+            },
+            mint: {
+              label: 'Mint',
+              blurb: 'Bought in a sale. Matches nothing else on the bench.',
+              traits: {
+                material: 'glazed clay',
+                size: 'small',
+                finish: 'glossy',
+              },
+            },
+            rust: {
+              label: 'Rust',
+              blurb: 'Rusted through the bottom, which is excellent for drainage.',
+              traits: {
+                material: 'metal',
+                size: 'big',
+                finish: 'matt',
+              },
+            },
+            cream: {
+              label: 'Cream',
+              blurb: 'Plain, sensible, and quietly the favourite.',
+              traits: {
+                material: 'clay',
+                size: 'small',
+                finish: 'matt',
+              },
+            },
+            indigo: {
+              label: 'Indigo',
+              blurb: 'Deep blue and cracked twice by frost. Still going.',
+              traits: {
+                material: 'glazed clay',
+                size: 'big',
+                finish: 'glossy',
+              },
+            },
+            charcoal: {
+              label: 'Charcoal',
+              blurb: 'Absorbs heat all afternoon and cooks the roots by August.',
+              traits: {
+                material: 'stone',
+                size: 'small',
+                finish: 'matt',
+              },
+            },
+            blush: {
+              label: 'Blush',
+              blurb: 'A gift. Kept out of politeness, then rather liked.',
+              traits: {
+                material: 'glazed clay',
+                size: 'small',
+                finish: 'glossy',
+              },
+            },
+            amber: {
+              label: 'Amber',
+              blurb: 'Glows at sunset and is photographed more than its plant.',
+              traits: {
+                material: 'clay',
+                size: 'big',
+                finish: 'matt',
+              },
+            },
+            olive: {
+              label: 'Olive',
+              blurb: 'Second-hand from a farm sale, dents and all.',
+              traits: {
+                material: 'metal',
+                size: 'small',
+                finish: 'matt',
+              },
+            },
+            plum: {
+              label: 'Plum',
+              blurb: 'Immovable once filled. Its position is now permanent.',
+              traits: {
+                material: 'stone',
+                size: 'big',
+                finish: 'glossy',
+              },
+            },
+          },
+        },
+        tool: {
+          name: 'Tool',
+          pattern: 'the {} owner',
+          describes: 'the owner of the {}',
+          noun: 'tool',
+          traits: {
+            material: {
+              label: 'Made of',
+              pattern: '{noun} made of {}',
+            },
+            use: {
+              label: 'For',
+              pattern: '{noun} for {}',
+            },
+            size: {
+              label: 'Size',
+              pattern: '{} {noun}',
+            },
+          },
+          items: {
+            trowel: {
+              label: 'Trowel',
+              blurb: 'Lost twice a season and found each time in the compost.',
+              traits: {
+                material: 'steel',
+                use: 'digging',
+                size: 'small',
+              },
+            },
+            shears: {
+              label: 'Shears',
+              blurb: 'Sharpened every spring by a man who charges too much.',
+              traits: {
+                material: 'steel',
+                use: 'cutting',
+                size: 'big',
+              },
+            },
+            dibber: {
+              label: 'Dibber',
+              blurb: 'A stick with ambitions. Makes a hole exactly one seed deep.',
+              traits: {
+                material: 'wood',
+                use: 'digging',
+                size: 'small',
+              },
+            },
+            rake: {
+              label: 'Rake',
+              blurb: 'Stood on once a year, to everyone else’s delight.',
+              traits: {
+                material: 'steel',
+                use: 'sorting',
+                size: 'big',
+              },
+            },
+            sprayer: {
+              label: 'Sprayer',
+              blurb: 'Half water, half seaweed feed, entirely mysterious to visitors.',
+              traits: {
+                material: 'plastic',
+                use: 'watering',
+                size: 'small',
+              },
+            },
+            gloves: {
+              label: 'Gloves',
+              blurb: 'One is missing. It has been missing since the spring.',
+              traits: {
+                material: 'leather',
+                use: 'digging',
+                size: 'small',
+              },
+            },
+            hoe: {
+              label: 'Hoe',
+              blurb: 'Removes weeds and, occasionally, an entire row of seedlings.',
+              traits: {
+                material: 'steel',
+                use: 'digging',
+                size: 'big',
+              },
+            },
+            twine: {
+              label: 'Twine',
+              blurb: 'Ties everything. Has tied things that were never meant to be tied.',
+              traits: {
+                material: 'jute',
+                use: 'sorting',
+                size: 'small',
+              },
+            },
+            secateurs: {
+              label: 'Secateurs',
+              blurb: 'The only tool nobody is allowed to borrow.',
+              traits: {
+                material: 'steel',
+                use: 'cutting',
+                size: 'small',
+              },
+            },
+            kneeler: {
+              label: 'Kneeler',
+              blurb: 'The single most sensible purchase on the entire allotment.',
+              traits: {
+                material: 'plastic',
+                use: 'sorting',
+                size: 'big',
+              },
+            },
+            sieve: {
+              label: 'Sieve',
+              blurb: 'Turns lumpy compost into something worth putting seeds in.',
+              traits: {
+                material: 'steel',
+                use: 'sorting',
+                size: 'big',
+              },
+            },
+            'hand-fork': {
+              label: 'Hand Fork',
+              blurb: 'Bent on a stone in 2019 and never quite the same.',
+              traits: {
+                material: 'steel',
+                use: 'digging',
+                size: 'small',
+              },
+            },
+            'watering-can': {
+              label: 'Watering Can',
+              blurb: 'Nine litres, one dodgy handle, and a rose that has never come off.',
+              traits: {
+                material: 'metal',
+                use: 'watering',
+                size: 'big',
+              },
+            },
+            'plant-labels': {
+              label: 'Plant Labels',
+              blurb: 'Written in pencil, faded by June, argued about in July.',
+              traits: {
+                material: 'plastic',
+                use: 'sorting',
+                size: 'small',
+              },
+            },
+          },
+        },
+        height: {
+          name: 'Height',
+          pattern: 'the {} plant',
+          describes: 'the {}',
+          noun: 'plant',
+          ordered: {
+            noun: 'plant height',
+            unit: 'centimetres',
+            greater: 'taller',
+            lesser: 'shorter',
+          },
+          traits: {
+            band: {
+              label: 'Stature',
+              pattern: '{} {noun}',
+            },
+            parity: {
+              label: 'Number',
+              pattern: '{noun} at an {} height',
+            },
+          },
+          items: {
+            '20cm': {
+              label: '20cm',
+              blurb: 'A 20cm entry. Judged from a crouch, which nobody enjoys.',
+              traits: {
+                band: 'low',
+                parity: 'even',
+              },
+            },
+            '35cm': {
+              label: '35cm',
+              blurb: 'A 35cm entry. Small, tidy, and quietly perfect.',
+              traits: {
+                band: 'low',
+                parity: 'odd',
+              },
+            },
+            '50cm': {
+              label: '50cm',
+              blurb: 'A 50cm entry. Grown in a windowsill pot and dared to enter.',
+              traits: {
+                band: 'low',
+                parity: 'even',
+              },
+            },
+            '65cm': {
+              label: '65cm',
+              blurb: 'A 65cm entry. Exactly the height the schedule recommends.',
+              traits: {
+                band: 'low',
+                parity: 'odd',
+              },
+            },
+            '80cm': {
+              label: '80cm',
+              blurb: 'A 80cm entry. Staked once, as a precaution, and never needed it.',
+              traits: {
+                band: 'low',
+                parity: 'even',
+              },
+            },
+            '95cm': {
+              label: '95cm',
+              blurb: 'A 95cm entry. Stood in the front row and looked entirely at home.',
+              traits: {
+                band: 'middling',
+                parity: 'odd',
+              },
+            },
+            '110cm': {
+              label: '110cm',
+              blurb: 'A 110cm entry. Fed weekly with something the owner will not name.',
+              traits: {
+                band: 'middling',
+                parity: 'even',
+              },
+            },
+            '125cm': {
+              label: '125cm',
+              blurb: 'A 125cm entry. Blocked the view of three other entries.',
+              traits: {
+                band: 'middling',
+                parity: 'odd',
+              },
+            },
+            '140cm': {
+              label: '140cm',
+              blurb: 'A 140cm entry. Carried in by two people and a wheelbarrow.',
+              traits: {
+                band: 'middling',
+                parity: 'even',
+              },
+            },
+            '155cm': {
+              label: '155cm',
+              blurb: 'A 155cm entry. Needed a cane, then a second cane, then a rethink.',
+              traits: {
+                band: 'middling',
+                parity: 'odd',
+              },
+            },
+            '170cm': {
+              label: '170cm',
+              blurb: 'A 170cm entry. Grew through the greenhouse roof in early July.',
+              traits: {
+                band: 'towering',
+                parity: 'even',
+              },
+            },
+            '185cm': {
+              label: '185cm',
+              blurb: 'A 185cm entry. Measured twice because the first time was disputed.',
+              traits: {
+                band: 'towering',
+                parity: 'odd',
+              },
+            },
+            '200cm': {
+              label: '200cm',
+              blurb: 'A 200cm entry. Visible from the car park, which is the real prize.',
+              traits: {
+                band: 'towering',
+                parity: 'even',
+              },
+            },
+            '215cm': {
+              label: '215cm',
+              blurb: 'A 215cm entry. The tallest since the famous sunflower business.',
+              traits: {
+                band: 'towering',
+                parity: 'odd',
+              },
+            },
+          },
+        },
+      },
     },
   },
 } as const;
@@ -463,14 +4154,1984 @@ export type StringKey =
   | 'stats.trendDetail'
   | 'stats.trendPending'
   | 'themes.cafe.blurb'
+  | 'themes.cafe.categories.bill.describes'
+  | 'themes.cafe.categories.bill.items.10.blurb'
+  | 'themes.cafe.categories.bill.items.10.label'
+  | 'themes.cafe.categories.bill.items.10.traits.band'
+  | 'themes.cafe.categories.bill.items.10.traits.parity'
+  | 'themes.cafe.categories.bill.items.11.blurb'
+  | 'themes.cafe.categories.bill.items.11.label'
+  | 'themes.cafe.categories.bill.items.11.traits.band'
+  | 'themes.cafe.categories.bill.items.11.traits.parity'
+  | 'themes.cafe.categories.bill.items.12.blurb'
+  | 'themes.cafe.categories.bill.items.12.label'
+  | 'themes.cafe.categories.bill.items.12.traits.band'
+  | 'themes.cafe.categories.bill.items.12.traits.parity'
+  | 'themes.cafe.categories.bill.items.13.blurb'
+  | 'themes.cafe.categories.bill.items.13.label'
+  | 'themes.cafe.categories.bill.items.13.traits.band'
+  | 'themes.cafe.categories.bill.items.13.traits.parity'
+  | 'themes.cafe.categories.bill.items.14.blurb'
+  | 'themes.cafe.categories.bill.items.14.label'
+  | 'themes.cafe.categories.bill.items.14.traits.band'
+  | 'themes.cafe.categories.bill.items.14.traits.parity'
+  | 'themes.cafe.categories.bill.items.15.blurb'
+  | 'themes.cafe.categories.bill.items.15.label'
+  | 'themes.cafe.categories.bill.items.15.traits.band'
+  | 'themes.cafe.categories.bill.items.15.traits.parity'
+  | 'themes.cafe.categories.bill.items.16.blurb'
+  | 'themes.cafe.categories.bill.items.16.label'
+  | 'themes.cafe.categories.bill.items.16.traits.band'
+  | 'themes.cafe.categories.bill.items.16.traits.parity'
+  | 'themes.cafe.categories.bill.items.17.blurb'
+  | 'themes.cafe.categories.bill.items.17.label'
+  | 'themes.cafe.categories.bill.items.17.traits.band'
+  | 'themes.cafe.categories.bill.items.17.traits.parity'
+  | 'themes.cafe.categories.bill.items.4.blurb'
+  | 'themes.cafe.categories.bill.items.4.label'
+  | 'themes.cafe.categories.bill.items.4.traits.band'
+  | 'themes.cafe.categories.bill.items.4.traits.parity'
+  | 'themes.cafe.categories.bill.items.5.blurb'
+  | 'themes.cafe.categories.bill.items.5.label'
+  | 'themes.cafe.categories.bill.items.5.traits.band'
+  | 'themes.cafe.categories.bill.items.5.traits.parity'
+  | 'themes.cafe.categories.bill.items.6.blurb'
+  | 'themes.cafe.categories.bill.items.6.label'
+  | 'themes.cafe.categories.bill.items.6.traits.band'
+  | 'themes.cafe.categories.bill.items.6.traits.parity'
+  | 'themes.cafe.categories.bill.items.7.blurb'
+  | 'themes.cafe.categories.bill.items.7.label'
+  | 'themes.cafe.categories.bill.items.7.traits.band'
+  | 'themes.cafe.categories.bill.items.7.traits.parity'
+  | 'themes.cafe.categories.bill.items.8.blurb'
+  | 'themes.cafe.categories.bill.items.8.label'
+  | 'themes.cafe.categories.bill.items.8.traits.band'
+  | 'themes.cafe.categories.bill.items.8.traits.parity'
+  | 'themes.cafe.categories.bill.items.9.blurb'
+  | 'themes.cafe.categories.bill.items.9.label'
+  | 'themes.cafe.categories.bill.items.9.traits.band'
+  | 'themes.cafe.categories.bill.items.9.traits.parity'
+  | 'themes.cafe.categories.bill.name'
+  | 'themes.cafe.categories.bill.noun'
+  | 'themes.cafe.categories.bill.ordered.greater'
+  | 'themes.cafe.categories.bill.ordered.lesser'
+  | 'themes.cafe.categories.bill.ordered.noun'
+  | 'themes.cafe.categories.bill.ordered.unit'
+  | 'themes.cafe.categories.bill.pattern'
+  | 'themes.cafe.categories.bill.traits.band.label'
+  | 'themes.cafe.categories.bill.traits.band.pattern'
+  | 'themes.cafe.categories.bill.traits.parity.label'
+  | 'themes.cafe.categories.bill.traits.parity.pattern'
+  | 'themes.cafe.categories.customer.describes'
+  | 'themes.cafe.categories.customer.items.alma.blurb'
+  | 'themes.cafe.categories.customer.items.alma.label'
+  | 'themes.cafe.categories.customer.items.alma.traits.eyes'
+  | 'themes.cafe.categories.customer.items.alma.traits.hair'
+  | 'themes.cafe.categories.customer.items.alma.traits.sign'
+  | 'themes.cafe.categories.customer.items.basil.blurb'
+  | 'themes.cafe.categories.customer.items.basil.label'
+  | 'themes.cafe.categories.customer.items.basil.traits.eyes'
+  | 'themes.cafe.categories.customer.items.basil.traits.hair'
+  | 'themes.cafe.categories.customer.items.basil.traits.sign'
+  | 'themes.cafe.categories.customer.items.dax.blurb'
+  | 'themes.cafe.categories.customer.items.dax.label'
+  | 'themes.cafe.categories.customer.items.dax.traits.eyes'
+  | 'themes.cafe.categories.customer.items.dax.traits.hair'
+  | 'themes.cafe.categories.customer.items.dax.traits.sign'
+  | 'themes.cafe.categories.customer.items.esme.blurb'
+  | 'themes.cafe.categories.customer.items.esme.label'
+  | 'themes.cafe.categories.customer.items.esme.traits.eyes'
+  | 'themes.cafe.categories.customer.items.esme.traits.hair'
+  | 'themes.cafe.categories.customer.items.esme.traits.sign'
+  | 'themes.cafe.categories.customer.items.fen.blurb'
+  | 'themes.cafe.categories.customer.items.fen.label'
+  | 'themes.cafe.categories.customer.items.fen.traits.eyes'
+  | 'themes.cafe.categories.customer.items.fen.traits.hair'
+  | 'themes.cafe.categories.customer.items.fen.traits.sign'
+  | 'themes.cafe.categories.customer.items.grier.blurb'
+  | 'themes.cafe.categories.customer.items.grier.label'
+  | 'themes.cafe.categories.customer.items.grier.traits.eyes'
+  | 'themes.cafe.categories.customer.items.grier.traits.hair'
+  | 'themes.cafe.categories.customer.items.grier.traits.sign'
+  | 'themes.cafe.categories.customer.items.hollis.blurb'
+  | 'themes.cafe.categories.customer.items.hollis.label'
+  | 'themes.cafe.categories.customer.items.hollis.traits.eyes'
+  | 'themes.cafe.categories.customer.items.hollis.traits.hair'
+  | 'themes.cafe.categories.customer.items.hollis.traits.sign'
+  | 'themes.cafe.categories.customer.items.ines.blurb'
+  | 'themes.cafe.categories.customer.items.ines.label'
+  | 'themes.cafe.categories.customer.items.ines.traits.eyes'
+  | 'themes.cafe.categories.customer.items.ines.traits.hair'
+  | 'themes.cafe.categories.customer.items.ines.traits.sign'
+  | 'themes.cafe.categories.customer.items.jonas.blurb'
+  | 'themes.cafe.categories.customer.items.jonas.label'
+  | 'themes.cafe.categories.customer.items.jonas.traits.eyes'
+  | 'themes.cafe.categories.customer.items.jonas.traits.hair'
+  | 'themes.cafe.categories.customer.items.jonas.traits.sign'
+  | 'themes.cafe.categories.customer.items.kit.blurb'
+  | 'themes.cafe.categories.customer.items.kit.label'
+  | 'themes.cafe.categories.customer.items.kit.traits.eyes'
+  | 'themes.cafe.categories.customer.items.kit.traits.hair'
+  | 'themes.cafe.categories.customer.items.kit.traits.sign'
+  | 'themes.cafe.categories.customer.items.lena.blurb'
+  | 'themes.cafe.categories.customer.items.lena.label'
+  | 'themes.cafe.categories.customer.items.lena.traits.eyes'
+  | 'themes.cafe.categories.customer.items.lena.traits.hair'
+  | 'themes.cafe.categories.customer.items.lena.traits.sign'
+  | 'themes.cafe.categories.customer.items.mika.blurb'
+  | 'themes.cafe.categories.customer.items.mika.label'
+  | 'themes.cafe.categories.customer.items.mika.traits.eyes'
+  | 'themes.cafe.categories.customer.items.mika.traits.hair'
+  | 'themes.cafe.categories.customer.items.mika.traits.sign'
+  | 'themes.cafe.categories.customer.items.nell.blurb'
+  | 'themes.cafe.categories.customer.items.nell.label'
+  | 'themes.cafe.categories.customer.items.nell.traits.eyes'
+  | 'themes.cafe.categories.customer.items.nell.traits.hair'
+  | 'themes.cafe.categories.customer.items.nell.traits.sign'
+  | 'themes.cafe.categories.customer.items.otto.blurb'
+  | 'themes.cafe.categories.customer.items.otto.label'
+  | 'themes.cafe.categories.customer.items.otto.traits.eyes'
+  | 'themes.cafe.categories.customer.items.otto.traits.hair'
+  | 'themes.cafe.categories.customer.items.otto.traits.sign'
+  | 'themes.cafe.categories.customer.name'
+  | 'themes.cafe.categories.customer.noun'
+  | 'themes.cafe.categories.customer.pattern'
+  | 'themes.cafe.categories.customer.traits.eyes.label'
+  | 'themes.cafe.categories.customer.traits.eyes.pattern'
+  | 'themes.cafe.categories.customer.traits.hair.label'
+  | 'themes.cafe.categories.customer.traits.hair.pattern'
+  | 'themes.cafe.categories.customer.traits.sign.label'
+  | 'themes.cafe.categories.customer.traits.sign.pattern'
+  | 'themes.cafe.categories.drink.describes'
+  | 'themes.cafe.categories.drink.items.americano.blurb'
+  | 'themes.cafe.categories.drink.items.americano.label'
+  | 'themes.cafe.categories.drink.items.americano.traits.milk'
+  | 'themes.cafe.categories.drink.items.americano.traits.served'
+  | 'themes.cafe.categories.drink.items.americano.traits.strength'
+  | 'themes.cafe.categories.drink.items.cappuccino.blurb'
+  | 'themes.cafe.categories.drink.items.cappuccino.label'
+  | 'themes.cafe.categories.drink.items.cappuccino.traits.milk'
+  | 'themes.cafe.categories.drink.items.cappuccino.traits.served'
+  | 'themes.cafe.categories.drink.items.cappuccino.traits.strength'
+  | 'themes.cafe.categories.drink.items.chai.blurb'
+  | 'themes.cafe.categories.drink.items.chai.label'
+  | 'themes.cafe.categories.drink.items.chai.traits.milk'
+  | 'themes.cafe.categories.drink.items.chai.traits.served'
+  | 'themes.cafe.categories.drink.items.chai.traits.strength'
+  | 'themes.cafe.categories.drink.items.cold-brew.blurb'
+  | 'themes.cafe.categories.drink.items.cold-brew.label'
+  | 'themes.cafe.categories.drink.items.cold-brew.traits.milk'
+  | 'themes.cafe.categories.drink.items.cold-brew.traits.served'
+  | 'themes.cafe.categories.drink.items.cold-brew.traits.strength'
+  | 'themes.cafe.categories.drink.items.cortado.blurb'
+  | 'themes.cafe.categories.drink.items.cortado.label'
+  | 'themes.cafe.categories.drink.items.cortado.traits.milk'
+  | 'themes.cafe.categories.drink.items.cortado.traits.served'
+  | 'themes.cafe.categories.drink.items.cortado.traits.strength'
+  | 'themes.cafe.categories.drink.items.espresso.blurb'
+  | 'themes.cafe.categories.drink.items.espresso.label'
+  | 'themes.cafe.categories.drink.items.espresso.traits.milk'
+  | 'themes.cafe.categories.drink.items.espresso.traits.served'
+  | 'themes.cafe.categories.drink.items.espresso.traits.strength'
+  | 'themes.cafe.categories.drink.items.flat-white.blurb'
+  | 'themes.cafe.categories.drink.items.flat-white.label'
+  | 'themes.cafe.categories.drink.items.flat-white.traits.milk'
+  | 'themes.cafe.categories.drink.items.flat-white.traits.served'
+  | 'themes.cafe.categories.drink.items.flat-white.traits.strength'
+  | 'themes.cafe.categories.drink.items.hot-choc.blurb'
+  | 'themes.cafe.categories.drink.items.hot-choc.label'
+  | 'themes.cafe.categories.drink.items.hot-choc.traits.milk'
+  | 'themes.cafe.categories.drink.items.hot-choc.traits.served'
+  | 'themes.cafe.categories.drink.items.hot-choc.traits.strength'
+  | 'themes.cafe.categories.drink.items.latte.blurb'
+  | 'themes.cafe.categories.drink.items.latte.label'
+  | 'themes.cafe.categories.drink.items.latte.traits.milk'
+  | 'themes.cafe.categories.drink.items.latte.traits.served'
+  | 'themes.cafe.categories.drink.items.latte.traits.strength'
+  | 'themes.cafe.categories.drink.items.macchiato.blurb'
+  | 'themes.cafe.categories.drink.items.macchiato.label'
+  | 'themes.cafe.categories.drink.items.macchiato.traits.milk'
+  | 'themes.cafe.categories.drink.items.macchiato.traits.served'
+  | 'themes.cafe.categories.drink.items.macchiato.traits.strength'
+  | 'themes.cafe.categories.drink.items.matcha.blurb'
+  | 'themes.cafe.categories.drink.items.matcha.label'
+  | 'themes.cafe.categories.drink.items.matcha.traits.milk'
+  | 'themes.cafe.categories.drink.items.matcha.traits.served'
+  | 'themes.cafe.categories.drink.items.matcha.traits.strength'
+  | 'themes.cafe.categories.drink.items.mint-tea.blurb'
+  | 'themes.cafe.categories.drink.items.mint-tea.label'
+  | 'themes.cafe.categories.drink.items.mint-tea.traits.milk'
+  | 'themes.cafe.categories.drink.items.mint-tea.traits.served'
+  | 'themes.cafe.categories.drink.items.mint-tea.traits.strength'
+  | 'themes.cafe.categories.drink.items.mocha.blurb'
+  | 'themes.cafe.categories.drink.items.mocha.label'
+  | 'themes.cafe.categories.drink.items.mocha.traits.milk'
+  | 'themes.cafe.categories.drink.items.mocha.traits.served'
+  | 'themes.cafe.categories.drink.items.mocha.traits.strength'
+  | 'themes.cafe.categories.drink.items.oat-latte.blurb'
+  | 'themes.cafe.categories.drink.items.oat-latte.label'
+  | 'themes.cafe.categories.drink.items.oat-latte.traits.milk'
+  | 'themes.cafe.categories.drink.items.oat-latte.traits.served'
+  | 'themes.cafe.categories.drink.items.oat-latte.traits.strength'
+  | 'themes.cafe.categories.drink.name'
+  | 'themes.cafe.categories.drink.noun'
+  | 'themes.cafe.categories.drink.pattern'
+  | 'themes.cafe.categories.drink.traits.milk.label'
+  | 'themes.cafe.categories.drink.traits.milk.pattern'
+  | 'themes.cafe.categories.drink.traits.served.label'
+  | 'themes.cafe.categories.drink.traits.served.pattern'
+  | 'themes.cafe.categories.drink.traits.strength.label'
+  | 'themes.cafe.categories.drink.traits.strength.pattern'
+  | 'themes.cafe.categories.pastry.describes'
+  | 'themes.cafe.categories.pastry.items.baklava.blurb'
+  | 'themes.cafe.categories.pastry.items.baklava.label'
+  | 'themes.cafe.categories.pastry.items.baklava.traits.filling'
+  | 'themes.cafe.categories.pastry.items.baklava.traits.size'
+  | 'themes.cafe.categories.pastry.items.baklava.traits.texture'
+  | 'themes.cafe.categories.pastry.items.brioche.blurb'
+  | 'themes.cafe.categories.pastry.items.brioche.label'
+  | 'themes.cafe.categories.pastry.items.brioche.traits.filling'
+  | 'themes.cafe.categories.pastry.items.brioche.traits.size'
+  | 'themes.cafe.categories.pastry.items.brioche.traits.texture'
+  | 'themes.cafe.categories.pastry.items.cannel.blurb'
+  | 'themes.cafe.categories.pastry.items.cannel.label'
+  | 'themes.cafe.categories.pastry.items.cannel.traits.filling'
+  | 'themes.cafe.categories.pastry.items.cannel.traits.size'
+  | 'themes.cafe.categories.pastry.items.cannel.traits.texture'
+  | 'themes.cafe.categories.pastry.items.clair.blurb'
+  | 'themes.cafe.categories.pastry.items.clair.label'
+  | 'themes.cafe.categories.pastry.items.clair.traits.filling'
+  | 'themes.cafe.categories.pastry.items.clair.traits.size'
+  | 'themes.cafe.categories.pastry.items.clair.traits.texture'
+  | 'themes.cafe.categories.pastry.items.croissant.blurb'
+  | 'themes.cafe.categories.pastry.items.croissant.label'
+  | 'themes.cafe.categories.pastry.items.croissant.traits.filling'
+  | 'themes.cafe.categories.pastry.items.croissant.traits.size'
+  | 'themes.cafe.categories.pastry.items.croissant.traits.texture'
+  | 'themes.cafe.categories.pastry.items.cruffin.blurb'
+  | 'themes.cafe.categories.pastry.items.cruffin.label'
+  | 'themes.cafe.categories.pastry.items.cruffin.traits.filling'
+  | 'themes.cafe.categories.pastry.items.cruffin.traits.size'
+  | 'themes.cafe.categories.pastry.items.cruffin.traits.texture'
+  | 'themes.cafe.categories.pastry.items.danish.blurb'
+  | 'themes.cafe.categories.pastry.items.danish.label'
+  | 'themes.cafe.categories.pastry.items.danish.traits.filling'
+  | 'themes.cafe.categories.pastry.items.danish.traits.size'
+  | 'themes.cafe.categories.pastry.items.danish.traits.texture'
+  | 'themes.cafe.categories.pastry.items.doughnut.blurb'
+  | 'themes.cafe.categories.pastry.items.doughnut.label'
+  | 'themes.cafe.categories.pastry.items.doughnut.traits.filling'
+  | 'themes.cafe.categories.pastry.items.doughnut.traits.size'
+  | 'themes.cafe.categories.pastry.items.doughnut.traits.texture'
+  | 'themes.cafe.categories.pastry.items.madeleine.blurb'
+  | 'themes.cafe.categories.pastry.items.madeleine.label'
+  | 'themes.cafe.categories.pastry.items.madeleine.traits.filling'
+  | 'themes.cafe.categories.pastry.items.madeleine.traits.size'
+  | 'themes.cafe.categories.pastry.items.madeleine.traits.texture'
+  | 'themes.cafe.categories.pastry.items.muffin.blurb'
+  | 'themes.cafe.categories.pastry.items.muffin.label'
+  | 'themes.cafe.categories.pastry.items.muffin.traits.filling'
+  | 'themes.cafe.categories.pastry.items.muffin.traits.size'
+  | 'themes.cafe.categories.pastry.items.muffin.traits.texture'
+  | 'themes.cafe.categories.pastry.items.palmier.blurb'
+  | 'themes.cafe.categories.pastry.items.palmier.label'
+  | 'themes.cafe.categories.pastry.items.palmier.traits.filling'
+  | 'themes.cafe.categories.pastry.items.palmier.traits.size'
+  | 'themes.cafe.categories.pastry.items.palmier.traits.texture'
+  | 'themes.cafe.categories.pastry.items.scone.blurb'
+  | 'themes.cafe.categories.pastry.items.scone.label'
+  | 'themes.cafe.categories.pastry.items.scone.traits.filling'
+  | 'themes.cafe.categories.pastry.items.scone.traits.size'
+  | 'themes.cafe.categories.pastry.items.scone.traits.texture'
+  | 'themes.cafe.categories.pastry.items.tartlet.blurb'
+  | 'themes.cafe.categories.pastry.items.tartlet.label'
+  | 'themes.cafe.categories.pastry.items.tartlet.traits.filling'
+  | 'themes.cafe.categories.pastry.items.tartlet.traits.size'
+  | 'themes.cafe.categories.pastry.items.tartlet.traits.texture'
+  | 'themes.cafe.categories.pastry.items.turnover.blurb'
+  | 'themes.cafe.categories.pastry.items.turnover.label'
+  | 'themes.cafe.categories.pastry.items.turnover.traits.filling'
+  | 'themes.cafe.categories.pastry.items.turnover.traits.size'
+  | 'themes.cafe.categories.pastry.items.turnover.traits.texture'
+  | 'themes.cafe.categories.pastry.name'
+  | 'themes.cafe.categories.pastry.noun'
+  | 'themes.cafe.categories.pastry.pattern'
+  | 'themes.cafe.categories.pastry.traits.filling.label'
+  | 'themes.cafe.categories.pastry.traits.filling.pattern'
+  | 'themes.cafe.categories.pastry.traits.size.label'
+  | 'themes.cafe.categories.pastry.traits.size.pattern'
+  | 'themes.cafe.categories.pastry.traits.texture.label'
+  | 'themes.cafe.categories.pastry.traits.texture.pattern'
+  | 'themes.cafe.categories.seat.describes'
+  | 'themes.cafe.categories.seat.items.alcove.blurb'
+  | 'themes.cafe.categories.seat.items.alcove.label'
+  | 'themes.cafe.categories.seat.items.alcove.traits.light'
+  | 'themes.cafe.categories.seat.items.alcove.traits.size'
+  | 'themes.cafe.categories.seat.items.alcove.traits.where'
+  | 'themes.cafe.categories.seat.items.balcony.blurb'
+  | 'themes.cafe.categories.seat.items.balcony.label'
+  | 'themes.cafe.categories.seat.items.balcony.traits.light'
+  | 'themes.cafe.categories.seat.items.balcony.traits.size'
+  | 'themes.cafe.categories.seat.items.balcony.traits.where'
+  | 'themes.cafe.categories.seat.items.bar-stool.blurb'
+  | 'themes.cafe.categories.seat.items.bar-stool.label'
+  | 'themes.cafe.categories.seat.items.bar-stool.traits.light'
+  | 'themes.cafe.categories.seat.items.bar-stool.traits.size'
+  | 'themes.cafe.categories.seat.items.bar-stool.traits.where'
+  | 'themes.cafe.categories.seat.items.bench.blurb'
+  | 'themes.cafe.categories.seat.items.bench.label'
+  | 'themes.cafe.categories.seat.items.bench.traits.light'
+  | 'themes.cafe.categories.seat.items.bench.traits.size'
+  | 'themes.cafe.categories.seat.items.bench.traits.where'
+  | 'themes.cafe.categories.seat.items.booth.blurb'
+  | 'themes.cafe.categories.seat.items.booth.label'
+  | 'themes.cafe.categories.seat.items.booth.traits.light'
+  | 'themes.cafe.categories.seat.items.booth.traits.size'
+  | 'themes.cafe.categories.seat.items.booth.traits.where'
+  | 'themes.cafe.categories.seat.items.corner.blurb'
+  | 'themes.cafe.categories.seat.items.corner.label'
+  | 'themes.cafe.categories.seat.items.corner.traits.light'
+  | 'themes.cafe.categories.seat.items.corner.traits.size'
+  | 'themes.cafe.categories.seat.items.corner.traits.where'
+  | 'themes.cafe.categories.seat.items.counter.blurb'
+  | 'themes.cafe.categories.seat.items.counter.label'
+  | 'themes.cafe.categories.seat.items.counter.traits.light'
+  | 'themes.cafe.categories.seat.items.counter.traits.size'
+  | 'themes.cafe.categories.seat.items.counter.traits.where'
+  | 'themes.cafe.categories.seat.items.fireside.blurb'
+  | 'themes.cafe.categories.seat.items.fireside.label'
+  | 'themes.cafe.categories.seat.items.fireside.traits.light'
+  | 'themes.cafe.categories.seat.items.fireside.traits.size'
+  | 'themes.cafe.categories.seat.items.fireside.traits.where'
+  | 'themes.cafe.categories.seat.items.garden.blurb'
+  | 'themes.cafe.categories.seat.items.garden.label'
+  | 'themes.cafe.categories.seat.items.garden.traits.light'
+  | 'themes.cafe.categories.seat.items.garden.traits.size'
+  | 'themes.cafe.categories.seat.items.garden.traits.where'
+  | 'themes.cafe.categories.seat.items.loft.blurb'
+  | 'themes.cafe.categories.seat.items.loft.label'
+  | 'themes.cafe.categories.seat.items.loft.traits.light'
+  | 'themes.cafe.categories.seat.items.loft.traits.size'
+  | 'themes.cafe.categories.seat.items.loft.traits.where'
+  | 'themes.cafe.categories.seat.items.nook.blurb'
+  | 'themes.cafe.categories.seat.items.nook.label'
+  | 'themes.cafe.categories.seat.items.nook.traits.light'
+  | 'themes.cafe.categories.seat.items.nook.traits.size'
+  | 'themes.cafe.categories.seat.items.nook.traits.where'
+  | 'themes.cafe.categories.seat.items.patio.blurb'
+  | 'themes.cafe.categories.seat.items.patio.label'
+  | 'themes.cafe.categories.seat.items.patio.traits.light'
+  | 'themes.cafe.categories.seat.items.patio.traits.size'
+  | 'themes.cafe.categories.seat.items.patio.traits.where'
+  | 'themes.cafe.categories.seat.items.terrace.blurb'
+  | 'themes.cafe.categories.seat.items.terrace.label'
+  | 'themes.cafe.categories.seat.items.terrace.traits.light'
+  | 'themes.cafe.categories.seat.items.terrace.traits.size'
+  | 'themes.cafe.categories.seat.items.terrace.traits.where'
+  | 'themes.cafe.categories.seat.items.window.blurb'
+  | 'themes.cafe.categories.seat.items.window.label'
+  | 'themes.cafe.categories.seat.items.window.traits.light'
+  | 'themes.cafe.categories.seat.items.window.traits.size'
+  | 'themes.cafe.categories.seat.items.window.traits.where'
+  | 'themes.cafe.categories.seat.name'
+  | 'themes.cafe.categories.seat.noun'
+  | 'themes.cafe.categories.seat.pattern'
+  | 'themes.cafe.categories.seat.traits.light.label'
+  | 'themes.cafe.categories.seat.traits.light.pattern'
+  | 'themes.cafe.categories.seat.traits.size.label'
+  | 'themes.cafe.categories.seat.traits.size.pattern'
+  | 'themes.cafe.categories.seat.traits.where.label'
+  | 'themes.cafe.categories.seat.traits.where.pattern'
+  | 'themes.cafe.clues.compare'
+  | 'themes.cafe.clues.compareGap'
+  | 'themes.cafe.clues.either'
+  | 'themes.cafe.clues.groupNot'
+  | 'themes.cafe.clues.link'
+  | 'themes.cafe.clues.notLink'
   | 'themes.cafe.name'
   | 'themes.cosmic.blurb'
+  | 'themes.cosmic.categories.astronaut.describes'
+  | 'themes.cosmic.categories.astronaut.items.cass.blurb'
+  | 'themes.cosmic.categories.astronaut.items.cass.label'
+  | 'themes.cosmic.categories.astronaut.items.cass.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.cass.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.cass.traits.sign'
+  | 'themes.cosmic.categories.astronaut.items.dax.blurb'
+  | 'themes.cosmic.categories.astronaut.items.dax.label'
+  | 'themes.cosmic.categories.astronaut.items.dax.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.dax.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.dax.traits.sign'
+  | 'themes.cosmic.categories.astronaut.items.elio.blurb'
+  | 'themes.cosmic.categories.astronaut.items.elio.label'
+  | 'themes.cosmic.categories.astronaut.items.elio.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.elio.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.elio.traits.sign'
+  | 'themes.cosmic.categories.astronaut.items.iris.blurb'
+  | 'themes.cosmic.categories.astronaut.items.iris.label'
+  | 'themes.cosmic.categories.astronaut.items.iris.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.iris.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.iris.traits.sign'
+  | 'themes.cosmic.categories.astronaut.items.juno.blurb'
+  | 'themes.cosmic.categories.astronaut.items.juno.label'
+  | 'themes.cosmic.categories.astronaut.items.juno.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.juno.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.juno.traits.sign'
+  | 'themes.cosmic.categories.astronaut.items.kai.blurb'
+  | 'themes.cosmic.categories.astronaut.items.kai.label'
+  | 'themes.cosmic.categories.astronaut.items.kai.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.kai.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.kai.traits.sign'
+  | 'themes.cosmic.categories.astronaut.items.milo.blurb'
+  | 'themes.cosmic.categories.astronaut.items.milo.label'
+  | 'themes.cosmic.categories.astronaut.items.milo.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.milo.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.milo.traits.sign'
+  | 'themes.cosmic.categories.astronaut.items.noor.blurb'
+  | 'themes.cosmic.categories.astronaut.items.noor.label'
+  | 'themes.cosmic.categories.astronaut.items.noor.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.noor.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.noor.traits.sign'
+  | 'themes.cosmic.categories.astronaut.items.nova.blurb'
+  | 'themes.cosmic.categories.astronaut.items.nova.label'
+  | 'themes.cosmic.categories.astronaut.items.nova.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.nova.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.nova.traits.sign'
+  | 'themes.cosmic.categories.astronaut.items.orin.blurb'
+  | 'themes.cosmic.categories.astronaut.items.orin.label'
+  | 'themes.cosmic.categories.astronaut.items.orin.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.orin.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.orin.traits.sign'
+  | 'themes.cosmic.categories.astronaut.items.rhea.blurb'
+  | 'themes.cosmic.categories.astronaut.items.rhea.label'
+  | 'themes.cosmic.categories.astronaut.items.rhea.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.rhea.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.rhea.traits.sign'
+  | 'themes.cosmic.categories.astronaut.items.suri.blurb'
+  | 'themes.cosmic.categories.astronaut.items.suri.label'
+  | 'themes.cosmic.categories.astronaut.items.suri.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.suri.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.suri.traits.sign'
+  | 'themes.cosmic.categories.astronaut.items.vega.blurb'
+  | 'themes.cosmic.categories.astronaut.items.vega.label'
+  | 'themes.cosmic.categories.astronaut.items.vega.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.vega.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.vega.traits.sign'
+  | 'themes.cosmic.categories.astronaut.items.wren.blurb'
+  | 'themes.cosmic.categories.astronaut.items.wren.label'
+  | 'themes.cosmic.categories.astronaut.items.wren.traits.eyes'
+  | 'themes.cosmic.categories.astronaut.items.wren.traits.hair'
+  | 'themes.cosmic.categories.astronaut.items.wren.traits.sign'
+  | 'themes.cosmic.categories.astronaut.name'
+  | 'themes.cosmic.categories.astronaut.noun'
+  | 'themes.cosmic.categories.astronaut.pattern'
+  | 'themes.cosmic.categories.astronaut.traits.eyes.label'
+  | 'themes.cosmic.categories.astronaut.traits.eyes.pattern'
+  | 'themes.cosmic.categories.astronaut.traits.hair.label'
+  | 'themes.cosmic.categories.astronaut.traits.hair.pattern'
+  | 'themes.cosmic.categories.astronaut.traits.sign.label'
+  | 'themes.cosmic.categories.astronaut.traits.sign.pattern'
+  | 'themes.cosmic.categories.cargo.describes'
+  | 'themes.cosmic.categories.cargo.items.comms-mast.blurb'
+  | 'themes.cosmic.categories.cargo.items.comms-mast.label'
+  | 'themes.cosmic.categories.cargo.items.comms-mast.traits.care'
+  | 'themes.cosmic.categories.cargo.items.comms-mast.traits.material'
+  | 'themes.cosmic.categories.cargo.items.comms-mast.traits.weight'
+  | 'themes.cosmic.categories.cargo.items.drone-bay.blurb'
+  | 'themes.cosmic.categories.cargo.items.drone-bay.label'
+  | 'themes.cosmic.categories.cargo.items.drone-bay.traits.care'
+  | 'themes.cosmic.categories.cargo.items.drone-bay.traits.material'
+  | 'themes.cosmic.categories.cargo.items.drone-bay.traits.weight'
+  | 'themes.cosmic.categories.cargo.items.fuel-cells.blurb'
+  | 'themes.cosmic.categories.cargo.items.fuel-cells.label'
+  | 'themes.cosmic.categories.cargo.items.fuel-cells.traits.care'
+  | 'themes.cosmic.categories.cargo.items.fuel-cells.traits.material'
+  | 'themes.cosmic.categories.cargo.items.fuel-cells.traits.weight'
+  | 'themes.cosmic.categories.cargo.items.greenhouse.blurb'
+  | 'themes.cosmic.categories.cargo.items.greenhouse.label'
+  | 'themes.cosmic.categories.cargo.items.greenhouse.traits.care'
+  | 'themes.cosmic.categories.cargo.items.greenhouse.traits.material'
+  | 'themes.cosmic.categories.cargo.items.greenhouse.traits.weight'
+  | 'themes.cosmic.categories.cargo.items.ice-core.blurb'
+  | 'themes.cosmic.categories.cargo.items.ice-core.label'
+  | 'themes.cosmic.categories.cargo.items.ice-core.traits.care'
+  | 'themes.cosmic.categories.cargo.items.ice-core.traits.material'
+  | 'themes.cosmic.categories.cargo.items.ice-core.traits.weight'
+  | 'themes.cosmic.categories.cargo.items.med-pods.blurb'
+  | 'themes.cosmic.categories.cargo.items.med-pods.label'
+  | 'themes.cosmic.categories.cargo.items.med-pods.traits.care'
+  | 'themes.cosmic.categories.cargo.items.med-pods.traits.material'
+  | 'themes.cosmic.categories.cargo.items.med-pods.traits.weight'
+  | 'themes.cosmic.categories.cargo.items.repair-kit.blurb'
+  | 'themes.cosmic.categories.cargo.items.repair-kit.label'
+  | 'themes.cosmic.categories.cargo.items.repair-kit.traits.care'
+  | 'themes.cosmic.categories.cargo.items.repair-kit.traits.material'
+  | 'themes.cosmic.categories.cargo.items.repair-kit.traits.weight'
+  | 'themes.cosmic.categories.cargo.items.rover-kit.blurb'
+  | 'themes.cosmic.categories.cargo.items.rover-kit.label'
+  | 'themes.cosmic.categories.cargo.items.rover-kit.traits.care'
+  | 'themes.cosmic.categories.cargo.items.rover-kit.traits.material'
+  | 'themes.cosmic.categories.cargo.items.rover-kit.traits.weight'
+  | 'themes.cosmic.categories.cargo.items.sample-case.blurb'
+  | 'themes.cosmic.categories.cargo.items.sample-case.label'
+  | 'themes.cosmic.categories.cargo.items.sample-case.traits.care'
+  | 'themes.cosmic.categories.cargo.items.sample-case.traits.material'
+  | 'themes.cosmic.categories.cargo.items.sample-case.traits.weight'
+  | 'themes.cosmic.categories.cargo.items.seed-vault.blurb'
+  | 'themes.cosmic.categories.cargo.items.seed-vault.label'
+  | 'themes.cosmic.categories.cargo.items.seed-vault.traits.care'
+  | 'themes.cosmic.categories.cargo.items.seed-vault.traits.material'
+  | 'themes.cosmic.categories.cargo.items.seed-vault.traits.weight'
+  | 'themes.cosmic.categories.cargo.items.soil-lab.blurb'
+  | 'themes.cosmic.categories.cargo.items.soil-lab.label'
+  | 'themes.cosmic.categories.cargo.items.soil-lab.traits.care'
+  | 'themes.cosmic.categories.cargo.items.soil-lab.traits.material'
+  | 'themes.cosmic.categories.cargo.items.soil-lab.traits.weight'
+  | 'themes.cosmic.categories.cargo.items.solar-sail.blurb'
+  | 'themes.cosmic.categories.cargo.items.solar-sail.label'
+  | 'themes.cosmic.categories.cargo.items.solar-sail.traits.care'
+  | 'themes.cosmic.categories.cargo.items.solar-sail.traits.material'
+  | 'themes.cosmic.categories.cargo.items.solar-sail.traits.weight'
+  | 'themes.cosmic.categories.cargo.items.star-maps.blurb'
+  | 'themes.cosmic.categories.cargo.items.star-maps.label'
+  | 'themes.cosmic.categories.cargo.items.star-maps.traits.care'
+  | 'themes.cosmic.categories.cargo.items.star-maps.traits.material'
+  | 'themes.cosmic.categories.cargo.items.star-maps.traits.weight'
+  | 'themes.cosmic.categories.cargo.items.water-tank.blurb'
+  | 'themes.cosmic.categories.cargo.items.water-tank.label'
+  | 'themes.cosmic.categories.cargo.items.water-tank.traits.care'
+  | 'themes.cosmic.categories.cargo.items.water-tank.traits.material'
+  | 'themes.cosmic.categories.cargo.items.water-tank.traits.weight'
+  | 'themes.cosmic.categories.cargo.name'
+  | 'themes.cosmic.categories.cargo.noun'
+  | 'themes.cosmic.categories.cargo.pattern'
+  | 'themes.cosmic.categories.cargo.traits.care.label'
+  | 'themes.cosmic.categories.cargo.traits.care.pattern'
+  | 'themes.cosmic.categories.cargo.traits.material.label'
+  | 'themes.cosmic.categories.cargo.traits.material.pattern'
+  | 'themes.cosmic.categories.cargo.traits.weight.label'
+  | 'themes.cosmic.categories.cargo.traits.weight.pattern'
+  | 'themes.cosmic.categories.destination.describes'
+  | 'themes.cosmic.categories.destination.items.callisto.blurb'
+  | 'themes.cosmic.categories.destination.items.callisto.label'
+  | 'themes.cosmic.categories.destination.items.callisto.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.callisto.traits.kind'
+  | 'themes.cosmic.categories.destination.items.callisto.traits.surface'
+  | 'themes.cosmic.categories.destination.items.ceres.blurb'
+  | 'themes.cosmic.categories.destination.items.ceres.label'
+  | 'themes.cosmic.categories.destination.items.ceres.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.ceres.traits.kind'
+  | 'themes.cosmic.categories.destination.items.ceres.traits.surface'
+  | 'themes.cosmic.categories.destination.items.deimos.blurb'
+  | 'themes.cosmic.categories.destination.items.deimos.label'
+  | 'themes.cosmic.categories.destination.items.deimos.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.deimos.traits.kind'
+  | 'themes.cosmic.categories.destination.items.deimos.traits.surface'
+  | 'themes.cosmic.categories.destination.items.enceladus.blurb'
+  | 'themes.cosmic.categories.destination.items.enceladus.label'
+  | 'themes.cosmic.categories.destination.items.enceladus.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.enceladus.traits.kind'
+  | 'themes.cosmic.categories.destination.items.enceladus.traits.surface'
+  | 'themes.cosmic.categories.destination.items.europa.blurb'
+  | 'themes.cosmic.categories.destination.items.europa.label'
+  | 'themes.cosmic.categories.destination.items.europa.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.europa.traits.kind'
+  | 'themes.cosmic.categories.destination.items.europa.traits.surface'
+  | 'themes.cosmic.categories.destination.items.ganymede.blurb'
+  | 'themes.cosmic.categories.destination.items.ganymede.label'
+  | 'themes.cosmic.categories.destination.items.ganymede.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.ganymede.traits.kind'
+  | 'themes.cosmic.categories.destination.items.ganymede.traits.surface'
+  | 'themes.cosmic.categories.destination.items.io.blurb'
+  | 'themes.cosmic.categories.destination.items.io.label'
+  | 'themes.cosmic.categories.destination.items.io.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.io.traits.kind'
+  | 'themes.cosmic.categories.destination.items.io.traits.surface'
+  | 'themes.cosmic.categories.destination.items.luna.blurb'
+  | 'themes.cosmic.categories.destination.items.luna.label'
+  | 'themes.cosmic.categories.destination.items.luna.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.luna.traits.kind'
+  | 'themes.cosmic.categories.destination.items.luna.traits.surface'
+  | 'themes.cosmic.categories.destination.items.mars.blurb'
+  | 'themes.cosmic.categories.destination.items.mars.label'
+  | 'themes.cosmic.categories.destination.items.mars.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.mars.traits.kind'
+  | 'themes.cosmic.categories.destination.items.mars.traits.surface'
+  | 'themes.cosmic.categories.destination.items.phobos.blurb'
+  | 'themes.cosmic.categories.destination.items.phobos.label'
+  | 'themes.cosmic.categories.destination.items.phobos.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.phobos.traits.kind'
+  | 'themes.cosmic.categories.destination.items.phobos.traits.surface'
+  | 'themes.cosmic.categories.destination.items.titan.blurb'
+  | 'themes.cosmic.categories.destination.items.titan.label'
+  | 'themes.cosmic.categories.destination.items.titan.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.titan.traits.kind'
+  | 'themes.cosmic.categories.destination.items.titan.traits.surface'
+  | 'themes.cosmic.categories.destination.items.triton.blurb'
+  | 'themes.cosmic.categories.destination.items.triton.label'
+  | 'themes.cosmic.categories.destination.items.triton.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.triton.traits.kind'
+  | 'themes.cosmic.categories.destination.items.triton.traits.surface'
+  | 'themes.cosmic.categories.destination.items.venus.blurb'
+  | 'themes.cosmic.categories.destination.items.venus.label'
+  | 'themes.cosmic.categories.destination.items.venus.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.venus.traits.kind'
+  | 'themes.cosmic.categories.destination.items.venus.traits.surface'
+  | 'themes.cosmic.categories.destination.items.vesta.blurb'
+  | 'themes.cosmic.categories.destination.items.vesta.label'
+  | 'themes.cosmic.categories.destination.items.vesta.traits.gravity'
+  | 'themes.cosmic.categories.destination.items.vesta.traits.kind'
+  | 'themes.cosmic.categories.destination.items.vesta.traits.surface'
+  | 'themes.cosmic.categories.destination.name'
+  | 'themes.cosmic.categories.destination.noun'
+  | 'themes.cosmic.categories.destination.pattern'
+  | 'themes.cosmic.categories.destination.traits.gravity.label'
+  | 'themes.cosmic.categories.destination.traits.gravity.pattern'
+  | 'themes.cosmic.categories.destination.traits.kind.label'
+  | 'themes.cosmic.categories.destination.traits.kind.pattern'
+  | 'themes.cosmic.categories.destination.traits.surface.label'
+  | 'themes.cosmic.categories.destination.traits.surface.pattern'
+  | 'themes.cosmic.categories.launch.describes'
+  | 'themes.cosmic.categories.launch.items.2031.blurb'
+  | 'themes.cosmic.categories.launch.items.2031.label'
+  | 'themes.cosmic.categories.launch.items.2031.traits.band'
+  | 'themes.cosmic.categories.launch.items.2031.traits.parity'
+  | 'themes.cosmic.categories.launch.items.2032.blurb'
+  | 'themes.cosmic.categories.launch.items.2032.label'
+  | 'themes.cosmic.categories.launch.items.2032.traits.band'
+  | 'themes.cosmic.categories.launch.items.2032.traits.parity'
+  | 'themes.cosmic.categories.launch.items.2033.blurb'
+  | 'themes.cosmic.categories.launch.items.2033.label'
+  | 'themes.cosmic.categories.launch.items.2033.traits.band'
+  | 'themes.cosmic.categories.launch.items.2033.traits.parity'
+  | 'themes.cosmic.categories.launch.items.2034.blurb'
+  | 'themes.cosmic.categories.launch.items.2034.label'
+  | 'themes.cosmic.categories.launch.items.2034.traits.band'
+  | 'themes.cosmic.categories.launch.items.2034.traits.parity'
+  | 'themes.cosmic.categories.launch.items.2035.blurb'
+  | 'themes.cosmic.categories.launch.items.2035.label'
+  | 'themes.cosmic.categories.launch.items.2035.traits.band'
+  | 'themes.cosmic.categories.launch.items.2035.traits.parity'
+  | 'themes.cosmic.categories.launch.items.2036.blurb'
+  | 'themes.cosmic.categories.launch.items.2036.label'
+  | 'themes.cosmic.categories.launch.items.2036.traits.band'
+  | 'themes.cosmic.categories.launch.items.2036.traits.parity'
+  | 'themes.cosmic.categories.launch.items.2037.blurb'
+  | 'themes.cosmic.categories.launch.items.2037.label'
+  | 'themes.cosmic.categories.launch.items.2037.traits.band'
+  | 'themes.cosmic.categories.launch.items.2037.traits.parity'
+  | 'themes.cosmic.categories.launch.items.2038.blurb'
+  | 'themes.cosmic.categories.launch.items.2038.label'
+  | 'themes.cosmic.categories.launch.items.2038.traits.band'
+  | 'themes.cosmic.categories.launch.items.2038.traits.parity'
+  | 'themes.cosmic.categories.launch.items.2039.blurb'
+  | 'themes.cosmic.categories.launch.items.2039.label'
+  | 'themes.cosmic.categories.launch.items.2039.traits.band'
+  | 'themes.cosmic.categories.launch.items.2039.traits.parity'
+  | 'themes.cosmic.categories.launch.items.2040.blurb'
+  | 'themes.cosmic.categories.launch.items.2040.label'
+  | 'themes.cosmic.categories.launch.items.2040.traits.band'
+  | 'themes.cosmic.categories.launch.items.2040.traits.parity'
+  | 'themes.cosmic.categories.launch.items.2041.blurb'
+  | 'themes.cosmic.categories.launch.items.2041.label'
+  | 'themes.cosmic.categories.launch.items.2041.traits.band'
+  | 'themes.cosmic.categories.launch.items.2041.traits.parity'
+  | 'themes.cosmic.categories.launch.items.2042.blurb'
+  | 'themes.cosmic.categories.launch.items.2042.label'
+  | 'themes.cosmic.categories.launch.items.2042.traits.band'
+  | 'themes.cosmic.categories.launch.items.2042.traits.parity'
+  | 'themes.cosmic.categories.launch.items.2043.blurb'
+  | 'themes.cosmic.categories.launch.items.2043.label'
+  | 'themes.cosmic.categories.launch.items.2043.traits.band'
+  | 'themes.cosmic.categories.launch.items.2043.traits.parity'
+  | 'themes.cosmic.categories.launch.items.2044.blurb'
+  | 'themes.cosmic.categories.launch.items.2044.label'
+  | 'themes.cosmic.categories.launch.items.2044.traits.band'
+  | 'themes.cosmic.categories.launch.items.2044.traits.parity'
+  | 'themes.cosmic.categories.launch.name'
+  | 'themes.cosmic.categories.launch.noun'
+  | 'themes.cosmic.categories.launch.ordered.greater'
+  | 'themes.cosmic.categories.launch.ordered.lesser'
+  | 'themes.cosmic.categories.launch.ordered.noun'
+  | 'themes.cosmic.categories.launch.ordered.unit'
+  | 'themes.cosmic.categories.launch.pattern'
+  | 'themes.cosmic.categories.launch.traits.band.label'
+  | 'themes.cosmic.categories.launch.traits.band.pattern'
+  | 'themes.cosmic.categories.launch.traits.parity.label'
+  | 'themes.cosmic.categories.launch.traits.parity.pattern'
+  | 'themes.cosmic.categories.ship.describes'
+  | 'themes.cosmic.categories.ship.items.aurora.blurb'
+  | 'themes.cosmic.categories.ship.items.aurora.label'
+  | 'themes.cosmic.categories.ship.items.aurora.traits.engine'
+  | 'themes.cosmic.categories.ship.items.aurora.traits.hull'
+  | 'themes.cosmic.categories.ship.items.aurora.traits.size'
+  | 'themes.cosmic.categories.ship.items.corvus.blurb'
+  | 'themes.cosmic.categories.ship.items.corvus.label'
+  | 'themes.cosmic.categories.ship.items.corvus.traits.engine'
+  | 'themes.cosmic.categories.ship.items.corvus.traits.hull'
+  | 'themes.cosmic.categories.ship.items.corvus.traits.size'
+  | 'themes.cosmic.categories.ship.items.cygnus.blurb'
+  | 'themes.cosmic.categories.ship.items.cygnus.label'
+  | 'themes.cosmic.categories.ship.items.cygnus.traits.engine'
+  | 'themes.cosmic.categories.ship.items.cygnus.traits.hull'
+  | 'themes.cosmic.categories.ship.items.cygnus.traits.size'
+  | 'themes.cosmic.categories.ship.items.halcyon.blurb'
+  | 'themes.cosmic.categories.ship.items.halcyon.label'
+  | 'themes.cosmic.categories.ship.items.halcyon.traits.engine'
+  | 'themes.cosmic.categories.ship.items.halcyon.traits.hull'
+  | 'themes.cosmic.categories.ship.items.halcyon.traits.size'
+  | 'themes.cosmic.categories.ship.items.kestrel.blurb'
+  | 'themes.cosmic.categories.ship.items.kestrel.label'
+  | 'themes.cosmic.categories.ship.items.kestrel.traits.engine'
+  | 'themes.cosmic.categories.ship.items.kestrel.traits.hull'
+  | 'themes.cosmic.categories.ship.items.kestrel.traits.size'
+  | 'themes.cosmic.categories.ship.items.lyra.blurb'
+  | 'themes.cosmic.categories.ship.items.lyra.label'
+  | 'themes.cosmic.categories.ship.items.lyra.traits.engine'
+  | 'themes.cosmic.categories.ship.items.lyra.traits.hull'
+  | 'themes.cosmic.categories.ship.items.lyra.traits.size'
+  | 'themes.cosmic.categories.ship.items.merlin.blurb'
+  | 'themes.cosmic.categories.ship.items.merlin.label'
+  | 'themes.cosmic.categories.ship.items.merlin.traits.engine'
+  | 'themes.cosmic.categories.ship.items.merlin.traits.hull'
+  | 'themes.cosmic.categories.ship.items.merlin.traits.size'
+  | 'themes.cosmic.categories.ship.items.nimbus.blurb'
+  | 'themes.cosmic.categories.ship.items.nimbus.label'
+  | 'themes.cosmic.categories.ship.items.nimbus.traits.engine'
+  | 'themes.cosmic.categories.ship.items.nimbus.traits.hull'
+  | 'themes.cosmic.categories.ship.items.nimbus.traits.size'
+  | 'themes.cosmic.categories.ship.items.orion.blurb'
+  | 'themes.cosmic.categories.ship.items.orion.label'
+  | 'themes.cosmic.categories.ship.items.orion.traits.engine'
+  | 'themes.cosmic.categories.ship.items.orion.traits.hull'
+  | 'themes.cosmic.categories.ship.items.orion.traits.size'
+  | 'themes.cosmic.categories.ship.items.pallas.blurb'
+  | 'themes.cosmic.categories.ship.items.pallas.label'
+  | 'themes.cosmic.categories.ship.items.pallas.traits.engine'
+  | 'themes.cosmic.categories.ship.items.pallas.traits.hull'
+  | 'themes.cosmic.categories.ship.items.pallas.traits.size'
+  | 'themes.cosmic.categories.ship.items.perseus.blurb'
+  | 'themes.cosmic.categories.ship.items.perseus.label'
+  | 'themes.cosmic.categories.ship.items.perseus.traits.engine'
+  | 'themes.cosmic.categories.ship.items.perseus.traits.hull'
+  | 'themes.cosmic.categories.ship.items.perseus.traits.size'
+  | 'themes.cosmic.categories.ship.items.sable.blurb'
+  | 'themes.cosmic.categories.ship.items.sable.label'
+  | 'themes.cosmic.categories.ship.items.sable.traits.engine'
+  | 'themes.cosmic.categories.ship.items.sable.traits.hull'
+  | 'themes.cosmic.categories.ship.items.sable.traits.size'
+  | 'themes.cosmic.categories.ship.items.vesper.blurb'
+  | 'themes.cosmic.categories.ship.items.vesper.label'
+  | 'themes.cosmic.categories.ship.items.vesper.traits.engine'
+  | 'themes.cosmic.categories.ship.items.vesper.traits.hull'
+  | 'themes.cosmic.categories.ship.items.vesper.traits.size'
+  | 'themes.cosmic.categories.ship.items.zephyr.blurb'
+  | 'themes.cosmic.categories.ship.items.zephyr.label'
+  | 'themes.cosmic.categories.ship.items.zephyr.traits.engine'
+  | 'themes.cosmic.categories.ship.items.zephyr.traits.hull'
+  | 'themes.cosmic.categories.ship.items.zephyr.traits.size'
+  | 'themes.cosmic.categories.ship.name'
+  | 'themes.cosmic.categories.ship.noun'
+  | 'themes.cosmic.categories.ship.pattern'
+  | 'themes.cosmic.categories.ship.traits.engine.label'
+  | 'themes.cosmic.categories.ship.traits.engine.pattern'
+  | 'themes.cosmic.categories.ship.traits.hull.label'
+  | 'themes.cosmic.categories.ship.traits.hull.pattern'
+  | 'themes.cosmic.categories.ship.traits.size.label'
+  | 'themes.cosmic.categories.ship.traits.size.pattern'
+  | 'themes.cosmic.clues.compare'
+  | 'themes.cosmic.clues.compareGap'
+  | 'themes.cosmic.clues.either'
+  | 'themes.cosmic.clues.groupNot'
+  | 'themes.cosmic.clues.link'
+  | 'themes.cosmic.clues.notLink'
   | 'themes.cosmic.name'
   | 'themes.garden.blurb'
+  | 'themes.garden.categories.flower.describes'
+  | 'themes.garden.categories.flower.items.aster.blurb'
+  | 'themes.garden.categories.flower.items.aster.label'
+  | 'themes.garden.categories.flower.items.aster.traits.colour'
+  | 'themes.garden.categories.flower.items.aster.traits.petals'
+  | 'themes.garden.categories.flower.items.aster.traits.scent'
+  | 'themes.garden.categories.flower.items.camellia.blurb'
+  | 'themes.garden.categories.flower.items.camellia.label'
+  | 'themes.garden.categories.flower.items.camellia.traits.colour'
+  | 'themes.garden.categories.flower.items.camellia.traits.petals'
+  | 'themes.garden.categories.flower.items.camellia.traits.scent'
+  | 'themes.garden.categories.flower.items.cosmos.blurb'
+  | 'themes.garden.categories.flower.items.cosmos.label'
+  | 'themes.garden.categories.flower.items.cosmos.traits.colour'
+  | 'themes.garden.categories.flower.items.cosmos.traits.petals'
+  | 'themes.garden.categories.flower.items.cosmos.traits.scent'
+  | 'themes.garden.categories.flower.items.dahlia.blurb'
+  | 'themes.garden.categories.flower.items.dahlia.label'
+  | 'themes.garden.categories.flower.items.dahlia.traits.colour'
+  | 'themes.garden.categories.flower.items.dahlia.traits.petals'
+  | 'themes.garden.categories.flower.items.dahlia.traits.scent'
+  | 'themes.garden.categories.flower.items.foxglove.blurb'
+  | 'themes.garden.categories.flower.items.foxglove.label'
+  | 'themes.garden.categories.flower.items.foxglove.traits.colour'
+  | 'themes.garden.categories.flower.items.foxglove.traits.petals'
+  | 'themes.garden.categories.flower.items.foxglove.traits.scent'
+  | 'themes.garden.categories.flower.items.freesia.blurb'
+  | 'themes.garden.categories.flower.items.freesia.label'
+  | 'themes.garden.categories.flower.items.freesia.traits.colour'
+  | 'themes.garden.categories.flower.items.freesia.traits.petals'
+  | 'themes.garden.categories.flower.items.freesia.traits.scent'
+  | 'themes.garden.categories.flower.items.iris.blurb'
+  | 'themes.garden.categories.flower.items.iris.label'
+  | 'themes.garden.categories.flower.items.iris.traits.colour'
+  | 'themes.garden.categories.flower.items.iris.traits.petals'
+  | 'themes.garden.categories.flower.items.iris.traits.scent'
+  | 'themes.garden.categories.flower.items.lupin.blurb'
+  | 'themes.garden.categories.flower.items.lupin.label'
+  | 'themes.garden.categories.flower.items.lupin.traits.colour'
+  | 'themes.garden.categories.flower.items.lupin.traits.petals'
+  | 'themes.garden.categories.flower.items.lupin.traits.scent'
+  | 'themes.garden.categories.flower.items.marigold.blurb'
+  | 'themes.garden.categories.flower.items.marigold.label'
+  | 'themes.garden.categories.flower.items.marigold.traits.colour'
+  | 'themes.garden.categories.flower.items.marigold.traits.petals'
+  | 'themes.garden.categories.flower.items.marigold.traits.scent'
+  | 'themes.garden.categories.flower.items.peony.blurb'
+  | 'themes.garden.categories.flower.items.peony.label'
+  | 'themes.garden.categories.flower.items.peony.traits.colour'
+  | 'themes.garden.categories.flower.items.peony.traits.petals'
+  | 'themes.garden.categories.flower.items.peony.traits.scent'
+  | 'themes.garden.categories.flower.items.snapdragon.blurb'
+  | 'themes.garden.categories.flower.items.snapdragon.label'
+  | 'themes.garden.categories.flower.items.snapdragon.traits.colour'
+  | 'themes.garden.categories.flower.items.snapdragon.traits.petals'
+  | 'themes.garden.categories.flower.items.snapdragon.traits.scent'
+  | 'themes.garden.categories.flower.items.sweet-pea.blurb'
+  | 'themes.garden.categories.flower.items.sweet-pea.label'
+  | 'themes.garden.categories.flower.items.sweet-pea.traits.colour'
+  | 'themes.garden.categories.flower.items.sweet-pea.traits.petals'
+  | 'themes.garden.categories.flower.items.sweet-pea.traits.scent'
+  | 'themes.garden.categories.flower.items.tulip.blurb'
+  | 'themes.garden.categories.flower.items.tulip.label'
+  | 'themes.garden.categories.flower.items.tulip.traits.colour'
+  | 'themes.garden.categories.flower.items.tulip.traits.petals'
+  | 'themes.garden.categories.flower.items.tulip.traits.scent'
+  | 'themes.garden.categories.flower.items.zinnia.blurb'
+  | 'themes.garden.categories.flower.items.zinnia.label'
+  | 'themes.garden.categories.flower.items.zinnia.traits.colour'
+  | 'themes.garden.categories.flower.items.zinnia.traits.petals'
+  | 'themes.garden.categories.flower.items.zinnia.traits.scent'
+  | 'themes.garden.categories.flower.name'
+  | 'themes.garden.categories.flower.noun'
+  | 'themes.garden.categories.flower.pattern'
+  | 'themes.garden.categories.flower.traits.colour.label'
+  | 'themes.garden.categories.flower.traits.colour.pattern'
+  | 'themes.garden.categories.flower.traits.petals.label'
+  | 'themes.garden.categories.flower.traits.petals.pattern'
+  | 'themes.garden.categories.flower.traits.scent.label'
+  | 'themes.garden.categories.flower.traits.scent.pattern'
+  | 'themes.garden.categories.gardener.describes'
+  | 'themes.garden.categories.gardener.items.alder.blurb'
+  | 'themes.garden.categories.gardener.items.alder.label'
+  | 'themes.garden.categories.gardener.items.alder.traits.eyes'
+  | 'themes.garden.categories.gardener.items.alder.traits.hair'
+  | 'themes.garden.categories.gardener.items.alder.traits.sign'
+  | 'themes.garden.categories.gardener.items.bram.blurb'
+  | 'themes.garden.categories.gardener.items.bram.label'
+  | 'themes.garden.categories.gardener.items.bram.traits.eyes'
+  | 'themes.garden.categories.gardener.items.bram.traits.hair'
+  | 'themes.garden.categories.gardener.items.bram.traits.sign'
+  | 'themes.garden.categories.gardener.items.emrys.blurb'
+  | 'themes.garden.categories.gardener.items.emrys.label'
+  | 'themes.garden.categories.gardener.items.emrys.traits.eyes'
+  | 'themes.garden.categories.gardener.items.emrys.traits.hair'
+  | 'themes.garden.categories.gardener.items.emrys.traits.sign'
+  | 'themes.garden.categories.gardener.items.ferris.blurb'
+  | 'themes.garden.categories.gardener.items.ferris.label'
+  | 'themes.garden.categories.gardener.items.ferris.traits.eyes'
+  | 'themes.garden.categories.gardener.items.ferris.traits.hair'
+  | 'themes.garden.categories.gardener.items.ferris.traits.sign'
+  | 'themes.garden.categories.gardener.items.hazel.blurb'
+  | 'themes.garden.categories.gardener.items.hazel.label'
+  | 'themes.garden.categories.gardener.items.hazel.traits.eyes'
+  | 'themes.garden.categories.gardener.items.hazel.traits.hair'
+  | 'themes.garden.categories.gardener.items.hazel.traits.sign'
+  | 'themes.garden.categories.gardener.items.junie.blurb'
+  | 'themes.garden.categories.gardener.items.junie.label'
+  | 'themes.garden.categories.gardener.items.junie.traits.eyes'
+  | 'themes.garden.categories.gardener.items.junie.traits.hair'
+  | 'themes.garden.categories.gardener.items.junie.traits.sign'
+  | 'themes.garden.categories.gardener.items.lark.blurb'
+  | 'themes.garden.categories.gardener.items.lark.label'
+  | 'themes.garden.categories.gardener.items.lark.traits.eyes'
+  | 'themes.garden.categories.gardener.items.lark.traits.hair'
+  | 'themes.garden.categories.gardener.items.lark.traits.sign'
+  | 'themes.garden.categories.gardener.items.marnie.blurb'
+  | 'themes.garden.categories.gardener.items.marnie.label'
+  | 'themes.garden.categories.gardener.items.marnie.traits.eyes'
+  | 'themes.garden.categories.gardener.items.marnie.traits.hair'
+  | 'themes.garden.categories.gardener.items.marnie.traits.sign'
+  | 'themes.garden.categories.gardener.items.opal.blurb'
+  | 'themes.garden.categories.gardener.items.opal.label'
+  | 'themes.garden.categories.gardener.items.opal.traits.eyes'
+  | 'themes.garden.categories.gardener.items.opal.traits.hair'
+  | 'themes.garden.categories.gardener.items.opal.traits.sign'
+  | 'themes.garden.categories.gardener.items.pim.blurb'
+  | 'themes.garden.categories.gardener.items.pim.label'
+  | 'themes.garden.categories.gardener.items.pim.traits.eyes'
+  | 'themes.garden.categories.gardener.items.pim.traits.hair'
+  | 'themes.garden.categories.gardener.items.pim.traits.sign'
+  | 'themes.garden.categories.gardener.items.posy.blurb'
+  | 'themes.garden.categories.gardener.items.posy.label'
+  | 'themes.garden.categories.gardener.items.posy.traits.eyes'
+  | 'themes.garden.categories.gardener.items.posy.traits.hair'
+  | 'themes.garden.categories.gardener.items.posy.traits.sign'
+  | 'themes.garden.categories.gardener.items.rosa.blurb'
+  | 'themes.garden.categories.gardener.items.rosa.label'
+  | 'themes.garden.categories.gardener.items.rosa.traits.eyes'
+  | 'themes.garden.categories.gardener.items.rosa.traits.hair'
+  | 'themes.garden.categories.gardener.items.rosa.traits.sign'
+  | 'themes.garden.categories.gardener.items.tilly.blurb'
+  | 'themes.garden.categories.gardener.items.tilly.label'
+  | 'themes.garden.categories.gardener.items.tilly.traits.eyes'
+  | 'themes.garden.categories.gardener.items.tilly.traits.hair'
+  | 'themes.garden.categories.gardener.items.tilly.traits.sign'
+  | 'themes.garden.categories.gardener.items.wilder.blurb'
+  | 'themes.garden.categories.gardener.items.wilder.label'
+  | 'themes.garden.categories.gardener.items.wilder.traits.eyes'
+  | 'themes.garden.categories.gardener.items.wilder.traits.hair'
+  | 'themes.garden.categories.gardener.items.wilder.traits.sign'
+  | 'themes.garden.categories.gardener.name'
+  | 'themes.garden.categories.gardener.noun'
+  | 'themes.garden.categories.gardener.pattern'
+  | 'themes.garden.categories.gardener.traits.eyes.label'
+  | 'themes.garden.categories.gardener.traits.eyes.pattern'
+  | 'themes.garden.categories.gardener.traits.hair.label'
+  | 'themes.garden.categories.gardener.traits.hair.pattern'
+  | 'themes.garden.categories.gardener.traits.sign.label'
+  | 'themes.garden.categories.gardener.traits.sign.pattern'
+  | 'themes.garden.categories.height.describes'
+  | 'themes.garden.categories.height.items.110cm.blurb'
+  | 'themes.garden.categories.height.items.110cm.label'
+  | 'themes.garden.categories.height.items.110cm.traits.band'
+  | 'themes.garden.categories.height.items.110cm.traits.parity'
+  | 'themes.garden.categories.height.items.125cm.blurb'
+  | 'themes.garden.categories.height.items.125cm.label'
+  | 'themes.garden.categories.height.items.125cm.traits.band'
+  | 'themes.garden.categories.height.items.125cm.traits.parity'
+  | 'themes.garden.categories.height.items.140cm.blurb'
+  | 'themes.garden.categories.height.items.140cm.label'
+  | 'themes.garden.categories.height.items.140cm.traits.band'
+  | 'themes.garden.categories.height.items.140cm.traits.parity'
+  | 'themes.garden.categories.height.items.155cm.blurb'
+  | 'themes.garden.categories.height.items.155cm.label'
+  | 'themes.garden.categories.height.items.155cm.traits.band'
+  | 'themes.garden.categories.height.items.155cm.traits.parity'
+  | 'themes.garden.categories.height.items.170cm.blurb'
+  | 'themes.garden.categories.height.items.170cm.label'
+  | 'themes.garden.categories.height.items.170cm.traits.band'
+  | 'themes.garden.categories.height.items.170cm.traits.parity'
+  | 'themes.garden.categories.height.items.185cm.blurb'
+  | 'themes.garden.categories.height.items.185cm.label'
+  | 'themes.garden.categories.height.items.185cm.traits.band'
+  | 'themes.garden.categories.height.items.185cm.traits.parity'
+  | 'themes.garden.categories.height.items.200cm.blurb'
+  | 'themes.garden.categories.height.items.200cm.label'
+  | 'themes.garden.categories.height.items.200cm.traits.band'
+  | 'themes.garden.categories.height.items.200cm.traits.parity'
+  | 'themes.garden.categories.height.items.20cm.blurb'
+  | 'themes.garden.categories.height.items.20cm.label'
+  | 'themes.garden.categories.height.items.20cm.traits.band'
+  | 'themes.garden.categories.height.items.20cm.traits.parity'
+  | 'themes.garden.categories.height.items.215cm.blurb'
+  | 'themes.garden.categories.height.items.215cm.label'
+  | 'themes.garden.categories.height.items.215cm.traits.band'
+  | 'themes.garden.categories.height.items.215cm.traits.parity'
+  | 'themes.garden.categories.height.items.35cm.blurb'
+  | 'themes.garden.categories.height.items.35cm.label'
+  | 'themes.garden.categories.height.items.35cm.traits.band'
+  | 'themes.garden.categories.height.items.35cm.traits.parity'
+  | 'themes.garden.categories.height.items.50cm.blurb'
+  | 'themes.garden.categories.height.items.50cm.label'
+  | 'themes.garden.categories.height.items.50cm.traits.band'
+  | 'themes.garden.categories.height.items.50cm.traits.parity'
+  | 'themes.garden.categories.height.items.65cm.blurb'
+  | 'themes.garden.categories.height.items.65cm.label'
+  | 'themes.garden.categories.height.items.65cm.traits.band'
+  | 'themes.garden.categories.height.items.65cm.traits.parity'
+  | 'themes.garden.categories.height.items.80cm.blurb'
+  | 'themes.garden.categories.height.items.80cm.label'
+  | 'themes.garden.categories.height.items.80cm.traits.band'
+  | 'themes.garden.categories.height.items.80cm.traits.parity'
+  | 'themes.garden.categories.height.items.95cm.blurb'
+  | 'themes.garden.categories.height.items.95cm.label'
+  | 'themes.garden.categories.height.items.95cm.traits.band'
+  | 'themes.garden.categories.height.items.95cm.traits.parity'
+  | 'themes.garden.categories.height.name'
+  | 'themes.garden.categories.height.noun'
+  | 'themes.garden.categories.height.ordered.greater'
+  | 'themes.garden.categories.height.ordered.lesser'
+  | 'themes.garden.categories.height.ordered.noun'
+  | 'themes.garden.categories.height.ordered.unit'
+  | 'themes.garden.categories.height.pattern'
+  | 'themes.garden.categories.height.traits.band.label'
+  | 'themes.garden.categories.height.traits.band.pattern'
+  | 'themes.garden.categories.height.traits.parity.label'
+  | 'themes.garden.categories.height.traits.parity.pattern'
+  | 'themes.garden.categories.pot.describes'
+  | 'themes.garden.categories.pot.items.amber.blurb'
+  | 'themes.garden.categories.pot.items.amber.label'
+  | 'themes.garden.categories.pot.items.amber.traits.finish'
+  | 'themes.garden.categories.pot.items.amber.traits.material'
+  | 'themes.garden.categories.pot.items.amber.traits.size'
+  | 'themes.garden.categories.pot.items.blush.blurb'
+  | 'themes.garden.categories.pot.items.blush.label'
+  | 'themes.garden.categories.pot.items.blush.traits.finish'
+  | 'themes.garden.categories.pot.items.blush.traits.material'
+  | 'themes.garden.categories.pot.items.blush.traits.size'
+  | 'themes.garden.categories.pot.items.charcoal.blurb'
+  | 'themes.garden.categories.pot.items.charcoal.label'
+  | 'themes.garden.categories.pot.items.charcoal.traits.finish'
+  | 'themes.garden.categories.pot.items.charcoal.traits.material'
+  | 'themes.garden.categories.pot.items.charcoal.traits.size'
+  | 'themes.garden.categories.pot.items.cobalt.blurb'
+  | 'themes.garden.categories.pot.items.cobalt.label'
+  | 'themes.garden.categories.pot.items.cobalt.traits.finish'
+  | 'themes.garden.categories.pot.items.cobalt.traits.material'
+  | 'themes.garden.categories.pot.items.cobalt.traits.size'
+  | 'themes.garden.categories.pot.items.copper.blurb'
+  | 'themes.garden.categories.pot.items.copper.label'
+  | 'themes.garden.categories.pot.items.copper.traits.finish'
+  | 'themes.garden.categories.pot.items.copper.traits.material'
+  | 'themes.garden.categories.pot.items.copper.traits.size'
+  | 'themes.garden.categories.pot.items.cream.blurb'
+  | 'themes.garden.categories.pot.items.cream.label'
+  | 'themes.garden.categories.pot.items.cream.traits.finish'
+  | 'themes.garden.categories.pot.items.cream.traits.material'
+  | 'themes.garden.categories.pot.items.cream.traits.size'
+  | 'themes.garden.categories.pot.items.indigo.blurb'
+  | 'themes.garden.categories.pot.items.indigo.label'
+  | 'themes.garden.categories.pot.items.indigo.traits.finish'
+  | 'themes.garden.categories.pot.items.indigo.traits.material'
+  | 'themes.garden.categories.pot.items.indigo.traits.size'
+  | 'themes.garden.categories.pot.items.ivory.blurb'
+  | 'themes.garden.categories.pot.items.ivory.label'
+  | 'themes.garden.categories.pot.items.ivory.traits.finish'
+  | 'themes.garden.categories.pot.items.ivory.traits.material'
+  | 'themes.garden.categories.pot.items.ivory.traits.size'
+  | 'themes.garden.categories.pot.items.mint.blurb'
+  | 'themes.garden.categories.pot.items.mint.label'
+  | 'themes.garden.categories.pot.items.mint.traits.finish'
+  | 'themes.garden.categories.pot.items.mint.traits.material'
+  | 'themes.garden.categories.pot.items.mint.traits.size'
+  | 'themes.garden.categories.pot.items.olive.blurb'
+  | 'themes.garden.categories.pot.items.olive.label'
+  | 'themes.garden.categories.pot.items.olive.traits.finish'
+  | 'themes.garden.categories.pot.items.olive.traits.material'
+  | 'themes.garden.categories.pot.items.olive.traits.size'
+  | 'themes.garden.categories.pot.items.plum.blurb'
+  | 'themes.garden.categories.pot.items.plum.label'
+  | 'themes.garden.categories.pot.items.plum.traits.finish'
+  | 'themes.garden.categories.pot.items.plum.traits.material'
+  | 'themes.garden.categories.pot.items.plum.traits.size'
+  | 'themes.garden.categories.pot.items.rust.blurb'
+  | 'themes.garden.categories.pot.items.rust.label'
+  | 'themes.garden.categories.pot.items.rust.traits.finish'
+  | 'themes.garden.categories.pot.items.rust.traits.material'
+  | 'themes.garden.categories.pot.items.rust.traits.size'
+  | 'themes.garden.categories.pot.items.slate.blurb'
+  | 'themes.garden.categories.pot.items.slate.label'
+  | 'themes.garden.categories.pot.items.slate.traits.finish'
+  | 'themes.garden.categories.pot.items.slate.traits.material'
+  | 'themes.garden.categories.pot.items.slate.traits.size'
+  | 'themes.garden.categories.pot.items.terracotta.blurb'
+  | 'themes.garden.categories.pot.items.terracotta.label'
+  | 'themes.garden.categories.pot.items.terracotta.traits.finish'
+  | 'themes.garden.categories.pot.items.terracotta.traits.material'
+  | 'themes.garden.categories.pot.items.terracotta.traits.size'
+  | 'themes.garden.categories.pot.name'
+  | 'themes.garden.categories.pot.noun'
+  | 'themes.garden.categories.pot.pattern'
+  | 'themes.garden.categories.pot.traits.finish.label'
+  | 'themes.garden.categories.pot.traits.finish.pattern'
+  | 'themes.garden.categories.pot.traits.material.label'
+  | 'themes.garden.categories.pot.traits.material.pattern'
+  | 'themes.garden.categories.pot.traits.size.label'
+  | 'themes.garden.categories.pot.traits.size.pattern'
+  | 'themes.garden.categories.tool.describes'
+  | 'themes.garden.categories.tool.items.dibber.blurb'
+  | 'themes.garden.categories.tool.items.dibber.label'
+  | 'themes.garden.categories.tool.items.dibber.traits.material'
+  | 'themes.garden.categories.tool.items.dibber.traits.size'
+  | 'themes.garden.categories.tool.items.dibber.traits.use'
+  | 'themes.garden.categories.tool.items.gloves.blurb'
+  | 'themes.garden.categories.tool.items.gloves.label'
+  | 'themes.garden.categories.tool.items.gloves.traits.material'
+  | 'themes.garden.categories.tool.items.gloves.traits.size'
+  | 'themes.garden.categories.tool.items.gloves.traits.use'
+  | 'themes.garden.categories.tool.items.hand-fork.blurb'
+  | 'themes.garden.categories.tool.items.hand-fork.label'
+  | 'themes.garden.categories.tool.items.hand-fork.traits.material'
+  | 'themes.garden.categories.tool.items.hand-fork.traits.size'
+  | 'themes.garden.categories.tool.items.hand-fork.traits.use'
+  | 'themes.garden.categories.tool.items.hoe.blurb'
+  | 'themes.garden.categories.tool.items.hoe.label'
+  | 'themes.garden.categories.tool.items.hoe.traits.material'
+  | 'themes.garden.categories.tool.items.hoe.traits.size'
+  | 'themes.garden.categories.tool.items.hoe.traits.use'
+  | 'themes.garden.categories.tool.items.kneeler.blurb'
+  | 'themes.garden.categories.tool.items.kneeler.label'
+  | 'themes.garden.categories.tool.items.kneeler.traits.material'
+  | 'themes.garden.categories.tool.items.kneeler.traits.size'
+  | 'themes.garden.categories.tool.items.kneeler.traits.use'
+  | 'themes.garden.categories.tool.items.plant-labels.blurb'
+  | 'themes.garden.categories.tool.items.plant-labels.label'
+  | 'themes.garden.categories.tool.items.plant-labels.traits.material'
+  | 'themes.garden.categories.tool.items.plant-labels.traits.size'
+  | 'themes.garden.categories.tool.items.plant-labels.traits.use'
+  | 'themes.garden.categories.tool.items.rake.blurb'
+  | 'themes.garden.categories.tool.items.rake.label'
+  | 'themes.garden.categories.tool.items.rake.traits.material'
+  | 'themes.garden.categories.tool.items.rake.traits.size'
+  | 'themes.garden.categories.tool.items.rake.traits.use'
+  | 'themes.garden.categories.tool.items.secateurs.blurb'
+  | 'themes.garden.categories.tool.items.secateurs.label'
+  | 'themes.garden.categories.tool.items.secateurs.traits.material'
+  | 'themes.garden.categories.tool.items.secateurs.traits.size'
+  | 'themes.garden.categories.tool.items.secateurs.traits.use'
+  | 'themes.garden.categories.tool.items.shears.blurb'
+  | 'themes.garden.categories.tool.items.shears.label'
+  | 'themes.garden.categories.tool.items.shears.traits.material'
+  | 'themes.garden.categories.tool.items.shears.traits.size'
+  | 'themes.garden.categories.tool.items.shears.traits.use'
+  | 'themes.garden.categories.tool.items.sieve.blurb'
+  | 'themes.garden.categories.tool.items.sieve.label'
+  | 'themes.garden.categories.tool.items.sieve.traits.material'
+  | 'themes.garden.categories.tool.items.sieve.traits.size'
+  | 'themes.garden.categories.tool.items.sieve.traits.use'
+  | 'themes.garden.categories.tool.items.sprayer.blurb'
+  | 'themes.garden.categories.tool.items.sprayer.label'
+  | 'themes.garden.categories.tool.items.sprayer.traits.material'
+  | 'themes.garden.categories.tool.items.sprayer.traits.size'
+  | 'themes.garden.categories.tool.items.sprayer.traits.use'
+  | 'themes.garden.categories.tool.items.trowel.blurb'
+  | 'themes.garden.categories.tool.items.trowel.label'
+  | 'themes.garden.categories.tool.items.trowel.traits.material'
+  | 'themes.garden.categories.tool.items.trowel.traits.size'
+  | 'themes.garden.categories.tool.items.trowel.traits.use'
+  | 'themes.garden.categories.tool.items.twine.blurb'
+  | 'themes.garden.categories.tool.items.twine.label'
+  | 'themes.garden.categories.tool.items.twine.traits.material'
+  | 'themes.garden.categories.tool.items.twine.traits.size'
+  | 'themes.garden.categories.tool.items.twine.traits.use'
+  | 'themes.garden.categories.tool.items.watering-can.blurb'
+  | 'themes.garden.categories.tool.items.watering-can.label'
+  | 'themes.garden.categories.tool.items.watering-can.traits.material'
+  | 'themes.garden.categories.tool.items.watering-can.traits.size'
+  | 'themes.garden.categories.tool.items.watering-can.traits.use'
+  | 'themes.garden.categories.tool.name'
+  | 'themes.garden.categories.tool.noun'
+  | 'themes.garden.categories.tool.pattern'
+  | 'themes.garden.categories.tool.traits.material.label'
+  | 'themes.garden.categories.tool.traits.material.pattern'
+  | 'themes.garden.categories.tool.traits.size.label'
+  | 'themes.garden.categories.tool.traits.size.pattern'
+  | 'themes.garden.categories.tool.traits.use.label'
+  | 'themes.garden.categories.tool.traits.use.pattern'
+  | 'themes.garden.clues.compare'
+  | 'themes.garden.clues.compareGap'
+  | 'themes.garden.clues.either'
+  | 'themes.garden.clues.groupNot'
+  | 'themes.garden.clues.link'
+  | 'themes.garden.clues.notLink'
   | 'themes.garden.name'
   | 'themes.quest.blurb'
+  | 'themes.quest.categories.beast.describes'
+  | 'themes.quest.categories.beast.items.banshee.blurb'
+  | 'themes.quest.categories.beast.items.banshee.label'
+  | 'themes.quest.categories.beast.items.banshee.traits.home'
+  | 'themes.quest.categories.beast.items.banshee.traits.size'
+  | 'themes.quest.categories.beast.items.banshee.traits.temper'
+  | 'themes.quest.categories.beast.items.basilisk.blurb'
+  | 'themes.quest.categories.beast.items.basilisk.label'
+  | 'themes.quest.categories.beast.items.basilisk.traits.home'
+  | 'themes.quest.categories.beast.items.basilisk.traits.size'
+  | 'themes.quest.categories.beast.items.basilisk.traits.temper'
+  | 'themes.quest.categories.beast.items.chimera.blurb'
+  | 'themes.quest.categories.beast.items.chimera.label'
+  | 'themes.quest.categories.beast.items.chimera.traits.home'
+  | 'themes.quest.categories.beast.items.chimera.traits.size'
+  | 'themes.quest.categories.beast.items.chimera.traits.temper'
+  | 'themes.quest.categories.beast.items.cyclops.blurb'
+  | 'themes.quest.categories.beast.items.cyclops.label'
+  | 'themes.quest.categories.beast.items.cyclops.traits.home'
+  | 'themes.quest.categories.beast.items.cyclops.traits.size'
+  | 'themes.quest.categories.beast.items.cyclops.traits.temper'
+  | 'themes.quest.categories.beast.items.direwolf.blurb'
+  | 'themes.quest.categories.beast.items.direwolf.label'
+  | 'themes.quest.categories.beast.items.direwolf.traits.home'
+  | 'themes.quest.categories.beast.items.direwolf.traits.size'
+  | 'themes.quest.categories.beast.items.direwolf.traits.temper'
+  | 'themes.quest.categories.beast.items.golem.blurb'
+  | 'themes.quest.categories.beast.items.golem.label'
+  | 'themes.quest.categories.beast.items.golem.traits.home'
+  | 'themes.quest.categories.beast.items.golem.traits.size'
+  | 'themes.quest.categories.beast.items.golem.traits.temper'
+  | 'themes.quest.categories.beast.items.griffin.blurb'
+  | 'themes.quest.categories.beast.items.griffin.label'
+  | 'themes.quest.categories.beast.items.griffin.traits.home'
+  | 'themes.quest.categories.beast.items.griffin.traits.size'
+  | 'themes.quest.categories.beast.items.griffin.traits.temper'
+  | 'themes.quest.categories.beast.items.harpy.blurb'
+  | 'themes.quest.categories.beast.items.harpy.label'
+  | 'themes.quest.categories.beast.items.harpy.traits.home'
+  | 'themes.quest.categories.beast.items.harpy.traits.size'
+  | 'themes.quest.categories.beast.items.harpy.traits.temper'
+  | 'themes.quest.categories.beast.items.hydra.blurb'
+  | 'themes.quest.categories.beast.items.hydra.label'
+  | 'themes.quest.categories.beast.items.hydra.traits.home'
+  | 'themes.quest.categories.beast.items.hydra.traits.size'
+  | 'themes.quest.categories.beast.items.hydra.traits.temper'
+  | 'themes.quest.categories.beast.items.kraken.blurb'
+  | 'themes.quest.categories.beast.items.kraken.label'
+  | 'themes.quest.categories.beast.items.kraken.traits.home'
+  | 'themes.quest.categories.beast.items.kraken.traits.size'
+  | 'themes.quest.categories.beast.items.kraken.traits.temper'
+  | 'themes.quest.categories.beast.items.manticore.blurb'
+  | 'themes.quest.categories.beast.items.manticore.label'
+  | 'themes.quest.categories.beast.items.manticore.traits.home'
+  | 'themes.quest.categories.beast.items.manticore.traits.size'
+  | 'themes.quest.categories.beast.items.manticore.traits.temper'
+  | 'themes.quest.categories.beast.items.minotaur.blurb'
+  | 'themes.quest.categories.beast.items.minotaur.label'
+  | 'themes.quest.categories.beast.items.minotaur.traits.home'
+  | 'themes.quest.categories.beast.items.minotaur.traits.size'
+  | 'themes.quest.categories.beast.items.minotaur.traits.temper'
+  | 'themes.quest.categories.beast.items.sphinx.blurb'
+  | 'themes.quest.categories.beast.items.sphinx.label'
+  | 'themes.quest.categories.beast.items.sphinx.traits.home'
+  | 'themes.quest.categories.beast.items.sphinx.traits.size'
+  | 'themes.quest.categories.beast.items.sphinx.traits.temper'
+  | 'themes.quest.categories.beast.items.wyvern.blurb'
+  | 'themes.quest.categories.beast.items.wyvern.label'
+  | 'themes.quest.categories.beast.items.wyvern.traits.home'
+  | 'themes.quest.categories.beast.items.wyvern.traits.size'
+  | 'themes.quest.categories.beast.items.wyvern.traits.temper'
+  | 'themes.quest.categories.beast.name'
+  | 'themes.quest.categories.beast.noun'
+  | 'themes.quest.categories.beast.pattern'
+  | 'themes.quest.categories.beast.traits.home.label'
+  | 'themes.quest.categories.beast.traits.home.pattern'
+  | 'themes.quest.categories.beast.traits.size.label'
+  | 'themes.quest.categories.beast.traits.size.pattern'
+  | 'themes.quest.categories.beast.traits.temper.label'
+  | 'themes.quest.categories.beast.traits.temper.pattern'
+  | 'themes.quest.categories.hero.describes'
+  | 'themes.quest.categories.hero.items.bran.blurb'
+  | 'themes.quest.categories.hero.items.bran.label'
+  | 'themes.quest.categories.hero.items.bran.traits.eyes'
+  | 'themes.quest.categories.hero.items.bran.traits.hair'
+  | 'themes.quest.categories.hero.items.bran.traits.sign'
+  | 'themes.quest.categories.hero.items.fenn.blurb'
+  | 'themes.quest.categories.hero.items.fenn.label'
+  | 'themes.quest.categories.hero.items.fenn.traits.eyes'
+  | 'themes.quest.categories.hero.items.fenn.traits.hair'
+  | 'themes.quest.categories.hero.items.fenn.traits.sign'
+  | 'themes.quest.categories.hero.items.garrick.blurb'
+  | 'themes.quest.categories.hero.items.garrick.label'
+  | 'themes.quest.categories.hero.items.garrick.traits.eyes'
+  | 'themes.quest.categories.hero.items.garrick.traits.hair'
+  | 'themes.quest.categories.hero.items.garrick.traits.sign'
+  | 'themes.quest.categories.hero.items.isolde.blurb'
+  | 'themes.quest.categories.hero.items.isolde.label'
+  | 'themes.quest.categories.hero.items.isolde.traits.eyes'
+  | 'themes.quest.categories.hero.items.isolde.traits.hair'
+  | 'themes.quest.categories.hero.items.isolde.traits.sign'
+  | 'themes.quest.categories.hero.items.ivo.blurb'
+  | 'themes.quest.categories.hero.items.ivo.label'
+  | 'themes.quest.categories.hero.items.ivo.traits.eyes'
+  | 'themes.quest.categories.hero.items.ivo.traits.hair'
+  | 'themes.quest.categories.hero.items.ivo.traits.sign'
+  | 'themes.quest.categories.hero.items.kell.blurb'
+  | 'themes.quest.categories.hero.items.kell.label'
+  | 'themes.quest.categories.hero.items.kell.traits.eyes'
+  | 'themes.quest.categories.hero.items.kell.traits.hair'
+  | 'themes.quest.categories.hero.items.kell.traits.sign'
+  | 'themes.quest.categories.hero.items.maeve.blurb'
+  | 'themes.quest.categories.hero.items.maeve.label'
+  | 'themes.quest.categories.hero.items.maeve.traits.eyes'
+  | 'themes.quest.categories.hero.items.maeve.traits.hair'
+  | 'themes.quest.categories.hero.items.maeve.traits.sign'
+  | 'themes.quest.categories.hero.items.nyla.blurb'
+  | 'themes.quest.categories.hero.items.nyla.label'
+  | 'themes.quest.categories.hero.items.nyla.traits.eyes'
+  | 'themes.quest.categories.hero.items.nyla.traits.hair'
+  | 'themes.quest.categories.hero.items.nyla.traits.sign'
+  | 'themes.quest.categories.hero.items.osric.blurb'
+  | 'themes.quest.categories.hero.items.osric.label'
+  | 'themes.quest.categories.hero.items.osric.traits.eyes'
+  | 'themes.quest.categories.hero.items.osric.traits.hair'
+  | 'themes.quest.categories.hero.items.osric.traits.sign'
+  | 'themes.quest.categories.hero.items.perrin.blurb'
+  | 'themes.quest.categories.hero.items.perrin.label'
+  | 'themes.quest.categories.hero.items.perrin.traits.eyes'
+  | 'themes.quest.categories.hero.items.perrin.traits.hair'
+  | 'themes.quest.categories.hero.items.perrin.traits.sign'
+  | 'themes.quest.categories.hero.items.rowan.blurb'
+  | 'themes.quest.categories.hero.items.rowan.label'
+  | 'themes.quest.categories.hero.items.rowan.traits.eyes'
+  | 'themes.quest.categories.hero.items.rowan.traits.hair'
+  | 'themes.quest.categories.hero.items.rowan.traits.sign'
+  | 'themes.quest.categories.hero.items.sorrel.blurb'
+  | 'themes.quest.categories.hero.items.sorrel.label'
+  | 'themes.quest.categories.hero.items.sorrel.traits.eyes'
+  | 'themes.quest.categories.hero.items.sorrel.traits.hair'
+  | 'themes.quest.categories.hero.items.sorrel.traits.sign'
+  | 'themes.quest.categories.hero.items.tamsin.blurb'
+  | 'themes.quest.categories.hero.items.tamsin.label'
+  | 'themes.quest.categories.hero.items.tamsin.traits.eyes'
+  | 'themes.quest.categories.hero.items.tamsin.traits.hair'
+  | 'themes.quest.categories.hero.items.tamsin.traits.sign'
+  | 'themes.quest.categories.hero.items.wren.blurb'
+  | 'themes.quest.categories.hero.items.wren.label'
+  | 'themes.quest.categories.hero.items.wren.traits.eyes'
+  | 'themes.quest.categories.hero.items.wren.traits.hair'
+  | 'themes.quest.categories.hero.items.wren.traits.sign'
+  | 'themes.quest.categories.hero.name'
+  | 'themes.quest.categories.hero.noun'
+  | 'themes.quest.categories.hero.pattern'
+  | 'themes.quest.categories.hero.traits.eyes.label'
+  | 'themes.quest.categories.hero.traits.eyes.pattern'
+  | 'themes.quest.categories.hero.traits.hair.label'
+  | 'themes.quest.categories.hero.traits.hair.pattern'
+  | 'themes.quest.categories.hero.traits.sign.label'
+  | 'themes.quest.categories.hero.traits.sign.pattern'
+  | 'themes.quest.categories.realm.describes'
+  | 'themes.quest.categories.realm.items.ashfell.blurb'
+  | 'themes.quest.categories.realm.items.ashfell.label'
+  | 'themes.quest.categories.realm.items.ashfell.traits.land'
+  | 'themes.quest.categories.realm.items.ashfell.traits.size'
+  | 'themes.quest.categories.realm.items.ashfell.traits.weather'
+  | 'themes.quest.categories.realm.items.duskmoor.blurb'
+  | 'themes.quest.categories.realm.items.duskmoor.label'
+  | 'themes.quest.categories.realm.items.duskmoor.traits.land'
+  | 'themes.quest.categories.realm.items.duskmoor.traits.size'
+  | 'themes.quest.categories.realm.items.duskmoor.traits.weather'
+  | 'themes.quest.categories.realm.items.emberholt.blurb'
+  | 'themes.quest.categories.realm.items.emberholt.label'
+  | 'themes.quest.categories.realm.items.emberholt.traits.land'
+  | 'themes.quest.categories.realm.items.emberholt.traits.size'
+  | 'themes.quest.categories.realm.items.emberholt.traits.weather'
+  | 'themes.quest.categories.realm.items.frostgate.blurb'
+  | 'themes.quest.categories.realm.items.frostgate.label'
+  | 'themes.quest.categories.realm.items.frostgate.traits.land'
+  | 'themes.quest.categories.realm.items.frostgate.traits.size'
+  | 'themes.quest.categories.realm.items.frostgate.traits.weather'
+  | 'themes.quest.categories.realm.items.greymarch.blurb'
+  | 'themes.quest.categories.realm.items.greymarch.label'
+  | 'themes.quest.categories.realm.items.greymarch.traits.land'
+  | 'themes.quest.categories.realm.items.greymarch.traits.size'
+  | 'themes.quest.categories.realm.items.greymarch.traits.weather'
+  | 'themes.quest.categories.realm.items.highmere.blurb'
+  | 'themes.quest.categories.realm.items.highmere.label'
+  | 'themes.quest.categories.realm.items.highmere.traits.land'
+  | 'themes.quest.categories.realm.items.highmere.traits.size'
+  | 'themes.quest.categories.realm.items.highmere.traits.weather'
+  | 'themes.quest.categories.realm.items.ironvale.blurb'
+  | 'themes.quest.categories.realm.items.ironvale.label'
+  | 'themes.quest.categories.realm.items.ironvale.traits.land'
+  | 'themes.quest.categories.realm.items.ironvale.traits.size'
+  | 'themes.quest.categories.realm.items.ironvale.traits.weather'
+  | 'themes.quest.categories.realm.items.larkspur.blurb'
+  | 'themes.quest.categories.realm.items.larkspur.label'
+  | 'themes.quest.categories.realm.items.larkspur.traits.land'
+  | 'themes.quest.categories.realm.items.larkspur.traits.size'
+  | 'themes.quest.categories.realm.items.larkspur.traits.weather'
+  | 'themes.quest.categories.realm.items.mistvale.blurb'
+  | 'themes.quest.categories.realm.items.mistvale.label'
+  | 'themes.quest.categories.realm.items.mistvale.traits.land'
+  | 'themes.quest.categories.realm.items.mistvale.traits.size'
+  | 'themes.quest.categories.realm.items.mistvale.traits.weather'
+  | 'themes.quest.categories.realm.items.ravenfen.blurb'
+  | 'themes.quest.categories.realm.items.ravenfen.label'
+  | 'themes.quest.categories.realm.items.ravenfen.traits.land'
+  | 'themes.quest.categories.realm.items.ravenfen.traits.size'
+  | 'themes.quest.categories.realm.items.ravenfen.traits.weather'
+  | 'themes.quest.categories.realm.items.sablewood.blurb'
+  | 'themes.quest.categories.realm.items.sablewood.label'
+  | 'themes.quest.categories.realm.items.sablewood.traits.land'
+  | 'themes.quest.categories.realm.items.sablewood.traits.size'
+  | 'themes.quest.categories.realm.items.sablewood.traits.weather'
+  | 'themes.quest.categories.realm.items.stonebrook.blurb'
+  | 'themes.quest.categories.realm.items.stonebrook.label'
+  | 'themes.quest.categories.realm.items.stonebrook.traits.land'
+  | 'themes.quest.categories.realm.items.stonebrook.traits.size'
+  | 'themes.quest.categories.realm.items.stonebrook.traits.weather'
+  | 'themes.quest.categories.realm.items.thornhold.blurb'
+  | 'themes.quest.categories.realm.items.thornhold.label'
+  | 'themes.quest.categories.realm.items.thornhold.traits.land'
+  | 'themes.quest.categories.realm.items.thornhold.traits.size'
+  | 'themes.quest.categories.realm.items.thornhold.traits.weather'
+  | 'themes.quest.categories.realm.items.windreach.blurb'
+  | 'themes.quest.categories.realm.items.windreach.label'
+  | 'themes.quest.categories.realm.items.windreach.traits.land'
+  | 'themes.quest.categories.realm.items.windreach.traits.size'
+  | 'themes.quest.categories.realm.items.windreach.traits.weather'
+  | 'themes.quest.categories.realm.name'
+  | 'themes.quest.categories.realm.noun'
+  | 'themes.quest.categories.realm.pattern'
+  | 'themes.quest.categories.realm.traits.land.label'
+  | 'themes.quest.categories.realm.traits.land.pattern'
+  | 'themes.quest.categories.realm.traits.size.label'
+  | 'themes.quest.categories.realm.traits.size.pattern'
+  | 'themes.quest.categories.realm.traits.weather.label'
+  | 'themes.quest.categories.realm.traits.weather.pattern'
+  | 'themes.quest.categories.reward.describes'
+  | 'themes.quest.categories.reward.items.105g.blurb'
+  | 'themes.quest.categories.reward.items.105g.label'
+  | 'themes.quest.categories.reward.items.105g.traits.band'
+  | 'themes.quest.categories.reward.items.105g.traits.parity'
+  | 'themes.quest.categories.reward.items.120g.blurb'
+  | 'themes.quest.categories.reward.items.120g.label'
+  | 'themes.quest.categories.reward.items.120g.traits.band'
+  | 'themes.quest.categories.reward.items.120g.traits.parity'
+  | 'themes.quest.categories.reward.items.135g.blurb'
+  | 'themes.quest.categories.reward.items.135g.label'
+  | 'themes.quest.categories.reward.items.135g.traits.band'
+  | 'themes.quest.categories.reward.items.135g.traits.parity'
+  | 'themes.quest.categories.reward.items.150g.blurb'
+  | 'themes.quest.categories.reward.items.150g.label'
+  | 'themes.quest.categories.reward.items.150g.traits.band'
+  | 'themes.quest.categories.reward.items.150g.traits.parity'
+  | 'themes.quest.categories.reward.items.165g.blurb'
+  | 'themes.quest.categories.reward.items.165g.label'
+  | 'themes.quest.categories.reward.items.165g.traits.band'
+  | 'themes.quest.categories.reward.items.165g.traits.parity'
+  | 'themes.quest.categories.reward.items.180g.blurb'
+  | 'themes.quest.categories.reward.items.180g.label'
+  | 'themes.quest.categories.reward.items.180g.traits.band'
+  | 'themes.quest.categories.reward.items.180g.traits.parity'
+  | 'themes.quest.categories.reward.items.195g.blurb'
+  | 'themes.quest.categories.reward.items.195g.label'
+  | 'themes.quest.categories.reward.items.195g.traits.band'
+  | 'themes.quest.categories.reward.items.195g.traits.parity'
+  | 'themes.quest.categories.reward.items.210g.blurb'
+  | 'themes.quest.categories.reward.items.210g.label'
+  | 'themes.quest.categories.reward.items.210g.traits.band'
+  | 'themes.quest.categories.reward.items.210g.traits.parity'
+  | 'themes.quest.categories.reward.items.225g.blurb'
+  | 'themes.quest.categories.reward.items.225g.label'
+  | 'themes.quest.categories.reward.items.225g.traits.band'
+  | 'themes.quest.categories.reward.items.225g.traits.parity'
+  | 'themes.quest.categories.reward.items.30g.blurb'
+  | 'themes.quest.categories.reward.items.30g.label'
+  | 'themes.quest.categories.reward.items.30g.traits.band'
+  | 'themes.quest.categories.reward.items.30g.traits.parity'
+  | 'themes.quest.categories.reward.items.45g.blurb'
+  | 'themes.quest.categories.reward.items.45g.label'
+  | 'themes.quest.categories.reward.items.45g.traits.band'
+  | 'themes.quest.categories.reward.items.45g.traits.parity'
+  | 'themes.quest.categories.reward.items.60g.blurb'
+  | 'themes.quest.categories.reward.items.60g.label'
+  | 'themes.quest.categories.reward.items.60g.traits.band'
+  | 'themes.quest.categories.reward.items.60g.traits.parity'
+  | 'themes.quest.categories.reward.items.75g.blurb'
+  | 'themes.quest.categories.reward.items.75g.label'
+  | 'themes.quest.categories.reward.items.75g.traits.band'
+  | 'themes.quest.categories.reward.items.75g.traits.parity'
+  | 'themes.quest.categories.reward.items.90g.blurb'
+  | 'themes.quest.categories.reward.items.90g.label'
+  | 'themes.quest.categories.reward.items.90g.traits.band'
+  | 'themes.quest.categories.reward.items.90g.traits.parity'
+  | 'themes.quest.categories.reward.name'
+  | 'themes.quest.categories.reward.noun'
+  | 'themes.quest.categories.reward.ordered.greater'
+  | 'themes.quest.categories.reward.ordered.lesser'
+  | 'themes.quest.categories.reward.ordered.noun'
+  | 'themes.quest.categories.reward.ordered.unit'
+  | 'themes.quest.categories.reward.pattern'
+  | 'themes.quest.categories.reward.traits.band.label'
+  | 'themes.quest.categories.reward.traits.band.pattern'
+  | 'themes.quest.categories.reward.traits.parity.label'
+  | 'themes.quest.categories.reward.traits.parity.pattern'
+  | 'themes.quest.categories.weapon.describes'
+  | 'themes.quest.categories.weapon.items.ash-bow.blurb'
+  | 'themes.quest.categories.weapon.items.ash-bow.label'
+  | 'themes.quest.categories.weapon.items.ash-bow.traits.material'
+  | 'themes.quest.categories.weapon.items.ash-bow.traits.reach'
+  | 'themes.quest.categories.weapon.items.ash-bow.traits.weight'
+  | 'themes.quest.categories.weapon.items.bone-sling.blurb'
+  | 'themes.quest.categories.weapon.items.bone-sling.label'
+  | 'themes.quest.categories.weapon.items.bone-sling.traits.material'
+  | 'themes.quest.categories.weapon.items.bone-sling.traits.reach'
+  | 'themes.quest.categories.weapon.items.bone-sling.traits.weight'
+  | 'themes.quest.categories.weapon.items.ember-blade.blurb'
+  | 'themes.quest.categories.weapon.items.ember-blade.label'
+  | 'themes.quest.categories.weapon.items.ember-blade.traits.material'
+  | 'themes.quest.categories.weapon.items.ember-blade.traits.reach'
+  | 'themes.quest.categories.weapon.items.ember-blade.traits.weight'
+  | 'themes.quest.categories.weapon.items.frost-flail.blurb'
+  | 'themes.quest.categories.weapon.items.frost-flail.label'
+  | 'themes.quest.categories.weapon.items.frost-flail.traits.material'
+  | 'themes.quest.categories.weapon.items.frost-flail.traits.reach'
+  | 'themes.quest.categories.weapon.items.frost-flail.traits.weight'
+  | 'themes.quest.categories.weapon.items.gale-spear.blurb'
+  | 'themes.quest.categories.weapon.items.gale-spear.label'
+  | 'themes.quest.categories.weapon.items.gale-spear.traits.material'
+  | 'themes.quest.categories.weapon.items.gale-spear.traits.reach'
+  | 'themes.quest.categories.weapon.items.gale-spear.traits.weight'
+  | 'themes.quest.categories.weapon.items.iron-halberd.blurb'
+  | 'themes.quest.categories.weapon.items.iron-halberd.label'
+  | 'themes.quest.categories.weapon.items.iron-halberd.traits.material'
+  | 'themes.quest.categories.weapon.items.iron-halberd.traits.reach'
+  | 'themes.quest.categories.weapon.items.iron-halberd.traits.weight'
+  | 'themes.quest.categories.weapon.items.moon-dagger.blurb'
+  | 'themes.quest.categories.weapon.items.moon-dagger.label'
+  | 'themes.quest.categories.weapon.items.moon-dagger.traits.material'
+  | 'themes.quest.categories.weapon.items.moon-dagger.traits.reach'
+  | 'themes.quest.categories.weapon.items.moon-dagger.traits.weight'
+  | 'themes.quest.categories.weapon.items.oak-staff.blurb'
+  | 'themes.quest.categories.weapon.items.oak-staff.label'
+  | 'themes.quest.categories.weapon.items.oak-staff.traits.material'
+  | 'themes.quest.categories.weapon.items.oak-staff.traits.reach'
+  | 'themes.quest.categories.weapon.items.oak-staff.traits.weight'
+  | 'themes.quest.categories.weapon.items.rune-axe.blurb'
+  | 'themes.quest.categories.weapon.items.rune-axe.label'
+  | 'themes.quest.categories.weapon.items.rune-axe.traits.material'
+  | 'themes.quest.categories.weapon.items.rune-axe.traits.reach'
+  | 'themes.quest.categories.weapon.items.rune-axe.traits.weight'
+  | 'themes.quest.categories.weapon.items.shadow-pike.blurb'
+  | 'themes.quest.categories.weapon.items.shadow-pike.label'
+  | 'themes.quest.categories.weapon.items.shadow-pike.traits.material'
+  | 'themes.quest.categories.weapon.items.shadow-pike.traits.reach'
+  | 'themes.quest.categories.weapon.items.shadow-pike.traits.weight'
+  | 'themes.quest.categories.weapon.items.star-lance.blurb'
+  | 'themes.quest.categories.weapon.items.star-lance.label'
+  | 'themes.quest.categories.weapon.items.star-lance.traits.material'
+  | 'themes.quest.categories.weapon.items.star-lance.traits.reach'
+  | 'themes.quest.categories.weapon.items.star-lance.traits.weight'
+  | 'themes.quest.categories.weapon.items.storm-mace.blurb'
+  | 'themes.quest.categories.weapon.items.storm-mace.label'
+  | 'themes.quest.categories.weapon.items.storm-mace.traits.material'
+  | 'themes.quest.categories.weapon.items.storm-mace.traits.reach'
+  | 'themes.quest.categories.weapon.items.storm-mace.traits.weight'
+  | 'themes.quest.categories.weapon.items.thorn-whip.blurb'
+  | 'themes.quest.categories.weapon.items.thorn-whip.label'
+  | 'themes.quest.categories.weapon.items.thorn-whip.traits.material'
+  | 'themes.quest.categories.weapon.items.thorn-whip.traits.reach'
+  | 'themes.quest.categories.weapon.items.thorn-whip.traits.weight'
+  | 'themes.quest.categories.weapon.items.wind-sabre.blurb'
+  | 'themes.quest.categories.weapon.items.wind-sabre.label'
+  | 'themes.quest.categories.weapon.items.wind-sabre.traits.material'
+  | 'themes.quest.categories.weapon.items.wind-sabre.traits.reach'
+  | 'themes.quest.categories.weapon.items.wind-sabre.traits.weight'
+  | 'themes.quest.categories.weapon.name'
+  | 'themes.quest.categories.weapon.noun'
+  | 'themes.quest.categories.weapon.pattern'
+  | 'themes.quest.categories.weapon.traits.material.label'
+  | 'themes.quest.categories.weapon.traits.material.pattern'
+  | 'themes.quest.categories.weapon.traits.reach.label'
+  | 'themes.quest.categories.weapon.traits.reach.pattern'
+  | 'themes.quest.categories.weapon.traits.weight.label'
+  | 'themes.quest.categories.weapon.traits.weight.pattern'
+  | 'themes.quest.clues.compare'
+  | 'themes.quest.clues.compareGap'
+  | 'themes.quest.clues.either'
+  | 'themes.quest.clues.groupNot'
+  | 'themes.quest.clues.link'
+  | 'themes.quest.clues.notLink'
   | 'themes.quest.name'
   | 'themes.reef.blurb'
+  | 'themes.reef.categories.depth.describes'
+  | 'themes.reef.categories.depth.items.10m.blurb'
+  | 'themes.reef.categories.depth.items.10m.label'
+  | 'themes.reef.categories.depth.items.10m.traits.band'
+  | 'themes.reef.categories.depth.items.10m.traits.parity'
+  | 'themes.reef.categories.depth.items.15m.blurb'
+  | 'themes.reef.categories.depth.items.15m.label'
+  | 'themes.reef.categories.depth.items.15m.traits.band'
+  | 'themes.reef.categories.depth.items.15m.traits.parity'
+  | 'themes.reef.categories.depth.items.20m.blurb'
+  | 'themes.reef.categories.depth.items.20m.label'
+  | 'themes.reef.categories.depth.items.20m.traits.band'
+  | 'themes.reef.categories.depth.items.20m.traits.parity'
+  | 'themes.reef.categories.depth.items.25m.blurb'
+  | 'themes.reef.categories.depth.items.25m.label'
+  | 'themes.reef.categories.depth.items.25m.traits.band'
+  | 'themes.reef.categories.depth.items.25m.traits.parity'
+  | 'themes.reef.categories.depth.items.30m.blurb'
+  | 'themes.reef.categories.depth.items.30m.label'
+  | 'themes.reef.categories.depth.items.30m.traits.band'
+  | 'themes.reef.categories.depth.items.30m.traits.parity'
+  | 'themes.reef.categories.depth.items.35m.blurb'
+  | 'themes.reef.categories.depth.items.35m.label'
+  | 'themes.reef.categories.depth.items.35m.traits.band'
+  | 'themes.reef.categories.depth.items.35m.traits.parity'
+  | 'themes.reef.categories.depth.items.40m.blurb'
+  | 'themes.reef.categories.depth.items.40m.label'
+  | 'themes.reef.categories.depth.items.40m.traits.band'
+  | 'themes.reef.categories.depth.items.40m.traits.parity'
+  | 'themes.reef.categories.depth.items.45m.blurb'
+  | 'themes.reef.categories.depth.items.45m.label'
+  | 'themes.reef.categories.depth.items.45m.traits.band'
+  | 'themes.reef.categories.depth.items.45m.traits.parity'
+  | 'themes.reef.categories.depth.items.50m.blurb'
+  | 'themes.reef.categories.depth.items.50m.label'
+  | 'themes.reef.categories.depth.items.50m.traits.band'
+  | 'themes.reef.categories.depth.items.50m.traits.parity'
+  | 'themes.reef.categories.depth.items.55m.blurb'
+  | 'themes.reef.categories.depth.items.55m.label'
+  | 'themes.reef.categories.depth.items.55m.traits.band'
+  | 'themes.reef.categories.depth.items.55m.traits.parity'
+  | 'themes.reef.categories.depth.items.60m.blurb'
+  | 'themes.reef.categories.depth.items.60m.label'
+  | 'themes.reef.categories.depth.items.60m.traits.band'
+  | 'themes.reef.categories.depth.items.60m.traits.parity'
+  | 'themes.reef.categories.depth.items.65m.blurb'
+  | 'themes.reef.categories.depth.items.65m.label'
+  | 'themes.reef.categories.depth.items.65m.traits.band'
+  | 'themes.reef.categories.depth.items.65m.traits.parity'
+  | 'themes.reef.categories.depth.items.70m.blurb'
+  | 'themes.reef.categories.depth.items.70m.label'
+  | 'themes.reef.categories.depth.items.70m.traits.band'
+  | 'themes.reef.categories.depth.items.70m.traits.parity'
+  | 'themes.reef.categories.depth.items.75m.blurb'
+  | 'themes.reef.categories.depth.items.75m.label'
+  | 'themes.reef.categories.depth.items.75m.traits.band'
+  | 'themes.reef.categories.depth.items.75m.traits.parity'
+  | 'themes.reef.categories.depth.name'
+  | 'themes.reef.categories.depth.noun'
+  | 'themes.reef.categories.depth.ordered.greater'
+  | 'themes.reef.categories.depth.ordered.lesser'
+  | 'themes.reef.categories.depth.ordered.noun'
+  | 'themes.reef.categories.depth.ordered.unit'
+  | 'themes.reef.categories.depth.pattern'
+  | 'themes.reef.categories.depth.traits.band.label'
+  | 'themes.reef.categories.depth.traits.band.pattern'
+  | 'themes.reef.categories.depth.traits.parity.label'
+  | 'themes.reef.categories.depth.traits.parity.pattern'
+  | 'themes.reef.categories.diver.describes'
+  | 'themes.reef.categories.diver.items.ada.blurb'
+  | 'themes.reef.categories.diver.items.ada.label'
+  | 'themes.reef.categories.diver.items.ada.traits.eyes'
+  | 'themes.reef.categories.diver.items.ada.traits.hair'
+  | 'themes.reef.categories.diver.items.ada.traits.sign'
+  | 'themes.reef.categories.diver.items.bo.blurb'
+  | 'themes.reef.categories.diver.items.bo.label'
+  | 'themes.reef.categories.diver.items.bo.traits.eyes'
+  | 'themes.reef.categories.diver.items.bo.traits.hair'
+  | 'themes.reef.categories.diver.items.bo.traits.sign'
+  | 'themes.reef.categories.diver.items.cleo.blurb'
+  | 'themes.reef.categories.diver.items.cleo.label'
+  | 'themes.reef.categories.diver.items.cleo.traits.eyes'
+  | 'themes.reef.categories.diver.items.cleo.traits.hair'
+  | 'themes.reef.categories.diver.items.cleo.traits.sign'
+  | 'themes.reef.categories.diver.items.elias.blurb'
+  | 'themes.reef.categories.diver.items.elias.label'
+  | 'themes.reef.categories.diver.items.elias.traits.eyes'
+  | 'themes.reef.categories.diver.items.elias.traits.hair'
+  | 'themes.reef.categories.diver.items.elias.traits.sign'
+  | 'themes.reef.categories.diver.items.indra.blurb'
+  | 'themes.reef.categories.diver.items.indra.label'
+  | 'themes.reef.categories.diver.items.indra.traits.eyes'
+  | 'themes.reef.categories.diver.items.indra.traits.hair'
+  | 'themes.reef.categories.diver.items.indra.traits.sign'
+  | 'themes.reef.categories.diver.items.marlow.blurb'
+  | 'themes.reef.categories.diver.items.marlow.label'
+  | 'themes.reef.categories.diver.items.marlow.traits.eyes'
+  | 'themes.reef.categories.diver.items.marlow.traits.hair'
+  | 'themes.reef.categories.diver.items.marlow.traits.sign'
+  | 'themes.reef.categories.diver.items.nico.blurb'
+  | 'themes.reef.categories.diver.items.nico.label'
+  | 'themes.reef.categories.diver.items.nico.traits.eyes'
+  | 'themes.reef.categories.diver.items.nico.traits.hair'
+  | 'themes.reef.categories.diver.items.nico.traits.sign'
+  | 'themes.reef.categories.diver.items.pia.blurb'
+  | 'themes.reef.categories.diver.items.pia.label'
+  | 'themes.reef.categories.diver.items.pia.traits.eyes'
+  | 'themes.reef.categories.diver.items.pia.traits.hair'
+  | 'themes.reef.categories.diver.items.pia.traits.sign'
+  | 'themes.reef.categories.diver.items.rafa.blurb'
+  | 'themes.reef.categories.diver.items.rafa.label'
+  | 'themes.reef.categories.diver.items.rafa.traits.eyes'
+  | 'themes.reef.categories.diver.items.rafa.traits.hair'
+  | 'themes.reef.categories.diver.items.rafa.traits.sign'
+  | 'themes.reef.categories.diver.items.rune.blurb'
+  | 'themes.reef.categories.diver.items.rune.label'
+  | 'themes.reef.categories.diver.items.rune.traits.eyes'
+  | 'themes.reef.categories.diver.items.rune.traits.hair'
+  | 'themes.reef.categories.diver.items.rune.traits.sign'
+  | 'themes.reef.categories.diver.items.sena.blurb'
+  | 'themes.reef.categories.diver.items.sena.label'
+  | 'themes.reef.categories.diver.items.sena.traits.eyes'
+  | 'themes.reef.categories.diver.items.sena.traits.hair'
+  | 'themes.reef.categories.diver.items.sena.traits.sign'
+  | 'themes.reef.categories.diver.items.suki.blurb'
+  | 'themes.reef.categories.diver.items.suki.label'
+  | 'themes.reef.categories.diver.items.suki.traits.eyes'
+  | 'themes.reef.categories.diver.items.suki.traits.hair'
+  | 'themes.reef.categories.diver.items.suki.traits.sign'
+  | 'themes.reef.categories.diver.items.tobin.blurb'
+  | 'themes.reef.categories.diver.items.tobin.label'
+  | 'themes.reef.categories.diver.items.tobin.traits.eyes'
+  | 'themes.reef.categories.diver.items.tobin.traits.hair'
+  | 'themes.reef.categories.diver.items.tobin.traits.sign'
+  | 'themes.reef.categories.diver.items.yara.blurb'
+  | 'themes.reef.categories.diver.items.yara.label'
+  | 'themes.reef.categories.diver.items.yara.traits.eyes'
+  | 'themes.reef.categories.diver.items.yara.traits.hair'
+  | 'themes.reef.categories.diver.items.yara.traits.sign'
+  | 'themes.reef.categories.diver.name'
+  | 'themes.reef.categories.diver.noun'
+  | 'themes.reef.categories.diver.pattern'
+  | 'themes.reef.categories.diver.traits.eyes.label'
+  | 'themes.reef.categories.diver.traits.eyes.pattern'
+  | 'themes.reef.categories.diver.traits.hair.label'
+  | 'themes.reef.categories.diver.traits.hair.pattern'
+  | 'themes.reef.categories.diver.traits.sign.label'
+  | 'themes.reef.categories.diver.traits.sign.pattern'
+  | 'themes.reef.categories.gear.describes'
+  | 'themes.reef.categories.gear.items.amber-lamp.blurb'
+  | 'themes.reef.categories.gear.items.amber-lamp.label'
+  | 'themes.reef.categories.gear.items.amber-lamp.traits.material'
+  | 'themes.reef.categories.gear.items.amber-lamp.traits.size'
+  | 'themes.reef.categories.gear.items.amber-lamp.traits.use'
+  | 'themes.reef.categories.gear.items.black-camera.blurb'
+  | 'themes.reef.categories.gear.items.black-camera.label'
+  | 'themes.reef.categories.gear.items.black-camera.traits.material'
+  | 'themes.reef.categories.gear.items.black-camera.traits.size'
+  | 'themes.reef.categories.gear.items.black-camera.traits.use'
+  | 'themes.reef.categories.gear.items.blue-mask.blurb'
+  | 'themes.reef.categories.gear.items.blue-mask.label'
+  | 'themes.reef.categories.gear.items.blue-mask.traits.material'
+  | 'themes.reef.categories.gear.items.blue-mask.traits.size'
+  | 'themes.reef.categories.gear.items.blue-mask.traits.use'
+  | 'themes.reef.categories.gear.items.coral-flag.blurb'
+  | 'themes.reef.categories.gear.items.coral-flag.label'
+  | 'themes.reef.categories.gear.items.coral-flag.traits.material'
+  | 'themes.reef.categories.gear.items.coral-flag.traits.size'
+  | 'themes.reef.categories.gear.items.coral-flag.traits.use'
+  | 'themes.reef.categories.gear.items.green-tank.blurb'
+  | 'themes.reef.categories.gear.items.green-tank.label'
+  | 'themes.reef.categories.gear.items.green-tank.traits.material'
+  | 'themes.reef.categories.gear.items.green-tank.traits.size'
+  | 'themes.reef.categories.gear.items.green-tank.traits.use'
+  | 'themes.reef.categories.gear.items.grey-gloves.blurb'
+  | 'themes.reef.categories.gear.items.grey-gloves.label'
+  | 'themes.reef.categories.gear.items.grey-gloves.traits.material'
+  | 'themes.reef.categories.gear.items.grey-gloves.traits.size'
+  | 'themes.reef.categories.gear.items.grey-gloves.traits.use'
+  | 'themes.reef.categories.gear.items.navy-hood.blurb'
+  | 'themes.reef.categories.gear.items.navy-hood.label'
+  | 'themes.reef.categories.gear.items.navy-hood.traits.material'
+  | 'themes.reef.categories.gear.items.navy-hood.traits.size'
+  | 'themes.reef.categories.gear.items.navy-hood.traits.use'
+  | 'themes.reef.categories.gear.items.orange-reel.blurb'
+  | 'themes.reef.categories.gear.items.orange-reel.label'
+  | 'themes.reef.categories.gear.items.orange-reel.traits.material'
+  | 'themes.reef.categories.gear.items.orange-reel.traits.size'
+  | 'themes.reef.categories.gear.items.orange-reel.traits.use'
+  | 'themes.reef.categories.gear.items.pink-buoy.blurb'
+  | 'themes.reef.categories.gear.items.pink-buoy.label'
+  | 'themes.reef.categories.gear.items.pink-buoy.traits.material'
+  | 'themes.reef.categories.gear.items.pink-buoy.traits.size'
+  | 'themes.reef.categories.gear.items.pink-buoy.traits.use'
+  | 'themes.reef.categories.gear.items.red-fins.blurb'
+  | 'themes.reef.categories.gear.items.red-fins.label'
+  | 'themes.reef.categories.gear.items.red-fins.traits.material'
+  | 'themes.reef.categories.gear.items.red-fins.traits.size'
+  | 'themes.reef.categories.gear.items.red-fins.traits.use'
+  | 'themes.reef.categories.gear.items.silver-knife.blurb'
+  | 'themes.reef.categories.gear.items.silver-knife.label'
+  | 'themes.reef.categories.gear.items.silver-knife.traits.material'
+  | 'themes.reef.categories.gear.items.silver-knife.traits.size'
+  | 'themes.reef.categories.gear.items.silver-knife.traits.use'
+  | 'themes.reef.categories.gear.items.teal-compass.blurb'
+  | 'themes.reef.categories.gear.items.teal-compass.label'
+  | 'themes.reef.categories.gear.items.teal-compass.traits.material'
+  | 'themes.reef.categories.gear.items.teal-compass.traits.size'
+  | 'themes.reef.categories.gear.items.teal-compass.traits.use'
+  | 'themes.reef.categories.gear.items.white-slate.blurb'
+  | 'themes.reef.categories.gear.items.white-slate.label'
+  | 'themes.reef.categories.gear.items.white-slate.traits.material'
+  | 'themes.reef.categories.gear.items.white-slate.traits.size'
+  | 'themes.reef.categories.gear.items.white-slate.traits.use'
+  | 'themes.reef.categories.gear.items.yellow-torch.blurb'
+  | 'themes.reef.categories.gear.items.yellow-torch.label'
+  | 'themes.reef.categories.gear.items.yellow-torch.traits.material'
+  | 'themes.reef.categories.gear.items.yellow-torch.traits.size'
+  | 'themes.reef.categories.gear.items.yellow-torch.traits.use'
+  | 'themes.reef.categories.gear.name'
+  | 'themes.reef.categories.gear.noun'
+  | 'themes.reef.categories.gear.pattern'
+  | 'themes.reef.categories.gear.traits.material.label'
+  | 'themes.reef.categories.gear.traits.material.pattern'
+  | 'themes.reef.categories.gear.traits.size.label'
+  | 'themes.reef.categories.gear.traits.size.pattern'
+  | 'themes.reef.categories.gear.traits.use.label'
+  | 'themes.reef.categories.gear.traits.use.pattern'
+  | 'themes.reef.categories.site.describes'
+  | 'themes.reef.categories.site.items.anchor-bay.blurb'
+  | 'themes.reef.categories.site.items.anchor-bay.label'
+  | 'themes.reef.categories.site.items.anchor-bay.traits.current'
+  | 'themes.reef.categories.site.items.anchor-bay.traits.light'
+  | 'themes.reef.categories.site.items.anchor-bay.traits.terrain'
+  | 'themes.reef.categories.site.items.blue-hole.blurb'
+  | 'themes.reef.categories.site.items.blue-hole.label'
+  | 'themes.reef.categories.site.items.blue-hole.traits.current'
+  | 'themes.reef.categories.site.items.blue-hole.traits.light'
+  | 'themes.reef.categories.site.items.blue-hole.traits.terrain'
+  | 'themes.reef.categories.site.items.cavern-ridge.blurb'
+  | 'themes.reef.categories.site.items.cavern-ridge.label'
+  | 'themes.reef.categories.site.items.cavern-ridge.traits.current'
+  | 'themes.reef.categories.site.items.cavern-ridge.traits.light'
+  | 'themes.reef.categories.site.items.cavern-ridge.traits.terrain'
+  | 'themes.reef.categories.site.items.coral-arch.blurb'
+  | 'themes.reef.categories.site.items.coral-arch.label'
+  | 'themes.reef.categories.site.items.coral-arch.traits.current'
+  | 'themes.reef.categories.site.items.coral-arch.traits.light'
+  | 'themes.reef.categories.site.items.coral-arch.traits.terrain'
+  | 'themes.reef.categories.site.items.green-lagoon.blurb'
+  | 'themes.reef.categories.site.items.green-lagoon.label'
+  | 'themes.reef.categories.site.items.green-lagoon.traits.current'
+  | 'themes.reef.categories.site.items.green-lagoon.traits.light'
+  | 'themes.reef.categories.site.items.green-lagoon.traits.terrain'
+  | 'themes.reef.categories.site.items.kelp-maze.blurb'
+  | 'themes.reef.categories.site.items.kelp-maze.label'
+  | 'themes.reef.categories.site.items.kelp-maze.traits.current'
+  | 'themes.reef.categories.site.items.kelp-maze.traits.light'
+  | 'themes.reef.categories.site.items.kelp-maze.traits.terrain'
+  | 'themes.reef.categories.site.items.lace-wall.blurb'
+  | 'themes.reef.categories.site.items.lace-wall.label'
+  | 'themes.reef.categories.site.items.lace-wall.traits.current'
+  | 'themes.reef.categories.site.items.lace-wall.traits.light'
+  | 'themes.reef.categories.site.items.lace-wall.traits.terrain'
+  | 'themes.reef.categories.site.items.lantern-reef.blurb'
+  | 'themes.reef.categories.site.items.lantern-reef.label'
+  | 'themes.reef.categories.site.items.lantern-reef.traits.current'
+  | 'themes.reef.categories.site.items.lantern-reef.traits.light'
+  | 'themes.reef.categories.site.items.lantern-reef.traits.terrain'
+  | 'themes.reef.categories.site.items.night-cove.blurb'
+  | 'themes.reef.categories.site.items.night-cove.label'
+  | 'themes.reef.categories.site.items.night-cove.traits.current'
+  | 'themes.reef.categories.site.items.night-cove.traits.light'
+  | 'themes.reef.categories.site.items.night-cove.traits.terrain'
+  | 'themes.reef.categories.site.items.sea-fan-bay.blurb'
+  | 'themes.reef.categories.site.items.sea-fan-bay.label'
+  | 'themes.reef.categories.site.items.sea-fan-bay.traits.current'
+  | 'themes.reef.categories.site.items.sea-fan-bay.traits.light'
+  | 'themes.reef.categories.site.items.sea-fan-bay.traits.terrain'
+  | 'themes.reef.categories.site.items.shipwreck.blurb'
+  | 'themes.reef.categories.site.items.shipwreck.label'
+  | 'themes.reef.categories.site.items.shipwreck.traits.current'
+  | 'themes.reef.categories.site.items.shipwreck.traits.light'
+  | 'themes.reef.categories.site.items.shipwreck.traits.terrain'
+  | 'themes.reef.categories.site.items.sunken-pier.blurb'
+  | 'themes.reef.categories.site.items.sunken-pier.label'
+  | 'themes.reef.categories.site.items.sunken-pier.traits.current'
+  | 'themes.reef.categories.site.items.sunken-pier.traits.light'
+  | 'themes.reef.categories.site.items.sunken-pier.traits.terrain'
+  | 'themes.reef.categories.site.items.tide-pools.blurb'
+  | 'themes.reef.categories.site.items.tide-pools.label'
+  | 'themes.reef.categories.site.items.tide-pools.traits.current'
+  | 'themes.reef.categories.site.items.tide-pools.traits.light'
+  | 'themes.reef.categories.site.items.tide-pools.traits.terrain'
+  | 'themes.reef.categories.site.items.turtle-point.blurb'
+  | 'themes.reef.categories.site.items.turtle-point.label'
+  | 'themes.reef.categories.site.items.turtle-point.traits.current'
+  | 'themes.reef.categories.site.items.turtle-point.traits.light'
+  | 'themes.reef.categories.site.items.turtle-point.traits.terrain'
+  | 'themes.reef.categories.site.name'
+  | 'themes.reef.categories.site.noun'
+  | 'themes.reef.categories.site.pattern'
+  | 'themes.reef.categories.site.traits.current.label'
+  | 'themes.reef.categories.site.traits.current.pattern'
+  | 'themes.reef.categories.site.traits.light.label'
+  | 'themes.reef.categories.site.traits.light.pattern'
+  | 'themes.reef.categories.site.traits.terrain.label'
+  | 'themes.reef.categories.site.traits.terrain.pattern'
+  | 'themes.reef.categories.species.describes'
+  | 'themes.reef.categories.species.items.barracuda.blurb'
+  | 'themes.reef.categories.species.items.barracuda.label'
+  | 'themes.reef.categories.species.items.barracuda.traits.body'
+  | 'themes.reef.categories.species.items.barracuda.traits.danger'
+  | 'themes.reef.categories.species.items.barracuda.traits.size'
+  | 'themes.reef.categories.species.items.clownfish.blurb'
+  | 'themes.reef.categories.species.items.clownfish.label'
+  | 'themes.reef.categories.species.items.clownfish.traits.body'
+  | 'themes.reef.categories.species.items.clownfish.traits.danger'
+  | 'themes.reef.categories.species.items.clownfish.traits.size'
+  | 'themes.reef.categories.species.items.cuttlefish.blurb'
+  | 'themes.reef.categories.species.items.cuttlefish.label'
+  | 'themes.reef.categories.species.items.cuttlefish.traits.body'
+  | 'themes.reef.categories.species.items.cuttlefish.traits.danger'
+  | 'themes.reef.categories.species.items.cuttlefish.traits.size'
+  | 'themes.reef.categories.species.items.grouper.blurb'
+  | 'themes.reef.categories.species.items.grouper.label'
+  | 'themes.reef.categories.species.items.grouper.traits.body'
+  | 'themes.reef.categories.species.items.grouper.traits.danger'
+  | 'themes.reef.categories.species.items.grouper.traits.size'
+  | 'themes.reef.categories.species.items.lionfish.blurb'
+  | 'themes.reef.categories.species.items.lionfish.label'
+  | 'themes.reef.categories.species.items.lionfish.traits.body'
+  | 'themes.reef.categories.species.items.lionfish.traits.danger'
+  | 'themes.reef.categories.species.items.lionfish.traits.size'
+  | 'themes.reef.categories.species.items.manta.blurb'
+  | 'themes.reef.categories.species.items.manta.label'
+  | 'themes.reef.categories.species.items.manta.traits.body'
+  | 'themes.reef.categories.species.items.manta.traits.danger'
+  | 'themes.reef.categories.species.items.manta.traits.size'
+  | 'themes.reef.categories.species.items.moray.blurb'
+  | 'themes.reef.categories.species.items.moray.label'
+  | 'themes.reef.categories.species.items.moray.traits.body'
+  | 'themes.reef.categories.species.items.moray.traits.danger'
+  | 'themes.reef.categories.species.items.moray.traits.size'
+  | 'themes.reef.categories.species.items.octopus.blurb'
+  | 'themes.reef.categories.species.items.octopus.label'
+  | 'themes.reef.categories.species.items.octopus.traits.body'
+  | 'themes.reef.categories.species.items.octopus.traits.danger'
+  | 'themes.reef.categories.species.items.octopus.traits.size'
+  | 'themes.reef.categories.species.items.pipefish.blurb'
+  | 'themes.reef.categories.species.items.pipefish.label'
+  | 'themes.reef.categories.species.items.pipefish.traits.body'
+  | 'themes.reef.categories.species.items.pipefish.traits.danger'
+  | 'themes.reef.categories.species.items.pipefish.traits.size'
+  | 'themes.reef.categories.species.items.reef-shark.blurb'
+  | 'themes.reef.categories.species.items.reef-shark.label'
+  | 'themes.reef.categories.species.items.reef-shark.traits.body'
+  | 'themes.reef.categories.species.items.reef-shark.traits.danger'
+  | 'themes.reef.categories.species.items.reef-shark.traits.size'
+  | 'themes.reef.categories.species.items.sea-urchin.blurb'
+  | 'themes.reef.categories.species.items.sea-urchin.label'
+  | 'themes.reef.categories.species.items.sea-urchin.traits.body'
+  | 'themes.reef.categories.species.items.sea-urchin.traits.danger'
+  | 'themes.reef.categories.species.items.sea-urchin.traits.size'
+  | 'themes.reef.categories.species.items.seahorse.blurb'
+  | 'themes.reef.categories.species.items.seahorse.label'
+  | 'themes.reef.categories.species.items.seahorse.traits.body'
+  | 'themes.reef.categories.species.items.seahorse.traits.danger'
+  | 'themes.reef.categories.species.items.seahorse.traits.size'
+  | 'themes.reef.categories.species.items.stingray.blurb'
+  | 'themes.reef.categories.species.items.stingray.label'
+  | 'themes.reef.categories.species.items.stingray.traits.body'
+  | 'themes.reef.categories.species.items.stingray.traits.danger'
+  | 'themes.reef.categories.species.items.stingray.traits.size'
+  | 'themes.reef.categories.species.items.turtle.blurb'
+  | 'themes.reef.categories.species.items.turtle.label'
+  | 'themes.reef.categories.species.items.turtle.traits.body'
+  | 'themes.reef.categories.species.items.turtle.traits.danger'
+  | 'themes.reef.categories.species.items.turtle.traits.size'
+  | 'themes.reef.categories.species.name'
+  | 'themes.reef.categories.species.noun'
+  | 'themes.reef.categories.species.pattern'
+  | 'themes.reef.categories.species.traits.body.label'
+  | 'themes.reef.categories.species.traits.body.pattern'
+  | 'themes.reef.categories.species.traits.danger.label'
+  | 'themes.reef.categories.species.traits.danger.pattern'
+  | 'themes.reef.categories.species.traits.size.label'
+  | 'themes.reef.categories.species.traits.size.pattern'
+  | 'themes.reef.clues.compare'
+  | 'themes.reef.clues.compareGap'
+  | 'themes.reef.clues.either'
+  | 'themes.reef.clues.groupNot'
+  | 'themes.reef.clues.link'
+  | 'themes.reef.clues.notLink'
   | 'themes.reef.name'
   | 'volumes.loud'
   | 'volumes.medium'

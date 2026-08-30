@@ -10,6 +10,11 @@
 
 /** One value inside a category, e.g. "Mars" or "2031". */
 export interface ItemDef {
+  /**
+   * Stable name for this item, which is what its drawing is called. Not
+   * language: an item can be renamed or translated and keep its picture.
+   */
+  id: string;
   label: string;
   /** Ordered categories only: the numeric value used by comparison clues. */
   value?: number;

@@ -23,8 +23,12 @@ describe('the generated strings', () => {
     // string the app would say to appearing in it. That catches the direction
     // that matters: a line edited or removed in the YAML and left stale here.
     const source = readFileSync(LOCALE_FILE, 'utf8');
+    // A single quote inside a single-quoted YAML scalar is written twice, which
+    // is the file's spelling of the word rather than a different word.
+    const written = (text: string) =>
+      source.includes(text) || source.includes(text.replace(/'/g, "''"));
     const missing = everyLine(STRINGS)
-      .filter(({ text }) => !source.includes(text))
+      .filter(({ text }) => !written(text))
       .map(({ path }) => path);
     expect(missing).toEqual([]);
   });

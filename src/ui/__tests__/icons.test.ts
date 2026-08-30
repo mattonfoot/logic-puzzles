@@ -4,8 +4,11 @@ import { ICON_BOX, ICONS } from '../icons.generated';
 /**
  * The drawings and the data are kept in two places — SVG files on disk, path
  * data in a generated module — so the thing worth testing is that they still
- * agree with the themes. A renamed item with no drawing behind it would show up
- * as a blank square in the middle of a card, and nothing else would complain.
+ * agree with the themes. An item with no drawing behind it would show up as a
+ * blank square in the middle of a card, and nothing else would complain.
+ *
+ * A drawing is named after an item's **id**, not its label, which is what lets
+ * the label be rewritten or translated without the picture going missing.
  */
 describe('the icon set', () => {
   const named = (name: string) => `${name}: ${ICONS[name] ? 'drawn' : 'missing'}`;
@@ -21,7 +24,7 @@ describe('the icon set', () => {
     for (const theme of THEMES) {
       for (const category of theme.categories) {
         for (const item of category.items) {
-          expect(item.icon).toBe(iconName(theme.id, category.id, item.label));
+          expect(item.icon).toBe(iconName(theme.id, category.id, item.id));
           expect(named(item.icon)).toBe(drawn(item.icon));
         }
       }
