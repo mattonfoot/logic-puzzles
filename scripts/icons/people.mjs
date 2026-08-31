@@ -1,10 +1,22 @@
 /**
  * People, as head and shoulders.
  *
- * One silhouette with two things changed: what is on the head, which is
- * different for every person in a theme, and what is on the shoulders, which is
- * the same across a theme and different between them. So no two people in the
- * app share an outline.
+ * Three things change: what is on the shoulders, which is the same across a
+ * theme and different between them, and then **two independent things about the
+ * head** — the hair and one distinguishing feature. Twelve hairs against eight
+ * features is ninety-six outlines to draw fourteen people from, which is what
+ * keeps a set of them apart at the size a grid heading gets.
+ *
+ * Both of those are traits the player can read on the item's card, and that is
+ * the point of them. Before this the cards described people by hair *colour*,
+ * eye colour and star sign — not one of which a filled outline can show, so
+ * what a clue said about somebody and what their picture showed had nothing to
+ * do with each other. Hair is a style now, and the feature is something that
+ * breaks the head's outline, so both are things a silhouette can actually say.
+ *
+ * Only shapes that change the outline are worth drawing here. A scar, a colour,
+ * a pair of tinted lenses — all invisible in a shape filled with one colour, so
+ * every feature below sticks out past the head somewhere.
  */
 import {
   around,
@@ -13,6 +25,7 @@ import {
   circle,
   dome,
   ellipse,
+  hole,
   poly,
   rect,
   stroke,
@@ -123,13 +136,13 @@ export const HAIR = {
   ],
   bob: () => [dome(hx, hy - 2, hr + 6, 195), rect(hx - hr - 6, hy - 6, (hr + 6) * 2, 22, 9)],
   curls: () => [
-    circle(hx, hy - 3, hr + 3),
+    circle(hx, hy - 3, hr + 1),
     ...around(hx, hy - 3, 7, (angle) => {
-      const [x, y] = turn([hx, hy - 3 - (hr + 3)], [hx, hy - 3], angle);
-      return angle > 200 || angle < 160 ? circle(x, y, 6) : null;
+      const [x, y] = turn([hx, hy - 3 - (hr + 1)], [hx, hy - 3], angle);
+      return angle > 200 || angle < 160 ? circle(x, y, 5) : null;
     }),
   ],
-  afro: () => [circle(hx, hy - 5, hr + 8)],
+  afro: () => [circle(hx, hy - 4, hr + 6)],
   braids: () => [
     dome(hx, hy - 2, hr + 3, 215),
     wedge([hx - 14, hy - 8], [hx - 26, hy + 24], 11),
@@ -144,53 +157,139 @@ export const HAIR = {
       [hx + 9, hy - 15],
     ]),
   ],
-  cap: () => [
-    dome(hx, hy - 3, hr + 3, 205),
-    poly([
-      [hx + 2, hy - 8],
-      [hx + 32, hy - 5],
-      [hx + 32, hy + 1],
-      [hx + 2, hy - 1],
-    ]),
-  ],
-  hood: () => [
-    poly([
-      [hx - hr - 9, hy + 18],
-      [hx - hr - 7, hy - 10],
-      [hx, hy - hr - 12],
-      [hx + hr + 7, hy - 10],
-      [hx + hr + 9, hy + 18],
-      [hx + hr - 2, hy + 13],
-      [hx - hr + 2, hy + 13],
-    ]),
-  ],
-  scarf: () => [
-    dome(hx, hy - 3, hr + 4, 215),
-    poly([
-      [hx - hr - 4, hy - 4],
-      [hx + hr + 4, hy - 4],
-      [hx + hr + 2, hy + 26],
-      [hx - hr - 2, hy + 26],
-    ]),
-  ],
-  beard: () => [
-    dome(hx, hy - 2, hr + 3, 215),
-    poly([
-      [hx - hr - 1, hy + 2],
-      [hx + hr + 1, hy + 2],
-      [hx + hr - 2, hy + 22],
-      [hx, hy + 30],
-      [hx - hr + 2, hy + 22],
-    ]),
-  ],
-  brim: () => [dome(hx, hy - 6, hr, 200), ellipse(hx, hy - 6, hr + 14, 5)],
-  visor: () => [dome(hx, hy - 4, hr + 3, 200), rect(hx - hr - 9, hy - 8, (hr + 9) * 2, 8, 4)],
 };
 
-/** A person: shoulders, neck, head, and whatever is on it. */
-export function person(theme, hair) {
-  const style = HAIR[hair];
-  if (!style) throw new Error(`No hair called ${hair}`);
+/**
+ * The one thing about a face worth drawing, per person.
+ *
+ * Every one of these breaks the head's outline somewhere — a bar past the
+ * cheeks, a ring below the ear, a cup over one side — because that is the only
+ * kind of detail a filled shape can carry. Between them and the hair above,
+ * fourteen people in a set are fourteen different outlines rather than fourteen
+ * heads with different colouring nobody can see.
+ */
+export const FEATURE = {
+  // Wider than the jaw rather than longer than it: a beard that only hangs down
+  // runs into the collar and disappears, where one that spreads past the cheeks
+  // is still a beard at the size of a grid heading.
+  beard: () => [
+    poly([
+      [hx - hr - 5, hy],
+      [hx + hr + 5, hy],
+      [hx + hr - 1, hy + 18],
+      [hx, hy + 26],
+      [hx - hr + 1, hy + 18],
+    ]),
+  ],
+  moustache: () => [
+    poly([
+      [hx - hr - 8, hy + 5],
+      [hx - 4, hy + 3],
+      [hx + 4, hy + 3],
+      [hx + hr + 8, hy + 5],
+      [hx + hr + 4, hy + 13],
+      [hx, hy + 10],
+      [hx - hr - 4, hy + 13],
+    ]),
+  ],
+  // Rings rather than discs: two filled circles at eye level would only widen
+  // the head, where a lens with the middle cut out reads as a lens. Drawn big
+  // enough to clear a dome of hair, since most of the set has some.
+  spectacles: () => [
+    circle(hx - 14, hy + 1, 13),
+    hole.circle(hx - 14, hy + 1, 7.5),
+    circle(hx + 14, hy + 1, 13),
+    hole.circle(hx + 14, hy + 1, 7.5),
+    rect(hx - 5, hy - 1, 10, 4, 2),
+  ],
+  earrings: () => [
+    circle(hx - hr + 1, hy + 15, 7),
+    hole.circle(hx - hr + 1, hy + 15, 3.5),
+    circle(hx + hr - 1, hy + 15, 7),
+    hole.circle(hx + hr - 1, hy + 15, 3.5),
+  ],
+  chops: () => [
+    poly([
+      [hx - hr + 4, hy - 6],
+      [hx - hr - 2, hy - 4],
+      [hx - hr - 8, hy + 14],
+      [hx - hr + 6, hy + 12],
+    ]),
+    poly([
+      [hx + hr - 4, hy - 6],
+      [hx + hr + 2, hy - 4],
+      [hx + hr + 8, hy + 14],
+      [hx + hr - 6, hy + 12],
+    ]),
+  ],
+  // One side only: an outline that is not symmetrical is the easiest of all to
+  // pick out of a row of headings.
+  eyepatch: () => [
+    poly([
+      [hx + 1, hy - 11],
+      [hx + hr + 10, hy - 15],
+      [hx + hr + 10, hy + 2],
+      [hx + 1, hy + 4],
+    ]),
+    bar([hx - hr - 6, hy - 15], [hx + hr + 6, hy - 8], 4),
+  ],
+  // Read mostly by the boom, which hangs out into clear space below the ear
+  // where no hair reaches.
+  headset: () => [
+    band(hx, hy - 2, hr + 8, 5, 200, 340),
+    circle(hx - hr - 6, hy + 1, 7),
+    ...stroke(
+      [
+        [hx - hr - 6, hy + 4],
+        [hx - 7, hy + 17],
+      ],
+      3.5,
+    ),
+    circle(hx - 6, hy + 18, 4),
+  ],
+  chinstrap: () => [band(hx, hy + 1, hr + 6, 4.5, 20, 160)],
+};
+/**
+ * What the reference locale says, and the shape each phrase draws as.
+ *
+ * The drawings are keyed to `locales/en-HB.yaml` — the file the icons are built
+ * from — rather than hand-listed against each person, so a hair or a feature
+ * written on somebody's card is the one their picture shows, and cannot drift
+ * from it. A phrase with nothing behind it stops the build rather than quietly
+ * drawing a bald stranger.
+ */
+const HAIR_SAID = {
+  'a shaved head': 'bald',
+  'a crop': 'crop',
+  'short hair': 'short',
+  'long hair': 'long',
+  'a bob': 'bob',
+  'a bun': 'bun',
+  'a topknot': 'topknot',
+  'a ponytail': 'ponytail',
+  braids: 'braids',
+  curls: 'curls',
+  'an afro': 'afro',
+  'a mohawk': 'mohawk',
+};
+
+const FEATURE_SAID = {
+  'a beard': 'beard',
+  'a moustache': 'moustache',
+  spectacles: 'spectacles',
+  'hoop earrings': 'earrings',
+  'mutton chops': 'chops',
+  'an eye patch': 'eyepatch',
+  'a headset': 'headset',
+  'a chinstrap': 'chinstrap',
+};
+
+/** A person: shoulders, neck, head, their hair and their one feature. */
+export function person(theme, hairSaid, featureSaid) {
+  const hair = HAIR[HAIR_SAID[hairSaid]];
+  if (!hair) throw new Error(`Nothing draws the hair "${hairSaid}"`);
+  const feature = FEATURE[FEATURE_SAID[featureSaid]];
+  if (!feature) throw new Error(`Nothing draws the feature "${featureSaid}"`);
   return [
     WEAR[theme](),
     ...stroke(
@@ -201,6 +300,7 @@ export function person(theme, hair) {
       14,
     ),
     circle(hx, hy, hr),
-    style(),
+    hair(),
+    feature(),
   ];
 }

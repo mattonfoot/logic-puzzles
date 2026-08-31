@@ -326,112 +326,146 @@ themes:
         traits:
           hair:
             label: 'Hair'
-            pattern: '{noun} with {} hair'
+            pattern: '{noun} with {}'
+          feature:
+            label: 'Distinguishing feature'
+            pattern: '{noun} with {}'
           eyes:
             label: 'Eyes'
             pattern: '{noun} with {} eyes'
-          sign:
-            label: 'Star sign'
-            pattern: '{noun} born under {}'
+          homeworld:
+            label: 'Born on'
+            pattern: '{noun} born on {}'
+          height:
+            label: 'Height'
+            pattern: '{noun} standing {}'
         items:
-          nova:
-            label: 'Nova'
-            blurb: 'Files every flight plan in crayon. They keep being approved.'
+          zarg:
+            label: 'Rear-Admiral Zarg'
+            blurb: 'Has commanded eleven ships and can name none of them.'
             traits:
-              hair: 'red'
+              hair: 'a crop'
+              feature: 'a beard'
               eyes: 'green'
-              sign: 'Aries'
-          rhea:
-            label: 'Rhea'
-            blurb: 'Sleeps through re-entry. Has never once missed a meal.'
+              homeworld: 'Mars'
+              height: '1.9m'
+          vilenkov:
+            label: 'Cosmonaut Vilenkov'
+            blurb: 'Broadcasts a weather report every morning. There is no weather.'
             traits:
-              hair: 'silver'
+              hair: 'short hair'
+              feature: 'a headset'
               eyes: 'grey'
-              sign: 'Taurus'
-          iris:
-            label: 'Iris'
-            blurb: 'Talks to the ship. Maintains the ship started it.'
+              homeworld: 'Luna'
+              height: '1.7m'
+          rodgers:
+            label: 'Space Captain Rodgers'
+            blurb: 'Insists on a hat with a brim. In a vacuum. For the authority.'
             traits:
-              hair: 'black'
-              eyes: 'brown'
-              sign: 'Gemini'
-          milo:
-            label: 'Milo'
-            blurb: 'Packed three spare toothbrushes and no spare socks.'
-            traits:
-              hair: 'blonde'
+              hair: 'a shaved head'
+              feature: 'a moustache'
               eyes: 'blue'
-              sign: 'Cancer'
-          vega:
-            label: 'Vega'
-            blurb: 'Salutes the airlock. The airlock has stopped saluting back.'
+              homeworld: 'Earth'
+              height: '1.8m'
+          halloway:
+            label: 'Dr Halloway'
+            blurb: 'Prescribes a brisk walk, aboard a vessel forty paces long.'
             traits:
-              hair: 'red'
+              hair: 'a ponytail'
+              feature: 'spectacles'
+              eyes: 'brown'
+              homeworld: 'Earth'
+              height: '1.6m'
+          okonkwo:
+            label: 'Navigator Okonkwo'
+            blurb: 'Can find anywhere without the charts, and does, to general alarm.'
+            traits:
+              hair: 'braids'
+              feature: 'hoop earrings'
+              eyes: 'brown'
+              homeworld: 'Ceres'
+              height: '1.7m'
+          bolt:
+            label: 'Chief Engineer Bolt'
+            blurb: 'Fixed the reactor with a spoon. Will not say which spoon.'
+            traits:
+              hair: 'a mohawk'
+              feature: 'an eye patch'
+              eyes: 'grey'
+              homeworld: 'Titan'
+              height: '1.8m'
+          vex:
+            label: 'Lieutenant Vex'
+            blurb: 'Volunteers for everything, especially what nobody volunteered for.'
+            traits:
+              hair: 'a topknot'
+              feature: 'mutton chops'
               eyes: 'hazel'
-              sign: 'Leo'
-          juno:
-            label: 'Juno'
-            blurb: 'Labels everything on board, including the labels.'
+              homeworld: 'Europa'
+              height: '1.7m'
+          quill:
+            label: 'Professor Quill'
+            blurb: 'Studying deep-space silence. Has published nine hundred pages on it.'
             traits:
-              hair: 'brown'
-              eyes: 'brown'
-              sign: 'Virgo'
-          orin:
-            label: 'Orin'
-            blurb: 'Swears a comet winked at him. Twice, and on the record.'
-            traits:
-              hair: 'silver'
-              eyes: 'blue'
-              sign: 'Libra'
-          cass:
-            label: 'Cass'
-            blurb: 'Grows basil in a spare helmet. It is thriving; morale is not.'
-            traits:
-              hair: 'black'
+              hair: 'long hair'
+              feature: 'a beard'
               eyes: 'green'
-              sign: 'Scorpio'
-          elio:
-            label: 'Elio'
-            blurb: 'Hums through docking. Hums louder through emergencies.'
+              homeworld: 'Earth'
+              height: '1.6m'
+          tumble:
+            label: 'Ensign Tumble'
+            blurb: 'Newest aboard. Has met the same bulkhead on all six decks.'
             traits:
-              hair: 'brown'
-              eyes: 'grey'
-              sign: 'Sagittarius'
-          suri:
-            label: 'Suri'
-            blurb: 'Wins every weightless card game and will not say how.'
-            traits:
-              hair: 'black'
-              eyes: 'hazel'
-              sign: 'Capricorn'
-          dax:
-            label: 'Dax'
-            blurb: 'Named the coffee machine and now takes its side in disputes.'
-            traits:
-              hair: 'blonde'
-              eyes: 'brown'
-              sign: 'Aquarius'
-          noor:
-            label: 'Noor'
-            blurb: 'Sketches each world on the way down. The sketches never match.'
-            traits:
-              hair: 'black'
-              eyes: 'brown'
-              sign: 'Pisces'
-          kai:
-            label: 'Kai'
-            blurb: 'Volunteers for every spacewalk, chiefly for the view.'
-            traits:
-              hair: 'brown'
+              hair: 'a crop'
+              feature: 'a headset'
               eyes: 'blue'
-              sign: 'Aries'
-          wren:
-            label: 'Wren'
-            blurb: 'Keeps an orbital diary. Entry one reads: still up here.'
+              homeworld: 'Luna'
+              height: '1.5m'
+          strand:
+            label: 'Commodore Strand'
+            blurb: 'Retired twice. The fleet keeps mislaying the paperwork.'
             traits:
-              hair: 'red'
+              hair: 'curls'
+              feature: 'a beard'
               eyes: 'grey'
-              sign: 'Leo'
+              homeworld: 'Mars'
+              height: '1.9m'
+          ondra:
+            label: 'Medic Ondra'
+            blurb: 'Cheerful in a crisis, which unsettles the crew more than the crisis.'
+            traits:
+              hair: 'a bun'
+              feature: 'a moustache'
+              eyes: 'brown'
+              homeworld: 'Ganymede'
+              height: '1.7m'
+          fizz:
+            label: 'Cadet Fizz'
+            blurb: 'Sixteen, brilliant, and barred from the helm for enthusiasm.'
+            traits:
+              hair: 'an afro'
+              feature: 'a chinstrap'
+              eyes: 'hazel'
+              homeworld: 'Ceres'
+              height: '1.6m'
+          bex:
+            label: 'Quartermaster Bex'
+            blurb: 'Knows where everything is, and what it costs to find out.'
+            traits:
+              hair: 'a shaved head'
+              feature: 'hoop earrings'
+              eyes: 'brown'
+              homeworld: 'Titan'
+              height: '1.8m'
+          mo:
+            label: 'Flight Sergeant Mo'
+            blurb: 'Drills the crew at dawn. There is no dawn. The drill stands.'
+            traits:
+              hair: 'a bob'
+              feature: 'mutton chops'
+              eyes: 'blue'
+              homeworld: 'Europa'
+              height: '1.9m'
       destination:
         name: 'Destination'
         pattern: 'the crew bound for {}'
@@ -895,112 +929,146 @@ themes:
         traits:
           hair:
             label: 'Hair'
-            pattern: '{noun} with {} hair'
+            pattern: '{noun} with {}'
+          feature:
+            label: 'Distinguishing feature'
+            pattern: '{noun} with {}'
           eyes:
             label: 'Eyes'
             pattern: '{noun} with {} eyes'
-          sign:
-            label: 'Star sign'
-            pattern: '{noun} born under {}'
+          age:
+            label: 'Age'
+            pattern: '{noun} aged {}'
+          trade:
+            label: 'Trade'
+            pattern: '{noun} who is {}'
         items:
-          alma:
-            label: 'Alma'
-            blurb: 'Orders the same thing daily and reads the menu each time.'
+          barley:
+            label: 'Ms Barley'
+            blurb: 'Orders the same thing daily and reads the board each time anyway.'
             traits:
-              hair: 'silver'
-              eyes: 'blue'
-              sign: 'Aries'
-          basil:
-            label: 'Basil'
-            blurb: 'Brings his own mug. It is larger than the café allows for.'
-            traits:
-              hair: 'black'
-              eyes: 'brown'
-              sign: 'Taurus'
-          dax:
-            label: 'Dax'
-            blurb: 'Answers emails aloud. Nobody has found the courage to mention it.'
-            traits:
-              hair: 'blonde'
+              hair: 'short hair'
+              feature: 'spectacles'
               eyes: 'green'
-              sign: 'Gemini'
-          esme:
-            label: 'Esme'
-            blurb: 'Tips in coins, always exact, always counted twice.'
+              age: '34'
+              trade: 'a piano tuner'
+          crumb:
+            label: 'Alderman Crumb'
+            blurb: 'Has opinions about the paving and will share them, unprompted.'
             traits:
-              hair: 'red'
-              eyes: 'hazel'
-              sign: 'Cancer'
-          fen:
-            label: 'Fen'
-            blurb: 'Sits down before ordering, as though daring the staff.'
-            traits:
-              hair: 'black'
+              hair: 'a shaved head'
+              feature: 'a moustache'
               eyes: 'grey'
-              sign: 'Leo'
-          grier:
-            label: 'Grier'
-            blurb: 'Does the crossword in pen and finishes it in ink of two colours.'
+              age: '61'
+              trade: 'a retired alderman'
+          marzipan:
+            label: 'Mrs Marzipan'
+            blurb: 'Brings her own cup. Staff have stopped arguing about it.'
             traits:
-              hair: 'silver'
+              hair: 'a bob'
+              feature: 'hoop earrings'
               eyes: 'brown'
-              sign: 'Virgo'
-          hollis:
-            label: 'Hollis'
-            blurb: 'Has strong views on foam and is not shy about them.'
+              age: '58'
+              trade: 'a piano teacher'
+          frangi:
+            label: 'Dr Frangipane'
+            blurb: 'Marks essays at the corner table and sighs at every one.'
             traits:
-              hair: 'brown'
-              eyes: 'blue'
-              sign: 'Libra'
-          ines:
-            label: 'Ines'
-            blurb: 'Reads a chapter, leaves, returns for the next one at noon.'
-            traits:
-              hair: 'brown'
-              eyes: 'brown'
-              sign: 'Scorpio'
-          jonas:
-            label: 'Jonas'
-            blurb: 'Claims the corner table is his. It has never been his.'
-            traits:
-              hair: 'blonde'
-              eyes: 'blue'
-              sign: 'Sagittarius'
-          kit:
-            label: 'Kit'
-            blurb: 'Brings the dog. The dog has its own regular order.'
-            traits:
-              hair: 'red'
-              eyes: 'green'
-              sign: 'Capricorn'
-          lena:
-            label: 'Lena'
-            blurb: 'Photographs the pastry before eating it. Every single time.'
-            traits:
-              hair: 'black'
+              hair: 'a ponytail'
+              feature: 'spectacles'
               eyes: 'hazel'
-              sign: 'Aquarius'
-          mika:
-            label: 'Mika'
-            blurb: 'Comes for the wifi, stays for the arguments about the wifi.'
+              age: '43'
+              trade: 'a dentist'
+          bap:
+            label: 'PC Bap'
+            blurb: 'On the beat, off the clock, and never quite either.'
             traits:
-              hair: 'brown'
-              eyes: 'grey'
-              sign: 'Pisces'
-          nell:
-            label: 'Nell'
-            blurb: 'Knows every regular by order rather than by name.'
+              hair: 'a crop'
+              feature: 'a headset'
+              eyes: 'blue'
+              age: '29'
+              trade: 'a police constable'
+          crumpet:
+            label: 'Reverend Crumpet'
+            blurb: 'Writes Sunday sermons here. They get funnier by the cup.'
             traits:
-              hair: 'silver'
-              eyes: 'green'
-              sign: 'Aries'
-          otto:
-            label: 'Otto'
-            blurb: 'Reads the paper back to front and will explain why if asked.'
-            traits:
-              hair: 'no'
+              hair: 'long hair'
+              feature: 'a beard'
               eyes: 'brown'
-              sign: 'Leo'
+              age: '52'
+              trade: 'a vicar'
+          bloomer:
+            label: 'Sergeant Bloomer'
+            blurb: 'Sits facing the door. Says it is habit; it is not.'
+            traits:
+              hair: 'a mohawk'
+              feature: 'an eye patch'
+              eyes: 'grey'
+              age: '47'
+              trade: 'an army sergeant'
+          custard:
+            label: 'Miss Custard'
+            blurb: 'Nine years old, allowed one hot chocolate, negotiates for two.'
+            traits:
+              hair: 'braids'
+              feature: 'a chinstrap'
+              eyes: 'green'
+              age: '9'
+              trade: 'a schoolgirl'
+          sourdough:
+            label: 'Prof Sourdough'
+            blurb: 'Came in for ten minutes in 2011 and has been thinking since.'
+            traits:
+              hair: 'curls'
+              feature: 'a beard'
+              eyes: 'blue'
+              age: '70'
+              trade: 'a professor of logic'
+          filo:
+            label: 'Mr Filo'
+            blurb: 'Reads the paper back to front and the crossword not at all.'
+            traits:
+              hair: 'a topknot'
+              feature: 'mutton chops'
+              eyes: 'brown'
+              age: '38'
+              trade: 'a locksmith'
+          nutmeg:
+            label: 'Nurse Nutmeg'
+            blurb: 'Off a night shift, drinking something the size of a bucket.'
+            traits:
+              hair: 'a bun'
+              feature: 'hoop earrings'
+              eyes: 'hazel'
+              age: '26'
+              trade: 'a night nurse'
+          praline:
+            label: 'Councillor Praline'
+            blurb: 'Holds a surgery by the window. Nobody has ever booked one.'
+            traits:
+              hair: 'an afro'
+              feature: 'a moustache'
+              eyes: 'brown'
+              age: '55'
+              trade: 'a councillor'
+          battenberg:
+            label: 'Mrs Battenberg'
+            blurb: 'Knits through anything, including a small kitchen fire.'
+            traits:
+              hair: 'a bun'
+              feature: 'a chinstrap'
+              eyes: 'grey'
+              age: '81'
+              trade: 'a champion knitter'
+          tuille:
+            label: 'Captain Tuille'
+            blurb: 'Retired from the merchant navy. Still calls the counter the galley.'
+            traits:
+              hair: 'a shaved head'
+              feature: 'an eye patch'
+              eyes: 'blue'
+              age: '64'
+              trade: 'a merchant captain'
       drink:
         name: 'Drink'
         pattern: 'the {} drinker'
@@ -1464,112 +1532,146 @@ themes:
         traits:
           hair:
             label: 'Hair'
-            pattern: '{noun} with {} hair'
+            pattern: '{noun} with {}'
+          feature:
+            label: 'Distinguishing feature'
+            pattern: '{noun} with {}'
           eyes:
             label: 'Eyes'
             pattern: '{noun} with {} eyes'
-          sign:
-            label: 'Star sign'
-            pattern: '{noun} born under {}'
+          calling:
+            label: 'Calling'
+            pattern: '{noun} sworn as {}'
+          age:
+            label: 'Age'
+            pattern: '{noun} aged {}'
         items:
-          bran:
-            label: 'Bran'
-            blurb: 'Swore an oath on a bridge and has been explaining it ever since.'
+          brannoch:
+            label: 'Sir Brannoch'
+            blurb: 'Sworn to slay one beast. Has slain it. Will not stop mentioning it.'
             traits:
-              hair: 'black'
-              eyes: 'brown'
-              sign: 'Aries'
+              hair: 'a shaved head'
+              feature: 'a beard'
+              eyes: 'blue'
+              calling: 'a knight'
+              age: '44'
           sorrel:
-            label: 'Sorrel'
-            blurb: 'Fights beautifully. Navigates like a dropped map.'
+            label: 'Dame Sorrel'
+            blurb: 'Never misses. Has been asked not to demonstrate indoors again.'
             traits:
-              hair: 'red'
+              hair: 'a ponytail'
+              feature: 'an eye patch'
               eyes: 'green'
-              sign: 'Taurus'
+              calling: 'an archer'
+              age: '31'
           ivo:
-            label: 'Ivo'
-            blurb: 'Retired three times. Keeps being invited back by circumstance.'
+            label: 'Squire Ivo'
+            blurb: 'Carries everything. Has never once been asked what he thinks.'
             traits:
-              hair: 'silver'
-              eyes: 'grey'
-              sign: 'Gemini'
+              hair: 'a crop'
+              feature: 'a chinstrap'
+              eyes: 'brown'
+              calling: 'a squire'
+              age: '17'
           wren:
-            label: 'Wren'
-            blurb: 'Small, quick, and responsible for most of the shouting.'
+            label: 'Hedge-Witch Wren'
+            blurb: 'Cures warts, curdles milk, and is vague about which is which.'
             traits:
-              hair: 'black'
+              hair: 'curls'
+              feature: 'a moustache'
               eyes: 'hazel'
-              sign: 'Cancer'
+              calling: 'a witch'
+              age: '68'
           tamsin:
-            label: 'Tamsin'
-            blurb: 'Rides ahead. Waits at the crossroads with a smug expression.'
+            label: 'Warden Tamsin'
+            blurb: 'Knows every path in the wood and admits to roughly half.'
             traits:
-              hair: 'blonde'
-              eyes: 'blue'
-              sign: 'Leo'
-          kell:
-            label: 'Kell'
-            blurb: 'Counts the gold before the fight, which is considered rude.'
-            traits:
-              hair: 'black'
-              eyes: 'green'
-              sign: 'Virgo'
-          rowan:
-            label: 'Rowan'
-            blurb: 'Talks to horses. The horses appear to answer.'
-            traits:
-              hair: 'red'
-              eyes: 'brown'
-              sign: 'Libra'
-          fenn:
-            label: 'Fenn'
-            blurb: 'Once slew a beast by accident and has never once corrected anyone.'
-            traits:
-              hair: 'brown'
-              eyes: 'blue'
-              sign: 'Scorpio'
-          maeve:
-            label: 'Maeve'
-            blurb: 'Carries a lute she cannot play into every single tavern.'
-            traits:
-              hair: 'silver'
-              eyes: 'green'
-              sign: 'Sagittarius'
-          osric:
-            label: 'Osric'
-            blurb: 'Insists on a prophecy before breakfast. Any prophecy.'
-            traits:
-              hair: 'silver'
-              eyes: 'brown'
-              sign: 'Capricorn'
-          perrin:
-            label: 'Perrin'
-            blurb: 'Youngest of the company and the only one who packs food.'
-            traits:
-              hair: 'brown'
-              eyes: 'hazel'
-              sign: 'Aquarius'
-          isolde:
-            label: 'Isolde'
-            blurb: 'Sharpens her blade during conversations. It is not a threat.'
-            traits:
-              hair: 'brown'
+              hair: 'braids'
+              feature: 'mutton chops'
               eyes: 'grey'
-              sign: 'Pisces'
-          garrick:
-            label: 'Garrick'
-            blurb: 'Arrives silently, leaves loudly, bills generously.'
+              calling: 'a ranger'
+              age: '39'
+          kell:
+            label: 'Archmage Kell'
+            blurb: 'Can turn lead to gold. Has turned a great deal of gold to lead.'
             traits:
-              hair: 'black'
+              hair: 'long hair'
+              feature: 'a beard'
+              eyes: 'grey'
+              calling: 'a mage'
+              age: '77'
+          rowan:
+            label: 'Brother Rowan'
+            blurb: 'Sworn to silence. Communicates entirely through pointed sighing.'
+            traits:
+              hair: 'a shaved head'
+              feature: 'spectacles'
               eyes: 'brown'
-              sign: 'Aries'
-          nyla:
-            label: 'Nyla'
-            blurb: 'Has a battle cry. Nobody has worked out what it means.'
+              calling: 'a monk'
+              age: '54'
+          fenn:
+            label: 'Bard Fenn'
+            blurb: 'Writes the ballad before the quest, then bends the quest to fit.'
             traits:
-              hair: 'red'
+              hair: 'a topknot'
+              feature: 'hoop earrings'
+              eyes: 'green'
+              calling: 'a bard'
+              age: '26'
+          maeve:
+            label: 'Baroness Maeve'
+            blurb: 'Funds every expedition and turns up uninvited to all of them.'
+            traits:
+              hair: 'a bun'
+              feature: 'hoop earrings'
               eyes: 'blue'
-              sign: 'Leo'
+              calling: 'a noble'
+              age: '49'
+          osric:
+            label: 'Reeve Osric'
+            blurb: 'Counts the takings twice. The second count is the one he reports.'
+            traits:
+              hair: 'short hair'
+              feature: 'a moustache'
+              eyes: 'brown'
+              calling: 'a reeve'
+              age: '58'
+          perrin:
+            label: 'Apprentice Perrin'
+            blurb: 'Learning spellcraft by trial. Mostly trial.'
+            traits:
+              hair: 'a mohawk'
+              feature: 'a headset'
+              eyes: 'hazel'
+              calling: 'a mage'
+              age: '19'
+          isolde:
+            label: 'Herald Isolde'
+            blurb: 'Announces arrivals. Has announced two that had not arrived.'
+            traits:
+              hair: 'a bob'
+              feature: 'a chinstrap'
+              eyes: 'blue'
+              calling: 'a herald'
+              age: '35'
+          garrick:
+            label: 'Sellsword Garrick'
+            blurb: 'Loyal for the length of the contract, and courteous after it.'
+            traits:
+              hair: 'an afro'
+              feature: 'mutton chops'
+              eyes: 'brown'
+              calling: 'a sellsword'
+              age: '41'
+          nyla:
+            label: 'Captain Nyla'
+            blurb: 'Leads from the front, which is how she keeps losing the map.'
+            traits:
+              hair: 'a crop'
+              feature: 'an eye patch'
+              eyes: 'green'
+              calling: 'a soldier'
+              age: '33'
       weapon:
         name: 'Weapon'
         pattern: 'the {} wielder'
@@ -2033,112 +2135,146 @@ themes:
         traits:
           hair:
             label: 'Hair'
-            pattern: '{noun} with {} hair'
+            pattern: '{noun} with {}'
+          feature:
+            label: 'Distinguishing feature'
+            pattern: '{noun} with {}'
           eyes:
             label: 'Eyes'
             pattern: '{noun} with {} eyes'
-          sign:
-            label: 'Star sign'
-            pattern: '{noun} born under {}'
+          known:
+            label: 'Known for'
+            pattern: '{noun} known for {}'
+          height:
+            label: 'Height'
+            pattern: '{noun} standing {}'
         items:
-          pia:
-            label: 'Pia'
-            blurb: 'Checks her gauge every ninety seconds and denies doing it.'
+          shoal:
+            label: 'Skipper Shoal'
+            blurb: 'Has named every boat after the last one that sank.'
             traits:
-              hair: 'red'
-              eyes: 'green'
-              sign: 'Aries'
-          rune:
-            label: 'Rune'
-            blurb: 'Surfaces last, always, and never says what he was looking at.'
+              hair: 'a shaved head'
+              feature: 'a beard'
+              eyes: 'grey'
+              known: 'wreck work'
+              height: '1.8m'
+          pike:
+            label: 'Bosun Pike'
+            blurb: 'Ties knots in his sleep. The crew check their bootlaces each morning.'
             traits:
-              hair: 'black'
-              eyes: 'blue'
-              sign: 'Taurus'
-          sena:
-            label: 'Sena'
-            blurb: 'Names every fish she meets. Recognises several by sight.'
-            traits:
-              hair: 'black'
+              hair: 'a crop'
+              feature: 'mutton chops'
               eyes: 'brown'
-              sign: 'Gemini'
+              known: 'rope work'
+              height: '1.7m'
+          ferrand:
+            label: 'Dr Ferrand'
+            blurb: 'Counting urchins for science. Up to four hundred thousand.'
+            traits:
+              hair: 'a ponytail'
+              feature: 'spectacles'
+              eyes: 'green'
+              known: 'marine science'
+              height: '1.6m'
           tobin:
-            label: 'Tobin'
-            blurb: 'Sings underwater. It sounds exactly as good as it should.'
+            label: 'Divemaster Tobin'
+            blurb: 'Briefs for forty minutes on a dive that lasts twenty.'
             traits:
-              hair: 'blonde'
-              eyes: 'grey'
-              sign: 'Cancer'
-          ada:
-            label: 'Ada'
-            blurb: 'Forty years in the water and one story she will not tell.'
+              hair: 'short hair'
+              feature: 'a moustache'
+              eyes: 'blue'
+              known: 'teaching'
+              height: '1.8m'
+          adaeze:
+            label: 'Ranger Adaeze'
+            blurb: 'Guards the reef. Has memorised every fine in the by-laws.'
             traits:
-              hair: 'silver'
-              eyes: 'hazel'
-              sign: 'Leo'
+              hair: 'braids'
+              feature: 'hoop earrings'
+              eyes: 'brown'
+              known: 'patrolling'
+              height: '1.7m'
           nico:
-            label: 'Nico'
-            blurb: 'Draws the reef in pencil on a slate, then loses the slate.'
+            label: 'Cadet Nico'
+            blurb: 'Newly qualified. Checks the tank gauge roughly every nine seconds.'
             traits:
-              hair: 'brown'
-              eyes: 'brown'
-              sign: 'Virgo'
-          marlow:
-            label: 'Marlow'
-            blurb: 'Has a boat, a theory, and a great deal of time.'
-            traits:
-              hair: 'silver'
-              eyes: 'blue'
-              sign: 'Libra'
-          indra:
-            label: 'Indra'
-            blurb: 'Descends like a stone and comes up like a cork.'
-            traits:
-              hair: 'black'
-              eyes: 'green'
-              sign: 'Scorpio'
-          cleo:
-            label: 'Cleo'
-            blurb: 'Photographs everything. The camera is bigger than she is.'
-            traits:
-              hair: 'brown'
-              eyes: 'grey'
-              sign: 'Sagittarius'
-          bo:
-            label: 'Bo'
-            blurb: 'Claims to have met the same turtle four years running.'
-            traits:
-              hair: 'red'
-              eyes: 'brown'
-              sign: 'Capricorn'
-          yara:
-            label: 'Yara'
-            blurb: 'Logs every dive in a book that has been underwater twice.'
-            traits:
-              hair: 'red'
+              hair: 'a mohawk'
+              feature: 'a headset'
               eyes: 'hazel'
-              sign: 'Aquarius'
-          elias:
-            label: 'Elias'
-            blurb: 'Talks about currents at dinner until somebody changes the subject.'
+              known: 'nothing yet'
+              height: '1.5m'
+          marlow:
+            label: 'First Mate Marlow'
+            blurb: 'Second in command and first into the water, every time.'
             traits:
-              hair: 'brown'
-              eyes: 'blue'
-              sign: 'Pisces'
-          suki:
-            label: 'Suki'
-            blurb: 'The only one who enjoys the safety stop.'
+              hair: 'a shaved head'
+              feature: 'an eye patch'
+              eyes: 'grey'
+              known: 'deep dives'
+              height: '1.9m'
+          indra:
+            label: 'Chief Indra'
+            blurb: 'Runs the compressor, the roster and, quietly, the whole island.'
             traits:
-              hair: 'blonde'
-              eyes: 'green'
-              sign: 'Aries'
-          rafa:
-            label: 'Rafa'
-            blurb: 'Fixes everyone else’s gear and forgets to check his own.'
-            traits:
-              hair: 'no'
+              hair: 'a bun'
+              feature: 'a chinstrap'
               eyes: 'brown'
-              sign: 'Leo'
+              known: 'logistics'
+              height: '1.6m'
+          cleo:
+            label: 'Prof Cleo'
+            blurb: 'Studies octopus behaviour. Reports being studied back.'
+            traits:
+              hair: 'a crop'
+              feature: 'spectacles'
+              eyes: 'green'
+              known: 'octopus work'
+              height: '1.7m'
+          bo:
+            label: 'Instructor Bo'
+            blurb: 'Teaches beginners with enormous patience and no volume control.'
+            traits:
+              hair: 'an afro'
+              feature: 'a moustache'
+              eyes: 'blue'
+              known: 'teaching'
+              height: '1.8m'
+          yara:
+            label: 'Ms Yara'
+            blurb: 'Photographs everything. Has nine thousand pictures of the same eel.'
+            traits:
+              hair: 'long hair'
+              feature: 'hoop earrings'
+              eyes: 'brown'
+              known: 'photography'
+              height: '1.6m'
+          elias:
+            label: 'Reverend Elias'
+            blurb: 'Blesses each boat before it leaves. The boats keep coming back.'
+            traits:
+              hair: 'curls'
+              feature: 'a beard'
+              eyes: 'grey'
+              known: 'night dives'
+              height: '1.9m'
+          suki:
+            label: 'Medic Suki'
+            blurb: 'Carries a kit for every disaster. Has used the plasters.'
+            traits:
+              hair: 'a topknot'
+              feature: 'a chinstrap'
+              eyes: 'hazel'
+              known: 'first aid'
+              height: '1.5m'
+          rafa:
+            label: 'Old Rafa'
+            blurb: 'Dived here before the reef had a name. Disputes the name.'
+            traits:
+              hair: 'a bob'
+              feature: 'mutton chops'
+              eyes: 'blue'
+              known: 'record depths'
+              height: '1.7m'
       species:
         name: 'Sighting'
         pattern: 'the {} spotter'
@@ -2602,112 +2738,146 @@ themes:
         traits:
           hair:
             label: 'Hair'
-            pattern: '{noun} with {} hair'
+            pattern: '{noun} with {}'
+          feature:
+            label: 'Distinguishing feature'
+            pattern: '{noun} with {}'
           eyes:
             label: 'Eyes'
             pattern: '{noun} with {} eyes'
-          sign:
-            label: 'Star sign'
-            pattern: '{noun} born under {}'
+          age:
+            label: 'Age'
+            pattern: '{noun} aged {}'
+          prize:
+            label: 'Best prize'
+            pattern: '{noun} who has won {}'
         items:
-          opal:
-            label: 'Opal'
-            blurb: 'Has won this show eleven times and mentions it every year.'
+          rose:
+            label: 'Ms Rose'
+            blurb: 'Grows the finest blooms in the village and will not say how.'
             traits:
-              hair: 'silver'
-              eyes: 'blue'
-              sign: 'Aries'
-          ferris:
-            label: 'Ferris'
-            blurb: 'Talks to the slugs. Negotiates. Loses.'
-            traits:
-              hair: 'black'
-              eyes: 'brown'
-              sign: 'Taurus'
-          hazel:
-            label: 'Hazel'
-            blurb: 'Prunes on a strict schedule the plants have never agreed to.'
-            traits:
-              hair: 'red'
+              hair: 'a bun'
+              feature: 'hoop earrings'
               eyes: 'green'
-              sign: 'Gemini'
-          lark:
-            label: 'Lark'
-            blurb: 'Waters at dawn to avoid conversation with neighbours.'
+              age: '62'
+              prize: 'Best in Show'
+          parsley:
+            label: 'Vicar Parsley'
+            blurb: 'Blesses the marrows. The marrows have not disappointed him yet.'
             traits:
-              hair: 'brown'
-              eyes: 'grey'
-              sign: 'Cancer'
-          pim:
-            label: 'Pim'
-            blurb: 'Grows one enormous thing a year and nothing else at all.'
+              hair: 'short hair'
+              feature: 'a beard'
+              eyes: 'brown'
+              age: '55'
+              prize: 'a Highly Commended'
+          mint:
+            label: 'Master Mint'
+            blurb: 'Eleven years old and already undercutting everyone at the stall.'
             traits:
-              hair: 'blonde'
+              hair: 'a crop'
+              feature: 'a headset'
               eyes: 'hazel'
-              sign: 'Leo'
-          rosa:
-            label: 'Rosa'
-            blurb: 'Keeps a compost heap the council has asked about twice.'
+              age: '11'
+              prize: 'nothing at all'
+          petunia:
+            label: 'Mrs Petunia'
+            blurb: 'Has judged the show for thirty years and entered it for thirty-one.'
             traits:
-              hair: 'black'
-              eyes: 'brown'
-              sign: 'Virgo'
-          bram:
-            label: 'Bram'
-            blurb: 'Believes in manure the way other people believe in medicine.'
-            traits:
-              hair: 'silver'
+              hair: 'a bob'
+              feature: 'a chinstrap'
               eyes: 'blue'
-              sign: 'Libra'
-          tilly:
-            label: 'Tilly'
-            blurb: 'Twelve years old and already feared in the vegetable tent.'
+              age: '71'
+              prize: 'the Marrow Cup'
+          peapod:
+            label: 'PC Peapod'
+            blurb: 'Investigating the great shed break-in of last Thursday.'
             traits:
-              hair: 'blonde'
-              eyes: 'green'
-              sign: 'Scorpio'
-          emrys:
-            label: 'Emrys'
-            blurb: 'Names each plant after a relative and reports on their health.'
-            traits:
-              hair: 'brown'
+              hair: 'a mohawk'
+              feature: 'a headset'
               eyes: 'brown'
-              sign: 'Sagittarius'
-          wilder:
-            label: 'Wilder'
-            blurb: 'Lets it all grow wild and wins the wildlife prize every time.'
+              age: '28'
+              prize: 'nothing at all'
+          mud:
+            label: 'Grounds Keeper Mud'
+            blurb: 'Speaks to the lawn. The lawn, in fairness, looks magnificent.'
             traits:
-              hair: 'red'
+              hair: 'a shaved head'
+              feature: 'mutton chops'
               eyes: 'grey'
-              sign: 'Capricorn'
-          junie:
-            label: 'Junie'
-            blurb: 'Deadheads other people’s roses on the walk home.'
+              age: '58'
+              prize: 'three rosettes'
+          thistle:
+            label: 'Miss Thistle'
+            blurb: 'Grows only what stings. Considers this a public service.'
             traits:
-              hair: 'brown'
-              eyes: 'hazel'
-              sign: 'Aquarius'
-          alder:
-            label: 'Alder'
-            blurb: 'Has a greenhouse warmer than his house and no regrets.'
-            traits:
-              hair: 'black'
+              hair: 'braids'
+              feature: 'a moustache'
               eyes: 'green'
-              sign: 'Pisces'
-          posy:
-            label: 'Posy'
-            blurb: 'Judged the show for years. Entering it is her retirement.'
+              age: '37'
+              prize: 'nothing at all'
+          compost:
+            label: 'Dr Compost'
+            blurb: 'Wrote the definitive book on rot. It sold eleven copies.'
             traits:
-              hair: 'silver'
+              hair: 'a ponytail'
+              feature: 'spectacles'
               eyes: 'brown'
-              sign: 'Aries'
-          marnie:
-            label: 'Marnie'
-            blurb: 'Swears by seaweed and will bring you some, unasked.'
+              age: '49'
+              prize: 'a Highly Commended'
+          bramble:
+            label: 'Reverend Bramble'
+            blurb: 'Prunes with enormous force and prays over the results.'
             traits:
-              hair: 'red'
+              hair: 'long hair'
+              feature: 'a beard'
+              eyes: 'grey'
+              age: '66'
+              prize: 'the Marrow Cup'
+          nettle:
+            label: 'Widow Nettle'
+            blurb: 'Been on plot four since 1971. Will outlast plot four.'
+            traits:
+              hair: 'curls'
+              feature: 'a moustache'
               eyes: 'blue'
-              sign: 'Leo'
+              age: '84'
+              prize: 'three rosettes'
+          turnip:
+            label: 'Squire Turnip'
+            blurb: 'Owns the land, tends none of it, wins the raffle annually.'
+            traits:
+              hair: 'a topknot'
+              feature: 'mutton chops'
+              eyes: 'hazel'
+              age: '52'
+              prize: 'Best in Show'
+          fennel:
+            label: 'Nurse Fennel'
+            blurb: 'Off shift and elbow-deep in soil by nine minutes past.'
+            traits:
+              hair: 'an afro'
+              feature: 'hoop earrings'
+              eyes: 'brown'
+              age: '31'
+              prize: 'a Highly Commended'
+          spade:
+            label: 'Old Tom Spade'
+            blurb: 'Has one trowel, bought in 1968, and no interest in another.'
+            traits:
+              hair: 'a shaved head'
+              feature: 'a beard'
+              eyes: 'grey'
+              age: '79'
+              prize: 'three rosettes'
+          marrow:
+            label: 'Major Marrow'
+            blurb: 'Runs the allotment like a campaign. Has drawn up maps.'
+            traits:
+              hair: 'a crop'
+              feature: 'an eye patch'
+              eyes: 'blue'
+              age: '68'
+              prize: 'Best in Show'
       flower:
         name: 'Flower'
         pattern: 'the {} grower'

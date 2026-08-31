@@ -27,7 +27,7 @@ const fish = ({ rx = 30, ry = 16, cy = 50, tail = 22 } = {}) => [
 ];
 
 export const SPECIES = {
-  Octopus: [
+  octopus: [
     dome(50, 48, 26, 200),
     ...around(50, 50, 5, (angle, index) =>
       stroke(
@@ -42,7 +42,7 @@ export const SPECIES = {
     hole.circle(40, 40, 5),
     hole.circle(60, 40, 5),
   ],
-  Manta: [
+  manta: [
     poly([
       [50, 26],
       [92, 62],
@@ -66,7 +66,7 @@ export const SPECIES = {
       [58, 26],
     ]),
   ],
-  Turtle: [
+  turtle: [
     ellipse(50, 52, 30, 24),
     hole.of(ellipse(50, 52, 14, 11)),
     circle(50, 20, 11),
@@ -75,7 +75,7 @@ export const SPECIES = {
     ellipse(24, 74, 11, 7, 35),
     ellipse(76, 74, 11, 7, -35),
   ],
-  Seahorse: [
+  seahorse: [
     blob(
       [
         [52, 12],
@@ -95,7 +95,7 @@ export const SPECIES = {
     ]),
     ...band(40, 82, 12, 8, -90, 180),
   ],
-  Moray: [
+  moray: [
     ...stroke(
       [
         [8, 78],
@@ -114,12 +114,12 @@ export const SPECIES = {
     ]),
     hole.circle(84, 30, 4),
   ],
-  Clownfish: [
+  clownfish: [
     ...fish({ rx: 26, ry: 16, tail: 18 }),
     hole.of(rect(36, 36, 7, 30, 3)),
     hole.of(rect(54, 38, 7, 26, 3)),
   ],
-  Barracuda: [
+  barracuda: [
     ellipse(46, 50, 38, 11),
     poly([
       [80, 50],
@@ -137,7 +137,7 @@ export const SPECIES = {
       [50, 40],
     ]),
   ],
-  Stingray: [
+  stingray: [
     poly([
       [50, 24],
       [90, 58],
@@ -153,12 +153,12 @@ export const SPECIES = {
     ),
     star(58, 94, 4, 8, 0.3),
   ],
-  Lionfish: [
+  lionfish: [
     ellipse(48, 54, 24, 15),
     ...around(48, 54, 9, (angle) => wedge([48, 54], turn([48, 54 - 42], [48, 54], angle), 9)),
     circle(28, 50, 8),
   ],
-  Grouper: [
+  grouper: [
     ...fish({ rx: 32, ry: 20, tail: 20 }),
     circle(22, 44, 5),
     poly([
@@ -167,7 +167,7 @@ export const SPECIES = {
       [56, 36],
     ]),
   ],
-  Pipefish: [
+  pipefish: [
     ...stroke(
       [
         [10, 62],
@@ -184,7 +184,7 @@ export const SPECIES = {
     ]),
     circle(14, 62, 7),
   ],
-  'Reef Shark': [
+  'reef-shark': [
     ellipse(46, 54, 34, 16),
     poly([
       [46, 38],
@@ -209,7 +209,7 @@ export const SPECIES = {
       ]),
     ),
   ],
-  Cuttlefish: [
+  cuttlefish: [
     ellipse(50, 42, 24, 26),
     ...around(50, 66, 4, (angle, index) =>
       stroke(
@@ -223,7 +223,7 @@ export const SPECIES = {
     hole.of(rect(34, 26, 32, 6, 3)),
     hole.of(rect(36, 40, 28, 6, 3)),
   ],
-  'Sea Urchin': [
+  'sea-urchin': [
     circle(50, 52, 20),
     ...around(50, 52, 12, (angle) =>
       bar(turn([50, 52 - 18], [50, 52], angle), turn([50, 52 - 40], [50, 52], angle), 5),
@@ -232,7 +232,7 @@ export const SPECIES = {
 };
 
 export const GEAR = {
-  'Red Fins': [
+  'red-fins': [
     poly([
       [26, 20],
       [44, 20],
@@ -246,14 +246,14 @@ export const GEAR = {
       [62, 84],
     ]),
   ],
-  'Blue Mask': [
+  'blue-mask': [
     rect(12, 32, 76, 36, 14),
     hole.of(rect(22, 40, 24, 20, 8)),
     hole.of(rect(54, 40, 24, 20, 8)),
     rect(12, 24, 76, 8, 4),
   ],
-  'Green Tank': [rect(30, 22, 40, 62, 14), rect(42, 10, 16, 14, 4), band(70, 40, 12, 7, -80, 80)],
-  'Yellow Torch': [
+  'green-tank': [rect(30, 22, 40, 62, 14), rect(42, 10, 16, 14, 4), band(70, 40, 12, 7, -80, 80)],
+  'yellow-torch': [
     rect(34, 40, 32, 46, 6),
     poly([
       [26, 14],
@@ -263,20 +263,20 @@ export const GEAR = {
     ]),
     ...around(50, 8, 3, (angle, index) => bar([34 + index * 16, 10], [30 + index * 20, 2], 4)),
   ],
-  'Black Camera': [
+  'black-camera': [
     rect(10, 32, 80, 46, 8),
     circle(50, 55, 18),
     hole.circle(50, 55, 8),
     rect(30, 22, 24, 10, 3),
   ],
-  'White Slate': [
+  'white-slate': [
     rect(18, 16, 64, 68, 6),
     hole.of(rect(28, 30, 44, 6, 3)),
     hole.of(rect(28, 46, 44, 6, 3)),
     hole.of(rect(28, 62, 26, 6, 3)),
     rect(74, 30, 14, 40, 5),
   ],
-  'Orange Reel': [
+  'orange-reel': [
     circle(50, 50, 32),
     hole.circle(50, 50, 10),
     circle(50, 50, 20),
@@ -289,7 +289,7 @@ export const GEAR = {
       6,
     ),
   ],
-  'Pink Buoy': [
+  'pink-buoy': [
     circle(50, 58, 28),
     ...stroke(
       [
@@ -304,7 +304,7 @@ export const GEAR = {
       [50, 26],
     ]),
   ],
-  'Silver Knife': [
+  'silver-knife': [
     poly([
       [34, 8],
       [50, 12],
@@ -320,7 +320,7 @@ export const GEAR = {
       10,
     ),
   ],
-  'Teal Compass': [
+  'teal-compass': [
     circle(50, 50, 34),
     hole.circle(50, 50, 26),
     poly([
@@ -331,7 +331,7 @@ export const GEAR = {
     ]),
     circle(50, 50, 6),
   ],
-  'Grey Gloves': [
+  'grey-gloves': [
     poly([
       [22, 40],
       [30, 22],
@@ -344,7 +344,7 @@ export const GEAR = {
     rect(64, 34, 10, 20, 5),
     rect(76, 40, 9, 16, 4),
   ],
-  'Amber Lamp': [
+  'amber-lamp': [
     dome(50, 34, 22, 200),
     poly([
       [28, 34],
@@ -361,7 +361,7 @@ export const GEAR = {
       5,
     ),
   ],
-  'Coral Flag': [
+  'coral-flag': [
     ...stroke(
       [
         [26, 92],
@@ -375,7 +375,7 @@ export const GEAR = {
       [30, 50],
     ]),
   ],
-  'Navy Hood': [
+  'navy-hood': [
     dome(50, 46, 34, 210),
     poly([
       [16, 46],
@@ -388,7 +388,7 @@ export const GEAR = {
 };
 
 export const SITES = {
-  'Blue Hole': [
+  'blue-hole': [
     circle(50, 52, 36),
     hole.circle(50, 52, 20),
     ...stroke(
@@ -399,13 +399,13 @@ export const SITES = {
       8,
     ),
   ],
-  'Lace Wall': [
+  'lace-wall': [
     rect(8, 74, 84, 14, 3),
     ...around(50, 74, 5, (angle, index) =>
       wedge([26 + index * 12, 78], [18 + index * 16, 20 + (index % 2) * 14], 14),
     ),
   ],
-  Shipwreck: [
+  shipwreck: [
     poly([
       [10, 52],
       [90, 52],
@@ -426,7 +426,7 @@ export const SITES = {
     ]),
     rect(6, 84, 88, 6, 3),
   ],
-  'Kelp Maze': [
+  'kelp-maze': [
     ...[20, 40, 60, 80].flatMap((x, index) =>
       stroke(
         [
@@ -439,21 +439,21 @@ export const SITES = {
     ),
     rect(6, 88, 88, 6, 3),
   ],
-  'Coral Arch': [band(50, 76, 36, 16, 180, 360), rect(6, 82, 88, 8, 3)],
-  'Night Cove': [
+  'coral-arch': [band(50, 76, 36, 16, 180, 360), rect(6, 82, 88, 8, 3)],
+  'night-cove': [
     circle(66, 30, 22),
     hole.circle(78, 22, 20),
     rect(6, 60, 88, 9, 4),
     rect(16, 76, 72, 9, 4),
   ],
-  'Tide Pools': [
+  'tide-pools': [
     ellipse(30, 46, 20, 12),
     ellipse(66, 40, 14, 9),
     ellipse(52, 70, 24, 13),
     hole.of(ellipse(30, 46, 10, 5)),
     hole.of(ellipse(52, 70, 12, 6)),
   ],
-  'Anchor Bay': [
+  'anchor-bay': [
     ...stroke(
       [
         [50, 16],
@@ -466,13 +466,13 @@ export const SITES = {
     rect(26, 30, 48, 8, 3),
     band(50, 62, 30, 9, 20, 160),
   ],
-  'Sea Fan Bay': [
+  'sea-fan-bay': [
     ...around(50, 84, 7, (angle, index) =>
       wedge([50, 88], turn([50, 20], [50, 88], -45 + index * 15), 16),
     ),
     rect(10, 84, 80, 8, 3),
   ],
-  'Lantern Reef': [
+  'lantern-reef': [
     dome(50, 34, 20, 200),
     poly([
       [30, 34],
@@ -483,7 +483,7 @@ export const SITES = {
     rect(32, 70, 36, 8, 3),
     ...around(50, 52, 4, (angle, index) => circle(18 + index * 22, 86, 5)),
   ],
-  'Sunken Pier': [
+  'sunken-pier': [
     rect(8, 40, 84, 10, 3),
     ...[22, 42, 62, 82].flatMap((x) =>
       stroke(
@@ -495,13 +495,13 @@ export const SITES = {
       ),
     ),
   ],
-  'Green Lagoon': [
+  'green-lagoon': [
     band(50, 40, 40, 12, 200, 340),
     rect(10, 62, 80, 9, 4),
     rect(20, 78, 60, 9, 4),
     circle(76, 26, 9),
   ],
-  'Cavern Ridge': [
+  'cavern-ridge': [
     poly([
       [6, 88],
       [30, 30],
@@ -515,7 +515,7 @@ export const SITES = {
     hole.of(dome(30, 88, 14, 180)),
     hole.of(rect(16, 88, 28, 6)),
   ],
-  'Turtle Point': [
+  'turtle-point': [
     ellipse(50, 56, 34, 26),
     hole.of(ellipse(50, 56, 15, 12)),
     circle(50, 22, 10),

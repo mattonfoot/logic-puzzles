@@ -22,13 +22,6 @@ const ROOT = resolve(fileURLToPath(new URL('.', import.meta.url)), '..');
 const ICON_DIR = join(ROOT, 'assets', 'icons');
 const MAP_FILE = join(ROOT, 'src', 'ui', 'icons.generated.ts');
 
-/** The label as it appears in a file name: "Sea Fan Bay" → "sea-fan-bay". */
-export const slug = (label) =>
-  label
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-
 const SVG = (path) =>
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor">\n  <path d="${path}" />\n</svg>\n`;
 
@@ -37,9 +30,17 @@ async function write() {
   let kept = 0;
   for (const [theme, categories] of Object.entries(REGISTRY)) {
     for (const [category, items] of Object.entries(categories)) {
-      for (const [label, shapes] of Object.entries(items)) {
+      for (const [id, shapes] of Object.entries(items)) {
+        // The registry is keyed by the item's **id**, which is what the app
+        // builds an icon's name from — see `iconName` in src/data/themes.ts. It
+        // used to be keyed by the label, which worked only for as long as every
+        // label happened to slug down to its own id: rename a person and the
+        // next run would quietly draw them a second icon under a new name and
+        // leave the old file behind as an orphan, with the app still asking for
+        // the orphan.
+        //
         // A theme's own mark has no item behind it, so it is simply theme.svg.
-        const name = category === 'theme' ? 'theme' : `${category}-${slug(label)}`;
+        const name = category === 'theme' ? 'theme' : `${category}-${id}`;
         const file = join(ICON_DIR, theme, `${name}.svg`);
         if (existsSync(file)) {
           kept++;

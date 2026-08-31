@@ -75,6 +75,29 @@ describe('the icon set', () => {
     }
   });
 
+  /**
+   * Nothing on disk that nothing asks for.
+   *
+   * The other way round from the checks above, and it catches what they cannot:
+   * rename an item and the generator draws it afresh under its new name, while
+   * the file it had before sits in `assets/icons` for ever, shipping in the
+   * bundle and turning up in the contact sheet as somebody who no longer exists.
+   */
+  it('draws nothing the app has no use for', () => {
+    const claimed = new Set<string>(['ui/icon-clue', 'ui/icon-chart', 'ui/icon-back']);
+    for (const kind of ['yes', 'no'] as const) {
+      for (const weight of ['hand', 'auto'] as const) claimed.add(markIcon(kind, weight));
+    }
+    for (const theme of THEMES) {
+      claimed.add(theme.icon);
+      for (const category of theme.categories) {
+        for (const item of category.items) claimed.add(item.icon);
+      }
+    }
+    const orphans = Object.keys(ICONS).filter((name) => !claimed.has(name));
+    expect(orphans).toEqual([]);
+  });
+
   it('covers all four board marks', () => {
     for (const kind of ['yes', 'no'] as const) {
       for (const weight of ['hand', 'auto'] as const) {

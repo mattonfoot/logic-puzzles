@@ -20,7 +20,7 @@ import {
 const haft = (from, to, width = 8) => stroke([from, to], width);
 
 export const WEAPONS = {
-  'Ash Bow': [
+  'ash-bow': [
     band(56, 50, 34, 9, 100, 260),
     ...stroke(
       [
@@ -36,12 +36,12 @@ export const WEAPONS = {
       [86, 56],
     ]),
   ],
-  'Rune Axe': [
+  'rune-axe': [
     ...haft([44, 88], [56, 20], 9),
     band(56, 34, 22, 18, -110, 70),
     hole.circle(56, 34, 8),
   ],
-  'Gale Spear': [
+  'gale-spear': [
     ...haft([22, 86], [70, 26], 8),
     poly([
       [70, 30],
@@ -54,7 +54,7 @@ export const WEAPONS = {
       [70, 52],
     ]),
   ],
-  'Ember Blade': [
+  'ember-blade': [
     poly([
       [50, 8],
       [60, 30],
@@ -65,7 +65,7 @@ export const WEAPONS = {
     rect(30, 62, 40, 9, 4),
     ...haft([50, 70], [50, 90], 9),
   ],
-  'Frost Flail': [
+  'frost-flail': [
     ...haft([20, 88], [40, 48], 8),
     ...stroke(
       [
@@ -76,7 +76,7 @@ export const WEAPONS = {
     ),
     star(66, 26, 6, 20, 0.45),
   ],
-  'Thorn Whip': [
+  'thorn-whip': [
     ...stroke(
       [
         [16, 86],
@@ -93,20 +93,20 @@ export const WEAPONS = {
       [76, 30],
     ].map(([x, y]) => star(x, y, 3, 9, 0.4)),
   ],
-  'Storm Mace': [...haft([32, 88], [50, 44], 9), star(56, 30, 8, 24, 0.5), circle(56, 30, 12)],
-  'Moon Dagger': [
+  'storm-mace': [...haft([32, 88], [50, 44], 9), star(56, 30, 8, 24, 0.5), circle(56, 30, 12)],
+  'moon-dagger': [
     circle(50, 34, 26),
     hole.circle(64, 26, 26),
     rect(34, 58, 32, 8, 3),
     ...haft([50, 66], [50, 88], 8),
   ],
-  'Oak Staff': [
+  'oak-staff': [
     ...haft([34, 92], [58, 20], 10),
     circle(60, 16, 13),
     hole.circle(60, 16, 5),
     ellipse(44, 54, 12, 7, -30),
   ],
-  'Bone Sling': [
+  'bone-sling': [
     band(50, 46, 30, 8, 200, 340),
     ...stroke(
       [
@@ -124,14 +124,14 @@ export const WEAPONS = {
     ),
     ellipse(50, 82, 18, 10),
   ],
-  'Star Lance': [...haft([14, 88], [62, 32], 9), star(74, 20, 5, 22, 0.42)],
-  'Wind Sabre': [
+  'star-lance': [...haft([14, 88], [62, 32], 9), star(74, 20, 5, 22, 0.42)],
+  'wind-sabre': [
     band(46, 62, 44, 12, 250, 340),
     rect(20, 74, 30, 9, 4),
     ...haft([16, 78], [8, 90], 9),
     circle(24, 78, 10),
   ],
-  'Shadow Pike': [
+  'shadow-pike': [
     ...haft([16, 90], [72, 26], 8),
     poly([
       [72, 30],
@@ -140,7 +140,7 @@ export const WEAPONS = {
     ]),
     rect(46, 46, 22, 8, 3, -45),
   ],
-  'Iron Halberd': [
+  'iron-halberd': [
     ...haft([30, 92], [56, 14], 9),
     poly([
       [56, 20],
@@ -152,7 +152,7 @@ export const WEAPONS = {
 };
 
 export const BEASTS = {
-  Griffin: [
+  griffin: [
     poly([
       [26, 66],
       [50, 34],
@@ -179,7 +179,7 @@ export const BEASTS = {
       7,
     ),
   ],
-  Wyvern: [
+  wyvern: [
     poly([
       [24, 60],
       [56, 40],
@@ -206,7 +206,7 @@ export const BEASTS = {
       6,
     ),
   ],
-  Basilisk: [
+  basilisk: [
     ...stroke(
       [
         [14, 84],
@@ -224,7 +224,7 @@ export const BEASTS = {
     ]),
     star(66, 12, 5, 12, 0.4),
   ],
-  Kraken: [
+  kraken: [
     dome(50, 46, 26, 200),
     ...around(50, 48, 6, (angle, index) =>
       stroke(
@@ -237,7 +237,7 @@ export const BEASTS = {
       ),
     ),
   ],
-  Chimera: [
+  chimera: [
     ellipse(50, 62, 30, 20),
     circle(28, 40, 13),
     circle(50, 32, 13),
@@ -255,7 +255,7 @@ export const BEASTS = {
       [40, 78],
     ]),
   ],
-  Sphinx: [
+  sphinx: [
     poly([
       [30, 84],
       [34, 46],
@@ -276,7 +276,7 @@ export const BEASTS = {
       7,
     ),
   ],
-  Manticore: [
+  manticore: [
     ellipse(46, 64, 28, 18),
     circle(28, 44, 14),
     ...stroke(
@@ -303,7 +303,7 @@ export const BEASTS = {
       6,
     ),
   ],
-  Hydra: [
+  hydra: [
     dome(50, 78, 30, 200),
     ...stroke(
       [
@@ -330,13 +330,13 @@ export const BEASTS = {
     ),
     circle(78, 32, 11),
   ],
-  Cyclops: [
+  cyclops: [
     dome(50, 56, 30, 200),
     rect(20, 56, 60, 30, 4),
     circle(50, 34, 22),
     hole.circle(50, 32, 9),
   ],
-  Banshee: [
+  banshee: [
     blob(
       [
         [50, 10],
@@ -351,7 +351,7 @@ export const BEASTS = {
     hole.circle(40, 36, 6),
     hole.circle(60, 36, 6),
   ],
-  Golem: [
+  golem: [
     rect(26, 30, 48, 44, 4),
     rect(34, 12, 32, 18, 3),
     rect(10, 34, 14, 30, 3),
@@ -359,7 +359,7 @@ export const BEASTS = {
     rect(30, 74, 14, 16, 2),
     rect(56, 74, 14, 16, 2),
   ],
-  Harpy: [
+  harpy: [
     circle(50, 30, 14),
     ellipse(50, 60, 16, 22),
     poly([
@@ -387,7 +387,7 @@ export const BEASTS = {
       5,
     ),
   ],
-  Minotaur: [
+  minotaur: [
     circle(50, 52, 26),
     poly([
       [24, 40],
@@ -406,7 +406,7 @@ export const BEASTS = {
       [42, 88],
     ]),
   ],
-  Direwolf: [
+  direwolf: [
     ellipse(56, 62, 30, 18),
     poly([
       [30, 56],
@@ -435,7 +435,7 @@ export const BEASTS = {
 };
 
 export const REALMS = {
-  Ashfell: [
+  ashfell: [
     poly([
       [8, 84],
       [34, 34],
@@ -448,7 +448,7 @@ export const REALMS = {
     ]),
     ...around(34, 26, 3, (angle, index) => circle(26 + index * 8, 22 - index * 4, 5)),
   ],
-  Duskmoor: [
+  duskmoor: [
     dome(72, 44, 20, 200),
     rect(6, 62, 88, 10, 4),
     rect(14, 74, 72, 8, 4),
@@ -461,7 +461,7 @@ export const REALMS = {
     ),
     ellipse(26, 34, 9, 12),
   ],
-  Highmere: [
+  highmere: [
     poly([
       [6, 86],
       [30, 24],
@@ -478,7 +478,7 @@ export const REALMS = {
       [38, 46],
     ]),
   ],
-  Ironvale: [
+  ironvale: [
     rect(16, 46, 68, 22, 4),
     poly([
       [10, 46],
@@ -495,7 +495,7 @@ export const REALMS = {
     ),
     star(50, 24, 4, 14, 0.3),
   ],
-  Sablewood: [
+  sablewood: [
     poly([
       [50, 8],
       [74, 46],
@@ -508,7 +508,7 @@ export const REALMS = {
     ]),
     rect(44, 70, 12, 18, 2),
   ],
-  Windreach: [
+  windreach: [
     ...band(40, 40, 26, 8, 160, 380),
     ...stroke(
       [
@@ -526,7 +526,7 @@ export const REALMS = {
       7,
     ),
   ],
-  Thornhold: [
+  thornhold: [
     rect(18, 40, 64, 48, 3),
     rect(10, 26, 18, 62, 3),
     rect(72, 26, 18, 62, 3),
@@ -542,19 +542,19 @@ export const REALMS = {
       [90, 26],
     ]),
   ],
-  Greymarch: [
+  greymarch: [
     rect(8, 36, 84, 10, 5),
     rect(20, 54, 72, 10, 5),
     rect(6, 72, 66, 10, 5),
     circle(70, 24, 12),
   ],
-  Frostgate: [
+  frostgate: [
     rect(20, 34, 60, 54, 3),
     hole.of(dome(50, 62, 16, 180)),
     hole.of(rect(34, 62, 32, 26, 2)),
     star(50, 18, 6, 16, 0.4),
   ],
-  Emberholt: [
+  emberholt: [
     poly([
       [50, 12],
       [72, 50],
@@ -571,7 +571,7 @@ export const REALMS = {
       0.3,
     ),
   ],
-  Larkspur: [
+  larkspur: [
     ...stroke(
       [
         [50, 90],
@@ -582,7 +582,7 @@ export const REALMS = {
     ...around(50, 34, 6, (angle) => ellipse(...turn([50, 34 - 20], [50, 34], angle), 11, 8, angle)),
     circle(50, 34, 9),
   ],
-  Mistvale: [
+  mistvale: [
     poly([
       [6, 74],
       [34, 30],
@@ -596,13 +596,13 @@ export const REALMS = {
     rect(6, 76, 88, 8, 4),
     rect(20, 62, 60, 7, 3),
   ],
-  Stonebrook: [
+  stonebrook: [
     band(50, 76, 40, 12, 190, 350),
     rect(6, 76, 88, 10, 3),
     circle(22, 46, 10),
     circle(78, 46, 10),
   ],
-  Ravenfen: [
+  ravenfen: [
     ellipse(54, 56, 28, 18),
     circle(30, 38, 13),
     poly([

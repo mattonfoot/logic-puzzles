@@ -18,7 +18,7 @@ import {
 const craters = (list) => list.map(([x, y, r]) => hole.circle(x, y, r));
 
 export const DESTINATIONS = {
-  Mars: [
+  mars: [
     circle(50, 50, 34),
     ...craters([
       [38, 40, 7],
@@ -26,7 +26,7 @@ export const DESTINATIONS = {
       [42, 66, 4],
     ]),
   ],
-  Venus: [
+  venus: [
     circle(50, 50, 34),
     hole.poly([
       [20, 38],
@@ -41,7 +41,7 @@ export const DESTINATIONS = {
       [22, 65],
     ]),
   ],
-  Titan: [
+  titan: [
     circle(50, 52, 28),
     ...stroke(
       [
@@ -51,7 +51,7 @@ export const DESTINATIONS = {
       6,
     ),
   ],
-  Europa: [
+  europa: [
     circle(50, 50, 34),
     hole.poly([
       [22, 44],
@@ -66,10 +66,10 @@ export const DESTINATIONS = {
       [26, 64],
     ]),
   ],
-  Ceres: [circle(50, 50, 30), hole.circle(58, 42, 11)],
-  Io: [circle(50, 56, 28), wedge([50, 30], [50, 8], 22)],
-  Luna: [circle(50, 50, 34), hole.circle(66, 42, 30)],
-  Vesta: [
+  ceres: [circle(50, 50, 30), hole.circle(58, 42, 11)],
+  io: [circle(50, 56, 28), wedge([50, 30], [50, 8], 22)],
+  luna: [circle(50, 50, 34), hole.circle(66, 42, 30)],
+  vesta: [
     blob(
       [
         [24, 34],
@@ -82,7 +82,7 @@ export const DESTINATIONS = {
       0.3,
     ),
   ],
-  Callisto: [
+  callisto: [
     circle(50, 50, 34),
     ...craters([
       [36, 36, 6],
@@ -92,7 +92,7 @@ export const DESTINATIONS = {
       [30, 56, 4],
     ]),
   ],
-  Ganymede: [
+  ganymede: [
     circle(50, 50, 34),
     hole.poly([
       [18, 50],
@@ -101,9 +101,9 @@ export const DESTINATIONS = {
       [18, 57],
     ]),
   ],
-  Enceladus: [circle(50, 62, 26), wedge([44, 40], [30, 10], 12), wedge([56, 40], [70, 12], 10)],
-  Triton: [circle(50, 50, 26), ellipse(50, 50, 44, 12, -18), hole.ellipse(50, 50, 34, 5, -18)],
-  Phobos: [
+  enceladus: [circle(50, 62, 26), wedge([44, 40], [30, 10], 12), wedge([56, 40], [70, 12], 10)],
+  triton: [circle(50, 50, 26), ellipse(50, 50, 44, 12, -18), hole.ellipse(50, 50, 34, 5, -18)],
+  phobos: [
     blob(
       [
         [26, 44],
@@ -117,7 +117,7 @@ export const DESTINATIONS = {
     ),
     hole.circle(58, 50, 9),
   ],
-  Deimos: [
+  deimos: [
     blob(
       [
         [32, 42],
@@ -134,7 +134,7 @@ export const DESTINATIONS = {
 };
 
 export const SHIPS = {
-  Kestrel: [
+  kestrel: [
     poly([
       [50, 8],
       [64, 60],
@@ -144,7 +144,7 @@ export const SHIPS = {
     wedge([36, 58], [16, 84], 12),
     wedge([64, 58], [84, 84], 12),
   ],
-  Corvus: [
+  corvus: [
     poly([
       [50, 14],
       [58, 48],
@@ -164,13 +164,13 @@ export const SHIPS = {
       [54, 60],
     ]),
   ],
-  Lyra: [
+  lyra: [
     ellipse(50, 46, 18, 26),
     ellipse(50, 46, 40, 12, -20),
     hole.ellipse(50, 46, 30, 5, -20),
     rect(44, 70, 12, 16, 4),
   ],
-  Orion: [
+  orion: [
     poly([
       [50, 10],
       [66, 54],
@@ -182,13 +182,13 @@ export const SHIPS = {
     wedge([66, 62], [82, 88], 14),
     rect(44, 76, 12, 12, 3),
   ],
-  Pallas: [
+  pallas: [
     rect(20, 30, 60, 40, 6),
     rect(30, 18, 40, 14, 4),
     rect(14, 70, 20, 16, 3),
     rect(66, 70, 20, 16, 3),
   ],
-  Sable: [
+  sable: [
     poly([
       [50, 12],
       [86, 78],
@@ -196,7 +196,7 @@ export const SHIPS = {
       [14, 78],
     ]),
   ],
-  Merlin: [
+  merlin: [
     poly([
       [50, 8],
       [64, 40],
@@ -208,8 +208,8 @@ export const SHIPS = {
     wedge([64, 56], [80, 84], 12),
     circle(50, 40, 8),
   ],
-  Halcyon: [ellipse(50, 56, 40, 14), dome(50, 52, 20, 200), rect(30, 68, 40, 8, 4)],
-  Vesper: [
+  halcyon: [ellipse(50, 56, 40, 14), dome(50, 52, 20, 200), rect(30, 68, 40, 8, 4)],
+  vesper: [
     poly([
       [50, 8],
       [58, 60],
@@ -219,19 +219,19 @@ export const SHIPS = {
     rect(18, 44, 12, 30, 5),
     rect(70, 44, 12, 30, 5),
   ],
-  Nimbus: [
+  nimbus: [
     ellipse(50, 40, 30, 22),
     ellipse(34, 62, 16, 12),
     ellipse(62, 66, 20, 14),
     rect(44, 20, 12, 14, 4),
   ],
-  Aurora: [
+  aurora: [
     circle(50, 54, 32),
     hole.circle(50, 34, 30),
     rect(44, 60, 12, 26, 4),
     ellipse(50, 86, 18, 6),
   ],
-  Cygnus: [
+  cygnus: [
     rect(38, 46, 24, 40, 6),
     circle(50, 34, 12),
     ...stroke(
@@ -244,8 +244,8 @@ export const SHIPS = {
     rect(20, 56, 16, 20, 4),
     rect(64, 56, 16, 20, 4),
   ],
-  Perseus: [rect(42, 10, 16, 80, 5), rect(14, 40, 72, 16, 5), circle(50, 48, 14)],
-  Zephyr: [
+  perseus: [rect(42, 10, 16, 80, 5), rect(14, 40, 72, 16, 5), circle(50, 48, 14)],
+  zephyr: [
     ...stroke(
       [
         [30, 88],
@@ -262,7 +262,7 @@ export const SHIPS = {
 };
 
 export const CARGO = {
-  'Seed Vault': [
+  'seed-vault': [
     rect(20, 44, 60, 42, 5),
     ...stroke(
       [
@@ -274,7 +274,7 @@ export const CARGO = {
     ellipse(38, 24, 14, 8, -20),
     ellipse(62, 22, 14, 8, 20),
   ],
-  'Ice Core': [
+  'ice-core': [
     rect(38, 12, 24, 76, 10),
     hole.poly([
       [42, 30],
@@ -289,7 +289,7 @@ export const CARGO = {
       [42, 62],
     ]),
   ],
-  'Solar Sail': [
+  'solar-sail': [
     ...stroke(
       [
         [50, 92],
@@ -308,7 +308,7 @@ export const CARGO = {
       [50, 60],
     ]),
   ],
-  'Rover Kit': [
+  'rover-kit': [
     rect(16, 40, 68, 24, 6),
     circle(30, 74, 14),
     circle(70, 74, 14),
@@ -316,12 +316,12 @@ export const CARGO = {
     hole.circle(70, 74, 5),
     rect(40, 24, 20, 18, 4),
   ],
-  'Med Pods': [
+  'med-pods': [
     rect(14, 30, 72, 44, 8),
     hole.of(rect(44, 38, 12, 28, 3)),
     hole.of(rect(30, 46, 40, 12, 3)),
   ],
-  'Star Maps': [
+  'star-maps': [
     rect(18, 24, 64, 56, 6),
     ...[
       [36, 42],
@@ -331,13 +331,13 @@ export const CARGO = {
       [68, 64],
     ].map(([x, y]) => hole.circle(x, y, 4)),
   ],
-  'Water Tank': [rect(24, 26, 52, 56, 12), rect(40, 12, 20, 16, 4), ellipse(50, 26, 26, 8)],
-  'Drone Bay': [
+  'water-tank': [rect(24, 26, 52, 56, 12), rect(40, 12, 20, 16, 4), ellipse(50, 26, 26, 8)],
+  'drone-bay': [
     circle(50, 52, 16),
     ...around(50, 52, 4, (angle) => ellipse(...turn([50 + 30, 52], [50, 52], angle), 14, 6, angle)),
     ...around(50, 52, 4, (angle) => bar([50, 52], turn([50 + 26, 52], [50, 52], angle), 6)),
   ],
-  'Soil Lab': [
+  'soil-lab': [
     poly([
       [40, 14],
       [60, 14],
@@ -353,7 +353,7 @@ export const CARGO = {
       [30, 78],
     ]),
   ],
-  'Fuel Cells': [
+  'fuel-cells': [
     rect(16, 30, 30, 56, 5),
     rect(54, 30, 30, 56, 5),
     rect(24, 22, 14, 10, 3),
@@ -368,7 +368,7 @@ export const CARGO = {
       [22, 62],
     ]),
   ],
-  Greenhouse: [
+  greenhouse: [
     poly([
       [50, 10],
       [88, 44],
@@ -395,13 +395,13 @@ export const CARGO = {
       [60, 64],
     ]),
   ],
-  'Repair Kit': [
+  'repair-kit': [
     rect(14, 38, 72, 48, 6),
     rect(38, 24, 24, 16, 4),
     hole.of(rect(44, 30, 12, 8, 2)),
     rect(14, 54, 72, 8),
   ],
-  'Comms Mast': [
+  'comms-mast': [
     ...stroke(
       [
         [50, 88],
@@ -418,7 +418,7 @@ export const CARGO = {
       [34, 78],
     ]),
   ],
-  'Sample Case': [
+  'sample-case': [
     rect(14, 34, 72, 52, 6),
     rect(38, 22, 24, 14, 5),
     hole.of(rect(44, 28, 12, 8, 2)),

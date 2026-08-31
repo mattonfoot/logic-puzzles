@@ -29,6 +29,10 @@ export function SolutionTable({ puzzle, compact = false }: Props) {
   const [content, setContent] = useState(0);
   const overflows = content > viewport + 4;
   const columnWidth = compact ? 96 : 104;
+  // The pinned column holds the people, and people now carry a title as well as
+  // a name — "Space Captain Rodgers" rather than "Nova". It gets the room for
+  // one; the sets that scroll past it are single words and do not.
+  const nameWidth = compact ? 140 : 152;
   const rowHeight = compact ? 28 : 32;
   const headerHeight = compact ? 22 : 26;
 
@@ -38,7 +42,7 @@ export function SolutionTable({ puzzle, compact = false }: Props) {
       style={[
         styles.cell,
         {
-          width: columnWidth,
+          width: lead ? nameWidth : columnWidth,
           height: rowHeight,
           backgroundColor: index % 2 ? tint(palette.accent, 0.05) : 'transparent',
         },
@@ -54,8 +58,11 @@ export function SolutionTable({ puzzle, compact = false }: Props) {
     </View>
   );
 
-  const header = (name: string) => (
-    <View key={name} style={[styles.headerCell, { width: columnWidth, height: headerHeight }]}>
+  const header = (name: string, lead = false) => (
+    <View
+      key={name}
+      style={[styles.headerCell, { width: lead ? nameWidth : columnWidth, height: headerHeight }]}
+    >
       <Text numberOfLines={1} style={[styles.headerText, { color: palette.accent }]}>
         {name}
       </Text>
@@ -66,7 +73,7 @@ export function SolutionTable({ puzzle, compact = false }: Props) {
     <View>
       <View style={styles.row}>
         <View style={styles.pinned}>
-          {header(puzzle.categories[0].name)}
+          {header(puzzle.categories[0].name, true)}
           {rows.map((row, index) => cell(row[0], true, index))}
         </View>
 

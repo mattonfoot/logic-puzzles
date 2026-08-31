@@ -262,7 +262,7 @@ rest is the app behaving normally.
    The set names and item pictures stay pinned while the grids scroll sideways,
    and − / + resize the squares past the fit.
 7. **Clues arrive one at a time.** They do not always use names: about a third
-   of the time a clue describes something instead — "the diver with green eyes",
+   of the time a clue describes something instead — "the diver with a beard",
    "no payload made of glass" — and a description that covers two things says
    something about both at once. The cards behind the labels are where those
    descriptions are written down, which is what makes tapping them worth doing;
@@ -837,9 +837,21 @@ scripts/icons/*.mjs   →   assets/icons/**.svg   →   src/ui/icons.generated.t
 theme says what each item looks like in terms of it. Anything that is a scale
 (a launch year, a bill, a depth, a plant's height) is drawn by
 `scripts/icons/scales.mjs` as a motif that **grows with the number**, so the
-fourteen rungs of one ladder read as a ladder. People are `people.mjs`: one body
-per theme and seventeen ways of wearing hair, each of which changes the *outline*
-of the head, because a silhouette has no face to tell anyone apart by.
+fourteen rungs of one ladder read as a ladder.
+
+People are `people.mjs`, and they are built differently from everything else.
+One body per theme, then **two independent things about the head** — twelve ways
+of wearing hair and eight distinguishing features — every one of which changes
+the *outline*, because a silhouette has no face to tell anyone apart by. Ninety-six
+combinations to draw fourteen people from is what keeps a set of them apart at
+the size a grid heading gets; twelve hairs alone was not.
+
+Which hair and which feature is not written here. `registry.mjs` reads them off
+each person's traits in `locales/en-HB.yaml` — the same two lines the player
+sees on their card — so the picture is built *from* the card rather than beside
+it, and the two cannot drift. Rewrite somebody's hair in the language file and
+the next `npm run icons` redraws them. A phrase with no shape behind it stops
+the build rather than quietly drawing a bald stranger.
 
 **The SVG files are the artwork, not a cache.** The script writes a file only if
 it is not already there, and then re-reads every file on disk to build the path
@@ -875,26 +887,45 @@ relationship rather than the numbers: redraw them however you like, as long as
 the hand mark still lands visibly harder.
 
 Names are derived, not written down: `iconName(theme, category, itemId)` in
-`src/data/themes.ts` builds `cosmic/astronaut-juno`, so an item and its drawing
+`src/data/themes.ts` builds `cosmic/astronaut-zarg`, so an item and its drawing
 cannot drift apart without a test noticing. It is built from the item's **id**
 rather than its label, which is what lets a label be rewritten or translated
-without the picture going missing. An unknown name renders nothing rather than a
-broken box, which is what keeps a game saved before an item was renamed from
-crashing on open.
+without the picture going missing — and `registry.mjs` is keyed by that same id
+for the same reason. It was keyed by the label once, which worked only for as
+long as every label happened to slug down to its own id: rename a person and the
+next run would draw them a second time under a new name and leave the first
+behind as an orphan, with the app still asking for the orphan. Two tests hold
+the line now — every icon the app asks for exists, and nothing exists that the
+app does not ask for. An unknown name renders nothing rather than a broken box,
+which is what keeps a game saved before an item was renamed from crashing on
+open.
 
 ## Items, traits and descriptions
 
 Every item in every category carries four things: its label, an icon, a line
 about it for the player who taps it, and a value for each of its category's
-**traits** — hair, eyes and star sign for people; what a thing is made of, how
-big it is, what it is for. There are at most four per category, and a test holds
-every item to all of them, so nothing turns up on a card with a blank in it.
+**traits** — what a thing is made of, how big it is, what it is for; and for a
+person, five things about them. There are at most five per category, and a test
+holds every item to all of them, so nothing turns up on a card with a blank in
+it.
+
+The five for people are chosen with the picture in mind. Two of them — **hair**
+and one **distinguishing feature** — are what their silhouette actually draws,
+and the drawing is built from those very words (see [The icons](#the-icons)), so
+a card that says *a bun* and *a chinstrap* sits above a picture of a bun and a
+chinstrap. Every set of people used to be described the same three ways instead:
+hair *colour*, eye colour and star sign, not one of which a shape filled with a
+single colour can show — so what a clue told you about somebody and what their
+heading on the board looked like had nothing to do with one another. The other
+three are the theme's own and are read rather than seen: where an astronaut was
+born and how tall they are, what a hero is sworn as and how old, what a diver is
+known for, what a gardener has won at the village show.
 
 Traits exist so a clue can point at something without naming it. Each is written
-as a phrase with the noun in it — `{noun} with {} hair`, `{} {noun}`, `{noun}
-made of {}` — which reads as "astronaut with red hair" or "payload made of
-glass" with no article on the front, because what goes in front depends on what
-the clue is doing with it.
+as a phrase with the noun in it — `{noun} with {}`, `{} {noun}`, `{noun} made of
+{}` — which reads as "astronaut with a topknot" or "payload made of glass" with
+no article on the front, because what goes in front depends on what the clue is
+doing with it.
 
 A clue is about the *entity*, though, not the item: "the Bone Sling wielder" is a
 hero. So every category carries a second frame beside its `pattern` —

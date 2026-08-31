@@ -31,8 +31,8 @@ const cup = ({ top = 30, bottom = 24, y = 34, height = 34, handle = true, saucer
 import { band } from './draw.mjs';
 
 export const DRINKS = {
-  Latte: cup({ top: 24, bottom: 18, y: 22, height: 48 }),
-  Mocha: [
+  latte: cup({ top: 24, bottom: 18, y: 22, height: 48 }),
+  mocha: [
     ...cup({ top: 26, bottom: 22, y: 32, height: 38, saucer: false }),
     rect(20, 76, 60, 8, 4),
     ...stroke(
@@ -45,7 +45,7 @@ export const DRINKS = {
       5,
     ),
   ],
-  Chai: [
+  chai: [
     ellipse(46, 56, 30, 22),
     band(74, 52, 12, 7, -80, 80),
     poly([
@@ -57,8 +57,8 @@ export const DRINKS = {
     circle(46, 26, 6),
     rect(24, 76, 44, 8, 4),
   ],
-  Cortado: [...cup({ top: 18, bottom: 14, y: 40, height: 28 }), rect(30, 68, 40, 6, 3)],
-  Matcha: [
+  cortado: [...cup({ top: 18, bottom: 14, y: 40, height: 28 }), rect(30, 68, 40, 6, 3)],
+  matcha: [
     dome(50, 44, 30, 180),
     poly([
       [20, 44],
@@ -68,9 +68,9 @@ export const DRINKS = {
     ]),
     rect(28, 74, 44, 8, 4),
   ],
-  Espresso: [...cup({ top: 14, bottom: 11, y: 46, height: 22 }), rect(26, 68, 48, 8, 4)],
-  'Flat White': cup({ top: 28, bottom: 20, y: 34, height: 34 }),
-  Americano: [
+  espresso: [...cup({ top: 14, bottom: 11, y: 46, height: 22 }), rect(26, 68, 48, 8, 4)],
+  'flat-white': cup({ top: 28, bottom: 20, y: 34, height: 34 }),
+  americano: [
     poly([
       [26, 24],
       [74, 24],
@@ -79,18 +79,18 @@ export const DRINKS = {
     ]),
     band(76, 48, 13, 8, -80, 80),
   ],
-  Cappuccino: [
+  cappuccino: [
     ...cup({ top: 24, bottom: 18, y: 36, height: 32 }),
     dome(50, 36, 26, 200),
     circle(38, 26, 8),
     circle(58, 24, 10),
   ],
-  Macchiato: [
+  macchiato: [
     ...cup({ top: 16, bottom: 13, y: 44, height: 24 }),
     circle(50, 34, 9),
     rect(28, 68, 44, 8, 4),
   ],
-  'Cold Brew': [
+  'cold-brew': [
     poly([
       [30, 26],
       [70, 26],
@@ -107,7 +107,7 @@ export const DRINKS = {
       ]),
     ),
   ],
-  'Oat Latte': [
+  'oat-latte': [
     ...cup({ top: 20, bottom: 15, y: 40, height: 34, handle: false, saucer: false }),
     poly([
       [14, 30],
@@ -121,7 +121,7 @@ export const DRINKS = {
       [30, 30],
     ]),
   ],
-  'Mint Tea': [
+  'mint-tea': [
     poly([
       [30, 24],
       [70, 24],
@@ -131,7 +131,7 @@ export const DRINKS = {
     hole.ellipse(42, 44, 12, 7, -30),
     hole.ellipse(58, 60, 12, 7, 25),
   ],
-  'Hot Choc': [
+  'hot-choc': [
     ...cup({ top: 26, bottom: 20, y: 38, height: 36, saucer: false }),
     rect(22, 78, 56, 8, 4),
     circle(38, 32, 9),
@@ -141,8 +141,8 @@ export const DRINKS = {
 };
 
 export const PASTRIES = {
-  Croissant: [band(50, 56, 30, 20, 190, 350), circle(22, 54, 11), circle(78, 54, 11)],
-  Cannelé: [
+  croissant: [band(50, 56, 30, 20, 190, 350), circle(22, 54, 11), circle(78, 54, 11)],
+  cannel: [
     poly([
       [32, 24],
       [68, 24],
@@ -166,15 +166,15 @@ export const PASTRIES = {
       ]),
     ),
   ],
-  Scone: [dome(50, 54, 32, 180), rect(18, 54, 64, 20, 3), hole.of(rect(18, 60, 64, 5))],
-  Éclair: [rect(12, 38, 76, 26, 13), hole.of(rect(22, 44, 56, 6, 3))],
-  Brioche: [
+  scone: [dome(50, 54, 32, 180), rect(18, 54, 64, 20, 3), hole.of(rect(18, 60, 64, 5))],
+  clair: [rect(12, 38, 76, 26, 13), hole.of(rect(22, 44, 56, 6, 3))],
+  brioche: [
     dome(50, 62, 32, 190),
     rect(18, 62, 64, 16, 6),
     dome(50, 34, 15, 200),
     circle(50, 34, 10),
   ],
-  Tartlet: [
+  tartlet: [
     poly([
       [18, 46],
       [82, 46],
@@ -188,19 +188,19 @@ export const PASTRIES = {
       [64, 36],
     ].map(([x, y]) => hole.circle(x, y, 5)),
   ],
-  Danish: [
+  danish: [
     circle(50, 52, 32),
     hole.circle(50, 52, 12),
     ...around(50, 52, 6, (angle) => hole.circle(...turn([50, 52 - 22], [50, 52], angle), 5)),
   ],
-  Madeleine: [
+  madeleine: [
     dome(50, 70, 34, 180),
     rect(16, 70, 68, 6, 3),
     ...around(50, 70, 5, (angle, index) =>
       hole.of(bar([50, 70], turn([50, 34], [50, 70], -50 + index * 25), 3)),
     ),
   ],
-  Palmier: [
+  palmier: [
     circle(34, 46, 22),
     circle(66, 46, 22),
     hole.circle(34, 46, 8),
@@ -212,14 +212,14 @@ export const PASTRIES = {
       [40, 82],
     ]),
   ],
-  Doughnut: [
+  doughnut: [
     circle(50, 50, 36),
     hole.circle(50, 50, 13),
     ...around(50, 50, 5, (angle) =>
       hole.of(bar(turn([50, 24], [50, 50], angle), turn([50, 18], [50, 50], angle), 5)),
     ),
   ],
-  Muffin: [
+  muffin: [
     dome(50, 48, 34, 190),
     poly([
       [22, 48],
@@ -231,7 +231,7 @@ export const PASTRIES = {
     hole.of(bar([50, 58], [50, 82], 4)),
     hole.of(bar([66, 60], [62, 82], 4)),
   ],
-  Baklava: [
+  baklava: [
     poly([
       [50, 20],
       [86, 50],
@@ -248,8 +248,8 @@ export const PASTRIES = {
     ),
     circle(50, 50, 7),
   ],
-  Cruffin: [circle(50, 54, 30), band(50, 54, 20, 8, 0, 300), rect(20, 76, 60, 10, 4)],
-  Turnover: [
+  cruffin: [circle(50, 54, 30), band(50, 54, 20, 8, 0, 300), rect(20, 76, 60, 10, 4)],
+  turnover: [
     poly([
       [14, 74],
       [50, 22],
@@ -261,14 +261,14 @@ export const PASTRIES = {
 };
 
 export const SEATS = {
-  Window: [
+  window: [
     rect(14, 16, 72, 68, 4),
     hole.of(rect(24, 26, 22, 22, 2)),
     hole.of(rect(54, 26, 22, 22, 2)),
     hole.of(rect(24, 56, 22, 20, 2)),
     hole.of(rect(54, 56, 22, 20, 2)),
   ],
-  Corner: [
+  corner: [
     poly([
       [12, 12],
       [12, 88],
@@ -278,7 +278,7 @@ export const SEATS = {
       [32, 12],
     ]),
   ],
-  Patio: [
+  patio: [
     ...stroke(
       [
         [50, 88],
@@ -293,7 +293,7 @@ export const SEATS = {
     ]),
     ...around(50, 42, 3, (angle, index) => hole.of(bar([50, 26], [10 + index * 40, 42], 4))),
   ],
-  Counter: [
+  counter: [
     rect(10, 34, 80, 10, 4),
     ...stroke(
       [
@@ -311,7 +311,7 @@ export const SEATS = {
     ),
     rect(20, 20, 60, 8, 4),
   ],
-  Loft: [
+  loft: [
     ...stroke(
       [
         [26, 88],
@@ -336,7 +336,7 @@ export const SEATS = {
       ),
     ),
   ],
-  Fireside: [
+  fireside: [
     blob(
       [
         [50, 8],
@@ -358,7 +358,7 @@ export const SEATS = {
       0.3,
     ),
   ],
-  Balcony: [
+  balcony: [
     rect(10, 34, 80, 8, 3),
     rect(10, 80, 80, 8, 3),
     ...[22, 38, 54, 70].flatMap((x) =>
@@ -371,13 +371,13 @@ export const SEATS = {
       ),
     ),
   ],
-  Alcove: [
+  alcove: [
     dome(50, 50, 38, 180),
     rect(12, 50, 76, 38, 2),
     hole.of(dome(50, 54, 22, 180)),
     hole.of(rect(28, 54, 44, 34, 2)),
   ],
-  'Bar Stool': [
+  'bar-stool': [
     ellipse(50, 30, 30, 10),
     ...stroke(
       [
@@ -394,13 +394,13 @@ export const SEATS = {
     ]),
     rect(30, 54, 40, 7, 3),
   ],
-  Booth: [
+  booth: [
     rect(12, 20, 76, 34, 8),
     rect(12, 54, 76, 20, 4),
     rect(18, 74, 10, 14, 3),
     rect(72, 74, 10, 14, 3),
   ],
-  Terrace: [
+  terrace: [
     ellipse(50, 40, 38, 10),
     ...stroke(
       [
@@ -418,7 +418,7 @@ export const SEATS = {
     ellipse(28, 24, 12, 9),
     ellipse(72, 24, 12, 9),
   ],
-  Garden: [
+  garden: [
     rect(12, 44, 76, 10, 4),
     ...stroke(
       [
@@ -437,13 +437,13 @@ export const SEATS = {
     rect(12, 24, 76, 8, 4),
     ellipse(50, 14, 16, 10),
   ],
-  Nook: [
+  nook: [
     rect(14, 12, 72, 76, 4),
     hole.of(rect(24, 24, 52, 16, 2)),
     hole.of(rect(24, 48, 52, 16, 2)),
     hole.of(rect(24, 70, 52, 8, 2)),
   ],
-  Bench: [
+  bench: [
     rect(10, 40, 80, 12, 4),
     rect(10, 58, 80, 10, 4),
     ...stroke(

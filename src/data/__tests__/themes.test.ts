@@ -20,12 +20,25 @@ const KNOWN_SLOTS = ['a', 'b', 'c', 'greater', 'lesser', 'noun', 'comparative', 
 
 /** Deep enough that two puzzles on the same theme rarely share a cast. */
 const MIN_POOL = 12;
-/** Item labels are written sideways above narrow grid columns. */
-const MAX_LABEL = 14;
+/**
+ * The board heads its rows and columns with pictures now rather than with
+ * names, so a label is no longer squeezed sideways above a grid column — it is
+ * read in a clue, on an item's card, and in the answer table, all of which have
+ * a line to give it. The cap is what the answer table's name column can set
+ * without shrinking the type: enough for a title and a name.
+ */
+const MAX_LABEL = 22;
 /** The card has room for a line, and the player has patience for one. */
 const MAX_BLURB = 100;
-/** Up to four things worth knowing about an item; more is a biography. */
-const MAX_TRAITS = 4;
+/**
+ * Five things worth knowing about an item; more is a biography.
+ *
+ * It was four while every set of people was described the same three ways —
+ * hair colour, eye colour, star sign — none of which a silhouette can show. The
+ * people now carry two the drawing does show and three it does not, which is
+ * what a card is for.
+ */
+const MAX_TRAITS = 5;
 const BIGGEST_PUZZLE = Math.max(...SIZES.map((size) => size.items));
 
 describe('themes', () => {

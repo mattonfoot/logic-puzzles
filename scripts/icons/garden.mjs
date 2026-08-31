@@ -34,9 +34,9 @@ const roundPetal = (r, spread) => (angle, cy) =>
   ellipse(...turn([50, cy - r], [50, cy], angle), spread, spread * 1.4, angle);
 
 export const FLOWERS = {
-  Dahlia: bloom({ petals: 12, petal: roundPetal(20, 6), centre: 9 }),
-  Peony: bloom({ petals: 7, petal: roundPetal(18, 11), centre: 10 }),
-  Iris: [
+  dahlia: bloom({ petals: 12, petal: roundPetal(20, 6), centre: 9 }),
+  peony: bloom({ petals: 7, petal: roundPetal(18, 11), centre: 10 }),
+  iris: [
     ...around(50, 40, 3, (angle) => wedge([50, 40], turn([50, 4], [50, 40], angle + 60), 20)),
     ...around(50, 40, 3, (angle) => ellipse(...turn([50, 62], [50, 40], angle), 10, 16, angle)),
     ...stroke(
@@ -47,7 +47,7 @@ export const FLOWERS = {
       6,
     ),
   ],
-  Tulip: [
+  tulip: [
     poly([
       [30, 34],
       [70, 34],
@@ -66,7 +66,7 @@ export const FLOWERS = {
     ),
     ellipse(32, 74, 14, 7, -20),
   ],
-  Aster: [
+  aster: [
     ...around(50, 40, 10, (angle) => wedge([50, 40], turn([50, 8], [50, 40], angle), 9)),
     circle(50, 40, 8),
     ...stroke(
@@ -77,7 +77,7 @@ export const FLOWERS = {
       6,
     ),
   ],
-  Zinnia: [
+  zinnia: [
     ...around(50, 40, 8, (angle) => roundPetal(22, 8)(angle, 40)),
     ...around(50, 40, 8, (angle) => roundPetal(12, 6)(angle + 22, 40)),
     circle(50, 40, 6),
@@ -89,7 +89,7 @@ export const FLOWERS = {
       6,
     ),
   ],
-  Lupin: [
+  lupin: [
     ...stroke(
       [
         [50, 92],
@@ -103,7 +103,7 @@ export const FLOWERS = {
     ]),
     dome(50, 22, 9, 200),
   ],
-  Freesia: [
+  freesia: [
     ...stroke(
       [
         [16, 86],
@@ -123,7 +123,7 @@ export const FLOWERS = {
       ]),
     ),
   ],
-  Marigold: [
+  marigold: [
     ...around(50, 40, 14, (angle) => ellipse(...turn([50, 18], [50, 40], angle), 7, 9, angle)),
     circle(50, 40, 14),
     ...stroke(
@@ -134,7 +134,7 @@ export const FLOWERS = {
       6,
     ),
   ],
-  Foxglove: [
+  foxglove: [
     ...stroke(
       [
         [42, 92],
@@ -147,7 +147,7 @@ export const FLOWERS = {
       ellipse(64 - index, y + 6, 12, 9, 20),
     ]),
   ],
-  Camellia: [
+  camellia: [
     ...around(50, 42, 6, (angle) => roundPetal(19, 12)(angle, 42)),
     circle(50, 42, 9),
     ellipse(26, 74, 16, 9, -30),
@@ -160,7 +160,7 @@ export const FLOWERS = {
       6,
     ),
   ],
-  'Sweet Pea': [
+  'sweet-pea': [
     ellipse(34, 40, 20, 16, -25),
     ellipse(66, 40, 20, 16, 25),
     ellipse(50, 62, 14, 12),
@@ -173,7 +173,7 @@ export const FLOWERS = {
     ),
     ...band(64, 82, 12, 5, 90, 300),
   ],
-  Snapdragon: [
+  snapdragon: [
     ...stroke(
       [
         [46, 92],
@@ -190,7 +190,7 @@ export const FLOWERS = {
     ),
     dome(50, 20, 8, 200),
   ],
-  Cosmos: [
+  cosmos: [
     ...around(50, 40, 8, (angle) => ellipse(...turn([50, 18], [50, 40], angle), 10, 13, angle)),
     circle(50, 40, 8),
     ...stroke(
@@ -227,20 +227,20 @@ const pot = ({
 ];
 
 export const POTS = {
-  Terracotta: pot({ rim: 34, top: 30, bottom: 20, height: 50, saucer: true }),
-  Cobalt: pot({ rim: 30, top: 28, bottom: 24, y: 24, height: 58 }),
-  Ivory: pot({ rim: 22, top: 20, bottom: 14, y: 40, height: 36, saucer: true }),
-  Copper: [
+  terracotta: pot({ rim: 34, top: 30, bottom: 20, height: 50, saucer: true }),
+  cobalt: pot({ rim: 30, top: 28, bottom: 24, y: 24, height: 58 }),
+  ivory: pot({ rim: 22, top: 20, bottom: 14, y: 40, height: 36, saucer: true }),
+  copper: [
     ellipse(50, 46, 26, 24),
     rect(24, 30, 52, 10, 3),
     band(76, 46, 12, 7, -80, 80),
     rect(38, 70, 24, 10, 3),
   ],
-  Slate: [rect(18, 34, 64, 52, 2), rect(12, 26, 76, 10, 2)],
-  Mint: pot({ rim: 24, top: 22, bottom: 18, y: 38, height: 40 }),
-  Rust: [pot({ rim: 32, top: 28, bottom: 22, y: 26, height: 52 }), hole.circle(50, 74, 7)].flat(),
-  Cream: pot({ rim: 24, top: 22, bottom: 16, y: 36, height: 42, feet: true }),
-  Indigo: [
+  slate: [rect(18, 34, 64, 52, 2), rect(12, 26, 76, 10, 2)],
+  mint: pot({ rim: 24, top: 22, bottom: 18, y: 38, height: 40 }),
+  rust: [pot({ rim: 32, top: 28, bottom: 22, y: 26, height: 52 }), hole.circle(50, 74, 7)].flat(),
+  cream: pot({ rim: 24, top: 22, bottom: 16, y: 36, height: 42, feet: true }),
+  indigo: [
     dome(50, 52, 30, 200),
     poly([
       [20, 52],
@@ -264,8 +264,8 @@ export const POTS = {
       5,
     ),
   ],
-  Charcoal: [rect(24, 36, 52, 48, 3), rect(18, 28, 64, 10, 3), hole.of(rect(34, 48, 32, 8, 2))],
-  Blush: [
+  charcoal: [rect(24, 36, 52, 48, 3), rect(18, 28, 64, 10, 3), hole.of(rect(34, 48, 32, 8, 2))],
+  blush: [
     ellipse(50, 58, 30, 26),
     rect(28, 34, 44, 10, 4),
     poly([
@@ -275,14 +275,14 @@ export const POTS = {
       [38, 58],
     ]),
   ],
-  Amber: pot({ rim: 36, top: 32, bottom: 26, y: 28, height: 54, saucer: true }),
-  Olive: [
+  amber: pot({ rim: 36, top: 32, bottom: 26, y: 28, height: 54, saucer: true }),
+  olive: [
     rect(26, 40, 48, 44, 4),
     rect(20, 32, 60, 10, 3),
     band(50, 32, 20, 6, 190, 350),
     hole.of(rect(36, 56, 28, 6, 2)),
   ],
-  Plum: [
+  plum: [
     ellipse(50, 62, 32, 24),
     poly([
       [26, 40],
@@ -301,7 +301,7 @@ const tool = (head, { from = [34, 90], to = [56, 40], width = 8 } = {}) => [
 ];
 
 export const TOOLS = {
-  Trowel: tool(
+  trowel: tool(
     [
       poly([
         [38, 44],
@@ -312,7 +312,7 @@ export const TOOLS = {
     ],
     { from: [30, 88], to: [50, 46] },
   ),
-  Shears: [
+  shears: [
     ...stroke(
       [
         [20, 86],
@@ -340,7 +340,7 @@ export const TOOLS = {
     circle(24, 84, 9),
     circle(76, 84, 9),
   ],
-  Dibber: [
+  dibber: [
     ...stroke(
       [
         [50, 20],
@@ -355,7 +355,7 @@ export const TOOLS = {
     ]),
     ellipse(50, 18, 18, 9),
   ],
-  Rake: [
+  rake: [
     ...stroke(
       [
         [26, 90],
@@ -368,7 +368,7 @@ export const TOOLS = {
       bar([50 + index * 11, 30 - index * 4], [46 + index * 11, 48 - index * 4], 5),
     ),
   ],
-  Sprayer: [
+  sprayer: [
     rect(30, 34, 34, 52, 6),
     rect(38, 22, 18, 12, 3),
     poly([
@@ -379,7 +379,7 @@ export const TOOLS = {
     ]),
     ...around(86, 25, 3, (angle, index) => circle(92, 16 + index * 9, 3)),
   ],
-  Gloves: [
+  gloves: [
     poly([
       [24, 42],
       [32, 22],
@@ -392,7 +392,7 @@ export const TOOLS = {
     rect(66, 34, 10, 20, 5),
     rect(78, 42, 9, 16, 4),
   ],
-  Hoe: [
+  hoe: [
     ...stroke(
       [
         [24, 90],
@@ -407,7 +407,7 @@ export const TOOLS = {
       [58, 44],
     ]),
   ],
-  Twine: [
+  twine: [
     ellipse(50, 56, 30, 26),
     hole.of(ellipse(50, 56, 8, 22, 20)),
     hole.of(ellipse(50, 56, 8, 22, -20)),
@@ -419,7 +419,7 @@ export const TOOLS = {
       5,
     ),
   ],
-  Secateurs: [
+  secateurs: [
     ...stroke(
       [
         [26, 88],
@@ -437,19 +437,19 @@ export const TOOLS = {
     band(50, 34, 20, 12, 180, 340),
     circle(50, 46, 6),
   ],
-  Kneeler: [
+  kneeler: [
     rect(12, 44, 76, 22, 6),
     rect(20, 66, 12, 22, 3),
     rect(68, 66, 12, 22, 3),
     rect(24, 34, 52, 10, 4),
   ],
-  Sieve: [
+  sieve: [
     band(50, 46, 34, 10, 180, 360),
     rect(16, 46, 68, 8, 2),
     ...[26, 40, 54, 68].map((x) => bar([x, 54], [x, 74], 5)),
     ...[30, 44, 58].map((y) => bar([20, y + 34], [80, y + 34], 4)),
   ],
-  'Hand Fork': [
+  'hand-fork': [
     ...stroke(
       [
         [34, 90],
@@ -463,7 +463,7 @@ export const TOOLS = {
       [64, 44],
     ].map(([x, y]) => wedge([x, y], [x + (x - 52) / 2, 12], 9)),
   ],
-  'Watering Can': [
+  'watering-can': [
     rect(24, 40, 44, 46, 6),
     poly([
       [64, 44],
@@ -475,7 +475,7 @@ export const TOOLS = {
     rect(30, 30, 20, 10, 3),
     ...around(94, 34, 3, (angle, index) => circle(96, 24 + index * 8, 3)),
   ],
-  'Plant Labels': [
+  'plant-labels': [
     poly([
       [20, 20],
       [50, 20],
