@@ -840,11 +840,38 @@ theme says what each item looks like in terms of it. Anything that is a scale
 fourteen rungs of one ladder read as a ladder.
 
 People are `people.mjs`, and they are built differently from everything else.
-One body per theme, then **two independent things about the head** — twelve ways
-of wearing hair and eight distinguishing features — every one of which changes
-the *outline*, because a silhouette has no face to tell anyone apart by. Ninety-six
+They are drawn **in profile**, all facing the same way, as a bust on a proper
+head construction — a cranium, a face line with a brow and a nose and a chin, a
+jaw hinged under the ear, a neck that meets the shoulders where a neck does.
+
+That is not a style choice. A silhouette is an outline and nothing else, and a
+head drawn face-on is a circle: the only thing that can vary is what sticks out
+past the edge of it, so every person ends up as the same disc with a different
+bump — which is exactly what the first fourteen were. Turn the head side-on and
+the whole front of it becomes outline, and everything a person wears lands where
+it can be seen. A moustache sits out in front of the mouth instead of hiding
+inside the face. Spectacles get a lens on the eye and an arm back to the ear. A
+headset gets a boom. A beard changes the shape of the jaw rather than adding a
+blob under it. Portrait silhouettes have been cut in profile for three hundred
+years for this reason.
+
+On that head sit **two independent things** — twelve ways of wearing hair and
+eight distinguishing features — every one of which changes the outline. Ninety-six
 combinations to draw fourteen people from is what keeps a set of them apart at
-the size a grid heading gets; twelve hairs alone was not.
+the size a grid heading gets.
+
+Two rules fall out of the construction and are worth knowing before adding to
+it. **Hair is grown, not drawn**: every style is the skull outline pushed
+outwards from the middle of the cranium, which is the only way a hairline lands
+outside the head at every point — draw a cap freehand and its front edge ends up
+inside the forehead somewhere, and the head pokes through it as a shelf above
+the brow. And **a feature has to reach an edge**: anything held inside the head
+is swallowed, including a ring punched as a void, because the head is filled
+underneath it and one shape over another in a single colour is one shape. That
+is what cost the cast its hoop earrings — a profile puts the ear in the middle
+of the head, so a hoop hangs over the jaw where nothing can see it — and why the
+eighth feature is a headband, which goes round the forehead and out past the
+back of the skull.
 
 Which hair and which feature is not written here. `registry.mjs` reads them off
 each person's traits in `locales/en-HB.yaml` — the same two lines the player

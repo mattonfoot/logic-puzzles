@@ -393,7 +393,7 @@ export const STRINGS = {
               blurb: 'Can find anywhere without the charts, and does, to general alarm.',
               traits: {
                 hair: 'braids',
-                feature: 'hoop earrings',
+                feature: 'a headband',
                 eyes: 'brown',
                 homeworld: 'Ceres',
                 height: '1.7m',
@@ -481,7 +481,7 @@ export const STRINGS = {
               blurb: 'Knows where everything is, and what it costs to find out.',
               traits: {
                 hair: 'a shaved head',
-                feature: 'hoop earrings',
+                feature: 'a headband',
                 eyes: 'brown',
                 homeworld: 'Titan',
                 height: '1.8m',
@@ -1150,7 +1150,7 @@ export const STRINGS = {
               blurb: 'Brings her own cup. Staff have stopped arguing about it.',
               traits: {
                 hair: 'a bob',
-                feature: 'hoop earrings',
+                feature: 'a headband',
                 eyes: 'brown',
                 age: '58',
                 trade: 'a piano teacher',
@@ -1238,7 +1238,7 @@ export const STRINGS = {
               blurb: 'Off a night shift, drinking something the size of a bucket.',
               traits: {
                 hair: 'a bun',
-                feature: 'hoop earrings',
+                feature: 'a headband',
                 eyes: 'hazel',
                 age: '26',
                 trade: 'a night nurse',
@@ -1983,7 +1983,7 @@ export const STRINGS = {
               blurb: 'Writes the ballad before the quest, then bends the quest to fit.',
               traits: {
                 hair: 'a topknot',
-                feature: 'hoop earrings',
+                feature: 'a headband',
                 eyes: 'green',
                 calling: 'a bard',
                 age: '26',
@@ -1994,7 +1994,7 @@ export const STRINGS = {
               blurb: 'Funds every expedition and turns up uninvited to all of them.',
               traits: {
                 hair: 'a bun',
-                feature: 'hoop earrings',
+                feature: 'a headband',
                 eyes: 'blue',
                 calling: 'a noble',
                 age: '49',
@@ -2728,7 +2728,7 @@ export const STRINGS = {
               blurb: 'Guards the reef. Has memorised every fine in the by-laws.',
               traits: {
                 hair: 'braids',
-                feature: 'hoop earrings',
+                feature: 'a headband',
                 eyes: 'brown',
                 known: 'patrolling',
                 height: '1.7m',
@@ -2794,7 +2794,7 @@ export const STRINGS = {
               blurb: 'Photographs everything. Has nine thousand pictures of the same eel.',
               traits: {
                 hair: 'long hair',
-                feature: 'hoop earrings',
+                feature: 'a headband',
                 eyes: 'brown',
                 known: 'photography',
                 height: '1.6m',
@@ -3462,7 +3462,7 @@ export const STRINGS = {
               blurb: 'Grows the finest blooms in the village and will not say how.',
               traits: {
                 hair: 'a bun',
-                feature: 'hoop earrings',
+                feature: 'a headband',
                 eyes: 'green',
                 age: '62',
                 prize: 'Best in Show',
@@ -3583,7 +3583,7 @@ export const STRINGS = {
               blurb: 'Off shift and elbow-deep in soil by nine minutes past.',
               traits: {
                 hair: 'an afro',
-                feature: 'hoop earrings',
+                feature: 'a headband',
                 eyes: 'brown',
                 age: '31',
                 prize: 'a Highly Commended',
