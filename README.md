@@ -406,7 +406,7 @@ src/game/time.ts            duration formatting
 src/game/useTimer.ts        elapsed-time hook
 src/stats/summary.ts        history → stats per difficulty, streaks, improvement notes
 src/storage/store.ts        the only module that touches AsyncStorage
-src/components/             GridBoard, SolutionTable, CluePopup, ItemCard, …
+src/components/             GridBoard, Mark, SolutionTable, CluePopup, ItemCard, …
 src/screens/                StartScreen, SetupScreen, NumbersScreen,
                             DailyScreen, ResultScreen, SettingsScreen,
                             GameScreen, GameMenuScreen, StatsScreen
@@ -424,7 +424,7 @@ src/ui/TitlePanel.tsx       the app's name on a block of the link colour, the
 src/ui/Pager.tsx            Previous and Next, shared by the three lists
 src/ui/Icon.tsx             one silhouette, drawn in whatever colour it sits in
 src/ui/icons.generated.ts   the silhouettes as path data (generated, committed)
-assets/icons/               one SVG per item, theme and interface icon
+assets/icons/               one SVG per item, theme, interface icon and board mark
 assets/sounds/              the three effects, committed as 16-bit mono WAVs
 ```
 
@@ -817,12 +817,13 @@ name into that folder; nothing reads those numbers at runtime.
 
 ## The icons
 
-Everything the app draws — every item, every theme, the lamp on the clue button
-and the chart on an empty statistics screen — is a **silhouette**: one closed
-shape, filled in one colour, in a 100 × 100 box. There is no artwork with a
-palette of its own, so an icon takes the colour of whatever it sits in and looks
-right in day mode, night mode and against the accent without being drawn
-three times. 357 of them, one per entry, and a test fails if two share a path.
+Everything the app draws — every item, every theme, the lamp on the clue button,
+the chart on an empty statistics screen, and the tick and cross the board takes
+— is a **silhouette**: one closed shape, filled in one colour, in a 100 × 100
+box. There is no artwork with a palette of its own, so an icon takes the colour
+of whatever it sits in and looks right in day mode, night mode and against the
+accent without being drawn three times. 362 of them, one per entry, and a test
+fails if two share a path.
 
 They come from three places, in a line:
 
@@ -832,8 +833,8 @@ scripts/icons/*.mjs   →   assets/icons/**.svg   →   src/ui/icons.generated.t
 ```
 
 `npm run icons` walks that line. `scripts/icons/draw.mjs` is a small drawing kit
-— `circle`, `poly`, `wedge`, `star`, `band`, `blob`, `hole` — and one module per
-theme says what each item looks like in terms of it. Anything that is a scale
+— `circle`, `poly`, `wedge`, `star`, `band`, `blob`, `taper`, `hole` — and one
+module per theme says what each item looks like in terms of it. Anything that is a scale
 (a launch year, a bill, a depth, a plant's height) is drawn by
 `scripts/icons/scales.mjs` as a motif that **grows with the number**, so the
 fourteen rungs of one ladder read as a ladder. People are `people.mjs`: one body
@@ -852,6 +853,28 @@ quickest way to see whether a change made something worse.
 data, never SVG files, so nothing is read from disk or parsed at runtime and an
 icon costs one `<Path>`. Prettier leaves that file alone — it would reflow the
 path data and the next run would put it back.
+
+### The board's two marks
+
+`ui/mark-tick-hand`, `ui/mark-tick-auto`, `ui/mark-cross-hand` and
+`ui/mark-cross-auto` are drawings like any other, and they are drawings for a
+reason. They were typed characters once, which cost the app twice over: the
+face it is set in carries `✓` but not `✕`, so half of every board was being set
+in whatever fallback the device happened to have, and a family is chosen per
+weight in `src/ui/Text.tsx` and `fontWeight` then cleared, so a glyph could not
+be asked to come out heavier. That left colour as the only way to say who had
+made a mark — which is no way at all for anyone colour-blind or reading in
+sunlight.
+
+Drawn, they take direction. `taper` runs a spine of points each carrying a
+width of its own, so a mark is a pen stroke rather than a wire of even
+thickness: the tick lands blunt, swells through the turn and leaves the paper
+at a point. And the weight is artwork rather than a multiplier — the heavy pair
+and the light pair are the same drawing at two pressures, so a mark the player
+made and one the board worked out are the same shape in the same colour and
+differ only in how hard they were pressed. `src/ui/__tests__/marks.test.ts`
+holds the relationship rather than the numbers: redraw them however you like,
+as long as the hand mark still lands visibly harder.
 
 Names are derived, not written down: `iconName(theme, category, itemId)` in
 `src/data/themes.ts` builds `cosmic/astronaut-juno`, so an item and its drawing

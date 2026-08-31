@@ -17,6 +17,7 @@ import {
   rect,
   star,
   stroke,
+  taper,
   wedge,
 } from './draw.mjs';
 
@@ -140,6 +141,64 @@ export const HEIGHTS = (labels) =>
       rect(26, 72, 48, 8, 3),
     ];
   });
+
+/**
+ * The two marks a square on the board can take, at the two weights the board
+ * draws them in.
+ *
+ * They are drawings rather than characters. A typed ✓ and ✕ meant the board's
+ * marks were whatever the font had — and the app's face has the tick but not
+ * the cross, so half of every board was being set in some fallback nobody
+ * chose. It also meant the weight could not be touched: a family is picked per
+ * weight here and `fontWeight` cleared, so a glyph cannot be asked to come out
+ * heavier. Drawing them puts both back under control, and the four files in
+ * `assets/icons/ui` are editable artwork like every other icon.
+ *
+ * Each is one pen stroke rather than a wire of even thickness: the tick lands
+ * blunt, swells through the turn and leaves the paper at a point; the cross is
+ * two strokes thin at their tips and full through the middle. The heavy pair
+ * and the light pair are the same drawing at two pressures, so a mark the
+ * player made and one the board worked out are the same shape in the same
+ * colour and differ only in how hard they were pressed.
+ */
+const TICK = (nib, swell, exit) => [
+  taper(
+    [
+      [17, 51],
+      [39, 76],
+      [64, 48],
+      [86, 22],
+    ],
+    [nib, swell, swell * 0.72, exit],
+  ),
+];
+const CROSS = (nib, swell) => [
+  taper(
+    [
+      [23, 23],
+      [42, 42],
+      [58, 58],
+      [77, 77],
+    ],
+    [nib, swell, swell, nib],
+  ),
+  taper(
+    [
+      [77, 23],
+      [58, 42],
+      [42, 58],
+      [23, 77],
+    ],
+    [nib, swell, swell, nib],
+  ),
+];
+
+export const MARKS = {
+  tickHand: TICK(10, 17, 3.5),
+  tickAuto: TICK(4.4, 7.6, 1.6),
+  crossHand: CROSS(7.5, 10.5),
+  crossAuto: CROSS(3.2, 4.8),
+};
 
 /**
  * The interface's own shapes: the lamp on the clue button, the chart an empty

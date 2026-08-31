@@ -1,3 +1,4 @@
+import { markIcon } from '../../components/Mark';
 import { iconName, THEMES } from '../../data/themes';
 import { ICON_BOX, ICONS } from '../icons.generated';
 
@@ -71,6 +72,15 @@ describe('the icon set', () => {
   it('covers the icons the interface itself asks for', () => {
     for (const name of ['ui/icon-clue', 'ui/icon-chart', 'ui/icon-back']) {
       expect(named(name)).toBe(drawn(name));
+    }
+  });
+
+  it('covers all four board marks', () => {
+    for (const kind of ['yes', 'no'] as const) {
+      for (const weight of ['hand', 'auto'] as const) {
+        const name = markIcon(kind, weight);
+        expect(named(name)).toBe(drawn(name));
+      }
     }
   });
 });

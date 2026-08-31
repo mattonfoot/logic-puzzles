@@ -1,6 +1,8 @@
 import { SETTLED_TINT } from '../../components/GridBoard';
+import { markIcon } from '../../components/Mark';
 import { ACCENTS } from '../accents';
 import { resolvePalette } from '../ThemeProvider';
+import { ICONS } from '../icons.generated';
 import { contrast, type Palette } from '../theme';
 
 /**
@@ -69,4 +71,52 @@ describe('marks on the board', () => {
     expect(board).not.toContain('accentSoft');
     expect(board).not.toContain('inkFaint');
   });
+
+  /**
+   * And the weight has to actually be there in the artwork. The drawings are
+   * files anyone can open and edit, which is the point of them — so the thing
+   * worth holding is the relationship rather than any one number: redraw the
+   * pair however you like, as long as the one the player made still lands
+   * visibly harder than the one the board filled in.
+   */
+  describe('the drawings', () => {
+    for (const kind of ['yes', 'no'] as const) {
+      const shape = kind === 'yes' ? 'tick' : 'cross';
+      it(`draws the hand ${shape} heavier than the automatic one`, () => {
+        const hand = inkOf(ICONS[markIcon(kind, 'hand')]);
+        const auto = inkOf(ICONS[markIcon(kind, 'auto')]);
+        expect(auto).toBeGreaterThan(0);
+        expect(hand / auto).toBeGreaterThan(1.5);
+      });
+
+      it(`gives the ${shape} enough of the square to see`, () => {
+        // Of a 100 × 100 box. Below this a mark reads as a smudge at the size a
+        // square gets on a nine-grid board.
+        expect(inkOf(ICONS[markIcon(kind, 'auto')])).toBeGreaterThan(400);
+        expect(inkOf(ICONS[markIcon(kind, 'hand')])).toBeLessThan(2500);
+      });
+    }
+  });
 });
+
+/**
+ * How much of the box a drawing covers, by the shoelace formula over each
+ * closed run in it. Overlapping runs — the two strokes of a cross — are counted
+ * twice where they cross, which is close enough for comparing two versions of
+ * the same shape and is why this measures ink rather than area.
+ */
+function inkOf(path: string): number {
+  let ink = 0;
+  for (const run of path.split('M').filter(Boolean)) {
+    const points = run
+      .split('L')
+      .map((pair) => pair.replace('Z', '').trim().split(/\s+/).map(Number));
+    let twice = 0;
+    points.forEach(([x, y], index) => {
+      const [nx, ny] = points[(index + 1) % points.length];
+      twice += x * ny - nx * y;
+    });
+    ink += Math.abs(twice) / 2;
+  }
+  return ink;
+}

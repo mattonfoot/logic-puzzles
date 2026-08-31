@@ -12,7 +12,7 @@ import { FLOWERS, POTS, THEME_MARK as GARDEN_MARK, TOOLS } from './garden.mjs';
 import { person } from './people.mjs';
 import { BEASTS, REALMS, THEME_MARK as QUEST_MARK, WEAPONS } from './quest.mjs';
 import { GEAR, SITES, SPECIES, THEME_MARK as REEF_MARK } from './reef.mjs';
-import { BILLS, DEPTHS, HEIGHTS, LAUNCHES, REWARDS, UI } from './scales.mjs';
+import { BILLS, DEPTHS, HEIGHTS, LAUNCHES, MARKS, REWARDS, UI } from './scales.mjs';
 
 /** The rungs of each ordered category, in the order the theme lists them. */
 const years = Array.from({ length: 14 }, (_, index) => `${2031 + index}`);
@@ -137,8 +137,15 @@ export const REGISTRY = {
     height: HEIGHTS(centimetres),
     theme: { Theme: GARDEN_MARK },
   },
-  // Not a theme: the two pictures the app itself uses.
+  // Not a theme: the pictures the app itself draws with — the three on its
+  // buttons, and the four marks the board takes.
   ui: {
     icon: { Clue: UI.clue, Chart: UI.chart, Back: UI.back },
+    mark: {
+      'Tick hand': MARKS.tickHand,
+      'Tick auto': MARKS.tickAuto,
+      'Cross hand': MARKS.crossHand,
+      'Cross auto': MARKS.crossAuto,
+    },
   },
 };

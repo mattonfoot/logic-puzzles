@@ -106,6 +106,47 @@ export function stroke(points, width) {
   return parts;
 }
 
+/**
+ * A pen stroke: one run of points, each carrying a width of its own, mitred at
+ * the joints and closed into a single filled outline.
+ *
+ * `stroke` lays down a run of even bars, which is right for a stem or a cable
+ * but reads as machinery when the shape is meant to have been *written* — a
+ * tick, a crossing-out. This swells and thins along its length instead, and a
+ * width of zero brings that end to a point, so a mark can start blunt where the
+ * nib landed and finish sharp where it left the paper.
+ */
+export function taper(points, widths) {
+  const unit = ([ax, ay], [bx, by]) => {
+    const length = Math.hypot(bx - ax, by - ay) || 1;
+    return [(bx - ax) / length, (by - ay) / length];
+  };
+  const segments = points.slice(0, -1).map((from, index) => unit(from, points[index + 1]));
+
+  const left = [];
+  const right = [];
+  points.forEach(([x, y], index) => {
+    const before = segments[index - 1] ?? segments[index];
+    const after = segments[index] ?? segments[index - 1];
+    // The joint's normal bisects the two segments, and the offset along it has
+    // to grow as the corner sharpens or the outline pinches in at the elbow.
+    const [mx, my] = unit([0, 0], [before[0] + after[0], before[1] + after[1]]);
+    const normal = [-my, mx];
+    const straightness = normal[0] * -before[1] + normal[1] * before[0];
+    const reach = (widths[index] / 2) * (1 / Math.max(Math.abs(straightness), 0.35));
+    left.push([x + normal[0] * reach, y + normal[1] * reach]);
+    right.push([x - normal[0] * reach, y - normal[1] * reach]);
+  });
+
+  // Down one side and back the other. A pointed end leaves the two sides on the
+  // same spot, and a repeated vertex is a wasted pair of numbers in the file.
+  const outline = [...left, ...right.reverse()].filter(
+    (at, index, all) =>
+      index === 0 || Math.hypot(at[0] - all[index - 1][0], at[1] - all[index - 1][1]) > 0.05,
+  );
+  return poly(outline);
+}
+
 /** A wedge: wide at the base, narrow at the tip. */
 export function wedge(base, tip, width) {
   const [ax, ay] = base;
