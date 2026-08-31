@@ -101,16 +101,24 @@ describe('marks on the board', () => {
 
 /**
  * How much of the box a drawing covers, by the shoelace formula over each
- * closed run in it. Overlapping runs — the two strokes of a cross — are counted
- * twice where they cross, which is close enough for comparing two versions of
- * the same shape and is why this measures ink rather than area.
+ * closed run in it.
+ *
+ * Two roundings, both deliberate. Overlapping runs — the two strokes of a
+ * cross — are counted twice where they cross, and a rounded joint counts as its
+ * chord rather than its arc, so the small lune outside the elbow of a tick is
+ * missed. Neither matters for what this is: the same simplification applied to
+ * both weights of the same shape, which is why it measures *ink* rather than
+ * area.
  */
 function inkOf(path: string): number {
   let ink = 0;
   for (const run of path.split('M').filter(Boolean)) {
+    // A move and a line each carry one point; an arc carries its radii and its
+    // flags first and its endpoint last, so take the pair off the end of each.
     const points = run
-      .split('L')
-      .map((pair) => pair.replace('Z', '').trim().split(/\s+/).map(Number));
+      .replace('Z', '')
+      .split(/(?=[LA])/)
+      .map((step) => step.replace(/^[LA]/, '').trim().split(/\s+/).map(Number).slice(-2));
     let twice = 0;
     points.forEach(([x, y], index) => {
       const [nx, ny] = points[(index + 1) % points.length];

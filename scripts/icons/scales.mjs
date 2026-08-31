@@ -17,7 +17,6 @@ import {
   rect,
   star,
   stroke,
-  taper,
   wedge,
 } from './draw.mjs';
 
@@ -154,50 +153,27 @@ export const HEIGHTS = (labels) =>
  * heavier. Drawing them puts both back under control, and the four files in
  * `assets/icons/ui` are editable artwork like every other icon.
  *
- * Each is one pen stroke rather than a wire of even thickness: the tick lands
- * blunt, swells through the turn and leaves the paper at a point; the cross is
- * two strokes thin at their tips and full through the middle. The heavy pair
- * and the light pair are the same drawing at two pressures, so a mark the
- * player made and one the board worked out are the same shape in the same
- * colour and differ only in how hard they were pressed.
+ * Each is drawn at one thickness from end to end. The heavy pair and the light
+ * pair are the same shape at two of them, so a mark the player made and one the
+ * board worked out are the same drawing in the same colour and differ only in
+ * how heavily it was laid down.
  */
-const TICK = (nib, swell, exit) => [
-  taper(
+const TICK = (width) =>
+  stroke(
     [
       [17, 51],
       [39, 76],
-      [64, 48],
       [86, 22],
     ],
-    [nib, swell, swell * 0.72, exit],
-  ),
-];
-const CROSS = (nib, swell) => [
-  taper(
-    [
-      [23, 23],
-      [42, 42],
-      [58, 58],
-      [77, 77],
-    ],
-    [nib, swell, swell, nib],
-  ),
-  taper(
-    [
-      [77, 23],
-      [58, 42],
-      [42, 58],
-      [23, 77],
-    ],
-    [nib, swell, swell, nib],
-  ),
-];
+    width,
+  );
+const CROSS = (width) => [bar([23, 23], [77, 77], width), bar([77, 23], [23, 77], width)];
 
 export const MARKS = {
-  tickHand: TICK(10, 17, 3.5),
-  tickAuto: TICK(4.4, 7.6, 1.6),
-  crossHand: CROSS(7.5, 10.5),
-  crossAuto: CROSS(3.2, 4.8),
+  tickHand: TICK(14),
+  tickAuto: TICK(6),
+  crossHand: CROSS(10),
+  crossAuto: CROSS(4.5),
 };
 
 /**

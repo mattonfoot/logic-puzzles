@@ -833,8 +833,8 @@ scripts/icons/*.mjs   →   assets/icons/**.svg   →   src/ui/icons.generated.t
 ```
 
 `npm run icons` walks that line. `scripts/icons/draw.mjs` is a small drawing kit
-— `circle`, `poly`, `wedge`, `star`, `band`, `blob`, `taper`, `hole` — and one
-module per theme says what each item looks like in terms of it. Anything that is a scale
+— `circle`, `poly`, `wedge`, `star`, `band`, `blob`, `hole` — and one module per
+theme says what each item looks like in terms of it. Anything that is a scale
 (a launch year, a bill, a depth, a plant's height) is drawn by
 `scripts/icons/scales.mjs` as a motif that **grows with the number**, so the
 fourteen rungs of one ladder read as a ladder. People are `people.mjs`: one body
@@ -866,15 +866,13 @@ be asked to come out heavier. That left colour as the only way to say who had
 made a mark — which is no way at all for anyone colour-blind or reading in
 sunlight.
 
-Drawn, they take direction. `taper` runs a spine of points each carrying a
-width of its own, so a mark is a pen stroke rather than a wire of even
-thickness: the tick lands blunt, swells through the turn and leaves the paper
-at a point. And the weight is artwork rather than a multiplier — the heavy pair
-and the light pair are the same drawing at two pressures, so a mark the player
-made and one the board worked out are the same shape in the same colour and
-differ only in how hard they were pressed. `src/ui/__tests__/marks.test.ts`
-holds the relationship rather than the numbers: redraw them however you like,
-as long as the hand mark still lands visibly harder.
+Drawn, they take direction, and the weight is artwork rather than a multiplier:
+each mark is one thickness from end to end, and the heavy pair and the light
+pair are the same shape at two of them, so a mark the player made and one the
+board worked out are the same drawing in the same colour and differ only in how
+heavily it was laid down. `src/ui/__tests__/marks.test.ts` holds the
+relationship rather than the numbers: redraw them however you like, as long as
+the hand mark still lands visibly harder.
 
 Names are derived, not written down: `iconName(theme, category, itemId)` in
 `src/data/themes.ts` builds `cosmic/astronaut-juno`, so an item and its drawing

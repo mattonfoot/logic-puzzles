@@ -42,12 +42,12 @@ interface Props {
  * That is what buys the control — the marks can be redrawn in a vector editor
  * without touching a line of code, they take their colour from whatever they
  * sit in, and each weight is its own artwork rather than a number multiplying
- * a stroke. Each is a pen stroke rather than a wire of even thickness: the tick
- * lands blunt, swells through the turn and leaves the paper at a point.
+ * a stroke.
  *
- * The heavy pair and the light pair are the same drawing at two pressures, so
- * the distinction reads at a glance, reads in greyscale, and leaves colour to
- * say the one thing it is good at — that a mark is wrong.
+ * Each is drawn at one thickness from end to end, and the heavy pair and the
+ * light pair are the same shape at two of them, so the distinction reads at a
+ * glance, reads in greyscale, and leaves colour to say the one thing it is good
+ * at — that a mark is wrong.
  */
 export function Mark({ kind, weight, size, color }: Props) {
   return <Icon name={markIcon(kind, weight)} size={size} color={color} />;
