@@ -98,6 +98,33 @@ describe('the icon set', () => {
     expect(orphans).toEqual([]);
   });
 
+  /**
+   * Nothing drawn outside the box it is drawn in.
+   *
+   * The viewBox clips, silently and only at the edges, so a crest or a topknot
+   * a few units above the crown loses its tip in the app while looking perfect
+   * in the file it was authored in. Two of the twelve hairs shipped that way.
+   * `A` carries radii and flags among its numbers, so only the pairs that are
+   * really points are checked — which is every command's last two.
+   */
+  it('keeps every drawing inside the box', () => {
+    const outside: string[] = [];
+    for (const [name, path] of Object.entries(ICONS)) {
+      for (const step of path.replace(/Z/g, '').split(/(?=[MLAC])/)) {
+        const numbers = step
+          .replace(/^[MLAC]/, '')
+          .trim()
+          .split(/[\s,]+/)
+          .map(Number);
+        const [x, y] = numbers.slice(-2);
+        // A hair may fall past the bottom of the box into the shoulders; it is
+        // the crown, the back and the face that get quietly cut.
+        if (x < 0 || x > ICON_BOX || y < 0) outside.push(`${name} at ${x} ${y}`);
+      }
+    }
+    expect(outside).toEqual([]);
+  });
+
   it('covers all four board marks', () => {
     for (const kind of ['yes', 'no'] as const) {
       for (const weight of ['hand', 'auto'] as const) {

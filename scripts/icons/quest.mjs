@@ -124,7 +124,7 @@ export const WEAPONS = {
     ),
     ellipse(50, 82, 18, 10),
   ],
-  'star-lance': [...haft([14, 88], [62, 32], 9), star(74, 20, 5, 22, 0.42)],
+  'star-lance': [...haft([14, 88], [60, 34], 9), star(72, 24, 5, 21, 0.42)],
   'wind-sabre': [
     band(46, 62, 44, 12, 250, 340),
     rect(20, 74, 30, 9, 4),

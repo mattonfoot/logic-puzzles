@@ -496,7 +496,7 @@ export const SITES = {
     ),
   ],
   'green-lagoon': [
-    band(50, 40, 40, 12, 200, 340),
+    band(50, 48, 40, 12, 205, 335),
     rect(10, 62, 80, 9, 4),
     rect(20, 78, 60, 9, 4),
     circle(76, 26, 9),
