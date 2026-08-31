@@ -841,38 +841,63 @@ theme says what each item looks like in terms of it. Anything that is a scale
 fourteen rungs of one ladder read as a ladder.
 
 People are `people.mjs`, and they are built differently from everything else.
-They are drawn **in profile**, all facing the same way, as a bust on a proper
-head construction — a cranium, a face line with a brow and a nose and a chin, a
-jaw hinged under the ear, a neck that meets the shoulders where a neck does.
+Each is a **pictogram**: a head in profile, all facing the same way, and nothing
+else — no neck, no shoulders, no collar.
 
-That is not a style choice. A silhouette is an outline and nothing else, and a
-head drawn face-on is a circle: the only thing that can vary is what sticks out
-past the edge of it, so every person ends up as the same disc with a different
-bump — which is exactly what the first fourteen were. Turn the head side-on and
-the whole front of it becomes outline, and everything a person wears lands where
-it can be seen. A moustache sits out in front of the mouth instead of hiding
-inside the face. Spectacles get a lens on the eye and an arm back to the ear. A
-headset gets a boom. A beard changes the shape of the jaw rather than adding a
-blob under it. Portrait silhouettes have been cut in profile for three hundred
-years for this reason.
+Two decisions carry the whole thing. The first is the profile. A silhouette is
+an outline and nothing else, and a head drawn face-on is a circle: the only
+thing that can vary is what sticks out past the edge of it, so every person ends
+up as the same disc with a different bump — which is exactly what the first
+fourteen were. Turn the head side-on and the whole front of it becomes outline,
+and everything a person wears lands where it can be seen. A moustache sits out
+in front of the mouth instead of hiding inside the face. Spectacles get a lens
+on the eye and an arm back to the ear. A headset gets a boom. A beard changes
+the shape of the jaw rather than adding a blob under it.
+
+The second is that there is no body. These were busts, and the bust was the
+problem: head and neck and shoulders were identical for all fourteen people in a
+set and took three-fifths of the drawing, so the two things that actually told
+one person from another were fighting over what was left — and losing, at the
+size a grid heading gets. Dropping it does two things at once. The head grows
+into the space, so the hair and the feature are drawn getting on for twice the
+size; and the share of the drawing that varies at all goes from about a sixth to
+about a third. The second number is the one that matters.
+
+The head is drawn as a caricature, not a portrait. The nose projects a quarter
+of the width of the box and tucks hard back underneath, the chin comes forward
+to meet it, and there are no lips, no philtrum and no brow ridge — each of those
+is a two-unit wobble that turns into a serration at twenty-four points. A
+correctly proportioned profile at that size is a blob with a bump; an
+exaggerated one is a face.
 
 On that head sit **two independent things** — twelve ways of wearing hair and
-eight distinguishing features — every one of which changes the outline. Ninety-six
-combinations to draw fourteen people from is what keeps a set of them apart at
-the size a grid heading gets.
+eight distinguishing features — every one of which changes the outline. The
+hair is what fills the box: the cranium is only about three-fifths of it wide,
+so an afro can be half again as wide as the head it is on and a crop can barely
+leave the skull. Between the smallest hair and the largest there is nearly twice
+the ink.
 
-Two rules fall out of the construction and are worth knowing before adding to
-it. **Hair is grown, not drawn**: every style is the skull outline pushed
-outwards from the middle of the cranium, which is the only way a hairline lands
-outside the head at every point — draw a cap freehand and its front edge ends up
-inside the forehead somewhere, and the head pokes through it as a shelf above
-the brow. And **a feature has to reach an edge**: anything held inside the head
-is swallowed, including a ring punched as a void, because the head is filled
-underneath it and one shape over another in a single colour is one shape. That
-is what cost the cast its hoop earrings — a profile puts the ear in the middle
-of the head, so a hoop hangs over the jaw where nothing can see it — and why the
-eighth feature is a headband, which goes round the forehead and out past the
-back of the skull.
+Three rules fall out of the construction and are worth knowing before adding to
+it.
+
+**Hair is grown, not drawn.** Every style is the skull outline pushed outwards
+from the middle of the cranium, which is the only way a hairline lands outside
+the head at every point — draw a cap freehand and its front edge ends up inside
+the forehead somewhere, and the head pokes through it as a shelf above the brow.
+
+**A feature has to reach an edge.** Anything held inside the head is swallowed,
+including a ring punched as a void, because the head is filled underneath it and
+one shape over another in a single colour is one shape. That is what cost the
+cast its hoop earrings — a profile puts the ear in the middle of the head, so a
+hoop hangs over the jaw where nothing can see it — and why the eighth feature is
+a headband, which goes round the forehead and out past the back of the skull.
+
+**Two people in different themes can be the same drawing.** With no collar,
+nothing in a person says which theme they belong to, so a diver and an astronaut
+with the same hair and the same feature are identical — and it costs nothing,
+because a puzzle draws its whole cast from one theme and the theme is named
+across the top of the screen. The test that used to forbid any two items sharing
+a path now forbids it only within a set, which is the only place it matters.
 
 Which hair and which feature is not written here. `registry.mjs` reads them off
 each person's traits in `locales/en-HB.yaml` — the same two lines the player
