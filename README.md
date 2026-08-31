@@ -425,6 +425,7 @@ src/ui/Pager.tsx            Previous and Next, shared by the three lists
 src/ui/Icon.tsx             one silhouette, drawn in whatever colour it sits in
 src/ui/icons.generated.ts   the silhouettes as path data (generated, committed)
 assets/icons/               one SVG per item, theme, interface icon and board mark
+docs/cast.md                a paragraph on each of the seventy people, for whoever draws them
 assets/sounds/              the three effects, committed as 16-bit mono WAVs
 ```
 
