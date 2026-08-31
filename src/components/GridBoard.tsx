@@ -8,6 +8,7 @@ import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { tint, type Palette } from '../ui/theme';
+import { Mark } from './Mark';
 
 interface Props {
   puzzle: Puzzle;
@@ -44,6 +45,19 @@ const ICON_SCALE = 0.94;
  * flush, so the gutter where two grids meet is twice this.
  */
 const BLOCK_BORDER = 2;
+/**
+ * How strongly a square that has been settled is washed — in the accent when it
+ * is a match, in the danger colour when the mark on it is wrong.
+ *
+ * The wash is a background for a mark rather than a mark in its own right, and
+ * the block it is painted in sets no background of its own, so it composites
+ * over the *page* — which is paler than the board's squares and gives the mark
+ * on top of it less to lift off than it looks like it does. It has to clear 3:1
+ * against that mark on every colour the app can be drawn in, and the deeper cuts
+ * were eating into it. `src/ui/__tests__/marks.test.ts` is what holds this
+ * number down.
+ */
+export const SETTLED_TINT = 0.1;
 /**
  * The largest cell whose whole staircase fits the space given — the size the
  * board opens at, so a puzzle needs no scrolling in either direction until the
@@ -244,9 +258,9 @@ export function GridBoard({
                                   width: cellSize,
                                   height: cellSize,
                                   backgroundColor: wrong
-                                    ? tint(palette.danger, 0.16)
+                                    ? tint(palette.danger, SETTLED_TINT)
                                     : mark === 'yes'
-                                      ? tint(palette.accent, 0.16)
+                                      ? tint(palette.accent, SETTLED_TINT)
                                       : crosshair
                                         ? tint(palette.accent, 0.07)
                                         : (rowItem + colItem) % 2 === 1
@@ -256,41 +270,23 @@ export function GridBoard({
                                 },
                               ]}
                             >
-                              {mark === 'yes' ? (
-                                <Text
-                                  style={[
-                                    styles.tick,
-                                    {
-                                      fontSize: cellSize * 0.82,
-                                      // The glyph gets the whole square, so a
-                                      // big mark is centred rather than clipped.
-                                      lineHeight: cellSize,
-                                      // A tick the board worked out is drawn
-                                      // in the colour's quieter half, the same
-                                      // way its crosses sit lighter.
-                                      color: wrong
-                                        ? palette.danger
-                                        : entry?.source === 'auto'
-                                          ? palette.accentSoft
-                                          : palette.accent,
-                                    },
-                                  ]}
-                                >
-                                  ✓
-                                </Text>
-                              ) : mark === 'no' ? (
-                                <Text
-                                  style={[
-                                    styles.cross,
-                                    { fontSize: cellSize * 0.68, lineHeight: cellSize },
-                                    // Crosses the board filled in for a tick sit
-                                    // lighter than the ones the player made.
-                                    entry?.source === 'auto' && styles.crossAuto,
-                                    wrong && { color: palette.danger },
-                                  ]}
-                                >
-                                  ✕
-                                </Text>
+                              {mark === 'yes' || mark === 'no' ? (
+                                <Mark
+                                  kind={mark}
+                                  // Colour says one thing — whether the mark is
+                                  // wrong — and weight says the other: a mark
+                                  // the player made is laid down heavily, one
+                                  // the board filled in for itself lightly.
+                                  weight={entry?.source === 'auto' ? 'auto' : 'hand'}
+                                  size={cellSize}
+                                  color={
+                                    wrong
+                                      ? palette.danger
+                                      : mark === 'yes'
+                                        ? palette.accent
+                                        : palette.inkSoft
+                                  }
+                                />
                               ) : null}
                             </Pressable>
                           );
@@ -355,18 +351,5 @@ const makeStyles = (palette: Palette) =>
     cell: {
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    tick: {
-      fontWeight: '700',
-    },
-    cross: {
-      color: palette.inkSoft,
-    },
-    crossAuto: {
-      // Lighter than a cross the player made, but only just faint enough to tell
-      // them apart — the board's squares are tinted, so it cannot fade as far as
-      // it could against white.
-      color: palette.inkFaint,
-      opacity: 0.85,
     },
   });

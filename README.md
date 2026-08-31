@@ -169,8 +169,9 @@ images in the same commit.
 | <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered puzzles"><br>**3. Numbered puzzles** — every puzzle at that difficulty, counting from one, six to a page, each with a box that ticks when you finish it and your time beside it. |
 | <img src="docs/screenshots/04-daily.png" width="230" alt="Daily challenges"><br>**4. Daily** — today's four, one per difficulty. A finished one shows its time and opens the result instead of a board. | <img src="docs/screenshots/05-settings.png" width="230" alt="Settings screen"><br>**5. Settings** — seven names with a box or a slider against each, and nothing to read. | <img src="docs/screenshots/06-briefing.png" width="230" alt="The briefing a puzzle opens with"><br>**6. Briefing** — what went wrong and why anybody wants it sorted out. It opens with the puzzle and waits behind **Info** afterwards. |
 | <img src="docs/screenshots/07-board.png" width="230" alt="The board"><br>**7. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/08-menu.png" width="230" alt="Game menu"><br>**8. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/09-clue.png" width="230" alt="The clue window"><br>**9. Clue** — one clue at a time, in a window with the room to read it, under a line saying who is supposed to have said it. |
-| <img src="docs/screenshots/10-highlight.png" width="230" alt="A clue lit up on the grids"><br>**10. Highlight** — the button at the bottom right lights every row and column the clue talks about. | <img src="docs/screenshots/11-stuck.png" width="230" alt="A board that can no longer be solved"><br>**11. Out of reach** — asking for a new clue checks the board first, and stops with a window offering to rewind when the answer has been marked away. | <img src="docs/screenshots/12-item-card.png" width="230" alt="The card behind an item's picture"><br>**12. Item card** — tap any picture on the board to meet it, and page through the rest of its set. |
-| <img src="docs/screenshots/13-solved.png" width="230" alt="A finished game"><br>**13. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. | <img src="docs/screenshots/14-statistics.png" width="230" alt="Statistics screen"><br>**14. Statistics** — totals, bests by difficulty and the trend of recent solve times. | <img src="docs/screenshots/15-night.png" width="230" alt="Setup screen in night colours"><br>**15. Night** — the difficulties in night colours, with a game waiting behind **Continue**. |
+| <img src="docs/screenshots/10-highlight.png" width="230" alt="A clue lit up on the grids"><br>**10. Highlight** — the button at the bottom right lights every row and column the clue talks about. | <img src="docs/screenshots/11-marked.png" width="230" alt="A part-marked board"><br>**11. Marked up** — a mark the player made is drawn heavily, one the board worked out for itself lightly. Same shape, same colour: the difference survives being colour-blind. | <img src="docs/screenshots/12-stuck.png" width="230" alt="A board that can no longer be solved"><br>**12. Out of reach** — asking for a new clue checks the board first, and stops with a window offering to rewind when the answer has been marked away. |
+| <img src="docs/screenshots/13-item-card.png" width="230" alt="The card behind an item's picture"><br>**13. Item card** — tap any picture on the board to meet it, and page through the rest of its set. | <img src="docs/screenshots/14-solved.png" width="230" alt="A finished game"><br>**14. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. | <img src="docs/screenshots/15-statistics.png" width="230" alt="Statistics screen"><br>**15. Statistics** — totals, bests by difficulty and the trend of recent solve times. |
+| <img src="docs/screenshots/16-night.png" width="230" alt="Setup screen in night colours"><br>**16. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | | |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -255,9 +256,11 @@ rest is the app behaving normally.
    with it — anything you crossed by hand stays put. **Automatic crosses** and
    **Auto add facts** — which fills in a tick that follows from two others, so a
    pairing carried across a shared entity lands on the board without you copying
-   it over — can both be turned off, from the menu or from Settings. The set
-   names and item pictures stay pinned while the grids scroll sideways, and − / +
-   resize the squares past the fit.
+   it over — can both be turned off, from the menu or from Settings. A mark you
+   made is drawn heavily and one the board worked out lightly, in the same shape
+   and the same colour, so which is which survives being read in greyscale.
+   The set names and item pictures stay pinned while the grids scroll sideways,
+   and − / + resize the squares past the fit.
 7. **Clues arrive one at a time.** They do not always use names: about a third
    of the time a clue describes something instead — "the diver with green eyes",
    "no payload made of glass" — and a description that covers two things says
@@ -487,7 +490,7 @@ The two schemes, as they stand:
 | Role | Day | Night | Where it lands |
 |------|-----|-------|----------------|
 | `accent` | set by the player | set by the player | links, ticks, headings, a chosen difficulty |
-| `accentSoft` | set by the player | set by the player | a tick the board worked out, a live clue's border |
+| `accentSoft` | set by the player | set by the player | nothing at present — see below |
 | `accentGround` | the colour's day primary | the colour's day primary | the title panel, in both schemes |
 | `bg` | `#F6F3EC`, or the colour's own | `#14161C` | the page |
 | `surface` | `#FFFFFF`, or the colour's own page | `#1B1E26` | cards |
@@ -506,9 +509,9 @@ The two schemes, as they stand:
 | `chart.reference` | `#B7AF9C`, or a deeper one | `#4A5265` | its average line |
 
 And the five the player can pick between. Each is a small set rather than a
-single hue — a **primary** for links, ticks and headings, a **secondary** for
-the quieter half of the same job, and optionally the **page** they are meant to
-sit on — with a set per scheme:
+single hue — a **primary** for links, ticks and headings, a **secondary** held
+for the quieter half of the same job, and optionally the **page** they are meant
+to sit on — with a set per scheme:
 
 | Colour | Day primary | Day secondary | Day page | Night primary | Night secondary |
 |--------|-------------|---------------|----------|---------------|-----------------|
@@ -540,9 +543,14 @@ Violet's two colours serve both schemes, swapping which of them leads: on a pale
 page the deeper one leads and the lighter is the quiet half, and on a near-black
 one it is the other way round.
 
-The secondary is where the board draws a tick it worked out for itself, and the
-border on a clue still in play. Both were arbitrary tints of the accent before —
-a chosen colour is a better answer than 55% of another one.
+The secondary used to be where the board drew a tick it had worked out for
+itself. It no longer is: a mark the board made and a mark the player made are now
+the same colour and are told apart by how heavily each is drawn, because a
+distinction carried on colour alone is one that anybody colour-blind, or reading
+in sunlight, does not get. Nothing else took the colour over, so `accentSoft` is
+currently a role with no landing place — kept because a colour being a *set*
+rather than a single hue is part of the contract, and worth a decision rather
+than a quiet deletion.
 
 Anything painted in the accent asks which ink to put on it rather than assuming
 white: `inkOn` picks whichever of white and the page's own ink reads better on
