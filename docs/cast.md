@@ -51,11 +51,11 @@ Ship's physician. Small, brisk, unimpressed, and entirely serious about the walk
 
 ### Navigator Okonkwo
 
-`cosmic/astronaut-okonkwo` · Hair braids · Distinguishing feature a headband · Eyes brown · Born on Ceres · Height 1.7m
+`cosmic/astronaut-okonkwo` · Hair braids · Distinguishing feature hoop earrings · Eyes brown · Born on Ceres · Height 1.7m
 
 *Can find anywhere without the charts, and does, to general alarm.*
 
-Ceres-born, raised on a rock where every direction was down, and left with a sense of position nobody has managed to explain. Wears the braids long and the headband to keep them off the console during a burn. Sits very still while working, then moves in one motion when finished, like somebody who decided ten minutes ago and has been waiting politely.
+Ceres-born, raised on a rock where every direction was down, and left with a sense of position nobody has managed to explain. Wears the braids long and a pair of heavy gold hoops that swing when the ship does. Sits very still while working, then moves in one motion when finished, like somebody who decided ten minutes ago and has been waiting politely.
 
 ### Chief Engineer Bolt
 
@@ -115,11 +115,11 @@ The afro is enormous and thoroughly non-regulation, and the chinstrap belongs to
 
 ### Quartermaster Bex
 
-`cosmic/astronaut-bex` · Hair a shaved head · Distinguishing feature a headband · Eyes brown · Born on Titan · Height 1.8m
+`cosmic/astronaut-bex` · Hair a shaved head · Distinguishing feature hoop earrings · Eyes brown · Born on Titan · Height 1.8m
 
 *Knows where everything is, and what it costs to find out.*
 
-Titan-born, and runs the stores like a small sovereign nation with its own weather and customs. Shaves her head and wears the headband to keep the sweat off in the hold, which is always four degrees warmer than the manifest claims. Arms folded, one eyebrow up, waiting for you to get to the point.
+Titan-born, and runs the stores like a small sovereign nation with its own weather and customs. Shaves her head, and the gold hoops are the only things she owns that are not stock. Arms folded, one eyebrow up, waiting for you to get to the point.
 
 ### Flight Sergeant Mo
 
@@ -151,11 +151,11 @@ Retired from the council and not at all from the opinions. Has views on the pavi
 
 ### Mrs Marzipan
 
-`cafe/customer-marzipan` · Hair a bob · Distinguishing feature a headband · Eyes brown · Age 58 · Trade a piano teacher
+`cafe/customer-marzipan` · Hair a bob · Distinguishing feature hoop earrings · Eyes brown · Age 58 · Trade a piano teacher
 
 *Brings her own cup. Staff have stopped arguing about it.*
 
-Teaches piano to eleven children, of whom two practise. Neat bob held back with a velvet headband, and a pencil somewhere in it. Sits very upright with her hands in her lap, tapping a rhythm on the table without knowing she is doing it. The cup is her own — proper china, saucer and all — and that argument was settled years ago.
+Teaches piano to eleven children, of whom two practise. Neat bob, pearl hoops, and a pencil somewhere in the hair. Sits very upright with her hands in her lap, tapping a rhythm on the table without knowing she is doing it. The cup is her own — proper china, saucer and all — and that argument was settled years ago.
 
 ### Dr Frangipane
 
@@ -215,11 +215,11 @@ A locksmith — a trade of small patient movements, and it shows in everything h
 
 ### Nurse Nutmeg
 
-`cafe/customer-nutmeg` · Hair a bun · Distinguishing feature a headband · Eyes hazel · Age 26 · Trade a night nurse
+`cafe/customer-nutmeg` · Hair a bun · Distinguishing feature hoop earrings · Eyes hazel · Age 26 · Trade a night nurse
 
 *Off a night shift, drinking something the size of a bucket.*
 
-Hair in the same bun it has been in for fourteen hours, headband holding the escapees, tunic still on under the coat. Sits low in the chair with both hands round something the size of a bucket, and the thousand-yard cheerfulness of somebody who will be asleep by eleven in the morning.
+Hair in the same bun it has been in for fourteen hours, hoops still in, tunic still on under the coat. Sits low in the chair with both hands round something the size of a bucket, and the thousand-yard cheerfulness of somebody who will be asleep by eleven in the morning.
 
 ### Councillor Praline
 
@@ -307,19 +307,19 @@ Tonsured to a shave, small round reading spectacles on a cord, hands permanently
 
 ### Bard Fenn
 
-`quest/hero-fenn` · Hair a topknot · Distinguishing feature a headband · Eyes green · Calling a bard · Age 26
+`quest/hero-fenn` · Hair a topknot · Distinguishing feature hoop earrings · Eyes green · Calling a bard · Age 26
 
 *Writes the ballad before the quest, then bends the quest to fit.*
 
-Twenty-six, topknot, embroidered headband, and an instrument that is always slightly in the way. Talks with both hands. Has already decided which of the party is the hero of the piece, and it is not the one anybody would expect — and the ballad, being written, is now somewhat load-bearing.
+Twenty-six, topknot, a hoop in each ear, and an instrument that is always slightly in the way. Talks with both hands. Has already decided which of the party is the hero of the piece, and it is not the one anybody would expect — and the ballad, being written, is now somewhat load-bearing.
 
 ### Baroness Maeve
 
-`quest/hero-maeve` · Hair a bun · Distinguishing feature a headband · Eyes blue · Calling a noble · Age 49
+`quest/hero-maeve` · Hair a bun · Distinguishing feature hoop earrings · Eyes blue · Calling a noble · Age 49
 
 *Funds every expedition and turns up uninvited to all of them.*
 
-Hair pinned into a hard bun under a circlet worn like a headband, and riding clothes rather than court ones. Arrives with three servants and no warning whatever. Funds every expedition in the province and turns up uninvited to all of them. Enormously good company, and completely impossible to refuse.
+Hair pinned into a hard bun, hoops the size of bracelets, and riding clothes rather than court ones. Arrives with three servants and no warning whatever. Funds every expedition in the province and turns up uninvited to all of them. Enormously good company, and completely impossible to refuse.
 
 ### Reeve Osric
 
@@ -399,11 +399,11 @@ Short hair, a moustache of great personal significance, and a laminated card for
 
 ### Ranger Adaeze
 
-`reef/diver-adaeze` · Hair braids · Distinguishing feature a headband · Eyes brown · Known for patrolling · Height 1.7m
+`reef/diver-adaeze` · Hair braids · Distinguishing feature hoop earrings · Eyes brown · Known for patrolling · Height 1.7m
 
 *Guards the reef. Has memorised every fine in the by-laws.*
 
-Long braids under a broad headband against the sun. Polite, immovable, and entirely willing to recite subsection four from memory, including the amounts. Walks the boat slowly from bow to stern while she talks to you, and you follow. Nobody has yet argued with her twice.
+Long braids and heavy hoops, and a whistle she has not yet had to use. Polite, immovable, and entirely willing to recite subsection four from memory, including the amounts. Walks the boat slowly from bow to stern while she talks to you, and you follow. Nobody has yet argued with her twice.
 
 ### Cadet Nico
 
@@ -447,11 +447,11 @@ A big afro that fills a hood, a fine moustache, and a laugh audible from the moo
 
 ### Ms Yara
 
-`reef/diver-yara` · Hair long hair · Distinguishing feature a headband · Eyes brown · Known for photography · Height 1.6m
+`reef/diver-yara` · Hair long hair · Distinguishing feature hoop earrings · Eyes brown · Known for photography · Height 1.6m
 
 *Photographs everything. Has nine thousand pictures of the same eel.*
 
-Long hair held off her face with a folded bandana. Will wait ninety minutes for a fish to turn around and does not consider this waiting. Reviews the day's frames at dinner and shows them to people who have already seen them. Nine thousand of the nine thousand are the same eel.
+Long hair, and hoops that catch on a hood about once a dive. Will wait ninety minutes for a fish to turn around and does not consider this waiting. Reviews the day's frames at dinner and shows them to people who have already seen them. Nine thousand of the nine thousand are the same eel.
 
 ### Reverend Elias
 
@@ -483,11 +483,11 @@ An open collar with the lapel turned back.
 
 ### Ms Rose
 
-`garden/gardener-rose` · Hair a bun · Distinguishing feature a headband · Eyes green · Age 62 · Best prize Best in Show
+`garden/gardener-rose` · Hair a bun · Distinguishing feature hoop earrings · Eyes green · Age 62 · Best prize Best in Show
 
 *Grows the finest blooms in the village and will not say how.*
 
-Sixty-two, silver bun under a broad headband, secateurs in a hip pocket at all hours. Takes Best in Show with a regularity described at the parish council as a matter for the committee. Answers questions about method with questions about the weather, and has never once been caught out.
+Sixty-two, silver bun, small gold hoops, secateurs in a hip pocket at all hours. Takes Best in Show with a regularity described at the parish council as a matter for the committee. Answers questions about method with questions about the weather, and has never once been caught out.
 
 ### Vicar Parsley
 
@@ -571,11 +571,11 @@ Fifty-two, hair scraped into a small topknot, side-whiskers grown in a spirit of
 
 ### Nurse Fennel
 
-`garden/gardener-fennel` · Hair an afro · Distinguishing feature a headband · Eyes brown · Age 31 · Best prize a Highly Commended
+`garden/gardener-fennel` · Hair an afro · Distinguishing feature hoop earrings · Eyes brown · Age 31 · Best prize a Highly Commended
 
 *Off shift and elbow-deep in soil by nine minutes past.*
 
-Thirty-one, a big afro held back with a headband, scrubs still on under a fleece. Comes off shift and is elbow-deep in soil by nine minutes past. Gardens fast and talks faster, and has been known to fall asleep sitting up on the bench by the water butt.
+Thirty-one, a big afro, hoops she forgets to take out for a shift, scrubs still on under a fleece. Comes off shift and is elbow-deep in soil by nine minutes past. Gardens fast and talks faster, and has been known to fall asleep sitting up on the bench by the water butt.
 
 ### Old Tom Spade
 

@@ -1,303 +1,254 @@
 /**
- * People, as pictograms.
+ * People, as head and shoulders.
  *
- * A person is a **head, filling the box**, and nothing else: no neck, no
- * shoulders, no collar. What varies is the hair and one distinguishing feature,
- * and both are drawn as large and as plainly as the box allows.
+ * Three things change: what is on the shoulders, which is the same across a
+ * theme and different between them, and then **two independent things about the
+ * head** — the hair and one distinguishing feature. Twelve hairs against eight
+ * features is ninety-six outlines to draw fourteen people from, which is what
+ * keeps a set of them apart at the size a grid heading gets.
  *
- * **Why there is no body.** These were busts, and the bust was the problem. Head
- * and neck and shoulders were identical for all fourteen people in a set and
- * took up three-fifths of the drawing, so the two things that actually told one
- * person from another were fighting for the remaining two-fifths — and losing it
- * at the size a grid heading gets. Throwing the body away does two things at
- * once: the head grows to fill the space it leaves, so the hair and the feature
- * are drawn getting on for twice the size, and the share of the drawing that
- * varies at all goes from about a sixth to about a third. That second number is
- * the one that matters. A pictogram is not a small portrait; it is a shape whose
- * whole job is to be told apart from the shape beside it.
+ * Both of those are traits the player can read on the item's card, and that is
+ * the point of them. Before this the cards described people by hair *colour*,
+ * eye colour and star sign — not one of which a filled outline can show, so
+ * what a clue said about somebody and what their picture showed had nothing to
+ * do with each other. Hair is a style now, and the feature is something that
+ * breaks the head's outline, so both are things a silhouette can actually say.
  *
- * Nothing is lost by dropping the collar that used to say which theme a person
- * belonged to. Every person on a board comes from the same theme, and the theme
- * is named across the top of the screen.
- *
- * **Why a profile and not a face.** A silhouette is an outline and nothing else,
- * and a head drawn face-on is a circle: the only thing that can vary is what
- * sticks out past the edge of it. Turn the head side-on and the whole front of
- * it becomes outline — brow, nose, chin — and everything a person wears lands
- * where it can be seen. A moustache sits out in front of the mouth instead of
- * hiding inside the face. Spectacles get a lens on the eye and an arm back to
- * the ear. A headset gets a boom. A beard changes the shape of the jaw.
- *
- * Everybody faces the same way — right — so a row of headings reads as a row of
- * people rather than a crowd looking at each other, and so the ear, the eye and
- * the jaw are in the same place in every drawing for the hair and the features
- * to be built against.
- *
- * The forms are deliberately blunt. A pictogram of a head is not an anatomy
- * drawing: one rounded cranium, one wedge of a nose, one chin, and no detail
- * that would survive being shrunk to twenty-four points anyway.
+ * Only shapes that change the outline are worth drawing here. A scar, a colour,
+ * a pair of tinted lenses — all invisible in a shape filled with one colour, so
+ * every feature below sticks out past the head somewhere.
  */
-import { band, bar, circle, hole, poly, stroke, wedge } from './draw.mjs';
+import {
+  around,
+  band,
+  bar,
+  circle,
+  dome,
+  ellipse,
+  hole,
+  poly,
+  rect,
+  stroke,
+  turn,
+  wedge,
+} from './draw.mjs';
 
-/**
- * The landmarks every other shape here is measured from.
- *
- * `EAR` is where a spectacle arm ends and a headset cup sits; `EYE` carries the
- * lens and the patch; `NOSE` and `MOUTH` place a moustache; `CHIN` and `JAW`
- * shape a beard and a chinstrap. Nothing below uses a bare number where one of
- * these would do.
- */
-const CROWN = [40, 18];
-const BROW = [69, 39];
-const NASION = [64, 48];
-const NOSE = [88, 61];
-const MOUTH = [70, 74];
-const CHIN = [76, 83];
-const JAW = [42, 93];
-const EAR = [32, 58];
+const HEAD = { x: 50, y: 36, r: 17 };
 
-/**
- * The skull, from the hairline at the forehead round the back to the nape.
- *
- * Every hair below is this outline pushed outwards from the middle of the
- * cranium, which is the one thing that makes a hairline work: grow the shape and
- * it stays outside the head at every point, so the union of the two has no step
- * in it. Drawing each cap freehand puts its front edge *inside* the forehead
- * somewhere, and the head then pokes through as a shelf above the brow.
- *
- * The cranium is deliberately small in the box and set back to the left. The
- * hair fills the space behind and above it and the face fills the space in
- * front, and neither has to fight the other for room. A head sized to fill the
- * box on its own leaves the hair nowhere to be: grown five per cent or twenty it
- * lands in the same place, and twelve styles collapse into one blob.
- */
-const SKULL = [
-  [68, 37],
-  [58, 23],
-  [42, 17],
-  [26, 21],
-  [14, 34],
-  [8, 52],
-  [10, 69],
-  [18, 82],
-];
-const MIDDLE = [38, 50];
-
-/** The skull grown by a fraction of itself, about the middle of the cranium. */
-const grow = (by) =>
-  SKULL.map(([x, y]) => [MIDDLE[0] + (x - MIDDLE[0]) * by, MIDDLE[1] + (y - MIDDLE[1]) * by]);
-
-/**
- * The head, side-on, chin to crown and nothing below it.
- *
- * Drawn as a caricature rather than a portrait, because that is what a pictogram
- * is: take the thing that identifies the shape and overdraw it. The nose here
- * projects a quarter of the width of the box and tucks hard back underneath, and
- * the chin comes forward to meet it. A correctly proportioned profile at
- * twenty-four points is a blob with a bump; an exaggerated one is a face.
- *
- * The one rule that has to hold is that the nose comes *down* as it comes back —
- * a nose with a horizontal underside reads as an open beak. Everything else is
- * left out. No lips, no philtrum, no brow ridge: each is a two-unit wobble that
- * turns into a serration at the size this is actually looked at, and a pictogram
- * earns nothing by carrying detail it cannot show.
- */
-export function head() {
-  return [
+/** Shoulders, and whatever a theme wears on them. */
+const WEAR = {
+  // A pressure collar, squared off at the neck.
+  cosmic: () => [
     poly([
-      CROWN,
-      [54, 20],
-      [63, 28],
-      BROW,
-      NASION,
-      NOSE,
-      [66, 67],
-      MOUTH,
-      CHIN,
-      [64, 92],
-      JAW,
-      [26, 91],
-      [16, 81],
-      [10, 65],
-      [10, 45],
-      [18, 27],
-      [28, 19],
+      [16, 96],
+      [20, 72],
+      [36, 64],
+      [64, 64],
+      [80, 72],
+      [84, 96],
     ]),
-  ];
-}
+    rect(34, 58, 32, 8, 2),
+  ],
+  // Nothing at all: a person in a café is just a person.
+  cafe: () => [
+    poly([
+      [17, 96],
+      [22, 74],
+      [38, 65],
+      [62, 65],
+      [78, 74],
+      [83, 96],
+    ]),
+  ],
+  // Pauldrons.
+  quest: () => [
+    poly([
+      [18, 96],
+      [24, 74],
+      [38, 66],
+      [62, 66],
+      [76, 74],
+      [82, 96],
+    ]),
+    ellipse(23, 76, 10, 8),
+    ellipse(77, 76, 10, 8),
+  ],
+  // A wetsuit collar, high at the neck.
+  reef: () => [
+    poly([
+      [18, 96],
+      [22, 74],
+      [38, 64],
+      [62, 64],
+      [78, 74],
+      [82, 96],
+    ]),
+    band(50, 62, 13, 7, 200, 340),
+  ],
+  // A collar with a notch cut for the buttons.
+  garden: () => [
+    poly([
+      [17, 96],
+      [22, 74],
+      [40, 66],
+      [50, 78],
+      [60, 66],
+      [78, 74],
+      [83, 96],
+    ]),
+  ],
+};
+
+const { x: hx, y: hy, r: hr } = HEAD;
 
 /**
- * Twelve ways of wearing hair.
+ * What each person has on their head.
  *
- * Each is one **solid mass** over the skull rather than a band following it. In
- * a drawing of a single colour the inside of the hair and the inside of the head
- * are the same thing, so a band buys nothing and costs a hairline sliver that
- * breaks up at small sizes; the mass is closed off with a chord straight through
- * the skull, where nobody can see it. What is left to draw is the only part that
- * matters — the outline, and where it ends at the back.
- *
- * Told apart by the *shape and the size* of that mass, not by texture. A crop
- * barely leaves the skull; a bob is a squared block down to the jaw; a bun is a
- * ball behind the head; an afro is a circle half again as wide as the head it is
- * on; a mohawk shaves the sides to nothing and puts a fin on top; a ponytail
- * leaves the skull and falls out of the box. Between the smallest and the
- * largest there is nearly twice the ink, which is a difference that survives
- * being shrunk to a grid heading when a change of texture would not.
+ * A silhouette only shows an outline, so every style has to change the shape of
+ * the head itself — a bigger dome, a squarer one, a scalloped one, or something
+ * that sticks out past it. Hair that only sat on top would be invisible.
  */
-const cap = (by, fall = []) => poly([...grow(by), ...fall]);
-
 export const HAIR = {
   bald: () => [],
-  crop: () => [cap(1.06)],
-  short: () => [cap(1.18)],
-  long: () => [
-    cap(1.2, [
-      [4, 82],
-      [2, 100],
-      [26, 100],
-      [28, 80],
-    ]),
-  ],
-  bob: () => [
-    cap(1.24, [
-      [1, 80],
-      [29, 86],
-      [26, 58],
-    ]),
-  ],
-  // A knot at the back of the crown, clear of the cap on two sides.
-  bun: () => [cap(1.08), circle(15, 17, 14)],
-  topknot: () => [
-    cap(1.08),
-    ...stroke(
-      [
-        [32, 20],
-        [26, 10],
-      ],
-      10,
-    ),
-    circle(23, 7, 13),
-  ],
-  ponytail: () => [cap(1.08), wedge([19, 34], [3, 86], 30)],
-  braids: () => [cap(1.08), wedge([12, 44], [0, 98], 20), wedge([21, 56], [16, 100], 17)],
-  curls: () => [
-    cap(1.12),
-    circle(18, 18, 16),
-    circle(40, 8, 17),
-    circle(58, 17, 14),
-    circle(15, 40, 15),
-    circle(16, 66, 14),
-  ],
-  afro: () => [circle(42, 50, 40)],
-  // Shaved at the sides, so the skull is the outline everywhere but the crest.
-  mohawk: () => [
+  short: () => [dome(hx, hy - 2, hr + 4, 215)],
+  crop: () => [
     poly([
-      [20, 34],
-      [30, 2],
-      [50, 0],
-      [66, 14],
-      [66, 40],
-      [42, 22],
+      [hx - hr - 3, hy + 2],
+      [hx - hr - 3, hy - hr - 1],
+      [hx + hr + 3, hy - hr - 1],
+      [hx + hr + 3, hy + 2],
+    ]),
+  ],
+  bun: () => [dome(hx, hy - 2, hr + 3, 215), circle(hx + 13, hy - 16, 7)],
+  topknot: () => [
+    dome(hx, hy - 2, hr + 3, 215),
+    bar([hx, hy - 18], [hx, hy - 26], 5),
+    circle(hx, hy - 28, 6),
+  ],
+  ponytail: () => [
+    dome(hx, hy - 2, hr + 3, 215),
+    wedge([hx + 12, hy - 10], [hx + 30, hy + 20], 13),
+  ],
+  long: () => [
+    dome(hx, hy - 2, hr + 4, 200),
+    rect(hx - hr - 8, hy - 8, 9, 34, 4),
+    rect(hx + hr - 1, hy - 8, 9, 34, 4),
+  ],
+  bob: () => [dome(hx, hy - 2, hr + 6, 195), rect(hx - hr - 6, hy - 6, (hr + 6) * 2, 22, 9)],
+  curls: () => [
+    circle(hx, hy - 3, hr + 1),
+    ...around(hx, hy - 3, 7, (angle) => {
+      const [x, y] = turn([hx, hy - 3 - (hr + 1)], [hx, hy - 3], angle);
+      return angle > 200 || angle < 160 ? circle(x, y, 5) : null;
+    }),
+  ],
+  afro: () => [circle(hx, hy - 4, hr + 6)],
+  braids: () => [
+    dome(hx, hy - 2, hr + 3, 215),
+    wedge([hx - 14, hy - 8], [hx - 26, hy + 24], 11),
+    wedge([hx + 14, hy - 8], [hx + 26, hy + 24], 11),
+  ],
+  mohawk: () => [
+    dome(hx, hy - 1, hr + 1, 210),
+    poly([
+      [hx - 10, hy - 16],
+      [hx - 5, hy - 32],
+      [hx + 3, hy - 32],
+      [hx + 9, hy - 15],
     ]),
   ],
 };
 
 /**
- * The one distinguishing feature, drawn at pictogram scale.
+ * The one thing about a face worth drawing, per person.
  *
- * Every one of these has to break the outline somewhere, because anything held
- * inside the head is swallowed — a ring punched as a void included: the head is
- * filled underneath it, and one shape over another in a single colour is one
- * shape. That is the rule that decides what can be on this list at all. It is
- * why there are no hoop earrings on it (a profile puts the ear in the middle of
- * the head, so a hoop hangs over the jaw where nothing can see it) and why the
- * eighth is a headband, which goes round the forehead and out past the back of
- * the skull — the one place on a head the hair does not already own.
+ * Every one of these breaks the head's outline somewhere — a bar past the
+ * cheeks, a ring below the ear, a cup over one side — because that is the only
+ * kind of detail a filled shape can carry. Between them and the hair above,
+ * fourteen people in a set are fourteen different outlines rather than fourteen
+ * heads with different colouring nobody can see.
  */
 export const FEATURE = {
+  // Wider than the jaw rather than longer than it: a beard that only hangs down
+  // runs into the collar and disappears, where one that spreads past the cheeks
+  // is still a beard at the size of a grid heading.
   beard: () => [
     poly([
-      [28, 50],
-      [44, 62],
-      [54, 80],
-      [70, 78],
-      [92, 86],
-      [80, 100],
-      [46, 100],
-      [24, 90],
-      [18, 66],
+      [hx - hr - 5, hy],
+      [hx + hr + 5, hy],
+      [hx + hr - 1, hy + 18],
+      [hx, hy + 26],
+      [hx - hr + 1, hy + 18],
     ]),
   ],
   moustache: () => [
     poly([
-      [54, 66],
-      [70, 63],
-      [95, 70],
-      [88, 84],
-      [70, 76],
-      [52, 78],
+      [hx - hr - 8, hy + 5],
+      [hx - 4, hy + 3],
+      [hx + 4, hy + 3],
+      [hx + hr + 8, hy + 5],
+      [hx + hr + 4, hy + 13],
+      [hx, hy + 10],
+      [hx - hr - 4, hy + 13],
     ]),
   ],
-  // A lens straddling the face line, and an arm that runs back and out past the
-  // skull. The arm is what stops it reading as a handle on a jug.
-  spectacles: () => [circle(68, 52, 14), hole.circle(68, 52, 8), bar([60, 48], [1, 54], 6)],
-  // Round the forehead and out past the back of the skull.
-  headband: () => [
-    bar([1, 40], [78, 34], 12),
-    poly([
-      [10, 32],
-      [8, 50],
-      [0, 58],
-      [0, 32],
-    ]),
+  // Rings rather than discs: two filled circles at eye level would only widen
+  // the head, where a lens with the middle cut out reads as a lens. Drawn big
+  // enough to clear a dome of hair, since most of the set has some.
+  spectacles: () => [
+    circle(hx - 14, hy + 1, 13),
+    hole.circle(hx - 14, hy + 1, 7.5),
+    circle(hx + 14, hy + 1, 13),
+    hole.circle(hx + 14, hy + 1, 7.5),
+    rect(hx - 5, hy - 1, 10, 4, 2),
+  ],
+  earrings: () => [
+    circle(hx - hr + 1, hy + 15, 7),
+    hole.circle(hx - hr + 1, hy + 15, 3.5),
+    circle(hx + hr - 1, hy + 15, 7),
+    hole.circle(hx + hr - 1, hy + 15, 3.5),
   ],
   chops: () => [
     poly([
-      [22, 40],
-      [42, 50],
-      [50, 84],
-      [32, 94],
-      [14, 74],
+      [hx - hr + 4, hy - 6],
+      [hx - hr - 2, hy - 4],
+      [hx - hr - 8, hy + 14],
+      [hx - hr + 6, hy + 12],
+    ]),
+    poly([
+      [hx + hr - 4, hy - 6],
+      [hx + hr + 2, hy - 4],
+      [hx + hr + 8, hy + 14],
+      [hx + hr - 6, hy + 12],
     ]),
   ],
-  // One side only, and the strap runs right round the head: an outline that is
-  // not symmetrical is the easiest of all to pick out of a row of headings.
+  // One side only: an outline that is not symmetrical is the easiest of all to
+  // pick out of a row of headings.
   eyepatch: () => [
     poly([
-      [52, 40],
-      [82, 44],
-      [84, 66],
-      [54, 62],
+      [hx + 1, hy - 11],
+      [hx + hr + 10, hy - 15],
+      [hx + hr + 10, hy + 2],
+      [hx + 1, hy + 4],
     ]),
-    bar([3, 47], [78, 40], 9),
+    bar([hx - hr - 6, hy - 15], [hx + hr + 6, hy - 8], 4),
   ],
+  // Read mostly by the boom, which hangs out into clear space below the ear
+  // where no hair reaches.
   headset: () => [
-    band(42, 54, 34, 12, 196, 300),
-    circle(EAR[0] - 10, EAR[1] + 2, 17),
+    band(hx, hy - 2, hr + 8, 5, 200, 340),
+    circle(hx - hr - 6, hy + 1, 7),
     ...stroke(
       [
-        [24, 72],
-        [50, 94],
-        [84, 86],
+        [hx - hr - 6, hy + 4],
+        [hx - 7, hy + 17],
       ],
-      8,
+      3.5,
     ),
-    circle(88, 84, 10),
+    circle(hx - 6, hy + 18, 4),
   ],
-  // Under the jaw and up in front of the ear, so it breaks the outline at the
-  // bottom where nothing else does.
-  chinstrap: () => [
-    ...stroke(
-      [
-        [20, 62],
-        [44, 100],
-        [82, 88],
-      ],
-      12,
-    ),
-  ],
+  chinstrap: () => [band(hx, hy + 1, hr + 6, 4.5, 20, 160)],
 };
-
 /**
  * What the reference locale says, and the shape each phrase draws as.
  *
@@ -326,24 +277,30 @@ const FEATURE_SAID = {
   'a beard': 'beard',
   'a moustache': 'moustache',
   spectacles: 'spectacles',
-  'a headband': 'headband',
+  'hoop earrings': 'earrings',
   'mutton chops': 'chops',
   'an eye patch': 'eyepatch',
   'a headset': 'headset',
   'a chinstrap': 'chinstrap',
 };
 
-/**
- * A person: a head, their hair, and their one feature.
- *
- * The theme is no longer an argument — there is no collar to change. It stays in
- * the signature because every caller passes it and the day a theme wants its own
- * head shape, this is where it goes.
- */
+/** A person: shoulders, neck, head, their hair and their one feature. */
 export function person(theme, hairSaid, featureSaid) {
   const hair = HAIR[HAIR_SAID[hairSaid]];
   if (!hair) throw new Error(`Nothing draws the hair "${hairSaid}"`);
   const feature = FEATURE[FEATURE_SAID[featureSaid]];
   if (!feature) throw new Error(`Nothing draws the feature "${featureSaid}"`);
-  return [head(), hair(), feature()];
+  return [
+    WEAR[theme](),
+    ...stroke(
+      [
+        [hx, hy + 10],
+        [hx, hy + 24],
+      ],
+      14,
+    ),
+    circle(hx, hy, hr),
+    hair(),
+    feature(),
+  ];
 }

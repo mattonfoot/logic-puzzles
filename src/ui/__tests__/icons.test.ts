@@ -39,28 +39,19 @@ describe('the icon set', () => {
     expect(new Set(names).size).toBe(names.length);
   });
 
-  it('draws no two items in a set the same', () => {
-    // A shared path means two items have the same silhouette, which on a grid of
-    // fourteen suspects is no better than having no icon at all.
-    //
-    // Within a set. Across two of them it costs nothing, because a puzzle draws
-    // its whole cast from one theme and a player never sees a diver beside an
-    // astronaut — and since the people stopped carrying a collar to say which
-    // theme they belong to, a diver and an astronaut with the same hair and the
-    // same feature are the same drawing. That is the collar's whole cost, paid
-    // knowingly: it was three-fifths of every person, identical for all fourteen
-    // of them, and it was crowding out the two things that told them apart.
-    const shared: string[][] = [];
+  it('draws no two items the same', () => {
+    // A shared path means two items have the same silhouette, which on a grid
+    // of fourteen suspects is no better than having no icon at all.
+    const byPath = new Map<string, string[]>();
     for (const theme of THEMES) {
       for (const category of theme.categories) {
-        const byPath = new Map<string, string[]>();
         for (const item of category.items) {
           const path = ICONS[item.icon] ?? item.icon;
           byPath.set(path, [...(byPath.get(path) ?? []), item.icon]);
         }
-        shared.push(...[...byPath.values()].filter((names) => names.length > 1));
       }
     }
+    const shared = [...byPath.values()].filter((names) => names.length > 1);
     expect(shared).toEqual([]);
   });
 
