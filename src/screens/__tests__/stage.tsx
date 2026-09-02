@@ -4,7 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { SIZES, sizeById } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
-import type { CompletedGame, SavedGame } from '../../game/persistence';
+import { SAVE_VERSION, type CompletedGame, type SavedGame } from '../../game/persistence';
 import { DEFAULT_SETTINGS } from '../../game/settings';
 import { generatePuzzle } from '../../puzzle/generator';
 import type { Puzzle } from '../../puzzle/types';
@@ -67,11 +67,12 @@ export function game(overrides: Partial<CompletedGame> = {}): CompletedGame {
 /** A game left part-way through, as the setup screen would find it. */
 export function savedGame(puzzle: Puzzle = puzzleOne()): SavedGame {
   return {
-    version: 1,
+    version: SAVE_VERSION,
     puzzle,
     marks: {},
     cluesSeen: [0],
     clueIndex: 0,
+    history: [],
     seconds: 45,
     updatedAt: NOON,
   };

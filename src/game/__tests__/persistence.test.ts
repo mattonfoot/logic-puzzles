@@ -13,6 +13,7 @@ import {
   reviveMarks,
   reviveSavedGame,
   SAVE_VERSION,
+  SAVED_UNDO,
   type CompletedGame,
   type SavedGame,
 } from '../persistence';
@@ -26,6 +27,7 @@ function savedGame(overrides: Partial<SavedGame> = {}): SavedGame {
     marks: setMark({}, { c1: 0, i1: 0, c2: 1, i2: 1 }, 'yes', { size: puzzle.size.items }),
     cluesSeen: [0, 2],
     clueIndex: 2,
+    history: [],
     seconds: 42,
     updatedAt: 1_700_000_000_000,
     ...overrides,
@@ -50,6 +52,8 @@ describe('isSavedGame', () => {
     expect(isSavedGame(savedGame({ marks: undefined as never }))).toBe(false);
     expect(isSavedGame(savedGame({ cluesSeen: undefined as never }))).toBe(false);
     expect(isSavedGame(savedGame({ clueIndex: 'first' as never }))).toBe(false);
+    expect(isSavedGame(savedGame({ history: undefined as never }))).toBe(false);
+    expect(isSavedGame(savedGame({ history: ['yes'] as never }))).toBe(false);
   });
 
   it('rejects a save from another version', () => {
@@ -166,6 +170,33 @@ describe('reading a board back', () => {
     // The clues they had crossed off are the ones they had read.
     expect(revived?.cluesSeen).toEqual([1, 3]);
     expect(revived?.clueIndex).toBeNull();
+  });
+
+  it('brings a save from before the undo stack was kept forward with an empty one', () => {
+    const { history, ...older } = savedGame({ version: 1 });
+    const revived = reviveSavedGame(JSON.parse(JSON.stringify(older)));
+    expect(revived?.version).toBe(SAVE_VERSION);
+    expect(revived?.history).toEqual([]);
+    expect(revived?.marks).toEqual(older.marks);
+  });
+
+  it('keeps the undo stack, boards of every age, and only the last twenty', () => {
+    const before = setMark({}, cell, 'no', { size: puzzle.size.items });
+    const older = { [markKey(cell)]: 'yes' };
+    const revived = reviveSavedGame(
+      JSON.parse(JSON.stringify(savedGame({ history: [older as never, before] }))),
+    );
+    expect(revived?.history).toEqual([{ [markKey(cell)]: byHand('yes') }, before]);
+
+    const long = Array.from({ length: 30 }, (_, index) => ({
+      [markKey({ ...cell, i2: index % 3 })]: byHand('no'),
+    }));
+    expect(reviveSavedGame(savedGame({ history: long }))?.history).toEqual(long.slice(-SAVED_UNDO));
+  });
+
+  it('refuses a save whose undo stack it cannot read', () => {
+    expect(reviveSavedGame(savedGame({ history: [{ '0.0-1.1': 'maybe' }] as never }))).toBeNull();
+    expect(reviveSavedGame(savedGame({ history: 'none' as never }))).toBeNull();
   });
 
   it('refuses a save it cannot make sense of', () => {

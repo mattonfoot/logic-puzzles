@@ -18,6 +18,7 @@ const saved = {
   },
   cluesSeen: [1],
   clueIndex: 1,
+  history: [{}],
   seconds: 30,
   updatedAt: 5,
 };

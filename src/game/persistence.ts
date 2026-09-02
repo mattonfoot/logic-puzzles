@@ -8,8 +8,20 @@
 import type { Puzzle } from '../puzzle/types';
 import type { MarkEntry, Marks } from './board';
 
-export const SAVE_VERSION = 1;
+/**
+ * 2 added the undo stack. A version-1 save reads back with an empty one, which
+ * is what it always had on resuming.
+ */
+export const SAVE_VERSION = 2;
 export const HISTORY_VERSION = 1;
+/**
+ * How many boards of undo are kept with a saved game.
+ *
+ * The stack itself runs to two hundred, but a board is the largest thing in
+ * the save and there is no point writing the lot: twenty steps back is more
+ * than Rewind has ever needed, and more than anyone takes back by hand.
+ */
+export const SAVED_UNDO = 20;
 /** How many finished games are kept; older ones fall off the end. */
 export const HISTORY_LIMIT = 300;
 
@@ -22,6 +34,12 @@ export interface SavedGame {
   cluesSeen: number[];
   /** The clue on the table when they left, if any. */
   clueIndex: number | null;
+  /**
+   * The boards Undo can step back to, oldest first — the last `SAVED_UNDO` of
+   * them. Without these a game picked back up could not be stepped back from,
+   * and Rewind, which walks the same stack, had nothing to walk.
+   */
+  history: Marks[];
   seconds: number;
   updatedAt: number;
 }
@@ -103,6 +121,7 @@ export function isSavedGame(value: unknown): value is SavedGame {
   if (!isObject(value.marks)) return false;
   if (!Array.isArray(value.cluesSeen)) return false;
   if (value.clueIndex !== null && typeof value.clueIndex !== 'number') return false;
+  if (!Array.isArray(value.history) || !value.history.every(isObject)) return false;
   return typeof value.seconds === 'number';
 }
 
@@ -153,13 +172,30 @@ export function reviveHistory(value: unknown): History | null {
  * A save from before the clue table kept a list of clues the player had crossed
  * off by hand and a count of hints; those crossed-off clues are the ones they
  * had read, so they come across as the clues seen and the hint count is
- * dropped. Nothing about the board itself changed, so the game resumes.
+ * dropped. Nothing about the board itself changed, so the game resumes. A
+ * version-1 save carried no undo stack, and comes across with an empty one —
+ * the same board it would have resumed to before, with nothing behind it.
+ *
+ * A stack that is there but cannot be read refuses the whole save rather than
+ * dropping the stack: a board that fails the guards was written by something
+ * this build does not understand, and the marks beside it are no safer.
  */
 export function reviveSavedGame(value: unknown): SavedGame | null {
   if (!isObject(value)) return null;
 
   const marks = reviveMarks(value.marks);
   if (!marks) return null;
+
+  const history: Marks[] = [];
+  if (Array.isArray(value.history)) {
+    for (const board of value.history) {
+      const revived = reviveMarks(board);
+      if (!revived) return null;
+      history.push(revived);
+    }
+  } else if (value.history !== undefined) {
+    return null;
+  }
 
   const seen = Array.isArray(value.cluesSeen)
     ? value.cluesSeen
@@ -168,9 +204,12 @@ export function reviveSavedGame(value: unknown): SavedGame | null {
       : [];
   const migrated = {
     ...value,
+    // Only the one version this build knows how to bring forward.
+    version: value.version === 1 ? SAVE_VERSION : value.version,
     marks,
     cluesSeen: seen.filter((index: unknown) => typeof index === 'number'),
     clueIndex: typeof value.clueIndex === 'number' ? value.clueIndex : null,
+    history: history.slice(-SAVED_UNDO),
   };
   return isSavedGame(migrated) ? migrated : null;
 }

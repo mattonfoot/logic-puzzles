@@ -361,8 +361,8 @@ rest is the app behaving normally.
    They are written to disk, so they are the same the next time the app opens.
 11. **Come back later** — the board saves itself as you play, so closing the app
    mid-puzzle costs nothing. It is waiting behind **Continue** on the difficulty
-   screen when you come back, with the clock where you left it and the same
-   puzzle in front of you.
+   screen when you come back, with the clock where you left it, the same
+   puzzle in front of you, and your last twenty moves still there to undo.
 12. **Statistics** — solved count, time played, day streak, clues read (in total
    and per puzzle), a table of best and average times by difficulty, a chart of
    recent solve times, and the list of recent games. Finishing a puzzle shows
@@ -637,9 +637,10 @@ and the board keeps the room a clue panel used to take.
 one answer, so a mark the answer contradicts is a mark nothing later can put
 right. That is what **Clue** tests before handing one
 over and what Rewind pops the undo stack towards; `clearMistakes` is the fallback for a board whose history has run
-out — a resumed game starts with an empty stack, so its undo history begins
-where the player picked it up. The stack itself is session-only and holds the
-last 200 boards.
+out. The stack holds the last 200 boards, and the last twenty of them are
+written with the saved game, so a board picked back up can still be stepped
+back from and Rewind has somewhere to walk to; a mistake older than that is
+what the fallback is for.
 
 Winning adds a tab rather than covering the board. There is no tab bar during
 play — there is only the board to show — so the bar appears at the finish with
@@ -1128,7 +1129,7 @@ Two things are stored, both under AsyncStorage, both versioned:
 
 | Key | Holds |
 |-----|-------|
-| `logic-grid:saved-game:v1` | the puzzle in progress: the whole puzzle — including any clues written for this game — every tick and cross, which clues have been read and which is on the table, elapsed seconds |
+| `logic-grid:saved-game:v1` | the puzzle in progress: the whole puzzle — including any clues written for this game — every tick and cross, the last twenty boards Undo can step back to, which clues have been read and which is on the table, elapsed seconds |
 | `logic-grid:history:v1` | the last 300 finished games: time, clues read, theme, size, whether it was revealed |
 
 The keys keep the app's old name. Renaming them would leave every game already

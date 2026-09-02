@@ -22,7 +22,7 @@ import {
   type Marks,
 } from '../game/board';
 import { cluesDone, inventClue, nextClue } from '../game/clues';
-import { SAVE_VERSION, type SavedGame } from '../game/persistence';
+import { SAVE_VERSION, SAVED_UNDO, type SavedGame } from '../game/persistence';
 import type { Completion, CompletionInput } from '../game/usePersistence';
 import { plural, t } from '../i18n';
 import { useTimer } from '../game/useTimer';
@@ -114,8 +114,10 @@ export function GameScreen({
   const [inspecting, setInspecting] = useState<Attribute | null>(null);
   const [mistakes, setMistakes] = useState<Set<string>>(new Set());
   // Every board the player has moved on from, newest last, so a move can be
-  // taken back. It lives for the session only — a resumed game starts fresh.
-  const [history, setHistory] = useState<Marks[]>([]);
+  // taken back. The last twenty are saved with the game, so a board picked
+  // back up can still be stepped back from — and Rewind, which walks this same
+  // stack, has somewhere to walk to.
+  const [history, setHistory] = useState<Marks[]>(() => resumed?.history ?? []);
   // Set when the clue button finds the board past saving, which opens the
   // window saying so; cleared by either of the two ways out of it.
   const [flagged, setFlagged] = useState(false);
@@ -209,6 +211,7 @@ export function GameScreen({
     marks,
     cluesSeen: [...cluesSeen],
     clueIndex,
+    history: history.slice(-SAVED_UNDO),
     seconds,
     updatedAt: Date.now(),
   });
@@ -357,8 +360,8 @@ export function GameScreen({
       flash(plural('game.status.rewound', steps, { steps }));
       return;
     }
-    // Nothing recorded is clean — a resumed board can start out wrong, and its
-    // history begins where the player picked it up. Take the bad marks off.
+    // Nothing recorded is clean — a resumed board carries only its last twenty
+    // moves, and a mistake can be older than that. Take the bad marks off.
     setMarks((current) => clearMistakes(current, puzzle, boardOptions));
     flash(t('game.status.clearedMistakes'));
   }, [boardOptions, flash, history, puzzle]);

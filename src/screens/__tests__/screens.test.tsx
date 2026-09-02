@@ -4,6 +4,7 @@ import { View } from 'react-native';
 
 import { sizeById } from '../../data/sizes';
 import { dailySeed } from '../../game/library';
+import type { SavedGame } from '../../game/persistence';
 import { DEFAULT_SETTINGS } from '../../game/settings';
 import { DailyScreen } from '../DailyScreen';
 import { GameMenuScreen } from '../GameMenuScreen';
@@ -262,7 +263,7 @@ describe('the board', () => {
   afterEach(() => jest.useRealTimers());
 
   function play(restore: ReturnType<typeof savedGame> | null = null, { disk = true } = {}) {
-    const onSaveProgress = jest.fn(async () => disk);
+    const onSaveProgress = jest.fn(async (_game: SavedGame) => disk);
     const onExit = jest.fn();
     stage(
       <GameScreen
@@ -347,6 +348,23 @@ describe('the board', () => {
 
     expect(screen.queryByRole('button', { name: 'Close' })).toBeNull();
     expect(button('Highlight')).toBeEnabled();
+  });
+
+  it('picks the undo stack back up with the game', () => {
+    const { onSaveProgress } = play({ ...savedGame(puzzle), history: [{}] });
+    layOut();
+
+    expect(button('Undo')).toBeEnabled();
+    fireEvent.press(button('Undo'));
+    expect(button('Undo')).toBeDisabled();
+
+    // And what is saved carries the stack on: one move makes one board to go
+    // back to.
+    const [square] = screen.getAllByRole('button', { name: /: unknown$/ });
+    fireEvent.press(square);
+    screen.unmount();
+    const last = onSaveProgress.mock.calls.at(-1)?.[0];
+    expect(last?.history).toEqual([{}]);
   });
 
   it('saves the board on the way out', () => {
