@@ -3,9 +3,12 @@ import { THEMES } from '../../data/themes';
 import { generatePuzzle } from '../../puzzle/generator';
 import {
   completedOnPage,
+  dailyDate,
   dailyDone,
   dailySeed,
+  dailyStreak,
   dayKey,
+  looksDaily,
   findCompleted,
   pageNumbers,
   PAGE_SIZE,
@@ -156,5 +159,57 @@ describe('dailyDone', () => {
 
   it('is nothing before the day is played', () => {
     expect(dailyDone([], 'sm', today)).toBeNull();
+  });
+});
+
+describe('dailyDate', () => {
+  it('reads the date back out of the seed', () => {
+    expect(dailyDate(20260902)).toEqual(new Date(2026, 8, 2));
+    expect(dailyDate(dailySeed(new Date(2031, 0, 31)))).toEqual(new Date(2031, 0, 31));
+  });
+});
+
+describe('looksDaily', () => {
+  it('knows a date from a number', () => {
+    expect(looksDaily(20260902)).toBe(true);
+    expect(looksDaily(7)).toBe(false);
+    expect(looksDaily(20261301)).toBe(false);
+    expect(looksDaily(20260231)).toBe(false);
+    expect(looksDaily(19991231)).toBe(false);
+  });
+});
+
+describe('dailyStreak', () => {
+  const noon = (daysAgo: number) => {
+    const day = new Date(2026, 8, 2, 12);
+    day.setDate(day.getDate() - daysAgo);
+    return day;
+  };
+  const daily = (daysAgo: number, sizeId = 'sm') =>
+    finished({ seed: dailySeed(noon(daysAgo)), sizeId, finishedAt: noon(daysAgo).getTime() });
+
+  it('is nothing until a daily has been finished', () => {
+    expect(dailyStreak([], noon(0))).toBe(0);
+    expect(dailyStreak([finished({ seed: 3, finishedAt: noon(0).getTime() })], noon(0))).toBe(0);
+  });
+
+  it('counts the days running back from today', () => {
+    expect(dailyStreak([daily(0), daily(1), daily(2)], noon(0))).toBe(3);
+    expect(dailyStreak([daily(0), daily(1), daily(3)], noon(0))).toBe(2);
+  });
+
+  it('counts a day once however many of its four were finished', () => {
+    expect(dailyStreak([daily(0, 'xs'), daily(0, 'lg'), daily(1)], noon(0))).toBe(2);
+  });
+
+  it("survives on yesterday's while today is still in progress", () => {
+    expect(dailyStreak([daily(1), daily(2)], noon(0))).toBe(2);
+    expect(dailyStreak([daily(2), daily(3)], noon(0))).toBe(0);
+  });
+
+  it('does not count a daily finished on a later day', () => {
+    // Yesterday's seed, finished today: not yesterday's challenge done.
+    const late = finished({ seed: dailySeed(noon(1)), finishedAt: noon(0).getTime() });
+    expect(dailyStreak([late], noon(0))).toBe(0);
   });
 });

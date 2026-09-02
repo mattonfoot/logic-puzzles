@@ -7,7 +7,9 @@ import { sizeById } from '../data/sizes';
 import { THEMES } from '../data/themes';
 import type { CompletedGame } from '../game/persistence';
 import { t } from '../i18n';
+import { shareResult } from '../game/share';
 import { generatePuzzle } from '../puzzle/generator';
+import { feedback } from '../ui/feedback';
 import { BackLink } from '../ui/BackLink';
 import { space, type Palette } from '../ui/theme';
 import { useStyles } from '../ui/ThemeProvider';
@@ -49,6 +51,15 @@ export function ResultScreen({ game, onBack }: Props) {
           // How it compared was news on the day it was finished. Read back, it
           // is a record rather than a result.
           improvement={null}
+          onShare={() => {
+            feedback.tap();
+            void shareResult({
+              puzzle,
+              seconds: game.seconds,
+              cluesUsed: game.cluesUsed ?? 0,
+              daily: true,
+            });
+          }}
         />
       </View>
 

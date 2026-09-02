@@ -188,7 +188,7 @@ pictures below are for.
 | <img src="docs/screenshots/04-daily.png" width="230" alt="Daily challenges"><br>**4. Daily** — today's four, one per difficulty. A finished one shows its time and opens the result instead of a board. | <img src="docs/screenshots/05-settings.png" width="230" alt="Settings screen"><br>**5. Settings** — seven names with a box or a slider against each, and nothing to read. | <img src="docs/screenshots/06-briefing.png" width="230" alt="The briefing a puzzle opens with"><br>**6. Briefing** — what went wrong and why anybody wants it sorted out. It opens with the puzzle and waits behind **Info** afterwards. |
 | <img src="docs/screenshots/07-board.png" width="230" alt="The board"><br>**7. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/08-menu.png" width="230" alt="Game menu"><br>**8. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/09-clue.png" width="230" alt="The clue window"><br>**9. Clue** — one clue at a time, in a window with the room to read it, under a line saying who is supposed to have said it. |
 | <img src="docs/screenshots/10-highlight.png" width="230" alt="A clue lit up on the grids"><br>**10. Highlight** — the button at the bottom right lights every row and column the clue talks about. | <img src="docs/screenshots/11-marked.png" width="230" alt="A part-marked board"><br>**11. Marked up** — a mark the player made is drawn heavily, one the board worked out for itself lightly. Same shape, same colour: the difference survives being colour-blind. | <img src="docs/screenshots/12-stuck.png" width="230" alt="A board that can no longer be solved"><br>**12. Out of reach** — asking for a new clue checks the board first, and stops with a window offering to rewind when the answer has been marked away. |
-| <img src="docs/screenshots/13-item-card.png" width="230" alt="The card behind an item's picture"><br>**13. Item card** — tap any picture on the board to meet it, and page through the rest of its set. | <img src="docs/screenshots/14-solved.png" width="230" alt="A finished game"><br>**14. Solved** — the finish takes the screen: time, clues read, how it compares, the answer table. | <img src="docs/screenshots/15-statistics.png" width="230" alt="Statistics screen"><br>**15. Statistics** — totals, bests by difficulty and the trend of recent solve times. |
+| <img src="docs/screenshots/13-item-card.png" width="230" alt="The card behind an item's picture"><br>**13. Item card** — tap any picture on the board to meet it, and page through the rest of its set. | <img src="docs/screenshots/14-solved.png" width="230" alt="A finished game"><br>**14. Solved** — the finish takes the screen: time, clues read, how it compares, **Share**, the answer table. | <img src="docs/screenshots/15-statistics.png" width="230" alt="Statistics screen"><br>**15. Statistics** — totals, bests by difficulty and the trend of recent solve times. |
 | <img src="docs/screenshots/16-night.png" width="230" alt="Setup screen in night colours"><br>**16. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | | |
 
 The theme differs from run to run because it is drawn at random, and the
@@ -242,9 +242,13 @@ rest is the app behaving normally.
    four on the same day. Each is
    played once — finish one and its row shows the time instead, and pressing it
    opens the result rather than a board. Tomorrow the date moves the seed on and
-   all four are open again. The theme, as everywhere, is drawn by the seed: one
-   of five settings, its sets and its cast sampled from pools of fourteen items
-   each, so two puzzles rarely share a line-up.
+   all four are open again. Under the heading, once there is one to speak of, a
+   line says how many days running you have finished one — *3 days running* —
+   and nothing at all until then: the app counts nothing at you, and a run of
+   days is the one number here that is yours to keep. Yesterday's keeps it
+   alive while today is still open. The theme, as everywhere, is drawn by the
+   seed: one of five settings, its sets and its cast sampled from pools of
+   fourteen items each, so two puzzles rarely share a line-up.
 5. **A puzzle introduces itself.** Before the board is anything to look at, a
    window says what went wrong and why it matters — a manifest out of the
    airlock, an order pad under a mop bucket, entry cards blown out of a show
@@ -1122,6 +1126,17 @@ every seed to being unseen.
 `dailyDone` still checks the calendar day as well as the seed. The two kinds of
 game share one seed space, so a numbered game 20,260,829 would otherwise answer
 for the 29th of August.
+
+A finished game can be sent to somebody. **Share** on the result hands three
+lines to the system share sheet: which puzzle — *Daily, 2 September 2026* or
+*Expert #7* — with its difficulty; the clock and the clues read; and the clues
+as a row of squares, filled for the ones read, empty for the ones not needed,
+yellow for each the board had to write past the end. Nothing about the answer,
+the theme or the cast is in it: how many clues a puzzle has is not a spoiler,
+and how many it took is the whole of what there is to compare. `dailyDate`
+reads the date back out of a seed for the heading, and `looksDaily` decides
+whether a game picked back up was a daily, since a saved game does not say
+which list it came from and its seed does.
 
 ## Persistence and statistics
 

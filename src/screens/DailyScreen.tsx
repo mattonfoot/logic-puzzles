@@ -2,10 +2,10 @@ import React, { useMemo } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
 import { SIZES } from '../data/sizes';
-import { dailyDone } from '../game/library';
+import { dailyDone, dailyStreak } from '../game/library';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
-import { t } from '../i18n';
+import { plural, t } from '../i18n';
 import type { SizeOption } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
@@ -52,6 +52,7 @@ export function DailyScreen({ busy, history, onPlay, onShowResult, onBack }: Pro
     () => new Map(SIZES.map((size) => [size.id, dailyDone(history, size.id, now)])),
     [history, now],
   );
+  const streak = useMemo(() => dailyStreak(history, now), [history, now]);
 
   return (
     <View style={styles.screen}>
@@ -60,6 +61,14 @@ export function DailyScreen({ busy, history, onPlay, onShowResult, onBack }: Pro
       <View style={styles.bottom}>
         <View style={styles.content}>
           <RuledTitle>{t('daily.title')}</RuledTitle>
+          {/* One line, and only for somebody who has one. The app counts
+              nothing at the player, and a run of days is the one number here
+              that is theirs to keep rather than the app's to press. */}
+          {streak > 0 ? (
+            <Text style={[styles.streak, { color: palette.accent }]}>
+              {plural('daily.streak', streak)}
+            </Text>
+          ) : null}
 
           <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
             {SIZES.map((size) => {
@@ -120,6 +129,11 @@ const makeStyles = (palette: Palette) =>
       flex: 1,
       paddingHorizontal: space(5),
       paddingTop: space(4),
+    },
+    streak: {
+      fontSize: 14,
+      fontWeight: '600',
+      marginTop: space(2),
     },
     list: {
       paddingTop: space(4),

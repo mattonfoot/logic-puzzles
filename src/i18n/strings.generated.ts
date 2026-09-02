@@ -48,6 +48,10 @@ export const STRINGS = {
   daily: {
     title: 'Daily challenges',
     doneHint: 'Done in {clock} — opens the result',
+    streak: {
+      one: '1 day running',
+      other: '{count} days running',
+    },
     back: 'Back',
   },
   game: {
@@ -216,7 +220,13 @@ export const STRINGS = {
     cluesRead: 'Clues read',
     answer: 'The answer',
     swipe: 'Swipe the table for the other sets',
+    share: 'Share',
     notRecorded: 'This game could not be recorded — the device may be out of space.',
+  },
+  share: {
+    daily: 'Deduction · Daily, {date} · {difficulty}',
+    numbered: 'Deduction · {difficulty} #{number}',
+    line: '{clock} · {clues} clues',
   },
   improvement: {
     revealed: {
@@ -4239,6 +4249,8 @@ export type StringKey =
   | 'crash.title'
   | 'daily.back'
   | 'daily.doneHint'
+  | 'daily.streak.one'
+  | 'daily.streak.other'
   | 'daily.title'
   | 'game.back'
   | 'game.clue'
@@ -4303,6 +4315,9 @@ export type StringKey =
   | 'setup.difficultyHint'
   | 'setup.title'
   | 'setup.unreadable'
+  | 'share.daily'
+  | 'share.line'
+  | 'share.numbered'
   | 'sizes.lg.difficulty'
   | 'sizes.lg.label'
   | 'sizes.md.difficulty'
@@ -4314,6 +4329,7 @@ export type StringKey =
   | 'solved.answer'
   | 'solved.cluesRead'
   | 'solved.notRecorded'
+  | 'solved.share'
   | 'solved.subtitle'
   | 'solved.swipe'
   | 'solved.time'

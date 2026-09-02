@@ -76,6 +76,10 @@ numbers:
 daily:
   title: Daily challenges
   doneHint: Done in {clock} — opens the result
+  # Under the heading, only once there is one to speak of.
+  streak:
+    one: 1 day running
+    other: '{count} days running'
   back: Back
 
 game:
@@ -219,8 +223,16 @@ solved:
   cluesRead: Clues read
   answer: The answer
   swipe: Swipe the table for the other sets
+  share: Share
   # Under the result, when the history could not be written.
   notRecorded: This game could not be recorded — the device may be out of space.
+
+# A finished game as a few lines to send somebody. No spoilers: the third line
+# is the clues read as squares, which the app writes for itself.
+share:
+  daily: Deduction · Daily, {date} · {difficulty}
+  numbered: 'Deduction · {difficulty} #{number}'
+  line: '{clock} · {clues} clues'
 
 improvement:
   revealed:

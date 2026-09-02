@@ -1,6 +1,6 @@
 import { act, fireEvent, screen } from '@testing-library/react-native';
 import React from 'react';
-import { View } from 'react-native';
+import { Share, View } from 'react-native';
 
 import { sizeById } from '../../data/sizes';
 import { dailySeed } from '../../game/library';
@@ -243,6 +243,31 @@ describe('the daily challenges', () => {
     fireEvent.press(button('Advanced'));
     expect(onShowResult).toHaveBeenCalledWith(done);
     expect(onPlay).not.toHaveBeenCalled();
+  });
+
+  it('says how many days running, and only once there are some', () => {
+    stage(
+      <DailyScreen busy={false} history={[]} onPlay={none} onShowResult={none} onBack={none} />,
+    );
+    expect(screen.queryByText(/running/)).toBeNull();
+    screen.unmount();
+
+    const yesterday = new Date(NOON);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const history = [
+      game({ seed: dailySeed(new Date(NOON)), finishedAt: NOON }),
+      game({ seed: dailySeed(yesterday), finishedAt: yesterday.getTime() }),
+    ];
+    stage(
+      <DailyScreen
+        busy={false}
+        history={history}
+        onPlay={none}
+        onShowResult={none}
+        onBack={none}
+      />,
+    );
+    expect(screen.getByText('2 days running')).toBeOnTheScreen();
   });
 
   it('deadens the four while one is being built', () => {
@@ -493,6 +518,27 @@ describe('a finished game, read back', () => {
 
     fireEvent.press(button('Back'));
     expect(onBack).toHaveBeenCalledTimes(1);
+  });
+
+  it('offers to share it, by date and without the answer', () => {
+    const sheet = jest.spyOn(Share, 'share').mockResolvedValue({ action: 'sharedAction' });
+    stage(
+      <ResultScreen
+        game={game({ seed: 20260902, seconds: 125, cluesUsed: 7, finishedAt: NOON })}
+        onBack={none}
+      />,
+    );
+
+    fireEvent.press(button('Share'));
+    expect(sheet).toHaveBeenCalledTimes(1);
+    const { message } = sheet.mock.calls[0][0] as { message: string };
+    expect(message).toContain('Daily, 2 September 2026');
+    expect(message).toContain('2:05 · 7 clues');
+    expect(message).toContain('🟩');
+    for (const item of puzzleOne('sm', 20260902).categories[0].items) {
+      expect(message).not.toContain(item.label);
+    }
+    sheet.mockRestore();
   });
 });
 

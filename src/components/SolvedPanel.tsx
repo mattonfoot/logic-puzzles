@@ -9,6 +9,7 @@ import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, space, tint, type Palette } from '../ui/theme';
+import { AppButton } from './AppButton';
 import { SolutionTable } from './SolutionTable';
 
 interface Props {
@@ -22,6 +23,8 @@ interface Props {
   improvement: Improvement | null;
   /** A line the finish has to own up to — that it was not recorded. */
   notice?: string | null;
+  /** Hands the result to the share sheet; the one thing here to press. */
+  onShare?: () => void;
 }
 
 /**
@@ -29,12 +32,21 @@ interface Props {
  * answer as a table. It fills the tab it is shown in rather than covering the
  * board, so the finished grid stays one tap away.
  *
- * It offers nothing to press. Everything a player might want next — another
- * puzzle, a different difficulty, their statistics — lives behind the same
- * `◀ Back` link as always, so the result is something to read rather than a
- * junction to get past.
+ * It offers one thing to press, and that thing leaves the app: **Share** hands
+ * the result to somebody else. Everything a player might want next *here* —
+ * another puzzle, a different difficulty, their statistics — lives behind the
+ * same `◀ Back` link as always, so the result is something to read rather than
+ * a junction to get past.
  */
-export function SolvedPanel({ title, puzzle, seconds, cluesUsed, improvement, notice }: Props) {
+export function SolvedPanel({
+  title,
+  puzzle,
+  seconds,
+  cluesUsed,
+  improvement,
+  notice,
+  onShare,
+}: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   return (
@@ -79,6 +91,16 @@ export function SolvedPanel({ title, puzzle, seconds, cluesUsed, improvement, no
 
       {notice ? <Text style={styles.notice}>{notice}</Text> : null}
 
+      {onShare ? (
+        <AppButton
+          label={t('solved.share')}
+          variant="secondary"
+          accent={palette.accent}
+          onPress={onShare}
+          style={styles.share}
+        />
+      ) : null}
+
       <View style={styles.answer}>
         <Text style={styles.answerLabel}>{t('solved.answer')}</Text>
         <SolutionTable puzzle={puzzle} compact />
@@ -118,6 +140,11 @@ const makeStyles = (palette: Palette) =>
     content: {
       alignItems: 'center',
       paddingBottom: space(4),
+    },
+    share: {
+      marginTop: space(4),
+      alignSelf: 'center',
+      paddingHorizontal: space(8),
     },
     answer: {
       alignSelf: 'stretch',

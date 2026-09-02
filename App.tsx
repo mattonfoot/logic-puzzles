@@ -12,7 +12,7 @@ import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { THEMES } from './src/data/themes';
-import { dailySeed } from './src/game/library';
+import { dailySeed, looksDaily } from './src/game/library';
 import type { CompletedGame, SavedGame } from './src/game/persistence';
 import { usePersistence } from './src/game/usePersistence';
 import { useSettings } from './src/game/useSettings';
@@ -189,6 +189,9 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             onToggleAutoFacts={() => settings.update({ autoFacts: !settings.settings.autoFacts })}
             onChangeAccent={(accent) => settings.update({ accent })}
             restore={restore ?? persistence.savedGame}
+            // A game picked back up does not say which list it came from; its
+            // seed does.
+            daily={cameFrom === 'daily' || looksDaily(puzzle.seed)}
             onExit={leaveGame}
             onSaveProgress={persistence.saveProgress}
             onCompleted={recordCompletion}

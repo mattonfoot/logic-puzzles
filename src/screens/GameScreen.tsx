@@ -23,6 +23,7 @@ import {
 } from '../game/board';
 import { cluesDone, inventClue, nextClue } from '../game/clues';
 import { SAVE_VERSION, SAVED_UNDO, type SavedGame } from '../game/persistence';
+import { shareResult } from '../game/share';
 import type { Completion, CompletionInput } from '../game/usePersistence';
 import { plural, t } from '../i18n';
 import { useTimer } from '../game/useTimer';
@@ -57,6 +58,8 @@ interface Props {
   onChangeAccent: (accent: string) => void;
   /** Board to start from when the player is picking a game back up. */
   restore?: SavedGame | null;
+  /** Today's challenge rather than a numbered game; the finish is named by its date. */
+  daily?: boolean;
   onExit: () => void;
   /** Resolves false when the board could not be written. */
   onSaveProgress: (game: SavedGame) => Promise<boolean>;
@@ -81,6 +84,7 @@ export function GameScreen({
   onToggleAutoFacts,
   onChangeAccent,
   restore,
+  daily = false,
   onExit,
   onSaveProgress,
   onCompleted,
@@ -509,6 +513,10 @@ export function GameScreen({
             cluesUsed={cluesSeen.size}
             improvement={improvement}
             notice={recorded === false ? t('solved.notRecorded') : null}
+            onShare={() => {
+              feedback.tap();
+              void shareResult({ puzzle, seconds, cluesUsed: cluesSeen.size, daily });
+            }}
           />
         ) : (
           <View style={styles.fill}>

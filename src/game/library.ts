@@ -78,6 +78,36 @@ export function dailySeed(date: Date = new Date()): number {
   return date.getFullYear() * 10000 + (date.getMonth() + 1) * 100 + date.getDate();
 }
 
+/**
+ * The date a daily seed stands for, read back out of its columns.
+ *
+ * A seed that does not unpack to a real date on the calendar is not a daily's,
+ * whatever it looks like: a numbered game could in principle carry one, though
+ * nobody has paged three million times to find it.
+ */
+export function dailyDate(seed: number): Date {
+  const year = Math.floor(seed / 10000);
+  const month = Math.floor((seed % 10000) / 100);
+  const day = seed % 100;
+  return new Date(year, month - 1, day);
+}
+
+/**
+ * Whether a seed reads as a date: a real day on the calendar, in the years the
+ * app has been handing them out. The two kinds of game share one seed space,
+ * and a game picked back up does not say which list it came from, so this is
+ * how the finish knows to name it by its date.
+ */
+export function looksDaily(seed: number): boolean {
+  const date = dailyDate(seed);
+  return (
+    seed >= 2025_01_01 &&
+    seed <= 2100_12_31 &&
+    Number.isFinite(date.getTime()) &&
+    dailySeed(date) === seed
+  );
+}
+
 /** A local calendar day as a comparable key: 2026-08-29. */
 export function dayKey(date: Date = new Date()): string {
   const month = `${date.getMonth() + 1}`.padStart(2, '0');
@@ -106,4 +136,32 @@ export function dailyDone(
         game.sizeId === sizeId && game.seed === seed && dayKey(new Date(game.finishedAt)) === today,
     ) ?? null
   );
+}
+
+/**
+ * How many days running a daily challenge has been finished, counting back
+ * from today.
+ *
+ * A day counts when any of its four was finished on the day itself: the same
+ * test `dailyDone` makes, one day at a time. Yesterday's keeps the run alive
+ * while today is still in progress, the way the statistics' own streak does,
+ * so the number does not drop to nothing over breakfast and come back at
+ * lunch. Zero is the ordinary case, and the daily screen says nothing then;
+ * this is a line for somebody who has one, not a nag for somebody who does
+ * not.
+ */
+export function dailyStreak(history: CompletedGame[], now: Date = new Date()): number {
+  const done = new Set<string>();
+  for (const game of history) {
+    const finished = new Date(game.finishedAt);
+    if (game.seed === dailySeed(finished)) done.add(dayKey(finished));
+  }
+  const day = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  if (!done.has(dayKey(day))) day.setDate(day.getDate() - 1);
+  let run = 0;
+  while (done.has(dayKey(day))) {
+    run++;
+    day.setDate(day.getDate() - 1);
+  }
+  return run;
 }
