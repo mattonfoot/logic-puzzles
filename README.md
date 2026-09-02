@@ -1147,6 +1147,20 @@ player their save and nothing more. The board is written 600ms after each
 change, when the app goes to the background, and when the player leaves the
 screen; finishing a puzzle clears it.
 
+Best effort is not the same as silent. A write says whether it landed, and a
+read tells an empty slot from one holding something it cannot use — a file that
+will not parse, a shape the guards refuse, a backend that will not answer. Each
+is said once, quietly, in the place a player would look. The first autosave
+that fails puts *Progress is not being saved* in the board's own status line
+for a moment, and the game plays on exactly as before; a later save that lands
+resets it, so a second failure is news again. A finish the history cannot
+record says so under the result. A saved game that cannot be read is named
+where **Continue** would have been, since that is where anyone looking for it
+looks, and choosing a difficulty writes over it; a history that cannot be read
+is named under the statistics heading. Settings that cannot be read are the
+defaults, and say nothing, because every one of them shows itself on its own
+screen. Tests fail the backend on purpose and hold each line to appearing.
+
 The guards cover what is read; `src/ui/Boundary.tsx` covers what is drawn. It
 is the one error boundary in the app, around the whole shell and inside the
 theme and safe-area providers, so a throw from anywhere the player can reach

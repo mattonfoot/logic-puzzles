@@ -5,7 +5,7 @@ import { THEMES } from '../../data/themes';
 import { byHand } from '../../game/board';
 import { completedGameFrom, EMPTY_HISTORY, SAVE_VERSION, appendGame } from '../../game/persistence';
 import { generatePuzzle } from '../../puzzle/generator';
-import { storage } from '../store';
+import { storage, valueOf } from '../store';
 
 const puzzle = generatePuzzle({ theme: THEMES[3], size: SIZES[0], seed: 11 });
 
@@ -28,16 +28,17 @@ beforeEach(async () => {
 
 describe('storage', () => {
   it('has nothing saved to begin with', async () => {
-    expect(await storage.loadSavedGame()).toBeNull();
-    expect(await storage.loadHistory()).toEqual(EMPTY_HISTORY);
+    expect(await storage.loadSavedGame()).toEqual({ kind: 'empty' });
+    expect(await storage.loadHistory()).toEqual({ kind: 'empty' });
+    expect(valueOf(await storage.loadHistory()) ?? EMPTY_HISTORY).toEqual(EMPTY_HISTORY);
   });
 
   it('brings a saved game back exactly as it went in', async () => {
-    await storage.saveGame(saved);
-    expect(await storage.loadSavedGame()).toEqual(saved);
+    await expect(storage.saveGame(saved)).resolves.toBe(true);
+    expect(valueOf(await storage.loadSavedGame())).toEqual(saved);
 
     await storage.clearSavedGame();
-    expect(await storage.loadSavedGame()).toBeNull();
+    expect(await storage.loadSavedGame()).toEqual({ kind: 'empty' });
   });
 
   it('brings the history back', async () => {
@@ -46,10 +47,10 @@ describe('storage', () => {
       completedGameFrom(puzzle, { seconds: 75, cluesUsed: 1, revealed: false, finishedAt: 9 }),
     );
     await storage.saveHistory(history);
-    expect(await storage.loadHistory()).toEqual(history);
+    expect(valueOf(await storage.loadHistory())).toEqual(history);
 
     await storage.clearHistory();
-    expect(await storage.loadHistory()).toEqual(EMPTY_HISTORY);
+    expect(await storage.loadHistory()).toEqual({ kind: 'empty' });
   });
 
   it('brings a board written before marks had a source forward', async () => {
@@ -57,30 +58,44 @@ describe('storage', () => {
       'logic-grid:saved-game:v1',
       JSON.stringify({ ...saved, marks: { '0.0-1.1': 'yes' } }),
     );
-    expect((await storage.loadSavedGame())?.marks).toEqual({ '0.0-1.1': byHand('yes') });
+    expect(valueOf(await storage.loadSavedGame())?.marks).toEqual({ '0.0-1.1': byHand('yes') });
   });
 
-  it('treats damaged data as nothing saved', async () => {
+  /**
+   * Nothing usable comes back from a damaged slot — but it is not called
+   * empty. That is the difference between a fresh device and one where a
+   * player's game is sitting unreadable, and the setup screen says which.
+   */
+  it('tells damaged data from nothing saved, and hands neither back', async () => {
     await AsyncStorage.setItem('logic-grid:saved-game:v1', 'not json');
-    expect(await storage.loadSavedGame()).toBeNull();
+    expect(await storage.loadSavedGame()).toEqual({ kind: 'damaged' });
 
     await AsyncStorage.setItem(
       'logic-grid:saved-game:v1',
       JSON.stringify({ ...saved, marks: { '0.0-1.1': 'maybe' } }),
     );
-    expect(await storage.loadSavedGame()).toBeNull();
+    expect(await storage.loadSavedGame()).toEqual({ kind: 'damaged' });
+    expect(valueOf(await storage.loadSavedGame())).toBeNull();
 
     await AsyncStorage.setItem('logic-grid:history:v1', JSON.stringify({ version: 99, games: [] }));
-    expect(await storage.loadHistory()).toEqual(EMPTY_HISTORY);
+    expect(await storage.loadHistory()).toEqual({ kind: 'damaged' });
   });
 
-  it('survives a storage backend that throws', async () => {
+  it('survives a storage backend that throws, and says so', async () => {
     const failing = jest.spyOn(AsyncStorage, 'getItem').mockRejectedValue(new Error('no disk'));
-    expect(await storage.loadSavedGame()).toBeNull();
+    // A backend that will not answer may be hiding a save; it is not "empty".
+    expect(await storage.loadSavedGame()).toEqual({ kind: 'damaged' });
     failing.mockRestore();
 
     const failingWrite = jest.spyOn(AsyncStorage, 'setItem').mockRejectedValue(new Error('full'));
-    await expect(storage.saveGame(saved)).resolves.toBeUndefined();
+    await expect(storage.saveGame(saved)).resolves.toBe(false);
+    await expect(storage.saveHistory(EMPTY_HISTORY)).resolves.toBe(false);
     failingWrite.mockRestore();
+
+    const failingRemove = jest
+      .spyOn(AsyncStorage, 'removeItem')
+      .mockRejectedValue(new Error('locked'));
+    await expect(storage.clearSavedGame()).resolves.toBe(false);
+    failingRemove.mockRestore();
   });
 });

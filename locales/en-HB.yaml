@@ -59,6 +59,8 @@ setup:
   continue: Continue
   # Read out for Continue: what is waiting behind it.
   continueHint: '{theme}, {size}, {percent}% filled in, {clock} on the clock'
+  # In Continue's place, when there is a saved game the app cannot read.
+  unreadable: A saved game was found but could not be read. Choosing a difficulty replaces it.
   # Read out for a difficulty: the shape it stands for.
   difficultyHint: '{items} items in each of {sets} sets'
   back: Back
@@ -91,6 +93,9 @@ game:
     nothingToUndo: Nothing to undo.
     finished: This puzzle is finished — Restart to play it again.
     restarted: Restarted — same puzzle, fresh board and clock.
+    # Said once, the first time a save fails: the game plays on, but will not
+    # be waiting behind Continue.
+    notSaving: Progress is not being saved — the device may be out of space.
     clearedMistakes: Took off the marks that cannot be right.
     rewound:
       one: Rewound {steps} move to a board that can still be solved.
@@ -214,6 +219,8 @@ solved:
   cluesRead: Clues read
   answer: The answer
   swipe: Swipe the table for the other sets
+  # Under the result, when the history could not be written.
+  notRecorded: This game could not be recorded — the device may be out of space.
 
 improvement:
   revealed:
@@ -238,6 +245,8 @@ improvement:
 
 stats:
   title: Statistics
+  # Under the heading, when there is a history on the device the app cannot read.
+  unreadable: The finished games on this device could not be read, so nothing from before today is counted.
   solved: Solved
   timePlayed: Time played
   streak: Streak

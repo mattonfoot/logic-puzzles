@@ -20,6 +20,8 @@ interface Props {
   cluesUsed: number;
   /** How this game compares with earlier ones; null until stats have loaded. */
   improvement: Improvement | null;
+  /** A line the finish has to own up to — that it was not recorded. */
+  notice?: string | null;
 }
 
 /**
@@ -32,7 +34,7 @@ interface Props {
  * `◀ Back` link as always, so the result is something to read rather than a
  * junction to get past.
  */
-export function SolvedPanel({ title, puzzle, seconds, cluesUsed, improvement }: Props) {
+export function SolvedPanel({ title, puzzle, seconds, cluesUsed, improvement, notice }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   return (
@@ -74,6 +76,8 @@ export function SolvedPanel({ title, puzzle, seconds, cluesUsed, improvement }: 
           <Text style={styles.improvementDetail}>{improvement.detail}</Text>
         </View>
       ) : null}
+
+      {notice ? <Text style={styles.notice}>{notice}</Text> : null}
 
       <View style={styles.answer}>
         <Text style={styles.answerLabel}>{t('solved.answer')}</Text>
@@ -166,6 +170,14 @@ const makeStyles = (palette: Palette) =>
       color: palette.inkSoft,
       textAlign: 'center',
       marginTop: space(1),
+    },
+    notice: {
+      fontSize: 13,
+      lineHeight: 18,
+      color: palette.danger,
+      textAlign: 'center',
+      marginTop: space(3),
+      paddingHorizontal: space(4),
     },
     statJoined: {
       borderLeftWidth: border,

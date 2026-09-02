@@ -20,11 +20,19 @@ import { radius, shadow, space, tint, type Palette } from '../ui/theme';
 interface Props {
   stats: OverallStats;
   history: CompletedGame[];
+  /** There is a history on the device, and it could not be read. */
+  historyDamaged?: boolean;
   onBack: () => void;
   onClearHistory: () => void;
 }
 
-export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
+export function StatsScreen({
+  stats,
+  history,
+  historyDamaged = false,
+  onBack,
+  onClearHistory,
+}: Props) {
   const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
@@ -62,6 +70,8 @@ export function StatsScreen({ stats, history, onBack, onClearHistory }: Props) {
         showsVerticalScrollIndicator={false}
       >
         <RuledTitle style={styles.title}>{t('stats.title')}</RuledTitle>
+
+        {historyDamaged ? <Text style={styles.notice}>{t('stats.unreadable')}</Text> : null}
 
         {stats.solved === 0 ? (
           <View style={[styles.card, shadow.card, styles.empty]}>
@@ -292,6 +302,14 @@ function TrendBanner({ size }: { size: SizeStats }) {
 
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
+    notice: {
+      fontSize: 14,
+      lineHeight: 20,
+      color: palette.danger,
+      textAlign: 'center',
+      paddingHorizontal: space(4),
+      marginBottom: space(4),
+    },
     screen: {
       flex: 1,
       backgroundColor: palette.bg,

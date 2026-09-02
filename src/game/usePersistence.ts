@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { SIZES } from '../data/sizes';
 import { summarise, improvementFor, type Improvement, type OverallStats } from '../stats/summary';
-import { storage } from '../storage/store';
+import { storage, valueOf } from '../storage/store';
 import {
   appendGame,
   completedGameFrom,
@@ -20,16 +20,28 @@ export interface CompletionInput {
   revealed: boolean;
 }
 
+/** A finished game recorded: how it compares, and whether that record landed. */
+export interface Completion {
+  improvement: Improvement;
+  /** False when the history could not be written, so the game is not in it. */
+  recorded: boolean;
+}
+
 export interface Persistence {
   /** False until the first read from disk has finished. */
   ready: boolean;
   savedGame: SavedGame | null;
+  /** There is a saved game on the device, and it could not be read. */
+  savedGameDamaged: boolean;
   history: CompletedGame[];
+  /** There is a history on the device, and it could not be read. */
+  historyDamaged: boolean;
   stats: OverallStats;
-  saveProgress: (game: SavedGame) => void;
+  /** Writes the board; resolves false when the write did not land. */
+  saveProgress: (game: SavedGame) => Promise<boolean>;
   discardSavedGame: () => void;
   /** Records a finished game and returns how it compares with the earlier ones. */
-  recordCompletion: (puzzle: Puzzle, input: CompletionInput) => Promise<Improvement>;
+  recordCompletion: (puzzle: Puzzle, input: CompletionInput) => Promise<Completion>;
   clearHistory: () => void;
 }
 
@@ -40,7 +52,9 @@ export interface Persistence {
 export function usePersistence(): Persistence {
   const [ready, setReady] = useState(false);
   const [savedGame, setSavedGame] = useState<SavedGame | null>(null);
+  const [savedGameDamaged, setSavedGameDamaged] = useState(false);
   const [history, setHistory] = useState<History>(EMPTY_HISTORY);
+  const [historyDamaged, setHistoryDamaged] = useState(false);
   // Mirrors `history` so a completion can read the latest list without waiting
   // for a render, and without doing work inside a state updater.
   const historyRef = useRef<History>(EMPTY_HISTORY);
@@ -50,9 +64,12 @@ export function usePersistence(): Persistence {
     (async () => {
       const [saved, stored] = await Promise.all([storage.loadSavedGame(), storage.loadHistory()]);
       if (!active) return;
-      setSavedGame(saved);
-      historyRef.current = stored;
-      setHistory(stored);
+      setSavedGame(valueOf(saved));
+      setSavedGameDamaged(saved.kind === 'damaged');
+      const games = valueOf(stored) ?? EMPTY_HISTORY;
+      historyRef.current = games;
+      setHistory(games);
+      setHistoryDamaged(stored.kind === 'damaged');
       setReady(true);
     })();
     return () => {
@@ -62,16 +79,19 @@ export function usePersistence(): Persistence {
 
   const saveProgress = useCallback((game: SavedGame) => {
     setSavedGame(game);
-    void storage.saveGame(game);
+    // Whatever was unreadable under the key has just been written over.
+    setSavedGameDamaged(false);
+    return storage.saveGame(game);
   }, []);
 
   const discardSavedGame = useCallback(() => {
     setSavedGame(null);
+    setSavedGameDamaged(false);
     void storage.clearSavedGame();
   }, []);
 
   const recordCompletion = useCallback(
-    async (puzzle: Puzzle, input: CompletionInput): Promise<Improvement> => {
+    async (puzzle: Puzzle, input: CompletionInput): Promise<Completion> => {
       const game = completedGameFrom(puzzle, { ...input, finishedAt: Date.now() });
       const previous = historyRef.current;
       const improvement = improvementFor(game, previous.games);
@@ -81,8 +101,9 @@ export function usePersistence(): Persistence {
       setHistory(next);
       setSavedGame(null);
 
-      await Promise.all([storage.saveHistory(next), storage.clearSavedGame()]);
-      return improvement;
+      const [recorded] = await Promise.all([storage.saveHistory(next), storage.clearSavedGame()]);
+      if (recorded) setHistoryDamaged(false);
+      return { improvement, recorded };
     },
     [],
   );
@@ -90,6 +111,7 @@ export function usePersistence(): Persistence {
   const clearHistory = useCallback(() => {
     historyRef.current = EMPTY_HISTORY;
     setHistory(EMPTY_HISTORY);
+    setHistoryDamaged(false);
     void storage.clearHistory();
   }, []);
 
@@ -98,7 +120,9 @@ export function usePersistence(): Persistence {
   return {
     ready,
     savedGame,
+    savedGameDamaged,
     history: history.games,
+    historyDamaged,
     stats,
     saveProgress,
     discardSavedGame,

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { storage } from '../storage/store';
+import { storage, valueOf } from '../storage/store';
 import { DEFAULT_SETTINGS, type Settings } from './settings';
 
 export interface SettingsStore {
@@ -23,8 +23,11 @@ export function useSettings(): SettingsStore {
 
   useEffect(() => {
     let active = true;
-    void storage.loadSettings().then((stored) => {
+    void storage.loadSettings().then((read) => {
       if (!active) return;
+      // Settings that cannot be read are the defaults; there is nothing to
+      // tell anyone about, since every one of them shows itself on its screen.
+      const stored = valueOf(read);
       if (stored) setSettings(stored);
       setReady(true);
     });

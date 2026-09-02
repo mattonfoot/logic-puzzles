@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react-native';
+import { act, fireEvent, screen } from '@testing-library/react-native';
 import React from 'react';
 import { View } from 'react-native';
 
@@ -116,6 +116,23 @@ describe('the difficulties', () => {
     );
     fireEvent.press(resume);
     expect(onResume).toHaveBeenCalledTimes(1);
+  });
+
+  it('says so where Continue would be when the saved game cannot be read', () => {
+    stage(
+      <SetupScreen
+        busy={false}
+        savedGame={null}
+        savedGameDamaged
+        onChoose={none}
+        onResume={none}
+        onBack={none}
+      />,
+    );
+
+    expect(screen.getByText(/A saved game was found but could not be read/)).toBeOnTheScreen();
+    expect(screen.queryByRole('button', { name: 'Continue' })).toBeNull();
+    expect(button('Advanced')).toBeEnabled();
   });
 
   it('deadens every choice while the puzzle is being built', () => {
@@ -244,8 +261,8 @@ describe('the board', () => {
   beforeEach(() => jest.useFakeTimers());
   afterEach(() => jest.useRealTimers());
 
-  function play(restore: ReturnType<typeof savedGame> | null = null) {
-    const onSaveProgress = jest.fn();
+  function play(restore: ReturnType<typeof savedGame> | null = null, { disk = true } = {}) {
+    const onSaveProgress = jest.fn(async () => disk);
     const onExit = jest.fn();
     stage(
       <GameScreen
@@ -341,6 +358,35 @@ describe('the board', () => {
     expect(onSaveProgress).toHaveBeenCalledWith(
       expect.objectContaining({ puzzle, marks: {}, clueIndex: null }),
     );
+  });
+
+  it('says once, quietly, when the board is not being saved', async () => {
+    play(null, { disk: false });
+    fireEvent.press(button('Close'));
+    layOut();
+
+    // The first autosave, 600ms after the board settles.
+    await act(async () => {
+      jest.advanceTimersByTime(700);
+    });
+    expect(
+      screen.getByText('Progress is not being saved — the device may be out of space.'),
+    ).toBeOnTheScreen();
+
+    // Said once: the line clears after a moment and a later failed save does
+    // not bring it back.
+    await act(async () => {
+      jest.advanceTimersByTime(3000);
+    });
+    expect(screen.queryByText(/not being saved/)).toBeNull();
+    const [square] = screen.getAllByRole('button', { name: /: unknown$/ });
+    fireEvent.press(button('Clue'));
+    fireEvent.press(button('Close'));
+    fireEvent.press(square);
+    await act(async () => {
+      jest.advanceTimersByTime(700);
+    });
+    expect(screen.queryByText(/not being saved/)).toBeNull();
   });
 
   it('opens the puzzle settings from the burger and comes back from them', () => {
@@ -482,6 +528,21 @@ describe('the statistics', () => {
     expect(screen.getByText('No finished puzzles yet')).toBeOnTheScreen();
     expect(screen.queryByRole('button', { name: 'Clear statistics' })).toBeNull();
     expect(button('Back')).toBeEnabled();
+  });
+
+  it('says so when the history on the device cannot be read', () => {
+    stage(
+      <StatsScreen
+        stats={statsOf([])}
+        history={[]}
+        historyDamaged
+        onBack={none}
+        onClearHistory={none}
+      />,
+    );
+
+    expect(screen.getByText(/could not be read/)).toBeOnTheScreen();
+    expect(screen.getByText('No finished puzzles yet')).toBeOnTheScreen();
   });
 
   it('totals a history, one tab per difficulty played, and asks before clearing it', () => {

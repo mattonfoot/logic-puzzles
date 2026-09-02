@@ -19,6 +19,8 @@ interface Props {
   busy: boolean;
   /** An unfinished game waiting to be picked back up, if there is one. */
   savedGame: SavedGame | null;
+  /** There is one on the device, and it could not be read. */
+  savedGameDamaged?: boolean;
   /** Picking a difficulty opens the numbered list of games at that shape. */
   onChoose: (size: SizeOption) => void;
   onResume: () => void;
@@ -56,7 +58,14 @@ interface Props {
  * difficulty replaces it, which is the same decision made by choosing what to
  * do instead of what to stop.
  */
-export function SetupScreen({ busy, savedGame, onChoose, onResume, onBack }: Props) {
+export function SetupScreen({
+  busy,
+  savedGame,
+  savedGameDamaged = false,
+  onChoose,
+  onResume,
+  onBack,
+}: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
 
@@ -80,6 +89,10 @@ export function SetupScreen({ busy, savedGame, onChoose, onResume, onBack }: Pro
                 onPress={onResume}
               />
             </View>
+          ) : savedGameDamaged ? (
+            // Where Continue would be: the one place a player looking for their
+            // game will look, and the one thing to be said about it.
+            <Text style={styles.notice}>{t('setup.unreadable')}</Text>
           ) : null}
 
           <RuledTitle>{t('setup.title')}</RuledTitle>
@@ -156,6 +169,14 @@ function Choice({
 
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
+    notice: {
+      fontSize: 14,
+      lineHeight: 20,
+      color: palette.danger,
+      textAlign: 'center',
+      paddingHorizontal: space(4),
+      marginBottom: space(4),
+    },
     screen: {
       flex: 1,
       backgroundColor: palette.bg,

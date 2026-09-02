@@ -23,7 +23,7 @@ import {
 } from '../game/board';
 import { cluesDone, inventClue, nextClue } from '../game/clues';
 import { SAVE_VERSION, type SavedGame } from '../game/persistence';
-import type { CompletionInput } from '../game/usePersistence';
+import type { Completion, CompletionInput } from '../game/usePersistence';
 import { plural, t } from '../i18n';
 import { useTimer } from '../game/useTimer';
 import { clueAttributes } from '../puzzle/describe';
@@ -58,8 +58,9 @@ interface Props {
   /** Board to start from when the player is picking a game back up. */
   restore?: SavedGame | null;
   onExit: () => void;
-  onSaveProgress: (game: SavedGame) => void;
-  onCompleted: (input: CompletionInput) => Promise<Improvement>;
+  /** Resolves false when the board could not be written. */
+  onSaveProgress: (game: SavedGame) => Promise<boolean>;
+  onCompleted: (input: CompletionInput) => Promise<Completion>;
 }
 
 /**
@@ -120,7 +121,13 @@ export function GameScreen({
   const [flagged, setFlagged] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [improvement, setImprovement] = useState<Improvement | null>(null);
+  // Whether the finish made it into the history; null until it has been tried.
+  const [recorded, setRecorded] = useState<boolean | null>(null);
   const statusTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Set once the player has been told a save failed, so the line is said once
+  // rather than after every move; cleared by a save that lands, so a later
+  // failure is news again.
+  const warnedNotSaving = useRef(false);
 
   /** What the board works out for itself, as the settings currently stand. */
   const boardOptions = useMemo(
@@ -219,7 +226,9 @@ export function GameScreen({
     let active = true;
     // Nothing reveals a board any more, so a finished one was always solved.
     void onCompleted({ seconds, cluesUsed: cluesSeen.size, revealed: false }).then((result) => {
-      if (active) setImprovement(result);
+      if (!active) return;
+      setImprovement(result.improvement);
+      setRecorded(result.recorded);
     });
     return () => {
       active = false;
@@ -228,22 +237,42 @@ export function GameScreen({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [solved]);
 
+  /** Puts a line in the board's status slot for a moment. */
+  const flash = useCallback((message: string) => {
+    setStatus(message);
+    if (statusTimer.current) clearTimeout(statusTimer.current);
+    statusTimer.current = setTimeout(() => setStatus(null), 2600);
+  }, []);
+
   // Save the board shortly after every change, so closing the app mid-puzzle
   // loses nothing worth keeping.
   useEffect(() => {
     if (solved) return;
-    const timer = setTimeout(() => onSaveProgress(snapshot.current()), 600);
+    const timer = setTimeout(() => {
+      void onSaveProgress(snapshot.current()).then((landed) => {
+        if (landed) {
+          warnedNotSaving.current = false;
+        } else if (!warnedNotSaving.current) {
+          // Said once, in the line the board already keeps for what it has
+          // to say, rather than in a window the player has to get past. The
+          // game plays on exactly as before; only the promise of picking it
+          // back up later has gone.
+          warnedNotSaving.current = true;
+          flash(t('game.status.notSaving'));
+        }
+      });
+    }, 600);
     return () => clearTimeout(timer);
-  }, [marks, cluesSeen, clueIndex, extraClues, solved, onSaveProgress]);
+  }, [marks, cluesSeen, clueIndex, extraClues, solved, onSaveProgress, flash]);
 
   // Backgrounding the app and leaving the screen both save immediately.
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (state) => {
-      if (state !== 'active' && !finished.current) onSaveProgress(snapshot.current());
+      if (state !== 'active' && !finished.current) void onSaveProgress(snapshot.current());
     });
     return () => {
       subscription.remove();
-      if (!finished.current) onSaveProgress(snapshot.current());
+      if (!finished.current) void onSaveProgress(snapshot.current());
     };
   }, [onSaveProgress]);
 
@@ -253,12 +282,6 @@ export function GameScreen({
     },
     [],
   );
-
-  const flash = useCallback((message: string) => {
-    setStatus(message);
-    if (statusTimer.current) clearTimeout(statusTimer.current);
-    statusTimer.current = setTimeout(() => setStatus(null), 2600);
-  }, []);
 
   /** Records a move so it can be taken back, then makes it. */
   const move = useCallback((change: (current: Marks) => Marks) => {
@@ -482,6 +505,7 @@ export function GameScreen({
             seconds={seconds}
             cluesUsed={cluesSeen.size}
             improvement={improvement}
+            notice={recorded === false ? t('solved.notRecorded') : null}
           />
         ) : (
           <View style={styles.fill}>

@@ -35,6 +35,7 @@ export const STRINGS = {
     title: 'Play',
     continue: 'Continue',
     continueHint: '{theme}, {size}, {percent}% filled in, {clock} on the clock',
+    unreadable: 'A saved game was found but could not be read. Choosing a difficulty replaces it.',
     difficultyHint: '{items} items in each of {sets} sets',
     back: 'Back',
   },
@@ -63,6 +64,7 @@ export const STRINGS = {
       nothingToUndo: 'Nothing to undo.',
       finished: 'This puzzle is finished — Restart to play it again.',
       restarted: 'Restarted — same puzzle, fresh board and clock.',
+      notSaving: 'Progress is not being saved — the device may be out of space.',
       clearedMistakes: 'Took off the marks that cannot be right.',
       rewound: {
         one: 'Rewound {steps} move to a board that can still be solved.',
@@ -214,6 +216,7 @@ export const STRINGS = {
     cluesRead: 'Clues read',
     answer: 'The answer',
     swipe: 'Swipe the table for the other sets',
+    notRecorded: 'This game could not be recorded — the device may be out of space.',
   },
   improvement: {
     revealed: {
@@ -243,6 +246,8 @@ export const STRINGS = {
   },
   stats: {
     title: 'Statistics',
+    unreadable:
+      'The finished games on this device could not be read, so nothing from before today is counted.',
     solved: 'Solved',
     timePlayed: 'Time played',
     streak: 'Streak',
@@ -4243,6 +4248,7 @@ export type StringKey =
   | 'game.seed'
   | 'game.status.clearedMistakes'
   | 'game.status.finished'
+  | 'game.status.notSaving'
   | 'game.status.nothingToUndo'
   | 'game.status.restarted'
   | 'game.status.rewound.one'
@@ -4296,6 +4302,7 @@ export type StringKey =
   | 'setup.continueHint'
   | 'setup.difficultyHint'
   | 'setup.title'
+  | 'setup.unreadable'
   | 'sizes.lg.difficulty'
   | 'sizes.lg.label'
   | 'sizes.md.difficulty'
@@ -4306,6 +4313,7 @@ export type StringKey =
   | 'sizes.xs.label'
   | 'solved.answer'
   | 'solved.cluesRead'
+  | 'solved.notRecorded'
   | 'solved.subtitle'
   | 'solved.swipe'
   | 'solved.time'
@@ -4345,6 +4353,7 @@ export type StringKey =
   | 'stats.title'
   | 'stats.trendDetail'
   | 'stats.trendPending'
+  | 'stats.unreadable'
   | 'themes.cafe.blurb'
   | 'themes.cafe.categories.bill.describes'
   | 'themes.cafe.categories.bill.items.10.blurb'

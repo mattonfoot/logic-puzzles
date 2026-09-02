@@ -2,7 +2,7 @@ import { fireEvent, screen, waitFor } from '@testing-library/react-native';
 import React from 'react';
 
 import { puzzleOne, savedGame, stage } from '../../screens/__tests__/stage';
-import { storage } from '../../storage/store';
+import { storage, valueOf } from '../../storage/store';
 import { Text } from '../Text';
 import { Boundary } from '../Boundary';
 
@@ -50,7 +50,7 @@ describe('the error boundary', () => {
 
     expect(screen.getByText('The front door')).toBeOnTheScreen();
     expect(screen.queryByRole('header', { name: 'Something went wrong' })).toBeNull();
-    await expect(storage.loadSavedGame()).resolves.toEqual(waiting);
+    expect(valueOf(await storage.loadSavedGame())).toEqual(waiting);
   });
 
   it('throws the saved game away on the other way out, and nothing else', async () => {
@@ -65,7 +65,7 @@ describe('the error boundary', () => {
     fireEvent.press(screen.getByRole('button', { name: 'Discard the saved game' }));
 
     await waitFor(() => expect(screen.getByText('The front door')).toBeOnTheScreen());
-    await expect(storage.loadSavedGame()).resolves.toBeNull();
+    await expect(storage.loadSavedGame()).resolves.toEqual({ kind: 'empty' });
   });
 
   it('catches a second throw after starting over', () => {

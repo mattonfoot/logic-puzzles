@@ -197,6 +197,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           <SetupScreen
             busy={busy}
             savedGame={persistence.savedGame}
+            savedGameDamaged={persistence.savedGameDamaged}
             onChoose={(size) => {
               setChosen(size);
               setScreen('numbers');
@@ -235,6 +236,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           <StatsScreen
             stats={persistence.stats}
             history={persistence.history}
+            historyDamaged={persistence.historyDamaged}
             onBack={() => setScreen(puzzle ? 'game' : 'start')}
             onClearHistory={persistence.clearHistory}
           />
