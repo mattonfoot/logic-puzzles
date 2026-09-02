@@ -63,6 +63,12 @@ interface Props {
   onExit: () => void;
   /** Resolves false when the board could not be written. */
   onSaveProgress: (game: SavedGame) => Promise<boolean>;
+  /**
+   * Nothing to come back to: the board has not been started, so whatever was
+   * saved for it should go. A puzzle put down before its first clue is a
+   * puzzle nobody has begun, and Continue has nothing to continue.
+   */
+  onDiscardProgress: () => void;
   onCompleted: (input: CompletionInput) => Promise<Completion>;
 }
 
@@ -87,6 +93,7 @@ export function GameScreen({
   daily = false,
   onExit,
   onSaveProgress,
+  onDiscardProgress,
   onCompleted,
 }: Props) {
   const palette = useTheme();
@@ -221,6 +228,17 @@ export function GameScreen({
   });
   const finished = useRef(false);
   finished.current = solved;
+  // Whether there is a game here worth keeping. Before the first clue there
+  // is nothing on the board and no clock running — Restart puts it back to
+  // exactly that — and a save of it would only put a Continue on the setup
+  // screen with nothing behind it.
+  const begun = useRef(false);
+  begun.current = started;
+  const keep = useCallback(() => {
+    if (finished.current) return;
+    if (begun.current) void onSaveProgress(snapshot.current());
+    else onDiscardProgress();
+  }, [onDiscardProgress, onSaveProgress]);
 
   useEffect(() => {
     if (!solved) return;
@@ -255,6 +273,12 @@ export function GameScreen({
   // loses nothing worth keeping.
   useEffect(() => {
     if (solved) return;
+    if (!started) {
+      // Restart lands here with the old board still on disk; a fresh puzzle
+      // lands here with nothing there, and clearing nothing costs nothing.
+      onDiscardProgress();
+      return;
+    }
     const timer = setTimeout(() => {
       void onSaveProgress(snapshot.current()).then((landed) => {
         if (landed) {
@@ -270,18 +294,29 @@ export function GameScreen({
       });
     }, 600);
     return () => clearTimeout(timer);
-  }, [marks, cluesSeen, clueIndex, extraClues, solved, onSaveProgress, flash]);
+  }, [
+    marks,
+    cluesSeen,
+    clueIndex,
+    extraClues,
+    solved,
+    started,
+    onSaveProgress,
+    onDiscardProgress,
+    flash,
+  ]);
 
-  // Backgrounding the app and leaving the screen both save immediately.
+  // Backgrounding the app and leaving the screen both save immediately — or
+  // clear the slot, for a board nobody has started.
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (state) => {
-      if (state !== 'active' && !finished.current) void onSaveProgress(snapshot.current());
+      if (state !== 'active') keep();
     });
     return () => {
       subscription.remove();
-      if (!finished.current) void onSaveProgress(snapshot.current());
+      keep();
     };
-  }, [onSaveProgress]);
+  }, [keep]);
 
   useEffect(
     () => () => {

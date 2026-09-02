@@ -194,6 +194,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             daily={cameFrom === 'daily' || looksDaily(puzzle.seed)}
             onExit={leaveGame}
             onSaveProgress={persistence.saveProgress}
+            onDiscardProgress={persistence.discardSavedGame}
             onCompleted={recordCompletion}
           />
         ) : screen === 'setup' ? (

@@ -344,6 +344,7 @@ describe('the board', () => {
 
   function play(restore: ReturnType<typeof savedGame> | null = null, { disk = true } = {}) {
     const onSaveProgress = jest.fn(async (_game: SavedGame) => disk);
+    const onDiscardProgress = jest.fn();
     const onExit = jest.fn();
     stage(
       <GameScreen
@@ -357,10 +358,11 @@ describe('the board', () => {
         restore={restore}
         onExit={onExit}
         onSaveProgress={onSaveProgress}
+        onDiscardProgress={onDiscardProgress}
         onCompleted={() => Promise.reject(new Error('nothing is finished here'))}
       />,
     );
-    return { onSaveProgress, onExit };
+    return { onSaveProgress, onDiscardProgress, onExit };
   }
 
   /** The board is drawn once it knows how much room it has. */
@@ -447,21 +449,67 @@ describe('the board', () => {
     expect(last?.history).toEqual([{}]);
   });
 
-  it('saves the board on the way out', () => {
+  it('saves a started board on the way out', () => {
     const { onSaveProgress, onExit } = play();
+    fireEvent.press(button('Close'));
+    fireEvent.press(button('Clue'));
+    fireEvent.press(button('Close'));
     fireEvent.press(button('Back to setup'));
     expect(onExit).toHaveBeenCalledTimes(1);
 
     screen.unmount();
     expect(onSaveProgress).toHaveBeenCalledWith(
-      expect.objectContaining({ puzzle, marks: {}, clueIndex: null }),
+      expect.objectContaining({ puzzle, marks: {}, clueIndex: 0, cluesSeen: [0] }),
     );
+  });
+
+  it('leaves nothing behind for a board nobody has started', () => {
+    const { onSaveProgress, onDiscardProgress } = play();
+    fireEvent.press(button('Close'));
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    fireEvent.press(button('Back to setup'));
+    screen.unmount();
+
+    expect(onSaveProgress).not.toHaveBeenCalled();
+    expect(onDiscardProgress).toHaveBeenCalled();
+  });
+
+  it('clears the saved game when a started one is put back to the beginning', async () => {
+    const { onSaveProgress, onDiscardProgress } = play({
+      ...savedGame(puzzle),
+      seconds: 90,
+      cluesSeen: [0, 1],
+      clueIndex: 1,
+    });
+    await act(async () => {
+      jest.advanceTimersByTime(1000);
+    });
+    expect(onSaveProgress).toHaveBeenCalled();
+    onSaveProgress.mockClear();
+
+    fireEvent.press(button('Menu'));
+    fireEvent.press(button('Restart puzzle'));
+    fireEvent.press(button('Restart it'));
+    expect(onDiscardProgress).toHaveBeenCalled();
+
+    // And leaving does not write the empty board back.
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    fireEvent.press(button('Back to setup'));
+    screen.unmount();
+    expect(onSaveProgress).not.toHaveBeenCalled();
   });
 
   it('says once, quietly, when the board is not being saved', async () => {
     play(null, { disk: false });
     fireEvent.press(button('Close'));
     layOut();
+    // Nothing is saved before the first clue, so read one.
+    fireEvent.press(button('Clue'));
+    fireEvent.press(button('Close'));
 
     // The first autosave, 600ms after the board settles.
     await act(async () => {

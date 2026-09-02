@@ -355,7 +355,11 @@ rest is the app behaving normally.
    boxed and named exactly as the settings screen has them (they are the
    player's, not the puzzle's, which is why they are worth reaching mid-game),
    then **Restart puzzle** (same puzzle, fresh board and clock), which throws
-   away a filled-in board and so asks first. There is no way to be shown the
+   away a filled-in board and so asks first. A restarted puzzle is one nobody
+   has begun — no clue read, nothing marked, the clock at zero — and a puzzle
+   left in that state leaves nothing behind: there is no **Continue** for a
+   game that has not started, whether it was restarted or simply opened and
+   put straight back down. There is no way to be shown the
    answer: a puzzle that can be given up on is a puzzle nobody has to finish,
    and finishing it is the whole of the game. It is left the same way as
    every other screen — `◀ Back`, bottom left — which returns to the board.
@@ -375,6 +379,9 @@ rest is the app behaving normally.
    mid-puzzle costs nothing. It is waiting behind **Continue** on the difficulty
    screen when you come back, with the clock where you left it, the same
    puzzle in front of you, and your last twenty moves still there to undo.
+   "As you play" starts with the first clue: a puzzle opened and put down
+   before reading one is not kept, since there is nothing in it to come back
+   to.
 12. **Statistics** — solved count, time played, day streak, clues read (in total
    and per puzzle), a table of best and average times by difficulty, a chart of
    recent solve times, and the list of recent games. Finishing a puzzle shows
