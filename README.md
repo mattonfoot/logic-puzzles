@@ -26,11 +26,11 @@ npm run build:ios  # a signed .ipa from EAS — see "Onto an iPhone" below
 Checks:
 
 ```bash
-npm test           # jest — puzzle engine, board, storage and statistics
+npm test           # jest — puzzle engine, board, storage, statistics, and every screen mounted
 npm run typecheck  # tsc --noEmit
 npm run format     # prettier --write .
-npm run format:check  # prettier --check . (what CI would ask)
-npm run screenshots  # rebuild the screens in docs/screenshots (see below)
+npm run format:check  # prettier --check . (what CI asks)
+npm run screenshots  # rebuild the screens in docs/screenshots (see below); CI runs it as a check
 npm run sounds     # regenerate the three effects in assets/sounds (see below)
 npm run icons      # redraw assets/icons and rebuild the path data (see below)
 npm run locale     # rebuild the strings from locales/en-HB.yaml (see below)
@@ -40,7 +40,13 @@ Formatting is Prettier's, configured in `.prettierrc.json` — 100 columns and
 single quotes, which is what the code was already written to. `npm install`
 points `core.hooksPath` at `.githooks`, whose `pre-commit` formats the staged
 files and stages the result, so what lands in a commit is always formatted.
-`git commit --no-verify` skips it. Two things are left alone: Markdown, because
+`git commit --no-verify` skips it. CI (`.github/workflows/ci.yml`) runs the
+four checks above on every push: format, types and the jest suite in one job,
+and the screenshot walkthrough in another, which builds the app for web,
+drives it through all sixteen screens in Chromium and fails if any cannot be
+reached or the app logs an error on the way — the images it took are kept as
+an artifact of the run, so a red job can be read rather than reproduced. Two
+things are left alone by the formatter: Markdown, because
 Prettier pads table cells out to the widest row and the screenshot table here
 would become unreadable in source. A file
 staged in part is formatted whole, since Prettier can only see what is on disk.
@@ -162,7 +168,19 @@ latest.
 Captured from the real build at iPhone proportions. **Regenerate these whenever
 the UI changes** — `npm run screenshots` — so the reference here always matches
 what the app looks like; a change that alters a screen should land with fresh
-images in the same commit.
+images in the same commit. The same walk runs in CI, so a screen the script can
+no longer get to fails the build rather than quietly dropping out of this table.
+
+Every screen is also mounted under jest, in
+`src/screens/__tests__/screens.test.tsx`: stood up inside the same safe-area
+and theme providers the app wraps it in, then read the way a screen reader
+would — by role and label, the same handles the walkthrough drives the browser
+by. Those tests ask three things of each screen: that it comes up, that the
+right words are on it, and that the buttons which should be dead are — the
+difficulties while a puzzle is being built, **Undo** on an untouched board,
+**Highlight** before a clue has been read, **Night colours** while the device
+is deciding. What a screen *looks* like is not asked there; that is what the
+pictures below are for.
 
 | | | |
 |---|---|---|
@@ -1165,8 +1183,17 @@ before them for the longer-run trend the chart draws.
   Chromium and rewrites `docs/screenshots`. Playwright's Chromium arrives with
   the dev dependencies (`npx playwright install chromium` if the download was
   skipped); `PLAYWRIGHT_CHROMIUM_PATH` points it at another binary, and
-  `--skip-build` reuses the last export. **Treat the images as part of the
+  `--skip-build` reuses the last export. It exits non-zero if a step cannot
+  find what it reaches for or the page logs an error, which is what lets CI
+  run it as a check. **Treat the images as part of the
   build**: regenerate them alongside any change that alters a screen, so the
   README never shows a version of the app that no longer exists.
+- The screen tests find things by accessibility role and name, and a role
+  query's name matches anything *inside* an element as well as its own label —
+  so the backdrop behind a window, a button called **Close** that holds the
+  whole window, answers to every button in it. The suite's `button()` helper
+  keeps only the innermost match, the one that actually carries the name. Two
+  native modules are stood in for under jest: the sound player, which reaches
+  for a native module at import, and AsyncStorage; both in `jest.setup.js`.
 - `react-dom` / `react-native-web` are installed only so `npm run web` can give
   a quick preview away from a Mac; nothing in the app is web-specific.

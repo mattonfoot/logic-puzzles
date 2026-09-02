@@ -1,0 +1,47 @@
+# Every check a contributor runs locally, run on every push and pull request,
+# plus the one nobody runs by hand: the screenshot walkthrough, which drives the
+# web build through sixteen screens and fails if any of them cannot be reached
+# or logs an error on the way.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  checks:
+    name: Format, types and tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run typecheck
+      - run: npm test -- --ci
+
+  walkthrough:
+    name: Walk every screen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      # Rewrites docs/screenshots in the checkout, which is the point: whatever
+      # the walk produced — all sixteen, or the few it reached before it
+      # failed — is kept as an artifact of the run, so a red job can be read
+      # rather than reproduced.
+      - run: npm run screenshots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: docs/screenshots
+          if-no-files-found: ignore
