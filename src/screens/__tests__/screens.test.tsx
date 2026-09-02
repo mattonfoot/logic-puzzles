@@ -196,6 +196,60 @@ describe('the numbered puzzles', () => {
     expect(button('Previous')).toBeEnabled();
   });
 
+  it('zooms out to pages of pages, and back in through one of them', () => {
+    stage(<NumbersScreen size={advanced} busy={false} history={[]} onPlay={none} onBack={none} />);
+
+    fireEvent.press(button('Zoom out'));
+    expect(screen.queryByRole('button', { name: 'Puzzle 1' })).toBeNull();
+    for (const first of [1, 7, 13, 19, 25, 31]) {
+      expect(button(`Puzzles ${first}–${first + 5}`)).toBeEnabled();
+    }
+    expect(button('Previous')).toBeDisabled();
+
+    // The groups page the same way the puzzles do.
+    fireEvent.press(button('Next'));
+    expect(button('Puzzles 37–42')).toBeOnTheScreen();
+    fireEvent.press(button('Previous'));
+
+    fireEvent.press(button('Zoom out'));
+    expect(button('Puzzles 1–36')).toBeOnTheScreen();
+    expect(button('Puzzles 37–72')).toBeOnTheScreen();
+
+    fireEvent.press(button('Puzzles 37–72'));
+    expect(button('Puzzles 37–42')).toBeOnTheScreen();
+    fireEvent.press(button('Puzzles 43–48'));
+    expect(button('Puzzle 43')).toBeOnTheScreen();
+    expect(button('Puzzle 48')).toBeOnTheScreen();
+    expect(button('Previous')).toBeEnabled();
+  });
+
+  it('comes back out to the page that holds the one it left', () => {
+    stage(<NumbersScreen size={advanced} busy={false} history={[]} onPlay={none} onBack={none} />);
+    for (let turn = 0; turn < 16; turn++) fireEvent.press(button('Next'));
+    expect(button('Puzzle 97')).toBeOnTheScreen();
+
+    fireEvent.press(button('Zoom out'));
+    expect(button('Puzzles 97–102')).toBeOnTheScreen();
+    expect(button('Puzzles 73–78')).toBeOnTheScreen();
+  });
+
+  it('stops zooming out at the top, and says how far through a group you are', () => {
+    const history = [game({ seed: 2 }), game({ seed: 4 }), game({ seed: 40 })];
+    stage(
+      <NumbersScreen size={advanced} busy={false} history={history} onPlay={none} onBack={none} />,
+    );
+    fireEvent.press(button('Zoom out'));
+    expect(button('Puzzles 1–6').props.accessibilityHint).toBe('2 of 6 finished');
+    expect(screen.getByText('2 of 6 finished')).toBeOnTheScreen();
+    expect(button('Puzzles 7–12').props.accessibilityHint).toBe('Opens the pages in this group');
+
+    fireEvent.press(button('Zoom out'));
+    expect(button('Puzzles 37–72').props.accessibilityHint).toBe('1 of 36 finished');
+    fireEvent.press(button('Zoom out'));
+    expect(button('Puzzles 1–216')).toBeOnTheScreen();
+    expect(button('Zoom out')).toBeDisabled();
+  });
+
   it('deadens the numbers while a puzzle is being built', () => {
     stage(<NumbersScreen size={advanced} busy history={[]} onPlay={none} onBack={none} />);
 
@@ -203,6 +257,7 @@ describe('the numbered puzzles', () => {
     for (let number = 1; number <= 6; number += 1)
       expect(button(`Puzzle ${number}`)).toBeDisabled();
     expect(button('Next')).toBeDisabled();
+    expect(button('Zoom out')).toBeDisabled();
   });
 });
 

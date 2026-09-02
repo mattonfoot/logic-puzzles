@@ -84,7 +84,12 @@ describe('the icon set', () => {
    * bundle and turning up in the contact sheet as somebody who no longer exists.
    */
   it('draws nothing the app has no use for', () => {
-    const claimed = new Set<string>(['ui/icon-clue', 'ui/icon-chart', 'ui/icon-back']);
+    const claimed = new Set<string>([
+      'ui/icon-clue',
+      'ui/icon-chart',
+      'ui/icon-back',
+      'ui/icon-zoom-out',
+    ]);
     for (const kind of ['yes', 'no'] as const) {
       for (const weight of ['hand', 'auto'] as const) claimed.add(markIcon(kind, weight));
     }

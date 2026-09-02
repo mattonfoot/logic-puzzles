@@ -1,7 +1,16 @@
 import React, { useMemo, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
-import { completedOnPage, pageNumbers } from '../game/library';
+import {
+  completedInRange,
+  completedOnPage,
+  MAX_ZOOM,
+  rangesOn,
+  span,
+  zoomInto,
+  zoomOut,
+  type Catalogue,
+} from '../game/library';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
 import { t } from '../i18n';
@@ -51,13 +60,16 @@ interface Props {
 export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const [page, setPage] = useState(0);
+  const [view, setView] = useState<Catalogue>({ level: 0, page: 0 });
+  const { level, page } = view;
 
-  const numbers = useMemo(() => pageNumbers(page), [page]);
+  const ranges = useMemo(() => rangesOn(view), [view]);
+  const numbers = useMemo(() => ranges.map((range) => range.first), [ranges]);
   const done = useMemo(
-    () => completedOnPage(history, size.id, numbers),
-    [history, size.id, numbers],
+    () => (level === 0 ? completedOnPage(history, size.id, numbers) : new Map()),
+    [history, level, size.id, numbers],
   );
+  const each = span(level);
 
   return (
     <View style={styles.screen}>
@@ -68,45 +80,98 @@ export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
           <RuledTitle>{t('numbers.title', { difficulty: size.difficulty })}</RuledTitle>
 
           <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
-            {numbers.map((number) => {
-              const game = done.get(number);
-              return (
-                <Pressable
-                  key={number}
-                  accessibilityRole="button"
-                  accessibilityLabel={t('numbers.puzzle', { number })}
-                  // A screen reader hears the box as the state it stands for.
-                  accessibilityState={{ checked: Boolean(game), disabled: busy }}
-                  accessibilityHint={
-                    game
-                      ? t('numbers.finishedHint', { clock: formatDuration(game.seconds) })
-                      : size.label
-                  }
-                  disabled={busy}
-                  onPress={() => {
-                    feedback.tap();
-                    onPlay(number);
-                  }}
-                  style={({ pressed }) => [styles.row, { opacity: busy ? 0.4 : pressed ? 0.6 : 1 }]}
-                >
-                  <View
-                    style={[
-                      styles.box,
-                      {
-                        borderColor: palette.accent,
-                        backgroundColor: game ? palette.accent : 'transparent',
-                      },
-                    ]}
-                  >
-                    {game ? <Text style={[styles.tick, { color: palette.bg }]}>✓</Text> : null}
-                  </View>
-                  <Text style={[styles.number, { color: palette.accent }]}>
-                    {t('numbers.puzzle', { number })}
-                  </Text>
-                  {game ? <Text style={styles.time}>{formatDuration(game.seconds)}</Text> : null}
-                </Pressable>
-              );
-            })}
+            {level > 0
+              ? ranges.map((range, row) => {
+                  // A group is a row like any other: a box that ticks when
+                  // every puzzle in it is finished, the run it stands for
+                  // where the number would be, and how far through it on the
+                  // right, once there is anything to say.
+                  const finished = completedInRange(history, size.id, range);
+                  const label = t('numbers.group', { first: range.first, last: range.last });
+                  const progress =
+                    finished > 0 ? t('numbers.groupDone', { done: finished, total: each }) : null;
+                  return (
+                    <Pressable
+                      key={range.first}
+                      accessibilityRole="button"
+                      accessibilityLabel={label}
+                      accessibilityState={{ checked: finished === each, disabled: busy }}
+                      accessibilityHint={progress ?? t('numbers.groupHint')}
+                      disabled={busy}
+                      onPress={() => {
+                        feedback.tap();
+                        setView((at) => zoomInto(at, row));
+                      }}
+                      style={({ pressed }) => [
+                        styles.row,
+                        { opacity: busy ? 0.4 : pressed ? 0.6 : 1 },
+                      ]}
+                    >
+                      <View
+                        style={[
+                          styles.box,
+                          {
+                            borderColor: palette.accent,
+                            backgroundColor: finished === each ? palette.accent : 'transparent',
+                          },
+                        ]}
+                      >
+                        {finished === each ? (
+                          <Text style={[styles.tick, { color: palette.bg }]}>✓</Text>
+                        ) : null}
+                      </View>
+                      <Text style={[styles.number, { color: palette.accent }]}>{label}</Text>
+                      {progress ? <Text style={styles.time}>{progress}</Text> : null}
+                    </Pressable>
+                  );
+                })
+              : null}
+            {level === 0
+              ? numbers.map((number) => {
+                  const game = done.get(number);
+                  return (
+                    <Pressable
+                      key={number}
+                      accessibilityRole="button"
+                      accessibilityLabel={t('numbers.puzzle', { number })}
+                      // A screen reader hears the box as the state it stands for.
+                      accessibilityState={{ checked: Boolean(game), disabled: busy }}
+                      accessibilityHint={
+                        game
+                          ? t('numbers.finishedHint', { clock: formatDuration(game.seconds) })
+                          : size.label
+                      }
+                      disabled={busy}
+                      onPress={() => {
+                        feedback.tap();
+                        onPlay(number);
+                      }}
+                      style={({ pressed }) => [
+                        styles.row,
+                        { opacity: busy ? 0.4 : pressed ? 0.6 : 1 },
+                      ]}
+                    >
+                      <View
+                        style={[
+                          styles.box,
+                          {
+                            borderColor: palette.accent,
+                            backgroundColor: game ? palette.accent : 'transparent',
+                          },
+                        ]}
+                      >
+                        {game ? <Text style={[styles.tick, { color: palette.bg }]}>✓</Text> : null}
+                      </View>
+                      <Text style={[styles.number, { color: palette.accent }]}>
+                        {t('numbers.puzzle', { number })}
+                      </Text>
+                      {game ? (
+                        <Text style={styles.time}>{formatDuration(game.seconds)}</Text>
+                      ) : null}
+                    </Pressable>
+                  );
+                })
+              : null}
           </ScrollView>
 
           {/* Under the list and at the foot of it, so the two sit where a page
@@ -115,8 +180,13 @@ export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
             <Pager
               previousDisabled={page === 0 || busy}
               nextDisabled={busy}
-              onPrevious={() => setPage((at) => Math.max(0, at - 1))}
-              onNext={() => setPage((at) => at + 1)}
+              onPrevious={() => setView((at) => ({ ...at, page: Math.max(0, at.page - 1) }))}
+              onNext={() => setView((at) => ({ ...at, page: at.page + 1 }))}
+              zoomOut={{
+                label: t('numbers.zoomOut'),
+                disabled: level >= MAX_ZOOM || busy,
+                onPress: () => setView(zoomOut),
+              }}
             />
           </View>
         </View>

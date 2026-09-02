@@ -385,6 +385,15 @@ async function main() {
   await wait(page, 900);
   await shot('16-night');
 
+  // The catalogue zoomed out twice: rows of thirty-six puzzles apiece.
+  await page.getByLabel('Advanced', { exact: true }).click();
+  await wait(page, 600);
+  await page.getByLabel('Zoom out').click();
+  await wait(page, 300);
+  await page.getByLabel('Zoom out').click();
+  await wait(page, 500);
+  await shot('17-catalogue');
+
   await browser.close();
   server.close();
 

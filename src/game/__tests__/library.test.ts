@@ -2,6 +2,7 @@ import { SIZES } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
 import { generatePuzzle } from '../../puzzle/generator';
 import {
+  completedInRange,
   completedOnPage,
   dailyDate,
   dailyDone,
@@ -10,8 +11,13 @@ import {
   dayKey,
   looksDaily,
   findCompleted,
+  MAX_ZOOM,
   pageNumbers,
   PAGE_SIZE,
+  rangesOn,
+  span,
+  zoomInto,
+  zoomOut,
 } from '../library';
 import type { CompletedGame } from '../persistence';
 
@@ -211,5 +217,70 @@ describe('dailyStreak', () => {
     // Yesterday's seed, finished today: not yesterday's challenge done.
     const late = finished({ seed: dailySeed(noon(1)), finishedAt: noon(0).getTime() });
     expect(dailyStreak([late], noon(0))).toBe(0);
+  });
+});
+
+describe('the catalogue, zoomed out', () => {
+  it('is the puzzles themselves at level zero', () => {
+    expect(rangesOn({ level: 0, page: 0 }).map((range) => range.first)).toEqual(pageNumbers(0));
+    expect(rangesOn({ level: 0, page: 2 })[0]).toEqual({ first: 13, last: 13 });
+  });
+
+  it('stands each row for six times as many puzzles per level', () => {
+    expect(span(0)).toBe(1);
+    expect(span(1)).toBe(PAGE_SIZE);
+    expect(rangesOn({ level: 1, page: 0 })).toEqual([
+      { first: 1, last: 6 },
+      { first: 7, last: 12 },
+      { first: 13, last: 18 },
+      { first: 19, last: 24 },
+      { first: 25, last: 30 },
+      { first: 31, last: 36 },
+    ]);
+    expect(rangesOn({ level: 2, page: 0 })[1]).toEqual({ first: 37, last: 72 });
+    expect(rangesOn({ level: 2, page: 1 })[0]).toEqual({ first: 217, last: 252 });
+  });
+
+  it('zooms out to the page whose rows hold the one being left', () => {
+    expect(zoomOut({ level: 0, page: 0 })).toEqual({ level: 1, page: 0 });
+    // Page 16 at level 0 is puzzles 97–102: row 4 of the level-1 page that
+    // runs 73–108, so that is the page it lands on.
+    expect(zoomOut({ level: 0, page: 16 })).toEqual({ level: 1, page: 2 });
+    expect(rangesOn(zoomOut({ level: 0, page: 16 }))[4]).toEqual({ first: 97, last: 102 });
+  });
+
+  it('zooms into the page a row stands for', () => {
+    expect(zoomInto({ level: 1, page: 0 }, 1)).toEqual({ level: 0, page: 1 });
+    expect(pageNumbers(zoomInto({ level: 1, page: 0 }, 1).page)[0]).toBe(7);
+    expect(zoomInto({ level: 2, page: 1 }, 0)).toEqual({ level: 1, page: 6 });
+    expect(rangesOn({ level: 1, page: 6 })[0]).toEqual({ first: 217, last: 222 });
+  });
+
+  it('comes back to where it started', () => {
+    for (let page = 0; page < 50; page++) {
+      const out = zoomOut({ level: 0, page });
+      const row = page % PAGE_SIZE;
+      expect(zoomInto(out, row)).toEqual({ level: 0, page });
+    }
+  });
+
+  it('stops zooming out at the top', () => {
+    let view = { level: 0, page: 0 };
+    for (let step = 0; step < 6; step++) view = zoomOut(view);
+    expect(view.level).toBe(MAX_ZOOM);
+    expect(zoomInto({ level: 0, page: 3 }, 0).level).toBe(0);
+  });
+
+  it('counts the puzzles finished in a run, each once', () => {
+    const history = [
+      finished({ seed: 2 }),
+      finished({ seed: 2, seconds: 50 }),
+      finished({ seed: 5 }),
+      finished({ seed: 7 }),
+      finished({ seed: 3, sizeId: 'lg' }),
+    ];
+    expect(completedInRange(history, 'sm', { first: 1, last: 6 })).toBe(2);
+    expect(completedInRange(history, 'sm', { first: 7, last: 12 })).toBe(1);
+    expect(completedInRange(history, 'lg', { first: 1, last: 6 })).toBe(1);
   });
 });

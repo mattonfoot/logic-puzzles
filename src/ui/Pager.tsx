@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 
 import { t } from '../i18n';
 import { feedback } from './feedback';
+import { Icon } from './Icon';
 import { Text } from './Text';
 import { useStyles, useTheme } from './ThemeProvider';
 import { space, type Palette } from './theme';
@@ -14,6 +15,8 @@ interface Props {
   nextDisabled?: boolean;
   /** Sits between the two, for a "3 of 8" or a hint about where you are. */
   middle?: string;
+  /** Or a button there instead: the numbered list's way out to the pages above. */
+  zoomOut?: { label: string; disabled?: boolean; onPress: () => void };
 }
 
 /**
@@ -28,7 +31,15 @@ interface Props {
  * row that changes shape as you move through it is a row you have to find
  * again each time.
  */
-export function Pager({ onPrevious, onNext, previousDisabled, nextDisabled, middle }: Props) {
+export function Pager({
+  onPrevious,
+  onNext,
+  previousDisabled,
+  nextDisabled,
+  middle,
+  zoomOut,
+}: Props) {
+  const palette = useTheme();
   const styles = useStyles(makeStyles);
   return (
     <View style={styles.row}>
@@ -37,7 +48,27 @@ export function Pager({ onPrevious, onNext, previousDisabled, nextDisabled, midd
         disabled={Boolean(previousDisabled)}
         onPress={onPrevious}
       />
-      {middle ? <Text style={styles.middle}>{middle}</Text> : null}
+      {zoomOut ? (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={zoomOut.label}
+          accessibilityState={{ disabled: Boolean(zoomOut.disabled) }}
+          disabled={zoomOut.disabled}
+          hitSlop={12}
+          onPress={() => {
+            feedback.tap();
+            zoomOut.onPress();
+          }}
+          style={({ pressed }) => [
+            styles.zoom,
+            { opacity: zoomOut.disabled ? 0.3 : pressed ? 0.6 : 1 },
+          ]}
+        >
+          <Icon name="ui/icon-zoom-out" size={20} color={palette.accent} />
+        </Pressable>
+      ) : middle ? (
+        <Text style={styles.middle}>{middle}</Text>
+      ) : null}
       <PageLink label={t('common.next')} disabled={Boolean(nextDisabled)} onPress={onNext} />
     </View>
   );
@@ -78,6 +109,10 @@ const makeStyles = (palette: Palette) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
+    },
+    zoom: {
+      paddingHorizontal: space(2),
+      paddingVertical: space(1),
     },
     link: {
       paddingVertical: space(2),

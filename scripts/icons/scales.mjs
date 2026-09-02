@@ -201,4 +201,12 @@ export const UI = {
     ...around(50, 38, 4, (angle, index) => bar([14 + index * 24, 6], [18 + index * 24, 12], 5)),
   ],
   chart: [rect(12, 56, 18, 34, 3), rect(40, 38, 18, 52, 3), rect(68, 20, 18, 70, 3)],
+  // A magnifying glass with a minus in it: the way out of the numbered list
+  // to the pages of pages above it.
+  zoomOut: [
+    circle(42, 42, 30),
+    hole.circle(42, 42, 21),
+    bar([64, 64], [88, 88], 13),
+    bar([29, 42], [55, 42], 7),
+  ],
 };

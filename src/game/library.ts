@@ -29,6 +29,65 @@ export function pageNumbers(page: number, size = PAGE_SIZE): number[] {
 }
 
 /**
+ * Where the player is looking in the catalogue.
+ *
+ * Six numbers to a page makes the hundredth puzzle seventeen taps away, so the
+ * list can be zoomed out: at level 1 a page holds six *groups* of six puzzles
+ * (1–6, 7–12, …), at level 2 six groups of thirty-six, and so on — the same six
+ * rows and the same Previous and Next whatever the level, with each row
+ * standing for `PAGE_SIZE ** level` puzzles. Pressing a group opens the page
+ * of the level below that holds it, and the way out is the zoom button between
+ * the two words. Level 0 is the puzzles themselves.
+ */
+export interface Catalogue {
+  level: number;
+  page: number;
+}
+
+/** Past this a row stands for over a thousand puzzles, which nobody needs. */
+export const MAX_ZOOM = 3;
+
+/** How many puzzles one row stands for at a level. */
+export function span(level: number, size = PAGE_SIZE): number {
+  return size ** level;
+}
+
+export interface Range {
+  first: number;
+  last: number;
+}
+
+/** The six rows on a page at a level, each the run of puzzles it stands for. */
+export function rangesOn({ level, page }: Catalogue, size = PAGE_SIZE): Range[] {
+  const each = span(level, size);
+  return pageNumbers(page, size).map((row) => {
+    const first = (row - 1) * each + 1;
+    return { first, last: first + each - 1 };
+  });
+}
+
+/** One level further out, on the page whose rows include the one being left. */
+export function zoomOut({ level, page }: Catalogue, size = PAGE_SIZE): Catalogue {
+  return { level: Math.min(MAX_ZOOM, level + 1), page: Math.floor(page / size) };
+}
+
+/** One level further in, on the page the pressed row stands for. */
+export function zoomInto({ level, page }: Catalogue, row: number, size = PAGE_SIZE): Catalogue {
+  return { level: Math.max(0, level - 1), page: page * size + row };
+}
+
+/** How many puzzles in the run are finished, each counted once. */
+export function completedInRange(history: CompletedGame[], sizeId: string, range: Range): number {
+  const seen = new Set<number>();
+  for (const game of history) {
+    if (game.sizeId === sizeId && game.seed >= range.first && game.seed <= range.last) {
+      seen.add(game.seed);
+    }
+  }
+  return seen.size;
+}
+
+/**
  * The finished game for a seed and shape, or null.
  *
  * The newest is the one that counts: a puzzle restarted and finished again is

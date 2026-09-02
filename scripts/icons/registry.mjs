@@ -98,7 +98,7 @@ export const REGISTRY = {
   // Not a theme: the pictures the app itself draws with — the three on its
   // buttons, and the four marks the board takes.
   ui: {
-    icon: { clue: UI.clue, chart: UI.chart, back: UI.back },
+    icon: { clue: UI.clue, chart: UI.chart, back: UI.back, 'zoom-out': UI.zoomOut },
     mark: {
       'tick-hand': MARKS.tickHand,
       'tick-auto': MARKS.tickAuto,

@@ -71,6 +71,12 @@ numbers:
   # Every row of it.
   puzzle: Puzzle {number}
   finishedHint: Finished in {clock}
+  # The button between Previous and Next: out to the pages of pages.
+  zoomOut: Zoom out
+  # A row when zoomed out: the run of puzzles it stands for.
+  group: Puzzles {first}–{last}
+  groupDone: '{done} of {total} finished'
+  groupHint: Opens the pages in this group
   back: Back to the difficulties
 
 daily:

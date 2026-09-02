@@ -43,6 +43,10 @@ export const STRINGS = {
     title: 'Play {difficulty}',
     puzzle: 'Puzzle {number}',
     finishedHint: 'Finished in {clock}',
+    zoomOut: 'Zoom out',
+    group: 'Puzzles {first}–{last}',
+    groupDone: '{done} of {total} finished',
+    groupHint: 'Opens the pages in this group',
     back: 'Back to the difficulties',
   },
   daily: {
@@ -4298,8 +4302,12 @@ export type StringKey =
   | 'menu.title'
   | 'numbers.back'
   | 'numbers.finishedHint'
+  | 'numbers.group'
+  | 'numbers.groupDone'
+  | 'numbers.groupHint'
   | 'numbers.puzzle'
   | 'numbers.title'
+  | 'numbers.zoomOut'
   | 'settings.autoAddFacts'
   | 'settings.automaticCrosses'
   | 'settings.back'

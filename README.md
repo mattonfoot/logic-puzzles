@@ -43,7 +43,7 @@ files and stages the result, so what lands in a commit is always formatted.
 `git commit --no-verify` skips it. CI (`.github/workflows/ci.yml`) runs the
 four checks above on every push: format, types and the jest suite in one job,
 and the screenshot walkthrough in another, which builds the app for web,
-drives it through all sixteen screens in Chromium and fails if any cannot be
+drives it through all seventeen screens in Chromium and fails if any cannot be
 reached or the app logs an error on the way — the images it took are kept as
 an artifact of the run, so a red job can be read rather than reproduced. Two
 things are left alone by the formatter: Markdown, because
@@ -184,12 +184,12 @@ pictures below are for.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered puzzles"><br>**3. Numbered puzzles** — every puzzle at that difficulty, counting from one, six to a page, each with a box that ticks when you finish it and your time beside it. |
+| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered puzzles"><br>**3. Numbered puzzles** — every puzzle at that difficulty, counting from one, six to a page, each with a box that ticks when you finish it and your time beside it; the glass between **Previous** and **Next** zooms the list out. |
 | <img src="docs/screenshots/04-daily.png" width="230" alt="Daily challenges"><br>**4. Daily** — today's four, one per difficulty. A finished one shows its time and opens the result instead of a board. | <img src="docs/screenshots/05-settings.png" width="230" alt="Settings screen"><br>**5. Settings** — seven names with a box or a slider against each, and nothing to read. | <img src="docs/screenshots/06-briefing.png" width="230" alt="The briefing a puzzle opens with"><br>**6. Briefing** — what went wrong and why anybody wants it sorted out. It opens with the puzzle and waits behind **Info** afterwards. |
 | <img src="docs/screenshots/07-board.png" width="230" alt="The board"><br>**7. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/08-menu.png" width="230" alt="Game menu"><br>**8. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/09-clue.png" width="230" alt="The clue window"><br>**9. Clue** — one clue at a time, in a window with the room to read it, under a line saying who is supposed to have said it. |
 | <img src="docs/screenshots/10-highlight.png" width="230" alt="A clue lit up on the grids"><br>**10. Highlight** — the button at the bottom right lights every row and column the clue talks about. | <img src="docs/screenshots/11-marked.png" width="230" alt="A part-marked board"><br>**11. Marked up** — a mark the player made is drawn heavily, one the board worked out for itself lightly. Same shape, same colour: the difference survives being colour-blind. | <img src="docs/screenshots/12-stuck.png" width="230" alt="A board that can no longer be solved"><br>**12. Out of reach** — asking for a new clue checks the board first, and stops with a window offering to rewind when the answer has been marked away. |
 | <img src="docs/screenshots/13-item-card.png" width="230" alt="The card behind an item's picture"><br>**13. Item card** — tap any picture on the board to meet it, and page through the rest of its set. | <img src="docs/screenshots/14-solved.png" width="230" alt="A finished game"><br>**14. Solved** — the finish takes the screen: time, clues read, how it compares, **Share**, the answer table. | <img src="docs/screenshots/15-statistics.png" width="230" alt="Statistics screen"><br>**15. Statistics** — totals, bests by difficulty and the trend of recent solve times. |
-| <img src="docs/screenshots/16-night.png" width="230" alt="Setup screen in night colours"><br>**16. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | | |
+| <img src="docs/screenshots/16-night.png" width="230" alt="Setup screen in night colours"><br>**16. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | <img src="docs/screenshots/17-catalogue.png" width="230" alt="The numbered list zoomed out to groups of thirty-six"><br>**17. Zoomed out** — the numbered list two presses of the glass out: six rows of thirty-six puzzles, paged the same way, each opening to the pages inside it. | |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -229,7 +229,15 @@ rest is the app behaving normally.
    answer and the same clues on anybody's phone, this year or next. Pick one and
    it starts — that number becomes the seed. The list is paged rather than
    scrolled, six to a page — which is what the half of the screen under the
-   panel holds — with **Previous** and **Next** under it. Every row is
+   panel holds — with **Previous** and **Next** under it, and between them a
+   magnifying glass that zooms the list out: one press and the six rows are
+   six *groups* of six puzzles — **Puzzles 1–6**, **7–12** and so on — another
+   and each row is thirty-six, with the same two words paging the groups the
+   same way. Press a group and it opens; press the glass and you are back out
+   on the page that holds the one you left. That is how the hundredth puzzle,
+   or one a friend named, is three taps away rather than seventeen. A group's
+   box ticks when every puzzle in it is finished, and its row says how far
+   through it you are once there is anything to say. Every row is
    **Puzzle 7** with a box on its left, empty until you finish it and then
    ticked, drawn the way the settings screen draws a checkbox because that is
    what it is: a column of them says how far through a difficulty you are
@@ -1228,7 +1236,7 @@ before them for the longer-run trend the chart draws.
   that exists, so edit the SVG to change an icon and delete it to redraw it from
   code; `--sheet` also refreshes the contact sheet at `docs/icons.html`.
 - `npm run screenshots` exports the app for web, serves that build, drives it in
-  Chromium and rewrites `docs/screenshots`. Playwright's Chromium arrives with
+  Chromium and rewrites `docs/screenshots`, seventeen of them. Playwright's Chromium arrives with
   the dev dependencies (`npx playwright install chromium` if the download was
   skipped); `PLAYWRIGHT_CHROMIUM_PATH` points it at another binary, and
   `--skip-build` reuses the last export. It exits non-zero if a step cannot
