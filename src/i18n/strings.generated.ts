@@ -18,6 +18,13 @@ export const STRINGS = {
     building: 'Building your puzzle…',
     keepIt: 'Keep it',
   },
+  crash: {
+    title: 'Something went wrong',
+    body: 'The screen could not be drawn. Nothing you have finished is lost. If this keeps happening when a puzzle opens, the saved game may be the cause, and throwing it away will clear it.',
+    home: 'Back to the start',
+    discard: 'Discard the saved game',
+    detail: 'The error was: {message}',
+  },
   start: {
     daily: 'Daily',
     play: 'Play',
@@ -4220,6 +4227,11 @@ export type StringKey =
   | 'common.position'
   | 'common.previous'
   | 'common.tapOutside'
+  | 'crash.body'
+  | 'crash.detail'
+  | 'crash.discard'
+  | 'crash.home'
+  | 'crash.title'
   | 'daily.back'
   | 'daily.doneHint'
   | 'daily.title'

@@ -427,7 +427,9 @@ src/storage/store.ts        the only module that touches AsyncStorage
 src/components/             GridBoard, Mark, SolutionTable, CluePopup, ItemCard, …
 src/screens/                StartScreen, SetupScreen, NumbersScreen,
                             DailyScreen, ResultScreen, SettingsScreen,
-                            GameScreen, GameMenuScreen, StatsScreen
+                            GameScreen, GameMenuScreen, StatsScreen,
+                            and CrashScreen, which none of the others lead to
+src/ui/Boundary.tsx         the one error boundary, around the whole shell
 src/game/settings.ts        the player's settings, and reading them back
 src/game/useSettings.ts     those settings as React state, written as they change
 src/ui/                     Text, ThemeProvider (day/night), palettes,
@@ -1144,6 +1146,22 @@ crashing; writes are wrapped too, so a device that refuses to write costs the
 player their save and nothing more. The board is written 600ms after each
 change, when the app goes to the background, and when the player leaves the
 screen; finishing a puzzle clears it.
+
+The guards cover what is read; `src/ui/Boundary.tsx` covers what is drawn. It
+is the one error boundary in the app, around the whole shell and inside the
+theme and safe-area providers, so a throw from anywhere the player can reach
+lands on `CrashScreen` — drawn in their colours, clear of the notch — rather
+than on a white page with nothing on it. That page is two ways on rather than
+an apology. **Back to the start** mounts the shell again from nothing, with the
+saved game still on disk and still behind **Continue**, for the throw that will
+not happen twice. **Discard the saved game** does the same with the game in
+progress removed first, for the one that will: a save the board cannot open is
+the failure most likely to repeat, and the only one a player can do anything
+about. Finished games are never touched from there. The boundary goes to the
+store directly for the removal rather than through the hook that usually owns
+the save, since that hook lives inside the tree that just failed. The error's
+message is printed small under the buttons, for whoever reports it. Tests throw
+on purpose from inside it and press both buttons.
 
 `src/stats/summary.ts` derives everything shown from the list of finished games
 — nothing aggregated is stored, so the numbers can never drift out of sync with

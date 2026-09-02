@@ -36,6 +36,18 @@ common:
   building: Building your puzzle…
   keepIt: Keep it
 
+# The page the app falls back to when a screen throws while drawing. Two ways
+# on: back to the front door with everything kept, or the same with the saved
+# game thrown away - the escape hatch for a save that breaks the board every
+# time it is opened.
+crash:
+  title: Something went wrong
+  body: The screen could not be drawn. Nothing you have finished is lost. If this keeps happening when a puzzle opens, the saved game may be the cause, and throwing it away will clear it.
+  home: Back to the start
+  discard: Discard the saved game
+  # Printed small under the buttons, for a bug report.
+  detail: 'The error was: {message}'
+
 start:
   daily: Daily
   play: Play

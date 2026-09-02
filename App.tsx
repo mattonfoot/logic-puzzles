@@ -26,6 +26,7 @@ import { SettingsScreen } from './src/screens/SettingsScreen';
 import { SetupScreen } from './src/screens/SetupScreen';
 import { StartScreen } from './src/screens/StartScreen';
 import { StatsScreen } from './src/screens/StatsScreen';
+import { Boundary } from './src/ui/Boundary';
 import { configureFeedback } from './src/ui/feedback';
 import { ThemeProvider, useStyles, useTheme } from './src/ui/ThemeProvider';
 import { inkOn, type Palette } from './src/ui/theme';
@@ -63,7 +64,15 @@ export default function App() {
 
   return (
     <ThemeProvider preference={settings.settings.colours} accent={settings.settings.accent}>
-      <Shell settings={settings} />
+      <SafeAreaProvider>
+        {/* Inside the providers, so the page it falls back to is drawn in the
+            player's colours and clear of the notch; around the shell, so a
+            throw anywhere the player can reach lands on that page rather than
+            on a blank one. */}
+        <Boundary>
+          <Shell settings={settings} />
+        </Boundary>
+      </SafeAreaProvider>
     </ThemeProvider>
   );
 }
@@ -150,7 +159,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
   );
 
   return (
-    <SafeAreaProvider>
+    <>
       {/* Every screen before a board runs a coloured panel up behind the status
           bar, so the clock has to lift off that rather than off the page — and
           which way round depends on the colour, the same way the words on the
@@ -238,7 +247,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           />
         )}
       </View>
-    </SafeAreaProvider>
+    </>
   );
 }
 
