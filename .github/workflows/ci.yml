@@ -40,9 +40,11 @@ jobs:
       # rather than reproduced.
       - run: npm run screenshots
       # The walk drives one phone. This drives five, and fails when a screen
-      # that fits a big one runs off a small one. It reuses the export the walk
-      # just built rather than making a second.
-      - run: npm run sizes -- --skip-build
+      # that fits a big one runs off a small one. It exports for itself: the
+      # walk clears its build away on the way out, and a step that depended on
+      # the one before it having left something behind is a step that breaks
+      # the first time either of them is reordered.
+      - run: npm run sizes
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -1294,8 +1294,10 @@ before them for the longer-run trend the chart draws.
   a 15 Pro can push its last row under the pager on an 11 Pro and nothing would
   say so. The browser reports no safe-area insets, so the numbered list is asked
   to clear its pager by at least the home indicator the device would take there.
-  `--skip-build` reuses the last export, which is how CI runs it straight after
-  the screenshots.
+  It exports the app for itself, the same way the screenshots do — the walk
+  clears its build away when it finishes, so the two do not share one.
+  `--skip-build` reuses whatever is in `.screenshot-build`, which is worth it
+  while iterating on a layout.
 - `npm run screenshots` exports the app for web, serves that build, drives it in
   Chromium and rewrites `docs/screenshots`, eighteen of them. Playwright's Chromium arrives with
   the dev dependencies (`npx playwright install chromium` if the download was

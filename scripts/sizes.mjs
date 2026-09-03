@@ -11,14 +11,21 @@
  * out of room — at five sizes, and fails when anything scrolls that should not
  * or runs off the bottom.
  *
- * It reads the same web export the screenshots do, so `--skip-build` reuses the
- * last one. The browser reports no safe-area insets, so a device's notch and
+ * It exports the app for itself. `--skip-build` reuses whatever is already in
+ * `.screenshot-build`, which is worth it while iterating on a layout and is not
+ * what CI does: the screenshot walk clears its own build away when it finishes,
+ * so a run that leaned on it having left one behind would only work when the
+ * walk had been told to skip building too.
+ *
+ * The browser reports no safe-area insets, so a device's notch and
  * home indicator are added on top of what is measured here — which is why the
  * numbered list is asked to clear the pager by that much and not merely to
  * touch it. `src/ui/__tests__/panel.test.ts` holds the arithmetic that decides
  * the panel's share of a real screen with its insets.
  */
+import { existsSync } from 'node:fs';
 import { rm } from 'node:fs/promises';
+import { join } from 'node:path';
 
 import { chromium } from 'playwright';
 
@@ -50,7 +57,14 @@ const scrollers = (page) =>
   );
 
 async function main() {
-  if (!process.argv.includes('--skip-build')) {
+  if (process.argv.includes('--skip-build')) {
+    // Saying which build is missing beats a read stream's ENOENT on index.html.
+    if (!existsSync(join(BUILD_DIR, 'index.html'))) {
+      console.error(`No export to reuse in ${BUILD_DIR}. Run without --skip-build.`);
+      process.exitCode = 1;
+      return;
+    }
+  } else {
     await rm(BUILD_DIR, { recursive: true, force: true });
     await run('npx', ['expo', 'export', '--platform', 'web', '--clear', '--output-dir', BUILD_DIR]);
   }
