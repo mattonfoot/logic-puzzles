@@ -15,12 +15,12 @@ import { spawn } from 'node:child_process';
 import { createReadStream } from 'node:fs';
 import { mkdir, rm, stat, readdir } from 'node:fs/promises';
 import { extname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import { chromium } from 'playwright';
 
 const ROOT = resolve(fileURLToPath(new URL('..', import.meta.url)));
-const BUILD_DIR = join(ROOT, '.screenshot-build');
+export const BUILD_DIR = join(ROOT, '.screenshot-build');
 const OUT_DIR = join(ROOT, 'docs', 'screenshots');
 const VIEWPORT = { width: 393, height: 852 };
 
@@ -36,9 +36,9 @@ const MIME = {
   '.wav': 'audio/wav',
 };
 
-const wait = (page, ms) => page.waitForTimeout(ms);
+export const wait = (page, ms) => page.waitForTimeout(ms);
 
-function run(command, args) {
+export function run(command, args) {
   return new Promise((resolvePromise, reject) => {
     const child = spawn(command, args, { cwd: ROOT, stdio: 'inherit' });
     child.on('error', reject);
@@ -48,7 +48,7 @@ function run(command, args) {
   });
 }
 
-async function serve(directory) {
+export async function serve(directory) {
   const server = createServer(async (request, response) => {
     const url = new URL(request.url, 'http://localhost');
     let path = join(directory, decodeURIComponent(url.pathname));
@@ -431,7 +431,11 @@ async function main() {
   if (!skipBuild) await rm(BUILD_DIR, { recursive: true, force: true });
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+// Guarded so `scripts/sizes.mjs` can borrow the server and the exporter above
+// without walking eighteen screens on the way in.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}

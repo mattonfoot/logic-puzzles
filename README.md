@@ -31,6 +31,7 @@ npm run typecheck  # tsc --noEmit
 npm run format     # prettier --write .
 npm run format:check  # prettier --check . (what CI asks)
 npm run screenshots  # rebuild the screens in docs/screenshots (see below); CI runs it as a check
+npm run sizes      # check every screen fits every iPhone size (see below); CI runs it too
 npm run sounds     # regenerate the three effects in assets/sounds (see below)
 npm run icons      # redraw assets/icons and rebuild the path data (see below)
 npm run locale     # rebuild the strings from locales/en-GB.yaml (see below)
@@ -210,6 +211,14 @@ rest is the app behaving normally.
    with no rule between them, is **How to play**: the rule says *these are two
    different offers*, and this is not a third one — it is the same offer
    explained, for the reader who has never met a logic grid.
+   The panel takes half the screen, or whatever leaves the list under it room
+   to stand, whichever is less: on an iPhone 11 Pro half was 406 points, the six
+   numbered puzzles and everything around them wanted 386, and the 34 points the
+   home indicator takes under the back link tipped the list into scrolling.
+   Decoration gives way to the thing the player came for. It is worked out from
+   the window and the inset alone, so every screen wearing the panel on a given
+   phone gets the same one — which is the whole point of it — and a phone with
+   the room still gets exactly half.
 2. **Play** opens the difficulties, which is the same page with its bottom half
    swapped — the panel above is the same block, given the same half, as it is on
    every screen before a board: Play → a difficulty → a number changes the
@@ -232,7 +241,8 @@ rest is the app behaving normally.
    answer and the same clues on anybody's phone, this year or next. Pick one and
    it starts — that number becomes the seed. The list is paged rather than
    scrolled, six to a page — which is what the half of the screen under the
-   panel holds — with **Previous** and **Next** under it, and between them a
+   panel holds, on every iPhone from the SE up — with **Previous** and **Next**
+   under it, and between them a
    magnifying glass that zooms the list out: one press and the six rows are
    six *groups* of six puzzles — **Puzzles 1–6**, **7–12** and so on — another
    and each row is thirty-six, with the same two words paging the groups the
@@ -1277,6 +1287,15 @@ before them for the longer-run trend the chart draws.
   `src/ui/icons.generated.ts` from every file there. It never overwrites one
   that exists, so edit the SVG to change an icon and delete it to redraw it from
   code; `--sheet` also refreshes the contact sheet at `docs/icons.html`.
+- `npm run sizes` walks the front door, the difficulties and the numbered list
+  at five iPhone sizes — SE through 15 Pro Max — and fails when anything runs
+  off the bottom or scrolls that should not. The walkthrough drives one phone,
+  which is what a picture wants and not what a layout wants: a screen that fits
+  a 15 Pro can push its last row under the pager on an 11 Pro and nothing would
+  say so. The browser reports no safe-area insets, so the numbered list is asked
+  to clear its pager by at least the home indicator the device would take there.
+  `--skip-build` reuses the last export, which is how CI runs it straight after
+  the screenshots.
 - `npm run screenshots` exports the app for web, serves that build, drives it in
   Chromium and rewrites `docs/screenshots`, eighteen of them. Playwright's Chromium arrives with
   the dev dependencies (`npx playwright install chromium` if the download was

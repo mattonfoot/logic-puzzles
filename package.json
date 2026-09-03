@@ -18,6 +18,7 @@
     "icons": "node scripts/icons.mjs",
     "locale": "node scripts/locale.mjs",
     "screenshots": "node scripts/screenshots.mjs",
+    "sizes": "node scripts/sizes.mjs",
     "sounds": "node scripts/sounds.mjs",
     "prepare": "git config core.hooksPath .githooks || true"
   },
