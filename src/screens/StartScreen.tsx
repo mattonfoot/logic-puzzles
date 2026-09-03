@@ -43,11 +43,12 @@ interface Props {
  * somewhere to go once, not the point of the page, and putting them in a row of
  * cards with the two doors made them all look like the same size of decision.
  *
- * **How to play** is set the same size as those, and sits under **Play** rather
- * than with them at the foot, because it is not a third place to go: it is a
- * footnote to that door, for the one reader who does not already know what is
- * behind it. Somebody who does never has to read it, and somebody who does not
- * finds it in the one place they were already looking.
+ * **How to play** is set the same size as the two above it and sits directly
+ * under Play, with no rule between them: the rule says *these are two different
+ * offers*, and this is not a third one — it is the same offer explained, for
+ * the reader who has never met a logic grid. Set any smaller it would read as a
+ * footnote to a page that has no small print, and the one player who needs it
+ * most is the one least likely to go looking in the margins.
  */
 export function StartScreen({ onDaily, onPlay, onHowToPlay, onOpenSettings, onOpenStats }: Props) {
   const insets = useSafeAreaInsets();
@@ -62,7 +63,7 @@ export function StartScreen({ onDaily, onPlay, onHowToPlay, onOpenSettings, onOp
           <Door label={t('start.daily')} onPress={onDaily} />
           <View style={styles.rule} />
           <Door label={t('start.play')} onPress={onPlay} />
-          <FootLink label={t('start.howToPlay')} onPress={onHowToPlay} />
+          <Door label={t('start.howToPlay')} onPress={onHowToPlay} />
         </View>
 
         <View style={styles.footer}>

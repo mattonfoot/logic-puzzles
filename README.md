@@ -189,7 +189,7 @@ pictures below are for.
 | <img src="docs/screenshots/07-board.png" width="230" alt="The board"><br>**7. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/08-menu.png" width="230" alt="Game menu"><br>**8. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/09-clue.png" width="230" alt="The clue window"><br>**9. Clue** — one clue at a time, in a window with the room to read it, under a line saying who is supposed to have said it. |
 | <img src="docs/screenshots/10-highlight.png" width="230" alt="A clue lit up on the grids"><br>**10. Highlight** — the button at the bottom right lights every row and column the clue talks about. | <img src="docs/screenshots/11-marked.png" width="230" alt="A part-marked board"><br>**11. Marked up** — a mark the player made is drawn heavily, one the board worked out for itself lightly. Same shape, same colour: the difference survives being colour-blind. | <img src="docs/screenshots/12-stuck.png" width="230" alt="A board that can no longer be solved"><br>**12. Out of reach** — asking for a new clue checks the board first, and stops with a window offering to rewind when the answer has been marked away. |
 | <img src="docs/screenshots/13-item-card.png" width="230" alt="The card behind an item's picture"><br>**13. Item card** — tap any picture on the board to meet it, and page through the rest of its set. | <img src="docs/screenshots/14-solved.png" width="230" alt="A finished game"><br>**14. Solved** — the finish takes the screen: time, clues read, how it compares, **Share**, the answer table. | <img src="docs/screenshots/15-statistics.png" width="230" alt="Statistics screen"><br>**15. Statistics** — totals, bests by difficulty and the trend of recent solve times. |
-| <img src="docs/screenshots/16-night.png" width="230" alt="Setup screen in night colours"><br>**16. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | <img src="docs/screenshots/17-catalogue.png" width="230" alt="The numbered list zoomed out to groups of thirty-six"><br>**17. Zoomed out** — the numbered list two presses of the glass out: six rows of thirty-six puzzles, paged the same way, each opening to the pages inside it. | <img src="docs/screenshots/18-tutorial.png" width="230" alt="The how-to-play board part way through"><br>**18. How to play** — under **Play** on the front door: three customers, three drinks, and four marks walked on a real board. |
+| <img src="docs/screenshots/16-night.png" width="230" alt="Setup screen in night colours"><br>**16. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | <img src="docs/screenshots/17-catalogue.png" width="230" alt="The numbered list zoomed out to groups of thirty-six"><br>**17. Zoomed out** — the numbered list two presses of the glass out: six rows of thirty-six puzzles, paged the same way, each opening to the pages inside it. | <img src="docs/screenshots/18-tutorial.png" width="230" alt="The how-to-play board part way through"><br>**18. How to play** — the third of the front door's words: three customers, three drinks, and four marks walked on a real board. |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -206,9 +206,10 @@ rest is the app behaving normally.
    rule between them. Everything hangs off the same left margin so the eye drops
    down one edge. **Settings** and **Statistics** are text at the foot of the
    screen — Statistics pushed to the right so the two sit in opposite corners
-   rather than reading as a pair. Under **Play**, in the same small type as
-   those two, is **How to play**: a footnote to that door for the one reader
-   who has never met a logic grid, and invisible to everybody else.
+   rather than reading as a pair. Under **Play**, set the same size as it and
+   with no rule between them, is **How to play**: the rule says *these are two
+   different offers*, and this is not a third one — it is the same offer
+   explained, for the reader who has never met a logic grid.
 2. **Play** opens the difficulties, which is the same page with its bottom half
    swapped — the panel above is the same block, given the same half, as it is on
    every screen before a board: Play → a difficulty → a number changes the
