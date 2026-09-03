@@ -73,6 +73,11 @@ tutorial:
     alone: One square left, and nothing left to read. Finish it.
     aloneDone: Solved. Every puzzle in the app is that, on a bigger board with more to hold in your head.
   back: Back
+  # A mark that contradicts the answer, shaded on the board the way the game
+  # shades one. The lesson says so at once; a real puzzle waits to be asked.
+  wrong:
+    one: That one cannot be right, so the board has shaded it. Tap it round until it clears.
+    other: Those cannot be right, so the board has shaded them. Tap each round until it clears.
   confirm:
     title: Leave the lesson?
     body: There is nothing to save here, so it starts from the beginning next time.

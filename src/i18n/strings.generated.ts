@@ -51,6 +51,10 @@ export const STRINGS = {
         'Solved. Every puzzle in the app is that, on a bigger board with more to hold in your head.',
     },
     back: 'Back',
+    wrong: {
+      one: 'That one cannot be right, so the board has shaded it. Tap it round until it clears.',
+      other: 'Those cannot be right, so the board has shaded them. Tap each round until it clears.',
+    },
     confirm: {
       title: 'Leave the lesson?',
       body: 'There is nothing to save here, so it starts from the beginning next time.',
@@ -6562,6 +6566,8 @@ export type StringKey =
   | 'tutorial.steps.tick'
   | 'tutorial.steps.tickDone'
   | 'tutorial.title'
+  | 'tutorial.wrong.one'
+  | 'tutorial.wrong.other'
   | 'volumes.loud'
   | 'volumes.medium'
   | 'volumes.off'

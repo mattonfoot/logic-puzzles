@@ -4,9 +4,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { fitCellSize, GridBoard } from '../components/GridBoard';
-import { getMark, nextMark, setMark, type Cell, type Marks } from '../game/board';
+import { findMistakes, getMark, nextMark, setMark, type Cell, type Marks } from '../game/board';
 import { STEPS, stepAt, stepHighlight, tutorialPuzzle } from '../game/tutorial';
-import { t } from '../i18n';
+import { plural, t } from '../i18n';
 import { describeClue } from '../puzzle/describe';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
@@ -63,6 +63,19 @@ export function TutorialScreen({ onBack }: Props) {
   const step = STEPS[at];
   const done = step === undefined;
 
+  /**
+   * Marks that contradict the answer, which the tutorial says something about
+   * at once.
+   *
+   * A real board keeps this to itself until the player asks for a clue and it
+   * has to admit the answer is out of reach — being told mid-thought that you
+   * are wrong is the game solving the puzzle for you. A lesson is the opposite:
+   * there is nothing to spoil, the player has been asked to do one specific
+   * thing, and a wrong mark left standing is the one way this screen can leave
+   * somebody more confused than it found them.
+   */
+  const mistakes = useMemo(() => new Set(findMistakes(marks, puzzle)), [marks, puzzle]);
+
   const measure = useCallback((event: LayoutChangeEvent) => {
     const { width, height } = event.nativeEvent.layout;
     setBoardArea((current) =>
@@ -106,6 +119,9 @@ export function TutorialScreen({ onBack }: Props) {
             {at === 0 ? t('tutorial.opening') : STEPS[at - 1].after}
           </Text>
           {done ? null : <Text style={styles.asking}>{step.line}</Text>}
+          {mistakes.size > 0 ? (
+            <Text style={styles.wrong}>{plural('tutorial.wrong', mistakes.size)}</Text>
+          ) : null}
         </View>
 
         {step?.clue === undefined ? null : (
@@ -122,7 +138,7 @@ export function TutorialScreen({ onBack }: Props) {
             <GridBoard
               puzzle={puzzle}
               marks={marks}
-              mistakes={EMPTY}
+              mistakes={mistakes}
               // The square being asked for is lit the way a clue lights the
               // grids it talks about, so the tutorial points with something
               // the game already does rather than an arrow of its own.
@@ -155,9 +171,6 @@ export function TutorialScreen({ onBack }: Props) {
     </View>
   );
 }
-
-/** Nothing is ever wrong here, so the board's mistake set never changes. */
-const EMPTY: Set<string> = new Set();
 
 /**
  * How large a square is allowed to get here, against 46 on a real board.
@@ -199,6 +212,12 @@ const makeStyles = (palette: Palette) =>
       lineHeight: 24,
       fontWeight: '600',
       color: palette.ink,
+    },
+    wrong: {
+      fontSize: 15,
+      lineHeight: 22,
+      fontWeight: '600',
+      color: palette.danger,
     },
     clue: {
       borderWidth: border,

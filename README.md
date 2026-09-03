@@ -1246,7 +1246,13 @@ before them for the longer-run trend the chart draws.
   asked for is read off the board rather than counted, so taking a mark back
   walks the words back too. The traits are stripped from both sets, which stops
   a clue describing somebody instead of naming them — a second idea on a screen
-  teaching the first. Nothing there is timed, saved or recorded, and nothing
+  teaching the first. A mark that contradicts the answer is shaded and named on
+  the spot — a real board keeps that to itself until you ask for a clue it
+  cannot give you, because being told mid-thought that you are wrong is the
+  game solving the puzzle for you, but a lesson has nothing to spoil and a
+  wrong mark left standing is the one way this screen could send somebody away
+  more confused than it found them. Nothing there is timed, saved or recorded,
+  and nothing
   anywhere notes that it has been done: it opens on an empty board every time,
   which is what lets it be taken twice. Leaving part-way through asks first, in
   the app's own window, because the walk starts over rather than picking up

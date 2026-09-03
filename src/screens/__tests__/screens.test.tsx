@@ -170,6 +170,46 @@ describe('how to play', () => {
     expect(screen.queryByText(/Tap/)).toBeNull();
   });
 
+  it('says so at once when a mark cannot be right, and stops when it is put back', () => {
+    walk();
+
+    // Mrs Marzipan does drink the latte, so crossing it off is wrong.
+    tap(2, 0);
+    expect(
+      screen.getByText(
+        'That one cannot be right, so the board has shaded it. Tap it round until it clears.',
+      ),
+    ).toBeOnTheScreen();
+    // The ask it interrupted is still standing.
+    expect(screen.getByText(/Tap where Ms Barley meets the latte/)).toBeOnTheScreen();
+
+    // Round to a tick, which is true, and the notice has nothing to say.
+    tap(2, 0);
+    expect(screen.queryByText(/cannot be right/)).toBeNull();
+  });
+
+  it('counts them when one wrong tick drags others in with it', () => {
+    walk();
+
+    // A tick on Ms Barley's chai is wrong, and the crosses it lays down for
+    // itself are wrong twice over.
+    tap(0, 2, 2);
+    expect(
+      screen.getByText(
+        'Those cannot be right, so the board has shaded them. Tap each round until it clears.',
+      ),
+    ).toBeOnTheScreen();
+  });
+
+  it('says nothing about a mark that is merely somewhere else', () => {
+    walk();
+
+    // True, just not what was asked for.
+    tap(2, 1);
+    expect(screen.queryByText(/cannot be right/)).toBeNull();
+    expect(screen.getByText(/Tap where Ms Barley meets the latte/)).toBeOnTheScreen();
+  });
+
   it('asks before letting a half-walked lesson go', () => {
     const onBack = jest.fn();
     stage(<TutorialScreen onBack={onBack} />);
