@@ -235,7 +235,10 @@ async function main() {
   await tutorialSquare('Alderman Crumb', 'Chai').click();
   await wait(page, 700);
   await shot('18-tutorial');
+  // Leaving part-way through asks first, since the walk starts over next time.
   await page.getByLabel('Back').click();
+  await wait(page, 400);
+  await page.getByLabel('Leave it').click();
   await wait(page, 500);
 
   // 2. The difficulties, the first of the two things a player chooses.

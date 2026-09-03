@@ -1245,9 +1245,13 @@ before them for the longer-run trend the chart draws.
   asked for is read off the board rather than counted, so taking a mark back
   walks the words back too. The traits are stripped from both sets, which stops
   a clue describing somebody instead of naming them — a second idea on a screen
-  teaching the first. Nothing there is timed, saved or recorded. A test holds
-  each step's square to being empty when its turn comes, which is what makes
-  "tap it twice" true.
+  teaching the first. Nothing there is timed, saved or recorded, and nothing
+  anywhere notes that it has been done: it opens on an empty board every time,
+  which is what lets it be taken twice. Leaving part-way through asks first, in
+  the app's own window, because the walk starts over rather than picking up
+  where it stopped; a finished one goes without a word. Tests hold each step's
+  square to being empty when its turn comes — which is what makes "tap it
+  twice" true — walk the screen end to end, and reopen it to check it forgets.
 - No backend and no analytics: everything is kept on the device, and clearing
   the statistics from the stats screen deletes it.
 - `npm run sounds` rewrites the three WAVs in `assets/sounds` from

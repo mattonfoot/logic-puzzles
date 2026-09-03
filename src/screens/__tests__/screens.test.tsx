@@ -169,6 +169,62 @@ describe('how to play', () => {
     expect(screen.getByText(/Solved\./)).toBeOnTheScreen();
     expect(screen.queryByText(/Tap/)).toBeNull();
   });
+
+  it('asks before letting a half-walked lesson go', () => {
+    const onBack = jest.fn();
+    stage(<TutorialScreen onBack={onBack} />);
+    const measured = screen.UNSAFE_getAllByType(View).find((view) => view.props.onLayout);
+    fireEvent(measured!, 'layout', { nativeEvent: { layout: { width: 340, height: 420 } } });
+
+    fireEvent.press(button('Back'));
+    expect(onBack).not.toHaveBeenCalled();
+    expect(screen.getByText('Leave the lesson?')).toBeOnTheScreen();
+    expect(screen.getByText(/starts from the beginning next time/)).toBeOnTheScreen();
+
+    // Staying puts the window away and leaves the board as it was.
+    fireEvent.press(button('Keep going'));
+    expect(screen.queryByText('Leave the lesson?')).toBeNull();
+    expect(screen.getByText(/Tap where Ms Barley meets the latte/)).toBeOnTheScreen();
+
+    fireEvent.press(button('Back'));
+    fireEvent.press(button('Leave it'));
+    expect(onBack).toHaveBeenCalledTimes(1);
+  });
+
+  it('lets a finished one go without asking', () => {
+    const onBack = jest.fn();
+    stage(<TutorialScreen onBack={onBack} />);
+    const measured = screen.UNSAFE_getAllByType(View).find((view) => view.props.onLayout);
+    fireEvent(measured!, 'layout', { nativeEvent: { layout: { width: 340, height: 420 } } });
+    tap(0, 0);
+    tap(1, 2, 2);
+    tap(0, 1, 2);
+    tap(2, 0, 2);
+
+    fireEvent.press(button('Back'));
+    expect(screen.queryByText('Leave the lesson?')).toBeNull();
+    expect(onBack).toHaveBeenCalledTimes(1);
+  });
+
+  /**
+   * Nothing anywhere remembers that this has been done, which is what lets it
+   * be taken twice — and is why walking it and coming back lands on the first
+   * mark rather than the finish.
+   */
+  it('opens on an empty board however many times it is opened', () => {
+    walk();
+    tap(0, 0);
+    tap(1, 2, 2);
+    expect(screen.getByText(/A tick settles a whole row/)).toBeOnTheScreen();
+    screen.unmount();
+
+    walk();
+    expect(screen.getByText(/Every square asks the same question/)).toBeOnTheScreen();
+    expect(screen.getByText(/Tap where Ms Barley meets the latte/)).toBeOnTheScreen();
+    expect(screen.getByRole('button', { name: square(1, 2) }).props.accessibilityLabel).toMatch(
+      /unknown$/,
+    );
+  });
 });
 
 describe('the difficulties', () => {

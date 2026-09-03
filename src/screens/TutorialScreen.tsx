@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { ConfirmDialog } from '../components/ConfirmDialog';
 import { fitCellSize, GridBoard } from '../components/GridBoard';
 import { getMark, nextMark, setMark, type Cell, type Marks } from '../game/board';
 import { STEPS, stepAt, stepHighlight, tutorialPuzzle } from '../game/tutorial';
@@ -34,9 +35,19 @@ interface Props {
  * a lesson they leave — and the step it is waiting for is read off the board
  * rather than counted, so taking a mark back walks the words back with it.
  *
- * Nothing here is recorded either: no clock, no save, nothing in the
- * statistics. It is not a game, and a first attempt at the app should not
- * arrive in the numbers as one.
+ * Nothing here is recorded, and that is deliberate rather than unfinished: no
+ * clock, no save, nothing in the statistics, and no note anywhere that it has
+ * been done. It is not a game, a first attempt at the app should not arrive in
+ * the numbers as one, and a lesson that remembers being finished is a lesson
+ * that cannot be taken twice. So it opens on an empty board every time — the
+ * screen is unmounted on the way out and holds nothing outside itself, which
+ * is what makes that true rather than merely intended.
+ *
+ * The one thing it does ask is whether somebody part-way through meant to
+ * leave, since walking out at the third mark and coming back to the first is a
+ * surprise worth heading off. It asks in the app's own window, the same way
+ * restarting a puzzle and clearing the statistics do, and the question says
+ * what the answer costs.
  */
 export function TutorialScreen({ onBack }: Props) {
   const palette = useTheme();
@@ -46,6 +57,7 @@ export function TutorialScreen({ onBack }: Props) {
   const puzzle = useMemo(() => tutorialPuzzle(), []);
   const [marks, setMarks] = useState<Marks>({});
   const [boardArea, setBoardArea] = useState({ width: 0, height: 0 });
+  const [leaving, setLeaving] = useState(false);
 
   const at = stepAt(marks);
   const step = STEPS[at];
@@ -123,7 +135,23 @@ export function TutorialScreen({ onBack }: Props) {
         </View>
       </View>
 
-      <BackLink label={t('tutorial.back')} onPress={onBack} />
+      {/* Finished, and there is nothing to lose by going; part-way through,
+          and the walk starts over next time, which is worth saying before it
+          happens rather than after. */}
+      <BackLink label={t('tutorial.back')} onPress={() => (done ? onBack() : setLeaving(true))} />
+
+      <ConfirmDialog
+        visible={leaving}
+        title={t('tutorial.confirm.title')}
+        message={t('tutorial.confirm.body')}
+        confirmLabel={t('tutorial.confirm.confirmLabel')}
+        cancelLabel={t('tutorial.confirm.cancelLabel')}
+        onConfirm={() => {
+          setLeaving(false);
+          onBack();
+        }}
+        onCancel={() => setLeaving(false)}
+      />
     </View>
   );
 }

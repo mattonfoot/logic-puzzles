@@ -51,6 +51,12 @@ export const STRINGS = {
         'Solved. Every puzzle in the app is that, on a bigger board with more to hold in your head.',
     },
     back: 'Back',
+    confirm: {
+      title: 'Leave the lesson?',
+      body: 'There is nothing to save here, so it starts from the beginning next time.',
+      confirmLabel: 'Leave it',
+      cancelLabel: 'Keep going',
+    },
   },
   setup: {
     title: 'Play',
@@ -6542,6 +6548,10 @@ export type StringKey =
   | 'themes.reef.name'
   | 'tutorial.back'
   | 'tutorial.clue'
+  | 'tutorial.confirm.body'
+  | 'tutorial.confirm.cancelLabel'
+  | 'tutorial.confirm.confirmLabel'
+  | 'tutorial.confirm.title'
   | 'tutorial.opening'
   | 'tutorial.steps.alone'
   | 'tutorial.steps.aloneDone'
