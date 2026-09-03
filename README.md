@@ -344,7 +344,11 @@ rest is the app behaving normally.
    the squares that cannot be right lit up, to sort out by hand. The
    clock starts when you ask for the first clue — with nothing to go on there
    is nothing to solve, so the time spent reading the sets is not part of it —
-   and stops when the last square is right. Finishing replaces the board with
+   and stops when the last square is right. The board takes no marks before
+   that first clue either, since a mark made with nothing to go on is a guess,
+   and a square tapped early buzzes and says why: *Nothing to go on yet — tap
+   Clue for the first one.* Every time rather than once, because it answers a
+   thing the player just did. Finishing replaces the board with
    the result: the clock, how many clues it took, how the game compares with
    your earlier ones, and **the answer as a table** — one row per person, one
    column per set, so the whole solution reads across in a line. The first set

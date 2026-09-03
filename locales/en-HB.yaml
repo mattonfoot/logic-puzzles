@@ -131,6 +131,9 @@ game:
   seed: '#{seed}'
   status:
     nothingToUndo: Nothing to undo.
+    # A tap on a square before the first clue is read. The board takes no marks
+    # yet, and saying why is cheaper than leaving the buzz to be read as a bug.
+    nothingToGoOn: Nothing to go on yet — tap Clue for the first one.
     finished: This puzzle is finished — Restart to play it again.
     restarted: Restarted — same puzzle, fresh board and clock.
     # Said once, the first time a save fails: the game plays on, but will not

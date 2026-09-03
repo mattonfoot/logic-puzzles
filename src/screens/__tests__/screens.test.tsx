@@ -653,6 +653,40 @@ describe('the board', () => {
     }
   });
 
+  it('says why it will not take a mark before the first clue', () => {
+    play();
+    fireEvent.press(button('Close'));
+    layOut();
+
+    const [square] = screen.getAllByRole('button', { name: /: unknown$/ });
+    fireEvent.press(square);
+    expect(
+      screen.getByText('Nothing to go on yet — tap Clue for the first one.'),
+    ).toBeOnTheScreen();
+    // Refused, not marked.
+    expect(square.props.accessibilityLabel).toMatch(/unknown$/);
+
+    // Said every time, since it answers a thing the player just did.
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    });
+    expect(screen.queryByText(/Nothing to go on/)).toBeNull();
+    fireEvent.press(square);
+    expect(
+      screen.getByText('Nothing to go on yet — tap Clue for the first one.'),
+    ).toBeOnTheScreen();
+
+    // And stops the moment there is something to go on.
+    fireEvent.press(button('Clue'));
+    fireEvent.press(button('Close'));
+    act(() => {
+      jest.advanceTimersByTime(3000);
+    });
+    fireEvent.press(square);
+    expect(screen.queryByText(/Nothing to go on/)).toBeNull();
+    expect(square.props.accessibilityLabel).toMatch(/ruled out$/);
+  });
+
   it('hands over the first clue on Clue, and lights Highlight up behind it', () => {
     play();
     fireEvent.press(button('Close'));

@@ -345,12 +345,20 @@ export function GameScreen({
         return;
       }
       // Nothing can be worked out from a board nobody has said anything about,
-      // so a mark before the first clue would only ever be a guess. The refusal
-      // is a buzz and nothing else: the clue panel is already sitting there
-      // saying to tap Clue for the first one, and a line repeating it is a
-      // second answer to a question the player can already see answered.
+      // so a mark before the first clue would only ever be a guess.
+      //
+      // The refusal used to be a buzz and nothing else, on the reasoning that
+      // the clue panel is already sitting there saying to tap Clue and a line
+      // repeating it answers a question the player can see answered. That
+      // holds for somebody who knows the rule. It fails for the one who does
+      // not, and the player most likely to reach for a square first is exactly
+      // the one meeting a logic grid for the first time — for whom a buzz with
+      // nothing attached is indistinguishable from a bug. Said every time
+      // rather than once, because unlike the not-saving warning it is a direct
+      // answer to a thing the player just did.
       if (!started) {
         feedback.warn();
+        flash(t('game.status.nothingToGoOn'));
         return;
       }
       feedback.mark();

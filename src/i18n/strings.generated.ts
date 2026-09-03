@@ -101,6 +101,7 @@ export const STRINGS = {
     seed: '#{seed}',
     status: {
       nothingToUndo: 'Nothing to undo.',
+      nothingToGoOn: 'Nothing to go on yet — tap Clue for the first one.',
       finished: 'This puzzle is finished — Restart to play it again.',
       restarted: 'Restarted — same puzzle, fresh board and clock.',
       notSaving: 'Progress is not being saved — the device may be out of space.',
@@ -4296,6 +4297,7 @@ export type StringKey =
   | 'game.status.clearedMistakes'
   | 'game.status.finished'
   | 'game.status.notSaving'
+  | 'game.status.nothingToGoOn'
   | 'game.status.nothingToUndo'
   | 'game.status.restarted'
   | 'game.status.rewound.one'
