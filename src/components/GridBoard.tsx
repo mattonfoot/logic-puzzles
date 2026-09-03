@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
 import { getEntry, markKey, type Cell, type Marks } from '../game/board';
@@ -127,6 +127,9 @@ export function GridBoard({
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const layout = useMemo(() => boardLayout(puzzle.categories.length), [puzzle]);
+  // The column headings have no scroller of their own the player can reach, so
+  // the grid below drives them.
+  const headings = useRef<ScrollView>(null);
   const wanted = awaiting ? markKey(awaiting) : null;
   const items = puzzle.size.items;
   // A block's box holds its own rule on each side, so the squares inside it
@@ -137,6 +140,8 @@ export function GridBoard({
   // as wide as one row and one column of the board.
   const iconSize = Math.round(cellSize * ICON_SCALE);
   const headerHeight = CATEGORY_NAME + cellSize;
+  /** The pinned left-hand column: the set name on its side, then the pictures. */
+  const labelWidth = CATEGORY_STRIP + cellSize + LABEL_GAP;
 
   const lit = useMemo(
     () => new Set(highlight.map((attr) => `${attr.category}.${attr.item}`)),
@@ -148,57 +153,21 @@ export function GridBoard({
     layout.blocks.find((block) => block.row === row && block.col === col);
 
   return (
-    <View style={styles.row}>
-      {/* Pinned: the set names and the item labels for each block row. */}
-      <View>
-        <View style={{ height: headerHeight }} />
-        {layout.rowCategories.map((rowCategory) => (
-          <View key={`labels-${rowCategory}`} style={[styles.row, { height: blockBox }]}>
-            <View style={[styles.categoryStrip, { height: blockBox }]}>
-              <Text
-                numberOfLines={1}
-                style={[
-                  styles.categoryStripText,
-                  {
-                    width: blockBox,
-                    maxWidth: blockBox,
-                    left: (CATEGORY_STRIP - blockBox) / 2,
-                    top: (blockBox - LABEL_LINE) / 2,
-                    color: palette.accent,
-                  },
-                ]}
-              >
-                {puzzle.categories[rowCategory].name}
-              </Text>
-            </View>
-
-            <View style={{ width: cellSize + LABEL_GAP, paddingTop: BLOCK_BORDER }}>
-              {puzzle.categories[rowCategory].items.map((item, index) => (
-                <Pressable
-                  key={item.label}
-                  accessibilityRole="button"
-                  accessibilityLabel={`About ${item.label}`}
-                  onPress={() => onInspect({ category: rowCategory, item: index })}
-                  style={({ pressed }) => [
-                    styles.rowLabel,
-                    { height: cellSize, opacity: pressed ? 0.6 : 1 },
-                  ]}
-                >
-                  <Icon
-                    name={item.icon}
-                    size={iconSize}
-                    color={isLit(rowCategory, index) ? palette.accent : palette.inkSoft}
-                  />
-                </Pressable>
-              ))}
-            </View>
-          </View>
-        ))}
-      </View>
-
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View>
-          {/* Column headers: set name, then each item written up the page. */}
+    <View style={styles.board}>
+      {/* Pinned to the top: the corner the row headings sit under, and then the
+          column headings, which slide sideways with the grids and never up out
+          of sight. A heading that scrolls away is a board of ticks and crosses
+          with nothing to say what any of them are about. */}
+      <View style={styles.row}>
+        <View style={{ width: labelWidth, height: headerHeight }} />
+        <ScrollView
+          horizontal
+          ref={headings}
+          // Driven by the grid below rather than by a finger of its own: two
+          // scrollers the player can move independently would come apart.
+          scrollEnabled={false}
+          showsHorizontalScrollIndicator={false}
+        >
           <View style={[styles.row, { height: headerHeight }]}>
             {layout.colCategories.map((category) => (
               <View
@@ -231,97 +200,177 @@ export function GridBoard({
               </View>
             ))}
           </View>
+        </ScrollView>
+      </View>
 
-          {layout.rowCategories.map((rowCategory, row) => (
-            <View key={`row-${rowCategory}`} style={[styles.row, { height: blockBox }]}>
-              {layout.colCategories.map((colCategory, col) => {
-                const block = blockAt(row, col);
-                if (!block) {
-                  return (
-                    <View
-                      key={`gap-${colCategory}`}
-                      style={{ width: blockBox, height: blockBox }}
-                    />
-                  );
-                }
-                return (
-                  <View
-                    key={`block-${rowCategory}-${colCategory}`}
-                    style={[styles.block, { width: blockBox, height: blockBox }]}
+      {/* The body. It slides under the headings in both directions, a whole
+          grid at a time: stopping half way through one leaves a column of
+          squares split between two sets, which is a board nobody can read. */}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        snapToInterval={blockBox}
+        snapToAlignment="start"
+        decelerationRate="fast"
+        contentContainerStyle={styles.body}
+      >
+        <View style={styles.row}>
+          {/* Pinned to the left, and outside the sideways scroller for the same
+              reason the column headings are outside the up-and-down one. */}
+          <View>
+            {layout.rowCategories.map((rowCategory) => (
+              <View key={`labels-${rowCategory}`} style={[styles.row, { height: blockBox }]}>
+                <View style={[styles.categoryStrip, { height: blockBox }]}>
+                  <Text
+                    numberOfLines={1}
+                    style={[
+                      styles.categoryStripText,
+                      {
+                        width: blockBox,
+                        maxWidth: blockBox,
+                        left: (CATEGORY_STRIP - blockBox) / 2,
+                        top: (blockBox - LABEL_LINE) / 2,
+                        color: palette.accent,
+                      },
+                    ]}
                   >
-                    {puzzle.categories[rowCategory].items.map((_, rowItem) => (
-                      <View key={rowItem} style={styles.row}>
-                        {puzzle.categories[colCategory].items.map((__, colItem) => {
-                          const cell: Cell = {
-                            c1: rowCategory,
-                            i1: rowItem,
-                            c2: colCategory,
-                            i2: colItem,
-                          };
-                          const entry = getEntry(marks, cell);
-                          const mark = entry?.mark;
-                          const wrong = mistakes.has(markKey(cell));
-                          const crosshair =
-                            isLit(rowCategory, rowItem) || isLit(colCategory, colItem);
-                          const asked = wanted !== null && markKey(cell) === wanted;
-                          return (
-                            <Pressable
-                              key={colItem}
-                              accessibilityRole="button"
-                              accessibilityLabel={`${puzzle.categories[rowCategory].items[rowItem].label} and ${puzzle.categories[colCategory].items[colItem].label}: ${
-                                mark === 'yes' ? 'matched' : mark === 'no' ? 'ruled out' : 'unknown'
-                              }`}
-                              onPress={() => onToggle(cell)}
-                              style={({ pressed }) => [
-                                styles.cell,
-                                asked && {
-                                  borderWidth: 3,
-                                  borderColor: palette.accent,
-                                },
-                                {
-                                  width: cellSize,
-                                  height: cellSize,
-                                  backgroundColor: wrong
-                                    ? tint(palette.danger, SETTLED_TINT)
-                                    : mark === 'yes'
-                                      ? tint(palette.accent, SETTLED_TINT)
-                                      : crosshair
-                                        ? tint(palette.accent, 0.07)
-                                        : (rowItem + colItem) % 2 === 1
-                                          ? palette.boardShade
-                                          : palette.boardLight,
-                                  opacity: pressed ? 0.7 : 1,
-                                },
-                              ]}
-                            >
-                              {mark === 'yes' || mark === 'no' ? (
-                                <Mark
-                                  kind={mark}
-                                  // Colour says one thing — whether the mark is
-                                  // wrong — and weight says the other: a mark
-                                  // the player made is laid down heavily, one
-                                  // the board filled in for itself lightly.
-                                  weight={entry?.source === 'auto' ? 'auto' : 'hand'}
-                                  size={cellSize}
-                                  color={
-                                    wrong
-                                      ? palette.danger
-                                      : mark === 'yes'
-                                        ? palette.accent
-                                        : palette.inkSoft
-                                  }
-                                />
-                              ) : null}
-                            </Pressable>
-                          );
-                        })}
+                    {puzzle.categories[rowCategory].name}
+                  </Text>
+                </View>
+
+                <View style={{ width: cellSize + LABEL_GAP, paddingTop: BLOCK_BORDER }}>
+                  {puzzle.categories[rowCategory].items.map((item, index) => (
+                    <Pressable
+                      key={item.label}
+                      accessibilityRole="button"
+                      accessibilityLabel={`About ${item.label}`}
+                      onPress={() => onInspect({ category: rowCategory, item: index })}
+                      style={({ pressed }) => [
+                        styles.rowLabel,
+                        { height: cellSize, opacity: pressed ? 0.6 : 1 },
+                      ]}
+                    >
+                      <Icon
+                        name={item.icon}
+                        size={iconSize}
+                        color={isLit(rowCategory, index) ? palette.accent : palette.inkSoft}
+                      />
+                    </Pressable>
+                  ))}
+                </View>
+              </View>
+            ))}
+          </View>
+
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            // The headings above have no finger on them, so they are moved from
+            // here, unanimated, on every frame of the slide.
+            onScroll={(event) =>
+              headings.current?.scrollTo({ x: event.nativeEvent.contentOffset.x, animated: false })
+            }
+            scrollEventThrottle={16}
+            snapToInterval={blockBox}
+            snapToAlignment="start"
+            decelerationRate="fast"
+          >
+            <View>
+              {layout.rowCategories.map((rowCategory, row) => (
+                <View key={`row-${rowCategory}`} style={[styles.row, { height: blockBox }]}>
+                  {layout.colCategories.map((colCategory, col) => {
+                    const block = blockAt(row, col);
+                    if (!block) {
+                      return (
+                        <View
+                          key={`gap-${colCategory}`}
+                          style={{ width: blockBox, height: blockBox }}
+                        />
+                      );
+                    }
+                    return (
+                      <View
+                        key={`block-${rowCategory}-${colCategory}`}
+                        style={[styles.block, { width: blockBox, height: blockBox }]}
+                      >
+                        {puzzle.categories[rowCategory].items.map((_, rowItem) => (
+                          <View key={rowItem} style={styles.row}>
+                            {puzzle.categories[colCategory].items.map((__, colItem) => {
+                              const cell: Cell = {
+                                c1: rowCategory,
+                                i1: rowItem,
+                                c2: colCategory,
+                                i2: colItem,
+                              };
+                              const entry = getEntry(marks, cell);
+                              const mark = entry?.mark;
+                              const wrong = mistakes.has(markKey(cell));
+                              const crosshair =
+                                isLit(rowCategory, rowItem) || isLit(colCategory, colItem);
+                              const asked = wanted !== null && markKey(cell) === wanted;
+                              return (
+                                <Pressable
+                                  key={colItem}
+                                  accessibilityRole="button"
+                                  accessibilityLabel={`${puzzle.categories[rowCategory].items[rowItem].label} and ${puzzle.categories[colCategory].items[colItem].label}: ${
+                                    mark === 'yes'
+                                      ? 'matched'
+                                      : mark === 'no'
+                                        ? 'ruled out'
+                                        : 'unknown'
+                                  }`}
+                                  onPress={() => onToggle(cell)}
+                                  style={({ pressed }) => [
+                                    styles.cell,
+                                    asked && {
+                                      borderWidth: 3,
+                                      borderColor: palette.accent,
+                                    },
+                                    {
+                                      width: cellSize,
+                                      height: cellSize,
+                                      backgroundColor: wrong
+                                        ? tint(palette.danger, SETTLED_TINT)
+                                        : mark === 'yes'
+                                          ? tint(palette.accent, SETTLED_TINT)
+                                          : crosshair
+                                            ? tint(palette.accent, 0.07)
+                                            : (rowItem + colItem) % 2 === 1
+                                              ? palette.boardShade
+                                              : palette.boardLight,
+                                      opacity: pressed ? 0.7 : 1,
+                                    },
+                                  ]}
+                                >
+                                  {mark === 'yes' || mark === 'no' ? (
+                                    <Mark
+                                      kind={mark}
+                                      // Colour says one thing — whether the mark is
+                                      // wrong — and weight says the other: a mark
+                                      // the player made is laid down heavily, one
+                                      // the board filled in for itself lightly.
+                                      weight={entry?.source === 'auto' ? 'auto' : 'hand'}
+                                      size={cellSize}
+                                      color={
+                                        wrong
+                                          ? palette.danger
+                                          : mark === 'yes'
+                                            ? palette.accent
+                                            : palette.inkSoft
+                                      }
+                                    />
+                                  ) : null}
+                                </Pressable>
+                              );
+                            })}
+                          </View>
+                        ))}
                       </View>
-                    ))}
-                  </View>
-                );
-              })}
+                    );
+                  })}
+                </View>
+              ))}
             </View>
-          ))}
+          </ScrollView>
         </View>
       </ScrollView>
     </View>
@@ -330,8 +379,18 @@ export function GridBoard({
 
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
+    board: {
+      // Sized by what is in it, so a board that fits sits at its own size
+      // rather than filling whatever it was put in.
+      flexShrink: 1,
+    },
     row: {
       flexDirection: 'row',
+    },
+    body: {
+      // A board shorter than the room it has hangs from the top of the
+      // headings rather than floating away from them.
+      flexGrow: 0,
     },
     columnBlock: {
       alignItems: 'center',

@@ -504,6 +504,25 @@ arrangement of three, and five sets a 4 × 4 arrangement of ten — every pair o
 sets exactly once, which is what makes cross-referencing possible: a tick in
 Astronaut × Ship can be carried into Ship × Launch without leaving the board.
 
+**The headings stay put.** The board opens at the size that fits, so nothing
+scrolls until the player zooms in — and once it does, the pictures across the
+top and the pictures down the left have to keep saying what every tick is
+about. So the board owns its own scrolling rather than sitting inside the
+screen's: the column headings live outside the up-and-down scroller and the row
+headings outside the sideways one, which is the only arrangement that pins both.
+Nesting cannot do it — whichever scroller is outermost drags one set of headings
+with it — so the grids drive the column headings from their own `onScroll`,
+unanimated, and that strip has no finger on it of its own. Two scrollers the
+player could move independently would come apart.
+
+It slides a whole grid at a time, in both directions: `snapToInterval` is a
+block plus its rule, so a flick lands on a grid edge rather than stopping half
+way through one, and a column of squares is never split between two sets.
+That is a native ScrollView prop — react-native-web drops it, so the browser
+cannot show it and the walkthrough cannot check it; `src/components/__tests__/board.test.tsx`
+holds the instruction to still being given, and `npm run sizes` zooms a board
+past the edges of the screen and checks the headings do not scroll away.
+
 ## Colours
 
 There are two palettes, `dayPalette` and `nightPalette` in `src/ui/theme.ts`,

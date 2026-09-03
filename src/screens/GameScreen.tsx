@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AppState, LayoutChangeEvent, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { AppState, LayoutChangeEvent, Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BriefingPopup } from '../components/BriefingPopup';
@@ -589,26 +589,23 @@ export function GameScreen({
               </View>
             </View>
 
-            <View style={styles.fill} onLayout={measureBoard}>
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={styles.boardScroll}
-              >
-                {boardArea.width > 0 ? (
-                  <GridBoard
-                    puzzle={puzzle}
-                    marks={marks}
-                    mistakes={mistakes}
-                    highlight={highlight}
-                    cellSize={cellSize}
-                    onToggle={toggleCell}
-                    onInspect={(attr) => {
-                      feedback.tap();
-                      setInspecting(attr);
-                    }}
-                  />
-                ) : null}
-              </ScrollView>
+            {/* The board scrolls itself, in both directions, so its headings
+                can stay put while the grids slide under them. */}
+            <View style={[styles.fill, styles.boardArea]} onLayout={measureBoard}>
+              {boardArea.width > 0 ? (
+                <GridBoard
+                  puzzle={puzzle}
+                  marks={marks}
+                  mistakes={mistakes}
+                  highlight={highlight}
+                  cellSize={cellSize}
+                  onToggle={toggleCell}
+                  onInspect={(attr) => {
+                    feedback.tap();
+                    setInspecting(attr);
+                  }}
+                />
+              ) : null}
             </View>
           </View>
         )}
@@ -841,10 +838,9 @@ const makeStyles = (palette: Palette) =>
       paddingHorizontal: space(4),
       paddingTop: space(3),
     },
-    boardScroll: {
+    boardArea: {
       // Centred, so a board that fits sits in the middle of the space rather
       // than hanging from the top of it.
-      flexGrow: 1,
       justifyContent: 'center',
     },
     zoomRow: {

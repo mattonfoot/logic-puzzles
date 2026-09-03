@@ -126,6 +126,75 @@ async function main() {
     const over = await scrollers(page);
     if (over.length > 0) complain(`the numbered list scrolls by ${over.join(', ')}pt`);
 
+    // The board, zoomed until it is larger than the screen: the row and column
+    // headings have to stay put while the grids slide under them, or the
+    // player is left reading ticks with nothing to say what they are about.
+    await page.getByLabel('Back to the difficulties').click();
+    await wait(page, 400);
+    await page.getByLabel('Pro', { exact: true }).click();
+    await wait(page, 600);
+    await page.getByLabel('Puzzle 1').click();
+    await wait(page, 1600);
+    await page.getByLabel('Close').click({ position: { x: 12, y: 12 } });
+    await wait(page, 400);
+    for (let press = 0; press < 12; press++) {
+      const zoom = page.getByLabel('Zoom in');
+      if (await zoom.isDisabled()) break;
+      await zoom.click();
+      await wait(page, 100);
+    }
+    await wait(page, 400);
+
+    // Kept in document order and compared by position in it, never by name: a
+    // set that is both a row and a column on the staircase — most of them —
+    // heads two of these, and matching Seahorse to Seahorse pairs the wrong
+    // two up.
+    const headings = () =>
+      page.evaluate(() =>
+        [...document.querySelectorAll('[aria-label^="About "]')].map((el, at) => {
+          const { x, y } = el.getBoundingClientRect();
+          return { at, name: el.getAttribute('aria-label'), x: Math.round(x), y: Math.round(y) };
+        }),
+      );
+    const before = await headings();
+    // The column headings are the ones above every row heading; the row
+    // headings are the ones left of every column heading.
+    const top = Math.min(...before.map((h) => h.y));
+    const left = Math.min(...before.map((h) => h.x));
+    const columns = before.filter((h) => h.y === top);
+    const rows = before.filter((h) => h.x === left && h.y > top);
+
+    if (columns.length === 0 || rows.length === 0) {
+      complain('the board has no headings to pin');
+    } else {
+      await page.evaluate(() => {
+        for (const el of document.querySelectorAll('div')) {
+          if (el.scrollHeight > el.clientHeight + 1 && el.clientHeight > 100) el.scrollTop = 150;
+          if (el.scrollWidth > el.clientWidth + 1 && el.clientWidth > 100) el.scrollLeft = 150;
+        }
+      });
+      await wait(page, 500);
+      const after = await headings();
+
+      const movedDown = columns.filter((h) => after[h.at] && after[h.at].y !== h.y);
+      if (movedDown.length > 0) {
+        complain(`the column headings scrolled out of the top (${movedDown[0].name})`);
+      }
+      const movedAcross = rows.filter((h) => after[h.at] && after[h.at].x !== h.x);
+      if (movedAcross.length > 0) {
+        complain(`the row headings scrolled off the left (${movedAcross[0].name})`);
+      }
+      // And each has to follow the grid on its own axis, or it would be pinned
+      // to nothing: a column heading that never moves sideways is not above the
+      // column it names.
+      if (columns.every((h) => after[h.at] && after[h.at].x === h.x)) {
+        complain('the column headings did not follow the grid sideways');
+      }
+      if (rows.every((h) => after[h.at] && after[h.at].y === h.y)) {
+        complain('the row headings did not follow the grid down');
+      }
+    }
+
     console.log(
       `  ${problems.some((p) => p.startsWith(phone.name)) ? '✕' : '✓'} ${phone.name.padEnd(26)} ${phone.width} × ${phone.height}`,
     );
