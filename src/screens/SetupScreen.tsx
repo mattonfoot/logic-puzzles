@@ -13,7 +13,7 @@ import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { TitlePanel } from '../ui/TitlePanel';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { border, shadow, space, tint, type Palette } from '../ui/theme';
+import { border, shadow, space, tint, type, type Palette } from '../ui/theme';
 
 interface Props {
   busy: boolean;
@@ -170,8 +170,7 @@ function Choice({
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
     notice: {
-      fontSize: 14,
-      lineHeight: 20,
+      ...type.note,
       color: palette.danger,
       textAlign: 'center',
       paddingHorizontal: space(4),
@@ -193,24 +192,13 @@ const makeStyles = (palette: Palette) =>
     waiting: {
       marginBottom: space(4),
     },
-    choices: {
-      marginTop: space(3),
-    },
+    choices: {},
     choice: {
       alignSelf: 'flex-start',
-      paddingVertical: space(0.75),
+      paddingVertical: space(1),
       paddingRight: space(6),
     },
-    choiceText: {
-      // Sized so the whole list — Continue and the four difficulties — stands
-      // in the half of the screen the panel leaves, on the phone this is drawn
-      // for. A word that has to be scrolled to is a word that might as well not
-      // be on the screen.
-      fontSize: 33,
-      lineHeight: 40,
-      fontWeight: '800',
-      letterSpacing: -1,
-    },
+    choiceText: type.menu,
     busyOverlay: {
       position: 'absolute',
       top: 0,
@@ -232,8 +220,7 @@ const makeStyles = (palette: Palette) =>
       paddingHorizontal: space(5),
     },
     busyText: {
-      fontSize: 14,
-      fontWeight: '600',
+      ...type.note,
       color: palette.ink,
     },
   });

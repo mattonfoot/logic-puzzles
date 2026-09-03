@@ -15,12 +15,17 @@ import type { CompletedGame } from './persistence';
 /**
  * How many numbers a page of the list holds.
  *
- * Six, because the list stands in the half of the screen the title panel
- * leaves, and six numbers at the size the app sets a choice is what that half
- * holds without scrolling. A number you have to scroll to is a number you have
- * to look for; paging past it is one tap.
+ * Five, because the list stands in the half of the screen the title panel
+ * leaves, and five rows at the size the app sets every choice — the same size
+ * as a door on the front page and a difficulty — is what that half holds with
+ * the pager and the way back under them, on every iPhone the app is built for.
+ * A number you have to scroll to is a number you have to look for; paging past
+ * it is one tap.
+ *
+ * It is also the step the zoomed-out catalogue counts in, so a group is five
+ * puzzles, then twenty-five, then a hundred and twenty-five.
  */
-export const PAGE_SIZE = 6;
+export const PAGE_SIZE = 5;
 
 /** The numbers on a page, counting from one. Page 0 is the first. */
 export function pageNumbers(page: number, size = PAGE_SIZE): number[] {
@@ -31,10 +36,10 @@ export function pageNumbers(page: number, size = PAGE_SIZE): number[] {
 /**
  * Where the player is looking in the catalogue.
  *
- * Six numbers to a page makes the hundredth puzzle seventeen taps away, so the
- * list can be zoomed out: at level 1 a page holds six *groups* of six puzzles
- * (1–6, 7–12, …), at level 2 six groups of thirty-six, and so on — the same six
- * rows and the same Previous and Next whatever the level, with each row
+ * Five numbers to a page makes the hundredth puzzle twenty taps away, so the
+ * list can be zoomed out: at level 1 a page holds five *groups* of five puzzles
+ * (1–5, 6–10, …), at level 2 five groups of twenty-five, and so on — the same
+ * five rows and the same Previous and Next whatever the level, with each row
  * standing for `PAGE_SIZE ** level` puzzles. Pressing a group opens the page
  * of the level below that holds it, and the way out is the zoom button between
  * the two words. Level 0 is the puzzles themselves.
@@ -57,7 +62,7 @@ export interface Range {
   last: number;
 }
 
-/** The six rows on a page at a level, each the run of puzzles it stands for. */
+/** The five rows on a page at a level, each the run of puzzles it stands for. */
 export function rangesOn({ level, page }: Catalogue, size = PAGE_SIZE): Range[] {
   const each = span(level, size);
   return pageNumbers(page, size).map((row) => {

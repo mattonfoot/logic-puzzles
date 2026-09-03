@@ -397,15 +397,15 @@ describe('the numbered puzzles', () => {
   // box — so the state is read off the row rather than through `toBeChecked`.
   const ticked = (name: string) => button(name).props.accessibilityState.checked;
 
-  it('shows the first six, with the way back closed on page one', () => {
+  it('shows the first five, with the way back closed on page one', () => {
     stage(<NumbersScreen size={advanced} busy={false} history={[]} onPlay={none} onBack={none} />);
 
     expect(header('Play Advanced')).toBeOnTheScreen();
-    for (let number = 1; number <= 6; number += 1) {
+    for (let number = 1; number <= 5; number += 1) {
       expect(button(`Puzzle ${number}`)).toBeEnabled();
       expect(ticked(`Puzzle ${number}`)).toBe(false);
     }
-    expect(screen.queryByRole('button', { name: 'Puzzle 7' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Puzzle 6' })).toBeNull();
     expect(button('Previous')).toBeDisabled();
     expect(button('Next')).toBeEnabled();
     expect(button('Back to the difficulties')).toBeEnabled();
@@ -435,7 +435,7 @@ describe('the numbered puzzles', () => {
     stage(<NumbersScreen size={advanced} busy={false} history={[]} onPlay={none} onBack={none} />);
 
     fireEvent.press(button('Next'));
-    expect(button('Puzzle 7')).toBeOnTheScreen();
+    expect(button('Puzzle 6')).toBeOnTheScreen();
     expect(screen.queryByRole('button', { name: 'Puzzle 1' })).toBeNull();
     expect(button('Previous')).toBeEnabled();
   });
@@ -445,36 +445,36 @@ describe('the numbered puzzles', () => {
 
     fireEvent.press(button('Zoom out'));
     expect(screen.queryByRole('button', { name: 'Puzzle 1' })).toBeNull();
-    for (const first of [1, 7, 13, 19, 25, 31]) {
-      expect(button(`Puzzles ${first}–${first + 5}`)).toBeEnabled();
+    for (const first of [1, 6, 11, 16, 21]) {
+      expect(button(`Puzzles ${first}–${first + 4}`)).toBeEnabled();
     }
     expect(button('Previous')).toBeDisabled();
 
     // The groups page the same way the puzzles do.
     fireEvent.press(button('Next'));
-    expect(button('Puzzles 37–42')).toBeOnTheScreen();
+    expect(button('Puzzles 26–30')).toBeOnTheScreen();
     fireEvent.press(button('Previous'));
 
     fireEvent.press(button('Zoom out'));
-    expect(button('Puzzles 1–36')).toBeOnTheScreen();
-    expect(button('Puzzles 37–72')).toBeOnTheScreen();
+    expect(button('Puzzles 1–25')).toBeOnTheScreen();
+    expect(button('Puzzles 26–50')).toBeOnTheScreen();
 
-    fireEvent.press(button('Puzzles 37–72'));
-    expect(button('Puzzles 37–42')).toBeOnTheScreen();
-    fireEvent.press(button('Puzzles 43–48'));
-    expect(button('Puzzle 43')).toBeOnTheScreen();
-    expect(button('Puzzle 48')).toBeOnTheScreen();
+    fireEvent.press(button('Puzzles 26–50'));
+    expect(button('Puzzles 26–30')).toBeOnTheScreen();
+    fireEvent.press(button('Puzzles 31–35'));
+    expect(button('Puzzle 31')).toBeOnTheScreen();
+    expect(button('Puzzle 35')).toBeOnTheScreen();
     expect(button('Previous')).toBeEnabled();
   });
 
   it('comes back out to the page that holds the one it left', () => {
     stage(<NumbersScreen size={advanced} busy={false} history={[]} onPlay={none} onBack={none} />);
     for (let turn = 0; turn < 16; turn++) fireEvent.press(button('Next'));
-    expect(button('Puzzle 97')).toBeOnTheScreen();
+    expect(button('Puzzle 81')).toBeOnTheScreen();
 
     fireEvent.press(button('Zoom out'));
-    expect(button('Puzzles 97–102')).toBeOnTheScreen();
-    expect(button('Puzzles 73–78')).toBeOnTheScreen();
+    expect(button('Puzzles 81–85')).toBeOnTheScreen();
+    expect(button('Puzzles 76–80')).toBeOnTheScreen();
   });
 
   it('stops zooming out at the top, and says how far through a group you are', () => {
@@ -483,14 +483,14 @@ describe('the numbered puzzles', () => {
       <NumbersScreen size={advanced} busy={false} history={history} onPlay={none} onBack={none} />,
     );
     fireEvent.press(button('Zoom out'));
-    expect(button('Puzzles 1–6').props.accessibilityHint).toBe('2 of 6 finished');
-    expect(screen.getByText('2 of 6 finished')).toBeOnTheScreen();
-    expect(button('Puzzles 7–12').props.accessibilityHint).toBe('Opens the pages in this group');
+    expect(button('Puzzles 1–5').props.accessibilityHint).toBe('2 of 5 finished');
+    expect(screen.getByText('2 of 5 finished')).toBeOnTheScreen();
+    expect(button('Puzzles 6–10').props.accessibilityHint).toBe('Opens the pages in this group');
 
     fireEvent.press(button('Zoom out'));
-    expect(button('Puzzles 37–72').props.accessibilityHint).toBe('1 of 36 finished');
+    expect(button('Puzzles 26–50').props.accessibilityHint).toBe('1 of 25 finished');
     fireEvent.press(button('Zoom out'));
-    expect(button('Puzzles 1–216')).toBeOnTheScreen();
+    expect(button('Puzzles 1–125')).toBeOnTheScreen();
     expect(button('Zoom out')).toBeDisabled();
   });
 
@@ -498,7 +498,7 @@ describe('the numbered puzzles', () => {
     stage(<NumbersScreen size={advanced} busy history={[]} onPlay={none} onBack={none} />);
 
     expect(screen.getByText('Building your puzzle…')).toBeOnTheScreen();
-    for (let number = 1; number <= 6; number += 1)
+    for (let number = 1; number <= 5; number += 1)
       expect(button(`Puzzle ${number}`)).toBeDisabled();
     expect(button('Next')).toBeDisabled();
     expect(button('Zoom out')).toBeDisabled();

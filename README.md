@@ -185,12 +185,12 @@ pictures below are for.
 
 | | | |
 |---|---|---|
-| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered puzzles"><br>**3. Numbered puzzles** — every puzzle at that difficulty, counting from one, six to a page, each with a box that ticks when you finish it and your time beside it; the glass between **Previous** and **Next** zooms the list out. |
+| <img src="docs/screenshots/01-start.png" width="230" alt="Start page"><br>**1. Start** — the name on a panel of the link colour, **Daily** and **Play** under it with a rule between, and the two side doors at the foot. | <img src="docs/screenshots/02-setup.png" width="230" alt="The difficulties"><br>**2. Difficulty** — the same panel, the same half; only what is under it changes. | <img src="docs/screenshots/03-numbers.png" width="230" alt="The numbered puzzles"><br>**3. Numbered puzzles** — every puzzle at that difficulty, counting from one, five to a page, each with a box that ticks when you finish it and your time beside it; the glass between **Previous** and **Next** zooms the list out. |
 | <img src="docs/screenshots/04-daily.png" width="230" alt="Daily challenges"><br>**4. Daily** — today's four, one per difficulty. A finished one shows its time and opens the result instead of a board. | <img src="docs/screenshots/05-settings.png" width="230" alt="Settings screen"><br>**5. Settings** — seven names with a box or a slider against each, and nothing to read. | <img src="docs/screenshots/06-briefing.png" width="230" alt="The briefing a puzzle opens with"><br>**6. Briefing** — what went wrong and why anybody wants it sorted out. It opens with the puzzle and waits behind **Info** afterwards. |
 | <img src="docs/screenshots/07-board.png" width="230" alt="The board"><br>**7. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/08-menu.png" width="230" alt="Game menu"><br>**8. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/09-clue.png" width="230" alt="The clue window"><br>**9. Clue** — one clue at a time, in a window with the room to read it, under a line saying who is supposed to have said it. |
 | <img src="docs/screenshots/10-highlight.png" width="230" alt="A clue lit up on the grids"><br>**10. Highlight** — the button at the bottom right lights every row and column the clue talks about. | <img src="docs/screenshots/11-marked.png" width="230" alt="A part-marked board"><br>**11. Marked up** — a mark the player made is drawn heavily, one the board worked out for itself lightly. Same shape, same colour: the difference survives being colour-blind. | <img src="docs/screenshots/12-stuck.png" width="230" alt="A board that can no longer be solved"><br>**12. Out of reach** — asking for a new clue checks the board first, and stops with a window offering to rewind when the answer has been marked away. |
 | <img src="docs/screenshots/13-item-card.png" width="230" alt="The card behind an item's picture"><br>**13. Item card** — tap any picture on the board to meet it, and page through the rest of its set. | <img src="docs/screenshots/14-solved.png" width="230" alt="A finished game"><br>**14. Solved** — the finish takes the screen: time, clues read, how it compares, **Share**, the answer table. | <img src="docs/screenshots/15-statistics.png" width="230" alt="Statistics screen"><br>**15. Statistics** — totals, bests by difficulty and the trend of recent solve times. |
-| <img src="docs/screenshots/16-night.png" width="230" alt="Setup screen in night colours"><br>**16. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | <img src="docs/screenshots/17-catalogue.png" width="230" alt="The numbered list zoomed out to groups of thirty-six"><br>**17. Zoomed out** — the numbered list two presses of the glass out: six rows of thirty-six puzzles, paged the same way, each opening to the pages inside it. | <img src="docs/screenshots/18-tutorial.png" width="230" alt="The how-to-play board part way through"><br>**18. How to play** — the third of the front door's words: three customers, three drinks, and four marks walked on a real board. |
+| <img src="docs/screenshots/16-night.png" width="230" alt="Setup screen in night colours"><br>**16. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | <img src="docs/screenshots/17-catalogue.png" width="230" alt="The numbered list zoomed out to groups of twenty-five"><br>**17. Zoomed out** — the numbered list two presses of the glass out: five rows of twenty-five puzzles, paged the same way, each opening to the pages inside it. | <img src="docs/screenshots/18-tutorial.png" width="230" alt="The how-to-play board part way through"><br>**18. How to play** — the third of the front door's words: three customers, three drinks, and four marks walked on a real board. |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -212,8 +212,8 @@ rest is the app behaving normally.
    different offers*, and this is not a third one — it is the same offer
    explained, for the reader who has never met a logic grid.
    The panel takes half the screen, or whatever leaves the list under it room
-   to stand, whichever is less: on an iPhone 11 Pro half was 406 points, the six
-   numbered puzzles and everything around them wanted 386, and the 34 points the
+   to stand, whichever is less: on an iPhone 11 Pro half was 406 points, the
+   numbered puzzles and everything around them want 398, and the 34 points the
    home indicator takes under the back link tipped the list into scrolling.
    Decoration gives way to the thing the player came for. It is worked out from
    the window and the inset alone, so every screen wearing the panel on a given
@@ -240,15 +240,16 @@ rest is the app behaving normally.
    the number *is* the puzzle: game 7 at Expert holds the same cast, the same
    answer and the same clues on anybody's phone, this year or next. Pick one and
    it starts — that number becomes the seed. The list is paged rather than
-   scrolled, six to a page — which is what the half of the screen under the
-   panel holds, on every iPhone from the SE up — with **Previous** and **Next**
+   scrolled, five to a page — which is what the half of the screen under the
+   panel holds at the size every choice in the app is set in, on every iPhone
+   from the SE up — with **Previous** and **Next**
    under it, and between them a
-   magnifying glass that zooms the list out: one press and the six rows are
-   six *groups* of six puzzles — **Puzzles 1–6**, **7–12** and so on — another
-   and each row is thirty-six, with the same two words paging the groups the
+   magnifying glass that zooms the list out: one press and the five rows are
+   five *groups* of five puzzles — **Puzzles 1–5**, **6–10** and so on — another
+   and each row is twenty-five, with the same two words paging the groups the
    same way. Press a group and it opens; press the glass and you are back out
    on the page that holds the one you left. That is how the hundredth puzzle,
-   or one a friend named, is three taps away rather than seventeen. A group's
+   or one a friend named, is three taps away rather than twenty. A group's
    box ticks when every puzzle in it is finished, and its row says how far
    through it you are once there is anything to say. Every row is
    **Puzzle 7** with a box on its left, empty until you finish it and then
@@ -651,6 +652,24 @@ screen imports `Text` from there rather than from React Native, and `App.tsx`
 waits on `useFonts` before drawing so the app never reflows from a system font
 to this one. Swapping typeface means changing the package, the five names in
 `App.tsx`, and the map in `Text.tsx`.
+
+Sizes come from one place. `type` in `src/ui/theme.ts` holds three steps and the
+screens hold none of their own:
+
+| | | |
+| --- | --- | --- |
+| `type.menu` | 33 / 40, weight 800 | A choice in a list: a door on the front page, a difficulty, a numbered puzzle, a daily. |
+| `type.title` | 22 / 28, weight 800 | What a screen is called, over its rule. |
+| `type.note` | 14 / 20, weight 600 | The quiet line beside or under one of those: a time, a hint, a count. |
+
+Every choice the player makes is the same size wherever it is made, which is
+what makes **Daily**, **Advanced** and **Puzzle 7** read as three answers to the
+same question rather than three screens that happen to follow one another. The
+titles are set by `RuledTitle`, which carries its own `TITLE_GAP` under the
+rule, so the air between a heading and what it heads is identical on all ten
+screens that wear one and no screen adds its own. Sizes stopped agreeing once
+before — the front door was at 56, the daily at 33 over a 44 line and the
+numbered list at 26 — which is what the scale exists to prevent.
 
 Nothing in the app is rounded: the `radius` scale in `src/ui/theme.ts` is zero
 throughout. Where bordered neighbours do sit flush they carry `joinLeft` /

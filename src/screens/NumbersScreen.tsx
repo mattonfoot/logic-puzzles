@@ -21,7 +21,7 @@ import { Pager } from '../ui/Pager';
 import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { border, shadow, space, tint, type Palette } from '../ui/theme';
+import { border, shadow, space, tint, type, type Palette } from '../ui/theme';
 import { TitlePanel } from '../ui/TitlePanel';
 
 interface Props {
@@ -219,14 +219,13 @@ const makeStyles = (palette: Palette) =>
     content: {
       flex: 1,
       paddingHorizontal: space(5),
-      paddingTop: space(4),
+      paddingTop: space(5),
     },
     list: {
-      paddingTop: space(3),
-      // Six fit the half of the screen this stands in on the phones this is
-      // drawn for. A shorter one scrolls the numbers rather than pushing the
-      // pager off the bottom, which is the one thing on the screen that has to
-      // stay put for the list to be usable at all.
+      // Five stand in the half of the screen this gets, on every iPhone the app
+      // is built for. A shorter screen scrolls the numbers rather than pushing
+      // the pager off the bottom, which is the one thing here that has to stay
+      // put for the list to be usable at all.
       paddingBottom: space(2),
     },
     row: {
@@ -251,14 +250,10 @@ const makeStyles = (palette: Palette) =>
       // Takes the room between the box and the time, so every time on the page
       // lines up on the right-hand edge whatever the numbers beside them run to.
       flex: 1,
-      fontSize: 26,
-      lineHeight: 34,
-      fontWeight: '800',
-      letterSpacing: -0.5,
+      ...type.menu,
     },
     time: {
-      fontSize: 14,
-      fontWeight: '600',
+      ...type.note,
       color: palette.inkSoft,
     },
     pager: {
@@ -285,8 +280,7 @@ const makeStyles = (palette: Palette) =>
       paddingHorizontal: space(5),
     },
     busyText: {
-      fontSize: 14,
-      fontWeight: '600',
+      ...type.note,
       color: palette.ink,
     },
   });

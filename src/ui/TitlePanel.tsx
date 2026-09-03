@@ -39,14 +39,13 @@ import { inkOn, space, tint, type Palette } from './theme';
 /**
  * What the busiest screen under this panel has to have.
  *
- * The numbered list decides it: a heading, six numbered rows, the pager and the
- * way back come to 386 points measured, and this is that plus 46 of room. The
- * room is not slack. A device loses 34 points of it to the home indicator under
- * the back link, which the browser the measurement came from does not report,
- * so a figure that merely cleared 386 there would scroll on the phone it was
- * measured for — which is exactly what an iPhone 11 Pro was doing. What is left
- * over after the indicator is the margin for a device whose text metrics are
- * not Chromium's.
+ * The numbered list decides it: a heading, five numbered rows at the size every
+ * choice in the app is set in, the pager and the way back come to 398 points
+ * measured, and this is that plus 34 of room. The room is not slack. A device
+ * loses exactly that to the home indicator under the back link, which the
+ * browser the measurement came from does not report, so a figure that merely
+ * cleared 398 there would scroll on the phone it was measured for — which is
+ * what an iPhone 11 Pro was doing before any of this was worked out.
  *
  * The other three screens that wear the panel want less, and get the same panel
  * anyway: what makes the panel the panel is that stepping between those screens
@@ -69,11 +68,11 @@ const FLOOR = 200;
  *
  * It was exactly half, which is the shape the design is written around — and on
  * a tall phone it still is. On a short one half was too generous: an iPhone 11
- * Pro gives 406 points to each half, the six numbered puzzles and everything
- * around them want 402, and the 34 points of home-indicator inset under the
- * back link took the difference and more, so the list scrolled. A panel is
- * decoration and a list of puzzles is the thing the player came for, so the
- * decoration is what gives way.
+ * Pro gives 406 points to each half, the numbered puzzles and everything around
+ * them want more than that once the 34 points of home-indicator inset under the
+ * back link are taken off, so the list scrolled. A panel is decoration and a
+ * list of puzzles is the thing the player came for, so the decoration is what
+ * gives way.
  *
  * The answer depends on nothing but the window and the inset, so every screen
  * wearing the panel on a given phone gets the same one, which is the whole

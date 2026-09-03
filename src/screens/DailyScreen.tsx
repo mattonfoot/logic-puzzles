@@ -12,7 +12,7 @@ import { feedback } from '../ui/feedback';
 import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { border, shadow, space, tint, type Palette } from '../ui/theme';
+import { border, shadow, space, tint, type, type Palette } from '../ui/theme';
 import { TitlePanel } from '../ui/TitlePanel';
 
 interface Props {
@@ -128,15 +128,15 @@ const makeStyles = (palette: Palette) =>
     content: {
       flex: 1,
       paddingHorizontal: space(5),
-      paddingTop: space(4),
+      paddingTop: space(5),
     },
     streak: {
-      fontSize: 14,
-      fontWeight: '600',
-      marginTop: space(2),
+      ...type.note,
+      // Sits under the title, in the gap the title already leaves.
+      marginTop: -space(2),
+      marginBottom: space(2),
     },
     list: {
-      paddingTop: space(4),
       paddingBottom: space(4),
     },
     row: {
@@ -145,15 +145,9 @@ const makeStyles = (palette: Palette) =>
       justifyContent: 'space-between',
       paddingVertical: space(1),
     },
-    name: {
-      fontSize: 33,
-      lineHeight: 44,
-      fontWeight: '800',
-      letterSpacing: -1,
-    },
+    name: type.menu,
     time: {
-      fontSize: 14,
-      fontWeight: '600',
+      ...type.note,
       color: palette.inkSoft,
     },
     busyOverlay: {
@@ -177,8 +171,7 @@ const makeStyles = (palette: Palette) =>
       paddingHorizontal: space(5),
     },
     busyText: {
-      fontSize: 14,
-      fontWeight: '600',
+      ...type.note,
       color: palette.ink,
     },
   });

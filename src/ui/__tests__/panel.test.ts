@@ -18,14 +18,14 @@ const PHONES = [
 /**
  * What the numbered list wants under the panel with nothing lost to a safe
  * area, measured in the browser rather than added up from the stylesheet: at
- * 375 × 812 the heading, six rows, the pager and the way back fitted a bottom
- * half of 416 with 30 points to spare.
+ * 375 × 812 the heading, five rows, the pager and the way back stop overflowing
+ * at 398 points and scroll at anything under it.
  *
  * Written out here rather than imported from the panel, so this and the
  * constant the panel uses cannot drift into agreeing with each other while both
  * being wrong — which is how the first attempt shipped 16 points short.
  */
-const LIST_NEEDS = 386;
+const LIST_NEEDS = 398;
 
 /** On top of the home indicator, for a device whose text is not Chromium's. */
 const MARGIN = 8;
@@ -36,7 +36,7 @@ describe('the title panel', () => {
       const panel = panelHeight(phone.height, phone.bottom);
       const below = phone.height - panel;
 
-      it('leaves the six numbered puzzles room to stand without scrolling', () => {
+      it('leaves the five numbered puzzles room to stand without scrolling', () => {
         expect(below).toBeGreaterThanOrEqual(LIST_NEEDS + phone.bottom + MARGIN);
       });
 

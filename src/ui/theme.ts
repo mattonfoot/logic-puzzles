@@ -119,6 +119,55 @@ export const joinTop = { marginTop: -border };
 
 export const space = (steps: number) => steps * 4;
 
+/**
+ * The sizes the app sets its own words at, and the only place they are decided.
+ *
+ * Every screen but the board is a title over a short list of choices, and those
+ * two things had drifted into five sizes between them: the front door's words at
+ * 56 over 64, the difficulties at 33 over 40, the same difficulties on the daily
+ * screen at 33 over *44*, the numbered puzzles at 26 over 34, and a title with
+ * no line height at all. Stepping from one to the next changed the type as well
+ * as the words, which makes four screens that share a panel look like four
+ * different apps under it.
+ *
+ * One scale now, named here and read from there. `menu` is what a choice is set
+ * at wherever one is offered — a door, a difficulty, a numbered puzzle — and it
+ * is the size it is because the numbered list is the longest of them: five rows,
+ * a pager and the way back have to stand in the half of an iPhone 11 Pro the
+ * panel leaves, and that is what 33 over 40 buys.
+ */
+export const type = {
+  /** A choice in a list: a door, a difficulty, a numbered puzzle. */
+  menu: {
+    fontSize: 33,
+    lineHeight: 40,
+    fontWeight: '800',
+    letterSpacing: -1,
+  },
+  /** What a screen is called, over its rule. */
+  title: {
+    fontSize: 22,
+    lineHeight: 28,
+    fontWeight: '800',
+    letterSpacing: -0.5,
+  },
+  /** The quiet line beside or under one of those: a time, a hint, a count. */
+  note: {
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: '600',
+  },
+} as const;
+
+/** What one menu row takes, including the air above and below it. */
+export const MENU_ROW = type.menu.lineHeight + space(1) * 2;
+
+/**
+ * The air under a screen's title, and above the first thing it names. Held here
+ * rather than per screen, so no two screens can drift apart on it.
+ */
+export const TITLE_GAP = space(4);
+
 export const shadow = {
   card: Platform.select({
     ios: {

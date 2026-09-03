@@ -6,7 +6,7 @@ import { t } from '../i18n';
 import { feedback } from '../ui/feedback';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { space, type Palette } from '../ui/theme';
+import { space, type, type Palette } from '../ui/theme';
 import { TitlePanel } from '../ui/TitlePanel';
 
 interface Props {
@@ -130,15 +130,11 @@ const makeStyles = (palette: Palette) =>
     },
     door: {
       alignSelf: 'flex-start',
+      // The same air above and below as a difficulty and a numbered puzzle get.
       paddingVertical: space(1),
       paddingRight: space(8),
     },
-    doorText: {
-      fontSize: 56,
-      lineHeight: 64,
-      fontWeight: '800',
-      letterSpacing: -1,
-    },
+    doorText: type.menu,
     rule: {
       // Between the two, not under both: it separates rather than underlines,
       // so it stops short of the right-hand edge the way the ruled titles do.
@@ -156,8 +152,7 @@ const makeStyles = (palette: Palette) =>
       paddingVertical: space(2),
     },
     footText: {
-      fontSize: 14,
-      fontWeight: '600',
+      ...type.note,
       letterSpacing: 0.3,
       color: palette.inkSoft,
     },

@@ -40,7 +40,7 @@ function finished(overrides: Partial<CompletedGame> = {}): CompletedGame {
 
 describe('pageNumbers', () => {
   it('counts from one on the first page', () => {
-    expect(pageNumbers(0)).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(pageNumbers(0)).toEqual([1, 2, 3, 4, 5]);
     expect(pageNumbers(0)).toHaveLength(PAGE_SIZE);
   });
 
@@ -82,9 +82,9 @@ describe('completedOnPage', () => {
   });
 
   it('agrees with findCompleted on which game each number holds', () => {
-    const history = [finished({ seed: 6, seconds: 61 }), finished({ seed: 6, seconds: 62 })];
+    const history = [finished({ seed: 5, seconds: 61 }), finished({ seed: 5, seconds: 62 })];
     const found = completedOnPage(history, 'sm', pageNumbers(0));
-    expect(found.get(6)).toEqual(findCompleted(history, 'sm', 6));
+    expect(found.get(5)).toEqual(findCompleted(history, 'sm', 5));
   });
 });
 
@@ -223,37 +223,36 @@ describe('dailyStreak', () => {
 describe('the catalogue, zoomed out', () => {
   it('is the puzzles themselves at level zero', () => {
     expect(rangesOn({ level: 0, page: 0 }).map((range) => range.first)).toEqual(pageNumbers(0));
-    expect(rangesOn({ level: 0, page: 2 })[0]).toEqual({ first: 13, last: 13 });
+    expect(rangesOn({ level: 0, page: 2 })[0]).toEqual({ first: 11, last: 11 });
   });
 
-  it('stands each row for six times as many puzzles per level', () => {
+  it('stands each row for five times as many puzzles per level', () => {
     expect(span(0)).toBe(1);
     expect(span(1)).toBe(PAGE_SIZE);
     expect(rangesOn({ level: 1, page: 0 })).toEqual([
-      { first: 1, last: 6 },
-      { first: 7, last: 12 },
-      { first: 13, last: 18 },
-      { first: 19, last: 24 },
-      { first: 25, last: 30 },
-      { first: 31, last: 36 },
+      { first: 1, last: 5 },
+      { first: 6, last: 10 },
+      { first: 11, last: 15 },
+      { first: 16, last: 20 },
+      { first: 21, last: 25 },
     ]);
-    expect(rangesOn({ level: 2, page: 0 })[1]).toEqual({ first: 37, last: 72 });
-    expect(rangesOn({ level: 2, page: 1 })[0]).toEqual({ first: 217, last: 252 });
+    expect(rangesOn({ level: 2, page: 0 })[1]).toEqual({ first: 26, last: 50 });
+    expect(rangesOn({ level: 2, page: 1 })[0]).toEqual({ first: 126, last: 150 });
   });
 
   it('zooms out to the page whose rows hold the one being left', () => {
     expect(zoomOut({ level: 0, page: 0 })).toEqual({ level: 1, page: 0 });
-    // Page 16 at level 0 is puzzles 97–102: row 4 of the level-1 page that
-    // runs 73–108, so that is the page it lands on.
-    expect(zoomOut({ level: 0, page: 16 })).toEqual({ level: 1, page: 2 });
-    expect(rangesOn(zoomOut({ level: 0, page: 16 }))[4]).toEqual({ first: 97, last: 102 });
+    // Page 16 at level 0 is puzzles 81–85: row 1 of the level-1 page that
+    // runs 76–100, so that is the page it lands on.
+    expect(zoomOut({ level: 0, page: 16 })).toEqual({ level: 1, page: 3 });
+    expect(rangesOn(zoomOut({ level: 0, page: 16 }))[1]).toEqual({ first: 81, last: 85 });
   });
 
   it('zooms into the page a row stands for', () => {
     expect(zoomInto({ level: 1, page: 0 }, 1)).toEqual({ level: 0, page: 1 });
-    expect(pageNumbers(zoomInto({ level: 1, page: 0 }, 1).page)[0]).toBe(7);
-    expect(zoomInto({ level: 2, page: 1 }, 0)).toEqual({ level: 1, page: 6 });
-    expect(rangesOn({ level: 1, page: 6 })[0]).toEqual({ first: 217, last: 222 });
+    expect(pageNumbers(zoomInto({ level: 1, page: 0 }, 1).page)[0]).toBe(6);
+    expect(zoomInto({ level: 2, page: 1 }, 0)).toEqual({ level: 1, page: 5 });
+    expect(rangesOn({ level: 1, page: 5 })[0]).toEqual({ first: 126, last: 130 });
   });
 
   it('comes back to where it started', () => {
@@ -279,8 +278,8 @@ describe('the catalogue, zoomed out', () => {
       finished({ seed: 7 }),
       finished({ seed: 3, sizeId: 'lg' }),
     ];
-    expect(completedInRange(history, 'sm', { first: 1, last: 6 })).toBe(2);
-    expect(completedInRange(history, 'sm', { first: 7, last: 12 })).toBe(1);
-    expect(completedInRange(history, 'lg', { first: 1, last: 6 })).toBe(1);
+    expect(completedInRange(history, 'sm', { first: 1, last: 5 })).toBe(2);
+    expect(completedInRange(history, 'sm', { first: 6, last: 10 })).toBe(1);
+    expect(completedInRange(history, 'lg', { first: 1, last: 5 })).toBe(1);
   });
 });

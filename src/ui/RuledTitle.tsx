@@ -3,7 +3,7 @@ import { StyleSheet, View, type ViewStyle } from 'react-native';
 
 import { Text } from './Text';
 import { useStyles } from './ThemeProvider';
-import { space, type Palette } from './theme';
+import { space, TITLE_GAP, type, type Palette } from './theme';
 
 interface Props {
   children: string;
@@ -36,11 +36,12 @@ const makeStyles = (palette: Palette) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: space(3),
+      // Carried by the title rather than left to each screen, which is how the
+      // gap under it came to be three different sizes.
+      marginBottom: TITLE_GAP,
     },
     title: {
-      fontSize: 22,
-      fontWeight: '800',
-      letterSpacing: -0.5,
+      ...type.title,
       color: palette.ink,
     },
     line: {

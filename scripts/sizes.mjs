@@ -106,19 +106,27 @@ async function main() {
     // have, so it is checked hardest.
     await page.getByLabel('Advanced', { exact: true }).click();
     await wait(page, 700);
-    const sixth = await box(page, 'Puzzle 6');
+    // The last row on the page, whatever the page holds — asking for a numbered
+    // one would only be asking how many there are, which is not this check's
+    // business.
+    const last = await page.evaluate(() => {
+      const rows = [...document.querySelectorAll('[aria-label^="Puzzle "]')];
+      if (rows.length === 0) return null;
+      const bottom = Math.max(...rows.map((el) => el.getBoundingClientRect().bottom));
+      return { count: rows.length, bottom: Math.round(bottom) };
+    });
     const pager = await box(page, 'Previous');
     const back = await box(page, 'Back to the difficulties');
-    if (!sixth || !pager || !back) {
+    if (!last || !pager || !back) {
       complain('the numbered list is missing a row, its pager or its way back');
     } else {
-      const clear = pager.top - sixth.bottom;
+      const clear = pager.top - last.bottom;
       // The foot of a real device eats the home indicator, which the browser
       // does not report, so clearing it here by less than that is scrolling
       // there.
       if (clear < phone.bottomInset) {
         complain(
-          `puzzle 6 clears the pager by ${clear}pt, which the ${phone.bottomInset}pt home indicator would take`,
+          `the last of ${last.count} rows clears the pager by ${clear}pt, which the ${phone.bottomInset}pt home indicator would take`,
         );
       }
       if (back.bottom > phone.height) complain('the way back runs off the numbered list');
