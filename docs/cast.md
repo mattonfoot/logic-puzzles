@@ -5,7 +5,7 @@ how they hold themselves, and why they carry the hair and the one distinguishing
 feature their silhouette is built from.
 
 **None of this is in the app.** What the player reads is the item's label and its
-one-line blurb, both of which live in `locales/en-HB.yaml` and are quoted here in
+one-line blurb, both of which live in `locales/en-GB.yaml` and are quoted here in
 italics. These paragraphs are reference for whoever draws the cast — the two
 drawable traits are called out in each of them on purpose, so a redraw has
 something to work from beyond a name. See [the construction of the

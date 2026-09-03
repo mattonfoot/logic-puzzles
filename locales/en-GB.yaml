@@ -1,4 +1,4 @@
-# Deduction — en-HB
+# Deduction — en-GB
 #
 # Every word the app says, in one file. Change the wording here and run
 # `npm run locale`; that rewrites src/i18n/strings.generated.ts, which is what

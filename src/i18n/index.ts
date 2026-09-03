@@ -1,7 +1,7 @@
 /**
  * Everything the app says, read from the language file.
  *
- * `locales/en-HB.yaml` is the source; `npm run locale` builds it into
+ * `locales/en-GB.yaml` is the source; `npm run locale` builds it into
  * `strings.generated.ts`, which is what ships. Metro cannot import YAML, and a
  * parser in the bundle would be a parser on every phone reading a file that
  * never changes at runtime — so it is read once, at build time, the same way

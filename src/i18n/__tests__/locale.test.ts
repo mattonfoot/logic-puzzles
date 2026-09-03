@@ -3,7 +3,7 @@ import { join } from 'node:path';
 
 import { fill, LOCALE, plural, STRINGS, t } from '..';
 
-const LOCALE_FILE = join(__dirname, '..', '..', '..', 'locales', 'en-HB.yaml');
+const LOCALE_FILE = join(__dirname, '..', '..', '..', 'locales', 'en-GB.yaml');
 
 /** Every line of the language file, wherever it sits in the tree. */
 function everyLine(node: unknown, path = ''): { path: string; text: string }[] {
@@ -34,7 +34,7 @@ describe('the generated strings', () => {
   });
 
   it('are the locale they claim to be', () => {
-    expect(LOCALE).toBe('en-HB');
+    expect(LOCALE).toBe('en-GB');
     expect(readFileSync(LOCALE_FILE, 'utf8')).toContain('app:');
   });
 });

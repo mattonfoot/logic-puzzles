@@ -21,7 +21,7 @@ import { GEAR, SITES, SPECIES, THEME_MARK as REEF_MARK } from './reef.mjs';
 import { BILLS, DEPTHS, HEIGHTS, LAUNCHES, MARKS, REWARDS, UI } from './scales.mjs';
 
 /** The words the app ships with, which the people are drawn from. */
-const LOCALE = parse(readFileSync(new URL('../../locales/en-HB.yaml', import.meta.url), 'utf8'));
+const LOCALE = parse(readFileSync(new URL('../../locales/en-GB.yaml', import.meta.url), 'utf8'));
 
 /**
  * Everybody in one theme's anchor set, drawn from what the reference locale

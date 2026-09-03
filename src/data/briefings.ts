@@ -6,7 +6,7 @@
  * wrong, nobody wrote it down, and the only way back to the truth is the handful
  * of things people half-remember — which is exactly what the clues are.
  *
- * The words are in `locales/en-HB.yaml`; this decides which of them a puzzle
+ * The words are in `locales/en-GB.yaml`; this decides which of them a puzzle
  * gets. Three per theme, drawn by the seed like everything else, so a puzzle
  * keeps its story and two players comparing puzzle 7 are talking about the same
  * disaster.

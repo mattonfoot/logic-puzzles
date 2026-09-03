@@ -3,7 +3,7 @@
  * in what order, and the numbers behind the ordered ones.
  *
  * **The words are not here.** Every name, description, blurb and trait value is
- * in `locales/en-HB.yaml` under `themes.<theme>.categories.<set>`, and this file
+ * in `locales/en-GB.yaml` under `themes.<theme>.categories.<set>`, and this file
  * is the skeleton they hang on: ids, ordering and arithmetic. An item is known
  * by its id — `nova`, `seed-vault` — which is what the file name of its drawing
  * is built from, so translating an item's label cannot break its picture.

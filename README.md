@@ -33,7 +33,7 @@ npm run format:check  # prettier --check . (what CI asks)
 npm run screenshots  # rebuild the screens in docs/screenshots (see below); CI runs it as a check
 npm run sounds     # regenerate the three effects in assets/sounds (see below)
 npm run icons      # redraw assets/icons and rebuild the path data (see below)
-npm run locale     # rebuild the strings from locales/en-HB.yaml (see below)
+npm run locale     # rebuild the strings from locales/en-GB.yaml (see below)
 ```
 
 Formatting is Prettier's, configured in `.prettierrc.json` — 100 columns and
@@ -431,7 +431,7 @@ src/data/themes.ts          the five themes as a skeleton: which sets, which
                             items, in what order — the words are in the locale
 src/data/sizes.ts           the four sizes, and the difficulty each is called
 src/data/openers.ts         who is supposed to have said a clue
-locales/en-HB.yaml          every word the app says — the language file
+locales/en-GB.yaml          every word the app says — the language file
 src/i18n/                   t(), plural(), and the module built from that file
 src/data/briefings.ts       why anybody wants the puzzle solved
 src/puzzle/types.ts         puzzle, clue and theme model
@@ -682,7 +682,7 @@ app has one way out of a game rather than four.
 
 ## The words
 
-**Every word the app says is in `locales/en-HB.yaml`.** Nothing user-facing is
+**Every word the app says is in `locales/en-GB.yaml`.** Nothing user-facing is
 written in a component: screens, buttons, hints, confirmations, the clue
 openers, the briefings, the difficulty names, the colour names and the
 statistics wording all come from that file, and `t('numbers.puzzle', { number })`
@@ -909,7 +909,7 @@ sharper on paper and worse on the board, and both are in the history rather than
 here.
 
 Which hair and which feature is not written here. `registry.mjs` reads them off
-each person's traits in `locales/en-HB.yaml` — the same two lines the player
+each person's traits in `locales/en-GB.yaml` — the same two lines the player
 sees on their card — so the picture is built *from* the card rather than beside
 it, and the two cannot drift. Rewrite somebody's hair in the language file and
 the next `npm run icons` redraws them. A phrase with no shape behind it stops
@@ -1232,7 +1232,7 @@ before them for the longer-run trend the chart draws.
 
 - A theme is written in two halves. `src/data/themes.ts` says which five
   categories it plays with, which items are in each and in what order, and the
-  numbers an ordered category compares by; `locales/en-HB.yaml` says what all of
+  numbers an ordered category compares by; `locales/en-GB.yaml` says what all of
   it is called — set names, the `pattern` and `describes` frames, the `noun`,
   the traits, and every item's label, blurb and trait values, plus a `clues`
   block for the theme's own voice. Adding one means a block in each. Icons are

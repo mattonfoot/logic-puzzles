@@ -7,7 +7,7 @@
  * the numbers filed off, and costs nothing: the opener says who, never what, so
  * it cannot help or mislead.
  *
- * The lines are in `locales/en-HB.yaml`; this decides which one a clue gets.
+ * The lines are in `locales/en-GB.yaml`; this decides which one a clue gets.
  * `{noun}` is the theme's own word for one member of its anchor set — diver,
  * gardener, astronaut — which every theme already carries for its clue wording.
  * The ones that use it sound like the puzzle; the ones that do not sound like a

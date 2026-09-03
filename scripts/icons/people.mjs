@@ -252,7 +252,7 @@ export const FEATURE = {
 /**
  * What the reference locale says, and the shape each phrase draws as.
  *
- * The drawings are keyed to `locales/en-HB.yaml` — the file the icons are built
+ * The drawings are keyed to `locales/en-GB.yaml` — the file the icons are built
  * from — rather than hand-listed against each person, so a hair or a feature
  * written on somebody's card is the one their picture shows, and cannot drift
  * from it. A phrase with nothing behind it stops the build rather than quietly
