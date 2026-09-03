@@ -131,7 +131,9 @@ async function startPuzzle(page, difficulty = 'Advanced', number = 1, keepBriefi
 /**
  * The puzzle in play, read out of the game the app saves as it goes. The board
  * is the only place the answer lives, and the script needs it to tick squares
- * on purpose rather than at random.
+ * on purpose rather than at random. Saving starts with the first clue — a
+ * board nobody has started leaves nothing behind — so this is only worth
+ * asking once a clue has been read.
  */
 async function puzzleInPlay(page) {
   for (let attempt = 0; attempt < 20; attempt++) {
@@ -268,7 +270,6 @@ async function main() {
 
   // 9. The clue, in the window the Clue button opens, with the pair that moves
   // between the ones read.
-  const puzzle = await puzzleInPlay(page);
   const clueButton = page.getByLabel('Clue', { exact: true });
   const nextClue = page.getByLabel('Next', { exact: true });
   const closeWindow = () => page.getByLabel('Close').click({ position: { x: 12, y: 12 } });
@@ -277,6 +278,8 @@ async function main() {
   await shot('09-clue');
   await closeWindow();
   await wait(page, 400);
+  // The first clue is what starts the game, and the save with it.
+  const puzzle = await puzzleInPlay(page);
 
   // 10. The same clue lit up on the grids it talks about, which is what the
   // button on the right of the row does.
