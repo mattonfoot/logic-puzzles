@@ -12,6 +12,7 @@ import { TitlePanel } from '../ui/TitlePanel';
 interface Props {
   onDaily: () => void;
   onPlay: () => void;
+  onHowToPlay: () => void;
   onOpenSettings: () => void;
   onOpenStats: () => void;
 }
@@ -41,8 +42,14 @@ interface Props {
  * Those two are text rather than anything with a box round it. They are
  * somewhere to go once, not the point of the page, and putting them in a row of
  * cards with the two doors made them all look like the same size of decision.
+ *
+ * **How to play** is set the same size as those, and sits under **Play** rather
+ * than with them at the foot, because it is not a third place to go: it is a
+ * footnote to that door, for the one reader who does not already know what is
+ * behind it. Somebody who does never has to read it, and somebody who does not
+ * finds it in the one place they were already looking.
  */
-export function StartScreen({ onDaily, onPlay, onOpenSettings, onOpenStats }: Props) {
+export function StartScreen({ onDaily, onPlay, onHowToPlay, onOpenSettings, onOpenStats }: Props) {
   const insets = useSafeAreaInsets();
   const styles = useStyles(makeStyles);
 
@@ -55,6 +62,7 @@ export function StartScreen({ onDaily, onPlay, onOpenSettings, onOpenStats }: Pr
           <Door label={t('start.daily')} onPress={onDaily} />
           <View style={styles.rule} />
           <Door label={t('start.play')} onPress={onPlay} />
+          <FootLink label={t('start.howToPlay')} onPress={onHowToPlay} />
         </View>
 
         <View style={styles.footer}>

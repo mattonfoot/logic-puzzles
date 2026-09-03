@@ -222,6 +222,22 @@ async function main() {
   await fresh(page, origin);
   await shot('01-start');
 
+  // 18. How to play, under Play on the front door: the tutorial board, part
+  // way through the walk. Taken here, in day colours, because it is the first
+  // thing a new player opens; it is numbered last because it was added last.
+  await page.getByLabel('How to play').click();
+  await wait(page, 600);
+  const tutorialSquare = (customer, drink) =>
+    page.getByRole('button', { name: new RegExp(`^${customer} and ${drink}: `) });
+  await tutorialSquare('Ms Barley', 'Latte').click();
+  await wait(page, 300);
+  await tutorialSquare('Alderman Crumb', 'Chai').click();
+  await tutorialSquare('Alderman Crumb', 'Chai').click();
+  await wait(page, 700);
+  await shot('18-tutorial');
+  await page.getByLabel('Back').click();
+  await wait(page, 500);
+
   // 2. The difficulties, the first of the two things a player chooses.
   await page.getByLabel('Play', { exact: true }).click();
   await wait(page, 500);

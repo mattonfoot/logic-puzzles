@@ -15,6 +15,8 @@ import { SettingsScreen } from '../SettingsScreen';
 import { SetupScreen } from '../SetupScreen';
 import { StartScreen } from '../StartScreen';
 import { StatsScreen } from '../StatsScreen';
+import { TutorialScreen } from '../TutorialScreen';
+import { tutorialPuzzle } from '../../game/tutorial';
 import { NOON, game, puzzleOne, savedGame, stage, statsOf } from './stage';
 
 /**
@@ -62,14 +64,110 @@ const none = () => {};
 describe('the front door', () => {
   it('opens on the four ways in', () => {
     const onPlay = jest.fn();
-    stage(<StartScreen onDaily={none} onPlay={onPlay} onOpenSettings={none} onOpenStats={none} />);
+    const onHowToPlay = jest.fn();
+    stage(
+      <StartScreen
+        onDaily={none}
+        onPlay={onPlay}
+        onHowToPlay={onHowToPlay}
+        onOpenSettings={none}
+        onOpenStats={none}
+      />,
+    );
 
-    for (const door of ['Daily', 'Play', 'Settings', 'Statistics']) {
+    for (const door of ['Daily', 'Play', 'How to play', 'Settings', 'Statistics']) {
       expect(button(door)).toBeEnabled();
     }
 
     fireEvent.press(button('Play'));
     expect(onPlay).toHaveBeenCalledTimes(1);
+
+    fireEvent.press(button('How to play'));
+    expect(onHowToPlay).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('how to play', () => {
+  const puzzle = tutorialPuzzle();
+  /** A square, by the two it names — the way the board labels every cell. */
+  const square = (customer: number, drink: number) =>
+    new RegExp(
+      `^${puzzle.categories[0].items[customer].label} and ${puzzle.categories[1].items[drink].label}: `,
+    );
+
+  function walk() {
+    stage(<TutorialScreen onBack={none} />);
+    const measured = screen.UNSAFE_getAllByType(View).find((view) => view.props.onLayout);
+    if (!measured) throw new Error('the board never measures itself');
+    fireEvent(measured, 'layout', { nativeEvent: { layout: { width: 340, height: 420 } } });
+  }
+
+  const tap = (customer: number, drink: number, times = 1) => {
+    for (let at = 0; at < times; at++) {
+      fireEvent.press(screen.getByRole('button', { name: square(customer, drink) }));
+    }
+  };
+
+  it('opens on the first thing to do, with the clue it follows from', () => {
+    walk();
+
+    expect(header('How to play')).toBeOnTheScreen();
+    expect(screen.getByText(/Every square asks the same question/)).toBeOnTheScreen();
+    expect(screen.getByText(/Tap where Ms Barley meets the latte/)).toBeOnTheScreen();
+    expect(screen.getByText('The clue')).toBeOnTheScreen();
+    expect(
+      screen.getByText('Ms Barley is not on the same ticket as the Latte drinker.'),
+    ).toBeOnTheScreen();
+    expect(button('Back')).toBeEnabled();
+  });
+
+  it('waits for the mark it asked for, and moves on when it lands', () => {
+    walk();
+
+    // A tap somewhere else is allowed and teaches nothing; the ask stands.
+    tap(2, 1);
+    expect(screen.getByText(/Tap where Ms Barley meets the latte/)).toBeOnTheScreen();
+
+    tap(0, 0);
+    expect(screen.getByText(/Ruled out\. Crossing pairs off/)).toBeOnTheScreen();
+    expect(screen.getByText(/Tap where Alderman Crumb meets the chai twice/)).toBeOnTheScreen();
+    expect(
+      screen.getByText('Alderman Crumb is on the same ticket as the Chai drinker.'),
+    ).toBeOnTheScreen();
+  });
+
+  it('crosses off the rest of the row and column, and says so', () => {
+    walk();
+    tap(0, 0);
+    tap(1, 2, 2);
+
+    expect(screen.getByText(/A tick settles a whole row and a whole column/)).toBeOnTheScreen();
+    // Crumb's other two and the chai's other two, all ruled out without a tap.
+    for (const [customer, drink] of [
+      [1, 0],
+      [1, 1],
+      [0, 2],
+      [2, 2],
+    ]) {
+      expect(
+        screen.getByRole('button', { name: square(customer, drink) }).props.accessibilityLabel,
+      ).toMatch(/ruled out$/);
+    }
+  });
+
+  it('leaves the last square to the player, and stops talking after it', () => {
+    walk();
+    tap(0, 0);
+    tap(1, 2, 2);
+    tap(0, 1, 2);
+
+    // No clue for the last one, so there is none on the screen.
+    expect(screen.getByText(/One square left, and nothing left to read/)).toBeOnTheScreen();
+    expect(screen.queryByText('The clue')).toBeNull();
+
+    tap(2, 0, 2);
+    expect(screen.getByText(/Solved\./)).toBeOnTheScreen();
+    expect(screen.queryByText(/Tap/)).toBeNull();
   });
 });
 

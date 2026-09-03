@@ -26,12 +26,14 @@ import { SettingsScreen } from './src/screens/SettingsScreen';
 import { SetupScreen } from './src/screens/SetupScreen';
 import { StartScreen } from './src/screens/StartScreen';
 import { StatsScreen } from './src/screens/StatsScreen';
+import { TutorialScreen } from './src/screens/TutorialScreen';
 import { Boundary } from './src/ui/Boundary';
 import { configureFeedback } from './src/ui/feedback';
 import { ThemeProvider, useStyles, useTheme } from './src/ui/ThemeProvider';
 import { inkOn, type Palette } from './src/ui/theme';
 
-type Screen = 'start' | 'daily' | 'setup' | 'numbers' | 'result' | 'settings' | 'stats' | 'game';
+type Screen =
+  'start' | 'daily' | 'setup' | 'numbers' | 'result' | 'settings' | 'stats' | 'game' | 'tutorial';
 
 /** The screens that wear `TitlePanel`, which is what the status bar reads off. */
 const PANELLED = new Set<Screen>(['start', 'setup', 'numbers', 'daily']);
@@ -230,6 +232,8 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           />
         ) : screen === 'result' && result ? (
           <ResultScreen game={result} onBack={() => setScreen('daily')} />
+        ) : screen === 'tutorial' ? (
+          <TutorialScreen onBack={() => setScreen('start')} />
         ) : screen === 'settings' ? (
           <SettingsScreen
             settings={settings.settings}
@@ -248,6 +252,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           <StartScreen
             onDaily={() => setScreen('daily')}
             onPlay={() => setScreen('setup')}
+            onHowToPlay={() => setScreen('tutorial')}
             onOpenSettings={() => setScreen('settings')}
             onOpenStats={() => setScreen('stats')}
           />

@@ -51,8 +51,28 @@ crash:
 start:
   daily: Daily
   play: Play
+  # Under Play, for somebody who has never met a logic grid.
+  howToPlay: How to play
   settings: Settings
   statistics: Statistics
+
+# The board the app teaches itself with: a real grid, walked four marks.
+tutorial:
+  title: How to play
+  # Under the title, before anything is marked.
+  opening: 'Three customers, three drinks. Each ordered one, and no two ordered the same. Every square asks the same question: do these two go together?'
+  # Over the clue a step follows from.
+  clue: The clue
+  steps:
+    cross: Tap where Ms Barley meets the latte. One tap crosses it out.
+    crossDone: Ruled out. Crossing pairs off is most of the game.
+    tick: 'This one says yes. Tap where Alderman Crumb meets the chai twice: once for a cross, again for a tick.'
+    tickDone: A tick settles a whole row and a whole column. Crumb ordered nothing else, and nobody else ordered the chai — so the board crossed those off for you, lightly, to tell them from your own.
+    deduce: No clue for this one. Ms Barley's latte and chai are both crossed off, so the mocha is hers. Tap it twice.
+    deduceDone: Read a clue, mark what it settles, then see what is left over.
+    alone: One square left, and nothing left to read. Finish it.
+    aloneDone: Solved. Every puzzle in the app is that, on a bigger board with more to hold in your head.
+  back: Back
 
 setup:
   title: Play

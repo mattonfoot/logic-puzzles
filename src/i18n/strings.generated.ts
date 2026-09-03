@@ -28,8 +28,29 @@ export const STRINGS = {
   start: {
     daily: 'Daily',
     play: 'Play',
+    howToPlay: 'How to play',
     settings: 'Settings',
     statistics: 'Statistics',
+  },
+  tutorial: {
+    title: 'How to play',
+    opening:
+      'Three customers, three drinks. Each ordered one, and no two ordered the same. Every square asks the same question: do these two go together?',
+    clue: 'The clue',
+    steps: {
+      cross: 'Tap where Ms Barley meets the latte. One tap crosses it out.',
+      crossDone: 'Ruled out. Crossing pairs off is most of the game.',
+      tick: 'This one says yes. Tap where Alderman Crumb meets the chai twice: once for a cross, again for a tick.',
+      tickDone:
+        'A tick settles a whole row and a whole column. Crumb ordered nothing else, and nobody else ordered the chai — so the board crossed those off for you, lightly, to tell them from your own.',
+      deduce:
+        "No clue for this one. Ms Barley's latte and chai are both crossed off, so the mocha is hers. Tap it twice.",
+      deduceDone: 'Read a clue, mark what it settles, then see what is left over.',
+      alone: 'One square left, and nothing left to read. Finish it.',
+      aloneDone:
+        'Solved. Every puzzle in the app is that, on a bigger board with more to hold in your head.',
+    },
+    back: 'Back',
   },
   setup: {
     title: 'Play',
@@ -4343,6 +4364,7 @@ export type StringKey =
   | 'solved.time'
   | 'solved.title'
   | 'start.daily'
+  | 'start.howToPlay'
   | 'start.play'
   | 'start.settings'
   | 'start.statistics'
@@ -6518,6 +6540,18 @@ export type StringKey =
   | 'themes.reef.clues.link'
   | 'themes.reef.clues.notLink'
   | 'themes.reef.name'
+  | 'tutorial.back'
+  | 'tutorial.clue'
+  | 'tutorial.opening'
+  | 'tutorial.steps.alone'
+  | 'tutorial.steps.aloneDone'
+  | 'tutorial.steps.cross'
+  | 'tutorial.steps.crossDone'
+  | 'tutorial.steps.deduce'
+  | 'tutorial.steps.deduceDone'
+  | 'tutorial.steps.tick'
+  | 'tutorial.steps.tickDone'
+  | 'tutorial.title'
   | 'volumes.loud'
   | 'volumes.medium'
   | 'volumes.off'

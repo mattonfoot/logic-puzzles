@@ -68,14 +68,24 @@ export const SETTLED_TINT = 0.1;
  * margin: there are `items × rows` squares plus the one the picture sits in,
  * on both axes.
  */
-export function fitCellSize(puzzle: Puzzle, width: number, height: number): number {
+export function fitCellSize(
+  puzzle: Puzzle,
+  width: number,
+  height: number,
+  // How large a square is allowed to get. The board's own ceiling is the zoom's,
+  // and it is set where a six-set staircase stops being one thing to look at.
+  // The tutorial's single grid has nine squares and a screen to itself, so it
+  // asks for a larger one rather than sitting marooned in the middle of the
+  // room it was given.
+  max = MAX_CELL,
+): number {
   const rows = puzzle.categories.length - 1;
   const items = puzzle.size.items;
   const rules = rows * BLOCK_BORDER * 2;
   const squares = items * rows + 1;
   const byWidth = (width - CATEGORY_STRIP - LABEL_GAP - rules) / squares;
   const byHeight = (height - CATEGORY_NAME - rules) / squares;
-  return Math.max(MIN_CELL, Math.min(MAX_CELL, Math.floor(Math.min(byWidth, byHeight))));
+  return Math.max(MIN_CELL, Math.min(max, Math.floor(Math.min(byWidth, byHeight))));
 }
 
 /**
