@@ -16,6 +16,13 @@ interface Props {
   mistakes: Set<string>;
   /** Attributes a focused clue talks about; their rows and columns are tinted. */
   highlight: Attribute[];
+  /**
+   * One square being waited on, ringed in the accent. The tutorial asks for a
+   * particular mark and this is how it points: the crosshair says which two
+   * things the square is about, and the ring says *that* square, which is a
+   * thing a row and a column crossing cannot say on their own.
+   */
+  awaiting?: Cell | null;
   cellSize: number;
   onToggle: (cell: Cell) => void;
   /** A label was tapped: the player wants to know who or what that is. */
@@ -112,6 +119,7 @@ export function GridBoard({
   marks,
   mistakes,
   highlight,
+  awaiting,
   cellSize,
   onToggle,
   onInspect,
@@ -119,6 +127,7 @@ export function GridBoard({
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const layout = useMemo(() => boardLayout(puzzle.categories.length), [puzzle]);
+  const wanted = awaiting ? markKey(awaiting) : null;
   const items = puzzle.size.items;
   // A block's box holds its own rule on each side, so the squares inside it
   // measure exactly `cellSize` and line up with the labels beside them.
@@ -254,6 +263,7 @@ export function GridBoard({
                           const wrong = mistakes.has(markKey(cell));
                           const crosshair =
                             isLit(rowCategory, rowItem) || isLit(colCategory, colItem);
+                          const asked = wanted !== null && markKey(cell) === wanted;
                           return (
                             <Pressable
                               key={colItem}
@@ -264,6 +274,10 @@ export function GridBoard({
                               onPress={() => onToggle(cell)}
                               style={({ pressed }) => [
                                 styles.cell,
+                                asked && {
+                                  borderWidth: 3,
+                                  borderColor: palette.accent,
+                                },
                                 {
                                   width: cellSize,
                                   height: cellSize,

@@ -1239,7 +1239,12 @@ before them for the longer-run trend the chart draws.
 - **How to play** is a real board rather than a page of instructions:
   `src/game/tutorial.ts` builds a fixed two-set puzzle from the café's own
   cast — three customers, three drinks, one grid of nine — and scripts four
-  marks over it. Three are explained: a cross from a clue, a tick from a clue,
+  marks over it. The square being waited on is ringed in the accent and its row
+  and column are lit the way a clue lights the grids it talks about — two ways
+  of pointing that say different things, since the crosshair names the two
+  items the square is about, which is what a first-timer has to learn to read,
+  and the ring says *that* square. The ring stays until the mark asked for is
+  on it. Three marks are explained: a cross from a clue, a tick from a clue,
   and the square that follows from the two. The fourth is named and left alone,
   so the last thing that happens is the player finishing a grid with nothing
   said to them. Every tap is accepted, wrong ones included, and the step being

@@ -139,10 +139,14 @@ export function TutorialScreen({ onBack }: Props) {
               puzzle={puzzle}
               marks={marks}
               mistakes={mistakes}
-              // The square being asked for is lit the way a clue lights the
-              // grids it talks about, so the tutorial points with something
-              // the game already does rather than an arrow of its own.
+              // Two ways of pointing, saying two different things. The
+              // crosshair is the game's own — the row and the column of the
+              // pair a clue talks about — and it names the two things the
+              // square is about, which is the thing a first-timer has to
+              // learn to read. The ring says *that* square, and stays until
+              // the mark it is waiting for is on it.
               highlight={done ? [] : stepHighlight(step)}
+              awaiting={done ? null : step.cell}
               cellSize={cellSize}
               onToggle={toggle}
               onInspect={() => undefined}

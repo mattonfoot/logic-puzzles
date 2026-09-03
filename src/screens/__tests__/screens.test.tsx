@@ -1,6 +1,6 @@
 import { act, fireEvent, screen } from '@testing-library/react-native';
 import React from 'react';
-import { Share, View } from 'react-native';
+import { Share, StyleSheet, View } from 'react-native';
 
 import { sizeById } from '../../data/sizes';
 import { dailySeed } from '../../game/library';
@@ -168,6 +168,56 @@ describe('how to play', () => {
     tap(2, 0, 2);
     expect(screen.getByText(/Solved\./)).toBeOnTheScreen();
     expect(screen.queryByText(/Tap/)).toBeNull();
+  });
+
+  /** Whether a square is wearing the ring that says "this one". */
+  const ringed = (customer: number, drink: number) =>
+    StyleSheet.flatten(screen.getByRole('button', { name: square(customer, drink) }).props.style)
+      .borderWidth === 3;
+
+  it('rings the square it is waiting for, and only that one', () => {
+    walk();
+
+    expect(ringed(0, 0)).toBe(true);
+    for (const [customer, drink] of [
+      [0, 1],
+      [1, 2],
+      [2, 0],
+    ]) {
+      expect(ringed(customer, drink)).toBe(false);
+    }
+
+    // A mark somewhere else does not move it.
+    tap(2, 1);
+    expect(ringed(0, 0)).toBe(true);
+
+    // The mark it wanted does.
+    tap(0, 0);
+    expect(ringed(0, 0)).toBe(false);
+    expect(ringed(1, 2)).toBe(true);
+  });
+
+  it('keeps the ring on while a half-made mark is on the square', () => {
+    walk();
+    tap(0, 0);
+
+    // One tap of the two the tick needs: a cross, which is not what was asked.
+    tap(1, 2);
+    expect(ringed(1, 2)).toBe(true);
+    tap(1, 2);
+    expect(ringed(1, 2)).toBe(false);
+  });
+
+  it('takes the ring off once there is nothing left to ask for', () => {
+    walk();
+    tap(0, 0);
+    tap(1, 2, 2);
+    tap(0, 1, 2);
+    tap(2, 0, 2);
+
+    for (let customer = 0; customer < 3; customer++) {
+      for (let drink = 0; drink < 3; drink++) expect(ringed(customer, drink)).toBe(false);
+    }
   });
 
   it('says so at once when a mark cannot be right, and stops when it is put back', () => {
