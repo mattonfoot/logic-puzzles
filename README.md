@@ -365,9 +365,11 @@ rest is the app behaving normally.
    column per set, so the whole solution reads across in a line. The first set
    stays pinned while the others scroll sideways, which keeps every heading on
    one line. The grid does not come back: a solved board takes no more marks,
-   and the answer above it says everything the squares would. There is nothing
-   to press: `◀ Back` leads to the setup screen, which is where the next puzzle
-   is chosen.
+   and the answer above it says everything the squares would. The burger goes
+   with it: the menu behind it holds the two board settings and the way to
+   start this puzzle over, and a finished board has no use for any of the
+   three. What is left to press is **Share** and `◀ Back`, which leads to the
+   setup screen, where the next puzzle is chosen.
 9. **Puzzle settings**, behind the burger at the top left, holds everything that acts
    on the game rather than on a square: the two board settings and the colour,
    boxed and named exactly as the settings screen has them (they are the
@@ -413,7 +415,9 @@ goes back exactly one step.
 
 The top left is left to one thing: the **burger** on the board, which opens the
 game's menu. That is the only control in that corner anywhere in the app, so a
-tap there always means the same thing. A corner that goes back on one screen and
+tap there always means the same thing — and it is there only while there is a
+board to work on. The finish takes it away with the grid, and the theme's name
+slides over to the left margin every other screen's title stands on. A corner that goes back on one screen and
 opens something on another is a corner nobody trusts, which is why no screen
 carries a header button at all — a screen's name is `RuledTitle`, which is text
 — and the menu is dismissed with `◀ Back` rather than a cross where the burger

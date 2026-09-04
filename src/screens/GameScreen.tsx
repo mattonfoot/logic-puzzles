@@ -527,18 +527,25 @@ export function GameScreen({
   return (
     <View style={styles.screen}>
       <View style={[styles.header, { paddingTop: insets.top + space(4) }]}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t('game.menu')}
-          onPress={() => {
-            feedback.tap();
-            setMenuOpen(true);
-          }}
-          style={styles.headerButton}
-          hitSlop={12}
-        >
-          <Text style={styles.headerButtonText}>☰</Text>
-        </Pressable>
+        {/* The burger holds the two board settings and the way to start this
+            puzzle over, none of which a finished board has any use for: the
+            marks are all in, the answer is on the screen, and the way on is
+            the summary's own. So it goes when the board does, and the theme's
+            name takes the left margin every other screen's title stands on. */}
+        {solved ? null : (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t('game.menu')}
+            onPress={() => {
+              feedback.tap();
+              setMenuOpen(true);
+            }}
+            style={styles.headerButton}
+            hitSlop={12}
+          >
+            <Text style={styles.headerButtonText}>☰</Text>
+          </Pressable>
+        )}
         <View style={styles.headerCenter}>
           <RuledTitle>{puzzle.themeName}</RuledTitle>
           <Text style={styles.headerSubtitle} numberOfLines={1}>

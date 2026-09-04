@@ -2,6 +2,7 @@ import { act, fireEvent, screen } from '@testing-library/react-native';
 import React from 'react';
 import { Share, StyleSheet, View } from 'react-native';
 
+import { categoryPairs, isCorrectPair, setMark, type Marks } from '../../game/board';
 import { sizeById } from '../../data/sizes';
 import { dailySeed } from '../../game/library';
 import type { SavedGame } from '../../game/persistence';
@@ -586,6 +587,22 @@ describe('the board', () => {
   beforeEach(() => jest.useFakeTimers());
   afterEach(() => jest.useRealTimers());
 
+  /** Every correct pair ticked, which is a board with nothing left to do. */
+  function solvedMarks(): Marks {
+    let marks: Marks = {};
+    for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
+      for (let i1 = 0; i1 < puzzle.size.items; i1++) {
+        for (let i2 = 0; i2 < puzzle.size.items; i2++) {
+          const cell = { c1, i1, c2, i2 };
+          if (isCorrectPair(puzzle, cell)) {
+            marks = setMark(marks, cell, 'yes', { size: puzzle.size.items, autoEliminate: true });
+          }
+        }
+      }
+    }
+    return marks;
+  }
+
   function play(restore: ReturnType<typeof savedGame> | null = null, { disk = true } = {}) {
     const onSaveProgress = jest.fn(async (_game: SavedGame) => disk);
     const onDiscardProgress = jest.fn();
@@ -823,6 +840,46 @@ describe('the board', () => {
 
     fireEvent.press(button('Back to the board'));
     expect(button('Clue')).toBeEnabled();
+  });
+
+  it('takes the burger away with the board when the puzzle comes out', async () => {
+    stage(
+      <GameScreen
+        puzzle={puzzle}
+        autoEliminate
+        autoFacts
+        accent={DEFAULT_SETTINGS.accent}
+        onToggleAutoEliminate={none}
+        onToggleAutoFacts={none}
+        onChangeAccent={none}
+        restore={{ ...savedGame(puzzle), marks: solvedMarks() }}
+        onExit={none}
+        onSaveProgress={async () => true}
+        onDiscardProgress={none}
+        onCompleted={async () => ({
+          improvement: {
+            kind: 'first',
+            headline: 'First one at this size',
+            detail: '',
+            previousBest: null,
+            averageBefore: null,
+            rank: null,
+            solvedBefore: 0,
+          },
+          recorded: true,
+        })}
+      />,
+    );
+    await act(async () => {
+      jest.advanceTimersByTime(0);
+    });
+
+    expect(screen.getByText('Solved!')).toBeOnTheScreen();
+    // The two board settings and the way to start over are all about a board
+    // being worked on, and there is no longer one to work on.
+    expect(screen.queryByRole('button', { name: 'Menu' })).toBeNull();
+    // What the puzzle was called stays, on the left margin the burger had.
+    expect(header(puzzle.themeName)).toBeOnTheScreen();
   });
 });
 
