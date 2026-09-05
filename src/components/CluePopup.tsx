@@ -1,15 +1,15 @@
 import React from 'react';
-import { Modal, Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { clueOpener } from '../data/openers';
 import { t } from '../i18n';
 import { describeClue } from '../puzzle/describe';
 import type { Puzzle } from '../puzzle/types';
-import { feedback } from '../ui/feedback';
 import { Pager } from '../ui/Pager';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { border, shadow, space, type Palette } from '../ui/theme';
+import { space, type Palette } from '../ui/theme';
+import { Popup } from './Popup';
 
 interface Props {
   visible: boolean;
@@ -64,59 +64,29 @@ export function CluePopup({
   if (!visible) return null;
 
   return (
-    <Modal visible transparent animationType="fade" onRequestClose={onClose}>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={t('common.close')}
-        style={styles.backdrop}
-        onPress={() => {
-          feedback.tap();
-          onClose();
-        }}
-      >
-        {/* Taps inside the window stay inside it. */}
-        <Pressable style={[styles.card, shadow.raised]} onPress={() => undefined}>
-          <Text style={[styles.opener, { color: palette.accent }]}>
-            {index === null ? t('clue.noneYet') : `${clueOpener(puzzle, index)}…`}
-          </Text>
+    <Popup visible onClose={onClose}>
+      <Text style={[styles.opener, { color: palette.accent }]}>
+        {index === null ? t('clue.noneYet') : `${clueOpener(puzzle, index)}…`}
+      </Text>
 
-          <Text style={styles.clue} accessibilityLabel={t('clue.inPlay')}>
-            {index === null ? t('clue.noneYetBody') : describeClue(puzzle.clues[index], puzzle)}
-          </Text>
+      <Text style={styles.clue} accessibilityLabel={t('clue.inPlay')}>
+        {index === null ? t('clue.noneYetBody') : describeClue(puzzle.clues[index], puzzle)}
+      </Text>
 
-          <View style={styles.pager}>
-            <Pager
-              previousDisabled={previousDisabled}
-              middle={index === null ? undefined : t('common.position', { at: position, total })}
-              onPrevious={onPrevious}
-              onNext={onNext}
-            />
-          </View>
-
-          <Text style={styles.dismiss}>{t('common.tapOutside')}</Text>
-        </Pressable>
-      </Pressable>
-    </Modal>
+      <View style={styles.pager}>
+        <Pager
+          previousDisabled={previousDisabled}
+          middle={index === null ? undefined : t('common.position', { at: position, total })}
+          onPrevious={onPrevious}
+          onNext={onNext}
+        />
+      </View>
+    </Popup>
   );
 }
 
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
-    backdrop: {
-      flex: 1,
-      backgroundColor: 'rgba(24, 22, 18, 0.45)',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: space(6),
-    },
-    card: {
-      width: '100%',
-      maxWidth: 360,
-      backgroundColor: palette.surface,
-      borderWidth: border,
-      borderColor: palette.line,
-      padding: space(5),
-    },
     opener: {
       // Spoken rather than filed: sentence case and a little larger than the
       // labels elsewhere, because it is the first half of what is being read
@@ -136,11 +106,5 @@ const makeStyles = (palette: Palette) =>
     },
     pager: {
       marginTop: space(4),
-    },
-    dismiss: {
-      fontSize: 11,
-      color: palette.inkFaint,
-      textAlign: 'center',
-      marginTop: space(2),
     },
   });

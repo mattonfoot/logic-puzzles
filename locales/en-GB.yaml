@@ -63,17 +63,42 @@ start:
 lessons:
   title: How to play
   back: Back
-  # Over the clue a step follows from.
+  # Under the puzzle's name in the header: how far through the walk you are.
+  step: Step {at} of {total}
+  # The last line of the window a lesson opens on, in the frame a puzzle's own
+  # story opens in. Nothing happens until the player asks for it.
+  begin: When you are ready to start the tutorial, hit the Clue button.
+  # Under every instruction, so the way on is never in doubt.
+  whenDone: Hit the Clue button again when you are done.
+  # Over the clue a step follows from, where a puzzle's clue window says who is
+  # supposed to have said it.
   clue: The clue
+  # And over what to do about it.
+  saying: What to do
   # The line while there is board left and no step left to read.
   finish: 'Nothing left to read. Finish it.'
   # Once the board is out.
   solved: 'Solved. Every puzzle in the app is that, on a bigger board with more to hold in your head.'
-  # A mark that contradicts the answer, shaded on the board the way the game
-  # shades one. A lesson says so at once; a real puzzle waits to be asked.
-  wrong:
-    one: That one cannot be right, so the board has shaded it. Tap it round until it clears.
-    other: Those cannot be right, so the board has shaded them. Tap each round until it clears.
+  # What the Clue button finds when the board is not what the step asked for.
+  # A real puzzle keeps this to itself until a clue cannot help; a lesson is
+  # asked directly, and answers.
+  check:
+    # A square, by the two things it names: "Ms Barley and the Mocha".
+    square: '{row} and {column}'
+    # Joining two or three of them: "A, B and C".
+    listLast: '{first} and {last}'
+    # Pressed with the square still empty.
+    blank: 'Nothing on {square} yet — that is the square this one is about.'
+    # Asked for a tick, found a cross.
+    crossed: '{square} is crossed out, and this one is a pair. Tap it once more to bring the cross round to a tick, or hold the square down.'
+    # Asked for a cross, found a tick.
+    ticked: '{square} is ticked, and nothing here says those two go together. Tap it twice to bring the tick round to a cross.'
+    # Marks anywhere on the board that contradict the answer.
+    wrong:
+      one: '{squares} cannot be right, so the board has shaded it. Tap it round until it clears, then hit Clue again.'
+      other: '{squares} cannot be right, so the board has shaded them. Tap each round until it clears, then hit Clue again.'
+    # Pressed with the last square still open and nothing wrong on the board.
+    unfinished: 'Not out yet — there is still a square with nothing in it, and everything you need to fill it is on the board.'
   confirm:
     title: Leave the lesson?
     body: There is nothing to save here, so it starts from the beginning next time.

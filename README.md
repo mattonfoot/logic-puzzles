@@ -194,7 +194,11 @@ pictures below are for.
 
 | | | |
 | --- | --- | --- |
-| <img src="docs/screenshots/19-clue-lessons.png" width="230" alt="The Understanding clues menu"><br>**19. Understanding clues** — one lesson per kind of clue the generator writes. | <img src="docs/screenshots/20-lesson.png" width="230" alt="The grouped clues lesson part way through"><br>**20. A lesson** — grouped clues, two squares in: a real board, the ring on the square being waited for, and the words above it. | |
+| <img src="docs/screenshots/19-clue-lessons.png" width="230" alt="The Understanding clues menu"><br>**19. Understanding clues** — one lesson per kind of clue the generator writes. | <img src="docs/screenshots/20-lesson.png" width="230" alt="The briefing a lesson opens on"><br>**20. A lesson opens** — what it is about, in the window a puzzle tells its story in, ending with the one thing to do. | <img src="docs/screenshots/21-lesson-clue.png" width="230" alt="A lesson's clue window"><br>**21. Clue** — the clue, what to do with it, and the press that has it read. |
+
+| | | |
+| --- | --- | --- |
+| <img src="docs/screenshots/22-lesson-board.png" width="230" alt="The lesson board part way through"><br>**22. The board** — the game screen exactly: the same header, zoom pair, and four words along the bottom. | <img src="docs/screenshots/23-lesson-next.png" width="230" alt="The next step of the lesson"><br>**23. On to the next** — Clue read the board, found it right, and moved straight on. | |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -472,7 +476,8 @@ src/puzzle/solver.ts        constraint solver: propagation + search
 src/puzzle/describe.ts      clue objects → sentences, using each theme's wording
 src/game/board.ts           the player's ticks and crosses, mistakes, win check
 src/game/library.ts         the numbered catalogue and the daily seed
-src/game/lessons.ts         the seven boards behind How to play, and their walks
+src/game/lessons.ts         the seven boards behind How to play, their walks,
+                            and what the Clue button makes of a marked one
 src/game/clues.ts           what a clue asks of the board, which are spent, and
                             how a new one is written when they run out
 src/game/layout.ts          the staircase arrangement + the answer table
@@ -482,7 +487,9 @@ src/game/time.ts            duration formatting
 src/game/useTimer.ts        elapsed-time hook
 src/stats/summary.ts        history → stats per difficulty, streaks, improvement notes
 src/storage/store.ts        the only module that touches AsyncStorage
-src/components/             GridBoard, Mark, SolutionTable, CluePopup, ItemCard, …
+src/components/             GridBoard, Mark, SolutionTable, ItemCard, …
+src/components/Popup.tsx    the window shell the briefing, the clue and a lesson
+                            all wear
 src/screens/                StartScreen, SetupScreen, NumbersScreen,
                             DailyScreen, ResultScreen, SettingsScreen,
                             GameScreen, GameMenuScreen, StatsScreen,
@@ -496,6 +503,8 @@ src/ui/                     Text, ThemeProvider (day/night), palettes,
 src/ui/accents.ts           the five colours the app can be drawn in
 src/ui/BackLink.tsx         the bottom-left `◀ Back` link, the one way back
 src/ui/Choice.tsx           one row of a menu: a difficulty, a lesson, a game
+src/ui/ToolButton.tsx       Undo, Clue, Info and Highlight, on a board or a lesson
+src/ui/ZoomPair.tsx         − and +, over the right-hand end of either
 src/ui/RuledTitle.tsx       a screen's name with a rule drawn out of the word
 src/ui/SettingRow.tsx       the boxes, sliders and word-actions the two settings
                             screens are made of
@@ -1329,38 +1338,54 @@ before them for the longer-run trend the chart draws.
   under pure propagation, which is the same bar the generator holds a shipped
   puzzle to. The clues are the sentences the generator would have written,
   through the same `describeClue`.
-  The square being waited on is ringed in the accent and its row and column are
-  lit the way a clue lights the grids it talks about — two ways of pointing
-  that say different things, since the crosshair names the two items the square
-  is about, which is what a first-timer has to learn to read, and the ring says
-  *that* square. The ring stays until the mark asked for is on it.
+- **A lesson is played on the game screen**, not on a screen that resembles it:
+  the same header, the same board over the same zoom pair, the same four words
+  along the bottom, the same windows opening over the top of them. `ToolButton`
+  and `ZoomPair` are shared components rather than a copy apiece, and the
+  briefing, the clue and a lesson's own window are one `Popup` shell wearing
+  three sets of words. The thing being taught is how to play, and a player
+  taught on a layout the app does not otherwise have has been taught a screen
+  they are about to stop having.
+  **The Clue button drives it, and nothing else does.** A lesson opens on its
+  briefing — what this one is about, in the window a puzzle tells its story in
+  — ending with the only thing to do: hit Clue. Clue hands over the step's clue
+  and what to do with it, and says to hit Clue again when it is done. That
+  second press is the player saying "I am finished", and it is where the board
+  is read: right, and it moves straight on to the next thing; wrong, and the
+  window comes back with what is wrong at the top of it and the taps that put it
+  right. The square just asked about is answered first — "tap it once more" and
+  "tap it twice" are different instructions and only one of them is ever right —
+  and a mark that cannot be right anywhere on the board stops the walk even when
+  the asked-for square is perfect.
+  Checking on the press rather than on every mark is the point of the shape. A
+  board that corrected the player as they went would be marking the board for
+  them, and would be answering a question nobody asked — the same reason a real
+  puzzle says nothing about a wrong mark until a clue cannot help. Here the
+  player asks, so here it answers.
+  The square being waited on is ringed in the accent until the mark it wants is
+  on it, and its row and column are lit behind **Highlight**, the same button
+  that lights a clue on a real board — two ways of pointing that say different
+  things, since the crosshair names the two items the square is about and the
+  ring says *that* square.
   Every walk stops one pair short. Finishing is read off the board — `isSolved`
   — rather than off the end of the step list, so a lesson can run out of things
   to say while there is still a square to fill, which is the point of all seven:
   the last thing that happens is the player finishing a grid with nothing said
-  to them. Every tap is accepted, wrong ones included, and the step being asked
-  for is read off the board rather than counted, so taking a mark back walks the
-  words back too.
+  to them.
   The traits are stripped from every set but one, which stops a clue describing
   somebody instead of naming them — a second idea on a screen teaching the
   first. The exception is the grouped lesson, where describing a group *is* the
   lesson: its customers keep their traits, its clues say "no customer with
   spectacles", and it is the only lesson where tapping a picture opens the card
   those descriptions are written on.
-  A mark that contradicts the answer is shaded and named on
-  the spot — a real board keeps that to itself until you ask for a clue it
-  cannot give you, because being told mid-thought that you are wrong is the
-  game solving the puzzle for you, but a lesson has nothing to spoil and a
-  wrong mark left standing is the one way this screen could send somebody away
-  more confused than it found them. Nothing there is timed, saved or recorded,
-  and nothing
+  Nothing there is timed, saved or recorded, and nothing
   anywhere notes that any of them has been done: each opens on an empty board
   every time, which is what lets them be taken twice. Leaving part-way through
   asks first, in the app's own window, because the walk starts over rather than
   picking up where it stopped; a finished one goes without a word. Tests hold
   each step's square to being empty when its turn comes — which is what makes
-  "tap it twice" true — walk every lesson end to end, check each stops exactly
-  one pair short, and reopen one to check it forgets.
+  "tap it twice" true — drive every lesson end to end through the Clue button,
+  check each stops exactly one pair short, and reopen one to check it forgets.
 - No backend and no analytics: everything is kept on the device, and clearing
   the statistics from the stats screen deletes it.
 - `npm run sounds` rewrites the three WAVs in `assets/sounds` from

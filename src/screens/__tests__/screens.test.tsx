@@ -170,27 +170,64 @@ describe('how to play', () => {
     fireEvent(measured, 'layout', { nativeEvent: { layout: { width: 340, height: 420 } } });
   }
 
+  /** Puts whatever window is open away, the way a finger does. */
+  const dismiss = () => fireEvent.press(only('button', 'Close'));
+
   const tap = (customer: number, drink: number, times = 1) => {
     for (let at = 0; at < times; at++) {
       fireEvent.press(screen.getByRole('button', { name: square(customer, drink) }));
     }
   };
 
-  it('opens on the first thing to do, with the clue it follows from', () => {
+  /**
+   * The whole shape of a lesson: a briefing that says to hit Clue, then Clue
+   * for what to do, then Clue again to have it read.
+   */
+  it('opens on its own briefing, in the window a puzzle tells its story in', () => {
     walk();
 
     expect(header('Using deduction')).toBeOnTheScreen();
     expect(screen.getByText(/Every square asks the same question/)).toBeOnTheScreen();
-    expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
+    expect(
+      screen.getByText(/When you are ready to start the tutorial, hit the Clue button\./),
+    ).toBeOnTheScreen();
+    // Nothing is being pointed at until it is asked for.
+    expect(screen.queryByText('The clue')).toBeNull();
+  });
+
+  it('is worked with the same four words a puzzle is', () => {
+    walk();
+    dismiss();
+
+    expect(button('Undo')).toBeDisabled();
+    expect(button('Clue')).toBeEnabled();
+    expect(button('Info')).toBeEnabled();
+    expect(button('Highlight')).toBeDisabled();
+    // The board is already drawn as large as a lesson lets a square get, so
+    // there is nothing to zoom in to and nothing to come back out of.
+    expect(button('Zoom out')).toBeDisabled();
+    expect(button('Zoom in')).toBeOnTheScreen();
+    expect(button('Back')).toBeEnabled();
+  });
+
+  it('hands over the clue and what to do with it on Clue', () => {
+    walk();
+    dismiss();
+
+    fireEvent.press(button('Clue'));
     expect(screen.getByText('The clue')).toBeOnTheScreen();
     expect(
       screen.getByText('Ms Barley is on the same ticket as the Mocha drinker.'),
     ).toBeOnTheScreen();
-    expect(button('Back')).toBeEnabled();
+    expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
+    expect(screen.getByText('Hit the Clue button again when you are done.')).toBeOnTheScreen();
   });
 
   it('names the lesson it was opened with, whichever one that is', () => {
     walk('vague');
+    dismiss();
+    fireEvent.press(button('Clue'));
+
     expect(header('Vague clues')).toBeOnTheScreen();
     expect(
       screen.getByText(
@@ -199,26 +236,74 @@ describe('how to play', () => {
     ).toBeOnTheScreen();
   });
 
-  it('waits for the mark it asked for, and moves on when it lands', () => {
+  /** The second press is where the board is read. */
+  it('says what is missing when the square has not been marked', () => {
     walk();
+    dismiss();
+    fireEvent.press(button('Clue'));
+    dismiss();
 
-    // A tap somewhere else is allowed and teaches nothing; the ask stands.
-    tap(2, 1);
-    expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
-
-    tap(0, 1, 2);
-    expect(screen.getByText(/A tick settles a whole row and a whole column/)).toBeOnTheScreen();
-    expect(screen.getByText(/Now the same for Alderman Crumb and the chai/)).toBeOnTheScreen();
+    fireEvent.press(button('Clue'));
+    expect(screen.getByText(/Nothing on Ms Barley and Mocha yet/)).toBeOnTheScreen();
+    // The clue and the instruction are still there behind it, which is what
+    // somebody who pressed Clue to re-read them wanted anyway.
     expect(
-      screen.getByText('Alderman Crumb is on the same ticket as the Chai drinker.'),
+      screen.getByText('Ms Barley is on the same ticket as the Mocha drinker.'),
     ).toBeOnTheScreen();
   });
 
-  it('crosses off the rest of the row and column, and says so', () => {
+  it('says which way round a half-made mark is wrong, and how to finish it', () => {
     walk();
+    dismiss();
+    fireEvent.press(button('Clue'));
+    dismiss();
+
+    // One tap of the two a tick needs.
+    tap(0, 1);
+    fireEvent.press(button('Clue'));
+    expect(screen.getByText(/Ms Barley and Mocha is crossed out/)).toBeOnTheScreen();
+    expect(screen.getByText(/Tap it once more/)).toBeOnTheScreen();
+  });
+
+  it('moves straight on to the next thing when the board is right', () => {
+    walk();
+    dismiss();
+    fireEvent.press(button('Clue'));
+    dismiss();
     tap(0, 1, 2);
 
-    expect(screen.getByText(/A tick settles a whole row and a whole column/)).toBeOnTheScreen();
+    fireEvent.press(button('Clue'));
+    expect(screen.queryByText(/Nothing on/)).toBeNull();
+    expect(
+      screen.getByText('Alderman Crumb is on the same ticket as the Chai drinker.'),
+    ).toBeOnTheScreen();
+    expect(screen.getByText(/Now the same for Alderman Crumb and the chai/)).toBeOnTheScreen();
+  });
+
+  it('will not move on over a mark that cannot be right', () => {
+    walk();
+    dismiss();
+    fireEvent.press(button('Clue'));
+    dismiss();
+    tap(0, 1, 2);
+    // Mrs Marzipan does drink the latte, so crossing it off is wrong.
+    tap(2, 0);
+
+    fireEvent.press(button('Clue'));
+    expect(screen.getByText(/Mrs Marzipan and Latte cannot be right/)).toBeOnTheScreen();
+    // Still on the first step, so still the first clue.
+    expect(
+      screen.getByText('Ms Barley is on the same ticket as the Mocha drinker.'),
+    ).toBeOnTheScreen();
+  });
+
+  it('crosses off the rest of the row and column when a tick lands', () => {
+    walk();
+    dismiss();
+    fireEvent.press(button('Clue'));
+    dismiss();
+    tap(0, 1, 2);
+
     // Barley's other two and the mocha's other two, all ruled out without a tap.
     for (const [customer, drink] of [
       [0, 0],
@@ -232,18 +317,25 @@ describe('how to play', () => {
     }
   });
 
-  it('leaves the last square to the player, and stops talking after it', () => {
+  it('runs out of things to say one square short, and finishes on the board', () => {
     walk();
+    dismiss();
+    fireEvent.press(button('Clue'));
+    dismiss();
     tap(0, 1, 2);
+    fireEvent.press(button('Clue'));
+    dismiss();
     tap(1, 2, 2);
 
-    // No clue for the last one, so there is none on the screen.
+    fireEvent.press(button('Clue'));
     expect(screen.getByText(/One square left, and no clue for it/)).toBeOnTheScreen();
+    // No clue for the last one, so there is none in the window.
     expect(screen.queryByText('The clue')).toBeNull();
+    dismiss();
 
     tap(2, 0, 2);
     expect(screen.getByText(/^Solved\./)).toBeOnTheScreen();
-    expect(screen.queryByText(/Tap/)).toBeNull();
+    expect(button('Clue')).toBeDisabled();
   });
 
   /** Whether a square is wearing the ring that says "this one". */
@@ -251,9 +343,15 @@ describe('how to play', () => {
     StyleSheet.flatten(screen.getByRole('button', { name: square(customer, drink) }).props.style)
       .borderWidth === 3;
 
-  it('rings the square it is waiting for, and only that one', () => {
+  it('points at nothing until it has been asked, then at one square', () => {
     walk();
+    dismiss();
+    for (let customer = 0; customer < 3; customer++) {
+      for (let drink = 0; drink < 3; drink++) expect(ringed(customer, drink)).toBe(false);
+    }
 
+    fireEvent.press(button('Clue'));
+    dismiss();
     expect(ringed(0, 1)).toBe(true);
     for (const [customer, drink] of [
       [0, 0],
@@ -262,75 +360,47 @@ describe('how to play', () => {
     ]) {
       expect(ringed(customer, drink)).toBe(false);
     }
+  });
+
+  it('keeps the ring on until the mark it asked for is on the square', () => {
+    walk();
+    dismiss();
+    fireEvent.press(button('Clue'));
+    dismiss();
 
     // A mark somewhere else does not move it.
     tap(2, 1);
     expect(ringed(0, 1)).toBe(true);
-
-    // The mark it wanted does.
-    tap(0, 1, 2);
-    expect(ringed(0, 1)).toBe(false);
-    expect(ringed(1, 2)).toBe(true);
-  });
-
-  it('keeps the ring on while a half-made mark is on the square', () => {
-    walk();
-
-    // One tap of the two the tick needs: a cross, which is not what was asked.
+    // Nor does one tap of the two the tick needs.
     tap(0, 1);
     expect(ringed(0, 1)).toBe(true);
     tap(0, 1);
     expect(ringed(0, 1)).toBe(false);
   });
 
-  it('takes the ring off once there is nothing left to ask for', () => {
+  it('takes a mark back, and Undo with it', () => {
     walk();
+    dismiss();
+    fireEvent.press(button('Clue'));
+    dismiss();
+
     tap(0, 1, 2);
-    tap(1, 2, 2);
-
-    for (let customer = 0; customer < 3; customer++) {
-      for (let drink = 0; drink < 3; drink++) expect(ringed(customer, drink)).toBe(false);
-    }
+    expect(button('Undo')).toBeEnabled();
+    fireEvent.press(button('Undo'));
+    fireEvent.press(button('Undo'));
+    expect(screen.getByRole('button', { name: square(0, 1) }).props.accessibilityLabel).toMatch(
+      /unknown$/,
+    );
+    expect(button('Undo')).toBeDisabled();
   });
 
-  it('says so at once when a mark cannot be right, and stops when it is put back', () => {
+  it('puts the briefing back behind Info', () => {
     walk();
+    dismiss();
+    expect(screen.queryByText(/Every square asks the same question/)).toBeNull();
 
-    // Mrs Marzipan does drink the latte, so crossing it off is wrong.
-    tap(2, 0);
-    expect(
-      screen.getByText(
-        'That one cannot be right, so the board has shaded it. Tap it round until it clears.',
-      ),
-    ).toBeOnTheScreen();
-    // The ask it interrupted is still standing.
-    expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
-
-    // Round to a tick, which is true, and the notice has nothing to say.
-    tap(2, 0);
-    expect(screen.queryByText(/cannot be right/)).toBeNull();
-  });
-
-  it('counts them when one wrong tick drags others in with it', () => {
-    walk();
-
-    // A tick on Ms Barley's chai is wrong, and the crosses it lays down for
-    // itself are wrong twice over.
-    tap(0, 2, 2);
-    expect(
-      screen.getByText(
-        'Those cannot be right, so the board has shaded them. Tap each round until it clears.',
-      ),
-    ).toBeOnTheScreen();
-  });
-
-  it('says nothing about a mark that is merely somewhere else', () => {
-    walk();
-
-    // True, just not what was asked for.
-    tap(2, 0, 2);
-    expect(screen.queryByText(/cannot be right/)).toBeNull();
-    expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
+    fireEvent.press(button('Info'));
+    expect(screen.getByText(/Every square asks the same question/)).toBeOnTheScreen();
   });
 
   it('asks before letting a half-walked lesson go', () => {
@@ -338,6 +408,7 @@ describe('how to play', () => {
     stage(<TutorialScreen lesson="deduction" onBack={onBack} />);
     const measured = screen.UNSAFE_getAllByType(View).find((view) => view.props.onLayout);
     fireEvent(measured!, 'layout', { nativeEvent: { layout: { width: 340, height: 420 } } });
+    dismiss();
 
     fireEvent.press(button('Back'));
     expect(onBack).not.toHaveBeenCalled();
@@ -347,7 +418,6 @@ describe('how to play', () => {
     // Staying puts the window away and leaves the board as it was.
     fireEvent.press(button('Keep going'));
     expect(screen.queryByText('Leave the lesson?')).toBeNull();
-    expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
 
     fireEvent.press(button('Back'));
     fireEvent.press(button('Leave it'));
@@ -359,9 +429,11 @@ describe('how to play', () => {
     stage(<TutorialScreen lesson="deduction" onBack={onBack} />);
     const measured = screen.UNSAFE_getAllByType(View).find((view) => view.props.onLayout);
     fireEvent(measured!, 'layout', { nativeEvent: { layout: { width: 340, height: 420 } } });
+    dismiss();
     tap(0, 1, 2);
     tap(1, 2, 2);
     tap(2, 0, 2);
+    dismiss();
 
     fireEvent.press(button('Back'));
     expect(screen.queryByText('Leave the lesson?')).toBeNull();
@@ -370,18 +442,22 @@ describe('how to play', () => {
 
   /**
    * Nothing anywhere remembers that this has been done, which is what lets it
-   * be taken twice — and is why walking it and coming back lands on the first
-   * mark rather than the finish.
+   * be taken twice — and is why walking it and coming back lands on the
+   * briefing rather than the finish.
    */
   it('opens on an empty board however many times it is opened', () => {
     walk();
+    dismiss();
+    fireEvent.press(button('Clue'));
+    dismiss();
     tap(0, 1, 2);
-    expect(screen.getByText(/A tick settles a whole row/)).toBeOnTheScreen();
     screen.unmount();
 
     walk();
-    expect(screen.getByText(/Every square asks the same question/)).toBeOnTheScreen();
-    expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
+    expect(
+      screen.getByText(/When you are ready to start the tutorial, hit the Clue button\./),
+    ).toBeOnTheScreen();
+    dismiss();
     expect(screen.getByRole('button', { name: square(0, 1) }).props.accessibilityLabel).toMatch(
       /unknown$/,
     );
@@ -394,11 +470,13 @@ describe('how to play', () => {
    */
   it('opens a card behind a picture only where the descriptions are the lesson', () => {
     walk('grouped');
+    dismiss();
     fireEvent.press(screen.getAllByRole('button', { name: 'About Ms Barley' })[0]);
     expect(screen.getByText('spectacles')).toBeOnTheScreen();
     screen.unmount();
 
     walk('deduction');
+    dismiss();
     fireEvent.press(screen.getAllByRole('button', { name: 'About Ms Barley' })[0]);
     expect(screen.queryByText(/Orders the same thing daily/)).toBeNull();
   });

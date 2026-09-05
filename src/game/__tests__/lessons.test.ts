@@ -1,10 +1,12 @@
-import { categoryPairs, getMark, isSolved, nextMark, setMark, type Marks } from '../board';
+import { categoryPairs, getMark, isSolved, markKey, nextMark, setMark, type Marks } from '../board';
 import {
   CLUE_LESSONS,
   FIRST_LESSONS,
+  checkFinished,
+  checkStep,
   lessonById,
   menuOf,
-  stepAt,
+  squareName,
   stepDone,
   type Lesson,
   type LessonId,
@@ -73,7 +75,6 @@ function correctCells(lesson: Lesson) {
 function walk(lesson: Lesson): Marks {
   let marks: Marks = {};
   lesson.steps.forEach((step, index) => {
-    expect(stepAt(marks, lesson.steps)).toBe(index);
     // The words tell the player how many taps a square wants — "one tap crosses
     // it out", "tap it twice" — and that is only true while the square is still
     // empty when its turn comes. An earlier step that filled it in, by hand or
@@ -85,7 +86,13 @@ function walk(lesson: Lesson): Marks {
     for (let tapped = 0; tapped < taps; tapped++)
       marks = tap(marks, step, lesson.puzzle.size.items);
 
-    expect(stepDone(marks, step)).toBe(true);
+    // The step is done, and so is everything the walk has already been
+    // through: a later step must never undo an earlier one.
+    for (const earlier of lesson.steps.slice(0, index + 1)) {
+      expect(stepDone(marks, earlier)).toBe(true);
+    }
+    // And the board is what the Clue button would pass.
+    expect(checkStep(marks, lesson.puzzle, step).ok).toBe(true);
   });
   return marks;
 }
@@ -182,8 +189,7 @@ describe.each(EVERY)('the %s lesson', (id) => {
   });
 
   it('walks every step onto an empty square, in the taps the words promise', () => {
-    const marks = walk(lesson);
-    expect(stepAt(marks, lesson.steps)).toBe(lesson.steps.length);
+    walk(lesson);
   });
 
   /**
@@ -208,17 +214,86 @@ describe.each(EVERY)('the %s lesson', (id) => {
     expect(isSolved(finished, puzzle)).toBe(true);
   });
 
-  /** A mark taken back takes the lesson back with it. */
-  it('steps back when the player does', () => {
+  /**
+   * What the Clue button finds when the square is empty, or marked the wrong
+   * way round. Both answers name the square and say which taps put it right;
+   * "tap it once more" and "tap it twice" are different instructions, and only
+   * one of them is ever correct.
+   */
+  it('says what is missing, and which way round it is wrong', () => {
     const first = lesson.steps[0];
     const size = puzzle.size.items;
-    let marks = tap({}, first, size);
-    if (first.want === 'yes') marks = tap(marks, first, size);
-    expect(stepAt(marks, lesson.steps)).toBe(1);
 
-    // Round the cycle and off the end of it, back to blank.
-    while (getMark(marks, first.cell) !== undefined) marks = tap(marks, first, size);
-    expect(stepAt(marks, lesson.steps)).toBe(0);
+    const empty = checkStep({}, puzzle, first);
+    expect(empty.ok).toBe(false);
+    expect(empty.problem).toContain(squareName(puzzle, first.cell));
+    expect(empty.problem).toMatch(/Nothing on/);
+
+    // One tap short of, or one past, what was asked for.
+    let marks = tap({}, first, size);
+    if (first.want === 'no') marks = tap(marks, first, size);
+    const halfway = checkStep(marks, puzzle, first);
+    expect(halfway.ok).toBe(false);
+    expect(halfway.problem).toContain(squareName(puzzle, first.cell));
+    expect(halfway.problem).toMatch(first.want === 'yes' ? /crossed out/ : /is ticked/);
+
+    // And once it is right, it passes.
+    while (getMark(marks, first.cell) !== first.want) marks = tap(marks, first, size);
+    expect(checkStep(marks, puzzle, first)).toEqual({ ok: true });
+  });
+
+  /**
+   * A mark that cannot be right is said first, whatever square the step was
+   * about: a lesson that walked the player past a contradiction to talk about
+   * something else would be teaching them the board does not mind.
+   */
+  it('names a mark that cannot be right, wherever on the board it is', () => {
+    const size = puzzle.size.items;
+    // A cross somewhere the answer says is a pair, and never the square the
+    // first step is about — that one has its own answer.
+    const [wrongCell] = correctCells(lesson).filter(
+      (cell) => markKey(cell) !== markKey(lesson.steps[0].cell),
+    );
+    const marks = tap({}, { ...lesson.steps[0], cell: wrongCell, want: 'no' }, size);
+
+    const found = checkStep(marks, puzzle, lesson.steps[0]);
+    expect(found.ok).toBe(false);
+    expect(found.problem).toContain(squareName(puzzle, wrongCell));
+    expect(found.flagged).toContain(markKey(wrongCell));
+  });
+
+  /**
+   * And it stops the walk even when the square being asked about is perfect: a
+   * lesson that moved on past a contradiction would be teaching the player that
+   * the board does not mind.
+   */
+  it('will not move on over a contradiction somewhere else', () => {
+    const size = puzzle.size.items;
+    const first = lesson.steps[0];
+    let marks: Marks = {};
+    while (getMark(marks, first.cell) !== first.want) marks = tap(marks, first, size);
+    expect(checkStep(marks, puzzle, first).ok).toBe(true);
+
+    const [wrongCell] = correctCells(lesson).filter(
+      (cell) => getMark(marks, cell) === undefined && markKey(cell) !== markKey(first.cell),
+    );
+    marks = tap(marks, { ...first, cell: wrongCell, want: 'no' }, size);
+    expect(checkStep(marks, puzzle, first).ok).toBe(false);
+  });
+
+  /** And the last square, which nobody talked them through. */
+  it('holds out for the square it never explained', () => {
+    const walked = walk(lesson);
+    const unfinished = checkFinished(walked, puzzle);
+    expect(unfinished.ok).toBe(false);
+    expect(unfinished.problem).toMatch(/Not out yet/);
+
+    const [left] = correctCells(lesson).filter((cell) => getMark(walked, cell) !== 'yes');
+    let finished = walked;
+    while (getMark(finished, left) !== 'yes') {
+      finished = tap(finished, { ...lesson.steps[0], cell: left, want: 'yes' }, puzzle.size.items);
+    }
+    expect(checkFinished(finished, puzzle)).toEqual({ ok: true });
   });
 
   it('has words for every step and for what is left over', () => {

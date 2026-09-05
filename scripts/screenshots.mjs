@@ -222,8 +222,8 @@ async function main() {
   await fresh(page, origin);
   await shot('01-start');
 
-  // 18-20. How to play, under Play on the front door: the two menus of lessons
-  // and a lesson board part way through its walk. Taken here, in day colours,
+  // 18-23. How to play, under Play on the front door: the two menus of lessons
+  // and a lesson worked through its first step. Taken here, in day colours,
   // because they are the first thing a new player opens; they are numbered last
   // because they were added last.
   await page.getByLabel('How to play').click();
@@ -235,17 +235,37 @@ async function main() {
   await shot('19-clue-lessons');
 
   // The grouped lesson: the one whose clues describe people instead of naming
-  // them, which is the most a clue ever asks of a reader.
+  // them, which is the most a clue ever asks of a reader. It opens on its own
+  // briefing, in the window a puzzle tells its story in.
   await page.getByLabel('Grouped clues').click();
   await wait(page, 700);
+  await shot('20-lesson-briefing');
+
+  // Clue hands over the clue and what to do with it — the window a lesson is
+  // actually driven from.
+  await page.getByLabel('Close').click({ position: { x: 12, y: 12 } });
+  await wait(page, 400);
+  await page.getByLabel('Clue').click();
+  await wait(page, 600);
+  await shot('21-lesson-clue');
+
+  // Then the board, with the ring on the square being waited for.
+  await page.getByLabel('Close').click({ position: { x: 12, y: 12 } });
+  await wait(page, 400);
   const lessonSquare = (customer, drink) =>
     page.getByRole('button', { name: new RegExp(`^${customer} and ${drink}: `) });
   await lessonSquare('Ms Barley', 'Latte').click();
-  await wait(page, 300);
-  await lessonSquare('Dr Frangipane', 'Latte').click();
-  await wait(page, 700);
-  await shot('20-lesson');
+  await wait(page, 500);
+  await shot('22-lesson-board');
+
+  // And Clue again reads the board: right, so it moves straight on.
+  await page.getByLabel('Clue').click();
+  await wait(page, 600);
+  await shot('23-lesson-next');
+
   // Leaving part-way through asks first, since the walk starts over next time.
+  await page.getByLabel('Close').click({ position: { x: 12, y: 12 } });
+  await wait(page, 400);
   await page.getByLabel('Back').click();
   await wait(page, 400);
   await page.getByLabel('Leave it').click();

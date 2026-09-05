@@ -35,11 +35,11 @@ import { feedback } from '../ui/feedback';
 import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { inkOn, joinLeft, radius, space, tint, type Palette } from '../ui/theme';
+import { space, tint, type Palette } from '../ui/theme';
+import { ToolButton } from '../ui/ToolButton';
+import { ZoomPair } from '../ui/ZoomPair';
 
 /** The two zoom glyphs: signs rather than words, so they are not translated. */
-const ZOOM_OUT = '−';
-const ZOOM_IN = '+';
 
 /** How much each press of the zoom buttons adds or takes away. */
 const ZOOM_STEP = 8;
@@ -622,21 +622,13 @@ export function GameScreen({
               <Text style={styles.status} numberOfLines={2}>
                 {status ?? ''}
               </Text>
-              <View style={styles.zoomPair}>
-                <ZoomButton
-                  label={ZOOM_OUT}
-                  accent={palette.accent}
-                  disabled={zoom <= 0}
-                  onPress={() => setZoom((step) => Math.max(0, step - ZOOM_STEP))}
-                />
-                <ZoomButton
-                  label={ZOOM_IN}
-                  joined
-                  accent={palette.accent}
-                  disabled={cellSize >= MAX_CELL}
-                  onPress={() => setZoom((step) => step + ZOOM_STEP)}
-                />
-              </View>
+              <ZoomPair
+                accent={palette.accent}
+                outDisabled={zoom <= 0}
+                inDisabled={cellSize >= MAX_CELL}
+                onOut={() => setZoom((step) => Math.max(0, step - ZOOM_STEP))}
+                onIn={() => setZoom((step) => step + ZOOM_STEP)}
+              />
             </View>
 
             {/* The board scrolls itself, in both directions, so its headings
@@ -759,90 +751,6 @@ export function GameScreen({
   );
 }
 
-function ZoomButton({
-  label,
-  accent,
-  disabled,
-  joined,
-  onPress,
-}: {
-  label: string;
-  accent: string;
-  disabled: boolean;
-  /** Share the left-hand edge with the button before it. */
-  joined?: boolean;
-  onPress: () => void;
-}) {
-  const styles = useStyles(makeStyles);
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={label === ZOOM_IN ? t('game.zoomIn') : t('game.zoomOut')}
-      accessibilityState={{ disabled }}
-      disabled={disabled}
-      onPress={onPress}
-      style={({ pressed }) => [
-        styles.zoomButton,
-        joined && joinLeft,
-        { borderColor: tint(accent, 0.4), opacity: disabled ? 0.35 : pressed ? 0.7 : 1 },
-      ]}
-    >
-      <Text style={[styles.zoomButtonText, { color: accent }]}>{label}</Text>
-    </Pressable>
-  );
-}
-
-/** One of the two words beside the clue. */
-/**
- * One of the words the board is worked with.
- *
- * `active` is for the one that is a switch rather than an action: it fills with
- * the colour instead of outlining it, so a glance says whether the highlight is
- * on without having to look at the board to find out.
- */
-function ToolButton({
-  label,
-  accent,
-  disabled = false,
-  active = false,
-  onPress,
-}: {
-  label: string;
-  accent: string;
-  disabled?: boolean;
-  active?: boolean;
-  onPress: () => void;
-}) {
-  const palette = useTheme();
-  const styles = useStyles(makeStyles);
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={label}
-      accessibilityState={{ disabled, selected: active }}
-      disabled={disabled}
-      onPress={onPress}
-      style={({ pressed }) => [
-        styles.tool,
-        {
-          borderColor: active ? accent : tint(accent, 0.4),
-          backgroundColor: active ? accent : palette.surface,
-          opacity: disabled ? 0.4 : pressed ? 0.75 : 1,
-        },
-      ]}
-    >
-      <Text
-        style={[
-          styles.toolLabel,
-          { color: active ? inkOn(accent, '#FFFFFF', palette.ink) : accent },
-        ]}
-      >
-        {label}
-      </Text>
-    </Pressable>
-  );
-}
-
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
     screen: {
@@ -902,26 +810,6 @@ const makeStyles = (palette: Palette) =>
       gap: space(3),
       marginTop: space(2),
     },
-    zoomPair: {
-      // The two share an edge, so they are a pair rather than two buttons that
-      // happen to be near each other. Their own row, since the line they sit on
-      // spaces what it holds.
-      flexDirection: 'row',
-    },
-    zoomButton: {
-      width: 32,
-      height: 32,
-      borderRadius: radius.pill,
-      borderWidth: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: palette.surface,
-    },
-    zoomButtonText: {
-      fontSize: 17,
-      fontWeight: '700',
-      marginTop: -2,
-    },
     footer: {
       paddingHorizontal: space(4),
       paddingTop: space(2),
@@ -940,18 +828,6 @@ const makeStyles = (palette: Palette) =>
     tools: {
       flexDirection: 'row',
       gap: space(2),
-    },
-    tool: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: space(2.5),
-      paddingHorizontal: space(4),
-      borderRadius: radius.pill,
-      borderWidth: 1,
-    },
-    toolLabel: {
-      fontSize: 14,
-      fontWeight: '700',
     },
     status: {
       flex: 1,

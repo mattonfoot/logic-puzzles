@@ -1,18 +1,26 @@
 import React from 'react';
-import { Modal, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { briefingFor } from '../data/briefings';
 import type { Puzzle } from '../puzzle/types';
-import { t } from '../i18n';
-import { feedback } from '../ui/feedback';
 import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { border, shadow, space, tint, type Palette } from '../ui/theme';
+import { space, tint, type Palette } from '../ui/theme';
+import { Popup } from './Popup';
 
 interface Props {
   visible: boolean;
   puzzle: Puzzle;
+  /**
+   * What to say instead of the puzzle's own briefing, for a board that has no
+   * mystery to set up but does have something to say before it starts. A
+   * lesson opens on this window for the same reason a puzzle does — a grid of
+   * squares means nothing until somebody says what it is for — so it is the
+   * same window rather than one that looks like it.
+   */
+  title?: string;
+  body?: string;
   onClose: () => void;
 }
 
@@ -28,7 +36,7 @@ interface Props {
  * It says what happened and never what the answer is, so opening it is free —
  * unlike a clue, it costs nothing and is not counted.
  */
-export function BriefingPopup({ visible, puzzle, onClose }: Props) {
+export function BriefingPopup({ visible, puzzle, title, body, onClose }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   if (!visible) return null;
@@ -36,58 +44,28 @@ export function BriefingPopup({ visible, puzzle, onClose }: Props) {
   const briefing = briefingFor(puzzle);
 
   return (
-    <Modal visible transparent animationType="fade" onRequestClose={onClose}>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={t('common.close')}
-        style={styles.backdrop}
-        onPress={() => {
-          feedback.tap();
-          onClose();
-        }}
-      >
-        {/* Taps inside the window stay inside it. */}
-        <Pressable style={[styles.card, shadow.raised]} onPress={() => undefined}>
-          <View style={styles.head}>
-            <View style={[styles.icon, { backgroundColor: tint(palette.accent, 0.12) }]}>
-              <Icon name={puzzle.themeIcon} size={30} color={palette.accent} />
-            </View>
-            <View style={styles.headText}>
-              <Text style={[styles.theme, { color: palette.accent }]}>{puzzle.themeName}</Text>
-              <Text style={styles.title}>{briefing.title}</Text>
-            </View>
-          </View>
+    <Popup visible onClose={onClose}>
+      <View style={styles.head}>
+        <View style={[styles.icon, { backgroundColor: tint(palette.accent, 0.12) }]}>
+          <Icon name={puzzle.themeIcon} size={30} color={palette.accent} />
+        </View>
+        <View style={styles.headText}>
+          <Text style={[styles.theme, { color: palette.accent }]}>{puzzle.themeName}</Text>
+          <Text style={styles.title}>{title ?? briefing.title}</Text>
+        </View>
+      </View>
 
-          {/* The longest of these runs to four lines on a narrow phone, and a
-              story cut off halfway is worse than no story. */}
-          <ScrollView style={styles.bodyScroll} showsVerticalScrollIndicator={false}>
-            <Text style={styles.body}>{briefing.body}</Text>
-          </ScrollView>
-
-          <Text style={styles.dismiss}>{t('common.tapOutside')}</Text>
-        </Pressable>
-      </Pressable>
-    </Modal>
+      {/* The longest of these runs to four lines on a narrow phone, and a
+          story cut off halfway is worse than no story. */}
+      <ScrollView style={styles.bodyScroll} showsVerticalScrollIndicator={false}>
+        <Text style={styles.body}>{body ?? briefing.body}</Text>
+      </ScrollView>
+    </Popup>
   );
 }
 
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
-    backdrop: {
-      flex: 1,
-      backgroundColor: 'rgba(24, 22, 18, 0.45)',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: space(6),
-    },
-    card: {
-      width: '100%',
-      maxWidth: 360,
-      backgroundColor: palette.surface,
-      borderWidth: border,
-      borderColor: palette.line,
-      padding: space(5),
-    },
     head: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -125,11 +103,5 @@ const makeStyles = (palette: Palette) =>
       fontSize: 15,
       lineHeight: 23,
       color: palette.inkSoft,
-    },
-    dismiss: {
-      fontSize: 11,
-      color: palette.inkFaint,
-      textAlign: 'center',
-      marginTop: space(4),
     },
   });

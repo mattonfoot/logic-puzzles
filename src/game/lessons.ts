@@ -26,7 +26,15 @@
  * squares in this order, and a puzzle that came out differently each time would
  * be a lesson that sometimes did not follow.
  */
-import { markKey, type Cell, type Marks, getMark } from './board';
+import {
+  cellFromKey,
+  findMistakes,
+  isSolved,
+  markKey,
+  type Cell,
+  type Marks,
+  getMark,
+} from './board';
 import { themeById } from '../data/themes';
 import { resolveClueTemplates } from '../puzzle/describe';
 import type {
@@ -37,7 +45,7 @@ import type {
   SizeOption,
   ThemeDef,
 } from '../puzzle/types';
-import { t } from '../i18n';
+import { plural, t } from '../i18n';
 
 /** Three of each, which is the smallest board that can be reasoned about. */
 const CAST = 3;
@@ -747,19 +755,6 @@ export function stepDone(marks: Marks, step: Step): boolean {
   return getMark(marks, step.cell) === step.want;
 }
 
-/**
- * How far through the walk a board is: the first step still waiting, or the
- * length of the list once there are none.
- *
- * Read off the board rather than counted up as the player goes, so a mark taken
- * back steps the lesson back with it. The steps only ever add to the board, so
- * the first one still outstanding is the one to ask for.
- */
-export function stepAt(marks: Marks, steps: Step[]): number {
-  const found = steps.findIndex((step) => !stepDone(marks, step));
-  return found === -1 ? steps.length : found;
-}
-
 /** The squares a step is about, for the highlight that points at it. */
 export function stepHighlight(step: Step) {
   return [
@@ -770,3 +765,91 @@ export function stepHighlight(step: Step) {
 
 /** Used by the test that holds every walk to being walkable. */
 export const stepKey = (step: Step) => markKey(step.cell);
+
+/** A square, said the way the board labels it: "Ms Barley and the Mocha". */
+export function squareName(puzzle: Puzzle, cell: Cell): string {
+  return t('lessons.check.square', {
+    row: puzzle.categories[cell.c1].items[cell.i1].label,
+    column: puzzle.categories[cell.c2].items[cell.i2].label,
+  });
+}
+
+/** A short list of them, as a sentence would say it. */
+function listOf(names: string[]): string {
+  if (names.length <= 1) return names[0] ?? '';
+  return t('lessons.check.listLast', {
+    first: names.slice(0, -1).join(', '),
+    last: names[names.length - 1],
+  });
+}
+
+/**
+ * What the Clue button found when it was pressed a second time.
+ *
+ * A real board keeps its opinion of the player's marks to itself until a clue
+ * cannot help, because being told mid-thought that you are wrong is the game
+ * solving the puzzle for you. A lesson is *asked* — the second press of Clue is
+ * the player saying "I am done" — so it answers, and answers usefully: what is
+ * wrong, and the taps that put it right.
+ */
+export interface Check {
+  ok: boolean;
+  /** What is wrong and how to fix it, when it is not. */
+  problem?: string;
+  /** The squares to shade while that stands, by their mark keys. */
+  flagged?: string[];
+}
+
+/** Marks that contradict the answer, wherever on the board they are. */
+function wrongMarks(marks: Marks, puzzle: Puzzle): Check | null {
+  const flagged = findMistakes(marks, puzzle);
+  if (flagged.length === 0) return null;
+  const named = flagged
+    .map((key) => cellFromKey(key))
+    .filter((cell): cell is Cell => cell !== null)
+    .map((cell) => squareName(puzzle, cell));
+  return {
+    ok: false,
+    problem: plural('lessons.check.wrong', flagged.length, { squares: listOf(named) }),
+    flagged,
+  };
+}
+
+/**
+ * Whether the board is what the step asked for.
+ *
+ * The square the player was just told about comes first. A mark on it that is
+ * the wrong way round is the most useful thing there is to say — "tap it once
+ * more" and "tap it twice" are different instructions and only one of them is
+ * ever right — and burying that under a general complaint about the board would
+ * be answering a question next to the one that was asked.
+ *
+ * After that it is the rest of the board. A mark that cannot be right anywhere
+ * on it stops the walk even when the asked-for square is perfect: a lesson that
+ * moved the player on past a contradiction would be teaching them the board
+ * does not mind.
+ */
+export function checkStep(marks: Marks, puzzle: Puzzle, step: Step): Check {
+  if (stepDone(marks, step)) return wrongMarks(marks, puzzle) ?? { ok: true };
+
+  const square = squareName(puzzle, step.cell);
+  const mark = getMark(marks, step.cell);
+  if (mark !== undefined) {
+    return {
+      ok: false,
+      problem: t(step.want === 'yes' ? 'lessons.check.crossed' : 'lessons.check.ticked', {
+        square,
+      }),
+      flagged: [markKey(step.cell)],
+    };
+  }
+  return wrongMarks(marks, puzzle) ?? { ok: false, problem: t('lessons.check.blank', { square }) };
+}
+
+/** And whether the square nobody talked them through is filled in. */
+export function checkFinished(marks: Marks, puzzle: Puzzle): Check {
+  const wrong = wrongMarks(marks, puzzle);
+  if (wrong) return wrong;
+  if (isSolved(marks, puzzle)) return { ok: true };
+  return { ok: false, problem: t('lessons.check.unfinished') };
+}

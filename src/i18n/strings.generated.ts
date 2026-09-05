@@ -35,13 +35,29 @@ export const STRINGS = {
   lessons: {
     title: 'How to play',
     back: 'Back',
+    step: 'Step {at} of {total}',
+    begin: 'When you are ready to start the tutorial, hit the Clue button.',
+    whenDone: 'Hit the Clue button again when you are done.',
     clue: 'The clue',
+    saying: 'What to do',
     finish: 'Nothing left to read. Finish it.',
     solved:
       'Solved. Every puzzle in the app is that, on a bigger board with more to hold in your head.',
-    wrong: {
-      one: 'That one cannot be right, so the board has shaded it. Tap it round until it clears.',
-      other: 'Those cannot be right, so the board has shaded them. Tap each round until it clears.',
+    check: {
+      square: '{row} and {column}',
+      listLast: '{first} and {last}',
+      blank: 'Nothing on {square} yet — that is the square this one is about.',
+      crossed:
+        '{square} is crossed out, and this one is a pair. Tap it once more to bring the cross round to a tick, or hold the square down.',
+      ticked:
+        '{square} is ticked, and nothing here says those two go together. Tap it twice to bring the tick round to a cross.',
+      wrong: {
+        one: '{squares} cannot be right, so the board has shaded it. Tap it round until it clears, then hit Clue again.',
+        other:
+          '{squares} cannot be right, so the board has shaded them. Tap each round until it clears, then hit Clue again.',
+      },
+      unfinished:
+        'Not out yet — there is still a square with nothing in it, and everything you need to fill it is on the board.',
     },
     confirm: {
       title: 'Leave the lesson?',
@@ -4463,6 +4479,15 @@ export type StringKey =
   | 'improvement.steady.headline'
   | 'item.aboutHint'
   | 'lessons.back'
+  | 'lessons.begin'
+  | 'lessons.check.blank'
+  | 'lessons.check.crossed'
+  | 'lessons.check.listLast'
+  | 'lessons.check.square'
+  | 'lessons.check.ticked'
+  | 'lessons.check.unfinished'
+  | 'lessons.check.wrong.one'
+  | 'lessons.check.wrong.other'
   | 'lessons.clue'
   | 'lessons.clues.back'
   | 'lessons.clues.blurb'
@@ -4558,7 +4583,9 @@ export type StringKey =
   | 'lessons.negative.steps.two'
   | 'lessons.negative.steps.twoDone'
   | 'lessons.negative.title'
+  | 'lessons.saying'
   | 'lessons.solved'
+  | 'lessons.step'
   | 'lessons.title'
   | 'lessons.vague.blurb'
   | 'lessons.vague.finish'
@@ -4574,8 +4601,7 @@ export type StringKey =
   | 'lessons.vague.steps.two'
   | 'lessons.vague.steps.twoDone'
   | 'lessons.vague.title'
-  | 'lessons.wrong.one'
-  | 'lessons.wrong.other'
+  | 'lessons.whenDone'
   | 'menu.autoAddFacts'
   | 'menu.automaticCrosses'
   | 'menu.back'
