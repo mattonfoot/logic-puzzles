@@ -491,7 +491,9 @@ src/ui/TitlePanel.tsx       the app's name on a block of the link colour, the
 src/ui/Pager.tsx            Previous and Next, shared by the three lists
 src/ui/Icon.tsx             one silhouette, drawn in whatever colour it sits in
 src/ui/icons.generated.ts   the silhouettes as path data (generated, committed)
+scripts/app-icon.mjs        the app icon, drawn at every size the stores ask for
 assets/icons/               one SVG per item, theme, interface icon and board mark
+docs/app-icon-source.png    the artwork the app icon is held to
 docs/cast.md                a paragraph on each of the seventy people, for whoever draws them
 assets/sounds/              the three effects, committed as 16-bit mono WAVs
 ```
@@ -939,6 +941,36 @@ envelope, so they sit together as one voice and the repository carries no audio
 it did not make. The WAVs are committed, so a normal build never runs it.
 Swapping one for a real recording means dropping a 16-bit mono WAV of the same
 name into that folder; nothing reads those numbers at runtime.
+
+## The app icon
+
+The icon is the app's own board: a three-by-three grid in the day palette, two
+ticks in the rust accent, six crosses in the light weight the board uses for
+what it worked out itself, and one square left empty. That is not decoration —
+a grid of crosses is a puzzle nobody has started and a grid of ticks is one
+nobody had to think about, so this is one mid-solve with the square that follows
+from the other two still open. It is drawn from the same two SVG paths the
+board draws its marks with, so the icon and the game are literally the same
+artwork.
+
+**It is drawn rather than resampled.** `npm run app-icon` renders it at every
+size the platforms ask for — 1024 for iOS and the store listing, 512 for
+Android's two adaptive layers, 432 for a themed one, 48 for a browser tab —
+from vectors, so it is crisp at all of them rather than an upscale of whatever
+the artwork happened to be exported at. The PNGs are written by the script
+itself rather than by a library, which is how the iOS icon comes out with no
+alpha channel: the App Store rejects one that has it, and that is too quiet a
+failure to leave to something downstream noticing.
+
+`npm run app-icon -- --check` renders it at the original artwork's proportions
+and compares the two, and CI runs it. Comparing pixel for pixel would only
+measure which renderer drew the diagonals, so both are averaged onto a 96-square
+grid first and held to a mean channel gap and a worst block. Both bounds are
+measured rather than chosen: the drawing sits at a mean of 0.21, and every way
+of actually breaking the picture was tried against it — filling the empty
+square, turning a tick into a cross, using the heavy cross, inverting the
+checkerboard, shifting the grid four pixels, moving the page colour by twelve.
+The closest any of them came was a mean of 1.19, and the thresholds sit between.
 
 ## The icons
 

@@ -34,6 +34,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
+      # The app icon is drawn rather than shipped as a file, so the drawing has
+      # to still be the picture it was drawn from.
+      - run: npm run app-icon -- --check
       # Rewrites docs/screenshots in the checkout, which is the point: whatever
       # the walk produced — all eighteen, or the few it reached before it
       # failed — is kept as an artifact of the run, so a red job can be read
