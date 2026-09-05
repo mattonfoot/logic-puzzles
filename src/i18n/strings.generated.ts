@@ -57,7 +57,7 @@ export const STRINGS = {
       steps: {
         one: 'Tap where Ms Barley meets the mocha twice: once for a cross, again for a tick.',
         oneDone:
-          'A tick settles a whole row and a whole column. Barley ordered nothing else, and nobody else ordered the mocha — so the board crossed those off for you, lightly, to tell them from your own.',
+          'A tick settles a whole row and a whole column. Barley ordered nothing else, and nobody else ordered the mocha — so the board crossed those off for you, lightly, to tell them from your own. Holding a square down is the same thing in one go, whatever it had on it.',
         two: 'Now the same for Alderman Crumb and the chai. Two taps.',
         twoDone: 'Two clues, two pairs, and every square they touch is now spoken for.',
       },
@@ -226,6 +226,7 @@ export const STRINGS = {
     back: 'Back',
   },
   game: {
+    settle: 'Tick it',
     menu: 'Menu',
     undo: 'Undo',
     clue: 'Clue',
@@ -4431,6 +4432,7 @@ export type StringKey =
   | 'game.info'
   | 'game.menu'
   | 'game.seed'
+  | 'game.settle'
   | 'game.status.clearedMistakes'
   | 'game.status.finished'
   | 'game.status.notSaving'

@@ -3,6 +3,7 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
 import { getEntry, markKey, type Cell, type Marks } from '../game/board';
 import { boardLayout } from '../game/layout';
+import { t } from '../i18n';
 import type { Attribute, Puzzle } from '../puzzle/types';
 import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
@@ -25,9 +26,23 @@ interface Props {
   awaiting?: Cell | null;
   cellSize: number;
   onToggle: (cell: Cell) => void;
+  /**
+   * A square held down: the player means *this pair*, whatever the square is
+   * showing now.
+   *
+   * The tap cycles — blank, cross, tick, blank — which is right for the mark
+   * the board asks for most, and two taps out of the way for the one it is
+   * played to reach. A board is mostly crosses and a puzzle is won by ticks, so
+   * the tick gets a way of its own. Optional: a board with no handler for it
+   * simply does not answer to being held.
+   */
+  onSettle?: (cell: Cell) => void;
   /** A label was tapped: the player wants to know who or what that is. */
   onInspect: (attr: Attribute) => void;
 }
+
+/** Held down, or picked out of the rotor: the same thing, said two ways. */
+const SETTLE_ACTION = [{ name: 'settle', label: t('game.settle') }];
 
 /** The smallest cell worth tapping, and the largest the zoom will go to. */
 export const MIN_CELL = 18;
@@ -122,6 +137,7 @@ export function GridBoard({
   awaiting,
   cellSize,
   onToggle,
+  onSettle,
   onInspect,
 }: Props) {
   const palette = useTheme();
@@ -319,6 +335,22 @@ export function GridBoard({
                                         : 'unknown'
                                   }`}
                                   onPress={() => onToggle(cell)}
+                                  onLongPress={onSettle ? () => onSettle(cell) : undefined}
+                                  // A long press is a gesture, and a gesture is
+                                  // the one thing a screen reader cannot make.
+                                  // The same thing is offered as an action on
+                                  // the square instead, which is where VoiceOver
+                                  // looks for the second thing a control does.
+                                  accessibilityActions={onSettle ? SETTLE_ACTION : undefined}
+                                  onAccessibilityAction={
+                                    onSettle
+                                      ? (event) => {
+                                          if (event.nativeEvent.actionName === 'settle') {
+                                            onSettle(cell);
+                                          }
+                                        }
+                                      : undefined
+                                  }
                                   style={({ pressed }) => [
                                     styles.cell,
                                     asked && {

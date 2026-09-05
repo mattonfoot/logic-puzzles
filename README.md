@@ -300,7 +300,14 @@ rest is the app behaving normally.
    that fits the space it is given, with the clue in play beneath it. The board
    takes no marks until you have read a clue — with nothing said about the
    puzzle, a mark could only be a guess. After that, tap a square to cycle it
-   blank → ✕ → ✓. A tick crosses out the rest of its row and
+   blank → ✕ → ✓, or **hold it down** to tick it outright from
+   wherever it was. The cycle is in the right order — a board is mostly crosses
+   — but it puts the mark a puzzle is actually won with two taps out of the way,
+   so the tick gets a gesture of its own. Holding sets rather than toggles: a
+   square already ticked stays ticked and nothing goes on the undo stack, and
+   one tap clears any tick. A screen reader cannot make a gesture, so every
+   square carries the same thing as an action, **Tick it**, in the rotor.
+   A tick crosses out the rest of its row and
    column for you, and cycling that tick back to blank takes those crosses away
    with it — anything you crossed by hand stays put. **Automatic crosses** and
    **Auto add facts** — which fills in a tick that follows from two others, so a

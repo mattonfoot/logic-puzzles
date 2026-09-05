@@ -104,6 +104,19 @@ export const feedback = {
     buzz(() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light));
   },
 
+  /**
+   * A square held down until it settles into a tick.
+   *
+   * The same sound as any other mark — it is the same mark — over a firmer
+   * knock, because a press held long enough to fire wants an answer that says
+   * so. Without one the gesture is indistinguishable from a tap that took its
+   * time.
+   */
+  settle: () => {
+    play('mark');
+    buzz(() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium));
+  },
+
   /** The puzzle is finished. */
   success: () => {
     play('success');

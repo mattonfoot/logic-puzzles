@@ -336,38 +336,75 @@ export function GameScreen({
     });
   }, []);
 
+  /**
+   * Whether the board will take a mark at all, and what to say when it will
+   * not.
+   *
+   * Both ways of marking a square — the tap that cycles and the press that
+   * settles — have to get past the same two refusals, so they ask in one place
+   * rather than each carrying its own copy of them.
+   */
+  const markable = useCallback(() => {
+    // A finished board is read-only: a stray tap would undo the win, restart
+    // the clock and have the game counted twice.
+    if (finished.current) {
+      flash(t('game.status.finished'));
+      return false;
+    }
+    // Nothing can be worked out from a board nobody has said anything about,
+    // so a mark before the first clue would only ever be a guess.
+    //
+    // The refusal used to be a buzz and nothing else, on the reasoning that
+    // the clue panel is already sitting there saying to tap Clue and a line
+    // repeating it answers a question the player can see answered. That
+    // holds for somebody who knows the rule. It fails for the one who does
+    // not, and the player most likely to reach for a square first is exactly
+    // the one meeting a logic grid for the first time — for whom a buzz with
+    // nothing attached is indistinguishable from a bug. Said every time
+    // rather than once, because unlike the not-saving warning it is a direct
+    // answer to a thing the player just did.
+    if (!started) {
+      feedback.warn();
+      flash(t('game.status.nothingToGoOn'));
+      return false;
+    }
+    return true;
+  }, [flash, started]);
+
   const toggleCell = useCallback(
     (cell: Cell) => {
-      // A finished board is read-only: a stray tap would undo the win, restart
-      // the clock and have the game counted twice.
-      if (finished.current) {
-        flash(t('game.status.finished'));
-        return;
-      }
-      // Nothing can be worked out from a board nobody has said anything about,
-      // so a mark before the first clue would only ever be a guess.
-      //
-      // The refusal used to be a buzz and nothing else, on the reasoning that
-      // the clue panel is already sitting there saying to tap Clue and a line
-      // repeating it answers a question the player can see answered. That
-      // holds for somebody who knows the rule. It fails for the one who does
-      // not, and the player most likely to reach for a square first is exactly
-      // the one meeting a logic grid for the first time — for whom a buzz with
-      // nothing attached is indistinguishable from a bug. Said every time
-      // rather than once, because unlike the not-saving warning it is a direct
-      // answer to a thing the player just did.
-      if (!started) {
-        feedback.warn();
-        flash(t('game.status.nothingToGoOn'));
-        return;
-      }
+      if (!markable()) return;
       feedback.mark();
       // The cycle follows what the square shows, so an automatic cross behaves
       // like any other: blank → ✕ → ✓ → blank. Whatever it lands on is the
       // player's own mark from then on.
       move((current) => setMark(current, cell, nextMark(getMark(current, cell)), boardOptions));
     },
-    [boardOptions, flash, move, started],
+    [boardOptions, markable, move],
+  );
+
+  /**
+   * A square held down: a tick, from wherever the square was.
+   *
+   * The cycle puts the tick two taps away from a blank square and one away from
+   * a cross, which is the right way round — a board is mostly crosses — but it
+   * makes the mark the game is actually won with the most expensive one to
+   * make. Holding says the thing directly, and says it from any state, so it is
+   * one gesture rather than "however many taps this square happens to need".
+   *
+   * A square already ticked is already what the press is asking for, so nothing
+   * moves and nothing goes on the undo stack: the gesture sets a square rather
+   * than toggling one, and a press that landed twice should not take the mark
+   * back off. Undoing it is the one tap that clears any tick.
+   */
+  const settleCell = useCallback(
+    (cell: Cell) => {
+      if (!markable()) return;
+      if (getMark(marks, cell) === 'yes') return;
+      feedback.settle();
+      move((current) => setMark(current, cell, 'yes', boardOptions));
+    },
+    [boardOptions, markable, marks, move],
   );
 
   const undo = useCallback(() => {
@@ -613,6 +650,7 @@ export function GameScreen({
                   highlight={highlight}
                   cellSize={cellSize}
                   onToggle={toggleCell}
+                  onSettle={settleCell}
                   onInspect={(attr) => {
                     feedback.tap();
                     setInspecting(attr);

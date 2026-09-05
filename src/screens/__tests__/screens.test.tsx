@@ -801,6 +801,83 @@ describe('the board', () => {
     expect(square.props.accessibilityLabel).toMatch(/ruled out$/);
   });
 
+  /**
+   * The board's other way of ticking a square. A tap cycles — blank, cross,
+   * tick, blank — which is right for the mark a board is mostly made of, and
+   * two taps out of the way for the one a puzzle is won with. Holding says it
+   * in one, from wherever the square was.
+   */
+  describe('a square held down', () => {
+    /** Gets the board past the refusal that stands before the first clue. */
+    function playing() {
+      const handles = play();
+      fireEvent.press(button('Close'));
+      fireEvent.press(button('Clue'));
+      fireEvent.press(button('Close'));
+      layOut();
+      return handles;
+    }
+
+    const hold = (element: ReturnType<typeof screen.getByRole>) => fireEvent(element, 'longPress');
+
+    it('ticks a blank square in one, where a tap would want two', () => {
+      playing();
+      const [blank] = screen.getAllByRole('button', { name: /: unknown$/ });
+      const name = blank.props.accessibilityLabel.replace(/: unknown$/, '');
+
+      hold(blank);
+      expect(screen.getByRole('button', { name: `${name}: matched` })).toBeOnTheScreen();
+      // And it settles a row and a column like any other tick.
+      expect(screen.getAllByRole('button', { name: /: ruled out$/ }).length).toBeGreaterThan(0);
+    });
+
+    it('ticks a square that is already crossed, without cycling through blank', () => {
+      playing();
+      const [square] = screen.getAllByRole('button', { name: /: unknown$/ });
+      const name = square.props.accessibilityLabel.replace(/: unknown$/, '');
+
+      fireEvent.press(square);
+      expect(screen.getByRole('button', { name: `${name}: ruled out` })).toBeOnTheScreen();
+
+      hold(screen.getByRole('button', { name: `${name}: ruled out` }));
+      expect(screen.getByRole('button', { name: `${name}: matched` })).toBeOnTheScreen();
+    });
+
+    /**
+     * The gesture sets a square rather than toggling one, so a press that
+     * landed twice does not take the mark back off — and the second one leaves
+     * nothing on the undo stack for the first to be lost behind.
+     */
+    it('leaves a square it has already ticked alone, and Undo with it', () => {
+      playing();
+      const [blank] = screen.getAllByRole('button', { name: /: unknown$/ });
+      const name = blank.props.accessibilityLabel.replace(/: unknown$/, '');
+
+      hold(blank);
+      hold(screen.getByRole('button', { name: `${name}: matched` }));
+      expect(screen.getByRole('button', { name: `${name}: matched` })).toBeOnTheScreen();
+
+      // One press to take back, not two: the second did nothing.
+      fireEvent.press(button('Undo'));
+      expect(screen.getByRole('button', { name: `${name}: unknown` })).toBeOnTheScreen();
+      expect(button('Undo')).toBeDisabled();
+    });
+
+    /** The same two refusals a tap gets, since it is the same board. */
+    it('is refused before the first clue, and says why', () => {
+      play();
+      fireEvent.press(button('Close'));
+      layOut();
+
+      const [blank] = screen.getAllByRole('button', { name: /: unknown$/ });
+      hold(blank);
+      expect(
+        screen.getByText('Nothing to go on yet — tap Clue for the first one.'),
+      ).toBeOnTheScreen();
+      expect(blank.props.accessibilityLabel).toMatch(/unknown$/);
+    });
+  });
+
   it('hands over the first clue on Clue, and lights Highlight up behind it', () => {
     play();
     fireEvent.press(button('Close'));

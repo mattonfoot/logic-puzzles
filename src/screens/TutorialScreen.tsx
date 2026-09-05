@@ -119,6 +119,24 @@ export function TutorialScreen({ lesson: lessonId, onBack }: Props) {
     [puzzle.size.items],
   );
 
+  /**
+   * The board's other way of ticking a square, which a lesson has to take as
+   * well: a player taught to reach a tick only by tapping twice would have been
+   * taught half of how the board works. Nothing else changes — the step being
+   * waited on is read off the marks, so it does not care which gesture put them
+   * there.
+   */
+  const settle = useCallback(
+    (cell: Cell) => {
+      if (getMark(marks, cell) === 'yes') return;
+      feedback.settle();
+      setMarks((current) =>
+        setMark(current, cell, 'yes', { size: puzzle.size.items, autoEliminate: true }),
+      );
+    },
+    [marks, puzzle.size.items],
+  );
+
   useEffect(() => {
     if (done) feedback.success();
   }, [done]);
@@ -174,6 +192,7 @@ export function TutorialScreen({ lesson: lessonId, onBack }: Props) {
               awaiting={step ? step.cell : null}
               cellSize={cellSize}
               onToggle={toggle}
+              onSettle={settle}
               onInspect={
                 lesson.cards
                   ? (attribute) => {
