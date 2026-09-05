@@ -23,8 +23,10 @@ interface Props {
   improvement: Improvement | null;
   /** A line the finish has to own up to — that it was not recorded. */
   notice?: string | null;
-  /** Hands the result to the share sheet; the one thing here to press. */
+  /** Hands the result to the share sheet. */
   onShare?: () => void;
+  /** The same puzzle again, from a blank board and a zeroed clock. */
+  onPlayAgain?: () => void;
 }
 
 /**
@@ -32,11 +34,18 @@ interface Props {
  * answer as a table. It fills the tab it is shown in rather than covering the
  * board, so the finished grid stays one tap away.
  *
- * It offers one thing to press, and that thing leaves the app: **Share** hands
- * the result to somebody else. Everything a player might want next *here* —
- * another puzzle, a different difficulty, their statistics — lives behind the
- * same `◀ Back` link as always, so the result is something to read rather than
- * a junction to get past.
+ * It offers two things to press, on one row. **Play again** puts the same
+ * puzzle back the way it was found — blank board, clock at zero, no clue read
+ * — which is the one thing a player wanting more of *this* puzzle can do, and
+ * the burger that used to hold it went with the board. **Share** hands the
+ * result to somebody else, and leaves the app to do it, so it is the quieter
+ * of the two. Everything else a player might want next — another puzzle, a
+ * different difficulty, their statistics — lives behind the same `◀ Back` link
+ * as always, so the result stays something to read rather than a junction to
+ * get past.
+ *
+ * A result read back out of the history has no board to put back, so it is
+ * given no `onPlayAgain` and shows Share on its own.
  */
 export function SolvedPanel({
   title,
@@ -46,6 +55,7 @@ export function SolvedPanel({
   improvement,
   notice,
   onShare,
+  onPlayAgain,
 }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
@@ -91,14 +101,26 @@ export function SolvedPanel({
 
       {notice ? <Text style={styles.notice}>{notice}</Text> : null}
 
-      {onShare ? (
-        <AppButton
-          label={t('solved.share')}
-          variant="secondary"
-          accent={palette.accent}
-          onPress={onShare}
-          style={styles.share}
-        />
+      {onShare || onPlayAgain ? (
+        <View style={styles.actions}>
+          {onPlayAgain ? (
+            <AppButton
+              label={t('solved.playAgain')}
+              accent={palette.accent}
+              onPress={onPlayAgain}
+              style={styles.action}
+            />
+          ) : null}
+          {onShare ? (
+            <AppButton
+              label={t('solved.share')}
+              variant="secondary"
+              accent={palette.accent}
+              onPress={onShare}
+              style={styles.action}
+            />
+          ) : null}
+        </View>
       ) : null}
 
       <View style={styles.answer}>
@@ -141,10 +163,20 @@ const makeStyles = (palette: Palette) =>
       alignItems: 'center',
       paddingBottom: space(4),
     },
-    share: {
+    actions: {
+      // The panel centres what it holds, so the row has to ask for the width
+      // before the two buttons in it can share it.
+      alignSelf: 'stretch',
+      flexDirection: 'row',
+      justifyContent: 'center',
       marginTop: space(4),
-      alignSelf: 'center',
-      paddingHorizontal: space(8),
+      gap: space(3),
+    },
+    action: {
+      // Both take the same share of the row, so neither reads as the one that
+      // was squeezed in beside the other.
+      flex: 1,
+      maxWidth: 190,
     },
     answer: {
       alignSelf: 'stretch',

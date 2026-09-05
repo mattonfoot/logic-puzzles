@@ -189,7 +189,7 @@ pictures below are for.
 | <img src="docs/screenshots/04-daily.png" width="230" alt="Daily challenges"><br>**4. Daily** — today's four, one per difficulty. A finished one shows its time and opens the result instead of a board. | <img src="docs/screenshots/05-settings.png" width="230" alt="Settings screen"><br>**5. Settings** — seven names with a box or a slider against each, and nothing to read. | <img src="docs/screenshots/06-briefing.png" width="230" alt="The briefing a puzzle opens with"><br>**6. Briefing** — what went wrong and why anybody wants it sorted out. It opens with the puzzle and waits behind **Info** afterwards. |
 | <img src="docs/screenshots/07-board.png" width="230" alt="The board"><br>**7. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/08-menu.png" width="230" alt="Game menu"><br>**8. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/09-clue.png" width="230" alt="The clue window"><br>**9. Clue** — one clue at a time, in a window with the room to read it, under a line saying who is supposed to have said it. |
 | <img src="docs/screenshots/10-highlight.png" width="230" alt="A clue lit up on the grids"><br>**10. Highlight** — the button at the bottom right lights every row and column the clue talks about. | <img src="docs/screenshots/11-marked.png" width="230" alt="A part-marked board"><br>**11. Marked up** — a mark the player made is drawn heavily, one the board worked out for itself lightly. Same shape, same colour: the difference survives being colour-blind. | <img src="docs/screenshots/12-stuck.png" width="230" alt="A board that can no longer be solved"><br>**12. Out of reach** — asking for a new clue checks the board first, and stops with a window offering to rewind when the answer has been marked away. |
-| <img src="docs/screenshots/13-item-card.png" width="230" alt="The card behind an item's picture"><br>**13. Item card** — tap any picture on the board to meet it, and page through the rest of its set. | <img src="docs/screenshots/14-solved.png" width="230" alt="A finished game"><br>**14. Solved** — the finish takes the screen: time, clues read, how it compares, **Share**, the answer table. | <img src="docs/screenshots/15-statistics.png" width="230" alt="Statistics screen"><br>**15. Statistics** — totals, bests by difficulty and the trend of recent solve times. |
+| <img src="docs/screenshots/13-item-card.png" width="230" alt="The card behind an item's picture"><br>**13. Item card** — tap any picture on the board to meet it, and page through the rest of its set. | <img src="docs/screenshots/14-solved.png" width="230" alt="A finished game"><br>**14. Solved** — the finish takes the screen: time, clues read, how it compares, **Play again** and **Share**, the answer table. | <img src="docs/screenshots/15-statistics.png" width="230" alt="Statistics screen"><br>**15. Statistics** — totals, bests by difficulty and the trend of recent solve times. |
 | <img src="docs/screenshots/16-night.png" width="230" alt="Setup screen in night colours"><br>**16. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | <img src="docs/screenshots/17-catalogue.png" width="230" alt="The numbered list zoomed out to groups of twenty-five"><br>**17. Zoomed out** — the numbered list two presses of the glass out: five rows of twenty-five puzzles, paged the same way, each opening to the pages inside it. | <img src="docs/screenshots/18-tutorial.png" width="230" alt="The how-to-play board part way through"><br>**18. How to play** — the third of the front door's words: three customers, three drinks, and four marks walked on a real board. |
 
 The theme differs from run to run because it is drawn at random, and the
@@ -367,9 +367,13 @@ rest is the app behaving normally.
    one line. The grid does not come back: a solved board takes no more marks,
    and the answer above it says everything the squares would. The burger goes
    with it: the menu behind it holds the two board settings and the way to
-   start this puzzle over, and a finished board has no use for any of the
-   three. What is left to press is **Share** and `◀ Back`, which leads to the
-   setup screen, where the next puzzle is chosen.
+   start this puzzle over, and a finished board has no use for the first two.
+   The third moves to the result, where it is wanted: **Play again**, beside
+   **Share** and the same width as it, puts the puzzle back the way it was
+   found — blank board, clock at zero, no clue read. It asks nothing first,
+   since the game is already in the history and there is nothing here to throw
+   away. `◀ Back` still leads to the setup screen, where a *different* puzzle
+   is chosen.
 9. **Puzzle settings**, behind the burger at the top left, holds everything that acts
    on the game rather than on a square: the two board settings and the colour,
    boxed and named exactly as the settings screen has them (they are the
@@ -720,17 +724,19 @@ written with the saved game, so a board picked back up can still be stepped
 back from and Rewind has somewhere to walk to; a mistake older than that is
 what the fallback is for.
 
-Winning adds a tab rather than covering the board. There is no tab bar during
-play — there is only the board to show — so the bar appears at the finish with
-**Grid** and **Solved** in it, `SolvedPanel` fills the body, and the win selects
-it. Everything the finish made pointless goes with it — the row of buttons is
-hidden — and the board becomes read-only, because a stray tap on a finished grid would undo
-the win, restart the clock and have the game counted a second time.
+Winning replaces the board with `SolvedPanel`. Everything the finish made
+pointless goes with the grid — the row of tools under it, the burger over it —
+and the grid itself goes rather than being left there read-only, since a stray
+tap on a finished board would undo the win, restart the clock and have the game
+counted a second time. The answer is on the panel as a table anyway, which says
+everything the squares would.
 
-The result offers nothing to press either. Another puzzle, a different
-difficulty and the statistics are all where they always are, behind `◀ Back`,
-so the panel is something to read rather than a junction to get past — and the
-app has one way out of a game rather than four.
+The result offers two things, on one row: **Play again**, which is `restart` —
+the same call the burger's menu makes, minus the confirmation, because a
+recorded game has nothing left to lose — and **Share**, which leaves the app.
+Anything else a player might want next — another puzzle, a different
+difficulty, the statistics — is where it always is, behind `◀ Back`, so the
+panel stays something to read rather than a junction to get past.
 
 ## The words
 

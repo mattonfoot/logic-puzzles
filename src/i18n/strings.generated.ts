@@ -257,6 +257,7 @@ export const STRINGS = {
     answer: 'The answer',
     swipe: 'Swipe the table for the other sets',
     share: 'Share',
+    playAgain: 'Play again',
     notRecorded: 'This game could not be recorded — the device may be out of space.',
   },
   share: {
@@ -4370,6 +4371,7 @@ export type StringKey =
   | 'solved.answer'
   | 'solved.cluesRead'
   | 'solved.notRecorded'
+  | 'solved.playAgain'
   | 'solved.share'
   | 'solved.subtitle'
   | 'solved.swipe'

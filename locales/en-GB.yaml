@@ -263,6 +263,8 @@ solved:
   answer: The answer
   swipe: Swipe the table for the other sets
   share: Share
+  # Beside Share: the same puzzle again, from a blank board and a zeroed clock.
+  playAgain: Play again
   # Under the result, when the history could not be written.
   notRecorded: This game could not be recorded — the device may be out of space.
 

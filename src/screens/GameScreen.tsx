@@ -502,6 +502,11 @@ export function GameScreen({
     setExtraClues([]);
     setLit(false);
     setClueOpen(false);
+    // How the last go compared belongs to the last go. Restart can be pressed
+    // from the finish now, and a board on its way back to blank carrying the
+    // note from the run before it would read as a note about this one.
+    setImprovement(null);
+    setRecorded(null);
     flash(t('game.status.restarted'));
   }, [flash]);
 
@@ -567,6 +572,7 @@ export function GameScreen({
               feedback.tap();
               void shareResult({ puzzle, seconds, cluesUsed: cluesSeen.size, daily });
             }}
+            onPlayAgain={restart}
           />
         ) : (
           <View style={styles.fill}>

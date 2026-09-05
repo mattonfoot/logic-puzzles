@@ -3,6 +3,7 @@ import React from 'react';
 import { Share, StyleSheet, View } from 'react-native';
 
 import { categoryPairs, isCorrectPair, setMark, type Marks } from '../../game/board';
+import type { Improvement } from '../../stats/summary';
 import { sizeById } from '../../data/sizes';
 import { dailySeed } from '../../game/library';
 import type { SavedGame } from '../../game/persistence';
@@ -587,6 +588,17 @@ describe('the board', () => {
   beforeEach(() => jest.useFakeTimers());
   afterEach(() => jest.useRealTimers());
 
+  /** What the app says about a first solve at a size, as the stats would put it. */
+  const firstTime: Improvement = {
+    kind: 'first',
+    headline: 'First one at this size',
+    detail: '',
+    previousBest: null,
+    averageBefore: null,
+    rank: null,
+    solvedBefore: 0,
+  };
+
   /** Every correct pair ticked, which is a board with nothing left to do. */
   function solvedMarks(): Marks {
     let marks: Marks = {};
@@ -856,18 +868,7 @@ describe('the board', () => {
         onExit={none}
         onSaveProgress={async () => true}
         onDiscardProgress={none}
-        onCompleted={async () => ({
-          improvement: {
-            kind: 'first',
-            headline: 'First one at this size',
-            detail: '',
-            previousBest: null,
-            averageBefore: null,
-            rank: null,
-            solvedBefore: 0,
-          },
-          recorded: true,
-        })}
+        onCompleted={async () => ({ improvement: firstTime, recorded: true })}
       />,
     );
     await act(async () => {
@@ -880,6 +881,46 @@ describe('the board', () => {
     expect(screen.queryByRole('button', { name: 'Menu' })).toBeNull();
     // What the puzzle was called stays, on the left margin the burger had.
     expect(header(puzzle.themeName)).toBeOnTheScreen();
+  });
+
+  it('puts the same puzzle back from the finish, and the burger with it', async () => {
+    stage(
+      <GameScreen
+        puzzle={puzzle}
+        autoEliminate
+        autoFacts
+        accent={DEFAULT_SETTINGS.accent}
+        onToggleAutoEliminate={none}
+        onToggleAutoFacts={none}
+        onChangeAccent={none}
+        restore={{ ...savedGame(puzzle), marks: solvedMarks(), seconds: 300 }}
+        onExit={none}
+        onSaveProgress={async () => true}
+        onDiscardProgress={none}
+        onCompleted={async () => ({ improvement: firstTime, recorded: true })}
+      />,
+    );
+    await act(async () => {
+      jest.advanceTimersByTime(0);
+    });
+    expect(screen.getByText('5:00')).toBeOnTheScreen();
+    expect(screen.getByText('First one at this size')).toBeOnTheScreen();
+
+    // Beside Share, and it needs no asking: the game is already in the
+    // history, so there is nothing here to throw away.
+    fireEvent.press(button('Play again'));
+    await act(async () => {
+      jest.advanceTimersByTime(0);
+    });
+
+    // The board is back, blank, with the clock at zero and no clue read — and
+    // the note about the run before it has gone with the result.
+    expect(screen.queryByText('Solved!')).toBeNull();
+    expect(screen.queryByText('First one at this size')).toBeNull();
+    expect(button('Menu')).toBeEnabled();
+    expect(button('Undo')).toBeDisabled();
+    layOut();
+    expect(screen.getAllByRole('button', { name: /: unknown$/ })).toHaveLength(6 * 16);
   });
 });
 
