@@ -1,11 +1,16 @@
 /**
- * Regenerates the screenshots the README links to.
+ * Regenerates the screenshots `docs/screenshots.md` links to.
  *
  *   npm run screenshots
+ *   npm run screenshots:ipad
  *
  * It exports the app for web, serves that build, drives it in Chromium at
  * iPhone proportions and writes PNGs to docs/screenshots. Run it whenever the
- * UI changes so the reference in the README matches the build.
+ * UI changes so the reference in that file matches the build.
+ *
+ * `--ipad` walks exactly the same screens at 834 × 1194 and writes them to
+ * `docs/screenshots/ipad`, which is what `docs/ipad.md` shows. Nothing about
+ * the app is different there — that is the point of taking them.
  *
  * The browser comes from Playwright's own download (installed with the dev
  * dependencies). Set PLAYWRIGHT_CHROMIUM_PATH to point at another binary.
@@ -21,8 +26,20 @@ import { chromium } from 'playwright';
 
 const ROOT = resolve(fileURLToPath(new URL('..', import.meta.url)));
 export const BUILD_DIR = join(ROOT, '.screenshot-build');
-const OUT_DIR = join(ROOT, 'docs', 'screenshots');
-const VIEWPORT = { width: 393, height: 852 };
+const SHOTS_DIR = join(ROOT, 'docs', 'screenshots');
+
+/**
+ * The two shapes the same walk is driven at.
+ *
+ * The phone is a 15 Pro, which is the middle of the range the app is built
+ * for. The iPad is an 11-inch Pro in portrait, which is the only orientation
+ * it has: `app.json` sets `orientation: portrait`, so a tablet gets the tall
+ * shape or nothing.
+ */
+const DEVICES = {
+  phone: { viewport: { width: 393, height: 852 }, out: SHOTS_DIR },
+  ipad: { viewport: { width: 834, height: 1194 }, out: join(SHOTS_DIR, 'ipad') },
+};
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -196,23 +213,24 @@ async function solve(page, puzzle, pairs = Infinity) {
 
 async function main() {
   const skipBuild = process.argv.includes('--skip-build');
+  const device = process.argv.includes('--ipad') ? DEVICES.ipad : DEVICES.phone;
   if (!skipBuild) {
     await rm(BUILD_DIR, { recursive: true, force: true });
     await run('npx', ['expo', 'export', '--platform', 'web', '--clear', '--output-dir', BUILD_DIR]);
   }
 
-  await mkdir(OUT_DIR, { recursive: true });
+  await mkdir(device.out, { recursive: true });
   const { server, origin } = await serve(BUILD_DIR);
 
   const browser = await chromium.launch({
     executablePath: process.env.PLAYWRIGHT_CHROMIUM_PATH || undefined,
   });
-  const page = await browser.newPage({ viewport: VIEWPORT, deviceScaleFactor: 2 });
+  const page = await browser.newPage({ viewport: device.viewport, deviceScaleFactor: 2 });
   const problems = [];
   page.on('pageerror', (error) => problems.push(error.message));
 
   const shot = async (name, options = {}) => {
-    await page.screenshot({ path: join(OUT_DIR, `${name}.png`), ...options });
+    await page.screenshot({ path: join(device.out, `${name}.png`), ...options });
     console.log(`  ✓ ${name}.png`);
   };
 
@@ -460,8 +478,9 @@ async function main() {
     return;
   }
 
-  const written = (await readdir(OUT_DIR)).filter((file) => file.endsWith('.png'));
-  console.log(`\n${written.length} screenshots in docs/screenshots.`);
+  const written = (await readdir(device.out)).filter((file) => file.endsWith('.png'));
+  const where = device === DEVICES.ipad ? 'docs/screenshots/ipad' : 'docs/screenshots';
+  console.log(`\n${written.length} screenshots in ${where}.`);
   if (!skipBuild) await rm(BUILD_DIR, { recursive: true, force: true });
 }
 
