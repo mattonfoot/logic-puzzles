@@ -134,7 +134,7 @@ const makeStyles = (palette: Palette) =>
       paddingVertical: space(1),
       paddingRight: space(8),
     },
-    doorText: type.menu,
+    doorText: type.door,
     rule: {
       // Between the two, not under both: it separates rather than underlines,
       // so it stops short of the right-hand edge the way the ruled titles do.

@@ -48,6 +48,37 @@ const box = (page, label) =>
     return { top: Math.round(top), bottom: Math.round(bottom) };
   }, label);
 
+/**
+ * Whether a label has wrapped onto a second line.
+ *
+ * Counted rather than measured: a range over the words reports one rectangle
+ * per line box, so this asks the browser how many lines it drew instead of
+ * inferring it from a height and a guess at what padding is on the button. It
+ * holds whatever the type scale says today for the same reason.
+ *
+ * A menu with a two-line choice in it is a menu with a mistake in it — "Compare
+ * the gap clues" was exactly that at the size the difficulties are set in — and
+ * nothing else here would have noticed, since a wrapped label still fits the
+ * screen and still clears everything under it.
+ */
+const wraps = (page, label) =>
+  page.evaluate((name) => {
+    const found = document.querySelector(`[aria-label="${name}"]`);
+    if (!found) return false;
+    // The words themselves, not the button around them: a range over the
+    // pressable would span its picture and its padding and report a line box
+    // for each. This is the innermost element holding the whole label.
+    const text = [found, ...found.querySelectorAll('*')]
+      .reverse()
+      .find((el) => el.children.length === 0 && el.textContent.trim() === name);
+    if (!text) return false;
+    // One rectangle per line box, which is the question being asked.
+    const range = document.createRange();
+    range.selectNodeContents(text);
+    const lines = new Set([...range.getClientRects()].map((rect) => Math.round(rect.top)));
+    return lines.size > 1;
+  }, label);
+
 /** Anything on the page that has more in it than it can show. */
 const scrollers = (page) =>
   page.evaluate(() =>
@@ -91,6 +122,7 @@ async function main() {
       if (!seen) complain(`the front door has no ${door}`);
       else if (seen.bottom > phone.height)
         complain(`${door} runs off the bottom of the front door`);
+      else if (await wraps(page, door)) complain(`${door} wraps onto two lines on the front door`);
     }
 
     // The two menus behind How to play: the same panel over the same half, so
@@ -101,6 +133,7 @@ async function main() {
       const seen = await box(page, name);
       if (!seen) complain(`the lessons menu has no ${name}`);
       else if (seen.bottom > phone.height) complain(`${name} runs off the lessons menu`);
+      else if (await wraps(page, name)) complain(`${name} wraps onto two lines`);
     }
     await page.getByLabel('Understanding clues').click();
     await wait(page, 500);
@@ -114,6 +147,7 @@ async function main() {
       const seen = await box(page, name);
       if (!seen) complain(`the clue lessons have no ${name}`);
       else if (seen.bottom > phone.height) complain(`${name} runs off the clue lessons`);
+      else if (await wraps(page, name)) complain(`${name} wraps onto two lines`);
     }
     const overLessons = await scrollers(page);
     if (overLessons.length > 0) complain(`the clue lessons scroll by ${overLessons.join(', ')}pt`);
@@ -128,6 +162,7 @@ async function main() {
       const seen = await box(page, difficulty);
       if (!seen) complain(`the difficulties have no ${difficulty}`);
       else if (seen.bottom > phone.height) complain(`${difficulty} runs off the difficulties`);
+      else if (await wraps(page, difficulty)) complain(`${difficulty} wraps onto two lines`);
     }
 
     // The numbered list: six rows, the pager under them, and the way back under

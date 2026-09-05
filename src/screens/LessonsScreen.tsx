@@ -57,7 +57,17 @@ export function LessonsScreen({ title, entries, backLabel, onBack }: Props) {
           <RuledTitle>{title}</RuledTitle>
 
           {entries.map((entry) => (
-            <Choice key={entry.key} label={entry.label} hint={entry.hint} onPress={entry.onPress} />
+            <Choice
+              key={entry.key}
+              label={entry.label}
+              hint={entry.hint}
+              // "Compare the gap clues" is a phrase, not a word: at the size the
+              // difficulties are set in it wraps onto two lines on a 375-point
+              // phone, and a menu with a two-line row in it is a menu with a
+              // mistake in it.
+              size="long"
+              onPress={entry.onPress}
+            />
           ))}
         </ScrollView>
 

@@ -137,10 +137,41 @@ export const space = (steps: number) => steps * 4;
  * panel leaves, and that is what 33 over 40 buys.
  */
 export const type = {
-  /** A choice in a list: a door, a difficulty, a numbered puzzle. */
+  /**
+   * The front door's ways in: Daily, Play, How to play.
+   *
+   * Larger than the choices further in, and it can afford to be — there are
+   * three of them and the longest is eleven letters, where a list of lessons or
+   * of difficulties has more rows of longer names. This is the first thing
+   * anybody sees and the largest decision on it, and it reads that way. It
+   * stops short of the panel's own 62 so the doors under the name are plainly
+   * the second-largest thing on the page rather than a rival to it.
+   */
+  door: {
+    fontSize: 48,
+    lineHeight: 56,
+    fontWeight: '800',
+    letterSpacing: -1,
+  },
+  /** A choice in a list: a difficulty, a numbered puzzle, a daily challenge. */
   menu: {
     fontSize: 33,
     lineHeight: 40,
+    fontWeight: '800',
+    letterSpacing: -1,
+  },
+  /**
+   * The same, for a list whose choices are named in phrases rather than words.
+   *
+   * "Compare the gap clues" measures 328 points at the size above, against the
+   * 311 an iPhone 11 Pro leaves between the margins, so it wrapped — and a menu
+   * where one row is two lines high is a menu with a mistake in it. At this
+   * size the longest of them comes to 276 and the shortest list still reads as
+   * the same kind of question the others ask.
+   */
+  menuLong: {
+    fontSize: 28,
+    lineHeight: 36,
     fontWeight: '800',
     letterSpacing: -1,
   },

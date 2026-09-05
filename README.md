@@ -690,18 +690,35 @@ screens hold none of their own:
 
 | | | |
 | --- | --- | --- |
-| `type.menu` | 33 / 40, weight 800 | A choice in a list: a door on the front page, a difficulty, a numbered puzzle, a daily. |
+| `type.door` | 48 / 56, weight 800 | The front door's ways in: **Daily**, **Play**, **How to play**. |
+| `type.menu` | 33 / 40, weight 800 | A choice in a list: a difficulty, a numbered puzzle, a daily. |
+| `type.menuLong` | 28 / 36, weight 800 | The same, where the choices are named in phrases: the two lesson menus. |
 | `type.title` | 22 / 28, weight 800 | What a screen is called, over its rule. |
 | `type.note` | 14 / 20, weight 600 | The quiet line beside or under one of those: a time, a hint, a count. |
 
-Every choice the player makes is the same size wherever it is made, which is
-what makes **Daily**, **Advanced** and **Puzzle 7** read as three answers to the
-same question rather than three screens that happen to follow one another. The
-titles are set by `RuledTitle`, which carries its own `TITLE_GAP` under the
+Three steps for one thing, and the three are one voice: same weight, same
+tracking, and only the size between them, so **Daily**, **Advanced** and
+**Compare the gap clues** read as three answers to the same question rather
+than three screens that happen to follow one another. What separates them is
+how much room the words need. The front door has three of them and the longest
+is eleven letters, so it can afford to be the largest decision on the page —
+though it stops short of the panel's own 62, so the doors are plainly the
+second-largest thing rather than a rival to the name. The lesson menus go the
+other way: "Compare the gap clues" measures 328 points at the middle size,
+against the 311 an iPhone 11 Pro leaves between the margins, so it wrapped, and
+a menu with a two-line row in it is a menu with a mistake in it.
+
+`npm run sizes` is what holds all of that honest. It opens every menu on five
+phones and counts the line boxes each label was drawn in — a range over the
+words reports one rectangle per line — so a size that no longer fits fails the
+build rather than shipping. Nothing else would have caught it: a wrapped label
+still fits the screen and still clears everything under it.
+`src/ui/__tests__/type.test.ts` holds the relationships instead of the numbers,
+since the numbers are the part that gets changed.
+
+The titles are set by `RuledTitle`, which carries its own `TITLE_GAP` under the
 rule, so the air between a heading and what it heads is identical on all ten
-screens that wear one and no screen adds its own. Sizes stopped agreeing once
-before — the front door was at 56, the daily at 33 over a 44 line and the
-numbered list at 26 — which is what the scale exists to prevent.
+screens that wear one and no screen adds its own.
 
 Nothing in the app is rounded: the `radius` scale in `src/ui/theme.ts` is zero
 throughout. Where bordered neighbours do sit flush they carry `joinLeft` /

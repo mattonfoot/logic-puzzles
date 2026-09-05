@@ -15,6 +15,12 @@ interface Props {
    */
   hint?: string;
   disabled?: boolean;
+  /**
+   * Which step of the menu scale to set it in. `long` is for a list whose
+   * choices are named in phrases rather than words, where the ordinary size
+   * would wrap a row onto two lines.
+   */
+  size?: 'menu' | 'long';
   onPress: () => void;
 }
 
@@ -27,7 +33,7 @@ interface Props {
  * one of these rather than one per screen, which is what this is: the row, its
  * air, its accent and its press.
  */
-export function Choice({ label, hint, disabled = false, onPress }: Props) {
+export function Choice({ label, hint, disabled = false, size = 'menu', onPress }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
 
@@ -44,7 +50,9 @@ export function Choice({ label, hint, disabled = false, onPress }: Props) {
       }}
       style={({ pressed }) => [styles.choice, { opacity: disabled ? 0.4 : pressed ? 0.6 : 1 }]}
     >
-      <Text style={[styles.label, { color: palette.accent }]}>{label}</Text>
+      <Text style={[size === 'long' ? styles.long : styles.label, { color: palette.accent }]}>
+        {label}
+      </Text>
     </Pressable>
   );
 }
@@ -59,4 +67,5 @@ const makeStyles = (_palette: Palette) =>
       paddingRight: space(6),
     },
     label: type.menu,
+    long: type.menuLong,
   });
