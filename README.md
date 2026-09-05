@@ -468,7 +468,7 @@ src/storage/store.ts        the only module that touches AsyncStorage
 src/components/             GridBoard, Mark, SolutionTable, ItemCard, …
 src/components/Popup.tsx    the window shell the briefing, the clue and a lesson
                             all wear
-src/screens/                StartScreen, SetupScreen, NumbersScreen,
+src/screens/                SplashScreen, StartScreen, SetupScreen, NumbersScreen,
                             DailyScreen, ResultScreen, SettingsScreen,
                             GameScreen, GameMenuScreen, StatsScreen,
                             LessonsScreen and TutorialScreen behind How to play,
@@ -492,6 +492,7 @@ src/ui/Pager.tsx            Previous and Next, shared by the three lists
 src/ui/Icon.tsx             one silhouette, drawn in whatever colour it sits in
 src/ui/icons.generated.ts   the silhouettes as path data (generated, committed)
 scripts/app-icon.mjs        the app icon, drawn at every size the stores ask for
+scripts/splash.mjs          the words on the launch screen
 assets/icons/               one SVG per item, theme, interface icon and board mark
 docs/app-icon-source.png    the artwork the app icon is held to
 docs/cast.md                a paragraph on each of the seventy people, for whoever draws them
@@ -971,6 +972,37 @@ of actually breaking the picture was tried against it — filling the empty
 square, turning a tick into a cross, using the heavy cross, inverting the
 checkerboard, shifting the grid four pixels, moving the page colour by twelve.
 The closest any of them came was a mean of 1.19, and the thresholds sit between.
+
+## The splash
+
+Two screens, one design. The name front and centre in white, `a game by Matt
+Smith` under it in the same white held back, on the colour the app is drawn in.
+
+`src/screens/SplashScreen.tsx` is the one the player sees, and it is painted in
+`accentGround` — **their** accent, the same block the title panel wears on every
+screen before a board. It stands where a blank page used to, while the fonts and
+the settings are read. The words are held back until the fonts are there: the
+name is set in the app's own face, and drawing it early puts it on the screen in
+whatever the system happens to have and swaps it a moment later. The colour is
+right from the first frame either way.
+
+The frame before that one is the launch screen, which iOS and Android show from
+the moment the icon is pressed until React Native has anything to say. It is a
+static picture baked in at build time and cannot know whose phone it is on, so
+it is the same design in the *default* accent: `npm run splash` draws the words
+white on nothing, and `expo-splash-screen` puts them on `#064789`. The two hand
+over with no seam for anybody who has not changed the colour, and with one
+colour change for anybody who has — which is the price of a screen that exists
+before the settings have been read.
+
+The two sets of numbers are written twice, in the component and in the script,
+because a build script cannot import a TypeScript component. The script measures
+what it drew and fails if the block no longer comes out the width `app.json`
+tells the launch screen to draw it at, which is what keeps them together.
+
+`src/screens/__tests__/screens.test.tsx` covers the first of them — it is the
+one screen a player cannot reach on purpose, so the browser walk cannot
+photograph it and nothing else would look at it at all.
 
 ## The icons
 

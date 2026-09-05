@@ -15,6 +15,7 @@ import { NumbersScreen } from '../NumbersScreen';
 import { ResultScreen } from '../ResultScreen';
 import { SettingsScreen } from '../SettingsScreen';
 import { SetupScreen } from '../SetupScreen';
+import { SplashScreen } from '../SplashScreen';
 import { StartScreen } from '../StartScreen';
 import { StatsScreen } from '../StatsScreen';
 import { TutorialScreen } from '../TutorialScreen';
@@ -63,6 +64,47 @@ const button = (name: string) => only('button', name);
 const header = (name: string) => only('header', name);
 const checkbox = (name: string) => only('checkbox', name);
 const none = () => {};
+
+/**
+ * The screen the app opens on, before the fonts and the settings are back.
+ *
+ * It is the only screen a player cannot reach on purpose, which is why it is
+ * checked here: the browser walk cannot photograph it — the built app is past
+ * it before the first frame — so nothing else looks at it at all.
+ */
+describe('the splash', () => {
+  it('is the accent, with the name and whose game it is on it', () => {
+    stage(<SplashScreen words />);
+
+    expect(screen.getByText('Deduction')).toBeOnTheScreen();
+    expect(screen.getByText('a game by Matt Smith')).toBeOnTheScreen();
+
+    // The default accent's ground, which is the block the title panel wears on
+    // every screen before a board.
+    const ground = screen.UNSAFE_getAllByType(View)[0];
+    expect(StyleSheet.flatten(ground.props.style).backgroundColor).toBe('#064789');
+  });
+
+  /**
+   * The name is set in the app's own face, and drawing it before that face has
+   * loaded puts it on the screen in whatever the system has and swaps it a
+   * moment later. The colour is right from the first frame either way.
+   */
+  it('holds the words back until they can be drawn in the right face', () => {
+    stage(<SplashScreen words={false} />);
+
+    expect(screen.queryByText('Deduction')).toBeNull();
+    expect(screen.queryByText('a game by Matt Smith')).toBeNull();
+    const ground = screen.UNSAFE_getAllByType(View)[0];
+    expect(StyleSheet.flatten(ground.props.style).backgroundColor).toBe('#064789');
+  });
+
+  /** White on every one of the five, which is what the design asks for. */
+  it('writes in the lightest colour the ground can carry', () => {
+    stage(<SplashScreen words />);
+    expect(StyleSheet.flatten(screen.getByText('Deduction').props.style).color).toBe('#FFFFFF');
+  });
+});
 
 describe('the front door', () => {
   it('opens on the four ways in', () => {

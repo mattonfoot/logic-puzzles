@@ -25,6 +25,10 @@ export const STRINGS = {
     discard: 'Discard the saved game',
     detail: 'The error was: {message}',
   },
+  splash: {
+    name: 'Deduction',
+    byline: 'a game by Matt Smith',
+  },
   start: {
     daily: 'Daily',
     play: 'Play',
@@ -4655,6 +4659,8 @@ export type StringKey =
   | 'solved.swipe'
   | 'solved.time'
   | 'solved.title'
+  | 'splash.byline'
+  | 'splash.name'
   | 'start.daily'
   | 'start.howToPlay'
   | 'start.play'

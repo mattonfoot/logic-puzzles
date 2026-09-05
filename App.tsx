@@ -27,6 +27,7 @@ import { NumbersScreen } from './src/screens/NumbersScreen';
 import { ResultScreen } from './src/screens/ResultScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
 import { SetupScreen } from './src/screens/SetupScreen';
+import { SplashScreen } from './src/screens/SplashScreen';
 import { StartScreen } from './src/screens/StartScreen';
 import { StatsScreen } from './src/screens/StatsScreen';
 import { TutorialScreen } from './src/screens/TutorialScreen';
@@ -74,7 +75,13 @@ export default function App() {
   }, [settings.settings.haptics, settings.settings.volume]);
 
   if (!fontsLoaded || !settings.ready) {
-    return <Loading preference={settings.settings.colours} accent={settings.settings.accent} />;
+    return (
+      <Loading
+        preference={settings.settings.colours}
+        accent={settings.settings.accent}
+        words={fontsLoaded}
+      />
+    );
   }
 
   return (
@@ -92,18 +99,29 @@ export default function App() {
   );
 }
 
-/** The empty page shown while the fonts and settings are read. */
-function Loading({ preference, accent }: { preference: 'day' | 'night' | 'auto'; accent: string }) {
+/**
+ * The splash, shown while the fonts and settings are read.
+ *
+ * The accent it is handed is the default until the settings come back, and the
+ * player's from then on — which is a colour change part way through the second
+ * the app takes to open, for anybody who has changed it. The alternative is
+ * painting nothing until the answer is known, and nothing is what this screen
+ * used to be.
+ */
+function Loading({
+  preference,
+  accent,
+  words,
+}: {
+  preference: 'day' | 'night' | 'auto';
+  accent: string;
+  words: boolean;
+}) {
   return (
     <ThemeProvider preference={preference} accent={accent}>
-      <Ground />
+      <SplashScreen words={words} />
     </ThemeProvider>
   );
-}
-
-function Ground() {
-  const styles = useStyles(makeStyles);
-  return <View style={styles.root} />;
 }
 
 function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {

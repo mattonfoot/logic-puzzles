@@ -48,6 +48,13 @@ crash:
   # Printed small under the buttons, for a bug report.
   detail: 'The error was: {message}'
 
+# The screen the app opens on, before there is anything to press.
+splash:
+  # The name on its own, without the ellipsis that joins it to the tagline on
+  # the front door — nothing here is completing a sentence.
+  name: Deduction
+  byline: a game by Matt Smith
+
 start:
   daily: Daily
   play: Play
