@@ -222,23 +222,37 @@ async function main() {
   await fresh(page, origin);
   await shot('01-start');
 
-  // 18. How to play, under Play on the front door: the tutorial board, part
-  // way through the walk. Taken here, in day colours, because it is the first
-  // thing a new player opens; it is numbered last because it was added last.
+  // 18-20. How to play, under Play on the front door: the two menus of lessons
+  // and a lesson board part way through its walk. Taken here, in day colours,
+  // because they are the first thing a new player opens; they are numbered last
+  // because they were added last.
   await page.getByLabel('How to play').click();
   await wait(page, 600);
-  const tutorialSquare = (customer, drink) =>
-    page.getByRole('button', { name: new RegExp(`^${customer} and ${drink}: `) });
-  await tutorialSquare('Ms Barley', 'Latte').click();
-  await wait(page, 300);
-  await tutorialSquare('Alderman Crumb', 'Chai').click();
-  await tutorialSquare('Alderman Crumb', 'Chai').click();
+  await shot('18-lessons');
+
+  await page.getByLabel('Understanding clues').click();
+  await wait(page, 500);
+  await shot('19-clue-lessons');
+
+  // The grouped lesson: the one whose clues describe people instead of naming
+  // them, which is the most a clue ever asks of a reader.
+  await page.getByLabel('Grouped clues').click();
   await wait(page, 700);
-  await shot('18-tutorial');
+  const lessonSquare = (customer, drink) =>
+    page.getByRole('button', { name: new RegExp(`^${customer} and ${drink}: `) });
+  await lessonSquare('Ms Barley', 'Latte').click();
+  await wait(page, 300);
+  await lessonSquare('Dr Frangipane', 'Latte').click();
+  await wait(page, 700);
+  await shot('20-lesson');
   // Leaving part-way through asks first, since the walk starts over next time.
   await page.getByLabel('Back').click();
   await wait(page, 400);
   await page.getByLabel('Leave it').click();
+  await wait(page, 500);
+  await page.getByLabel('Back').click();
+  await wait(page, 400);
+  await page.getByLabel('Back').click();
   await wait(page, 500);
 
   // 2. The difficulties, the first of the two things a player chooses.

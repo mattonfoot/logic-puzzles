@@ -3,11 +3,11 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 
 import { GridBoard } from '../GridBoard';
-import { tutorialPuzzle } from '../../game/tutorial';
+import { lessonById } from '../../game/lessons';
 import { stage } from '../../screens/__tests__/stage';
 
 const CELL = 40;
-const puzzle = tutorialPuzzle();
+const puzzle = lessonById('deduction').puzzle;
 /** One grid of squares, plus the rule drawn either side of it. */
 const BLOCK = CELL * puzzle.size.items + 4;
 

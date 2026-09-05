@@ -18,7 +18,8 @@ import { SetupScreen } from '../SetupScreen';
 import { StartScreen } from '../StartScreen';
 import { StatsScreen } from '../StatsScreen';
 import { TutorialScreen } from '../TutorialScreen';
-import { tutorialPuzzle } from '../../game/tutorial';
+import { CLUE_LESSONS, FIRST_LESSONS, lessonById, type LessonId } from '../../game/lessons';
+import { LessonsScreen, type Entry } from '../LessonsScreen';
 import { NOON, game, puzzleOne, savedGame, stage, statsOf } from './stage';
 
 /**
@@ -90,15 +91,80 @@ describe('the front door', () => {
 });
 
 describe('how to play', () => {
-  const puzzle = tutorialPuzzle();
+  const lesson = lessonById('deduction');
+  const puzzle = lesson.puzzle;
+
   /** A square, by the two it names — the way the board labels every cell. */
   const square = (customer: number, drink: number) =>
     new RegExp(
       `^${puzzle.categories[0].items[customer].label} and ${puzzle.categories[1].items[drink].label}: `,
     );
 
-  function walk() {
-    stage(<TutorialScreen onBack={none} />);
+  function menu(entries: Entry[] = lessonEntries) {
+    stage(<LessonsScreen title="How to play" entries={entries} backLabel="Back" onBack={none} />);
+  }
+
+  const opened: string[] = [];
+  const lessonEntries: Entry[] = [
+    ...FIRST_LESSONS.map((id) => ({
+      key: id,
+      label: lessonById(id).title,
+      hint: lessonById(id).blurb,
+      onPress: () => opened.push(id),
+    })),
+    {
+      key: 'clues',
+      label: 'Understanding clues',
+      hint: 'One lesson per clue',
+      onPress: () => opened.push('clues'),
+    },
+  ];
+
+  beforeEach(() => {
+    opened.length = 0;
+  });
+
+  it('opens on a menu of lessons rather than straight onto a board', () => {
+    menu();
+
+    expect(header('How to play')).toBeOnTheScreen();
+    expect(button('Using deduction')).toBeEnabled();
+    expect(button('Further deduction')).toBeEnabled();
+    expect(button('Understanding clues')).toBeEnabled();
+    // A menu, not a board: nothing on it is a square.
+    expect(screen.queryByRole('button', { name: /: unknown$/ })).toBeNull();
+    expect(button('Back')).toBeEnabled();
+
+    fireEvent.press(button('Understanding clues'));
+    expect(opened).toEqual(['clues']);
+  });
+
+  it('lists one lesson per kind of clue behind Understanding clues', () => {
+    menu(
+      CLUE_LESSONS.map((id) => ({
+        key: id,
+        label: lessonById(id).title,
+        hint: lessonById(id).blurb,
+        onPress: () => opened.push(id),
+      })),
+    );
+
+    for (const name of [
+      'Negative clues',
+      'Comparison clues',
+      'Grouped clues',
+      'Compare the gap clues',
+      'Vague clues',
+    ]) {
+      expect(button(name)).toBeEnabled();
+    }
+
+    fireEvent.press(button('Grouped clues'));
+    expect(opened).toEqual(['grouped']);
+  });
+
+  function walk(id: LessonId = 'deduction') {
+    stage(<TutorialScreen lesson={id} onBack={none} />);
     const measured = screen.UNSAFE_getAllByType(View).find((view) => view.props.onLayout);
     if (!measured) throw new Error('the board never measures itself');
     fireEvent(measured, 'layout', { nativeEvent: { layout: { width: 340, height: 420 } } });
@@ -113,14 +179,24 @@ describe('how to play', () => {
   it('opens on the first thing to do, with the clue it follows from', () => {
     walk();
 
-    expect(header('How to play')).toBeOnTheScreen();
+    expect(header('Using deduction')).toBeOnTheScreen();
     expect(screen.getByText(/Every square asks the same question/)).toBeOnTheScreen();
-    expect(screen.getByText(/Tap where Ms Barley meets the latte/)).toBeOnTheScreen();
+    expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
     expect(screen.getByText('The clue')).toBeOnTheScreen();
     expect(
-      screen.getByText('Ms Barley is not on the same ticket as the Latte drinker.'),
+      screen.getByText('Ms Barley is on the same ticket as the Mocha drinker.'),
     ).toBeOnTheScreen();
     expect(button('Back')).toBeEnabled();
+  });
+
+  it('names the lesson it was opened with, whichever one that is', () => {
+    walk('vague');
+    expect(header('Vague clues')).toBeOnTheScreen();
+    expect(
+      screen.getByText(
+        'Ms Barley is on the same ticket as either the Latte drinker or the Mocha drinker.',
+      ),
+    ).toBeOnTheScreen();
   });
 
   it('waits for the mark it asked for, and moves on when it lands', () => {
@@ -128,11 +204,11 @@ describe('how to play', () => {
 
     // A tap somewhere else is allowed and teaches nothing; the ask stands.
     tap(2, 1);
-    expect(screen.getByText(/Tap where Ms Barley meets the latte/)).toBeOnTheScreen();
+    expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
 
-    tap(0, 0);
-    expect(screen.getByText(/Ruled out\. Crossing pairs off/)).toBeOnTheScreen();
-    expect(screen.getByText(/Tap where Alderman Crumb meets the chai twice/)).toBeOnTheScreen();
+    tap(0, 1, 2);
+    expect(screen.getByText(/A tick settles a whole row and a whole column/)).toBeOnTheScreen();
+    expect(screen.getByText(/Now the same for Alderman Crumb and the chai/)).toBeOnTheScreen();
     expect(
       screen.getByText('Alderman Crumb is on the same ticket as the Chai drinker.'),
     ).toBeOnTheScreen();
@@ -140,16 +216,15 @@ describe('how to play', () => {
 
   it('crosses off the rest of the row and column, and says so', () => {
     walk();
-    tap(0, 0);
-    tap(1, 2, 2);
+    tap(0, 1, 2);
 
     expect(screen.getByText(/A tick settles a whole row and a whole column/)).toBeOnTheScreen();
-    // Crumb's other two and the chai's other two, all ruled out without a tap.
+    // Barley's other two and the mocha's other two, all ruled out without a tap.
     for (const [customer, drink] of [
-      [1, 0],
-      [1, 1],
+      [0, 0],
       [0, 2],
-      [2, 2],
+      [1, 1],
+      [2, 1],
     ]) {
       expect(
         screen.getByRole('button', { name: square(customer, drink) }).props.accessibilityLabel,
@@ -159,16 +234,15 @@ describe('how to play', () => {
 
   it('leaves the last square to the player, and stops talking after it', () => {
     walk();
-    tap(0, 0);
-    tap(1, 2, 2);
     tap(0, 1, 2);
+    tap(1, 2, 2);
 
     // No clue for the last one, so there is none on the screen.
-    expect(screen.getByText(/One square left, and nothing left to read/)).toBeOnTheScreen();
+    expect(screen.getByText(/One square left, and no clue for it/)).toBeOnTheScreen();
     expect(screen.queryByText('The clue')).toBeNull();
 
     tap(2, 0, 2);
-    expect(screen.getByText(/Solved\./)).toBeOnTheScreen();
+    expect(screen.getByText(/^Solved\./)).toBeOnTheScreen();
     expect(screen.queryByText(/Tap/)).toBeNull();
   });
 
@@ -180,9 +254,9 @@ describe('how to play', () => {
   it('rings the square it is waiting for, and only that one', () => {
     walk();
 
-    expect(ringed(0, 0)).toBe(true);
+    expect(ringed(0, 1)).toBe(true);
     for (const [customer, drink] of [
-      [0, 1],
+      [0, 0],
       [1, 2],
       [2, 0],
     ]) {
@@ -191,31 +265,28 @@ describe('how to play', () => {
 
     // A mark somewhere else does not move it.
     tap(2, 1);
-    expect(ringed(0, 0)).toBe(true);
+    expect(ringed(0, 1)).toBe(true);
 
     // The mark it wanted does.
-    tap(0, 0);
-    expect(ringed(0, 0)).toBe(false);
+    tap(0, 1, 2);
+    expect(ringed(0, 1)).toBe(false);
     expect(ringed(1, 2)).toBe(true);
   });
 
   it('keeps the ring on while a half-made mark is on the square', () => {
     walk();
-    tap(0, 0);
 
     // One tap of the two the tick needs: a cross, which is not what was asked.
-    tap(1, 2);
-    expect(ringed(1, 2)).toBe(true);
-    tap(1, 2);
-    expect(ringed(1, 2)).toBe(false);
+    tap(0, 1);
+    expect(ringed(0, 1)).toBe(true);
+    tap(0, 1);
+    expect(ringed(0, 1)).toBe(false);
   });
 
   it('takes the ring off once there is nothing left to ask for', () => {
     walk();
-    tap(0, 0);
-    tap(1, 2, 2);
     tap(0, 1, 2);
-    tap(2, 0, 2);
+    tap(1, 2, 2);
 
     for (let customer = 0; customer < 3; customer++) {
       for (let drink = 0; drink < 3; drink++) expect(ringed(customer, drink)).toBe(false);
@@ -233,7 +304,7 @@ describe('how to play', () => {
       ),
     ).toBeOnTheScreen();
     // The ask it interrupted is still standing.
-    expect(screen.getByText(/Tap where Ms Barley meets the latte/)).toBeOnTheScreen();
+    expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
 
     // Round to a tick, which is true, and the notice has nothing to say.
     tap(2, 0);
@@ -257,14 +328,14 @@ describe('how to play', () => {
     walk();
 
     // True, just not what was asked for.
-    tap(2, 1);
+    tap(2, 0, 2);
     expect(screen.queryByText(/cannot be right/)).toBeNull();
-    expect(screen.getByText(/Tap where Ms Barley meets the latte/)).toBeOnTheScreen();
+    expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
   });
 
   it('asks before letting a half-walked lesson go', () => {
     const onBack = jest.fn();
-    stage(<TutorialScreen onBack={onBack} />);
+    stage(<TutorialScreen lesson="deduction" onBack={onBack} />);
     const measured = screen.UNSAFE_getAllByType(View).find((view) => view.props.onLayout);
     fireEvent(measured!, 'layout', { nativeEvent: { layout: { width: 340, height: 420 } } });
 
@@ -276,7 +347,7 @@ describe('how to play', () => {
     // Staying puts the window away and leaves the board as it was.
     fireEvent.press(button('Keep going'));
     expect(screen.queryByText('Leave the lesson?')).toBeNull();
-    expect(screen.getByText(/Tap where Ms Barley meets the latte/)).toBeOnTheScreen();
+    expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
 
     fireEvent.press(button('Back'));
     fireEvent.press(button('Leave it'));
@@ -285,12 +356,11 @@ describe('how to play', () => {
 
   it('lets a finished one go without asking', () => {
     const onBack = jest.fn();
-    stage(<TutorialScreen onBack={onBack} />);
+    stage(<TutorialScreen lesson="deduction" onBack={onBack} />);
     const measured = screen.UNSAFE_getAllByType(View).find((view) => view.props.onLayout);
     fireEvent(measured!, 'layout', { nativeEvent: { layout: { width: 340, height: 420 } } });
-    tap(0, 0);
-    tap(1, 2, 2);
     tap(0, 1, 2);
+    tap(1, 2, 2);
     tap(2, 0, 2);
 
     fireEvent.press(button('Back'));
@@ -305,17 +375,32 @@ describe('how to play', () => {
    */
   it('opens on an empty board however many times it is opened', () => {
     walk();
-    tap(0, 0);
-    tap(1, 2, 2);
+    tap(0, 1, 2);
     expect(screen.getByText(/A tick settles a whole row/)).toBeOnTheScreen();
     screen.unmount();
 
     walk();
     expect(screen.getByText(/Every square asks the same question/)).toBeOnTheScreen();
-    expect(screen.getByText(/Tap where Ms Barley meets the latte/)).toBeOnTheScreen();
-    expect(screen.getByRole('button', { name: square(1, 2) }).props.accessibilityLabel).toMatch(
+    expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
+    expect(screen.getByRole('button', { name: square(0, 1) }).props.accessibilityLabel).toMatch(
       /unknown$/,
     );
+  });
+
+  /**
+   * The grouped lesson is the only one whose clues describe people rather than
+   * naming them, so it is the only one where the card behind a picture is worth
+   * opening — and the only one that opens it.
+   */
+  it('opens a card behind a picture only where the descriptions are the lesson', () => {
+    walk('grouped');
+    fireEvent.press(screen.getAllByRole('button', { name: 'About Ms Barley' })[0]);
+    expect(screen.getByText('spectacles')).toBeOnTheScreen();
+    screen.unmount();
+
+    walk('deduction');
+    fireEvent.press(screen.getAllByRole('button', { name: 'About Ms Barley' })[0]);
+    expect(screen.queryByText(/Orders the same thing daily/)).toBeNull();
   });
 });
 

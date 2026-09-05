@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
 
 import { SIZES } from '../data/sizes';
 import { progress } from '../game/board';
@@ -8,7 +8,7 @@ import { formatDuration } from '../game/time';
 import { t } from '../i18n';
 import type { SizeOption } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
-import { feedback } from '../ui/feedback';
+import { Choice } from '../ui/Choice';
 import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
 import { TitlePanel } from '../ui/TitlePanel';
@@ -130,43 +130,6 @@ export function SetupScreen({
   );
 }
 
-/**
- * One difficulty, as a word. The shape it stands for rides along as a hint, so
- * a screen reader still hears what is being chosen without it being set on the
- * page next to the name.
- */
-function Choice({
-  label,
-  hint,
-  disabled,
-  onPress,
-}: {
-  label: string;
-  hint: string;
-  disabled: boolean;
-  onPress: () => void;
-}) {
-  const palette = useTheme();
-  const styles = useStyles(makeStyles);
-
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={label}
-      accessibilityHint={hint}
-      accessibilityState={{ disabled }}
-      disabled={disabled}
-      onPress={() => {
-        feedback.tap();
-        onPress();
-      }}
-      style={({ pressed }) => [styles.choice, { opacity: disabled ? 0.4 : pressed ? 0.6 : 1 }]}
-    >
-      <Text style={[styles.choiceText, { color: palette.accent }]}>{label}</Text>
-    </Pressable>
-  );
-}
-
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
     notice: {
@@ -193,12 +156,6 @@ const makeStyles = (palette: Palette) =>
       marginBottom: space(4),
     },
     choices: {},
-    choice: {
-      alignSelf: 'flex-start',
-      paddingVertical: space(1),
-      paddingRight: space(6),
-    },
-    choiceText: type.menu,
     busyOverlay: {
       position: 'absolute',
       top: 0,

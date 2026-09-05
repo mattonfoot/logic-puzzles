@@ -17,9 +17,12 @@ import type { CompletedGame, SavedGame } from './src/game/persistence';
 import { usePersistence } from './src/game/usePersistence';
 import { useSettings } from './src/game/useSettings';
 import { generatePuzzle } from './src/puzzle/generator';
+import { CLUE_LESSONS, FIRST_LESSONS, lessonCard, menuOf, type LessonId } from './src/game/lessons';
+import { t } from './src/i18n';
 import type { Puzzle, SizeOption } from './src/puzzle/types';
 import { DailyScreen } from './src/screens/DailyScreen';
 import { GameScreen } from './src/screens/GameScreen';
+import { LessonsScreen } from './src/screens/LessonsScreen';
 import { NumbersScreen } from './src/screens/NumbersScreen';
 import { ResultScreen } from './src/screens/ResultScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
@@ -33,10 +36,20 @@ import { ThemeProvider, useStyles, useTheme } from './src/ui/ThemeProvider';
 import { inkOn, type Palette } from './src/ui/theme';
 
 type Screen =
-  'start' | 'daily' | 'setup' | 'numbers' | 'result' | 'settings' | 'stats' | 'game' | 'tutorial';
+  | 'start'
+  | 'daily'
+  | 'setup'
+  | 'numbers'
+  | 'result'
+  | 'settings'
+  | 'stats'
+  | 'game'
+  | 'lessons'
+  | 'clueLessons'
+  | 'tutorial';
 
 /** The screens that wear `TitlePanel`, which is what the status bar reads off. */
-const PANELLED = new Set<Screen>(['start', 'setup', 'numbers', 'daily']);
+const PANELLED = new Set<Screen>(['start', 'setup', 'numbers', 'daily', 'lessons', 'clueLessons']);
 
 export default function App() {
   // One file per weight; `src/ui/Text` picks between them. Until they are here
@@ -108,6 +121,9 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
   const [result, setResult] = useState<CompletedGame | null>(null);
   // Where leaving a game returns to: the list it was started from.
   const [cameFrom, setCameFrom] = useState<Screen>('numbers');
+  // Which lesson is open. The menu it was opened from is worked out from the
+  // id rather than remembered, so the way back cannot disagree with the menus.
+  const [lesson, setLesson] = useState<LessonId>('deduction');
 
   /**
    * Builds the puzzle a seed and a shape name, and opens it.
@@ -232,8 +248,46 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           />
         ) : screen === 'result' && result ? (
           <ResultScreen game={result} onBack={() => setScreen('daily')} />
+        ) : screen === 'lessons' ? (
+          <LessonsScreen
+            title={t('lessons.title')}
+            backLabel={t('lessons.back')}
+            entries={[
+              ...FIRST_LESSONS.map((id) => ({
+                key: id,
+                label: lessonCard(id).title,
+                hint: lessonCard(id).blurb,
+                onPress: () => {
+                  setLesson(id);
+                  setScreen('tutorial');
+                },
+              })),
+              {
+                key: 'clues',
+                label: t('lessons.clues.title'),
+                hint: t('lessons.clues.blurb'),
+                onPress: () => setScreen('clueLessons'),
+              },
+            ]}
+            onBack={() => setScreen('start')}
+          />
+        ) : screen === 'clueLessons' ? (
+          <LessonsScreen
+            title={t('lessons.clues.title')}
+            backLabel={t('lessons.clues.back')}
+            entries={CLUE_LESSONS.map((id) => ({
+              key: id,
+              label: lessonCard(id).title,
+              hint: lessonCard(id).blurb,
+              onPress: () => {
+                setLesson(id);
+                setScreen('tutorial');
+              },
+            }))}
+            onBack={() => setScreen('lessons')}
+          />
         ) : screen === 'tutorial' ? (
-          <TutorialScreen onBack={() => setScreen('start')} />
+          <TutorialScreen lesson={lesson} onBack={() => setScreen(menuOf(lesson))} />
         ) : screen === 'settings' ? (
           <SettingsScreen
             settings={settings.settings}
@@ -252,7 +306,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           <StartScreen
             onDaily={() => setScreen('daily')}
             onPlay={() => setScreen('setup')}
-            onHowToPlay={() => setScreen('tutorial')}
+            onHowToPlay={() => setScreen('lessons')}
             onOpenSettings={() => setScreen('settings')}
             onOpenStats={() => setScreen('stats')}
           />

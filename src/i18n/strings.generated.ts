@@ -32,25 +32,13 @@ export const STRINGS = {
     settings: 'Settings',
     statistics: 'Statistics',
   },
-  tutorial: {
+  lessons: {
     title: 'How to play',
-    opening:
-      'Three customers, three drinks. Each ordered one, and no two ordered the same. Every square asks the same question: do these two go together?',
-    clue: 'The clue',
-    steps: {
-      cross: 'Tap where Ms Barley meets the latte. One tap crosses it out.',
-      crossDone: 'Ruled out. Crossing pairs off is most of the game.',
-      tick: 'This one says yes. Tap where Alderman Crumb meets the chai twice: once for a cross, again for a tick.',
-      tickDone:
-        'A tick settles a whole row and a whole column. Crumb ordered nothing else, and nobody else ordered the chai — so the board crossed those off for you, lightly, to tell them from your own.',
-      deduce:
-        "No clue for this one. Ms Barley's latte and chai are both crossed off, so the mocha is hers. Tap it twice.",
-      deduceDone: 'Read a clue, mark what it settles, then see what is left over.',
-      alone: 'One square left, and nothing left to read. Finish it.',
-      aloneDone:
-        'Solved. Every puzzle in the app is that, on a bigger board with more to hold in your head.',
-    },
     back: 'Back',
+    clue: 'The clue',
+    finish: 'Nothing left to read. Finish it.',
+    solved:
+      'Solved. Every puzzle in the app is that, on a bigger board with more to hold in your head.',
     wrong: {
       one: 'That one cannot be right, so the board has shaded it. Tap it round until it clears.',
       other: 'Those cannot be right, so the board has shaded them. Tap each round until it clears.',
@@ -60,6 +48,154 @@ export const STRINGS = {
       body: 'There is nothing to save here, so it starts from the beginning next time.',
       confirmLabel: 'Leave it',
       cancelLabel: 'Keep going',
+    },
+    deduction: {
+      title: 'Using deduction',
+      blurb: 'Two clues, three pairs, and the one you are left to find',
+      opening:
+        'Three customers, three drinks. Each ordered one, and no two ordered the same. Every square asks the same question: do these two go together?',
+      steps: {
+        one: 'Tap where Ms Barley meets the mocha twice: once for a cross, again for a tick.',
+        oneDone:
+          'A tick settles a whole row and a whole column. Barley ordered nothing else, and nobody else ordered the mocha — so the board crossed those off for you, lightly, to tell them from your own.',
+        two: 'Now the same for Alderman Crumb and the chai. Two taps.',
+        twoDone: 'Two clues, two pairs, and every square they touch is now spoken for.',
+      },
+      finish: 'One square left, and no clue for it. That is the game — finish it.',
+    },
+    further: {
+      title: 'Further deduction',
+      blurb: 'Three sets, and the pairs that follow from the pairs',
+      opening:
+        'Three customers, three drinks, three pastries. Three grids now, and a pair found in one of them says something about the others.',
+      steps: {
+        drink: 'Ms Barley and the mocha. Two taps for a tick.',
+        drinkDone: 'One pair down.',
+        pastry: 'Now Ms Barley and the croissant, on the grid below.',
+        pastryDone: 'Barley has the mocha and Barley has the croissant.',
+        carry:
+          'So the mocha and the croissant are on the same ticket as each other. Find them on the drinks-and-pastries grid and tick them.',
+        carryDone: 'That is the idea this board is for. A pair never stays on one grid.',
+        crumbDrink: 'Alderman Crumb and the chai.',
+        crumbDrinkDone: 'Same again.',
+        crumbPastry: 'And Alderman Crumb and the cannelé.',
+        crumbPastryDone: 'Which settles one more square without a clue for it.',
+        crumbCarry: 'The chai and the cannelé, then.',
+        crumbCarryDone:
+          'Two of the three customers are done, which leaves Mrs Marzipan with what nobody else took.',
+        lastDrink: 'Mrs Marzipan and the latte.',
+        lastDrinkDone: 'Nothing else was left in that grid.',
+        lastPastry: 'And Mrs Marzipan and the scone.',
+        lastPastryDone: 'Every customer is settled, and one square is not.',
+      },
+      finish:
+        'One square left, on the grid with no customers on it. You have everything you need for it.',
+    },
+    clues: {
+      title: 'Understanding clues',
+      blurb: 'One lesson for each kind of clue the game writes',
+      back: 'Back',
+    },
+    negative: {
+      title: 'Negative clues',
+      blurb: 'What a clue rules out is as good as what it settles',
+      opening:
+        'Some clues only say no. They are worth as much as the others: rule two drinks out of a row and the third one is settled without anybody saying so.',
+      steps: {
+        one: 'Tap where Ms Barley meets the latte once, for a cross.',
+        oneDone: 'Ruled out.',
+        two: 'And once where she meets the chai.',
+        twoDone: "Two of Barley's three drinks are crossed off, and she ordered one of them.",
+        three: 'So the mocha is hers. Tap it twice.',
+        threeDone: 'A no and a no made a yes. That is what negative clues are for.',
+        four: 'Now cross off Alderman Crumb and the latte.',
+        fourDone:
+          'Crumb has no latte, and no mocha either — the tick above crossed that off for you.',
+        five: 'Which leaves the chai. Two taps.',
+        fiveDone:
+          "Two of Crumb's three drinks were crossed off, so the third had to be his — the same shape of thinking as before, one clue lighter.",
+      },
+      finish: 'And that settles the last square without a word about it.',
+    },
+    comparison: {
+      title: 'Comparison clues',
+      blurb: 'Higher and lower, and the ends they rule out',
+      opening:
+        'Three customers and three bills. A comparison never names a bill: it says one is above another, and the work is in what that makes impossible.',
+      steps: {
+        one: 'Barley is above Crumb, so she is not the lowest. Cross off Ms Barley and $4.',
+        oneDone: 'The one at the bottom cannot be above anybody.',
+        two: 'And the same the other way: Crumb is below her, so he is not the highest. Cross off Alderman Crumb and $6.',
+        twoDone: 'One clue, two squares, and neither of them named a number.',
+        three:
+          'The second clue puts Marzipan above Barley, so she is not the lowest either. Cross off Mrs Marzipan and $4.',
+        threeDone: 'Which leaves one customer in the $4 column.',
+        four: 'Tick Alderman Crumb and $4.',
+        fourDone: 'Settled.',
+        five: 'Barley is below Marzipan, so Barley is not the highest. Cross off Ms Barley and $6.',
+        fiveDone: 'And Barley has nowhere left but the middle.',
+        six: 'Tick Ms Barley and $5.',
+        sixDone: 'Two customers placed, and neither clue ever named a number.',
+      },
+      finish: 'Which leaves the highest bill for the one customer with nothing crossed off.',
+    },
+    grouped: {
+      title: 'Grouped clues',
+      blurb: 'One sentence that rules out several people at once',
+      opening:
+        'A clue can describe people instead of naming them — "no customer with spectacles" — and then it is about everybody the description fits. Tap a customer\'s picture to see what is true of them; that is where the descriptions come from.',
+      steps: {
+        one: 'Two customers wear spectacles: Ms Barley and Dr Frangipane. Cross Ms Barley off the latte.',
+        oneDone: 'One of the two.',
+        two: 'And Dr Frangipane off the latte as well.',
+        twoDone: 'One sentence, two squares. That is what a group clue buys you.',
+        three: 'Which leaves one customer for the latte. Tick Miss Custard and the latte.',
+        threeDone: 'And her tick crossed off her other two drinks.',
+        four: 'The second clue is about green eyes. Barley and Custard have them — Custard is already settled, so cross Ms Barley off the mocha.',
+        fourDone: 'Barley has no latte and no mocha.',
+        five: 'So the chai is hers. Two taps.',
+        fiveDone: 'Two sentences, two descriptions, and five of the nine squares settled by them.',
+      },
+      finish: 'Which leaves one drink for the one customer still open.',
+    },
+    gap: {
+      title: 'Compare the gap clues',
+      blurb: 'An exact difference, and the pairs it allows',
+      opening:
+        'This one gives the exact difference. Read the numbers on the bills first — $4, $5 and $7 — because the clue is really a question about which two of them are that far apart.',
+      steps: {
+        one: 'Barley is a dollar above Crumb, so she is not the lowest. Cross off Ms Barley and $4.',
+        oneDone: 'That much is the ordinary comparison.',
+        two: 'Now the gap. $7 is two dollars above $5 and three above $4, so no bill sits exactly a dollar below it. Cross off Ms Barley and $7.',
+        twoDone: 'The exact difference ruled out a square that a plain "higher than" never could.',
+        three: 'Which leaves the middle. Tick Ms Barley and $5.',
+        threeDone: 'And a dollar below $5 is $4, which is where Crumb has to be.',
+        four: 'So cross off Alderman Crumb and $7.',
+        fourDone: 'Leaving him one bill.',
+        five: 'Tick Alderman Crumb and $4.',
+        fiveDone:
+          'One clue did all of that, which is why an exact gap is the strongest sentence the game writes.',
+      },
+      finish: 'And the last bill goes to the last customer.',
+    },
+    vague: {
+      title: 'Vague clues',
+      blurb: 'Two options named, and the one that is not',
+      opening:
+        'A clue that offers two options looks like it settles nothing. Read it the other way round: the drink it does not name is the one it rules out.',
+      steps: {
+        one: 'The first clue offers Barley the latte or the mocha. It does not offer the chai — so cross off Ms Barley and the chai.',
+        oneDone: 'What a vague clue is worth is the option it left out.',
+        two: 'The second offers her the mocha or the chai. Cross off Ms Barley and the latte.',
+        twoDone: 'Two vague clues, and the only drink both of them offered was the mocha.',
+        three: 'So it is hers. Two taps.',
+        threeDone: 'Two maybes made a certainty.',
+        four: 'The last clue offers Crumb the latte or the mocha. Cross off Alderman Crumb and the chai.',
+        fourDone: 'And the mocha went to Barley, so it was crossed off him already.',
+        five: 'Which leaves the latte. Tick it.',
+        fiveDone: 'Three clues that each offered a choice, and not one square left in doubt.',
+      },
+      finish: 'And the customer nobody has settled takes the drink nobody has taken.',
     },
   },
   setup: {
@@ -4324,6 +4460,120 @@ export type StringKey =
   | 'improvement.steady.detail'
   | 'improvement.steady.headline'
   | 'item.aboutHint'
+  | 'lessons.back'
+  | 'lessons.clue'
+  | 'lessons.clues.back'
+  | 'lessons.clues.blurb'
+  | 'lessons.clues.title'
+  | 'lessons.comparison.blurb'
+  | 'lessons.comparison.finish'
+  | 'lessons.comparison.opening'
+  | 'lessons.comparison.steps.five'
+  | 'lessons.comparison.steps.fiveDone'
+  | 'lessons.comparison.steps.four'
+  | 'lessons.comparison.steps.fourDone'
+  | 'lessons.comparison.steps.one'
+  | 'lessons.comparison.steps.oneDone'
+  | 'lessons.comparison.steps.six'
+  | 'lessons.comparison.steps.sixDone'
+  | 'lessons.comparison.steps.three'
+  | 'lessons.comparison.steps.threeDone'
+  | 'lessons.comparison.steps.two'
+  | 'lessons.comparison.steps.twoDone'
+  | 'lessons.comparison.title'
+  | 'lessons.confirm.body'
+  | 'lessons.confirm.cancelLabel'
+  | 'lessons.confirm.confirmLabel'
+  | 'lessons.confirm.title'
+  | 'lessons.deduction.blurb'
+  | 'lessons.deduction.finish'
+  | 'lessons.deduction.opening'
+  | 'lessons.deduction.steps.one'
+  | 'lessons.deduction.steps.oneDone'
+  | 'lessons.deduction.steps.two'
+  | 'lessons.deduction.steps.twoDone'
+  | 'lessons.deduction.title'
+  | 'lessons.finish'
+  | 'lessons.further.blurb'
+  | 'lessons.further.finish'
+  | 'lessons.further.opening'
+  | 'lessons.further.steps.carry'
+  | 'lessons.further.steps.carryDone'
+  | 'lessons.further.steps.crumbCarry'
+  | 'lessons.further.steps.crumbCarryDone'
+  | 'lessons.further.steps.crumbDrink'
+  | 'lessons.further.steps.crumbDrinkDone'
+  | 'lessons.further.steps.crumbPastry'
+  | 'lessons.further.steps.crumbPastryDone'
+  | 'lessons.further.steps.drink'
+  | 'lessons.further.steps.drinkDone'
+  | 'lessons.further.steps.lastDrink'
+  | 'lessons.further.steps.lastDrinkDone'
+  | 'lessons.further.steps.lastPastry'
+  | 'lessons.further.steps.lastPastryDone'
+  | 'lessons.further.steps.pastry'
+  | 'lessons.further.steps.pastryDone'
+  | 'lessons.further.title'
+  | 'lessons.gap.blurb'
+  | 'lessons.gap.finish'
+  | 'lessons.gap.opening'
+  | 'lessons.gap.steps.five'
+  | 'lessons.gap.steps.fiveDone'
+  | 'lessons.gap.steps.four'
+  | 'lessons.gap.steps.fourDone'
+  | 'lessons.gap.steps.one'
+  | 'lessons.gap.steps.oneDone'
+  | 'lessons.gap.steps.three'
+  | 'lessons.gap.steps.threeDone'
+  | 'lessons.gap.steps.two'
+  | 'lessons.gap.steps.twoDone'
+  | 'lessons.gap.title'
+  | 'lessons.grouped.blurb'
+  | 'lessons.grouped.finish'
+  | 'lessons.grouped.opening'
+  | 'lessons.grouped.steps.five'
+  | 'lessons.grouped.steps.fiveDone'
+  | 'lessons.grouped.steps.four'
+  | 'lessons.grouped.steps.fourDone'
+  | 'lessons.grouped.steps.one'
+  | 'lessons.grouped.steps.oneDone'
+  | 'lessons.grouped.steps.three'
+  | 'lessons.grouped.steps.threeDone'
+  | 'lessons.grouped.steps.two'
+  | 'lessons.grouped.steps.twoDone'
+  | 'lessons.grouped.title'
+  | 'lessons.negative.blurb'
+  | 'lessons.negative.finish'
+  | 'lessons.negative.opening'
+  | 'lessons.negative.steps.five'
+  | 'lessons.negative.steps.fiveDone'
+  | 'lessons.negative.steps.four'
+  | 'lessons.negative.steps.fourDone'
+  | 'lessons.negative.steps.one'
+  | 'lessons.negative.steps.oneDone'
+  | 'lessons.negative.steps.three'
+  | 'lessons.negative.steps.threeDone'
+  | 'lessons.negative.steps.two'
+  | 'lessons.negative.steps.twoDone'
+  | 'lessons.negative.title'
+  | 'lessons.solved'
+  | 'lessons.title'
+  | 'lessons.vague.blurb'
+  | 'lessons.vague.finish'
+  | 'lessons.vague.opening'
+  | 'lessons.vague.steps.five'
+  | 'lessons.vague.steps.fiveDone'
+  | 'lessons.vague.steps.four'
+  | 'lessons.vague.steps.fourDone'
+  | 'lessons.vague.steps.one'
+  | 'lessons.vague.steps.oneDone'
+  | 'lessons.vague.steps.three'
+  | 'lessons.vague.steps.threeDone'
+  | 'lessons.vague.steps.two'
+  | 'lessons.vague.steps.twoDone'
+  | 'lessons.vague.title'
+  | 'lessons.wrong.one'
+  | 'lessons.wrong.other'
   | 'menu.autoAddFacts'
   | 'menu.automaticCrosses'
   | 'menu.back'
@@ -6554,24 +6804,6 @@ export type StringKey =
   | 'themes.reef.clues.link'
   | 'themes.reef.clues.notLink'
   | 'themes.reef.name'
-  | 'tutorial.back'
-  | 'tutorial.clue'
-  | 'tutorial.confirm.body'
-  | 'tutorial.confirm.cancelLabel'
-  | 'tutorial.confirm.confirmLabel'
-  | 'tutorial.confirm.title'
-  | 'tutorial.opening'
-  | 'tutorial.steps.alone'
-  | 'tutorial.steps.aloneDone'
-  | 'tutorial.steps.cross'
-  | 'tutorial.steps.crossDone'
-  | 'tutorial.steps.deduce'
-  | 'tutorial.steps.deduceDone'
-  | 'tutorial.steps.tick'
-  | 'tutorial.steps.tickDone'
-  | 'tutorial.title'
-  | 'tutorial.wrong.one'
-  | 'tutorial.wrong.other'
   | 'volumes.loud'
   | 'volumes.medium'
   | 'volumes.off'

@@ -93,6 +93,35 @@ async function main() {
         complain(`${door} runs off the bottom of the front door`);
     }
 
+    // The two menus behind How to play: the same panel over the same half, so
+    // the same question — does the list clear the way back?
+    await page.getByLabel('How to play').click();
+    await wait(page, 600);
+    for (const name of ['Using deduction', 'Further deduction', 'Understanding clues']) {
+      const seen = await box(page, name);
+      if (!seen) complain(`the lessons menu has no ${name}`);
+      else if (seen.bottom > phone.height) complain(`${name} runs off the lessons menu`);
+    }
+    await page.getByLabel('Understanding clues').click();
+    await wait(page, 500);
+    for (const name of [
+      'Negative clues',
+      'Comparison clues',
+      'Grouped clues',
+      'Compare the gap clues',
+      'Vague clues',
+    ]) {
+      const seen = await box(page, name);
+      if (!seen) complain(`the clue lessons have no ${name}`);
+      else if (seen.bottom > phone.height) complain(`${name} runs off the clue lessons`);
+    }
+    const overLessons = await scrollers(page);
+    if (overLessons.length > 0) complain(`the clue lessons scroll by ${overLessons.join(', ')}pt`);
+    await page.getByLabel('Back').click();
+    await wait(page, 400);
+    await page.getByLabel('Back').click();
+    await wait(page, 400);
+
     await page.getByLabel('Play', { exact: true }).click();
     await wait(page, 500);
     for (const difficulty of ['Beginner', 'Advanced', 'Expert', 'Pro']) {

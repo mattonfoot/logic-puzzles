@@ -190,7 +190,11 @@ pictures below are for.
 | <img src="docs/screenshots/07-board.png" width="230" alt="The board"><br>**7. Grid** — a 4 × 4 puzzle as a 3 × 3 staircase of six grids, sized to fit the screen. | <img src="docs/screenshots/08-menu.png" width="230" alt="Game menu"><br>**8. Puzzle settings** — behind the burger: the board pair and the colour, set the way the settings screen sets them, then starting this one over. | <img src="docs/screenshots/09-clue.png" width="230" alt="The clue window"><br>**9. Clue** — one clue at a time, in a window with the room to read it, under a line saying who is supposed to have said it. |
 | <img src="docs/screenshots/10-highlight.png" width="230" alt="A clue lit up on the grids"><br>**10. Highlight** — the button at the bottom right lights every row and column the clue talks about. | <img src="docs/screenshots/11-marked.png" width="230" alt="A part-marked board"><br>**11. Marked up** — a mark the player made is drawn heavily, one the board worked out for itself lightly. Same shape, same colour: the difference survives being colour-blind. | <img src="docs/screenshots/12-stuck.png" width="230" alt="A board that can no longer be solved"><br>**12. Out of reach** — asking for a new clue checks the board first, and stops with a window offering to rewind when the answer has been marked away. |
 | <img src="docs/screenshots/13-item-card.png" width="230" alt="The card behind an item's picture"><br>**13. Item card** — tap any picture on the board to meet it, and page through the rest of its set. | <img src="docs/screenshots/14-solved.png" width="230" alt="A finished game"><br>**14. Solved** — the finish takes the screen: time, clues read, how it compares, **Play again** and **Share**, the answer table. | <img src="docs/screenshots/15-statistics.png" width="230" alt="Statistics screen"><br>**15. Statistics** — totals, bests by difficulty and the trend of recent solve times. |
-| <img src="docs/screenshots/16-night.png" width="230" alt="Setup screen in night colours"><br>**16. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | <img src="docs/screenshots/17-catalogue.png" width="230" alt="The numbered list zoomed out to groups of twenty-five"><br>**17. Zoomed out** — the numbered list two presses of the glass out: five rows of twenty-five puzzles, paged the same way, each opening to the pages inside it. | <img src="docs/screenshots/18-tutorial.png" width="230" alt="The how-to-play board part way through"><br>**18. How to play** — the third of the front door's words: three customers, three drinks, and four marks walked on a real board. |
+| <img src="docs/screenshots/16-night.png" width="230" alt="Setup screen in night colours"><br>**16. Night** — the difficulties in night colours, with a game waiting behind **Continue**. | <img src="docs/screenshots/17-catalogue.png" width="230" alt="The numbered list zoomed out to groups of twenty-five"><br>**17. Zoomed out** — the numbered list two presses of the glass out: five rows of twenty-five puzzles, paged the same way, each opening to the pages inside it. | <img src="docs/screenshots/18-lessons.png" width="230" alt="The How to play menu"><br>**18. How to play** — the third of the front door's words, and a menu rather than a board: two lessons in deduction and a door to the clues. |
+
+| | | |
+| --- | --- | --- |
+| <img src="docs/screenshots/19-clue-lessons.png" width="230" alt="The Understanding clues menu"><br>**19. Understanding clues** — one lesson per kind of clue the generator writes. | <img src="docs/screenshots/20-lesson.png" width="230" alt="The grouped clues lesson part way through"><br>**20. A lesson** — grouped clues, two squares in: a real board, the ring on the square being waited for, and the words above it. | |
 
 The theme differs from run to run because it is drawn at random, and the
 statistics screen is captured with a sample history baked into the script — the
@@ -208,7 +212,8 @@ rest is the app behaving normally.
    down one edge. **Settings** and **Statistics** are text at the foot of the
    screen — Statistics pushed to the right so the two sit in opposite corners
    rather than reading as a pair. Under **Play**, set the same size as it and
-   with no rule between them, is **How to play**: the rule says *these are two
+   with no rule between them, is **How to play**, which opens a menu of lessons
+   rather than a board: the rule says *these are two
    different offers*, and this is not a third one — it is the same offer
    explained, for the reader who has never met a logic grid.
    The panel takes half the screen, or whatever leaves the list under it room
@@ -460,6 +465,7 @@ src/puzzle/solver.ts        constraint solver: propagation + search
 src/puzzle/describe.ts      clue objects → sentences, using each theme's wording
 src/game/board.ts           the player's ticks and crosses, mistakes, win check
 src/game/library.ts         the numbered catalogue and the daily seed
+src/game/lessons.ts         the seven boards behind How to play, and their walks
 src/game/clues.ts           what a clue asks of the board, which are spent, and
                             how a new one is written when they run out
 src/game/layout.ts          the staircase arrangement + the answer table
@@ -473,6 +479,7 @@ src/components/             GridBoard, Mark, SolutionTable, CluePopup, ItemCard,
 src/screens/                StartScreen, SetupScreen, NumbersScreen,
                             DailyScreen, ResultScreen, SettingsScreen,
                             GameScreen, GameMenuScreen, StatsScreen,
+                            LessonsScreen and TutorialScreen behind How to play,
                             and CrashScreen, which none of the others lead to
 src/ui/Boundary.tsx         the one error boundary, around the whole shell
 src/game/settings.ts        the player's settings, and reading them back
@@ -481,6 +488,7 @@ src/ui/                     Text, ThemeProvider (day/night), palettes,
                             spacing, borders, sound and haptics
 src/ui/accents.ts           the five colours the app can be drawn in
 src/ui/BackLink.tsx         the bottom-left `◀ Back` link, the one way back
+src/ui/Choice.tsx           one row of a menu: a difficulty, a lesson, a game
 src/ui/RuledTitle.tsx       a screen's name with a rule drawn out of the word
 src/ui/SettingRow.tsx       the boxes, sliders and word-actions the two settings
                             screens are made of
@@ -1298,34 +1306,54 @@ before them for the longer-run trend the chart draws.
   `npm run icons`. The pools hold fourteen items apiece — well over the six a
   6 × 4 puzzle uses — which is what makes the draw feel fresh; tests keep every
   pool deep enough and every item drawn and described.
-- **How to play** is a real board rather than a page of instructions:
-  `src/game/tutorial.ts` builds a fixed two-set puzzle from the café's own
-  cast — three customers, three drinks, one grid of nine — and scripts four
-  marks over it. The square being waited on is ringed in the accent and its row
-  and column are lit the way a clue lights the grids it talks about — two ways
-  of pointing that say different things, since the crosshair names the two
-  items the square is about, which is what a first-timer has to learn to read,
-  and the ring says *that* square. The ring stays until the mark asked for is
-  on it. Three marks are explained: a cross from a clue, a tick from a clue,
-  and the square that follows from the two. The fourth is named and left alone,
-  so the last thing that happens is the player finishing a grid with nothing
-  said to them. Every tap is accepted, wrong ones included, and the step being
-  asked for is read off the board rather than counted, so taking a mark back
-  walks the words back too. The traits are stripped from both sets, which stops
-  a clue describing somebody instead of naming them — a second idea on a screen
-  teaching the first. A mark that contradicts the answer is shaded and named on
+- **How to play** is a menu of real boards rather than a page of
+  instructions. `src/game/lessons.ts` holds seven of them, hand-built from the
+  café's own cast — three of each, so one grid of nine or three of them — and
+  each is a walk of marks over one. The first menu holds **Using deduction**
+  (two link clues, and the third pair left where the player can see it) and
+  **Further deduction** (three sets, and the pair that appears on a grid no
+  clue mentions), then a door to **Understanding clues**, which holds one board
+  per kind of clue the generator writes: negative, comparison, grouped, exact
+  gap, and either-or. Each of those boards carries nothing but the kind it
+  teaches — a board with one of everything on it teaches that the game has
+  clues, which the player already knew.
+  Every one of them is a real puzzle and is held to it: tests run the app's own
+  solver over each, and a lesson has to have exactly one answer *and* fall out
+  under pure propagation, which is the same bar the generator holds a shipped
+  puzzle to. The clues are the sentences the generator would have written,
+  through the same `describeClue`.
+  The square being waited on is ringed in the accent and its row and column are
+  lit the way a clue lights the grids it talks about — two ways of pointing
+  that say different things, since the crosshair names the two items the square
+  is about, which is what a first-timer has to learn to read, and the ring says
+  *that* square. The ring stays until the mark asked for is on it.
+  Every walk stops one pair short. Finishing is read off the board — `isSolved`
+  — rather than off the end of the step list, so a lesson can run out of things
+  to say while there is still a square to fill, which is the point of all seven:
+  the last thing that happens is the player finishing a grid with nothing said
+  to them. Every tap is accepted, wrong ones included, and the step being asked
+  for is read off the board rather than counted, so taking a mark back walks the
+  words back too.
+  The traits are stripped from every set but one, which stops a clue describing
+  somebody instead of naming them — a second idea on a screen teaching the
+  first. The exception is the grouped lesson, where describing a group *is* the
+  lesson: its customers keep their traits, its clues say "no customer with
+  spectacles", and it is the only lesson where tapping a picture opens the card
+  those descriptions are written on.
+  A mark that contradicts the answer is shaded and named on
   the spot — a real board keeps that to itself until you ask for a clue it
   cannot give you, because being told mid-thought that you are wrong is the
   game solving the puzzle for you, but a lesson has nothing to spoil and a
   wrong mark left standing is the one way this screen could send somebody away
   more confused than it found them. Nothing there is timed, saved or recorded,
   and nothing
-  anywhere notes that it has been done: it opens on an empty board every time,
-  which is what lets it be taken twice. Leaving part-way through asks first, in
-  the app's own window, because the walk starts over rather than picking up
-  where it stopped; a finished one goes without a word. Tests hold each step's
-  square to being empty when its turn comes — which is what makes "tap it
-  twice" true — walk the screen end to end, and reopen it to check it forgets.
+  anywhere notes that any of them has been done: each opens on an empty board
+  every time, which is what lets them be taken twice. Leaving part-way through
+  asks first, in the app's own window, because the walk starts over rather than
+  picking up where it stopped; a finished one goes without a word. Tests hold
+  each step's square to being empty when its turn comes — which is what makes
+  "tap it twice" true — walk every lesson end to end, check each stops exactly
+  one pair short, and reopen one to check it forgets.
 - No backend and no analytics: everything is kept on the device, and clearing
   the statistics from the stats screen deletes it.
 - `npm run sounds` rewrites the three WAVs in `assets/sounds` from

@@ -4,10 +4,20 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { fitCellSize, GridBoard } from '../components/GridBoard';
-import { findMistakes, getMark, nextMark, setMark, type Cell, type Marks } from '../game/board';
-import { STEPS, stepAt, stepHighlight, tutorialPuzzle } from '../game/tutorial';
+import { ItemCard } from '../components/ItemCard';
+import {
+  findMistakes,
+  getMark,
+  isSolved,
+  nextMark,
+  setMark,
+  type Cell,
+  type Marks,
+} from '../game/board';
+import { lessonById, stepAt, stepHighlight, type LessonId } from '../game/lessons';
 import { plural, t } from '../i18n';
 import { describeClue } from '../puzzle/describe';
+import type { Attribute } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { RuledTitle } from '../ui/RuledTitle';
@@ -16,32 +26,36 @@ import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { border, space, tint, type Palette } from '../ui/theme';
 
 interface Props {
+  lesson: LessonId;
   onBack: () => void;
 }
 
 /**
- * Thirty seconds of being shown, on a board the player is marking themselves.
+ * One lesson, on a board the player is marking themselves.
  *
- * It walks four marks and explains three of them: a cross, a tick, and the
- * square that follows from the two. The fourth it names and leaves alone, so
- * the last thing that happens here is the player finishing a grid without being
- * told anything — which is the feeling the whole game is selling, and the only
- * way to end a lesson about deduction.
+ * It walks the marks the lesson lists and explains each of them, and then it
+ * stops talking with the board unfinished. What is left over is never one of
+ * the steps: by then there is no clue left to read and nothing left to be told,
+ * so the only thing that can fill the last square is the player working it out.
+ * A lesson that talked all the way to the end would never let that happen,
+ * which is why finishing is read off the board — `isSolved` — rather than off
+ * the end of the list.
  *
  * Nothing is scripted about the board itself. It is the same `GridBoard` the
  * game draws, marked the same way, with the same automatic crosses appearing
- * off a tick; only the words above it are the tutorial's. Every tap is
- * accepted, including the wrong ones — a lesson that slaps the player's hand is
- * a lesson they leave — and the step it is waiting for is read off the board
- * rather than counted, so taking a mark back walks the words back with it.
+ * off a tick, and the clues are the same sentences the generator writes; only
+ * the words above it are the lesson's. Every tap is accepted, including the
+ * wrong ones — a lesson that slaps the player's hand is a lesson they leave —
+ * and the step it is waiting for is read off the board rather than counted, so
+ * taking a mark back walks the words back with it.
  *
  * Nothing here is recorded, and that is deliberate rather than unfinished: no
- * clock, no save, nothing in the statistics, and no note anywhere that it has
- * been done. It is not a game, a first attempt at the app should not arrive in
- * the numbers as one, and a lesson that remembers being finished is a lesson
- * that cannot be taken twice. So it opens on an empty board every time — the
- * screen is unmounted on the way out and holds nothing outside itself, which
- * is what makes that true rather than merely intended.
+ * clock, no save, nothing in the statistics, and no note anywhere that any of
+ * them has been done. They are not games, a first attempt at the app should not
+ * arrive in the numbers as one, and a lesson that remembers being finished is a
+ * lesson that cannot be taken twice. So each opens on an empty board every time
+ * — the screen is unmounted on the way out and holds nothing outside itself,
+ * which is what makes that true rather than merely intended.
  *
  * The one thing it does ask is whether somebody part-way through meant to
  * leave, since walking out at the third mark and coming back to the first is a
@@ -49,23 +63,32 @@ interface Props {
  * restarting a puzzle and clearing the statistics do, and the question says
  * what the answer costs.
  */
-export function TutorialScreen({ onBack }: Props) {
+export function TutorialScreen({ lesson: lessonId, onBack }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const insets = useSafeAreaInsets();
 
-  const puzzle = useMemo(() => tutorialPuzzle(), []);
+  const lesson = useMemo(() => lessonById(lessonId), [lessonId]);
+  const puzzle = lesson.puzzle;
   const [marks, setMarks] = useState<Marks>({});
   const [boardArea, setBoardArea] = useState({ width: 0, height: 0 });
   const [leaving, setLeaving] = useState(false);
+  const [inspecting, setInspecting] = useState<Attribute | null>(null);
 
-  const at = stepAt(marks);
-  const step = STEPS[at];
-  const done = step === undefined;
+  // Every lesson opens on an empty board, including one opened straight after
+  // another: the marks belong to the lesson, not to the screen.
+  useEffect(() => {
+    setMarks({});
+    setInspecting(null);
+  }, [lessonId]);
+
+  const at = stepAt(marks, lesson.steps);
+  const step = lesson.steps[at];
+  const done = useMemo(() => isSolved(marks, puzzle), [marks, puzzle]);
 
   /**
-   * Marks that contradict the answer, which the tutorial says something about
-   * at once.
+   * Marks that contradict the answer, which a lesson says something about at
+   * once.
    *
    * A real board keeps this to itself until the player asks for a clue and it
    * has to admit the answer is out of reach — being told mid-thought that you
@@ -105,28 +128,30 @@ export function TutorialScreen({ onBack }: Props) {
     [puzzle, boardArea],
   );
 
+  // What just happened, then what to do about it. Once the steps run out there
+  // is still a board: the lesson says so and stops pointing.
+  const settled = at === 0 ? lesson.opening : lesson.steps[at - 1].after;
+  const asking = done ? t('lessons.solved') : (step?.line ?? lesson.finish);
+
   return (
     <View style={styles.screen}>
       <View style={[styles.body, { paddingTop: insets.top + space(5) }]}>
-        <RuledTitle>{t('tutorial.title')}</RuledTitle>
+        <RuledTitle>{lesson.title}</RuledTitle>
 
-        {/* What just happened, then what to do about it. The two are one
-            paragraph rather than a banner and a caption: it is somebody
-            talking the player through a board, and that is how talking
-            reads. */}
+        {/* The two lines are one paragraph rather than a banner and a caption:
+            it is somebody talking the player through a board, and that is how
+            talking reads. */}
         <View style={styles.said}>
-          <Text style={styles.settled}>
-            {at === 0 ? t('tutorial.opening') : STEPS[at - 1].after}
-          </Text>
-          {done ? null : <Text style={styles.asking}>{step.line}</Text>}
+          <Text style={styles.settled}>{settled}</Text>
+          <Text style={styles.asking}>{asking}</Text>
           {mistakes.size > 0 ? (
-            <Text style={styles.wrong}>{plural('tutorial.wrong', mistakes.size)}</Text>
+            <Text style={styles.wrong}>{plural('lessons.wrong', mistakes.size)}</Text>
           ) : null}
         </View>
 
         {step?.clue === undefined ? null : (
           <View style={[styles.clue, { borderColor: tint(palette.accent, 0.4) }]}>
-            <Text style={styles.clueLabel}>{t('tutorial.clue')}</Text>
+            <Text style={styles.clueLabel}>{t('lessons.clue')}</Text>
             <Text style={[styles.clueText, { color: palette.accent }]}>
               {describeClue(puzzle.clues[step.clue], puzzle)}
             </Text>
@@ -145,27 +170,43 @@ export function TutorialScreen({ onBack }: Props) {
               // square is about, which is the thing a first-timer has to
               // learn to read. The ring says *that* square, and stays until
               // the mark it is waiting for is on it.
-              highlight={done ? [] : stepHighlight(step)}
-              awaiting={done ? null : step.cell}
+              highlight={step ? stepHighlight(step) : []}
+              awaiting={step ? step.cell : null}
               cellSize={cellSize}
               onToggle={toggle}
-              onInspect={() => undefined}
+              onInspect={
+                lesson.cards
+                  ? (attribute) => {
+                      feedback.tap();
+                      setInspecting(attribute);
+                    }
+                  : () => undefined
+              }
             />
           ) : null}
         </View>
       </View>
 
+      {lesson.cards ? (
+        <ItemCard
+          puzzle={puzzle}
+          showing={inspecting}
+          onShow={setInspecting}
+          onClose={() => setInspecting(null)}
+        />
+      ) : null}
+
       {/* Finished, and there is nothing to lose by going; part-way through,
           and the walk starts over next time, which is worth saying before it
           happens rather than after. */}
-      <BackLink label={t('tutorial.back')} onPress={() => (done ? onBack() : setLeaving(true))} />
+      <BackLink label={t('lessons.back')} onPress={() => (done ? onBack() : setLeaving(true))} />
 
       <ConfirmDialog
         visible={leaving}
-        title={t('tutorial.confirm.title')}
-        message={t('tutorial.confirm.body')}
-        confirmLabel={t('tutorial.confirm.confirmLabel')}
-        cancelLabel={t('tutorial.confirm.cancelLabel')}
+        title={t('lessons.confirm.title')}
+        message={t('lessons.confirm.body')}
+        confirmLabel={t('lessons.confirm.confirmLabel')}
+        cancelLabel={t('lessons.confirm.cancelLabel')}
         onConfirm={() => {
           setLeaving(false);
           onBack();
@@ -182,7 +223,8 @@ export function TutorialScreen({ onBack }: Props) {
  * Nine squares have the screen to themselves, and a grid drawn at the size a
  * six-set staircase needs would sit in the middle of it like a stamp. This is
  * a board being pointed at rather than one being worked, and it should look
- * like the thing the words are about.
+ * like the thing the words are about. `fitCellSize` takes it back down on the
+ * three-set lesson, which has three grids to fit rather than one.
  */
 const TEACHING_CELL = 76;
 
