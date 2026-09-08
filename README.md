@@ -340,13 +340,19 @@ captures are for.
    against, so working a clue harder before asking for the next is the whole
    game.
 8. **Undo** takes back one mark at a time, autos and all. **Clue**
-   looks at the board before it hands anything over: a puzzle has one answer, so
-   a single mark that contradicts it puts the answer out of reach, and a clue
-   read against a board you can no longer solve is a clue wasted. When that has
-   happened it stops the game with a window saying how many marks contradict the
-   answer, offering **Rewind**, which takes moves back until the board can be
-   solved again — or **Leave it to me**, which closes the window on a board with
-   the squares that cannot be right lit up, to sort out by hand. The
+   looks at the board before it hands anything over — not at whether it is
+   *right*, but at whether it agrees with itself. Ticks chain, so two of them
+   can end up pairing one person with two things, or with something a third
+   mark crosses out; no answer fits a board like that, and a clue read against
+   one is a clue wasted. When that has happened it stops the game with a window
+   saying how many marks disagree, offering **Rewind**, which takes moves back
+   until the board holds together — or **Leave it to me**, which closes the
+   window on a board with the disagreeing marks lit up, to sort out by hand.
+   **It never says which of them is the wrong one, because it does not know.**
+   That is deliberate: the board used to be checked against the answer, which
+   made filling a grid in at random and reading the red squares quicker than
+   solving it. A contradiction is something the player could have spotted
+   unaided; a wrong guess is the solution. The
    clock starts when you ask for the first clue — with nothing to go on there
    is nothing to solve, so the time spent reading the sets is not part of it —
    and stops when the last square is right. The board takes no marks before
@@ -452,7 +458,7 @@ src/puzzle/rng.ts           seeded PRNG (a seed always rebuilds the same puzzle)
 src/puzzle/generator.ts     builds a solution, then a minimal clue set for it
 src/puzzle/solver.ts        constraint solver: propagation + search
 src/puzzle/describe.ts      clue objects → sentences, using each theme's wording
-src/game/board.ts           the player's ticks and crosses, mistakes, win check
+src/game/board.ts           the player's ticks and crosses, contradictions, win check
 src/game/library.ts         the numbered catalogue and the daily seed
 src/game/lessons.ts         the seven boards behind How to play, their walks,
                             and what the Clue button makes of a marked one
@@ -737,11 +743,27 @@ whichever direction it outgrew. The clue lives in a window rather than on the
 screen, so nothing a clue says can resize the board under the player's finger —
 and the board keeps the room a clue panel used to take.
 
-`isSolvable` is `findMistakes` read the other way round: a puzzle has exactly
-one answer, so a mark the answer contradicts is a mark nothing later can put
-right. That is what **Clue** tests before handing one
-over and what Rewind pops the undo stack towards; `clearMistakes` is the fallback for a board whose history has run
-out. The stack holds the last 200 boards, and the last twenty of them are
+`findConflicts` is the one thing the game is allowed to notice about the
+player's marks, and **it never reads `puzzle.solution`** — only how many items
+a set holds and how many sets there are. Three things can go wrong, and all
+three are marks disagreeing with marks: a chain of ticks that pairs one thing
+with two of something, a cross laid across a chain that has just said those two
+are the same, and a row or column crossed right through so its item pairs with
+nothing. What comes back is every mark caught in the contradiction — the ticks
+along the path, and the cross if there is one — never a verdict on which is
+wrong. A test builds the same boards against a puzzle whose *answer has been
+shuffled* and requires the identical result, which is what makes "does not read
+the solution" checkable rather than a comment.
+
+`findMistakes`, which does compare against the answer, stays for the lessons:
+teaching somebody that the square they marked is not the one the clue was about
+is the whole job there, and a lesson has no secret to keep.
+
+`isSolvable` is `findConflicts` read the other way round. That is what **Clue**
+tests before handing one over and what Rewind pops the undo stack towards;
+`clearMistakes` is the fallback for a board whose history has run out, and it
+takes off every hand mark caught in a contradiction rather than choosing one,
+going round again until the board is quiet. The stack holds the last 200 boards, and the last twenty of them are
 written with the saved game, so a board picked back up can still be stepped
 back from and Rewind has somewhere to walk to; a mistake older than that is
 what the fallback is for.

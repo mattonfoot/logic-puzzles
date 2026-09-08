@@ -388,10 +388,16 @@ async function main() {
   // distinction survives at the size a square actually gets.
   await shot('11-marked');
 
-  // 12. A board the answer can no longer be reached from, which is what the
-  // clue button reports instead of handing over a clue.
-  const wrongEntity = (puzzle.solution[1][0] + 1) % puzzle.size.items;
-  await tick(page, puzzle, 0, puzzle.solution[0][0], 1, wrongEntity);
+  // 12. A board whose marks disagree with each other, which is what the clue
+  // button reports instead of handing over a clue.
+  //
+  // Two ticks in one row does it, on any puzzle and without knowing the answer:
+  // whoever that is, they cannot have ordered both. A single *wrong* tick would
+  // not — and must not, or the board would be telling the player which of their
+  // guesses to keep.
+  const person = puzzle.solution[0][0];
+  await tick(page, puzzle, 0, person, 1, 0);
+  await tick(page, puzzle, 0, person, 1, 1);
   // Asking for a *new* clue is what checks the board, so this is Clue and then
   // Next past the end of the ones already read.
   await clueButton.click();

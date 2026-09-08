@@ -11,7 +11,7 @@ import { SolvedPanel } from '../components/SolvedPanel';
 import { GameMenuScreen } from './GameMenuScreen';
 import {
   clearMistakes,
-  findMistakes,
+  findConflicts,
   getMark,
   isSolvable,
   isSolved,
@@ -159,7 +159,9 @@ export function GameScreen({
   // Which clues the board has caught up with. A clue is spent when every mark
   // it calls for is down, whoever worked it out.
   const spent = useMemo(() => cluesDone(marks, inPlay), [marks, inPlay]);
-  const wrong = useMemo(() => findMistakes(marks, puzzle), [marks, puzzle]);
+  // Marks that disagree with *each other*, never with the answer: shading a
+  // guess the solution says is wrong would hand the solution over.
+  const wrong = useMemo(() => findConflicts(marks, puzzle), [marks, puzzle]);
   const stuck = flagged && wrong.length > 0;
   // The clock starts when the player asks for their first clue, not when the
   // board appears: with nothing to go on there is nothing to solve, so time
@@ -453,10 +455,16 @@ export function GameScreen({
   /**
    * Puts the next clue on the table.
    *
-   * The board is checked first: a clue read on top of a mark that contradicts
-   * the answer is a clue spent on a puzzle the player can no longer solve. That
-   * stops the game rather than passing through it, so it opens a window saying
-   * what is wrong and offering to wind it back, instead of handing a clue over.
+   * The board is checked first, for marks that contradict each other — a clue
+   * read on top of two marks that cannot both be true is a clue spent on a
+   * board no answer fits. That stops the game rather than passing through it,
+   * so it opens a window saying which marks disagree and offering to wind them
+   * back, instead of handing a clue over.
+   *
+   * It is only ever *disagreement* that stops it. A board that is wrong but
+   * consistent gets its clue like any other, and the clue is what will show the
+   * player they were wrong — which is the game working, rather than the game
+   * telling on itself.
    *
    * The clue that comes up is the next one with something left to say, wrapping
    * round to the start — so a clue passed over early comes back later, once the

@@ -216,7 +216,16 @@ export function isCorrectPair(puzzle: Puzzle, cell: Cell): boolean {
   return correctItem(puzzle, cell.c1, cell.i1, cell.c2) === cell.i2;
 }
 
-/** Cells whose mark contradicts the real solution. */
+/**
+ * Cells whose mark contradicts the real solution.
+ *
+ * This knows the answer, so it is only for the boards that are allowed to: the
+ * lessons, where the whole point is telling somebody the square they marked is
+ * not the one the clue was about. **A real game must never use it.** Shading
+ * marks that disagree with the solution hands the solution over — fill a grid
+ * in at random, see what turns red, and the puzzle has told you where the ticks
+ * go. `findConflicts` is the one a game asks.
+ */
 export function findMistakes(marks: Marks, puzzle: Puzzle): string[] {
   const mistakes: string[] = [];
   for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
@@ -234,24 +243,177 @@ export function findMistakes(marks: Marks, puzzle: Puzzle): string[] {
 }
 
 /**
- * Whether the answer is still within reach of what is marked.
+ * Marks that cannot all be true at once, read off each other and nothing else.
  *
- * A puzzle has exactly one solution, so a single mark that contradicts it puts
- * the board past saving: no amount of further marking makes it right again, and
- * the player has to take something back.
+ * This never looks at `puzzle.solution` — only at `size` and how many sets
+ * there are — and that is the whole point of it. The board used to be checked
+ * against the answer, which meant the game would shade a wrong guess: filling
+ * a grid in at random and reading the red squares was faster than solving it.
+ * A contradiction is different information. It says *you have said two things
+ * that cannot both hold*, which the player could have worked out themselves,
+ * and it says nothing whatever about which of them is the wrong one.
+ *
+ * Three things can go wrong, and all three are about marks disagreeing:
+ *
+ * 1. **A chain of ticks that pairs one thing with two.** Ticks say "these are
+ *    the same person", so they join up: tick Indra to the gloves and the gloves
+ *    to 30m, and Indra is at 30m whether or not anybody ticked it. If that
+ *    chain ever reaches two items of one set, it has said one person owns both,
+ *    which no board allows.
+ * 2. **A cross inside such a chain.** The same chain says two things are the
+ *    same person; a cross across it says they are not.
+ * 3. **A row or a column with nothing left in it.** Every square crossed means
+ *    that item pairs with nothing in the other set, and everything pairs with
+ *    exactly one thing.
+ *
+ * What comes back is every mark caught up in a contradiction — for a chain,
+ * the ticks along the path between the two ends, plus the cross if there is
+ * one. Not "the wrong one", because there is no such thing here: the player
+ * said several things that disagree, and which to take back is theirs to
+ * decide.
  */
-export function isSolvable(marks: Marks, puzzle: Puzzle): boolean {
-  return findMistakes(marks, puzzle).length === 0;
+export function findConflicts(marks: Marks, puzzle: Puzzle): string[] {
+  const size = puzzle.size.items;
+  const count = puzzle.categories.length;
+  const flagged = new Set<string>();
+
+  // Every tick as an edge between two attributes. A tick is a claim that the
+  // two belong to the same entity, so the ticks are a graph and each connected
+  // piece of it is one entity as far as the board has been told.
+  const links = new Map<Node, { to: Node; key: string }[]>();
+  const join = (from: Node, to: Node, key: string) => {
+    const found = links.get(from);
+    if (found) found.push({ to, key });
+    else links.set(from, [{ to, key }]);
+  };
+  for (const [key, entry] of Object.entries(marks)) {
+    if (entry.mark !== 'yes') continue;
+    const cell = cellFromKey(key);
+    if (!cell) continue;
+    join(nodeOf(cell.c1, cell.i1), nodeOf(cell.c2, cell.i2), key);
+    join(nodeOf(cell.c2, cell.i2), nodeOf(cell.c1, cell.i1), key);
+  }
+
+  /** The ticks between two attributes, or null when nothing joins them. */
+  const pathBetween = (from: Node, to: Node): string[] | null => {
+    if (from === to) return [];
+    const back = new Map<Node, { via: Node; key: string }>();
+    const queue: Node[] = [from];
+    const seen = new Set<Node>([from]);
+    for (let at = 0; at < queue.length; at++) {
+      for (const edge of links.get(queue[at]) ?? []) {
+        if (seen.has(edge.to)) continue;
+        seen.add(edge.to);
+        back.set(edge.to, { via: queue[at], key: edge.key });
+        if (edge.to === to) {
+          const keys: string[] = [];
+          for (let node = to; node !== from;) {
+            const step = back.get(node);
+            if (!step) break;
+            keys.push(step.key);
+            node = step.via;
+          }
+          return keys;
+        }
+        queue.push(edge.to);
+      }
+    }
+    return null;
+  };
+
+  // 1. A chain that reaches two items of the same set has paired one thing
+  //    with two of something, which is the one thing a grid cannot hold.
+  const walked = new Set<Node>();
+  for (const start of links.keys()) {
+    if (walked.has(start)) continue;
+    const group: Node[] = [start];
+    walked.add(start);
+    for (let at = 0; at < group.length; at++) {
+      for (const edge of links.get(group[at]) ?? []) {
+        if (walked.has(edge.to)) continue;
+        walked.add(edge.to);
+        group.push(edge.to);
+      }
+    }
+    const byCategory = new Map<number, Node>();
+    for (const node of group) {
+      const category = Number(node.split('.')[0]);
+      const already = byCategory.get(category);
+      if (already === undefined) {
+        byCategory.set(category, node);
+        continue;
+      }
+      for (const key of pathBetween(already, node) ?? []) flagged.add(key);
+    }
+  }
+
+  // 2. A cross laid across a chain that says those two are the same entity.
+  for (const [key, entry] of Object.entries(marks)) {
+    if (entry.mark !== 'no') continue;
+    const cell = cellFromKey(key);
+    if (!cell) continue;
+    const path = pathBetween(nodeOf(cell.c1, cell.i1), nodeOf(cell.c2, cell.i2));
+    if (!path) continue;
+    flagged.add(key);
+    for (const along of path) flagged.add(along);
+  }
+
+  // 3. A row or a column crossed right through, which leaves its item paired
+  //    with nothing at all.
+  for (const [c1, c2] of categoryPairs(count)) {
+    for (let index = 0; index < size; index++) {
+      const row = Array.from({ length: size }, (_, other) => ({ c1, i1: index, c2, i2: other }));
+      const column = Array.from({ length: size }, (_, other) => ({ c1, i1: other, c2, i2: index }));
+      for (const line of [row, column]) {
+        if (line.every((cell) => getMark(marks, cell) === 'no')) {
+          for (const cell of line) flagged.add(markKey(cell));
+        }
+      }
+    }
+  }
+
+  return [...flagged];
 }
 
-/** The board with every contradicting mark taken off, and nothing else lost. */
+/**
+ * Whether what is on the board can all be true at once.
+ *
+ * Not whether it is *right* — a board can be wrong from end to end and perfectly
+ * consistent, and the game has no business saying so until the player has been
+ * told enough to know it themselves.
+ */
+export function isSolvable(marks: Marks, puzzle: Puzzle): boolean {
+  return findConflicts(marks, puzzle).length === 0;
+}
+
+/**
+ * The board with the marks caught in a contradiction taken off.
+ *
+ * Taking one mark off a contradiction is enough to settle it, and which one is
+ * the player's business — so this takes them all rather than choosing for them,
+ * and only the ones they made by hand, since the rest come back off those.
+ * Removing a mark can uncover another disagreement underneath, so it goes round
+ * again until the board is quiet or there is nothing of the player's left.
+ */
 export function clearMistakes(marks: Marks, puzzle: Puzzle, options: MarkOptions): Marks {
-  const wrong = new Set(findMistakes(marks, puzzle));
-  const kept: Marks = {};
-  for (const [key, entry] of Object.entries(marks)) {
-    if (!wrong.has(key)) kept[key] = entry;
+  let board = marks;
+  // One pass per hand mark is more than it can ever need.
+  for (let round = 0; round <= Object.keys(marks).length; round++) {
+    const conflicts = new Set(findConflicts(board, puzzle));
+    if (conflicts.size === 0) return board;
+    const kept: Marks = {};
+    let dropped = false;
+    for (const [key, entry] of Object.entries(board)) {
+      if (entry.source === 'hand' && conflicts.has(key)) {
+        dropped = true;
+        continue;
+      }
+      kept[key] = entry;
+    }
+    if (!dropped) return reconcile(kept, options);
+    board = reconcile(kept, options);
   }
-  return reconcile(kept, options);
+  return board;
 }
 
 /** Every true pairing is ticked and nothing false is. */

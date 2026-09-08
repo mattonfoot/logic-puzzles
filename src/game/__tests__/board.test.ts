@@ -6,6 +6,7 @@ import {
   categoryPairs,
   cellFromKey,
   clearMistakes,
+  findConflicts,
   findMistakes,
   getEntry,
   getMark,
@@ -143,38 +144,186 @@ describe('reconcile', () => {
   });
 });
 
-describe('whether the answer is still reachable', () => {
+/**
+ * What the game is allowed to notice about the player's marks.
+ *
+ * It used to be "does this disagree with the answer", which is the same thing
+ * as telling them the answer: fill a grid in at random, read the red squares,
+ * and the puzzle has solved itself. It is now "do these marks disagree with
+ * each other" — something the player could have worked out unaided, and which
+ * says nothing at all about which of them is the wrong one.
+ */
+describe('marks that disagree with each other', () => {
+  /**
+   * Marks laid down with the automation off, so a second tick can share a row
+   * with the first — which is the contradiction being tested, and which the
+   * automatic crosses would otherwise quietly prevent.
+   */
+  const bare = { size, autoEliminate: false };
   const right = { c1: 0, i1: 0, c2: 1, i2: correctItem(puzzle, 0, 0, 1) };
   const wrong = { c1: 0, i1: 0, c2: 1, i2: (correctItem(puzzle, 0, 0, 1) + 1) % size };
 
-  it('holds while every mark agrees with the answer', () => {
+  it('says nothing about a board with nothing on it, or a finished one', () => {
+    expect(findConflicts({}, puzzle)).toEqual([]);
+    expect(findConflicts(solvedMarks(puzzle), puzzle)).toEqual([]);
     expect(isSolvable({}, puzzle)).toBe(true);
-    expect(isSolvable(setMark({}, right, 'yes', options), puzzle)).toBe(true);
-    expect(isSolvable(solvedMarks(puzzle), puzzle)).toBe(true);
   });
 
-  it('fails on a tick the answer contradicts', () => {
-    expect(isSolvable(setMark({}, wrong, 'yes', options), puzzle)).toBe(false);
+  /**
+   * The guarantee the whole change is for. One mark cannot contradict anything,
+   * however wrong it is, so the board has nothing to say about it — and a
+   * player filling squares in to see which turn red learns only that they have
+   * not yet contradicted themselves.
+   */
+  it('says nothing about a single mark, however wrong it is', () => {
+    expect(findConflicts(setMark({}, wrong, 'yes', options), puzzle)).toEqual([]);
+    expect(findConflicts(setMark({}, right, 'no', options), puzzle)).toEqual([]);
+    expect(isSolvable(setMark({}, wrong, 'yes', options), puzzle)).toBe(true);
   });
 
-  it('fails on a cross over a pairing that is true', () => {
-    expect(isSolvable(setMark({}, right, 'no', options), puzzle)).toBe(false);
+  /**
+   * And the proof of it: the answer is not consulted. Given a puzzle whose
+   * solution has been shuffled into a different one, the same marks come back
+   * with the same verdict — which they could not if the solution were being
+   * read.
+   */
+  it('gives the same answer on a puzzle with a different answer', () => {
+    const shuffled = {
+      ...puzzle,
+      solution: puzzle.solution.map((row, category) => (category === 0 ? row : [...row].reverse())),
+    };
+    const boards = [
+      setMark({}, wrong, 'yes', options),
+      setMark({}, right, 'yes', options),
+      solvedMarks(puzzle),
+      setMark(
+        setMark({}, { c1: 0, i1: 0, c2: 1, i2: 0 }, 'yes', bare),
+        { c1: 0, i1: 0, c2: 1, i2: 1 },
+        'yes',
+        bare,
+      ),
+    ];
+    for (const board of boards) {
+      expect(findConflicts(board, shuffled).sort()).toEqual(findConflicts(board, puzzle).sort());
+    }
   });
 
-  it('takes the contradicting marks off and leaves the rest', () => {
+  /** One thing cannot be two things: two ticks in a row say it is. */
+  it('catches two ticks in one row, and in one column', () => {
+    // Laid down without the automatic crosses, which would otherwise refuse to
+    // let the second tick share a row with the first.
+    const row = setMark(
+      setMark({}, { c1: 0, i1: 0, c2: 1, i2: 0 }, 'yes', bare),
+      { c1: 0, i1: 0, c2: 1, i2: 1 },
+      'yes',
+      bare,
+    );
+    expect(findConflicts(row, puzzle).sort()).toEqual(
+      [markKey({ c1: 0, i1: 0, c2: 1, i2: 0 }), markKey({ c1: 0, i1: 0, c2: 1, i2: 1 })].sort(),
+    );
+
+    const column = setMark(
+      setMark({}, { c1: 0, i1: 0, c2: 1, i2: 0 }, 'yes', bare),
+      { c1: 0, i1: 1, c2: 1, i2: 0 },
+      'yes',
+      bare,
+    );
+    expect(findConflicts(column, puzzle)).toHaveLength(2);
+  });
+
+  /**
+   * The interesting one, and the one the player's own reasoning turns on: ticks
+   * chain across grids. Two of them can pair one thing with two without either
+   * being in the same grid as the other.
+   */
+  it('follows a chain of ticks onto another grid', () => {
+    // 0.0 with 1.0, and 1.0 with 2.0 — so 0.0 is with 2.0. Ticking 0.0 with
+    // 2.1 as well says it is with both.
+    let board = setMark({}, { c1: 0, i1: 0, c2: 1, i2: 0 }, 'yes', bare);
+    board = setMark(board, { c1: 1, i1: 0, c2: 2, i2: 0 }, 'yes', bare);
+    expect(findConflicts(board, puzzle)).toEqual([]);
+
+    board = setMark(board, { c1: 0, i1: 0, c2: 2, i2: 1 }, 'yes', bare);
+    const caught = findConflicts(board, puzzle);
+    expect(caught).toContain(markKey({ c1: 0, i1: 0, c2: 2, i2: 1 }));
+    expect(caught.length).toBeGreaterThan(1);
+  });
+
+  /** A cross laid across a chain that has just said those two are the same. */
+  it('catches a cross over a pairing the ticks have already made', () => {
+    let board = setMark({}, { c1: 0, i1: 0, c2: 1, i2: 0 }, 'yes', bare);
+    board = setMark(board, { c1: 1, i1: 0, c2: 2, i2: 0 }, 'yes', bare);
+    board = setMark(board, { c1: 0, i1: 0, c2: 2, i2: 0 }, 'no', bare);
+
+    const caught = findConflicts(board, puzzle);
+    // The cross, and both ticks that make it impossible.
+    expect(caught.sort()).toEqual(
+      [
+        markKey({ c1: 0, i1: 0, c2: 2, i2: 0 }),
+        markKey({ c1: 0, i1: 0, c2: 1, i2: 0 }),
+        markKey({ c1: 1, i1: 0, c2: 2, i2: 0 }),
+      ].sort(),
+    );
+  });
+
+  /** Everything pairs with exactly one thing, so a row of crosses is a lie. */
+  it('catches a row crossed right through', () => {
+    let board: Marks = {};
+    for (let item = 0; item < size; item++) {
+      board = setMark(board, { c1: 0, i1: 0, c2: 1, i2: item }, 'no', bare);
+    }
+    expect(findConflicts(board, puzzle)).toHaveLength(size);
+    expect(isSolvable(board, puzzle)).toBe(false);
+  });
+
+  it('takes the disagreeing marks off and leaves the rest', () => {
     const other = { c1: 0, i1: 1, c2: 2, i2: correctItem(puzzle, 0, 1, 2) };
-    const board = setMark(setMark({}, other, 'yes', options), wrong, 'yes', options);
+    let board = setMark({}, other, 'yes', options);
+    board = setMark(board, { c1: 0, i1: 0, c2: 1, i2: 0 }, 'yes', bare);
+    board = setMark(board, { c1: 0, i1: 0, c2: 1, i2: 1 }, 'yes', bare);
     expect(isSolvable(board, puzzle)).toBe(false);
 
     const cleaned = clearMistakes(board, puzzle, options);
     expect(isSolvable(cleaned, puzzle)).toBe(true);
+    // The mark that had nothing to do with the disagreement stays.
     expect(getMark(cleaned, other)).toBe('yes');
-    expect(getMark(cleaned, wrong)).toBeUndefined();
   });
 
-  it('leaves a board that was already fine alone', () => {
+  it('leaves a board that was already agreeing with itself alone', () => {
     const board = setMark({}, right, 'yes', options);
     expect(clearMistakes(board, puzzle, options)).toEqual(board);
+  });
+
+  /**
+   * The cheat, run the way a cheat would run it: scatter ticks over the grids
+   * and read the red squares.
+   *
+   * What has to be true is not that nothing lights up — a scattered board
+   * contradicts itself constantly — but that what stays *unlit* is not a list
+   * of right answers. On board after board there are marks the solution
+   * disagrees with that the game says nothing about, which is what makes the
+   * absence of shading worth nothing to somebody guessing.
+   */
+  it('leaves wrong marks unlit, so the quiet squares are worth nothing', () => {
+    let boardsHidingSomethingWrong = 0;
+    for (let seed = 1; seed <= 200; seed++) {
+      let state = seed;
+      const roll = () => (state = (state * 1103515245 + 12345) % 2147483648) / 2147483648;
+      let marks: Marks = {};
+      for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
+        for (let i1 = 0; i1 < size; i1++) {
+          for (let i2 = 0; i2 < size; i2++) {
+            if (roll() < 0.25) marks = setMark(marks, { c1, i1, c2, i2 }, 'yes', bare);
+          }
+        }
+      }
+      const lit = new Set(findConflicts(marks, puzzle));
+      const untrue = new Set(findMistakes(marks, puzzle));
+      if (Object.keys(marks).some((key) => untrue.has(key) && !lit.has(key))) {
+        boardsHidingSomethingWrong += 1;
+      }
+    }
+    expect(boardsHidingSomethingWrong).toBeGreaterThan(150);
   });
 });
 

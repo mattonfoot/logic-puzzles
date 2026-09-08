@@ -262,18 +262,18 @@ export const STRINGS = {
       finished: 'This puzzle is finished — Restart to play it again.',
       restarted: 'Restarted — same puzzle, fresh board and clock.',
       notSaving: 'Progress is not being saved — the device may be out of space.',
-      clearedMistakes: 'Took off the marks that cannot be right.',
+      clearedMistakes: 'Took off the marks that were disagreeing.',
       rewound: {
-        one: 'Rewound {steps} move to a board that can still be solved.',
-        other: 'Rewound {steps} moves to a board that can still be solved.',
+        one: 'Rewound {steps} move to a board that holds together.',
+        other: 'Rewound {steps} moves to a board that holds together.',
       },
     },
     stuck: {
       title: 'A clue cannot help',
       body: {
-        one: '1 mark on the board contradicts the answer, so there is nothing left for a clue to lead to. Rewinding takes moves back to the last board the puzzle can still be solved from. Close this and the mark that cannot be right stays lit on the grids, to sort out by hand.',
+        one: '1 mark on the board disagrees with the others, so no answer fits what is on it and there is nothing left for a clue to lead to. Rewinding takes moves back to the last board that held together. Close this and the marks that disagree stay lit on the grids, to sort out by hand.',
         other:
-          '{count} marks on the board contradict the answer, so there is nothing left for a clue to lead to. Rewinding takes moves back to the last board the puzzle can still be solved from. Close this and the marks that cannot be right stay lit on the grids, to sort out by hand.',
+          '{count} marks on the board disagree with each other, so no answer fits what is on it and there is nothing left for a clue to lead to. Rewinding takes moves back to the last board that held together. Close this and the marks that disagree stay lit on the grids, to sort out by hand.',
       },
       rewind: 'Rewind',
       leaveIt: 'Leave it to me',
