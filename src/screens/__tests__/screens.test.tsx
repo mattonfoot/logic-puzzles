@@ -2,7 +2,16 @@ import { act, fireEvent, screen } from '@testing-library/react-native';
 import React from 'react';
 import { Share, StyleSheet, View } from 'react-native';
 
-import { categoryPairs, isCorrectPair, setMark, type Marks } from '../../game/board';
+import {
+  categoryPairs,
+  findConflicts,
+  isCorrectPair,
+  isFull,
+  setMark,
+  squareName,
+  type Marks,
+} from '../../game/board';
+import { clueBreaks } from '../../game/clues';
 import type { Improvement } from '../../stats/summary';
 import { sizeById } from '../../data/sizes';
 import { dailySeed } from '../../game/library';
@@ -1012,6 +1021,74 @@ describe('the board', () => {
 
     fireEvent.press(button('Close'));
     expect(button('Highlight')).toBeEnabled();
+  });
+
+  /**
+   * The board with every square marked and the wrong answer on it: nothing to
+   * work at, nothing shaded — because no two marks disagree — and no way on but
+   * the clue that says otherwise. This is the one board the game will explain a
+   * mark on, and this is what it does there.
+   */
+  describe("a full board with somebody else's answer on it", () => {
+    /** Every set placed, the second shifted along one, so nothing is left blank. */
+    function shuffled(): Marks {
+      let marks: Marks = {};
+      const shift = (item: number) => (item + 1) % puzzle.size.items;
+      for (let entity = 0; entity < puzzle.size.items; entity++) {
+        for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
+          const i1 = c1 === 1 ? shift(puzzle.solution[c1][entity]) : puzzle.solution[c1][entity];
+          const i2 = c2 === 1 ? shift(puzzle.solution[c2][entity]) : puzzle.solution[c2][entity];
+          marks = setMark(marks, { c1, i1, c2, i2 }, 'yes', {
+            size: puzzle.size.items,
+            autoEliminate: true,
+          });
+        }
+      }
+      return marks;
+    }
+
+    /** A game picked back up on that board, with a clue it contradicts open. */
+    function stuckOnIt() {
+      const marks = shuffled();
+      const index = puzzle.clues.findIndex((clue) => clueBreaks(clue, marks, puzzle).length > 0);
+      if (index < 0) throw new Error('the shuffled board agrees with every clue');
+      return { marks, index };
+    }
+
+    it('is full, holds together, and is not the answer', () => {
+      const marks = shuffled();
+      expect(isFull(marks, puzzle)).toBe(true);
+      // Nothing to shade: the game has no argument with these marks, only the
+      // clues do.
+      expect(findConflicts(marks, puzzle)).toHaveLength(0);
+    });
+
+    it('offers a hint on the clue it disagrees with, and says which mark', () => {
+      const { marks, index } = stuckOnIt();
+      play({ ...savedGame(puzzle), marks, clueIndex: index, cluesSeen: [index] });
+
+      fireEvent.press(button('Clue'));
+      expect(screen.getByLabelText('Clue in play')).toBeOnTheScreen();
+
+      // The offer, and then what it says: a square named, and which way its
+      // mark is standing.
+      fireEvent.press(button('Hint'));
+      const broken = clueBreaks(puzzle.clues[index], marks, puzzle)[0];
+      expect(screen.getByText(new RegExp(squareName(puzzle, broken.cell)))).toBeOnTheScreen();
+      // Said once and then gone: there is nothing left to ask for.
+      expect(screen.queryByRole('button', { name: 'Hint' })).toBeNull();
+    });
+
+    it('offers nothing on a board with squares still to fill', () => {
+      const { index } = stuckOnIt();
+      // The same clue, on a board nobody has finished: the player still has
+      // somewhere to work, and the game still says nothing about their marks.
+      play({ ...savedGame(puzzle), marks: {}, clueIndex: index, cluesSeen: [index] });
+
+      fireEvent.press(button('Clue'));
+      expect(screen.getByLabelText('Clue in play')).toBeOnTheScreen();
+      expect(screen.queryByRole('button', { name: 'Hint' })).toBeNull();
+    });
   });
 
   it('does not re-introduce a game picked back up', () => {

@@ -1,4 +1,13 @@
-import { categoryPairs, getMark, isSolved, markKey, nextMark, setMark, type Marks } from '../board';
+import {
+  categoryPairs,
+  getMark,
+  isSolved,
+  markKey,
+  nextMark,
+  setMark,
+  squareName,
+  type Marks,
+} from '../board';
 import {
   CLUE_LESSONS,
   FIRST_LESSONS,
@@ -6,7 +15,6 @@ import {
   checkStep,
   lessonById,
   menuOf,
-  squareName,
   stepDone,
   type Lesson,
   type LessonId,

@@ -13,6 +13,7 @@ import {
   clearMistakes,
   findConflicts,
   getMark,
+  isFull,
   isSolvable,
   isSolved,
   nextMark,
@@ -22,6 +23,7 @@ import {
   type Marks,
 } from '../game/board';
 import { cluesDone, inventClue, nextClue } from '../game/clues';
+import { hintFor } from '../game/hint';
 import { SAVE_VERSION, SAVED_UNDO, type SavedGame } from '../game/persistence';
 import { shareResult } from '../game/share';
 import type { Completion, CompletionInput } from '../game/usePersistence';
@@ -132,6 +134,10 @@ export function GameScreen({
   // Set when the clue button finds the board past saving, which opens the
   // window saying so; cleared by either of the two ways out of it.
   const [flagged, setFlagged] = useState(false);
+  // Whether the clue window's hint has been asked for. It is about the board as
+  // it stood when it was asked, so any change to either the board or the clue on
+  // the table takes it back down again.
+  const [hinted, setHinted] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [improvement, setImprovement] = useState<Improvement | null>(null);
   // Whether the finish made it into the history; null until it has been tried.
@@ -163,6 +169,20 @@ export function GameScreen({
   // guess the solution says is wrong would hand the solution over.
   const wrong = useMemo(() => findConflicts(marks, puzzle), [marks, puzzle]);
   const stuck = flagged && wrong.length > 0;
+  /**
+   * What the clue on the table would say about the board, if asked.
+   *
+   * Only ever offered on a board with every square marked. Up to that point a
+   * clue is something to work out from and the game says nothing about the
+   * marks; at that point there is no square left to work at, and a wrong answer
+   * that holds together is indistinguishable from a right one — so the clue it
+   * contradicts is allowed to say which mark it is arguing with. `null` when
+   * the board is not full, or when this clue has no argument with it.
+   */
+  const hint = useMemo(() => {
+    if (clueIndex === null || !isFull(marks, puzzle)) return null;
+    return hintFor(inPlay.clues[clueIndex], marks, inPlay);
+  }, [clueIndex, inPlay, marks, puzzle]);
   // The clock starts when the player asks for their first clue, not when the
   // board appears: with nothing to go on there is nothing to solve, so time
   // spent reading the sets or picking the game back up is not part of it. It is
@@ -263,6 +283,11 @@ export function GameScreen({
     // `seconds` is read at the moment of the win; it must not retrigger this.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [solved]);
+
+  // A hint describes one mark on one board. Move either — mark a square, turn to
+  // another clue — and what it said is no longer what is on the screen, so it
+  // goes rather than sitting there being read as though it still applied.
+  useEffect(() => setHinted(false), [marks, clueIndex]);
 
   /** Puts a line in the board's status slot for a moment. */
   const flash = useCallback((message: string) => {
@@ -535,6 +560,23 @@ export function GameScreen({
     showNextClue();
   }, [at, seen, showNextClue]);
 
+  /**
+   * Says what the clue on the table is arguing with, and shades it.
+   *
+   * Reading a clue is the one thing this game counts, and this is not that: the
+   * clue has already been read and paid for, and everything the line says is
+   * drawn from it and from marks already on the screen. Charging for it again
+   * would only teach a stuck player to clear the board and start guessing.
+   */
+  const askHint = useCallback(() => {
+    if (!hint) return;
+    feedback.tap();
+    setHinted(true);
+    // Lit behind the window as well as named in it, so closing the window
+    // leaves the square it was about still pointed at.
+    setMistakes(new Set(hint.keys));
+  }, [hint]);
+
   const restart = useCallback(() => {
     feedback.tap();
     setAttempt((count) => count + 1);
@@ -552,6 +594,7 @@ export function GameScreen({
     // note from the run before it would read as a note about this one.
     setImprovement(null);
     setRecorded(null);
+    setHinted(false);
     flash(t('game.status.restarted'));
   }, [flash]);
 
@@ -733,6 +776,8 @@ export function GameScreen({
         position={at + 1}
         total={seen.length}
         previousDisabled={at <= 0}
+        hint={hinted ? (hint?.text ?? null) : null}
+        onHint={hint && !hinted ? askHint : null}
         onPrevious={previousClue}
         onNext={forwardClue}
         onClose={() => setClueOpen(false)}

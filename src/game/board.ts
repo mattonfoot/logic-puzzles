@@ -10,6 +10,7 @@
  * keeps the two apart: automation never touches a hand mark, and taking a tick
  * away takes only the crosses that tick added.
  */
+import { t } from '../i18n';
 import type { Puzzle } from '../puzzle/types';
 
 export type Mark = 'yes' | 'no';
@@ -414,6 +415,39 @@ export function clearMistakes(marks: Marks, puzzle: Puzzle, options: MarkOptions
     board = reconcile(kept, options);
   }
   return board;
+}
+
+/**
+ * A square, said the way the board labels it: "Ms Barley and the Mocha".
+ *
+ * Named from the normalised cell, so a square called for from either side comes
+ * out the same way round — the same reason `markKey` normalises.
+ */
+export function squareName(puzzle: Puzzle, cell: Cell): string {
+  const { c1, i1, c2, i2 } = normalise(cell);
+  return t('game.square', {
+    row: puzzle.categories[c1].items[i1].label,
+    column: puzzle.categories[c2].items[i2].label,
+  });
+}
+
+/**
+ * Whether every square on every grid carries a mark.
+ *
+ * Not the same question as `isSolved`, and the gap between the two is the
+ * point: a board can be full, hold together, and still be the wrong answer.
+ * That is the board with nothing left to work at, and the one the clue window
+ * is allowed to offer a hint on.
+ */
+export function isFull(marks: Marks, puzzle: Puzzle): boolean {
+  for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
+    for (let i1 = 0; i1 < puzzle.size.items; i1++) {
+      for (let i2 = 0; i2 < puzzle.size.items; i2++) {
+        if (getMark(marks, { c1, i1, c2, i2 }) === undefined) return false;
+      }
+    }
+  }
+  return true;
 }
 
 /** Every true pairing is ticked and nothing false is. */

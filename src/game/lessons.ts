@@ -31,6 +31,7 @@ import {
   findMistakes,
   isSolved,
   markKey,
+  squareName,
   type Cell,
   type Marks,
   getMark,
@@ -765,14 +766,6 @@ export function stepHighlight(step: Step) {
 
 /** Used by the test that holds every walk to being walkable. */
 export const stepKey = (step: Step) => markKey(step.cell);
-
-/** A square, said the way the board labels it: "Ms Barley and the Mocha". */
-export function squareName(puzzle: Puzzle, cell: Cell): string {
-  return t('lessons.check.square', {
-    row: puzzle.categories[cell.c1].items[cell.i1].label,
-    column: puzzle.categories[cell.c2].items[cell.i2].label,
-  });
-}
 
 /** A short list of them, as a sentence would say it. */
 function listOf(names: string[]): string {

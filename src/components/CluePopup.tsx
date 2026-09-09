@@ -8,7 +8,8 @@ import type { Puzzle } from '../puzzle/types';
 import { Pager } from '../ui/Pager';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { space, type Palette } from '../ui/theme';
+import { border, space, type Palette } from '../ui/theme';
+import { AppButton } from './AppButton';
 import { Popup } from './Popup';
 
 interface Props {
@@ -21,6 +22,13 @@ interface Props {
   /** How many have been read. */
   total: number;
   previousDisabled: boolean;
+  /**
+   * What the board is doing wrong by this clue, once it has been asked for.
+   * Only ever set on a full board — see `hintFor`.
+   */
+  hint?: string | null;
+  /** Offers to say so, when there is something to say and it has not been said. */
+  onHint?: (() => void) | null;
   onPrevious: () => void;
   /** Steps to the next clue read, or asks for a new one at the end of them. */
   onNext: () => void;
@@ -42,6 +50,15 @@ interface Props {
  * so it cannot be got round by walking forwards: going back through what you
  * have already been told is free, going on is not.
  *
+ * Under the clue, on a board with every square marked, sits **Hint** — and only
+ * there. A clue is meant to be worked out from, and a game that offered to
+ * explain one would be a game that solved itself; a full board is the one place
+ * that reasoning runs out, because there is no square left to work at and a
+ * wrong answer that holds together looks exactly like a right one. What the
+ * button says comes from the clue overhead and the marks on the screen, so it
+ * gives away nothing that is not already in front of the player, and it costs
+ * nothing: the clue it explains has already been paid for.
+ *
  * Above the clue is who is supposed to have said it — "One diver remembered
  * that…" — which turns a bare fact into something people are talking about.
  * Which clue you are on goes between Previous and Next, where the item card
@@ -55,6 +72,8 @@ export function CluePopup({
   position,
   total,
   previousDisabled,
+  hint = null,
+  onHint = null,
   onPrevious,
   onNext,
   onClose,
@@ -72,6 +91,18 @@ export function CluePopup({
       <Text style={styles.clue} accessibilityLabel={t('clue.inPlay')}>
         {index === null ? t('clue.noneYetBody') : describeClue(puzzle.clues[index], puzzle)}
       </Text>
+
+      {hint ? (
+        <Text style={styles.hint}>{hint}</Text>
+      ) : onHint ? (
+        <AppButton
+          label={t('game.hint.ask')}
+          variant="secondary"
+          accent={palette.accent}
+          style={styles.ask}
+          onPress={onHint}
+        />
+      ) : null}
 
       <View style={styles.pager}>
         <Pager
@@ -103,6 +134,23 @@ const makeStyles = (palette: Palette) =>
       fontWeight: '600',
       color: palette.ink,
       marginTop: space(2),
+    },
+    hint: {
+      // Ruled off from the clue rather than run on from it: the clue is the
+      // puzzle talking and this is the app talking, and the line is where one
+      // stops being the other.
+      borderTopWidth: border,
+      borderTopColor: palette.line,
+      marginTop: space(4),
+      paddingTop: space(3),
+      fontSize: 15,
+      lineHeight: 22,
+      color: palette.ink,
+    },
+    ask: {
+      // Left-aligned and no wider than its word: an offer, not the way on.
+      alignSelf: 'flex-start',
+      marginTop: space(4),
     },
     pager: {
       marginTop: space(4),

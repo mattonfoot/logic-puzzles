@@ -90,8 +90,6 @@ lessons:
   # A real puzzle keeps this to itself until a clue cannot help; a lesson is
   # asked directly, and answers.
   check:
-    # A square, by the two things it names: "Ms Barley and the Mocha".
-    square: '{row} and {column}'
     # Joining two or three of them: "A, B and C".
     listLast: '{first} and {last}'
     # Pressed with the square still empty.
@@ -281,6 +279,23 @@ game:
   back: Back to setup
   # The seed, under the puzzle's name.
   seed: '#{seed}'
+  # A square, by the two things it names: "Ms Barley and the Mocha". Said by
+  # the lessons and by the clue window's hint, so it lives with the board.
+  square: '{row} and {column}'
+  # Offered in the clue window once every square carries a mark and the clue on
+  # the table still disagrees with one of them. A full board has no blank left
+  # to work at, so a player whose answer is wrong but holds together has only
+  # the clue to go on - this says which mark it is arguing with. Nothing here
+  # reads the answer: the clue has been read and the mark is on the screen.
+  hint:
+    ask: Hint
+    # A mark the player made themselves, the wrong way round.
+    ticked: '{square} is ticked, and this clue rules those two out. Tap it twice to bring the tick round to a cross.'
+    crossed: '{square} is crossed, and this clue makes those two a pair. Tap it once more, or hold the square down, to bring the cross round to a tick.'
+    # A mark the board worked out for itself, which means the square to touch is
+    # the tick it came from rather than the one the clue is about.
+    tickedFrom: '{square} is ticked because of your tick on {cause}, and this clue rules those two out. It is that earlier tick that has to come off.'
+    crossedFrom: '{square} is crossed because of your tick on {cause}, and this clue makes those two a pair. It is that earlier tick that has to come off.'
   status:
     nothingToUndo: Nothing to undo.
     # A tap on a square before the first clue is read. The board takes no marks

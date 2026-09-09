@@ -48,7 +48,6 @@ export const STRINGS = {
     solved:
       'Solved. Every puzzle in the app is that, on a bigger board with more to hold in your head.',
     check: {
-      square: '{row} and {column}',
       listLast: '{first} and {last}',
       blank: 'Nothing on {square} yet — that is the square this one is about.',
       crossed:
@@ -256,6 +255,18 @@ export const STRINGS = {
     zoomOut: 'Zoom out',
     back: 'Back to setup',
     seed: '#{seed}',
+    square: '{row} and {column}',
+    hint: {
+      ask: 'Hint',
+      ticked:
+        '{square} is ticked, and this clue rules those two out. Tap it twice to bring the tick round to a cross.',
+      crossed:
+        '{square} is crossed, and this clue makes those two a pair. Tap it once more, or hold the square down, to bring the cross round to a tick.',
+      tickedFrom:
+        '{square} is ticked because of your tick on {cause}, and this clue rules those two out. It is that earlier tick that has to come off.',
+      crossedFrom:
+        '{square} is crossed because of your tick on {cause}, and this clue makes those two a pair. It is that earlier tick that has to come off.',
+    },
     status: {
       nothingToUndo: 'Nothing to undo.',
       nothingToGoOn: 'Nothing to go on yet — tap Clue for the first one.',
@@ -4449,10 +4460,16 @@ export type StringKey =
   | 'game.back'
   | 'game.clue'
   | 'game.highlight'
+  | 'game.hint.ask'
+  | 'game.hint.crossed'
+  | 'game.hint.crossedFrom'
+  | 'game.hint.ticked'
+  | 'game.hint.tickedFrom'
   | 'game.info'
   | 'game.menu'
   | 'game.seed'
   | 'game.settle'
+  | 'game.square'
   | 'game.status.clearedMistakes'
   | 'game.status.finished'
   | 'game.status.notSaving'
@@ -4487,7 +4504,6 @@ export type StringKey =
   | 'lessons.check.blank'
   | 'lessons.check.crossed'
   | 'lessons.check.listLast'
-  | 'lessons.check.square'
   | 'lessons.check.ticked'
   | 'lessons.check.unfinished'
   | 'lessons.check.wrong.one'

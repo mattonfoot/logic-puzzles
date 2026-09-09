@@ -10,6 +10,7 @@ import {
   findMistakes,
   getEntry,
   getMark,
+  isFull,
   isSolvable,
   isSolved,
   correctItem,
@@ -342,6 +343,38 @@ describe('board state', () => {
     const marks = { ...solution, [wrong]: byHand('yes') };
     expect(findMistakes(marks, puzzle)).toContain(wrong);
     expect(isSolved(marks, puzzle)).toBe(false);
+  });
+
+  /**
+   * The gap between full and solved is where the hint lives, so it is written
+   * down here: a board can carry every mark it has room for, hold together,
+   * and still be somebody else's answer.
+   */
+  it('calls a board full when every square carries a mark, right or not', () => {
+    expect(isFull({}, puzzle)).toBe(false);
+
+    const solution = solvedMarks(puzzle);
+    expect(isFull(solution, puzzle)).toBe(true);
+
+    // One square rubbed out, and it is not full any more.
+    const short = { ...solution };
+    delete short[markKey({ c1: 0, i1: 0, c2: 1, i2: 0 })];
+    expect(isFull(short, puzzle)).toBe(false);
+
+    // Two sets swapped over: every square still marked, no two marks
+    // disagreeing, and the answer wrong.
+    let swapped: Marks = {};
+    const shifted = (item: number) => (item + 1) % size;
+    for (let entity = 0; entity < size; entity++) {
+      for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
+        const i1 = c1 === 1 ? shifted(puzzle.solution[c1][entity]) : puzzle.solution[c1][entity];
+        const i2 = c2 === 1 ? shifted(puzzle.solution[c2][entity]) : puzzle.solution[c2][entity];
+        swapped = setMark(swapped, { c1, i1, c2, i2 }, 'yes', { size, autoEliminate: true });
+      }
+    }
+    expect(isFull(swapped, puzzle)).toBe(true);
+    expect(findConflicts(swapped, puzzle)).toHaveLength(0);
+    expect(isSolved(swapped, puzzle)).toBe(false);
   });
 
   it('lists one grid per pair of categories', () => {

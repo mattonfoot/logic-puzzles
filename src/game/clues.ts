@@ -122,6 +122,24 @@ export function clueDone(clue: Clue, marks: Marks, puzzle: Puzzle): boolean {
   );
 }
 
+/**
+ * The marks standing where this clue says something else.
+ *
+ * `clueDone` asks whether every mark a clue calls for is down; this asks the
+ * sharper question of which ones are down *the other way round*. A blank square
+ * is not an argument — the clue simply has not been acted on there yet — so
+ * only a mark that is present and opposite counts.
+ *
+ * On a full board the two questions meet: nothing is blank, so a clue that is
+ * not done is a clue at least one mark contradicts, and this says which.
+ */
+export function clueBreaks(clue: Clue, marks: Marks, puzzle: Puzzle): RequiredMark[] {
+  return clueMarks(clue, marks, puzzle).filter((required) => {
+    const mark = getMark(marks, required.cell);
+    return mark !== undefined && mark !== required.mark;
+  });
+}
+
 /** The indices of every clue the board has caught up with. */
 export function cluesDone(marks: Marks, puzzle: Puzzle): Set<number> {
   const done = new Set<number>();
