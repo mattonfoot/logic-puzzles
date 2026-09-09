@@ -20,6 +20,7 @@ function game(overrides: Partial<CompletedGame> = {}): CompletedGame {
     difficulty: 'Advanced',
     seconds: 120,
     cluesUsed: 4,
+    hintsAsked: 0,
     revealed: false,
     finishedAt: NOON,
     ...overrides,

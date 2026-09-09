@@ -58,6 +58,7 @@ export function game(overrides: Partial<CompletedGame> = {}): CompletedGame {
     difficulty: 'Advanced',
     seconds: 120,
     cluesUsed: 4,
+    hintsAsked: 0,
     revealed: false,
     finishedAt: NOON,
     ...overrides,
@@ -73,6 +74,7 @@ export function savedGame(puzzle: Puzzle = puzzleOne()): SavedGame {
     cluesSeen: [0],
     clueIndex: 0,
     history: [],
+    hintsAsked: 0,
     seconds: 45,
     updatedAt: NOON,
   };

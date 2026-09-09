@@ -28,6 +28,7 @@ function savedGame(overrides: Partial<SavedGame> = {}): SavedGame {
     cluesSeen: [0, 2],
     clueIndex: 2,
     history: [],
+    hintsAsked: 0,
     seconds: 42,
     updatedAt: 1_700_000_000_000,
     ...overrides,
@@ -35,7 +36,13 @@ function savedGame(overrides: Partial<SavedGame> = {}): SavedGame {
 }
 
 const completed = (overrides: Partial<CompletedGame> = {}): CompletedGame => ({
-  ...completedGameFrom(puzzle, { seconds: 100, cluesUsed: 0, revealed: false, finishedAt: 1 }),
+  ...completedGameFrom(puzzle, {
+    seconds: 100,
+    cluesUsed: 0,
+    hintsAsked: 0,
+    revealed: false,
+    finishedAt: 1,
+  }),
   ...overrides,
 });
 
@@ -92,6 +99,7 @@ describe('completedGameFrom', () => {
     const game = completedGameFrom(puzzle, {
       seconds: 61.6,
       cluesUsed: 2,
+      hintsAsked: 1,
       revealed: false,
       finishedAt: 123,
     });
@@ -108,6 +116,19 @@ describe('completedGameFrom', () => {
 });
 
 describe('reading the finished games back', () => {
+  it('leaves a game from before hints were counted without one either', () => {
+    const { hintsAsked, ...older } = completed();
+    const revived = reviveHistory({ version: HISTORY_VERSION, games: [older] });
+
+    // Told apart from a real zero: a game that had no hint to ask for is not a
+    // game that managed without one.
+    expect(revived?.games[0].hintsAsked).toBeNull();
+    expect(
+      reviveHistory(JSON.parse(JSON.stringify(appendGame(EMPTY_HISTORY, completed()))))?.games[0]
+        .hintsAsked,
+    ).toBe(0);
+  });
+
   it('leaves a game from before clues were counted without a count', () => {
     const { cluesUsed, ...older } = completed();
     const revived = reviveHistory({
@@ -170,6 +191,22 @@ describe('reading a board back', () => {
     // The clues they had crossed off are the ones they had read.
     expect(revived?.cluesSeen).toEqual([1, 3]);
     expect(revived?.clueIndex).toBeNull();
+  });
+
+  /**
+   * The old save's `hintsUsed` counted a feature that no longer exists, which
+   * is why what replaced it has a different name. Reading one as the other
+   * would put a number on somebody's summary that they never earned.
+   */
+  it("does not read an old save's hint count as the new one", () => {
+    const { hintsAsked, ...older } = savedGame({ version: 1 });
+    const revived = reviveSavedGame(JSON.parse(JSON.stringify({ ...older, hintsUsed: 2 })));
+    expect(revived?.hintsAsked).toBe(0);
+  });
+
+  it('keeps the hints asked for across a save and a resume', () => {
+    const revived = reviveSavedGame(JSON.parse(JSON.stringify(savedGame({ hintsAsked: 4 }))));
+    expect(revived?.hintsAsked).toBe(4);
   });
 
   it('brings a save from before the undo stack was kept forward with an empty one', () => {

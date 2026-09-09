@@ -19,6 +19,12 @@ interface Props {
   seconds: number;
   /** How many of the puzzle's clues the player read. */
   cluesUsed: number;
+  /**
+   * And how many times they asked one what was wrong with the board. Null on a
+   * game finished before there was anything to ask, which leaves the tile off
+   * rather than putting a nought against somebody who could not have used one.
+   */
+  hintsAsked?: number | null;
   /** How this game compares with earlier ones; null until stats have loaded. */
   improvement: Improvement | null;
   /** A line the finish has to own up to — that it was not recorded. */
@@ -30,9 +36,18 @@ interface Props {
 }
 
 /**
- * How the game finished: the clock, how it compares with earlier games, and the
- * answer as a table. It fills the tab it is shown in rather than covering the
- * board, so the finished grid stays one tap away.
+ * How the game finished: the clock, what it cost to get there, how it compares
+ * with earlier games, and the answer as a table.
+ *
+ * The cost is two numbers rather than one. A clue read is the puzzle met
+ * halfway — it is what the game is played with, and a low count is the thing to
+ * be pleased about. A hint asked for is the app doing a step of the puzzle, and
+ * it is only ever offered on a board with every square filled and the wrong
+ * answer on it. Rolling the two together would hide the difference; the second
+ * tile is there so a finish that needed one says so.
+ *
+ * It fills the tab it is shown in rather than covering the board, so the
+ * finished grid stays one tap away.
  *
  * It offers two things to press, on one row. **Play again** puts the same
  * puzzle back the way it was found — blank board, clock at zero, no clue read
@@ -52,6 +67,7 @@ export function SolvedPanel({
   puzzle,
   seconds,
   cluesUsed,
+  hintsAsked = null,
   improvement,
   notice,
   onShare,
@@ -76,6 +92,14 @@ export function SolvedPanel({
       <View style={styles.stats}>
         <Stat label={t('solved.time')} value={formatDuration(seconds)} accent={palette.accent} />
         <Stat label={t('solved.cluesRead')} value={`${cluesUsed}`} accent={palette.accent} joined />
+        {hintsAsked === null ? null : (
+          <Stat
+            label={t('solved.hintsAsked')}
+            value={`${hintsAsked}`}
+            accent={palette.accent}
+            joined
+          />
+        )}
       </View>
 
       {improvement ? (

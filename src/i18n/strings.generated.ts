@@ -422,6 +422,7 @@ export const STRINGS = {
     subtitle: '{theme} · {size}',
     time: 'Time',
     cluesRead: 'Clues read',
+    hintsAsked: 'Hints asked',
     answer: 'The answer',
     swipe: 'Swipe the table for the other sets',
     share: 'Share',
@@ -4668,6 +4669,7 @@ export type StringKey =
   | 'sizes.xs.label'
   | 'solved.answer'
   | 'solved.cluesRead'
+  | 'solved.hintsAsked'
   | 'solved.notRecorded'
   | 'solved.playAgain'
   | 'solved.share'

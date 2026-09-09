@@ -19,6 +19,7 @@ const saved = {
   cluesSeen: [1],
   clueIndex: 1,
   history: [{}],
+  hintsAsked: 0,
   seconds: 30,
   updatedAt: 5,
 };
@@ -45,7 +46,13 @@ describe('storage', () => {
   it('brings the history back', async () => {
     const history = appendGame(
       EMPTY_HISTORY,
-      completedGameFrom(puzzle, { seconds: 75, cluesUsed: 1, revealed: false, finishedAt: 9 }),
+      completedGameFrom(puzzle, {
+        seconds: 75,
+        cluesUsed: 1,
+        hintsAsked: 0,
+        revealed: false,
+        finishedAt: 9,
+      }),
     );
     await storage.saveHistory(history);
     expect(valueOf(await storage.loadHistory())).toEqual(history);

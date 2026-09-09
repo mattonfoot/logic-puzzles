@@ -429,6 +429,10 @@ solved:
   subtitle: '{theme} · {size}'
   time: Time
   cluesRead: Clues read
+  # Beside the clues, and only on a game that counted them: how many times the
+  # player asked a clue what was wrong with the board. A clue read is a puzzle
+  # met halfway; a hint asked for is the app doing a step of it.
+  hintsAsked: Hints asked
   answer: The answer
   swipe: Swipe the table for the other sets
   share: Share

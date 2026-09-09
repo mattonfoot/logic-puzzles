@@ -22,7 +22,7 @@ interface Props {
 /**
  * A game already finished, read back.
  *
- * Nothing about the result is stored beyond the clock, the clue count and the
+ * Nothing about the result is stored beyond the clock, the two counts and the
  * seed — the puzzle itself is built again from that seed, which is the whole
  * point of a seed: the same number and the same shape give back the same cast,
  * the same answer and the same clues, so the answer table here is the one the
@@ -48,6 +48,7 @@ export function ResultScreen({ game, onBack }: Props) {
           puzzle={puzzle}
           seconds={game.seconds}
           cluesUsed={game.cluesUsed ?? 0}
+          hintsAsked={game.hintsAsked}
           // How it compared was news on the day it was finished. Read back, it
           // is a record rather than a result.
           improvement={null}

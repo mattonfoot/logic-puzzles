@@ -17,6 +17,8 @@ export interface CompletionInput {
   seconds: number;
   /** How many of the puzzle's clues the player read. */
   cluesUsed: number;
+  /** And how many times they asked one what was wrong with the board. */
+  hintsAsked: number;
   revealed: boolean;
 }
 

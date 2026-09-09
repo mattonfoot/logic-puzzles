@@ -138,6 +138,10 @@ export function GameScreen({
   // it stood when it was asked, so any change to either the board or the clue on
   // the table takes it back down again.
   const [hinted, setHinted] = useState(false);
+  // How many have been asked for over the whole game. Read out at the finish
+  // beside the clues, and kept with the board so putting the game down and
+  // picking it up does not wipe the tally.
+  const [hintsAsked, setHintsUsed] = useState(() => resumed?.hintsAsked ?? 0);
   const [status, setStatus] = useState<string | null>(null);
   const [improvement, setImprovement] = useState<Improvement | null>(null);
   // Whether the finish made it into the history; null until it has been tried.
@@ -245,6 +249,7 @@ export function GameScreen({
     cluesSeen: [...cluesSeen],
     clueIndex,
     history: history.slice(-SAVED_UNDO),
+    hintsAsked,
     seconds,
     updatedAt: Date.now(),
   });
@@ -272,7 +277,12 @@ export function GameScreen({
     if (!solved) return;
     let active = true;
     // Nothing reveals a board any more, so a finished one was always solved.
-    void onCompleted({ seconds, cluesUsed: cluesSeen.size, revealed: false }).then((result) => {
+    void onCompleted({
+      seconds,
+      cluesUsed: cluesSeen.size,
+      hintsAsked,
+      revealed: false,
+    }).then((result) => {
       if (!active) return;
       setImprovement(result.improvement);
       setRecorded(result.recorded);
@@ -572,6 +582,7 @@ export function GameScreen({
     if (!hint) return;
     feedback.tap();
     setHinted(true);
+    setHintsUsed((asked) => asked + 1);
     // Lit behind the window as well as named in it, so closing the window
     // leaves the square it was about still pointed at.
     setMistakes(new Set(hint.keys));
@@ -595,6 +606,7 @@ export function GameScreen({
     setImprovement(null);
     setRecorded(null);
     setHinted(false);
+    setHintsUsed(0);
     flash(t('game.status.restarted'));
   }, [flash]);
 
@@ -654,6 +666,7 @@ export function GameScreen({
             puzzle={puzzle}
             seconds={seconds}
             cluesUsed={cluesSeen.size}
+            hintsAsked={hintsAsked}
             improvement={improvement}
             notice={recorded === false ? t('solved.notRecorded') : null}
             onShare={() => {

@@ -9,10 +9,13 @@ import type { Puzzle } from '../puzzle/types';
 import type { MarkEntry, Marks } from './board';
 
 /**
- * 2 added the undo stack. A version-1 save reads back with an empty one, which
- * is what it always had on resuming.
+ * 2 added the undo stack, 3 the count of hints asked for. Older saves read back
+ * with an empty stack and no hints against them, which is what they had: a save
+ * written before either existed is a game played without them.
  */
-export const SAVE_VERSION = 2;
+export const SAVE_VERSION = 3;
+/** Every earlier version this build knows how to bring forward. */
+const CARRIED_FORWARD = [1, 2];
 export const HISTORY_VERSION = 1;
 /**
  * How many boards of undo are kept with a saved game.
@@ -40,6 +43,12 @@ export interface SavedGame {
    * and Rewind, which walks the same stack, had nothing to walk.
    */
   history: Marks[];
+  /**
+   * How many times the player has asked a clue what is wrong with the board.
+   * Kept with the game so picking it back up does not wipe the tally, the same
+   * way the clock and the clues read are.
+   */
+  hintsAsked: number;
   seconds: number;
   updatedAt: number;
 }
@@ -62,6 +71,12 @@ export interface CompletedGame {
    * writes more — so this is a count, not a share.
    */
   cluesUsed: number | null;
+  /**
+   * Hints asked for; null for games finished before there were any to ask for.
+   * Told apart from a real zero on purpose — a game that could not have used a
+   * hint is not a game played without one.
+   */
+  hintsAsked: number | null;
   /** True when the player pressed "reveal" instead of solving it. */
   revealed: boolean;
   finishedAt: number;
@@ -122,6 +137,7 @@ export function isSavedGame(value: unknown): value is SavedGame {
   if (!Array.isArray(value.cluesSeen)) return false;
   if (value.clueIndex !== null && typeof value.clueIndex !== 'number') return false;
   if (!Array.isArray(value.history) || !value.history.every(isObject)) return false;
+  if (typeof value.hintsAsked !== 'number') return false;
   return typeof value.seconds === 'number';
 }
 
@@ -158,6 +174,7 @@ export function reviveHistory(value: unknown): History | null {
     games: value.games.map((game) => ({
       ...game,
       cluesUsed: typeof game.cluesUsed === 'number' ? game.cluesUsed : null,
+      hintsAsked: typeof game.hintsAsked === 'number' ? game.hintsAsked : null,
       difficulty: typeof game.difficulty === 'string' ? game.difficulty : game.sizeLabel,
       // Games from when themes were an emoji have no drawing to show; the row
       // reads perfectly well without one.
@@ -170,11 +187,14 @@ export function reviveHistory(value: unknown): History | null {
  * Reads a saved game back, migrating the parts that have moved on.
  *
  * A save from before the clue table kept a list of clues the player had crossed
- * off by hand and a count of hints; those crossed-off clues are the ones they
- * had read, so they come across as the clues seen and the hint count is
- * dropped. Nothing about the board itself changed, so the game resumes. A
+ * off by hand and a `hintsUsed` of its own, counting the hints of a feature
+ * that no longer exists; those crossed-off clues are the ones they had read, so
+ * they come across as the clues seen, and that old count is simply not read —
+ * which is why what replaced it is called `hintsAsked` rather than reusing the
+ * name. Nothing about the board itself changed, so the game resumes. A
  * version-1 save carried no undo stack, and comes across with an empty one —
- * the same board it would have resumed to before, with nothing behind it.
+ * the same board it would have resumed to before, with nothing behind it; a
+ * version-2 save predates the hint and comes across at none asked.
  *
  * A stack that is there but cannot be read refuses the whole save rather than
  * dropping the stack: a board that fails the guards was written by something
@@ -204,12 +224,12 @@ export function reviveSavedGame(value: unknown): SavedGame | null {
       : [];
   const migrated = {
     ...value,
-    // Only the one version this build knows how to bring forward.
-    version: value.version === 1 ? SAVE_VERSION : value.version,
+    version: CARRIED_FORWARD.includes(value.version as number) ? SAVE_VERSION : value.version,
     marks,
     cluesSeen: seen.filter((index: unknown) => typeof index === 'number'),
     clueIndex: typeof value.clueIndex === 'number' ? value.clueIndex : null,
     history: history.slice(-SAVED_UNDO),
+    hintsAsked: typeof value.hintsAsked === 'number' ? value.hintsAsked : 0,
   };
   return isSavedGame(migrated) ? migrated : null;
 }
@@ -225,6 +245,7 @@ export function appendGame(history: History, game: CompletedGame, limit = HISTOR
 interface CompletionInput {
   seconds: number;
   cluesUsed: number;
+  hintsAsked: number;
   revealed: boolean;
   finishedAt: number;
 }
@@ -240,6 +261,7 @@ export function completedGameFrom(puzzle: Puzzle, input: CompletionInput): Compl
     difficulty: puzzle.size.difficulty,
     seconds: Math.max(0, Math.round(input.seconds)),
     cluesUsed: input.cluesUsed,
+    hintsAsked: input.hintsAsked,
     revealed: input.revealed,
     finishedAt: input.finishedAt,
   };

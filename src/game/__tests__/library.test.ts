@@ -32,6 +32,7 @@ function finished(overrides: Partial<CompletedGame> = {}): CompletedGame {
     difficulty: 'Advanced',
     seconds: 120,
     cluesUsed: 4,
+    hintsAsked: 0,
     revealed: false,
     finishedAt: Date.now(),
     ...overrides,

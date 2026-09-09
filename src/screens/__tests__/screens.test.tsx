@@ -1079,6 +1079,25 @@ describe('the board', () => {
       expect(screen.queryByRole('button', { name: 'Hint' })).toBeNull();
     });
 
+    it('counts the asking, and keeps the tally with the board', async () => {
+      const { marks, index } = stuckOnIt();
+      const { onSaveProgress } = play({
+        ...savedGame(puzzle),
+        marks,
+        clueIndex: index,
+        cluesSeen: [index],
+      });
+
+      fireEvent.press(button('Clue'));
+      fireEvent.press(button('Hint'));
+      await act(async () => {
+        jest.advanceTimersByTime(600);
+      });
+
+      const written = onSaveProgress.mock.calls.at(-1)?.[0];
+      expect(written?.hintsAsked).toBe(1);
+    });
+
     it('offers nothing on a board with squares still to fill', () => {
       const { index } = stuckOnIt();
       // The same clue, on a board nobody has finished: the player still has
@@ -1242,6 +1261,35 @@ describe('the board', () => {
     expect(header(puzzle.themeName)).toBeOnTheScreen();
   });
 
+  it('reads the hints asked out at the finish, and records them with the game', async () => {
+    const onCompleted = jest.fn(async () => ({ improvement: firstTime, recorded: true }));
+    stage(
+      <GameScreen
+        puzzle={puzzle}
+        autoEliminate
+        autoFacts
+        accent={DEFAULT_SETTINGS.accent}
+        onToggleAutoEliminate={none}
+        onToggleAutoFacts={none}
+        onChangeAccent={none}
+        restore={{ ...savedGame(puzzle), marks: solvedMarks(), hintsAsked: 7 }}
+        onExit={none}
+        onSaveProgress={async () => true}
+        onDiscardProgress={none}
+        onCompleted={onCompleted}
+      />,
+    );
+    await act(async () => {
+      jest.advanceTimersByTime(0);
+    });
+
+    // Beside the clues rather than folded into them: the two are not the same
+    // measure of how a puzzle went.
+    expect(screen.getByText('Hints asked')).toBeOnTheScreen();
+    expect(screen.getByText('7')).toBeOnTheScreen();
+    expect(onCompleted).toHaveBeenCalledWith(expect.objectContaining({ hintsAsked: 7 }));
+  });
+
   it('puts the same puzzle back from the finish, and the burger with it', async () => {
     stage(
       <GameScreen
@@ -1356,6 +1404,20 @@ describe('a finished game, read back', () => {
 
     fireEvent.press(button('Back'));
     expect(onBack).toHaveBeenCalledTimes(1);
+  });
+
+  it('reads the hints back, and says nothing where a game never counted them', () => {
+    stage(
+      <ResultScreen game={game({ seconds: 125, cluesUsed: 7, hintsAsked: 2 })} onBack={none} />,
+    );
+    expect(screen.getByText('Hints asked')).toBeOnTheScreen();
+    expect(screen.getByText('2')).toBeOnTheScreen();
+    screen.unmount();
+
+    // A game finished before there was a hint to ask for gets no tile rather
+    // than a nought: it is not a game that managed without one.
+    stage(<ResultScreen game={game({ hintsAsked: null })} onBack={none} />);
+    expect(screen.queryByText('Hints asked')).toBeNull();
   });
 
   it('offers to share it, by date and without the answer', () => {
