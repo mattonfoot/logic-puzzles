@@ -743,7 +743,7 @@ describe('the daily challenges', () => {
   it('opens the result of one already finished today instead of a board', () => {
     const onPlay = jest.fn();
     const onShowResult = jest.fn();
-    const done = game({ seed: dailySeed(new Date(NOON)), seconds: 200, finishedAt: NOON });
+    const done = game({ seed: dailySeed(new Date(NOON), 'sm'), seconds: 200, finishedAt: NOON });
     stage(
       <DailyScreen
         busy={false}
@@ -770,8 +770,8 @@ describe('the daily challenges', () => {
     const yesterday = new Date(NOON);
     yesterday.setDate(yesterday.getDate() - 1);
     const history = [
-      game({ seed: dailySeed(new Date(NOON)), finishedAt: NOON }),
-      game({ seed: dailySeed(yesterday), finishedAt: yesterday.getTime() }),
+      game({ seed: dailySeed(new Date(NOON), 'sm'), finishedAt: NOON }),
+      game({ seed: dailySeed(yesterday, 'sm'), finishedAt: yesterday.getTime() }),
     ];
     stage(
       <DailyScreen

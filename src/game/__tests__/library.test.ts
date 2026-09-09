@@ -90,38 +90,61 @@ describe('completedOnPage', () => {
 });
 
 describe('dailySeed', () => {
-  it('reads the date straight off the calendar', () => {
-    expect(dailySeed(new Date(2026, 7, 29))).toBe(20260829);
-    expect(dailySeed(new Date(2026, 0, 2))).toBe(20260102);
+  const day = new Date(2026, 7, 29);
+
+  it('puts the date in its columns and the difficulty in the last one', () => {
+    expect(dailySeed(day, 'xs')).toBe(202608290);
+    expect(dailySeed(day, 'sm')).toBe(202608291);
+    expect(dailySeed(day, 'md')).toBe(202608292);
+    expect(dailySeed(day, 'lg')).toBe(202608293);
+    expect(dailySeed(new Date(2026, 0, 2), 'xs')).toBe(202601020);
   });
 
-  it('gives every date in a four-year span its own puzzle', () => {
-    const seen = new Map<number, string>();
-    const day = new Date(2024, 0, 1);
-    while (day.getFullYear() < 2028) {
-      const seed = dailySeed(day);
-      const key = dayKey(day);
-      expect(seen.has(seed)).toBe(false);
-      seen.set(seed, key);
-      day.setDate(day.getDate() + 1);
+  it('gives the four challenges of a day four different puzzles', () => {
+    const seeds = SIZES.map((size) => dailySeed(day, size.id));
+    expect(new Set(seeds).size).toBe(SIZES.length);
+
+    // The seed is the only thing the generator is handed, so four seeds is what
+    // it takes for four challenges to be four puzzles rather than one puzzle at
+    // four shapes. Drawn at one shape, so it is the seed being compared and
+    // nothing else.
+    const drawn = seeds.map((seed) =>
+      JSON.stringify(generatePuzzle({ theme: THEMES, size: SIZES[1], seed }).solution),
+    );
+    expect(new Set(drawn).size).toBe(SIZES.length);
+  });
+
+  it('gives every date and difficulty in a four-year span its own puzzle', () => {
+    const seen = new Set<number>();
+    const walk = new Date(2024, 0, 1);
+    while (walk.getFullYear() < 2028) {
+      for (const size of SIZES) {
+        const seed = dailySeed(walk, size.id);
+        expect(seen.has(seed)).toBe(false);
+        seen.add(seed);
+      }
+      walk.setDate(walk.getDate() + 1);
     }
-    // Four years including a leap day.
-    expect(seen.size).toBe(1461);
+    // Four years including a leap day, four ways each.
+    expect(seen.size).toBe(1461 * SIZES.length);
   });
 
   it('runs in calendar order, so a later date is a larger number', () => {
-    expect(dailySeed(new Date(2026, 1, 12))).toBeLessThan(dailySeed(new Date(2026, 2, 8)));
-    expect(dailySeed(new Date(2026, 11, 31))).toBeLessThan(dailySeed(new Date(2027, 0, 1)));
+    expect(dailySeed(new Date(2026, 1, 12), 'sm')).toBeLessThan(
+      dailySeed(new Date(2026, 2, 8), 'sm'),
+    );
+    expect(dailySeed(new Date(2026, 11, 31), 'lg')).toBeLessThan(
+      dailySeed(new Date(2027, 0, 1), 'xs'),
+    );
   });
 
-  it('gives every shape the same seed on a given day', () => {
-    const day = new Date(2026, 0, 1);
-    expect(dailySeed(day)).toBe(dailySeed(new Date(day)));
+  it('refuses a shape it has no column for', () => {
+    expect(() => dailySeed(day, 'xxl')).toThrow('xxl');
   });
 
   it('builds a real puzzle at every shape', () => {
-    const seed = dailySeed(new Date(2026, 5, 15));
     for (const size of SIZES) {
+      const seed = dailySeed(new Date(2026, 5, 15), size.id);
       const puzzle = generatePuzzle({ theme: THEMES, size, seed });
       expect(puzzle.seed).toBe(seed);
       expect(puzzle.solution).toHaveLength(size.categories);
@@ -137,7 +160,7 @@ describe('dayKey', () => {
 
 describe('dailyDone', () => {
   const today = new Date(2026, 7, 29);
-  const seed = dailySeed(today);
+  const seed = dailySeed(today, 'sm');
 
   it('finds a challenge finished today', () => {
     const history = [finished({ seed, finishedAt: today.getTime() })];
@@ -149,9 +172,24 @@ describe('dailyDone', () => {
     expect(dailyDone(history, 'sm', today)).toBeNull();
   });
 
+  /**
+   * A daily played this morning, before the four difficulties had seeds of
+   * their own, is still that difficulty's daily done. Asking somebody to play
+   * it again because the seed has been rearranged under them would be the app
+   * losing their game.
+   */
+  it("still finds today's, played on a build that seeded all four the same", () => {
+    const history = [finished({ seed: 20260829, finishedAt: today.getTime() })];
+    expect(dailyDone(history, 'sm', today)?.seed).toBe(20260829);
+    // Still only the shape it was played at.
+    expect(dailyDone(history, 'lg', today)).toBeNull();
+  });
+
   it('does not count yesterday', () => {
     const yesterday = new Date(2026, 7, 28);
-    const history = [finished({ seed: dailySeed(yesterday), finishedAt: yesterday.getTime() })];
+    const history = [
+      finished({ seed: dailySeed(yesterday, 'sm'), finishedAt: yesterday.getTime() }),
+    ];
     expect(dailyDone(history, 'sm', yesterday)).not.toBeNull();
     expect(dailyDone(history, 'sm', today)).toBeNull();
   });
@@ -170,19 +208,38 @@ describe('dailyDone', () => {
 });
 
 describe('dailyDate', () => {
-  it('reads the date back out of the seed', () => {
+  it('reads the date back out of the seed, whichever difficulty it is', () => {
+    for (const size of SIZES) {
+      expect(dailyDate(dailySeed(new Date(2031, 0, 31), size.id))).toEqual(new Date(2031, 0, 31));
+    }
+  });
+
+  it('reads a seed from before the difficulties were told apart', () => {
     expect(dailyDate(20260902)).toEqual(new Date(2026, 8, 2));
-    expect(dailyDate(dailySeed(new Date(2031, 0, 31)))).toEqual(new Date(2031, 0, 31));
   });
 });
 
 describe('looksDaily', () => {
   it('knows a date from a number', () => {
-    expect(looksDaily(20260902)).toBe(true);
+    expect(looksDaily(202609021)).toBe(true);
     expect(looksDaily(7)).toBe(false);
+    expect(looksDaily(202613010)).toBe(false);
+    expect(looksDaily(202602310)).toBe(false);
+    expect(looksDaily(199912310)).toBe(false);
+  });
+
+  it('still knows one from before the difficulties were told apart', () => {
+    expect(looksDaily(20260902)).toBe(true);
     expect(looksDaily(20261301)).toBe(false);
     expect(looksDaily(20260231)).toBe(false);
     expect(looksDaily(19991231)).toBe(false);
+  });
+
+  it('does not read a column no difficulty was ever handed out at', () => {
+    // Four difficulties, so 4 to 9 are nobody's; the number falls back to being
+    // read whole, and whole it is no date.
+    expect(looksDaily(202609024)).toBe(false);
+    expect(looksDaily(202609029)).toBe(false);
   });
 });
 
@@ -193,7 +250,11 @@ describe('dailyStreak', () => {
     return day;
   };
   const daily = (daysAgo: number, sizeId = 'sm') =>
-    finished({ seed: dailySeed(noon(daysAgo)), sizeId, finishedAt: noon(daysAgo).getTime() });
+    finished({
+      seed: dailySeed(noon(daysAgo), sizeId),
+      sizeId,
+      finishedAt: noon(daysAgo).getTime(),
+    });
 
   it('is nothing until a daily has been finished', () => {
     expect(dailyStreak([], noon(0))).toBe(0);
@@ -216,7 +277,7 @@ describe('dailyStreak', () => {
 
   it('does not count a daily finished on a later day', () => {
     // Yesterday's seed, finished today: not yesterday's challenge done.
-    const late = finished({ seed: dailySeed(noon(1)), finishedAt: noon(0).getTime() });
+    const late = finished({ seed: dailySeed(noon(1), 'sm'), finishedAt: noon(0).getTime() });
     expect(dailyStreak([late], noon(0))).toBe(0);
   });
 });

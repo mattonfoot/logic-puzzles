@@ -125,35 +125,102 @@ export function completedOnPage(
 }
 
 /**
- * The seed for a day's challenge: the date read straight off the calendar,
- * 20260829 for the 29th of August 2026.
+ * The day itself as a number: 20260829 for the 29th of August 2026.
  *
  * Every date gets its own number, which a product of the three parts could not
  * do — multiplied together, the 12th of February, the 8th of March and the 6th
  * of April all come to the year times 24, and would have handed out the same
  * puzzle three times a year. Packing the parts into their own columns instead
- * gives one seed per day and keeps them in order, so a later date is a larger
- * number.
+ * gives one number per day and keeps them in order, so a later date is a larger
+ * one.
  *
  * Months count from one here, the way a calendar says them rather than the way
  * `Date` stores them.
  */
-export function dailySeed(date: Date = new Date()): number {
+export function dayNumber(date: Date = new Date()): number {
   return date.getFullYear() * 10000 + (date.getMonth() + 1) * 100 + date.getDate();
 }
 
 /**
- * The date a daily seed stands for, read back out of its columns.
+ * How much the day is multiplied by to leave the difficulty a column of its
+ * own. Ten, because there are four difficulties and no prospect of ten.
+ */
+const DIFFICULTY_STEP = 10;
+
+/**
+ * Which column each difficulty takes.
+ *
+ * Written down rather than read off the order of `SIZES`, because a size added
+ * or moved later would otherwise change what a seed already handed out means —
+ * and a daily's seed is the record of which puzzle somebody played.
+ */
+const DIFFICULTY_COLUMN: Record<string, number> = { xs: 0, sm: 1, md: 2, lg: 3 };
+
+/**
+ * The seed for a day's challenge at one difficulty.
+ *
+ * The day is multiplied up and the difficulty dropped into the column that
+ * makes: 202608291 is the 29th of August 2026 at Advanced. All four used to be
+ * the bare day, which made them the same seed at four shapes — and since the
+ * seed is the only thing the generator is given, the first thing it draws with
+ * it is the theme. Four challenges a day, all in the same place, with the same
+ * cast, differing only in how many of them there were. Now each is its own
+ * puzzle.
+ *
+ * A column rather than a plain multiplier for the same reason the date is three
+ * columns rather than a product: distinct inputs have to give distinct seeds,
+ * and multiplying a day by 2 and another by 3 does not promise that. Here the
+ * day is recovered by dividing and the difficulty by what is left over, so
+ * nothing collides and nothing is lost.
+ */
+export function dailySeed(date: Date, sizeId: string): number {
+  const column = DIFFICULTY_COLUMN[sizeId];
+  if (column === undefined) throw new Error(`No daily column for size: ${sizeId}`);
+  return dayNumber(date) * DIFFICULTY_STEP + column;
+}
+
+/** The date a day number stands for, read back out of its columns. */
+function dateOf(day: number): Date {
+  const year = Math.floor(day / 10000);
+  const month = Math.floor((day % 10000) / 100);
+  const date = day % 100;
+  return new Date(year, month - 1, date);
+}
+
+/** Whether a number reads as a date the app has handed a challenge out for. */
+function isDay(day: number): boolean {
+  if (day < 2025_01_01 || day > 2100_12_31) return false;
+  const date = dateOf(day);
+  return Number.isFinite(date.getTime()) && dayNumber(date) === day;
+}
+
+/**
+ * The day a seed stands for, or null when it is not a daily's.
+ *
+ * Two shapes are read. A seed handed out now carries the day in every column
+ * but the last and the difficulty in that one. A seed from before the
+ * difficulties were told apart is the bare day — four of them went out for each
+ * date — and those are in people's histories for good, so they are still read.
+ * The two cannot be confused: a seed of the new shape has an extra digit, which
+ * puts it far past the last date the old shape can spell.
+ */
+function dayOf(seed: number): number | null {
+  if (!Number.isInteger(seed)) return null;
+  const packed = Math.floor(seed / DIFFICULTY_STEP);
+  const column = seed % DIFFICULTY_STEP;
+  if (Object.values(DIFFICULTY_COLUMN).includes(column) && isDay(packed)) return packed;
+  return isDay(seed) ? seed : null;
+}
+
+/**
+ * The date a daily seed stands for.
  *
  * A seed that does not unpack to a real date on the calendar is not a daily's,
  * whatever it looks like: a numbered game could in principle carry one, though
- * nobody has paged three million times to find it.
+ * nobody has paged thirty million times to find it.
  */
 export function dailyDate(seed: number): Date {
-  const year = Math.floor(seed / 10000);
-  const month = Math.floor((seed % 10000) / 100);
-  const day = seed % 100;
-  return new Date(year, month - 1, day);
+  return dateOf(dayOf(seed) ?? seed);
 }
 
 /**
@@ -163,13 +230,7 @@ export function dailyDate(seed: number): Date {
  * how the finish knows to name it by its date.
  */
 export function looksDaily(seed: number): boolean {
-  const date = dailyDate(seed);
-  return (
-    seed >= 2025_01_01 &&
-    seed <= 2100_12_31 &&
-    Number.isFinite(date.getTime()) &&
-    dailySeed(date) === seed
-  );
+  return dayOf(seed) !== null;
 }
 
 /** A local calendar day as a comparable key: 2026-08-29. */
@@ -192,12 +253,18 @@ export function dailyDone(
   sizeId: string,
   now: Date = new Date(),
 ): CompletedGame | null {
-  const seed = dailySeed(now);
+  const seed = dailySeed(now, sizeId);
+  // Today's, played this morning on a build from before the difficulties had
+  // seeds of their own. The shape is matched either way, so the old seed cannot
+  // answer for a difficulty other than the one it was played at.
+  const before = dayNumber(now);
   const today = dayKey(now);
   return (
     history.find(
       (game) =>
-        game.sizeId === sizeId && game.seed === seed && dayKey(new Date(game.finishedAt)) === today,
+        game.sizeId === sizeId &&
+        (game.seed === seed || game.seed === before) &&
+        dayKey(new Date(game.finishedAt)) === today,
     ) ?? null
   );
 }
@@ -218,7 +285,9 @@ export function dailyStreak(history: CompletedGame[], now: Date = new Date()): n
   const done = new Set<string>();
   for (const game of history) {
     const finished = new Date(game.finishedAt);
-    if (game.seed === dailySeed(finished)) done.add(dayKey(finished));
+    // Any of the four counts, so the seed is asked which day it is for rather
+    // than matched against one difficulty's.
+    if (dayOf(game.seed) === dayNumber(finished)) done.add(dayKey(finished));
   }
   const day = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   if (!done.has(dayKey(day))) day.setDate(day.getDate() - 1);

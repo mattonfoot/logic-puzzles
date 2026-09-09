@@ -147,7 +147,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
    * Builds the puzzle a seed and a shape name, and opens it.
    *
    * Nothing is rolled here any more. A numbered game takes its number as the
-   * seed and the daily challenge takes the date's, so every puzzle in the app
+   * seed and the daily challenge takes the date's and the difficulty's, so every puzzle in the app
    * can be named and asked for again — and the seed still decides everything
    * the player is not choosing: the theme, the sets in play, the items in them,
    * the solution and the clues.
@@ -257,7 +257,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           <DailyScreen
             busy={busy}
             history={persistence.history}
-            onPlay={(size) => build(size, dailySeed(), 'daily')}
+            onPlay={(size) => build(size, dailySeed(new Date(), size.id), 'daily')}
             onShowResult={(game) => {
               setResult(game);
               setScreen('result');

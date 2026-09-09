@@ -28,14 +28,16 @@ interface Props {
 /**
  * Today's four challenges, one per difficulty.
  *
- * They are seeded by the date, so everybody gets the same four puzzles on the
- * same day and there is a right answer to "what did you get". Each is played
+ * They are seeded by the date and the difficulty together, so everybody gets
+ * the same four puzzles on the same day and there is a right answer to "what
+ * did you get" — and the four are four puzzles rather than one at four shapes,
+ * which is what they were while the date was the whole seed. Each is played
  * once: finish one and its row shows the time instead, and pressing it opens
  * the result rather than the board. A daily you can replay until you like your
  * time is not a daily.
  *
- * "Once" means today rather than ever. Tomorrow the date moves the seed on and
- * all four are open again.
+ * "Once" means today rather than ever. Tomorrow the date moves all four seeds
+ * on and they are open again.
  *
  * It wears the front door's panel in the top half, the way every screen before
  * a board does, so the two ways in look like two halves of the same page rather
