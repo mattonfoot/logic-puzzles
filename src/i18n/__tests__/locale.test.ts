@@ -59,12 +59,12 @@ describe('t', () => {
 
 describe('plural', () => {
   it('takes the one form at exactly one', () => {
-    expect(plural('stats.clues', 1)).toBe(' · 1 clue');
+    expect(plural('daily.streak', 1)).toBe('1 day running');
   });
 
   it('takes the other form for none and for many', () => {
-    expect(plural('stats.clues', 0)).toBe(' · 0 clues');
-    expect(plural('stats.clues', 4)).toBe(' · 4 clues');
+    expect(plural('daily.streak', 0)).toBe('0 days running');
+    expect(plural('daily.streak', 4)).toBe('4 days running');
   });
 
   it('offers the count without being asked', () => {

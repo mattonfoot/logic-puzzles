@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { TrendChart } from '../components/TrendChart';
 import { THEMES } from '../data/themes';
-import { plural, t } from '../i18n';
+import { t } from '../i18n';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration, formatSpan } from '../game/time';
 import type { OverallStats, SizeStats } from '../stats/summary';
@@ -183,34 +183,6 @@ export function StatsScreen({
                 One more {selected.difficulty} solve and the trend shows up here.
               </Text>
             )}
-          </View>
-        ) : null}
-
-        {history.length > 0 ? (
-          <View style={[styles.card, shadow.card]}>
-            <Text style={styles.cardTitle}>{t('stats.recentGames')}</Text>
-            {stats.recent.map((game) => (
-              <View key={`${game.seed}-${game.finishedAt}`} style={styles.gameRow}>
-                <View style={styles.gameMark}>
-                  <Icon name={game.themeIcon} size={22} color={palette.accent} />
-                </View>
-                <View style={styles.gameText}>
-                  <Text style={styles.gameTitle}>
-                    {game.themeName} · {game.difficulty}
-                  </Text>
-                  <Text style={styles.gameMeta}>
-                    {new Date(game.finishedAt).toLocaleDateString(undefined, {
-                      day: 'numeric',
-                      month: 'short',
-                    })}
-                    {game.cluesUsed === null ? '' : plural('stats.clues', game.cluesUsed)}
-                  </Text>
-                </View>
-                <Text style={[styles.gameTime, game.revealed && styles.gameTimeMuted]}>
-                  {game.revealed ? 'revealed' : formatDuration(game.seconds)}
-                </Text>
-              </View>
-            ))}
           </View>
         ) : null}
 
@@ -463,42 +435,6 @@ const makeStyles = (palette: Palette) =>
       fontSize: 13,
       color: palette.inkSoft,
       marginBottom: space(3),
-    },
-    gameRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: space(3),
-      paddingVertical: space(2.5),
-      borderBottomWidth: 1,
-      borderBottomColor: palette.line,
-    },
-    gameMark: {
-      width: 24,
-      alignItems: 'center',
-    },
-    gameText: {
-      flex: 1,
-    },
-    gameTitle: {
-      fontSize: 14,
-      fontWeight: '600',
-      color: palette.ink,
-    },
-    gameMeta: {
-      fontSize: 11,
-      color: palette.inkFaint,
-      marginTop: 1,
-    },
-    gameTime: {
-      fontSize: 14,
-      fontWeight: '700',
-      color: palette.ink,
-      fontVariant: ['tabular-nums'],
-    },
-    gameTimeMuted: {
-      fontSize: 12,
-      fontWeight: '600',
-      color: palette.inkFaint,
     },
     empty: {
       alignItems: 'center',

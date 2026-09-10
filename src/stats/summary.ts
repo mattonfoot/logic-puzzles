@@ -49,8 +49,6 @@ export interface OverallStats {
   currentStreak: number;
   longestStreak: number;
   sizes: SizeStats[];
-  /** Newest first. */
-  recent: CompletedGame[];
 }
 
 const mean = (values: number[]): number | null =>
@@ -152,7 +150,6 @@ export function summarise(
     currentStreak: current,
     longestStreak: longest,
     sizes: sizes.map((size) => statsForSize(games, size)),
-    recent: games.slice(0, 20),
   };
 }
 

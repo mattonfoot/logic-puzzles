@@ -480,15 +480,10 @@ export const STRINGS = {
     fasterLately: '{percent}% faster lately',
     slowerLately: '{percent}% slower lately',
     holdingSteady: 'Holding steady',
-    recentGames: 'Recent games',
     empty: 'No finished puzzles yet',
     emptyBody:
       'Solve one and your time lands here. After a few, you will see whether you are getting quicker.',
     clearStatistics: 'Clear statistics',
-    clues: {
-      one: ' · 1 clue',
-      other: ' · {count} clues',
-    },
     perPuzzleUnit: 'clues',
     trendPending: '{solved} solved · best {best}. A few more and the trend below fills in.',
     trendDetail: 'Last {count} average {recent} vs {earlier} before that.',
@@ -4691,8 +4686,6 @@ export type StringKey =
   | 'stats.byDifficulty'
   | 'stats.chartCaption'
   | 'stats.clearStatistics'
-  | 'stats.clues.one'
-  | 'stats.clues.other'
   | 'stats.cluesRead'
   | 'stats.confirm.body'
   | 'stats.confirm.cancelLabel'
@@ -4706,7 +4699,6 @@ export type StringKey =
   | 'stats.holdingSteady'
   | 'stats.perPuzzle'
   | 'stats.perPuzzleUnit'
-  | 'stats.recentGames'
   | 'stats.slowerLately'
   | 'stats.solved'
   | 'stats.streak'

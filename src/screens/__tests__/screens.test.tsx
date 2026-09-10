@@ -1537,6 +1537,11 @@ describe('the statistics', () => {
     expect(screen.getByRole('tab', { name: 'Expert' })).not.toBeSelected();
     expect(screen.queryByRole('tab', { name: 'Beginner' })).toBeNull();
 
+    // The screen is what the history adds up to, not the history itself: the
+    // totals, the table by difficulty and the trend. No list of the games.
+    expect(screen.queryByText('Recent games')).toBeNull();
+    expect(screen.queryByText(game().themeName)).toBeNull();
+
     fireEvent.press(button('Clear statistics'));
     expect(onClearHistory).not.toHaveBeenCalled();
     expect(screen.getByText('Clear statistics?')).toBeOnTheScreen();
