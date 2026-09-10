@@ -81,13 +81,61 @@ export function zoomInto({ level, page }: Catalogue, row: number, size = PAGE_SI
   return { level: Math.max(0, level - 1), page: page * size + row };
 }
 
+/**
+ * How much a puzzle's number — or a day — is multiplied by to leave the
+ * difficulty a column of its own. Ten, because there are four difficulties and
+ * no prospect of ten.
+ */
+const DIFFICULTY_STEP = 10;
+
+/**
+ * Which column each difficulty takes.
+ *
+ * Written down rather than read off the order of `SIZES`, because a size added
+ * or moved later would otherwise change what a seed already handed out means —
+ * and a seed is the record of which puzzle somebody played.
+ */
+const DIFFICULTY_COLUMN: Record<string, number> = { xs: 0, sm: 1, md: 2, lg: 3 };
+
+function columnOf(sizeId: string): number {
+  const column = DIFFICULTY_COLUMN[sizeId];
+  if (column === undefined) throw new Error(`No seed column for size: ${sizeId}`);
+  return column;
+}
+
+/**
+ * The seed behind a numbered game.
+ *
+ * The number is multiplied up and the difficulty dropped into the column that
+ * makes: game 7 at Advanced is seed 71. The number alone used to be the whole
+ * seed, and the seed is the only thing the generator is handed — so the first
+ * thing it drew with it, the theme, came out the same at every difficulty, and
+ * the four game 7s were one cast in one place at four sizes.
+ *
+ * The number is what the player picks and what the list counts in, so it stays
+ * the number: the packing happens on the way to the generator and is undone by
+ * `numberOn` on the way back.
+ */
+export function numberedSeed(number: number, sizeId: string): number {
+  return number * DIFFICULTY_STEP + columnOf(sizeId);
+}
+
+/**
+ * Which numbered game a seed is, at this difficulty, or null if it is not one
+ * of them. A seed from another difficulty's column belongs to another list.
+ */
+export function numberOn(seed: number, sizeId: string): number | null {
+  if (!Number.isInteger(seed) || seed % DIFFICULTY_STEP !== columnOf(sizeId)) return null;
+  return Math.floor(seed / DIFFICULTY_STEP);
+}
+
 /** How many puzzles in the run are finished, each counted once. */
 export function completedInRange(history: CompletedGame[], sizeId: string, range: Range): number {
   const seen = new Set<number>();
   for (const game of history) {
-    if (game.sizeId === sizeId && game.seed >= range.first && game.seed <= range.last) {
-      seen.add(game.seed);
-    }
+    if (game.sizeId !== sizeId) continue;
+    const number = numberOn(game.seed, sizeId);
+    if (number !== null && number >= range.first && number <= range.last) seen.add(number);
   }
   return seen.size;
 }
@@ -102,8 +150,9 @@ export function completedInRange(history: CompletedGame[], sizeId: string, range
 export function findCompleted(
   history: CompletedGame[],
   sizeId: string,
-  seed: number,
+  number: number,
 ): CompletedGame | null {
+  const seed = numberedSeed(number, sizeId);
   return history.find((game) => game.sizeId === sizeId && game.seed === seed) ?? null;
 }
 
@@ -116,10 +165,10 @@ export function completedOnPage(
   const wanted = new Set(numbers);
   const found = new Map<number, CompletedGame>();
   for (const game of history) {
+    if (game.sizeId !== sizeId) continue;
+    const number = numberOn(game.seed, sizeId);
     // Newest first, so the first sighting of a number is the one to keep.
-    if (game.sizeId === sizeId && wanted.has(game.seed) && !found.has(game.seed)) {
-      found.set(game.seed, game);
-    }
+    if (number !== null && wanted.has(number) && !found.has(number)) found.set(number, game);
   }
   return found;
 }
@@ -142,21 +191,6 @@ export function dayNumber(date: Date = new Date()): number {
 }
 
 /**
- * How much the day is multiplied by to leave the difficulty a column of its
- * own. Ten, because there are four difficulties and no prospect of ten.
- */
-const DIFFICULTY_STEP = 10;
-
-/**
- * Which column each difficulty takes.
- *
- * Written down rather than read off the order of `SIZES`, because a size added
- * or moved later would otherwise change what a seed already handed out means —
- * and a daily's seed is the record of which puzzle somebody played.
- */
-const DIFFICULTY_COLUMN: Record<string, number> = { xs: 0, sm: 1, md: 2, lg: 3 };
-
-/**
  * The seed for a day's challenge at one difficulty.
  *
  * The day is multiplied up and the difficulty dropped into the column that
@@ -174,9 +208,7 @@ const DIFFICULTY_COLUMN: Record<string, number> = { xs: 0, sm: 1, md: 2, lg: 3 }
  * nothing collides and nothing is lost.
  */
 export function dailySeed(date: Date, sizeId: string): number {
-  const column = DIFFICULTY_COLUMN[sizeId];
-  if (column === undefined) throw new Error(`No daily column for size: ${sizeId}`);
-  return dayNumber(date) * DIFFICULTY_STEP + column;
+  return dayNumber(date) * DIFFICULTY_STEP + columnOf(sizeId);
 }
 
 /** The date a day number stands for, read back out of its columns. */

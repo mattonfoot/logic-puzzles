@@ -24,6 +24,7 @@ import {
 } from '../game/board';
 import { cluesDone, inventClue, nextClue } from '../game/clues';
 import { hintFor } from '../game/hint';
+import { numberOn } from '../game/library';
 import { SAVE_VERSION, SAVED_UNDO, type SavedGame } from '../game/persistence';
 import { shareResult } from '../game/share';
 import type { Completion, CompletionInput } from '../game/usePersistence';
@@ -653,8 +654,14 @@ export function GameScreen({
         )}
         <View style={styles.headerCenter}>
           <RuledTitle>{puzzle.themeName}</RuledTitle>
+          {/* The number the player picked, not the seed it packs to: the list
+              said "Puzzle 7" and the board has to agree with it. A daily reads
+              back as its date the same way. A seed from a save written before
+              the difficulties had columns of their own can land in one by
+              coincidence and be read a digit short; it is one line of grey
+              text on one old save, and worth less than the plumbing to know. */}
           <Text style={styles.headerSubtitle} numberOfLines={1}>
-            {t('game.seed', { seed: puzzle.seed })}
+            {t('game.seed', { seed: numberOn(puzzle.seed, puzzle.size.id) ?? puzzle.seed })}
           </Text>
         </View>
       </View>

@@ -14,7 +14,7 @@ import {
 import { clueBreaks } from '../../game/clues';
 import type { Improvement } from '../../stats/summary';
 import { sizeById } from '../../data/sizes';
-import { dailySeed } from '../../game/library';
+import { dailySeed, numberedSeed } from '../../game/library';
 import type { SavedGame } from '../../game/persistence';
 import { DEFAULT_SETTINGS } from '../../game/settings';
 import { DailyScreen } from '../DailyScreen';
@@ -633,7 +633,7 @@ describe('the numbered puzzles', () => {
       <NumbersScreen
         size={advanced}
         busy={false}
-        history={[game({ seed: 3, seconds: 95 })]}
+        history={[game({ seed: numberedSeed(3, advanced.id), seconds: 95 })]}
         onPlay={onPlay}
         onBack={none}
       />,
@@ -694,7 +694,7 @@ describe('the numbered puzzles', () => {
   });
 
   it('stops zooming out at the top, and says how far through a group you are', () => {
-    const history = [game({ seed: 2 }), game({ seed: 4 }), game({ seed: 40 })];
+    const history = [2, 4, 40].map((number) => game({ seed: numberedSeed(number, advanced.id) }));
     stage(
       <NumbersScreen size={advanced} busy={false} history={history} onPlay={none} onBack={none} />,
     );
@@ -863,7 +863,8 @@ describe('the board', () => {
     play();
 
     expect(header(puzzle.themeName)).toBeOnTheScreen();
-    expect(screen.getByText(`#${puzzle.seed}`)).toBeOnTheScreen();
+    // The number the list called it, not the seed that number packs to.
+    expect(screen.getByText('#1')).toBeOnTheScreen();
     // The story comes first; the one button on it puts it away.
     expect(button('Close')).toBeEnabled();
 
@@ -1390,7 +1391,12 @@ describe('a finished game, read back', () => {
   it('builds the answer again from the seed', () => {
     const onBack = jest.fn();
     const puzzle = puzzleOne();
-    stage(<ResultScreen game={game({ seed: 1, seconds: 125, cluesUsed: 7 })} onBack={onBack} />);
+    stage(
+      <ResultScreen
+        game={game({ seed: puzzle.seed, seconds: 125, cluesUsed: 7 })}
+        onBack={onBack}
+      />,
+    );
 
     expect(screen.getByText('Solved!')).toBeOnTheScreen();
     // The name and the table come from the puzzle the seed builds, not from

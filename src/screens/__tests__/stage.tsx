@@ -3,6 +3,7 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { SIZES, sizeById } from '../../data/sizes';
+import { numberedSeed } from '../../game/library';
 import { THEMES } from '../../data/themes';
 import { SAVE_VERSION, type CompletedGame, type SavedGame } from '../../game/persistence';
 import { DEFAULT_SETTINGS } from '../../game/settings';
@@ -43,7 +44,7 @@ export function stage(
 export const NOON = new Date(2026, 7, 20, 12, 0, 0).getTime();
 
 /** The 4 × 4 puzzle numbered one — the one the screenshots open too. */
-export function puzzleOne(sizeId = 'sm', seed = 1): Puzzle {
+export function puzzleOne(sizeId = 'sm', seed = numberedSeed(1, sizeId)): Puzzle {
   return generatePuzzle({ theme: THEMES, size: sizeById(sizeId), seed });
 }
 

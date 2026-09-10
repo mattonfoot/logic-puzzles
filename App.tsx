@@ -12,7 +12,7 @@ import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { THEMES } from './src/data/themes';
-import { dailySeed, looksDaily } from './src/game/library';
+import { dailySeed, looksDaily, numberedSeed } from './src/game/library';
 import type { CompletedGame, SavedGame } from './src/game/persistence';
 import { usePersistence } from './src/game/usePersistence';
 import { useSettings } from './src/game/useSettings';
@@ -146,8 +146,8 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
   /**
    * Builds the puzzle a seed and a shape name, and opens it.
    *
-   * Nothing is rolled here any more. A numbered game takes its number as the
-   * seed and the daily challenge takes the date's and the difficulty's, so every puzzle in the app
+   * Nothing is rolled here any more. A numbered game's seed is its number and
+   * its difficulty, and a daily's is the date and the difficulty, so every puzzle in the app
    * can be named and asked for again — and the seed still decides everything
    * the player is not choosing: the theme, the sets in play, the items in them,
    * the solution and the clues.
@@ -250,7 +250,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             size={chosen}
             busy={busy}
             history={persistence.history}
-            onPlay={(number) => build(chosen, number, 'numbers')}
+            onPlay={(number) => build(chosen, numberedSeed(number, chosen.id), 'numbers')}
             onBack={() => setScreen('setup')}
           />
         ) : screen === 'daily' ? (
