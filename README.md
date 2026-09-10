@@ -148,21 +148,36 @@ Two more that are held back on purpose:
   `babel-jest`, `jest-environment-jsdom` and `jest-snapshot` at `^29`, and
   running the 30 runner over them mixes two versions of jest in one process.
   It goes up when `jest-expo` does, and `@types/jest` follows it.
-- **`react` and `react-dom` at an exact 19.2.3**, the pair the SDK ships and
-  `react-test-renderer` is pinned to. A patch on one side only is the version
-  skew React warns about, so neither carries a range.
+- **`react`, `react-dom` and `react-test-renderer` at an exact 19.2.3.** The
+  first two are the pair the SDK ships; the third is versioned in lockstep with
+  React and names it as a peer, so a caret there resolves to a build asking for
+  a React the SDK will not let us install. A patch on one side only is the
+  version skew React warns about, so none of the three carries a range.
+- **`@testing-library/react-native` 13.** Version 14 swaps
+  `react-test-renderer` for the separate `test-renderer` package and depends on
+  the jest 30 matcher utilities, so it belongs with the jest upgrade above
+  rather than ahead of it.
 
 Everything without a native side — TypeScript, Prettier, Playwright — tracks
 latest.
 
+`npm outdated` therefore reports a long list on a repository that is fully up
+to date, because its "latest" column knows nothing about the SDK. What it is
+useful for is the *wanted* column: anything where wanted and current differ is
+a stale lockfile and safe to take.
+
 ### Security
 
-`npm audit` is clean apart from one advisory that has no fix published:
+`npm audit` is clean, and one thing keeps it that way:
 
 | | |
 |---|---|
 | **uuid** (moderate, `<11.1.1`) | Fixed with an `overrides` entry in `package.json`. It arrives under `xcode`, which asks for `^7` and is four levels below anything this repo depends on directly, so an override is the only way to move it. `xcode` uses `uuid.v4()` to number the entries of a generated Xcode project, which the named exports of 14.x still cover. |
-| **image-size** (high, DoS in the ICNS, JXL and HEIF parsers) | No patched version exists — the advisory covers every release up to and including the current one. It comes in under Metro, which reads the dimensions of the images in `assets/` while bundling: build-time only, never shipped in the app, and the only images it is ever handed are the ones in this repository. Nothing to do but wait for a release; there is no override that fixes it, and forcing the 2.x major on Metro would break asset handling without clearing the advisory. |
+
+An **image-size** advisory (high, DoS in the ICNS, JXL and HEIF parsers) used to
+sit here with no patched version to move to. Metro 0.84.5 stopped depending on
+it, so it is out of the tree rather than fixed in place, and there is nothing
+left to say about it.
 
 ## Screens
 
