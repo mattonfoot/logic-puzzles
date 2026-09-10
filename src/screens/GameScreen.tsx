@@ -653,7 +653,12 @@ export function GameScreen({
           </Pressable>
         )}
         <View style={styles.headerCenter}>
-          <RuledTitle>{puzzle.themeName}</RuledTitle>
+          {/* The difficulty, not the theme. The theme is the puzzle's dressing
+              — its drawing heads the briefing and its cast heads every grid —
+              while how hard this one is, and which one it is, are the two
+              things about the game in play that nothing else on the board
+              says. */}
+          <RuledTitle>{puzzle.size.difficulty}</RuledTitle>
           {/* The number the player picked, not the seed it packs to: the list
               said "Puzzle 7" and the board has to agree with it. A daily reads
               back as its date the same way. A seed from a save written before
@@ -671,6 +676,7 @@ export function GameScreen({
           <SolvedPanel
             title={t('solved.title')}
             puzzle={puzzle}
+            daily={daily}
             seconds={seconds}
             cluesUsed={cluesSeen.size}
             hintsAsked={hintsAsked}

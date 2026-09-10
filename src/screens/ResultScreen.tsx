@@ -46,6 +46,7 @@ export function ResultScreen({ game, onBack }: Props) {
         <SolvedPanel
           title={t('solved.title')}
           puzzle={puzzle}
+          daily
           seconds={game.seconds}
           cluesUsed={game.cluesUsed ?? 0}
           hintsAsked={game.hintsAsked}

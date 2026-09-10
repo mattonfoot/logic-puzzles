@@ -425,8 +425,13 @@ settings:
 
 solved:
   title: Solved!
-  # "Reef Dive · 5 × 4"
-  subtitle: '{theme} · {size}'
+  # "Advanced · Puzzle 7", or "Advanced · 2 September 2026" for a daily.
+  #
+  # The theme and the grid size stood here, and neither says which game this
+  # was: the theme's own drawing is right above the line and its cast is in the
+  # answer table under it, and the shape is that table's shape. Which puzzle it
+  # was, and how hard, is what somebody comparing two finishes needs.
+  subtitle: '{difficulty} · {game}'
   time: Time
   cluesRead: Clues read
   # Beside the clues, and only on a game that counted them: how many times the

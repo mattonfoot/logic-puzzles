@@ -410,6 +410,15 @@ async function main() {
     await rewind.click();
     await wait(page, 400);
   }
+  // Rewind walks back to the last board that *held together*, and a single tick
+  // holds together however wrong it is — so it stops with the first of the two
+  // still down. That is the button behaving, not misbehaving: the game shades
+  // marks that disagree with each other and never with the answer, so it cannot
+  // know that one is wrong. The walk knows, because it put it there, so it takes
+  // it back itself. Without this the board goes into the finish with a tick the
+  // answer does not have, and cannot be solved.
+  await page.getByLabel('Undo', { exact: true }).click();
+  await wait(page, 400);
 
   // 13. Who one of the pictures on the board actually is: the card behind a tap,
   // where the traits the clues describe things by are written down. Shot before
@@ -422,6 +431,13 @@ async function main() {
 
   // 14. Finished: the result is the screen, and the board is behind it.
   await solve(page, puzzle);
+  // Checked rather than assumed. The walk is the only thing that looks at these
+  // pictures before they are committed, and a finish that quietly did not
+  // happen leaves a shot of a half-marked board called `14-solved` — which is
+  // exactly what three commits of this gallery carried.
+  if (!(await page.getByText('Solved!', { exact: true }).count())) {
+    throw new Error('the walk did not finish the puzzle: 14-solved would not be the finish');
+  }
   await shot('14-solved');
 
   // 15. Statistics, shown with a sample history.

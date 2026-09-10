@@ -419,7 +419,7 @@ export const STRINGS = {
   },
   solved: {
     title: 'Solved!',
-    subtitle: '{theme} · {size}',
+    subtitle: '{difficulty} · {game}',
     time: 'Time',
     cluesRead: 'Clues read',
     hintsAsked: 'Hints asked',

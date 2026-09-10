@@ -1,6 +1,8 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
+import { dailyDate, numberOn } from '../game/library';
+import { formatDate } from '../game/share';
 import { formatDuration } from '../game/time';
 import { t } from '../i18n';
 import type { Puzzle } from '../puzzle/types';
@@ -17,6 +19,8 @@ interface Props {
   title?: string;
   puzzle: Puzzle;
   seconds: number;
+  /** Today's challenge rather than a numbered game: named by its date. */
+  daily?: boolean;
   /** How many of the puzzle's clues the player read. */
   cluesUsed: number;
   /**
@@ -65,6 +69,7 @@ interface Props {
 export function SolvedPanel({
   title,
   puzzle,
+  daily = false,
   seconds,
   cluesUsed,
   hintsAsked = null,
@@ -86,7 +91,10 @@ export function SolvedPanel({
       </View>
       <Text style={styles.title}>{title ?? t('solved.title')}</Text>
       <Text style={styles.subtitle}>
-        {t('solved.subtitle', { theme: puzzle.themeName, size: puzzle.size.label })}
+        {t('solved.subtitle', {
+          difficulty: puzzle.size.difficulty,
+          game: gameName(puzzle, daily),
+        })}
       </Text>
 
       <View style={styles.stats}>
@@ -153,6 +161,18 @@ export function SolvedPanel({
       </View>
     </ScrollView>
   );
+}
+
+/**
+ * Which game this was: the date for a daily, the number for one off the list.
+ *
+ * The number is read back out of the seed rather than taken from it — a seed
+ * packs the difficulty into its last column — and a seed from before it did
+ * falls back to itself, which is the number it was.
+ */
+function gameName(puzzle: Puzzle, daily: boolean): string {
+  if (daily) return formatDate(dailyDate(puzzle.seed));
+  return t('numbers.puzzle', { number: numberOn(puzzle.seed, puzzle.size.id) ?? puzzle.seed });
 }
 
 function Stat({

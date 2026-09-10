@@ -862,8 +862,8 @@ describe('the board', () => {
   it('opens on the briefing, over a board with nothing to undo or light up', () => {
     play();
 
-    expect(header(puzzle.themeName)).toBeOnTheScreen();
-    // The number the list called it, not the seed that number packs to.
+    // The difficulty heads the board, and under it the number off the list.
+    expect(header(puzzle.size.difficulty)).toBeOnTheScreen();
     expect(screen.getByText('#1')).toBeOnTheScreen();
     // The story comes first; the one button on it puts it away.
     expect(button('Close')).toBeEnabled();
@@ -1258,8 +1258,8 @@ describe('the board', () => {
     // The two board settings and the way to start over are all about a board
     // being worked on, and there is no longer one to work on.
     expect(screen.queryByRole('button', { name: 'Menu' })).toBeNull();
-    // What the puzzle was called stays, on the left margin the burger had.
-    expect(header(puzzle.themeName)).toBeOnTheScreen();
+    // The difficulty stays, on the left margin the burger had.
+    expect(header(puzzle.size.difficulty)).toBeOnTheScreen();
   });
 
   it('reads the hints asked out at the finish, and records them with the game', async () => {
@@ -1388,20 +1388,19 @@ describe('the puzzle settings', () => {
 });
 
 describe('a finished game, read back', () => {
+  /** The daily for the 2nd of September 2026 at Advanced, which is what this screen shows. */
+  const seed = dailySeed(new Date(2026, 8, 2), 'sm');
+
   it('builds the answer again from the seed', () => {
     const onBack = jest.fn();
-    const puzzle = puzzleOne();
-    stage(
-      <ResultScreen
-        game={game({ seed: puzzle.seed, seconds: 125, cluesUsed: 7 })}
-        onBack={onBack}
-      />,
-    );
+    const puzzle = puzzleOne('sm', seed);
+    stage(<ResultScreen game={game({ seed, seconds: 125, cluesUsed: 7 })} onBack={onBack} />);
 
     expect(screen.getByText('Solved!')).toBeOnTheScreen();
-    // The name and the table come from the puzzle the seed builds, not from
-    // whatever the record says it was.
-    expect(screen.getByText(`${puzzle.themeName} · 4 × 4`)).toBeOnTheScreen();
+    // Which game it was and how hard, not what it was dressed as — and the
+    // table under it is the cast, built from the puzzle the seed makes rather
+    // than from whatever the record says it was.
+    expect(screen.getByText('Advanced · 2 September 2026')).toBeOnTheScreen();
     expect(screen.getByText('2:05')).toBeOnTheScreen();
     expect(screen.getByText('7')).toBeOnTheScreen();
     for (const item of puzzle.categories[0].items) {
@@ -1430,7 +1429,7 @@ describe('a finished game, read back', () => {
     const sheet = jest.spyOn(Share, 'share').mockResolvedValue({ action: 'sharedAction' });
     stage(
       <ResultScreen
-        game={game({ seed: 20260902, seconds: 125, cluesUsed: 7, finishedAt: NOON })}
+        game={game({ seed, seconds: 125, cluesUsed: 7, finishedAt: NOON })}
         onBack={none}
       />,
     );
@@ -1441,7 +1440,7 @@ describe('a finished game, read back', () => {
     expect(message).toContain('Daily, 2 September 2026');
     expect(message).toContain('2:05 · 7 clues');
     expect(message).toContain('🟩');
-    for (const item of puzzleOne('sm', 20260902).categories[0].items) {
+    for (const item of puzzleOne('sm', seed).categories[0].items) {
       expect(message).not.toContain(item.label);
     }
     sheet.mockRestore();

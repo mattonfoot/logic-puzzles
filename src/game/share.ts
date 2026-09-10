@@ -3,7 +3,7 @@ import { Share } from 'react-native';
 import { t } from '../i18n';
 import type { Puzzle } from '../puzzle/types';
 import { formatDuration } from './time';
-import { dailyDate } from './library';
+import { dailyDate, numberOn } from './library';
 
 /**
  * A finished game as a few lines somebody can be sent.
@@ -46,7 +46,11 @@ export function resultText({ puzzle, seconds, cluesUsed, daily }: Result): strin
         date: formatDate(dailyDate(puzzle.seed)),
         difficulty: puzzle.size.difficulty,
       })
-    : t('share.numbered', { difficulty: puzzle.size.difficulty, number: puzzle.seed });
+    : t('share.numbered', {
+        difficulty: puzzle.size.difficulty,
+        // The number off the list, not the seed it packs to.
+        number: numberOn(puzzle.seed, puzzle.size.id) ?? puzzle.seed,
+      });
   const line = t('share.line', { clock: formatDuration(seconds), clues: cluesUsed });
   return [heading, line, clueSquares(cluesUsed, puzzle.clues.length)].join('\n');
 }
