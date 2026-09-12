@@ -230,6 +230,7 @@ export const STRINGS = {
       hint: 'Every mark on the board is yours',
       short: 'Classic',
     },
+    daily: 'Daily challenges',
     locked:
       'Classic logic works nothing out for you. Start a Pure Deduction game to have the board keep up.',
   },
@@ -5269,6 +5270,7 @@ export type StringKey =
   | 'modes.classic.hint'
   | 'modes.classic.name'
   | 'modes.classic.short'
+  | 'modes.daily'
   | 'modes.locked'
   | 'modes.pure.hint'
   | 'modes.pure.name'

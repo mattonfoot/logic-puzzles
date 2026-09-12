@@ -246,6 +246,10 @@ modes:
     name: Classic logic
     hint: Every mark on the board is yours
     short: Classic
+  # The daily is not one of the two and never was: it is not chosen, it is
+  # handed out, and it is played once. It has a name here because the statistics
+  # file a finished game under one of these three.
+  daily: Daily challenges
   # On the puzzle menu, under switches that are shown as they stand and cannot
   # be moved, so the reason is the row rather than a dead control.
   locked: Classic logic works nothing out for you. Start a Pure Deduction game to have the board keep up.

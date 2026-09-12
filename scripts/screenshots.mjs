@@ -85,16 +85,24 @@ export async function serve(directory) {
  * A handful of finished games, so the statistics screen has something to show.
  *
  * The seeds are packed the way the app packs them — the number, then the
- * difficulty, then the way it was played — because the statistics read the mode
- * back out of the seed rather than off a field. Two of these are Classic logic
- * games, so the screen shows the tabs that keep the two sets of times apart.
+ * difficulty, then the way it was played, or the date for a daily — because the
+ * statistics read all of that back out of the seed rather than off a field.
+ * Two of these are Classic logic games and two are dailies, so the screen shows
+ * the tabs that keep the three sets of times apart.
  */
 function sampleHistory() {
   const day = 86_400_000;
   const now = Date.now();
   const COLUMN = { xs: 0, sm: 1, md: 2, lg: 3, xl: 4 };
   const MODE = { pure: 0, classic: 1 };
-  const seedFor = (number, sizeId, mode) => (number * 10 + COLUMN[sizeId]) * 10 + MODE[mode];
+  // A daily's seed is the day it was set, then the difficulty; a numbered game's
+  // is the number, the difficulty and the way it was played.
+  const dayNumber = (date) =>
+    date.getFullYear() * 10000 + (date.getMonth() + 1) * 100 + date.getDate();
+  const seedFor = (number, sizeId, mode, finishedAt) =>
+    mode === 'daily'
+      ? dayNumber(new Date(finishedAt)) * 10 + COLUMN[sizeId]
+      : (number * 10 + COLUMN[sizeId]) * 10 + MODE[mode];
   // Newest first, getting quicker over time so the trend has something to say.
   const games = [
     ['cosmic', 'Cosmic Voyage', 'sm', '4 × 4', 214, 7, 0, 'pure'],
@@ -109,23 +117,28 @@ function sampleHistory() {
     ['garden', 'Blue Ribbon Garden', 'sm', '4 × 4', 494, 13, 4, 'classic'],
     ['quest', 'Mythic Quest', 'sm', '4 × 4', 551, 14, 6, 'classic'],
     ['cosmic', 'Cosmic Voyage', 'xs', '3 × 3', 96, 4, 5, 'pure'],
+    ['reef', 'Reef Dive', 'sm', '4 × 4', 268, 8, 1, 'daily'],
+    ['cafe', 'Corner Café', 'sm', '4 × 4', 281, 9, 2, 'daily'],
   ];
   return {
     version: 1,
     games: games.map(
-      ([themeId, themeName, sizeId, sizeLabel, seconds, cluesUsed, daysAgo, mode], index) => ({
-        seed: seedFor(index + 1, sizeId, mode),
-        themeId,
-        themeName,
-        themeIcon: `${themeId}/theme`,
-        sizeId,
-        sizeLabel,
-        difficulty: { xs: 'Beginner', sm: 'Advanced', md: 'Expert', lg: 'Pro' }[sizeId],
-        seconds,
-        cluesUsed,
-        revealed: false,
-        finishedAt: now - daysAgo * day - index * 3_600_000,
-      }),
+      ([themeId, themeName, sizeId, sizeLabel, seconds, cluesUsed, daysAgo, mode], index) => {
+        const finishedAt = now - daysAgo * day - index * 3_600_000;
+        return {
+          seed: seedFor(index + 1, sizeId, mode, finishedAt),
+          themeId,
+          themeName,
+          themeIcon: `${themeId}/theme`,
+          sizeId,
+          sizeLabel,
+          difficulty: { xs: 'Beginner', sm: 'Advanced', md: 'Expert', lg: 'Pro' }[sizeId],
+          seconds,
+          cluesUsed,
+          revealed: false,
+          finishedAt,
+        };
+      },
     ),
   };
 }

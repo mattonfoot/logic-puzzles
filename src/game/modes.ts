@@ -55,6 +55,28 @@ export const MODES: Mode[] = [
 
 export const DEFAULT_MODE: ModeId = 'pure';
 
+/**
+ * How a finished game is filed: the two ways a numbered game can be played, and
+ * the daily, which is neither.
+ *
+ * A daily is not a mode. It is not chosen — the calendar hands it out, one per
+ * difficulty per day — and it is played once, so there is no second column in
+ * its seed and no menu it comes through. What it is, though, is a different
+ * game from both: a puzzle nobody picked, at a difficulty nobody was working
+ * through, raced once against everyone else's. Folding its times in with the
+ * Pure Deduction ones put a stranger's afternoon in the middle of somebody's
+ * run at Advanced, so it stands on its own.
+ */
+export type PlayedAs = ModeId | 'daily';
+
+export const DAILY: PlayedAs = 'daily';
+
+/** The three, in the order the statistics show them. */
+export const PLAYED_AS: { id: PlayedAs; name: string }[] = [
+  ...MODES.map((mode) => ({ id: mode.id as PlayedAs, name: mode.name })),
+  { id: DAILY, name: t('modes.daily') },
+];
+
 export function modeById(id: ModeId): Mode {
   const mode = MODES.find((candidate) => candidate.id === id);
   if (!mode) throw new Error(`Unknown mode: ${id}`);

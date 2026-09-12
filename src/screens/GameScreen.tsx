@@ -123,6 +123,10 @@ export function GameScreen({
    * clamped here, once, at the top of the only screen that plays a puzzle: a
    * game that took them as given would rely on every caller to remember, and on
    * nobody reaching the settings by another door.
+   *
+   * A daily has no mode column, because it is not one of the two: it is handed
+   * out rather than chosen, and it is played with the settings the player
+   * keeps. That is what falls out of the default here.
    */
   const assists = modeById(modeOf(puzzle.seed) ?? DEFAULT_MODE).assists;
   const autoEliminate = assists && wantsAutoEliminate;

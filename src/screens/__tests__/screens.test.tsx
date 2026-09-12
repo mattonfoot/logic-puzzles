@@ -1956,8 +1956,34 @@ describe('the statistics', () => {
     expect(screen.queryByText('1:40')).toBeNull();
   });
 
-  /** One way played, nothing to choose between: no tabs for it. */
-  it('does not ask which game when only one of them has been played', () => {
+  /**
+   * And the daily is a third kind rather than a Pure game: handed out rather
+   * than chosen, played once, raced against everybody else's day.
+   */
+  it('files the daily challenges on their own', () => {
+    const history = [
+      game({ seed: numberedSeed(1, 'sm', 'pure'), seconds: 100 }),
+      game({ seed: dailySeed(new Date(2026, 8, 2), 'sm'), seconds: 250 }),
+    ];
+    stage(
+      <StatsScreen
+        stats={statsOf(history)}
+        history={history}
+        onBack={none}
+        onClearHistory={none}
+      />,
+    );
+
+    expect(screen.getByRole('tab', { name: 'Daily challenges' })).toBeOnTheScreen();
+    expect(screen.queryByText('4:10')).toBeNull();
+
+    fireEvent.press(screen.getByRole('tab', { name: 'Daily challenges' }));
+    expect(screen.getAllByText('4:10').length).toBeGreaterThan(0);
+    expect(screen.queryByText('1:40')).toBeNull();
+  });
+
+  /** One kind played, nothing to choose between: no tabs for it. */
+  it('does not ask which game when only one kind has been played', () => {
     const history = [game({ seed: numberedSeed(1, 'sm', 'pure'), seconds: 100 })];
     stage(
       <StatsScreen

@@ -1,7 +1,7 @@
-import { numberedSeed } from '../../game/library';
+import { dailySeed, numberedSeed } from '../../game/library';
 import type { ModeId } from '../../game/modes';
 import type { CompletedGame } from '../../game/persistence';
-import { improvementFor, modeOfGame, statsForSize, summarise, TREND_WINDOW } from '../summary';
+import { filedAs, improvementFor, statsForSize, summarise, TREND_WINDOW } from '../summary';
 
 const SIZES = [
   { id: 'sm', label: '4 × 4', difficulty: 'Advanced' },
@@ -125,8 +125,8 @@ describe('summarise', () => {
     expect(stats.averageClues).toBe(4);
     expect(stats.hintsAsked).toBe(4);
     expect(stats.themesPlayed).toBe(2);
-    expect(stats.modes.map((mode) => mode.mode)).toEqual(['pure', 'classic']);
-    expect(stats.modes[0].sizes.map((size) => size.sizeId)).toEqual(['sm', 'md']);
+    expect(stats.played.map((kind) => kind.playedAs)).toEqual(['pure', 'classic', 'daily']);
+    expect(stats.played[0].sizes.map((size) => size.sizeId)).toEqual(['sm', 'md']);
   });
 
   /**
@@ -141,7 +141,7 @@ describe('summarise', () => {
       played('classic', { seconds: 500 }),
     );
     const stats = summarise(games, SIZES, NOON);
-    const [pure, classic] = stats.modes;
+    const [pure, classic] = stats.played;
 
     expect(stats.solved).toBe(3);
     expect(pure.solved).toBe(1);
@@ -153,8 +153,30 @@ describe('summarise', () => {
     expect(pure.sizes[1].solved).toBe(0);
   });
 
-  it('counts a daily as Pure Deduction, which is the only way it is played', () => {
-    expect(modeOfGame(game({ seed: 202608291 }))).toBe('pure');
+  /**
+   * A daily is nobody's choice: it is handed out, one per difficulty per day,
+   * and played once. Its time belongs beside the other dailies rather than in
+   * the middle of somebody's run at a difficulty.
+   */
+  it('files a daily on its own rather than with the Pure games', () => {
+    const day = dailySeed(new Date(2026, 7, 29), 'sm');
+    expect(filedAs(game({ seed: day }))).toBe('daily');
+
+    const games = newestFirst(played('pure', { seconds: 100 }), game({ seed: day, seconds: 250 }));
+    const stats = summarise(games, SIZES, NOON);
+    const [pure, , daily] = stats.played;
+
+    expect(stats.solved).toBe(2);
+    expect(pure.solved).toBe(1);
+    expect(daily.solved).toBe(1);
+    expect(pure.sizes[0].bestSeconds).toBe(100);
+    expect(daily.sizes[0].bestSeconds).toBe(250);
+  });
+
+  it('does not measure a daily against the numbered games', () => {
+    const day = dailySeed(new Date(2026, 7, 29), 'sm');
+    const numbered = [played('pure', { seconds: 100 })];
+    expect(improvementFor(game({ seed: day, seconds: 400 }), numbered).kind).toBe('first');
   });
 
   it('counts a streak of consecutive days, ignoring several games in one day', () => {

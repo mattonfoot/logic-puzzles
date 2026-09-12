@@ -8,8 +8,8 @@ import { THEMES } from '../data/themes';
 import { t } from '../i18n';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration, formatSpan } from '../game/time';
-import { modeOfGame, type ModeStats, type OverallStats, type SizeStats } from '../stats/summary';
-import type { ModeId } from '../game/modes';
+import { filedAs, type OverallStats, type PlayStats, type SizeStats } from '../stats/summary';
+import type { PlayedAs } from '../game/modes';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { Icon } from '../ui/Icon';
@@ -37,24 +37,25 @@ export function StatsScreen({
   const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const [modeId, setModeId] = useState<ModeId | null>(null);
+  const [kindId, setKindId] = useState<PlayedAs | null>(null);
   const [sizeId, setSizeId] = useState<string | null>(null);
   const [confirmingClear, setConfirmingClear] = useState(false);
 
-  // Which ways of playing there is anything to show for. The choice between
-  // them is only on the screen once both have been played: a player who has
-  // never opened a Classic game is not asked which of two tables they want.
-  const modesPlayed = stats.modes.filter((mode) => mode.solved > 0);
-  const mode = useMemo<ModeStats>(() => {
-    const chosen = modesPlayed.find((candidate) => candidate.mode === modeId);
+  // Which kinds of game there is anything to show for. The choice between them
+  // is only on the screen once more than one has been played: a player who has
+  // only ever played Pure Deduction is not asked which of three tables they
+  // want.
+  const kindsPlayed = stats.played.filter((kind) => kind.solved > 0);
+  const kind = useMemo<PlayStats>(() => {
+    const chosen = kindsPlayed.find((candidate) => candidate.playedAs === kindId);
     if (chosen) return chosen;
-    return modesPlayed.reduce(
+    return kindsPlayed.reduce(
       (best, candidate) => (candidate.solved > best.solved ? candidate : best),
-      modesPlayed[0] ?? stats.modes[0],
+      kindsPlayed[0] ?? stats.played[0],
     );
-  }, [modesPlayed, modeId, stats.modes]);
+  }, [kindsPlayed, kindId, stats.played]);
 
-  const played = mode.sizes.filter((size) => size.solved > 0);
+  const played = kind.sizes.filter((size) => size.solved > 0);
 
   const selected = useMemo<SizeStats | null>(() => {
     if (played.length === 0) return null;
@@ -72,7 +73,7 @@ export function StatsScreen({
             .filter(
               (game) =>
                 game.sizeId === selected.sizeId &&
-                modeOfGame(game) === selected.mode &&
+                filedAs(game) === selected.playedAs &&
                 !game.revealed,
             )
             .reverse()
@@ -141,29 +142,29 @@ export function StatsScreen({
         {played.length > 0 ? (
           <View style={[styles.card, shadow.card]}>
             <Text style={styles.cardTitle}>{t('stats.byDifficulty')}</Text>
-            {/* Which of the two games these times are from. The tabs say it
-                where there are tabs; where there are none — one way played, so
+            {/* Which kind of game these times are from. The tabs say it where
+                there are tabs; where there are none — one kind played, so
                 nothing to choose — the card says it in a line, since a table of
-                times that does not say which game they are from is a table that
-                can be read as both. */}
-            {modesPlayed.length > 1 ? (
+                times that does not say which games they are from is a table
+                that can be read as any of them. */}
+            {kindsPlayed.length > 1 ? (
               <View style={styles.pillRow}>
-                {modesPlayed.map((candidate) => (
+                {kindsPlayed.map((candidate) => (
                   <Pill
-                    key={candidate.mode}
+                    key={candidate.playedAs}
                     label={candidate.name}
-                    selected={candidate.mode === mode.mode}
+                    selected={candidate.playedAs === kind.playedAs}
                     onPress={() => {
-                      setModeId(candidate.mode);
-                      // The difficulties are not the same two lists, so a shape
-                      // chosen on one side is not a choice on the other.
+                      setKindId(candidate.playedAs);
+                      // These are not the same lists of puzzles, so a shape
+                      // chosen under one is not a choice under another.
                       setSizeId(null);
                     }}
                   />
                 ))}
               </View>
             ) : (
-              <Text style={styles.cardSubtitle}>{mode.name}</Text>
+              <Text style={styles.cardSubtitle}>{kind.name}</Text>
             )}
             <View style={styles.sizeTable}>
               <View style={styles.sizeHeaderRow}>
@@ -172,7 +173,7 @@ export function StatsScreen({
                 <Text style={styles.sizeHeaderCell}>{t('stats.best')}</Text>
                 <Text style={styles.sizeHeaderCell}>{t('stats.average')}</Text>
               </View>
-              {mode.sizes.map((size) => (
+              {kind.sizes.map((size) => (
                 <View key={size.sizeId} style={styles.sizeRow}>
                   <View style={styles.sizeCellWide}>
                     <Text style={styles.sizeCellName}>{size.difficulty}</Text>
@@ -195,7 +196,7 @@ export function StatsScreen({
         {selected ? (
           <View style={[styles.card, shadow.card]}>
             <Text style={styles.cardTitle}>{t('stats.gettingFaster')}</Text>
-            <Text style={styles.cardSubtitle}>{t('stats.chartCaption', { mode: mode.name })}</Text>
+            <Text style={styles.cardSubtitle}>{t('stats.chartCaption', { mode: kind.name })}</Text>
 
             <View style={styles.pillRow}>
               {played.map((size) => (

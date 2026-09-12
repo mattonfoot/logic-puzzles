@@ -4,8 +4,8 @@
  * All of it is pure: the same history always yields the same summary, which
  * keeps it easy to test and cheap to recompute on every render.
  */
-import { modeOf } from '../game/library';
-import { DEFAULT_MODE, MODES, type ModeId } from '../game/modes';
+import { looksDaily, modeOf } from '../game/library';
+import { DAILY, DEFAULT_MODE, PLAYED_AS, type PlayedAs } from '../game/modes';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
 import { plural, t } from '../i18n';
@@ -18,20 +18,22 @@ const MIN_RECENT = 3;
 const MIN_EARLIER = 2;
 
 /**
- * Which way a finished game was played, read back out of its seed.
+ * Which of the three a finished game is filed under, read back out of its seed.
  *
- * Nothing is stored for it: the mode is a column of the seed, so every game
- * ever finished can answer this, including the ones recorded before there was
- * a choice. A daily has no mode column and comes back as Pure Deduction, which
- * is what a daily is — the board does the bookkeeping unless the player has
- * turned it off in their own settings.
+ * Nothing is stored for it: the seed says which day or which number a game was,
+ * and which way a numbered one was played, so every game ever finished can
+ * answer — including the ones recorded before any of this existed. A daily is
+ * its own category rather than a Pure Deduction game: nobody chose it, nobody
+ * was working through it, and it is played once, so its time belongs beside the
+ * other dailies rather than in the middle of somebody's run at a difficulty.
  */
-export const modeOfGame = (game: CompletedGame): ModeId => modeOf(game.seed) ?? DEFAULT_MODE;
+export const filedAs = (game: CompletedGame): PlayedAs =>
+  looksDaily(game.seed) ? DAILY : (modeOf(game.seed) ?? DEFAULT_MODE);
 
 export interface SizeStats {
   sizeId: string;
-  /** Which of the two games these times are from. */
-  mode: ModeId;
+  /** Which of the three these times are from. */
+  playedAs: PlayedAs;
   /** The shape, as the grid reads: "4 × 4". */
   sizeLabel: string;
   /** What that shape is called: "Advanced". */
@@ -53,15 +55,16 @@ export interface SizeStats {
 }
 
 /**
- * One way of playing, and how the difficulties have gone in it.
+ * One kind of game, and how the difficulties have gone in it.
  *
  * The times are split because the games are: the same number at the same
- * difficulty is a different puzzle and a different job on each side, so a best
- * that mixed them would be a best at neither.
+ * difficulty is a different puzzle and a different job played each way, and a
+ * daily is a puzzle nobody picked — so a best that mixed them would be a best
+ * at none of them.
  */
-export interface ModeStats {
-  mode: ModeId;
-  /** What it is called: "Classic logic". */
+export interface PlayStats {
+  playedAs: PlayedAs;
+  /** What it is called: "Classic logic", "Daily challenges". */
   name: string;
   solved: number;
   sizes: SizeStats[];
@@ -80,8 +83,8 @@ export interface OverallStats {
   themesPlayed: number;
   currentStreak: number;
   longestStreak: number;
-  /** Both ways of playing, in the order they are offered, whether played or not. */
-  modes: ModeStats[];
+  /** All three kinds, in the order they are shown, whether played or not. */
+  played: PlayStats[];
 }
 
 const mean = (values: number[]): number | null =>
@@ -143,11 +146,11 @@ function streaks(games: CompletedGame[], now: number): { current: number; longes
 export function statsForSize(
   games: CompletedGame[],
   size: Pick<SizeOption, 'id' | 'label' | 'difficulty'>,
-  mode: ModeId = DEFAULT_MODE,
+  playedAs: PlayedAs = DEFAULT_MODE,
 ): SizeStats {
   // History arrives newest first; solve times read better oldest → newest.
   const solved = games.filter(
-    (game) => game.sizeId === size.id && modeOfGame(game) === mode && !game.revealed,
+    (game) => game.sizeId === size.id && filedAs(game) === playedAs && !game.revealed,
   );
   const times = solved.map((game) => game.seconds).reverse();
   const recentWindow = times.slice(-TREND_WINDOW);
@@ -157,7 +160,7 @@ export function statsForSize(
 
   return {
     sizeId: size.id,
-    mode,
+    playedAs,
     sizeLabel: size.label,
     difficulty: size.difficulty,
     solved: solved.length,
@@ -197,11 +200,11 @@ export function summarise(
     themesPlayed: new Set(solvedGames.map((game) => game.themeId)).size,
     currentStreak: current,
     longestStreak: longest,
-    modes: MODES.map((mode) => ({
-      mode: mode.id,
-      name: mode.name,
-      solved: solvedGames.filter((game) => modeOfGame(game) === mode.id).length,
-      sizes: sizes.map((size) => statsForSize(games, size, mode.id)),
+    played: PLAYED_AS.map((kind) => ({
+      playedAs: kind.id,
+      name: kind.name,
+      solved: solvedGames.filter((game) => filedAs(game) === kind.id).length,
+      sizes: sizes.map((size) => statsForSize(games, size, kind.id)),
     })),
   };
 }
@@ -234,13 +237,14 @@ const percentOf = (fraction: number): number => Math.round(Math.abs(fraction) * 
  * `previous` is the history from *before* this game was added.
  */
 export function improvementFor(game: CompletedGame, previous: CompletedGame[]): Improvement {
-  // At the same size *and* played the same way. A Classic board is a slower job
-  // than the Pure one with the same number — the crosses are the player's to
-  // rule out — so measuring one against the other would hand out a "new best"
-  // for changing the rules and a "slower lately" for putting them back.
-  const mode = modeOfGame(game);
+  // At the same size *and* the same kind of game. A Classic board is a slower
+  // job than the Pure one with the same number — the crosses are the player's
+  // to rule out — so measuring one against the other would hand out a "new
+  // best" for changing the rules and a "slower lately" for putting them back.
+  // A daily is a third thing again: one puzzle a day that nobody picked.
+  const kind = filedAs(game);
   const earlier = previous.filter(
-    (other) => other.sizeId === game.sizeId && modeOfGame(other) === mode && !other.revealed,
+    (other) => other.sizeId === game.sizeId && filedAs(other) === kind && !other.revealed,
   );
   const times = earlier.map((other) => other.seconds);
   const previousBest = times.length === 0 ? null : Math.min(...times);

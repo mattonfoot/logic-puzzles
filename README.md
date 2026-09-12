@@ -1481,21 +1481,26 @@ finished with earlier games at the same size (personal best, share faster than
 average, rank), and `statsForSize` compares the last five solves with the five
 before them for the longer-run trend the chart draws.
 
-Both compare like with like: the same difficulty **and** the same way of
-playing. A Classic board is a slower job than the Pure one beside it — the
-crosses are the player's to rule out — so measuring one against the other would
-hand out a personal best for changing the rules and a *slower lately* for
-putting them back. Nothing is stored for it. `modeOfGame` reads the mode out of
-a game's seed, so every finish ever recorded can answer the question, including
-the ones from before there was a choice, and a daily — which has no mode column
-— comes back as Pure Deduction, which is what a daily is. `summarise` returns
-both ways of playing whether or not either has been played; the statistics
-screen shows the one with the most solves and puts a tab over the table for the
-other, but only once both have games, since a player who has never opened a
-Classic puzzle should not be asked which of two tables they want. The totals
-above it — solved, time played, clues, hints, themes, streak — count everything,
-because how many puzzles somebody has finished is a count of everything they
-have done.
+Both compare like with like: the same difficulty **and** the same kind of game.
+There are three — Pure Deduction, Classic logic and the daily challenge. A
+Classic board is a slower job than the Pure one beside it, since the crosses are
+the player's to rule out, so measuring one against the other would hand out a
+personal best for changing the rules and a *slower lately* for putting them
+back. A daily is a third thing again rather than a Pure game: nobody picked it,
+nobody was working through it, and it is played once — so its time belongs
+beside the other dailies rather than in the middle of somebody's run at
+Advanced.
+
+Nothing is stored for any of it. `filedAs` reads the answer out of a game's
+seed, which says which day or which number it was and, for a numbered game,
+which way it was played — so every finish ever recorded can answer, including
+the ones from before any of this existed. `summarise` returns all three whether
+or not they have been played; the statistics screen shows the one with the most
+solves and puts a tab over the table for the others, but only once more than one
+has games, since a player who has only ever played Pure Deduction should not be
+asked which of three tables they want. The totals above it — solved, time
+played, clues, hints, themes, streak — count everything, because how many
+puzzles somebody has finished is a count of everything they have done.
 
 ## Notes
 
