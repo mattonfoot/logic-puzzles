@@ -12,14 +12,21 @@ nothing checks that the pictures here are as new as the code. Run the iPad walk
 again whenever a layout changes and you want this page to still be evidence.
 
 **Nothing about the app is different here, and that is the point of taking
-these.** `app.json` sets `ios.supportsTablet: true`, so the App Store will offer
-Deduction to iPad owners and iPadOS will run it at native resolution rather than
-in the letterboxed phone frame. What those owners get is the phone layout with
-more room around it: every measurement in `src/ui/theme.ts` is a fixed number of
-points, so nothing grows to meet the screen. These captures are the evidence for
-that, kept so the decision — build a tablet layout, or set `supportsTablet` to
-false and stop offering it — is made against what the app does rather than
-against a guess.
+these.** Every measurement in `src/ui/theme.ts` is a fixed number of points, so
+nothing grows to meet the screen: what a tablet gets is the phone layout with
+more room around it.
+
+**`app.json` now sets `ios.supportsTablet: false`, and this page is why.** The
+App Store lists Deduction as an iPhone app; an iPad owner can still install it
+and gets the phone build in a letterboxed window, at phone proportions, with
+iPadOS offering to scale it up. That is a worse picture than the one below in
+resolution and a better one in intent — nothing on it is stranded, because
+nothing on it was given a screen it was not drawn for.
+
+So these captures are no longer a preview of what iPad owners see. They are the
+record of what they would have seen, kept because the setting is a decision and
+a decision wants its reasons where somebody can check them. Turning it back on
+is one word in `app.json`; what that word costs is the rest of this page.
 
 ## What the pictures show
 
@@ -71,7 +78,7 @@ columns, not content stretched.
 | <img src="screenshots/ipad/19-clue-lessons.png" width="230" alt="The Understanding clues menu on an iPad"><br>**19. Understanding clues** — five short lines in the top-left quarter. | <img src="screenshots/ipad/20-lesson-briefing.png" width="230" alt="A lesson briefing on an iPad"><br>**20. A lesson opens** — the same window as a puzzle's, which is still true here. | <img src="screenshots/ipad/21-lesson-clue.png" width="230" alt="A lesson's clue window on an iPad"><br>**21. Clue** — the words a lesson runs on, at phone width. |
 | <img src="screenshots/ipad/22-lesson-board.png" width="230" alt="A lesson board on an iPad"><br>**22. The board** — a 3 × 3 grid capped at the teaching size, adrift in the middle. | <img src="screenshots/ipad/23-lesson-next.png" width="230" alt="The next lesson step on an iPad"><br>**23. On to the next** — the flow works; the proportions do not. | |
 
-## What fixing it would mean
+## What turning it on would take
 
 Not a rewrite, but not a stylesheet tweak either. The three things the captures
 point at:
@@ -89,7 +96,11 @@ point at:
   exists so a square is not absurd on a big phone. On a tablet the same number
   makes the board absurd in the other direction.
 
-Until one of those happens, `supportsTablet: false` is the honest setting: it
-takes the app off iPad in the App Store, and an iPad owner who wants it still
-gets the phone build, letterboxed, which is what these captures show without
-the pretence that it was designed for the screen.
+None of that is hard. All of it is a second layout to keep working, checked on
+a device nobody here has, for an audience nobody has asked about — and the walk
+that would hold it honest is the one CI does not run.
+
+So the setting stays off until one of those three is done rather than described.
+Letterboxed is not flattering, but it is not a lie: it says the app was drawn
+for a phone, which it was. `src/__tests__/app-config.test.ts` pins it, so it
+cannot drift back without somebody meaning it.
