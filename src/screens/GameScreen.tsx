@@ -37,7 +37,7 @@ import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
-import { useStyles, useTheme } from '../ui/ThemeProvider';
+import { useStyles, useTheme, type ColourPreference } from '../ui/ThemeProvider';
 import { space, tint, type Palette } from '../ui/theme';
 import { ToolButton } from '../ui/ToolButton';
 import { ZoomPair } from '../ui/ZoomPair';
@@ -58,10 +58,13 @@ interface Props {
   checkClues: boolean;
   /** The colour the app is drawn in — the player's, reachable from the menu. */
   accent: string;
+  /** And whether it is drawn in day or night, or whatever the device is doing. */
+  colours: ColourPreference;
   onToggleAutoEliminate: () => void;
   onToggleAutoFacts: () => void;
   onToggleCheckClues: () => void;
   onChangeAccent: (accent: string) => void;
+  onChangeColours: (colours: ColourPreference) => void;
   /** Board to start from when the player is picking a game back up. */
   restore?: SavedGame | null;
   /** Today's challenge rather than a numbered game; the finish is named by its date. */
@@ -93,10 +96,12 @@ export function GameScreen({
   autoFacts,
   checkClues,
   accent,
+  colours,
   onToggleAutoEliminate,
   onToggleAutoFacts,
   onToggleCheckClues,
   onChangeAccent,
+  onChangeColours,
   restore,
   daily = false,
   onExit,
@@ -654,7 +659,9 @@ export function GameScreen({
         autoFacts={autoFacts}
         checkClues={checkClues}
         accent={accent}
+        colours={colours}
         onChangeAccent={onChangeAccent}
+        onChangeColours={onChangeColours}
         onToggleAutoEliminate={onToggleAutoEliminate}
         onToggleAutoFacts={onToggleAutoFacts}
         onToggleCheckClues={onToggleCheckClues}

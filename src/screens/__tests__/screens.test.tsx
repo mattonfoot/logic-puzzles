@@ -840,10 +840,12 @@ describe('the board', () => {
         autoFacts
         checkClues={DEFAULT_SETTINGS.checkClues}
         accent={DEFAULT_SETTINGS.accent}
+        colours={DEFAULT_SETTINGS.colours}
         onToggleAutoEliminate={none}
         onToggleAutoFacts={none}
         onToggleCheckClues={none}
         onChangeAccent={none}
+        onChangeColours={none}
         restore={restore}
         onExit={onExit}
         onSaveProgress={onSaveProgress}
@@ -1139,10 +1141,12 @@ describe('the board', () => {
           autoFacts
           checkClues={checkClues}
           accent={DEFAULT_SETTINGS.accent}
+          colours={DEFAULT_SETTINGS.colours}
           onToggleAutoEliminate={none}
           onToggleAutoFacts={none}
           onToggleCheckClues={none}
           onChangeAccent={none}
+          onChangeColours={none}
           restore={null}
           onExit={none}
           onSaveProgress={async () => true}
@@ -1314,10 +1318,12 @@ describe('the board', () => {
         autoFacts
         checkClues={DEFAULT_SETTINGS.checkClues}
         accent={DEFAULT_SETTINGS.accent}
+        colours={DEFAULT_SETTINGS.colours}
         onToggleAutoEliminate={none}
         onToggleAutoFacts={none}
         onToggleCheckClues={none}
         onChangeAccent={none}
+        onChangeColours={none}
         restore={{ ...savedGame(puzzle), marks: solvedMarks() }}
         onExit={none}
         onSaveProgress={async () => true}
@@ -1346,10 +1352,12 @@ describe('the board', () => {
         autoFacts
         checkClues={DEFAULT_SETTINGS.checkClues}
         accent={DEFAULT_SETTINGS.accent}
+        colours={DEFAULT_SETTINGS.colours}
         onToggleAutoEliminate={none}
         onToggleAutoFacts={none}
         onToggleCheckClues={none}
         onChangeAccent={none}
+        onChangeColours={none}
         restore={{ ...savedGame(puzzle), marks: solvedMarks(), hintsAsked: 7 }}
         onExit={none}
         onSaveProgress={async () => true}
@@ -1376,10 +1384,12 @@ describe('the board', () => {
         autoFacts
         checkClues={DEFAULT_SETTINGS.checkClues}
         accent={DEFAULT_SETTINGS.accent}
+        colours={DEFAULT_SETTINGS.colours}
         onToggleAutoEliminate={none}
         onToggleAutoFacts={none}
         onToggleCheckClues={none}
         onChangeAccent={none}
+        onChangeColours={none}
         restore={{ ...savedGame(puzzle), marks: solvedMarks(), seconds: 300 }}
         onExit={none}
         onSaveProgress={async () => true}
@@ -1414,8 +1424,9 @@ describe('the board', () => {
 describe('the puzzle settings', () => {
   const puzzle = puzzleOne();
 
-  it('shows the board pair as they stand, the colour, and the way to start over', () => {
+  it('shows every setting as it stands, the colours, and the way to start over', () => {
     const onToggleAutoFacts = jest.fn();
+    const onChangeColours = jest.fn();
     stage(
       <GameMenuScreen
         puzzle={puzzle}
@@ -1423,7 +1434,9 @@ describe('the puzzle settings', () => {
         autoFacts={false}
         checkClues
         accent={DEFAULT_SETTINGS.accent}
+        colours={DEFAULT_SETTINGS.colours}
         onChangeAccent={none}
+        onChangeColours={onChangeColours}
         onToggleAutoEliminate={none}
         onToggleAutoFacts={onToggleAutoFacts}
         onToggleCheckClues={none}
@@ -1434,6 +1447,9 @@ describe('the puzzle settings', () => {
 
     expect(header('Puzzle settings')).toBeOnTheScreen();
     expect(header('This puzzle')).toBeOnTheScreen();
+    // The number off the list, said the same way the board's header says it —
+    // they are one tap apart, and were printing different things.
+    expect(screen.getByText('#1')).toBeOnTheScreen();
     expect(checkbox('Automatic crosses')).toBeChecked();
     expect(checkbox('Check against clues')).toBeChecked();
     expect(checkbox('Auto add facts')).not.toBeChecked();
@@ -1441,6 +1457,14 @@ describe('the puzzle settings', () => {
 
     fireEvent.press(checkbox('Auto add facts'));
     expect(onToggleAutoFacts).toHaveBeenCalledTimes(1);
+
+    // The colour scheme is set here exactly as the settings screen sets it,
+    // which is the point of it being here: night is noticed on a board.
+    expect(checkbox('Match the device')).toBeChecked();
+    // Left the device while the device is deciding, and shown as it stands.
+    expect(checkbox('Night colours')).toBeDisabled();
+    fireEvent.press(checkbox('Match the device'));
+    expect(onChangeColours).toHaveBeenCalledWith('day');
   });
 
   it('asks before throwing a board away', () => {
@@ -1452,7 +1476,9 @@ describe('the puzzle settings', () => {
         autoFacts
         checkClues
         accent={DEFAULT_SETTINGS.accent}
+        colours={DEFAULT_SETTINGS.colours}
         onChangeAccent={none}
+        onChangeColours={none}
         onToggleAutoEliminate={none}
         onToggleAutoFacts={none}
         onToggleCheckClues={none}

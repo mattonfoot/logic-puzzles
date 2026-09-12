@@ -999,6 +999,8 @@ export const STRINGS = {
     automaticCrosses: 'Automatic crosses',
     autoAddFacts: 'Auto add facts',
     checkAgainstClues: 'Check against clues',
+    matchDevice: 'Match the device',
+    nightColours: 'Night colours',
     colour: 'Colour',
     restart: 'Restart puzzle',
     back: 'Back to the board',
@@ -5234,6 +5236,8 @@ export type StringKey =
   | 'menu.confirm.body'
   | 'menu.confirm.confirmLabel'
   | 'menu.confirm.title'
+  | 'menu.matchDevice'
+  | 'menu.nightColours'
   | 'menu.restart'
   | 'menu.thisPuzzle'
   | 'menu.title'

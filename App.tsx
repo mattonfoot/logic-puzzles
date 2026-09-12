@@ -219,6 +219,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             autoEliminate={settings.settings.autoEliminate}
             autoFacts={settings.settings.autoFacts}
             checkClues={settings.settings.checkClues}
+            colours={settings.settings.colours}
             accent={settings.settings.accent}
             onToggleAutoEliminate={() =>
               settings.update({ autoEliminate: !settings.settings.autoEliminate })
@@ -228,6 +229,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
               settings.update({ checkClues: !settings.settings.checkClues })
             }
             onChangeAccent={(accent) => settings.update({ accent })}
+            onChangeColours={(colours) => settings.update({ colours })}
             restore={restore ?? persistence.savedGame}
             // A game picked back up does not say which list it came from; its
             // seed does.

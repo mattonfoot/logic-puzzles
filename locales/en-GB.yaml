@@ -716,6 +716,8 @@ menu:
   # Shades a mark that argues with a clue already read. Not a hint - the clue is
   # on the screen - but having to re-read it is the game, so it can be turned off.
   checkAgainstClues: Check against clues
+  matchDevice: Match the device
+  nightColours: Night colours
   colour: Colour
   restart: Restart puzzle
   back: Back to the board
