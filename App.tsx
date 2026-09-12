@@ -13,7 +13,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { THEMES } from './src/data/themes';
 import { dailySeed, looksDaily, modeOf, numberedSeed } from './src/game/library';
-import { DEFAULT_MODE, MODES, modeById, type ModeId } from './src/game/modes';
+import { DEFAULT_MODE, MODES, type ModeId } from './src/game/modes';
 import type { CompletedGame, SavedGame } from './src/game/persistence';
 import { usePersistence } from './src/game/usePersistence';
 import { useSettings } from './src/game/useSettings';
@@ -201,12 +201,6 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
     setScreen(cameFrom);
   }, [cameFrom]);
 
-  // Whether the board is allowed to work anything out for the game in play.
-  // The mode is in the puzzle's seed rather than in `mode`, so a game picked
-  // back up is played the way it was started however the menus have been walked
-  // since — and a daily, which has no mode column, is Pure Deduction.
-  const assists = puzzle ? modeById(modeOf(puzzle.seed) ?? DEFAULT_MODE).assists : true;
-
   const recordCompletion = useCallback(
     (input: Parameters<typeof persistence.recordCompletion>[1]) => {
       if (!puzzle) throw new Error('No puzzle in play');
@@ -237,13 +231,13 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           <GameScreen
             key={puzzle.seed}
             puzzle={puzzle}
-            // Classic logic takes all three away for the length of the game.
-            // The player's own settings are not touched: they are what comes
-            // back the next time a Pure Deduction game is opened.
-            autoEliminate={assists && settings.settings.autoEliminate}
-            autoFacts={assists && settings.settings.autoFacts}
-            checkClues={assists && settings.settings.checkClues}
-            assists={assists}
+            // Handed over as the player has them. A Classic logic game turns
+            // all three off for its own length, which the board does for itself
+            // — these are never written to, so they are what comes back the next
+            // time a Pure Deduction game opens.
+            autoEliminate={settings.settings.autoEliminate}
+            autoFacts={settings.settings.autoFacts}
+            checkClues={settings.settings.checkClues}
             colours={settings.settings.colours}
             accent={settings.settings.accent}
             onToggleAutoEliminate={() =>

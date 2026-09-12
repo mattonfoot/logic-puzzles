@@ -8,7 +8,8 @@ import { THEMES } from '../data/themes';
 import { t } from '../i18n';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration, formatSpan } from '../game/time';
-import type { OverallStats, SizeStats } from '../stats/summary';
+import { modeOfGame, type ModeStats, type OverallStats, type SizeStats } from '../stats/summary';
+import type { ModeId } from '../game/modes';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { Icon } from '../ui/Icon';
@@ -36,9 +37,24 @@ export function StatsScreen({
   const insets = useSafeAreaInsets();
   const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const played = stats.sizes.filter((size) => size.solved > 0);
+  const [modeId, setModeId] = useState<ModeId | null>(null);
   const [sizeId, setSizeId] = useState<string | null>(null);
   const [confirmingClear, setConfirmingClear] = useState(false);
+
+  // Which ways of playing there is anything to show for. The choice between
+  // them is only on the screen once both have been played: a player who has
+  // never opened a Classic game is not asked which of two tables they want.
+  const modesPlayed = stats.modes.filter((mode) => mode.solved > 0);
+  const mode = useMemo<ModeStats>(() => {
+    const chosen = modesPlayed.find((candidate) => candidate.mode === modeId);
+    if (chosen) return chosen;
+    return modesPlayed.reduce(
+      (best, candidate) => (candidate.solved > best.solved ? candidate : best),
+      modesPlayed[0] ?? stats.modes[0],
+    );
+  }, [modesPlayed, modeId, stats.modes]);
+
+  const played = mode.sizes.filter((size) => size.solved > 0);
 
   const selected = useMemo<SizeStats | null>(() => {
     if (played.length === 0) return null;
@@ -52,7 +68,14 @@ export function StatsScreen({
   const selectedGames = useMemo(
     () =>
       selected
-        ? history.filter((game) => game.sizeId === selected.sizeId && !game.revealed).reverse()
+        ? history
+            .filter(
+              (game) =>
+                game.sizeId === selected.sizeId &&
+                modeOfGame(game) === selected.mode &&
+                !game.revealed,
+            )
+            .reverse()
         : [],
     [history, selected],
   );
@@ -118,6 +141,30 @@ export function StatsScreen({
         {played.length > 0 ? (
           <View style={[styles.card, shadow.card]}>
             <Text style={styles.cardTitle}>{t('stats.byDifficulty')}</Text>
+            {/* Which of the two games these times are from. The tabs say it
+                where there are tabs; where there are none — one way played, so
+                nothing to choose — the card says it in a line, since a table of
+                times that does not say which game they are from is a table that
+                can be read as both. */}
+            {modesPlayed.length > 1 ? (
+              <View style={styles.pillRow}>
+                {modesPlayed.map((candidate) => (
+                  <Pill
+                    key={candidate.mode}
+                    label={candidate.name}
+                    selected={candidate.mode === mode.mode}
+                    onPress={() => {
+                      setModeId(candidate.mode);
+                      // The difficulties are not the same two lists, so a shape
+                      // chosen on one side is not a choice on the other.
+                      setSizeId(null);
+                    }}
+                  />
+                ))}
+              </View>
+            ) : (
+              <Text style={styles.cardSubtitle}>{mode.name}</Text>
+            )}
             <View style={styles.sizeTable}>
               <View style={styles.sizeHeaderRow}>
                 <Text style={styles.sizeHeaderWide}>{t('stats.difficulty')}</Text>
@@ -125,7 +172,7 @@ export function StatsScreen({
                 <Text style={styles.sizeHeaderCell}>{t('stats.best')}</Text>
                 <Text style={styles.sizeHeaderCell}>{t('stats.average')}</Text>
               </View>
-              {stats.sizes.map((size) => (
+              {mode.sizes.map((size) => (
                 <View key={size.sizeId} style={styles.sizeRow}>
                   <View style={styles.sizeCellWide}>
                     <Text style={styles.sizeCellName}>{size.difficulty}</Text>
@@ -148,36 +195,17 @@ export function StatsScreen({
         {selected ? (
           <View style={[styles.card, shadow.card]}>
             <Text style={styles.cardTitle}>{t('stats.gettingFaster')}</Text>
-            <Text style={styles.cardSubtitle}>{t('stats.chartCaption')}</Text>
+            <Text style={styles.cardSubtitle}>{t('stats.chartCaption', { mode: mode.name })}</Text>
 
             <View style={styles.pillRow}>
-              {played.map((size) => {
-                const isSelected = size.sizeId === selected.sizeId;
-                return (
-                  <Pressable
-                    key={size.sizeId}
-                    accessibilityRole="tab"
-                    accessibilityState={{ selected: isSelected }}
-                    onPress={() => {
-                      feedback.tap();
-                      setSizeId(size.sizeId);
-                    }}
-                    style={[
-                      styles.pill,
-                      {
-                        borderColor: isSelected ? palette.chart.series : palette.line,
-                        backgroundColor: isSelected
-                          ? tint(palette.chart.series, 0.12)
-                          : palette.surface,
-                      },
-                    ]}
-                  >
-                    <Text style={[styles.pillText, isSelected && { color: palette.chart.series }]}>
-                      {size.difficulty}
-                    </Text>
-                  </Pressable>
-                );
-              })}
+              {played.map((size) => (
+                <Pill
+                  key={size.sizeId}
+                  label={size.difficulty}
+                  selected={size.sizeId === selected.sizeId}
+                  onPress={() => setSizeId(size.sizeId)}
+                />
+              ))}
             </View>
 
             <TrendBanner size={selected} />
@@ -218,6 +246,45 @@ export function StatsScreen({
         onCancel={() => setConfirmingClear(false)}
       />
     </View>
+  );
+}
+
+/**
+ * One of a row of choices over a card: a difficulty, or a way of playing.
+ *
+ * Both rows are the same control doing the same job — narrowing what is under
+ * them to one list — so they are drawn by the same thing rather than by two
+ * copies that drift.
+ */
+function Pill({
+  label,
+  selected,
+  onPress,
+}: {
+  label: string;
+  selected: boolean;
+  onPress: () => void;
+}) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
+  return (
+    <Pressable
+      accessibilityRole="tab"
+      accessibilityState={{ selected }}
+      onPress={() => {
+        feedback.tap();
+        onPress();
+      }}
+      style={[
+        styles.pill,
+        {
+          borderColor: selected ? palette.chart.series : palette.line,
+          backgroundColor: selected ? tint(palette.chart.series, 0.12) : palette.surface,
+        },
+      ]}
+    >
+      <Text style={[styles.pillText, selected && { color: palette.chart.series }]}>{label}</Text>
+    </Pressable>
   );
 }
 

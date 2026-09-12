@@ -3,14 +3,15 @@ import { Share } from 'react-native';
 import { plural, t } from '../i18n';
 import type { Puzzle } from '../puzzle/types';
 import { formatDuration } from './time';
-import { dailyDate, numberFor } from './library';
+import { dailyDate, modeOf, numberFor } from './library';
+import { DEFAULT_MODE, modeById } from './modes';
 
 /**
  * A finished game as a few lines somebody can be sent.
  *
- * What is in it: which puzzle — the date for a daily, the number for a
- * numbered game — the difficulty, the clock, the clues read, any hints asked
- * for, and the clues read again as a row of squares. What is not: anything about the answer. The squares are the
+ * What is in it: which puzzle — the date for a daily, the number and the way it
+ * was played for a numbered game — the difficulty, the clock, the clues read,
+ * any hints asked for, and the clues read again as a row of squares. What is not: anything about the answer. The squares are the
  * puzzle's own clues, filled for the ones read and empty for the ones that were
  * not needed, with a yellow one for each clue the board had to write past the
  * end; how many clues a puzzle has is not a spoiler, and how many it took is
@@ -52,6 +53,12 @@ export function resultText({ puzzle, seconds, cluesUsed, hintsAsked, daily }: Re
         difficulty: puzzle.size.difficulty,
         // The number off the list, not the seed it packs to.
         number: numberFor(puzzle.seed, puzzle.size.id) ?? puzzle.seed,
+        // And which of the two games it was. The same number is a different
+        // puzzle on each side and a different job on each side, so a time sent
+        // to somebody without it is a time they cannot answer. A daily is left
+        // out of this: there is one a day at each difficulty and no choice to
+        // name.
+        mode: modeById(modeOf(puzzle.seed) ?? DEFAULT_MODE).short,
       });
   // Hints only when there were some. The separator is joined here rather than
   // written into a template, because which parts there are depends on the game.

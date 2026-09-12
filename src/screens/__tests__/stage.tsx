@@ -50,7 +50,9 @@ export function puzzleOne(sizeId = 'sm', seed = numberedSeed(1, sizeId, 'pure'))
 
 export function game(overrides: Partial<CompletedGame> = {}): CompletedGame {
   return {
-    seed: 1,
+    // A real numbered seed, since the mode is read back out of one: a bare 1
+    // would land in a column by accident and make every fixture a Classic game.
+    seed: numberedSeed(1, 'sm', 'pure'),
     themeId: 'cosmic',
     themeName: 'Cosmic Voyage',
     themeIcon: 'cosmic/theme',

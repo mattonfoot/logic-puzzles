@@ -239,9 +239,13 @@ modes:
   pure:
     name: Pure Deduction
     hint: The board keeps the bookkeeping
+    # The same choice where the full name would crowd the line or repeat the
+    # app's own: a shared result, and a column in the statistics.
+    short: Pure
   classic:
     name: Classic logic
     hint: Every mark on the board is yours
+    short: Classic
   # On the puzzle menu, under switches that are shown as they stand and cannot
   # be moved, so the reason is the row rather than a dead control.
   locked: Classic logic works nothing out for you. Start a Pure Deduction game to have the board keep up.
@@ -762,6 +766,10 @@ solved:
   # answer table under it, and the shape is that table's shape. Which puzzle it
   # was, and how hard, is what somebody comparing two finishes needs.
   subtitle: '{difficulty} · {game}'
+  # A numbered game, in the same words the share line uses: which one, and which
+  # of the two ways it was played. A daily names its date instead — there is one
+  # a day at each difficulty, and no choice to name.
+  numbered: 'Puzzle {number} · {mode}'
   time: Time
   cluesRead: Clues read
   # Beside the clues, and only on a game that counted them: how many times the
@@ -780,7 +788,9 @@ solved:
 # is the clues read as squares, which the app writes for itself.
 share:
   daily: Deduction · Daily, {date} · {difficulty}
-  numbered: 'Deduction · {difficulty} #{number}'
+  # Which game, then which way it was played: a number is two puzzles now, and
+  # a time means nothing without saying which of them it was.
+  numbered: 'Deduction · {difficulty} #{number} · {mode}'
   # The second line is the clock and what it cost, joined by the middot the app
   # punctuates with everywhere. Hints are left off a game that used none: a
   # nought on every share says nothing, and their absence is the good news.
@@ -832,7 +842,7 @@ stats:
   best: Best
   average: Average
   gettingFaster: Are you getting faster?
-  chartCaption: Recent solve times, one column per puzzle
+  chartCaption: '{mode}: recent solve times, one column per puzzle'
   fasterLately: '{percent}% faster lately'
   slowerLately: '{percent}% slower lately'
   holdingSteady: Holding steady

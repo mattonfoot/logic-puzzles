@@ -81,29 +81,40 @@ export async function serve(directory) {
   return { server, origin: `http://localhost:${server.address().port}` };
 }
 
-/** A handful of finished games, so the statistics screen has something to show. */
+/**
+ * A handful of finished games, so the statistics screen has something to show.
+ *
+ * The seeds are packed the way the app packs them — the number, then the
+ * difficulty, then the way it was played — because the statistics read the mode
+ * back out of the seed rather than off a field. Two of these are Classic logic
+ * games, so the screen shows the tabs that keep the two sets of times apart.
+ */
 function sampleHistory() {
   const day = 86_400_000;
   const now = Date.now();
+  const COLUMN = { xs: 0, sm: 1, md: 2, lg: 3, xl: 4 };
+  const MODE = { pure: 0, classic: 1 };
+  const seedFor = (number, sizeId, mode) => (number * 10 + COLUMN[sizeId]) * 10 + MODE[mode];
   // Newest first, getting quicker over time so the trend has something to say.
   const games = [
-    ['cosmic', 'Cosmic Voyage', 'sm', '4 × 4', 214, 7, 0],
-    ['reef', 'Reef Dive', 'sm', '4 × 4', 236, 9, 0],
-    ['cafe', 'Corner Café', 'sm', '4 × 4', 259, 8, 1],
-    ['quest', 'Mythic Quest', 'sm', '4 × 4', 288, 10, 1],
-    ['garden', 'Blue Ribbon Garden', 'sm', '4 × 4', 300, 9, 2],
-    ['cosmic', 'Cosmic Voyage', 'sm', '4 × 4', 310, 12, 2],
-    ['reef', 'Reef Dive', 'sm', '4 × 4', 325, 11, 3],
-    ['quest', 'Mythic Quest', 'sm', '4 × 4', 340, 12, 3],
-    ['cafe', 'Corner Café', 'md', '5 × 4', 412, 10, 4],
-    ['garden', 'Blue Ribbon Garden', 'md', '5 × 4', 468, 12, 5],
-    ['cosmic', 'Cosmic Voyage', 'xs', '3 × 3', 96, 4, 5],
+    ['cosmic', 'Cosmic Voyage', 'sm', '4 × 4', 214, 7, 0, 'pure'],
+    ['reef', 'Reef Dive', 'sm', '4 × 4', 236, 9, 0, 'pure'],
+    ['cafe', 'Corner Café', 'sm', '4 × 4', 259, 8, 1, 'pure'],
+    ['quest', 'Mythic Quest', 'sm', '4 × 4', 288, 10, 1, 'pure'],
+    ['garden', 'Blue Ribbon Garden', 'sm', '4 × 4', 300, 9, 2, 'pure'],
+    ['cosmic', 'Cosmic Voyage', 'sm', '4 × 4', 310, 12, 2, 'pure'],
+    ['reef', 'Reef Dive', 'sm', '4 × 4', 325, 11, 3, 'pure'],
+    ['quest', 'Mythic Quest', 'sm', '4 × 4', 340, 12, 3, 'pure'],
+    ['cafe', 'Corner Café', 'md', '5 × 4', 412, 10, 4, 'pure'],
+    ['garden', 'Blue Ribbon Garden', 'sm', '4 × 4', 494, 13, 4, 'classic'],
+    ['quest', 'Mythic Quest', 'sm', '4 × 4', 551, 14, 6, 'classic'],
+    ['cosmic', 'Cosmic Voyage', 'xs', '3 × 3', 96, 4, 5, 'pure'],
   ];
   return {
     version: 1,
     games: games.map(
-      ([themeId, themeName, sizeId, sizeLabel, seconds, cluesUsed, daysAgo], index) => ({
-        seed: 1000 + index,
+      ([themeId, themeName, sizeId, sizeLabel, seconds, cluesUsed, daysAgo, mode], index) => ({
+        seed: seedFor(index + 1, sizeId, mode),
         themeId,
         themeName,
         themeIcon: `${themeId}/theme`,

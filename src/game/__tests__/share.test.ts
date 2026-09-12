@@ -3,10 +3,22 @@ import { Share } from 'react-native';
 import { SIZES } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
 import { generatePuzzle } from '../../puzzle/generator';
+import { numberedSeed } from '../library';
 import { clueSquares, formatDate, resultText, shareResult } from '../share';
 
 const daily = generatePuzzle({ theme: THEMES, size: SIZES[1], seed: 20260902 });
-const numbered = generatePuzzle({ theme: THEMES, size: SIZES[2], seed: 7 });
+// Expert #7, played each way: the seed carries the number, the difficulty and
+// the way it was played, and the heading reads all three back out of it.
+const numbered = generatePuzzle({
+  theme: THEMES,
+  size: SIZES[2],
+  seed: numberedSeed(7, SIZES[2].id, 'pure'),
+});
+const classic = generatePuzzle({
+  theme: THEMES,
+  size: SIZES[2],
+  seed: numberedSeed(7, SIZES[2].id, 'classic'),
+});
 
 describe('the squares', () => {
   it('fill for the clues read and stay empty for the rest', () => {
@@ -39,7 +51,7 @@ describe('the text', () => {
     expect(text).not.toContain(daily.themeName);
   });
 
-  it('names a numbered game by its number', () => {
+  it('names a numbered game by its number and the way it was played', () => {
     const text = resultText({
       puzzle: numbered,
       seconds: 61,
@@ -47,8 +59,23 @@ describe('the text', () => {
       hintsAsked: 0,
       daily: false,
     });
-    expect(text.split('\n')[0]).toBe('Deduction · Expert #7');
+    expect(text.split('\n')[0]).toBe('Deduction · Expert #7 · Pure');
     expect(text).toContain('1:01 · 9 clues');
+  });
+
+  /**
+   * The same number the hard way is a different puzzle and a different job, so
+   * a time sent without saying which is a time nobody can answer.
+   */
+  it('tells a Classic game from the Pure one with the same number', () => {
+    const text = resultText({
+      puzzle: classic,
+      seconds: 61,
+      cluesUsed: 9,
+      hintsAsked: 0,
+      daily: false,
+    });
+    expect(text.split('\n')[0]).toBe('Deduction · Expert #7 · Classic');
   });
 
   /**

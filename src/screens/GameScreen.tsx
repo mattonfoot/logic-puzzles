@@ -24,7 +24,8 @@ import {
 } from '../game/board';
 import { cluesDone, inventClue, marksAgainstClues, nextClue } from '../game/clues';
 import { hintFor } from '../game/hint';
-import { numberFor } from '../game/library';
+import { modeOf, numberFor } from '../game/library';
+import { DEFAULT_MODE, modeById } from '../game/modes';
 import { SAVE_VERSION, SAVED_UNDO, type SavedGame } from '../game/persistence';
 import { shareResult } from '../game/share';
 import type { Completion, CompletionInput } from '../game/usePersistence';
@@ -51,7 +52,11 @@ const UNDO_LIMIT = 200;
 
 interface Props {
   puzzle: Puzzle;
-  /** The player's board settings, which live outside any one game. */
+  /**
+   * The player's board settings, which live outside any one game — and are
+   * wants rather than orders: a Classic logic game turns all three off for its
+   * own length, and does it here rather than trusting every caller to.
+   */
   autoEliminate: boolean;
   autoFacts: boolean;
   /** Whether a mark that argues with a clue already read is shaded on the board. */
@@ -69,13 +74,6 @@ interface Props {
   restore?: SavedGame | null;
   /** Today's challenge rather than a numbered game; the finish is named by its date. */
   daily?: boolean;
-  /**
-   * Whether the board is allowed to work anything out, which is the mode rather
-   * than a setting. The three board settings arrive already turned off in a
-   * Classic logic game; this says so, so the menu can show them held down and
-   * give the reason instead of looking broken.
-   */
-  assists?: boolean;
   onExit: () => void;
   /** Resolves false when the board could not be written. */
   onSaveProgress: (game: SavedGame) => Promise<boolean>;
@@ -99,9 +97,9 @@ interface Props {
  */
 export function GameScreen({
   puzzle,
-  autoEliminate,
-  autoFacts,
-  checkClues,
+  autoEliminate: wantsAutoEliminate,
+  autoFacts: wantsAutoFacts,
+  checkClues: wantsCheckClues,
   accent,
   colours,
   onToggleAutoEliminate,
@@ -111,12 +109,26 @@ export function GameScreen({
   onChangeColours,
   restore,
   daily = false,
-  assists = true,
   onExit,
   onSaveProgress,
   onDiscardProgress,
   onCompleted,
 }: Props) {
+  /**
+   * Whether the board is allowed to work anything out for this game.
+   *
+   * The way a game is being played is in its seed — so a board picked back up
+   * is played the way it was started, whatever menu the player came through —
+   * and Classic logic does none of the bookkeeping. The three settings are
+   * clamped here, once, at the top of the only screen that plays a puzzle: a
+   * game that took them as given would rely on every caller to remember, and on
+   * nobody reaching the settings by another door.
+   */
+  const assists = modeById(modeOf(puzzle.seed) ?? DEFAULT_MODE).assists;
+  const autoEliminate = assists && wantsAutoEliminate;
+  const autoFacts = assists && wantsAutoFacts;
+  const checkClues = assists && wantsCheckClues;
+
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const insets = useSafeAreaInsets();

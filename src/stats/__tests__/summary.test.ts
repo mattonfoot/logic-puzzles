@@ -1,5 +1,7 @@
+import { numberedSeed } from '../../game/library';
+import type { ModeId } from '../../game/modes';
 import type { CompletedGame } from '../../game/persistence';
-import { improvementFor, statsForSize, summarise, TREND_WINDOW } from '../summary';
+import { improvementFor, modeOfGame, statsForSize, summarise, TREND_WINDOW } from '../summary';
 
 const SIZES = [
   { id: 'sm', label: '4 × 4', difficulty: 'Advanced' },
@@ -11,7 +13,10 @@ const NOON = new Date(2026, 7, 20, 12, 0, 0).getTime();
 
 function game(overrides: Partial<CompletedGame> = {}): CompletedGame {
   return {
-    seed: 1,
+    // A real numbered seed: it carries the number, the difficulty and the way
+    // the game was played, and the summary reads the last of those back out of
+    // it rather than off a field of its own.
+    seed: numberedSeed(1, 'sm', 'pure'),
     themeId: 'cosmic',
     themeName: 'Cosmic Voyage',
     themeIcon: 'cosmic/theme',
@@ -25,6 +30,12 @@ function game(overrides: Partial<CompletedGame> = {}): CompletedGame {
     finishedAt: NOON,
     ...overrides,
   };
+}
+
+/** The same game played the other way: a different puzzle, on its own list. */
+function played(mode: ModeId, overrides: Partial<CompletedGame> = {}): CompletedGame {
+  const sizeId = overrides.sizeId ?? 'sm';
+  return game({ ...overrides, sizeId, seed: numberedSeed(1, sizeId, mode) });
 }
 
 /** History is stored newest first. */
@@ -114,7 +125,36 @@ describe('summarise', () => {
     expect(stats.averageClues).toBe(4);
     expect(stats.hintsAsked).toBe(4);
     expect(stats.themesPlayed).toBe(2);
-    expect(stats.sizes.map((size) => size.sizeId)).toEqual(['sm', 'md']);
+    expect(stats.modes.map((mode) => mode.mode)).toEqual(['pure', 'classic']);
+    expect(stats.modes[0].sizes.map((size) => size.sizeId)).toEqual(['sm', 'md']);
+  });
+
+  /**
+   * The two ways of playing are two lists of puzzles and two jobs, so the
+   * per-difficulty numbers are kept apart. The totals above them are not: how
+   * many puzzles somebody has finished is a count of everything they have done.
+   */
+  it('splits the times by the way the game was played, and totals both', () => {
+    const games = newestFirst(
+      played('pure', { seconds: 100 }),
+      played('classic', { seconds: 400 }),
+      played('classic', { seconds: 500 }),
+    );
+    const stats = summarise(games, SIZES, NOON);
+    const [pure, classic] = stats.modes;
+
+    expect(stats.solved).toBe(3);
+    expect(pure.solved).toBe(1);
+    expect(classic.solved).toBe(2);
+    expect(pure.sizes[0].bestSeconds).toBe(100);
+    expect(classic.sizes[0].bestSeconds).toBe(400);
+    expect(classic.sizes[0].averageSeconds).toBe(450);
+    // And the other difficulty has nothing on either side.
+    expect(pure.sizes[1].solved).toBe(0);
+  });
+
+  it('counts a daily as Pure Deduction, which is the only way it is played', () => {
+    expect(modeOfGame(game({ seed: 202608291 }))).toBe('pure');
   });
 
   it('counts a streak of consecutive days, ignoring several games in one day', () => {
@@ -204,5 +244,22 @@ describe('improvementFor', () => {
       game({ seconds: 10, sizeId: 'md', sizeLabel: '5 × 4', difficulty: 'Expert' }),
     ];
     expect(improvementFor(game({ seconds: 300 }), previous).kind).toBe('first');
+  });
+
+  /**
+   * A Classic board is a slower job than the Pure one beside it — the crosses
+   * are the player's to rule out — so a first Classic game is a first game,
+   * however many Pure ones came before it, and a quick Pure game is not a best
+   * over a Classic time it was never racing.
+   */
+  it('only compares against games played the same way', () => {
+    const pure = [played('pure', { seconds: 100 }), played('pure', { seconds: 120 })];
+    expect(improvementFor(played('classic', { seconds: 400 }), pure).kind).toBe('first');
+
+    const classic = [played('classic', { seconds: 400 })];
+    expect(improvementFor(played('pure', { seconds: 300 }), classic).kind).toBe('first');
+    expect(improvementFor(played('pure', { seconds: 90 }), [...pure, ...classic]).kind).toBe(
+      'best',
+    );
   });
 });

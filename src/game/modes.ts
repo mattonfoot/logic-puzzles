@@ -23,6 +23,12 @@ export interface Mode {
   /** Read out under the name, and what the choice actually means. */
   hint: string;
   /**
+   * The same choice in one word, for a line with no room for the full name: a
+   * shared result, where "Deduction · Pure Deduction" would say the app's own
+   * name twice, and a statistics row that has a difficulty to fit as well.
+   */
+  short: string;
+  /**
    * Whether the board is allowed to work anything out. Classic switches off all
    * three board settings for the game and will not let them be turned back on;
    * the player's own settings are untouched and come back in Pure Deduction.
@@ -35,12 +41,14 @@ export const MODES: Mode[] = [
     id: 'pure',
     name: t('modes.pure.name'),
     hint: t('modes.pure.hint'),
+    short: t('modes.pure.short'),
     assists: true,
   },
   {
     id: 'classic',
     name: t('modes.classic.name'),
     hint: t('modes.classic.hint'),
+    short: t('modes.classic.short'),
     assists: false,
   },
 ];

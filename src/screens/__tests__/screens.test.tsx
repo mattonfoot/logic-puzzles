@@ -950,6 +950,48 @@ describe('the board', () => {
     fireEvent(measured, 'layout', { nativeEvent: { layout: { width: 390, height: 520 } } });
   }
 
+  /**
+   * The other half of the clamp, on the board rather than on its settings page.
+   *
+   * Handed every setting switched on, a Classic logic game does none of the
+   * bookkeeping: a tick is a tick, and the rest of its row is the player's to
+   * rule out. That is the game that was chosen, and the board reads which game
+   * it is out of its own seed rather than being told.
+   */
+  it('rules nothing out for you in a Classic logic game', () => {
+    stage(
+      <GameScreen
+        puzzle={puzzleOne('sm', numberedSeed(1, 'sm', 'classic'))}
+        autoEliminate
+        autoFacts
+        checkClues
+        accent={DEFAULT_SETTINGS.accent}
+        colours={DEFAULT_SETTINGS.colours}
+        onToggleAutoEliminate={none}
+        onToggleAutoFacts={none}
+        onToggleCheckClues={none}
+        onChangeAccent={none}
+        onChangeColours={none}
+        restore={null}
+        onExit={none}
+        onSaveProgress={async () => true}
+        onDiscardProgress={none}
+        onCompleted={() => Promise.reject(new Error('nothing is finished here'))}
+      />,
+    );
+    fireEvent.press(button('Close'));
+    fireEvent.press(button('Clue'));
+    fireEvent.press(button('Close'));
+    layOut();
+
+    const [blank] = screen.getAllByRole('button', { name: /: unknown$/ });
+    fireEvent(blank, 'longPress');
+
+    expect(screen.getAllByRole('button', { name: /: matched$/ })).toHaveLength(1);
+    // The same tick on the same board in a Pure game crosses out six squares.
+    expect(screen.queryAllByRole('button', { name: /: ruled out$/ })).toHaveLength(0);
+  });
+
   it('opens on the briefing, over a board with nothing to undo or light up', () => {
     play();
 
@@ -1517,6 +1559,10 @@ describe('the board', () => {
       jest.advanceTimersByTime(0);
     });
     expect(screen.getByText('5:00')).toBeOnTheScreen();
+    // Which game it was, how hard, and which of the two ways it was played: the
+    // note under it compares this time against games played the same way, so
+    // the line has to say which way that was.
+    expect(screen.getByText('Advanced · Puzzle 1 · Pure')).toBeOnTheScreen();
     expect(screen.getByText('First one at this size')).toBeOnTheScreen();
 
     // Beside Share, and it needs no asking: the game is already in the
@@ -1582,6 +1628,45 @@ describe('the puzzle settings', () => {
     expect(checkbox('Night colours')).toBeDisabled();
     fireEvent.press(checkbox('Match the device'));
     expect(onChangeColours).toHaveBeenCalledWith('day');
+  });
+
+  /**
+   * The clamp is the board's, not the caller's.
+   *
+   * The settings arrive as the player has them — they are preferences, and a
+   * Classic game never writes to them — so the board turns them off for its own
+   * length, reading the mode out of the puzzle's own seed. Handed all three
+   * switched on, a Classic game still shows three dead switches and an off
+   * board: there is no caller to forget, and no second door into them.
+   */
+  it('will not take the helpers back even when it is handed them', () => {
+    stage(
+      <GameScreen
+        puzzle={puzzleOne('sm', numberedSeed(1, 'sm', 'classic'))}
+        autoEliminate
+        autoFacts
+        checkClues
+        accent={DEFAULT_SETTINGS.accent}
+        colours={DEFAULT_SETTINGS.colours}
+        onToggleAutoEliminate={none}
+        onToggleAutoFacts={none}
+        onToggleCheckClues={none}
+        onChangeAccent={none}
+        onChangeColours={none}
+        restore={null}
+        onExit={none}
+        onSaveProgress={async () => true}
+        onDiscardProgress={none}
+        onCompleted={() => Promise.reject(new Error('nothing is finished here'))}
+      />,
+    );
+    fireEvent.press(button('Close'));
+    fireEvent.press(button('Menu'));
+
+    for (const setting of ['Automatic crosses', 'Auto add facts', 'Check against clues']) {
+      expect(checkbox(setting)).toBeDisabled();
+      expect(checkbox(setting)).not.toBeChecked();
+    }
   });
 
   /**
@@ -1791,9 +1876,15 @@ describe('the statistics', () => {
 
   it('totals a history, one tab per difficulty played, and asks before clearing it', () => {
     const history = [
-      game({ seed: 3, finishedAt: NOON }),
-      game({ seed: 2, sizeId: 'md', sizeLabel: '5 × 4', difficulty: 'Expert', seconds: 300 }),
-      game({ seed: 1, seconds: 100, finishedAt: NOON - 86_400_000 }),
+      game({ seed: numberedSeed(3, 'sm', 'pure'), finishedAt: NOON }),
+      game({
+        seed: numberedSeed(2, 'md', 'pure'),
+        sizeId: 'md',
+        sizeLabel: '5 × 4',
+        difficulty: 'Expert',
+        seconds: 300,
+      }),
+      game({ seed: numberedSeed(1, 'sm', 'pure'), seconds: 100, finishedAt: NOON - 86_400_000 }),
     ];
     const onClearHistory = jest.fn();
     stage(
@@ -1831,5 +1922,54 @@ describe('the statistics', () => {
     const [, confirm] = screen.getAllByRole('button', { name: 'Clear statistics' });
     fireEvent.press(confirm);
     expect(onClearHistory).toHaveBeenCalledTimes(1);
+  });
+
+  /**
+   * A best is a best at one game. The same number played the hard way is a
+   * different puzzle and a slower job, so the two sets of times are two tables
+   * with a tab apiece, and the totals above them still count everything.
+   */
+  it('keeps the two ways of playing apart, and says which it is showing', () => {
+    const history = [
+      game({ seed: numberedSeed(1, 'sm', 'pure'), seconds: 100 }),
+      game({ seed: numberedSeed(2, 'sm', 'classic'), seconds: 400 }),
+    ];
+    stage(
+      <StatsScreen
+        stats={statsOf(history)}
+        history={history}
+        onBack={none}
+        onClearHistory={none}
+      />,
+    );
+
+    // Both games are counted in the totals; only one of them is in the table.
+    expect(screen.getByText('2')).toBeOnTheScreen();
+    expect(screen.getAllByText('Pure Deduction').length).toBeGreaterThan(0);
+    // The Pure time is in the table twice — best and average, one game — and
+    // the Classic one is nowhere on it.
+    expect(screen.getAllByText('1:40').length).toBeGreaterThan(0);
+    expect(screen.queryByText('6:40')).toBeNull();
+
+    fireEvent.press(screen.getByRole('tab', { name: 'Classic logic' }));
+    expect(screen.getAllByText('6:40').length).toBeGreaterThan(0);
+    expect(screen.queryByText('1:40')).toBeNull();
+  });
+
+  /** One way played, nothing to choose between: no tabs for it. */
+  it('does not ask which game when only one of them has been played', () => {
+    const history = [game({ seed: numberedSeed(1, 'sm', 'pure'), seconds: 100 })];
+    stage(
+      <StatsScreen
+        stats={statsOf(history)}
+        history={history}
+        onBack={none}
+        onClearHistory={none}
+      />,
+    );
+
+    expect(screen.queryByRole('tab', { name: 'Classic logic' })).toBeNull();
+    // Still said, so a screen nobody has explained cannot be read as both.
+    expect(screen.getAllByText('Pure Deduction').length).toBeGreaterThan(0);
   });
 });

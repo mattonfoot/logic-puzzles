@@ -235,7 +235,12 @@ captures are for.
    the game, and it goes into the seed — so game 7 at Advanced is two puzzles,
    one on each side, and each list ticks off only its own. The player's own
    settings are never written to; they are what comes back the next time a Pure
-   Deduction game opens.
+   Deduction game opens. The board does the turning-off itself, reading the mode
+   out of the puzzle's own seed, rather than being handed three settings a
+   caller remembered to clamp: the three switches on the puzzle's settings page
+   are shown as they stand — off — and held there with the reason under them,
+   and there is no other door into them while a game is in play. What a Classic
+   time is worth is kept separate too, in the share line and in the statistics.
 
    Either one opens the difficulties, which is the same page with its bottom half
    swapped — the panel above is the same block, given the same half, as it is on
@@ -1396,7 +1401,8 @@ for the 29th of August.
 
 A finished game can be sent to somebody. **Share** on the result hands three
 lines to the system share sheet: which puzzle — *Daily, 2 September 2026* or
-*Expert #7* — with its difficulty; the clock, the clues read and any hints
+*Expert #7 · Classic* — with its difficulty and, for a numbered game, which of
+the two ways it was played; the clock, the clues read and any hints
 asked for; and the clues as a row of squares, filled for the ones read, empty
 for the ones not needed, yellow for each the board had to write past the end.
 Hints appear only on a game that used one — a nought on every share says
@@ -1414,7 +1420,7 @@ Two things are stored, both under AsyncStorage, both versioned:
 | Key | Holds |
 |-----|-------|
 | `logic-grid:saved-game:v1` | the puzzle in progress: the whole puzzle — including any clues written for this game — every tick and cross, the last twenty boards Undo can step back to, which clues have been read and which is on the table, elapsed seconds |
-| `logic-grid:history:v1` | the last 300 finished games: time, clues read, theme, size, whether it was revealed |
+| `logic-grid:history:v1` | the last 300 finished games: time, clues read, hints asked, theme, size, seed — which is where the number and the way it was played live — and whether it was revealed |
 
 The keys keep the app's old name. Renaming them would leave every game already
 saved on a device unreadable, and a prefix nobody sees is not worth a player's
@@ -1474,6 +1480,22 @@ Improvement is measured two ways: `improvementFor` compares a game just
 finished with earlier games at the same size (personal best, share faster than
 average, rank), and `statsForSize` compares the last five solves with the five
 before them for the longer-run trend the chart draws.
+
+Both compare like with like: the same difficulty **and** the same way of
+playing. A Classic board is a slower job than the Pure one beside it — the
+crosses are the player's to rule out — so measuring one against the other would
+hand out a personal best for changing the rules and a *slower lately* for
+putting them back. Nothing is stored for it. `modeOfGame` reads the mode out of
+a game's seed, so every finish ever recorded can answer the question, including
+the ones from before there was a choice, and a daily — which has no mode column
+— comes back as Pure Deduction, which is what a daily is. `summarise` returns
+both ways of playing whether or not either has been played; the statistics
+screen shows the one with the most solves and puts a tab over the table for the
+other, but only once both have games, since a player who has never opened a
+Classic puzzle should not be asked which of two tables they want. The totals
+above it — solved, time played, clues, hints, themes, streak — count everything,
+because how many puzzles somebody has finished is a count of everything they
+have done.
 
 ## Notes
 

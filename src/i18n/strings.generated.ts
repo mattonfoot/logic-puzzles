@@ -223,10 +223,12 @@ export const STRINGS = {
     pure: {
       name: 'Pure Deduction',
       hint: 'The board keeps the bookkeeping',
+      short: 'Pure',
     },
     classic: {
       name: 'Classic logic',
       hint: 'Every mark on the board is yours',
+      short: 'Classic',
     },
     locked:
       'Classic logic works nothing out for you. Start a Pure Deduction game to have the board keep up.',
@@ -1039,6 +1041,7 @@ export const STRINGS = {
   solved: {
     title: 'Solved!',
     subtitle: '{difficulty} · {game}',
+    numbered: 'Puzzle {number} · {mode}',
     time: 'Time',
     cluesRead: 'Clues read',
     hintsAsked: 'Hints asked',
@@ -1050,7 +1053,7 @@ export const STRINGS = {
   },
   share: {
     daily: 'Deduction · Daily, {date} · {difficulty}',
-    numbered: 'Deduction · {difficulty} #{number}',
+    numbered: 'Deduction · {difficulty} #{number} · {mode}',
     clues: {
       one: '1 clue',
       other: '{count} clues',
@@ -1103,7 +1106,7 @@ export const STRINGS = {
     best: 'Best',
     average: 'Average',
     gettingFaster: 'Are you getting faster?',
-    chartCaption: 'Recent solve times, one column per puzzle',
+    chartCaption: '{mode}: recent solve times, one column per puzzle',
     fasterLately: '{percent}% faster lately',
     slowerLately: '{percent}% slower lately',
     holdingSteady: 'Holding steady',
@@ -5265,9 +5268,11 @@ export type StringKey =
   | 'modes.back'
   | 'modes.classic.hint'
   | 'modes.classic.name'
+  | 'modes.classic.short'
   | 'modes.locked'
   | 'modes.pure.hint'
   | 'modes.pure.name'
+  | 'modes.pure.short'
   | 'modes.title'
   | 'numbers.back'
   | 'numbers.finishedHint'
@@ -5313,6 +5318,7 @@ export type StringKey =
   | 'solved.cluesRead'
   | 'solved.hintsAsked'
   | 'solved.notRecorded'
+  | 'solved.numbered'
   | 'solved.playAgain'
   | 'solved.share'
   | 'solved.subtitle'
