@@ -1,4 +1,4 @@
-import { SIZES } from '../../data/sizes';
+import { sizeById } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
 import { generatePuzzle } from '../../puzzle/generator';
 import {
@@ -23,7 +23,10 @@ import {
   type Marks,
 } from '../board';
 
-const puzzle = generatePuzzle({ theme: THEMES[0], size: SIZES[1], seed: 2024 });
+// Four of each, which is the smallest board these tests can say anything on:
+// they reach for a fourth row to prove a tick has not crossed out more than its
+// own, and three would leave nothing outside it.
+const puzzle = generatePuzzle({ theme: THEMES[0], size: sizeById('md'), seed: 2024 });
 const size = puzzle.size.items;
 const options = { size };
 

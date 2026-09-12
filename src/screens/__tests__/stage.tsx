@@ -43,7 +43,7 @@ export function stage(
 /** A fixed moment, so "today" and "finished today" mean the same thing. */
 export const NOON = new Date(2026, 7, 20, 12, 0, 0).getTime();
 
-/** The 4 × 4 puzzle numbered one — the one the screenshots open too. */
+/** The Advanced puzzle numbered one — the one the screenshots open too. */
 export function puzzleOne(sizeId = 'sm', seed = numberedSeed(1, sizeId)): Puzzle {
   return generatePuzzle({ theme: THEMES, size: sizeById(sizeId), seed });
 }

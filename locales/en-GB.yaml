@@ -509,19 +509,24 @@ stats:
 
 # The four shapes a puzzle comes in. `label` is how the grid reads and is
 # arithmetic rather than language; `difficulty` is what it is called.
+# The five boards, smallest first. The label is the shape as the grid reads it:
+# how many of each set, then how many sets.
 sizes:
   xs:
     difficulty: Beginner
     label: 3 × 3
   sm:
     difficulty: Advanced
-    label: 4 × 4
+    label: 3 × 4
   md:
     difficulty: Expert
-    label: 5 × 4
+    label: 4 × 4
   lg:
     difficulty: Pro
-    label: 6 × 4
+    label: 4 × 5
+  xl:
+    difficulty: Legend
+    label: 5 × 5
 
 # The colours the app can be drawn in.
 accents:

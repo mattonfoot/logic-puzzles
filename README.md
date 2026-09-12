@@ -228,15 +228,19 @@ captures are for.
    where a game you left in progress waits: **Continue**, one word above
    everything else, which picks it up with the clock where it stopped. Under it
    a **Play** heading — with a rule drawn out of the word to the right of it —
-   and **Beginner** (3 × 3), **Advanced** (4 × 4), **Expert** (5 × 4) and
-   **Pro** (6 × 4), set as a list of words as large as the half they stand in
-   allows: the whole list is on the screen at once, since a word that has to be
-   scrolled to might as well not be there. The shapes are not printed beside the
-   names — they are on the board a minute later, and were never the thing being
-   chosen — but a screen reader still hears them. The shape is what makes the
-   difficulty: the first number is how many items each set holds, the second how
-   many sets take part, so a Pro puzzle is six items across four sets and six
-   grids to fill.
+   and **Beginner** (3 × 3), **Advanced** (3 × 4), **Expert** (4 × 4),
+   **Pro** (4 × 5) and **Legend** (5 × 5), set as a list of words as large as
+   the half they stand in allows: the whole list is on the screen at once, since
+   a word that has to be scrolled to might as well not be there. The shapes are
+   not printed beside the names — they are on the board a minute later, and were
+   never the thing being chosen — but a screen reader still hears them. The
+   shape is what makes the difficulty: the first number is how many items each
+   set holds, the second how many sets take part, so a Legend puzzle is five
+   items across five sets and ten grids to fill. The ladder climbs one at a
+   time and alternates which way it grows — another set to keep track of, then
+   another entity to place — because a step that added both at once would double
+   the board rather than stretch it, and read as a different game rather than
+   the next one.
 3. **A difficulty opens its games, numbered from one.** A puzzle is decided
    entirely by its seed and its shape, and the generator is deterministic, so
    the number *is* the puzzle: game 7 at Expert holds the same cast, the same
@@ -1247,7 +1251,7 @@ Step 3 of generation deliberately uses the propagation-only entry point
 (`solveByDeduction`). If pure propagation reaches a full grid, the answer is
 provably unique *and* a player can reach it the same way — no guessing, no
 backtracking. It is also much cheaper than proving uniqueness by exhaustive
-search, which keeps generation at a few hundred milliseconds even for the 6 × 4
+search, which keeps generation at a few hundred milliseconds even for the 5 × 5
 expert grids. `solve()` still exists for the tests, which independently confirm
 that each generated puzzle has exactly one solution.
 
@@ -1416,7 +1420,7 @@ before them for the longer-run trend the chart draws.
   block for the theme's own voice. Adding one means a block in each. Icons are
   not listed: each item's is named after its id, and drawing the new ones is
   `npm run icons`. The pools hold fourteen items apiece — well over the six a
-  6 × 4 puzzle uses — which is what makes the draw feel fresh; tests keep every
+  5 × 5 puzzle uses — which is what makes the draw feel fresh; tests keep every
   pool deep enough and every item drawn and described.
 - **How to play** is a menu of real boards rather than a page of
   instructions. `src/game/lessons.ts` holds seven of them, hand-built from the

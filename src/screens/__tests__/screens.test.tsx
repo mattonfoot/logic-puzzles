@@ -573,7 +573,7 @@ describe('the difficulties', () => {
     const resume = button('Continue');
     expect(resume).toBeEnabled();
     expect(resume.props.accessibilityHint).toBe(
-      `${waiting.puzzle.themeName}, 4 × 4, 0% filled in, 0:45 on the clock`,
+      `${waiting.puzzle.themeName}, ${waiting.puzzle.size.label}, 0% filled in, 0:45 on the clock`,
     );
     fireEvent.press(resume);
     expect(onResume).toHaveBeenCalledTimes(1);
@@ -882,10 +882,10 @@ describe('the board', () => {
     play();
     layOut();
 
-    // A 4 × 4 puzzle is six grids of sixteen squares, every one of them a
-    // button that says what it is.
+    // A 3 × 4 puzzle is six grids of nine squares, every one of them a button
+    // that says what it is.
     const squares = screen.getAllByRole('button', { name: /: unknown$/ });
-    expect(squares).toHaveLength(6 * 16);
+    expect(squares).toHaveLength(6 * 9);
     // Every item heads a row or a column somewhere on the staircase — most of
     // them more than once — and each of those headings opens its card.
     for (const category of puzzle.categories) {
@@ -1328,7 +1328,7 @@ describe('the board', () => {
     expect(button('Menu')).toBeEnabled();
     expect(button('Undo')).toBeDisabled();
     layOut();
-    expect(screen.getAllByRole('button', { name: /: unknown$/ })).toHaveLength(6 * 16);
+    expect(screen.getAllByRole('button', { name: /: unknown$/ })).toHaveLength(6 * 9);
   });
 });
 

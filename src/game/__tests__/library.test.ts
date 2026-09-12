@@ -295,9 +295,9 @@ describe('looksDaily', () => {
   });
 
   it('does not read a column no difficulty was ever handed out at', () => {
-    // Four difficulties, so 4 to 9 are nobody's; the number falls back to being
+    // Five difficulties, so 5 to 9 are nobody's; the number falls back to being
     // read whole, and whole it is no date.
-    expect(looksDaily(202609024)).toBe(false);
+    expect(looksDaily(202609025)).toBe(false);
     expect(looksDaily(202609029)).toBe(false);
   });
 });

@@ -502,15 +502,19 @@ export const STRINGS = {
     },
     sm: {
       difficulty: 'Advanced',
-      label: '4 × 4',
+      label: '3 × 4',
     },
     md: {
       difficulty: 'Expert',
-      label: '5 × 4',
+      label: '4 × 4',
     },
     lg: {
       difficulty: 'Pro',
-      label: '6 × 4',
+      label: '4 × 5',
+    },
+    xl: {
+      difficulty: 'Legend',
+      label: '5 × 5',
     },
   },
   accents: {
@@ -4660,6 +4664,8 @@ export type StringKey =
   | 'sizes.md.label'
   | 'sizes.sm.difficulty'
   | 'sizes.sm.label'
+  | 'sizes.xl.difficulty'
+  | 'sizes.xl.label'
   | 'sizes.xs.difficulty'
   | 'sizes.xs.label'
   | 'solved.answer'

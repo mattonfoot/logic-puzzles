@@ -95,7 +95,7 @@ const DIFFICULTY_STEP = 10;
  * or moved later would otherwise change what a seed already handed out means —
  * and a seed is the record of which puzzle somebody played.
  */
-const DIFFICULTY_COLUMN: Record<string, number> = { xs: 0, sm: 1, md: 2, lg: 3 };
+const DIFFICULTY_COLUMN: Record<string, number> = { xs: 0, sm: 1, md: 2, lg: 3, xl: 4 };
 
 function columnOf(sizeId: string): number {
   const column = DIFFICULTY_COLUMN[sizeId];
