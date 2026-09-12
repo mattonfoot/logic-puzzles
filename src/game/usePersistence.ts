@@ -53,8 +53,8 @@ export interface Persistence {
   /** There is a history on the device, and it could not be read. */
   historyDamaged: boolean;
   stats: OverallStats;
-  /** Which lessons have been walked to the end, ever. */
-  lessonsWalked: string[];
+  /** Which lessons have been walked to the end, and when. */
+  lessonsWalked: Record<string, number>;
   /** Notes one as walked. The tutorial never reads this back. */
   recordLessonWalked: (lesson: string) => void;
   /** Writes the board; resolves false when the write did not land. */
@@ -141,7 +141,7 @@ export function usePersistence(): Persistence {
   // does not read it — it is written now so that whatever is built on it later
   // has a record going back to today rather than to the day it was built.
   const recordLessonWalked = useCallback((lesson: string) => {
-    const next = withWalked(walkedRef.current, lesson);
+    const next = withWalked(walkedRef.current, lesson, Date.now());
     if (next === walkedRef.current) return;
     walkedRef.current = next;
     setWalked(next);

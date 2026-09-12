@@ -369,6 +369,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           <StatsScreen
             stats={persistence.stats}
             history={persistence.history}
+            lessonsWalked={persistence.lessonsWalked}
             historyDamaged={persistence.historyDamaged}
             onBack={() => setScreen(puzzle ? 'game' : 'start')}
             onClearHistory={persistence.clearHistory}

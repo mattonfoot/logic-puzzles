@@ -3,6 +3,7 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ConfirmDialog } from '../components/ConfirmDialog';
+import { achievementsFor, type Achievement } from '../game/achievements';
 import { TrendChart } from '../components/TrendChart';
 import { THEMES } from '../data/themes';
 import { t } from '../i18n';
@@ -21,6 +22,8 @@ import { radius, shadow, space, tint, type Palette } from '../ui/theme';
 interface Props {
   stats: OverallStats;
   history: CompletedGame[];
+  /** Which lessons have been walked to the end, and when. */
+  lessonsWalked?: Record<string, number>;
   /** There is a history on the device, and it could not be read. */
   historyDamaged?: boolean;
   onBack: () => void;
@@ -30,6 +33,7 @@ interface Props {
 export function StatsScreen({
   stats,
   history,
+  lessonsWalked,
   historyDamaged = false,
   onBack,
   onClearHistory,
@@ -80,6 +84,12 @@ export function StatsScreen({
         : [],
     [history, selected],
   );
+
+  // Worked out from the history rather than stored, so they arrive backdated:
+  // everything forty earlier games earned turns up the first time this screen
+  // is opened. Only what has been earned is built — a page of locked rows is a
+  // chore list.
+  const earned = useMemo(() => achievementsFor(history, lessonsWalked), [history, lessonsWalked]);
 
   const clearEverything = () => {
     feedback.warn();
@@ -224,6 +234,19 @@ export function StatsScreen({
           </View>
         ) : null}
 
+        {/* What the player has actually done, at the foot: one card each, newest
+            first, and nothing at all until there is something. The count of
+            what is *not* earned is deliberately absent — the app counts nothing
+            at anybody, which is the same line the daily streak is held to. */}
+        {earned.length > 0 ? (
+          <View style={styles.achievements}>
+            <Text style={styles.achievementsTitle}>{t('achievements.title')}</Text>
+            {earned.map((achievement) => (
+              <AchievementCard key={achievement.id} achievement={achievement} />
+            ))}
+          </View>
+        ) : null}
+
         {history.length > 0 ? (
           <Pressable
             accessibilityRole="button"
@@ -246,6 +269,32 @@ export function StatsScreen({
         onConfirm={clearEverything}
         onCancel={() => setConfirmingClear(false)}
       />
+    </View>
+  );
+}
+
+/**
+ * One thing the player has done: the drawing, what it is called, and what it
+ * took. Wide rather than square, because the description is a sentence and a
+ * sentence in a narrow card is four words a line.
+ */
+function AchievementCard({ achievement }: { achievement: Achievement }) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
+  return (
+    <View
+      style={[styles.card, shadow.card, styles.achievement]}
+      accessible
+      accessibilityRole="text"
+      accessibilityLabel={`${achievement.title}. ${achievement.description}`}
+    >
+      <View style={styles.achievementMark}>
+        <Icon name={achievement.icon} size={26} color={palette.accent} />
+      </View>
+      <View style={styles.achievementWords}>
+        <Text style={styles.achievementTitle}>{achievement.title}</Text>
+        <Text style={styles.achievementBody}>{achievement.description}</Text>
+      </View>
     </View>
   );
 }
@@ -388,6 +437,44 @@ const makeStyles = (palette: Palette) =>
       color: palette.inkFaint,
       marginTop: space(0.5),
       marginBottom: space(2),
+    },
+    achievements: {
+      gap: space(2),
+    },
+    achievementsTitle: {
+      fontSize: 16,
+      fontWeight: '700',
+      color: palette.ink,
+      marginTop: space(2),
+      marginBottom: space(1),
+    },
+    achievement: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: space(3),
+      padding: space(3),
+    },
+    achievementMark: {
+      width: 44,
+      height: 44,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: radius.md,
+      backgroundColor: tint(palette.accent, 0.1),
+    },
+    achievementWords: {
+      flex: 1,
+      gap: space(0.5),
+    },
+    achievementTitle: {
+      fontSize: 15,
+      fontWeight: '700',
+      color: palette.ink,
+    },
+    achievementBody: {
+      fontSize: 12,
+      lineHeight: 16,
+      color: palette.inkFaint,
     },
     tiles: {
       gap: space(3),

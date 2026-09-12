@@ -867,6 +867,189 @@ stats:
 # arithmetic rather than language; `difficulty` is what it is called.
 # The five boards, smallest first. The label is the shape as the grid reads it:
 # how many of each set, then how many sets.
+# The cards at the foot of the statistics: what a player has actually done, one
+# card each. Nothing is listed until it has been earned — a page of locked rows
+# is a chore list, and the app counts nothing at anybody.
+achievements:
+  title: Achievements
+  # The count is the card's own title, so the four tiers are one line apiece
+  # with the thing being counted dropped in: "First classic game", "Ten dailies".
+  count:
+    one: First {one}
+    three: Three {many}
+    ten: Ten {many}
+    hundred: A hundred {many}
+  all:
+    one: puzzle
+    many: puzzles
+    body: Any puzzle at all counts here, whichever way it was played.
+  kinds:
+    pure:
+      one: pure game
+      many: pure games
+      body: 'Pure Deduction: the board keeps the bookkeeping.'
+    classic:
+      one: classic game
+      many: classic games
+      body: 'Classic logic: every mark on the board is yours.'
+    daily:
+      one: daily
+      many: dailies
+      body: The day's challenge, handed out rather than chosen.
+  # A difficulty never counts on its own: an Expert board the hard way is not the
+  # same game as an Expert board with the bookkeeping done for you.
+  pair:
+    one: '{kind} {difficulty} puzzle'
+    many: '{kind} {difficulty} puzzles'
+    body: '{difficulty} boards, played {kind}.'
+  # Coming back.
+  streak:
+    three:
+      title: Three days running
+      body: A puzzle finished on three days in a row.
+    week:
+      title: A week running
+      body: Seven days in a row.
+    month:
+      title: A month running
+      body: Thirty days in a row.
+    hundred:
+      title: A hundred days running
+      body: A hundred days in a row, which is a habit rather than a run.
+  dailyStreak:
+    week:
+      title: A week of dailies
+      body: The day's challenge done on the day itself, seven days in a row.
+    month:
+      title: A month of dailies
+      body: Thirty days in a row.
+  sweep:
+    title: Clean sweep
+    body: All five of one day's challenges, on the day.
+  back:
+    title: Back again
+    body: A puzzle finished after a week or more away. Nothing is lost by stopping.
+  # Getting around.
+  ladder:
+    pure:
+      title: The full ladder
+      body: All five difficulties finished in Pure Deduction.
+    classic:
+      title: The ladder, the hard way
+      body: All five difficulties finished in Classic logic.
+    day:
+      title: Ladder in a day
+      body: All five difficulties in one day, however each of them was played.
+  bothHands:
+    title: Both hands
+    body: A Pure Deduction game and a Classic logic one.
+  allThree:
+    title: All three
+    body: A pure game, a classic game and a daily, in one day.
+  themes:
+    title: Met everybody
+    body: A puzzle finished in each of the five themes.
+  run:
+    ten:
+      title: Working through it
+      body: Puzzles 1 to 10 at one difficulty, all finished, all played the same way.
+    group:
+      title: A full group
+      body: Puzzles 1 to 25 — one row of the zoomed-out list, filled in.
+  # Unaided.
+  unaided:
+    one:
+      title: Unaided
+      body: A puzzle finished without asking for a hint.
+    ten:
+      title: Ten unaided
+      body: Ten of them.
+    hundred:
+      title: A hundred unaided
+      body: A hundred of them.
+    row:
+      title: Ten in a row
+      body: Ten finished one after another without a hint between them.
+    legend:
+      title: Legend, unaided
+      body: A 5 × 5 finished without a hint, with the board keeping up.
+    legendClassic:
+      title: Legend unaided, the hard way
+      body: The same board with nothing worked out for you, and still no hint.
+  # The clock. A daily has no speed card: it is played with whatever settings
+  # the player keeps, so one person's Legend is not another's.
+  speed:
+    pure:
+      xs:
+        title: Under the minute
+        body: A Beginner finished inside 1:00.
+      sm:
+        title: Under three
+        body: An Advanced finished inside 3:00.
+      md:
+        title: Under five
+        body: An Expert finished inside 5:00.
+      lg:
+        title: Under eight
+        body: A Pro finished inside 8:00.
+      xl:
+        title: Under fifteen
+        body: A Legend finished inside 15:00.
+    classic:
+      xs:
+        title: Beginner, the hard way
+        body: A Beginner inside 2:00, with nothing worked out for you.
+      sm:
+        title: Advanced, the hard way
+        body: An Advanced inside 5:00, with nothing worked out for you.
+      md:
+        title: Expert, the hard way
+        body: An Expert inside 9:00, with nothing worked out for you.
+      lg:
+        title: Pro, the hard way
+        body: A Pro inside 14:00, with nothing worked out for you.
+      xl:
+        title: Legend, the hard way
+        body: A Legend inside 25:00, with nothing worked out for you.
+  quarterOff:
+    title: A quarter off
+    body: Beat your own best by a quarter or more, at that difficulty played that way.
+  early:
+    title: Early shift
+    body: A puzzle finished before seven in the morning.
+  night:
+    title: Night shift
+    body: One finished between midnight and four.
+  played:
+    hour:
+      title: An hour in
+      body: An hour of puzzles, all told.
+    tenHours:
+      title: Ten hours in
+      body: Ten hours.
+    day:
+      title: A day in
+      body: Twenty-four hours of them.
+  # What the board measures about how it was solved.
+  clean:
+    title: Clean board
+    body: Finished without taking a single mark back.
+  neverWrong:
+    title: Never wrong
+    body: Finished without the board ever contradicting itself.
+  rewound:
+    title: Rewound and recovered
+    body: Finished a board that had to be wound back.
+  manual:
+    title: Read the manual
+    body: Every lesson behind How to play, walked to the end.
+  slept:
+    title: Slept on it
+    body: A puzzle put down one day and finished the next.
+  oneSitting:
+    title: One sitting
+    body: A Classic Legend finished without once leaving the board.
+
 sizes:
   xs:
     difficulty: Beginner

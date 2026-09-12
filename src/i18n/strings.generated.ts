@@ -1125,6 +1125,236 @@ export const STRINGS = {
     },
     back: 'Back',
   },
+  achievements: {
+    title: 'Achievements',
+    count: {
+      one: 'First {one}',
+      three: 'Three {many}',
+      ten: 'Ten {many}',
+      hundred: 'A hundred {many}',
+    },
+    all: {
+      one: 'puzzle',
+      many: 'puzzles',
+      body: 'Any puzzle at all counts here, whichever way it was played.',
+    },
+    kinds: {
+      pure: {
+        one: 'pure game',
+        many: 'pure games',
+        body: 'Pure Deduction: the board keeps the bookkeeping.',
+      },
+      classic: {
+        one: 'classic game',
+        many: 'classic games',
+        body: 'Classic logic: every mark on the board is yours.',
+      },
+      daily: {
+        one: 'daily',
+        many: 'dailies',
+        body: "The day's challenge, handed out rather than chosen.",
+      },
+    },
+    pair: {
+      one: '{kind} {difficulty} puzzle',
+      many: '{kind} {difficulty} puzzles',
+      body: '{difficulty} boards, played {kind}.',
+    },
+    streak: {
+      three: {
+        title: 'Three days running',
+        body: 'A puzzle finished on three days in a row.',
+      },
+      week: {
+        title: 'A week running',
+        body: 'Seven days in a row.',
+      },
+      month: {
+        title: 'A month running',
+        body: 'Thirty days in a row.',
+      },
+      hundred: {
+        title: 'A hundred days running',
+        body: 'A hundred days in a row, which is a habit rather than a run.',
+      },
+    },
+    dailyStreak: {
+      week: {
+        title: 'A week of dailies',
+        body: "The day's challenge done on the day itself, seven days in a row.",
+      },
+      month: {
+        title: 'A month of dailies',
+        body: 'Thirty days in a row.',
+      },
+    },
+    sweep: {
+      title: 'Clean sweep',
+      body: "All five of one day's challenges, on the day.",
+    },
+    back: {
+      title: 'Back again',
+      body: 'A puzzle finished after a week or more away. Nothing is lost by stopping.',
+    },
+    ladder: {
+      pure: {
+        title: 'The full ladder',
+        body: 'All five difficulties finished in Pure Deduction.',
+      },
+      classic: {
+        title: 'The ladder, the hard way',
+        body: 'All five difficulties finished in Classic logic.',
+      },
+      day: {
+        title: 'Ladder in a day',
+        body: 'All five difficulties in one day, however each of them was played.',
+      },
+    },
+    bothHands: {
+      title: 'Both hands',
+      body: 'A Pure Deduction game and a Classic logic one.',
+    },
+    allThree: {
+      title: 'All three',
+      body: 'A pure game, a classic game and a daily, in one day.',
+    },
+    themes: {
+      title: 'Met everybody',
+      body: 'A puzzle finished in each of the five themes.',
+    },
+    run: {
+      ten: {
+        title: 'Working through it',
+        body: 'Puzzles 1 to 10 at one difficulty, all finished, all played the same way.',
+      },
+      group: {
+        title: 'A full group',
+        body: 'Puzzles 1 to 25 — one row of the zoomed-out list, filled in.',
+      },
+    },
+    unaided: {
+      one: {
+        title: 'Unaided',
+        body: 'A puzzle finished without asking for a hint.',
+      },
+      ten: {
+        title: 'Ten unaided',
+        body: 'Ten of them.',
+      },
+      hundred: {
+        title: 'A hundred unaided',
+        body: 'A hundred of them.',
+      },
+      row: {
+        title: 'Ten in a row',
+        body: 'Ten finished one after another without a hint between them.',
+      },
+      legend: {
+        title: 'Legend, unaided',
+        body: 'A 5 × 5 finished without a hint, with the board keeping up.',
+      },
+      legendClassic: {
+        title: 'Legend unaided, the hard way',
+        body: 'The same board with nothing worked out for you, and still no hint.',
+      },
+    },
+    speed: {
+      pure: {
+        xs: {
+          title: 'Under the minute',
+          body: 'A Beginner finished inside 1:00.',
+        },
+        sm: {
+          title: 'Under three',
+          body: 'An Advanced finished inside 3:00.',
+        },
+        md: {
+          title: 'Under five',
+          body: 'An Expert finished inside 5:00.',
+        },
+        lg: {
+          title: 'Under eight',
+          body: 'A Pro finished inside 8:00.',
+        },
+        xl: {
+          title: 'Under fifteen',
+          body: 'A Legend finished inside 15:00.',
+        },
+      },
+      classic: {
+        xs: {
+          title: 'Beginner, the hard way',
+          body: 'A Beginner inside 2:00, with nothing worked out for you.',
+        },
+        sm: {
+          title: 'Advanced, the hard way',
+          body: 'An Advanced inside 5:00, with nothing worked out for you.',
+        },
+        md: {
+          title: 'Expert, the hard way',
+          body: 'An Expert inside 9:00, with nothing worked out for you.',
+        },
+        lg: {
+          title: 'Pro, the hard way',
+          body: 'A Pro inside 14:00, with nothing worked out for you.',
+        },
+        xl: {
+          title: 'Legend, the hard way',
+          body: 'A Legend inside 25:00, with nothing worked out for you.',
+        },
+      },
+    },
+    quarterOff: {
+      title: 'A quarter off',
+      body: 'Beat your own best by a quarter or more, at that difficulty played that way.',
+    },
+    early: {
+      title: 'Early shift',
+      body: 'A puzzle finished before seven in the morning.',
+    },
+    night: {
+      title: 'Night shift',
+      body: 'One finished between midnight and four.',
+    },
+    played: {
+      hour: {
+        title: 'An hour in',
+        body: 'An hour of puzzles, all told.',
+      },
+      tenHours: {
+        title: 'Ten hours in',
+        body: 'Ten hours.',
+      },
+      day: {
+        title: 'A day in',
+        body: 'Twenty-four hours of them.',
+      },
+    },
+    clean: {
+      title: 'Clean board',
+      body: 'Finished without taking a single mark back.',
+    },
+    neverWrong: {
+      title: 'Never wrong',
+      body: 'Finished without the board ever contradicting itself.',
+    },
+    rewound: {
+      title: 'Rewound and recovered',
+      body: 'Finished a board that had to be wound back.',
+    },
+    manual: {
+      title: 'Read the manual',
+      body: 'Every lesson behind How to play, walked to the end.',
+    },
+    slept: {
+      title: 'Slept on it',
+      body: 'A puzzle put down one day and finished the next.',
+    },
+    oneSitting: {
+      title: 'One sitting',
+      body: 'A Classic Legend finished without once leaving the board.',
+    },
+  },
   sizes: {
     xs: {
       difficulty: 'Beginner',
@@ -5062,6 +5292,114 @@ export type StringKey =
   | 'accents.rust'
   | 'accents.teal'
   | 'accents.violet'
+  | 'achievements.all.body'
+  | 'achievements.all.many'
+  | 'achievements.all.one'
+  | 'achievements.allThree.body'
+  | 'achievements.allThree.title'
+  | 'achievements.back.body'
+  | 'achievements.back.title'
+  | 'achievements.bothHands.body'
+  | 'achievements.bothHands.title'
+  | 'achievements.clean.body'
+  | 'achievements.clean.title'
+  | 'achievements.count.hundred'
+  | 'achievements.count.one'
+  | 'achievements.count.ten'
+  | 'achievements.count.three'
+  | 'achievements.dailyStreak.month.body'
+  | 'achievements.dailyStreak.month.title'
+  | 'achievements.dailyStreak.week.body'
+  | 'achievements.dailyStreak.week.title'
+  | 'achievements.early.body'
+  | 'achievements.early.title'
+  | 'achievements.kinds.classic.body'
+  | 'achievements.kinds.classic.many'
+  | 'achievements.kinds.classic.one'
+  | 'achievements.kinds.daily.body'
+  | 'achievements.kinds.daily.many'
+  | 'achievements.kinds.daily.one'
+  | 'achievements.kinds.pure.body'
+  | 'achievements.kinds.pure.many'
+  | 'achievements.kinds.pure.one'
+  | 'achievements.ladder.classic.body'
+  | 'achievements.ladder.classic.title'
+  | 'achievements.ladder.day.body'
+  | 'achievements.ladder.day.title'
+  | 'achievements.ladder.pure.body'
+  | 'achievements.ladder.pure.title'
+  | 'achievements.manual.body'
+  | 'achievements.manual.title'
+  | 'achievements.neverWrong.body'
+  | 'achievements.neverWrong.title'
+  | 'achievements.night.body'
+  | 'achievements.night.title'
+  | 'achievements.oneSitting.body'
+  | 'achievements.oneSitting.title'
+  | 'achievements.pair.body'
+  | 'achievements.pair.many'
+  | 'achievements.pair.one'
+  | 'achievements.played.day.body'
+  | 'achievements.played.day.title'
+  | 'achievements.played.hour.body'
+  | 'achievements.played.hour.title'
+  | 'achievements.played.tenHours.body'
+  | 'achievements.played.tenHours.title'
+  | 'achievements.quarterOff.body'
+  | 'achievements.quarterOff.title'
+  | 'achievements.rewound.body'
+  | 'achievements.rewound.title'
+  | 'achievements.run.group.body'
+  | 'achievements.run.group.title'
+  | 'achievements.run.ten.body'
+  | 'achievements.run.ten.title'
+  | 'achievements.slept.body'
+  | 'achievements.slept.title'
+  | 'achievements.speed.classic.lg.body'
+  | 'achievements.speed.classic.lg.title'
+  | 'achievements.speed.classic.md.body'
+  | 'achievements.speed.classic.md.title'
+  | 'achievements.speed.classic.sm.body'
+  | 'achievements.speed.classic.sm.title'
+  | 'achievements.speed.classic.xl.body'
+  | 'achievements.speed.classic.xl.title'
+  | 'achievements.speed.classic.xs.body'
+  | 'achievements.speed.classic.xs.title'
+  | 'achievements.speed.pure.lg.body'
+  | 'achievements.speed.pure.lg.title'
+  | 'achievements.speed.pure.md.body'
+  | 'achievements.speed.pure.md.title'
+  | 'achievements.speed.pure.sm.body'
+  | 'achievements.speed.pure.sm.title'
+  | 'achievements.speed.pure.xl.body'
+  | 'achievements.speed.pure.xl.title'
+  | 'achievements.speed.pure.xs.body'
+  | 'achievements.speed.pure.xs.title'
+  | 'achievements.streak.hundred.body'
+  | 'achievements.streak.hundred.title'
+  | 'achievements.streak.month.body'
+  | 'achievements.streak.month.title'
+  | 'achievements.streak.three.body'
+  | 'achievements.streak.three.title'
+  | 'achievements.streak.week.body'
+  | 'achievements.streak.week.title'
+  | 'achievements.sweep.body'
+  | 'achievements.sweep.title'
+  | 'achievements.themes.body'
+  | 'achievements.themes.title'
+  | 'achievements.title'
+  | 'achievements.unaided.hundred.body'
+  | 'achievements.unaided.hundred.title'
+  | 'achievements.unaided.legend.body'
+  | 'achievements.unaided.legend.title'
+  | 'achievements.unaided.legendClassic.body'
+  | 'achievements.unaided.legendClassic.title'
+  | 'achievements.unaided.one.body'
+  | 'achievements.unaided.one.title'
+  | 'achievements.unaided.row.body'
+  | 'achievements.unaided.row.title'
+  | 'achievements.unaided.ten.body'
+  | 'achievements.unaided.ten.title'
   | 'app.name'
   | 'app.tagline'
   | 'briefings.fallback.body'

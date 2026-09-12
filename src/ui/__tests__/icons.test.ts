@@ -1,4 +1,5 @@
 import { markIcon } from '../../components/Mark';
+import { ACHIEVEMENT_ICONS } from '../../game/achievements';
 import { iconName, THEMES } from '../../data/themes';
 import { ICON_BOX, ICONS } from '../icons.generated';
 
@@ -73,6 +74,9 @@ describe('the icon set', () => {
     for (const name of ['ui/icon-clue', 'ui/icon-chart', 'ui/icon-back']) {
       expect(named(name)).toBe(drawn(name));
     }
+    // And every drawing an achievement card can ask for: a card with no icon is
+    // a card with a hole in it, and nothing else would say so.
+    for (const name of ACHIEVEMENT_ICONS) expect(ICONS[name]).toBeTruthy();
   });
 
   /**
@@ -89,6 +93,7 @@ describe('the icon set', () => {
       'ui/icon-chart',
       'ui/icon-back',
       'ui/icon-zoom-out',
+      ...ACHIEVEMENT_ICONS,
     ]);
     for (const kind of ['yes', 'no'] as const) {
       for (const weight of ['hand', 'auto'] as const) claimed.add(markIcon(kind, weight));

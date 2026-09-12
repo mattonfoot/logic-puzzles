@@ -149,21 +149,24 @@ describe('the lessons walked', () => {
    * comparison clue" is answerable at all, which is the one thing about the
    * lessons that cannot be worked out later.
    */
-  it('notes a lesson once, whatever order they arrive in', () => {
-    const once = withWalked(EMPTY_WALKED, 'deduction');
-    expect(once.lessons).toEqual(['deduction']);
-    expect(withWalked(once, 'deduction')).toBe(once);
-    expect(withWalked(once, 'grouped').lessons).toEqual(['deduction', 'grouped']);
+  it('notes a lesson once, and keeps the day it was walked', () => {
+    const once = withWalked(EMPTY_WALKED, 'deduction', 1000);
+    expect(once.lessons).toEqual({ deduction: 1000 });
+    // Walked again later: the record is the first time, and the object is not
+    // even rebuilt.
+    expect(withWalked(once, 'deduction', 2000)).toBe(once);
+    expect(withWalked(once, 'grouped', 2000).lessons).toEqual({ deduction: 1000, grouped: 2000 });
   });
 
   it('reads a record back, and refuses one it does not understand', () => {
-    const stored = withWalked(EMPTY_WALKED, 'vague');
+    const stored = withWalked(EMPTY_WALKED, 'vague', 1000);
     expect(reviveWalked(JSON.parse(JSON.stringify(stored)))).toEqual(stored);
-    expect(reviveWalked({ version: WALKED_VERSION, lessons: ['a', 'a', 2] })?.lessons).toEqual([
-      'a',
-    ]);
-    expect(reviveWalked({ version: 99, lessons: [] })).toBeNull();
+    expect(
+      reviveWalked({ version: WALKED_VERSION, lessons: { a: 1, b: 'never' } })?.lessons,
+    ).toEqual({ a: 1 });
+    expect(reviveWalked({ version: 99, lessons: {} })).toBeNull();
     expect(reviveWalked({ version: WALKED_VERSION })).toBeNull();
+    expect(reviveWalked({ version: WALKED_VERSION, lessons: ['deduction'] })?.lessons).toEqual({});
     expect(reviveWalked('nothing')).toBeNull();
   });
 });

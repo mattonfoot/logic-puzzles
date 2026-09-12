@@ -128,24 +128,32 @@ export interface History {
  */
 export interface WalkedLessons {
   version: number;
-  /** Lesson ids, each once, in no particular order. */
-  lessons: string[];
+  /**
+   * Lesson id to when it was first walked to the end. The date is here because
+   * anything built on this has to be able to say *when* — a note that somebody
+   * finished the lessons, with no day against it, is a note that can only ever
+   * be shown at the bottom of a list.
+   */
+  lessons: Record<string, number>;
 }
 
 export const WALKED_VERSION = 1;
-export const EMPTY_WALKED: WalkedLessons = { version: WALKED_VERSION, lessons: [] };
+export const EMPTY_WALKED: WalkedLessons = { version: WALKED_VERSION, lessons: {} };
 
 export function reviveWalked(value: unknown): WalkedLessons | null {
   if (!isObject(value) || value.version !== WALKED_VERSION) return null;
-  if (!Array.isArray(value.lessons)) return null;
-  const lessons = value.lessons.filter((id): id is string => typeof id === 'string');
-  return { version: WALKED_VERSION, lessons: [...new Set(lessons)] };
+  if (!isObject(value.lessons)) return null;
+  const lessons: Record<string, number> = {};
+  for (const [id, at] of Object.entries(value.lessons)) {
+    if (typeof at === 'number') lessons[id] = at;
+  }
+  return { version: WALKED_VERSION, lessons };
 }
 
 /** The record with one more lesson against it; unchanged if it is already there. */
-export function withWalked(walked: WalkedLessons, lesson: string): WalkedLessons {
-  if (walked.lessons.includes(lesson)) return walked;
-  return { version: WALKED_VERSION, lessons: [...walked.lessons, lesson] };
+export function withWalked(walked: WalkedLessons, lesson: string, at: number): WalkedLessons {
+  if (walked.lessons[lesson] !== undefined) return walked;
+  return { version: WALKED_VERSION, lessons: { ...walked.lessons, [lesson]: at } };
 }
 
 export const EMPTY_HISTORY: History = { version: HISTORY_VERSION, games: [] };

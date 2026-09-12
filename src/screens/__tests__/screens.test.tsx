@@ -2083,6 +2083,40 @@ describe('the statistics', () => {
     expect(screen.queryByText('1:40')).toBeNull();
   });
 
+  /**
+   * What the player has actually done, at the foot of the screen: a card each,
+   * newest first. Derived from the history rather than stored, so they arrive
+   * backdated — the first time this screen is opened it already knows what
+   * every earlier game earned.
+   */
+  it('shows a card for each thing earned, and none for a history with nothing in it', () => {
+    const history = [
+      game({ seed: numberedSeed(1, 'sm', 'classic'), seconds: 1200, finishedAt: NOON }),
+    ];
+    stage(
+      <StatsScreen
+        stats={statsOf(history)}
+        history={history}
+        onBack={none}
+        onClearHistory={none}
+      />,
+    );
+
+    expect(screen.getByText('Achievements')).toBeOnTheScreen();
+    // One finished puzzle is three cards: any puzzle at all, that kind of game,
+    // and that kind at that difficulty. A difficulty never counts on its own.
+    expect(screen.getByText('First puzzle')).toBeOnTheScreen();
+    expect(screen.getByText('First classic game')).toBeOnTheScreen();
+    expect(screen.getByText('First Classic Advanced puzzle')).toBeOnTheScreen();
+    // Each carries what it means, which is the card's second line.
+    expect(screen.getByText('Advanced boards, played Classic.')).toBeOnTheScreen();
+
+    screen.unmount();
+    stage(<StatsScreen stats={statsOf([])} history={[]} onBack={none} onClearHistory={none} />);
+    // Nothing earned, so nothing is said — not a page of locked rows.
+    expect(screen.queryByText('Achievements')).toBeNull();
+  });
+
   /** One kind played, nothing to choose between: no tabs for it. */
   it('does not ask which game when only one kind has been played', () => {
     const history = [game({ seed: numberedSeed(1, 'sm', 'pure'), seconds: 100 })];

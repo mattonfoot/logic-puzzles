@@ -79,7 +79,7 @@ describe('storage', () => {
   });
 
   it('brings the lessons walked back, and clears them', async () => {
-    const walked = withWalked(EMPTY_WALKED, 'deduction');
+    const walked = withWalked(EMPTY_WALKED, 'deduction', 1_700_000_000_000);
     await expect(storage.saveWalked(walked)).resolves.toBe(true);
     expect(valueOf(await storage.loadWalked())).toEqual(walked);
 

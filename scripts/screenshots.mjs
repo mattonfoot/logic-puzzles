@@ -135,6 +135,15 @@ function sampleHistory() {
           difficulty: { xs: 'Beginner', sm: 'Advanced', md: 'Expert', lg: 'Pro' }[sizeId],
           seconds,
           cluesUsed,
+          // Measured the way the board measures a real game, so the cards at
+          // the foot of the statistics have something to be about. Every third
+          // game asked for a hint, so "unaided" is earned rather than given.
+          hintsAsked: index % 3 === 2 ? 1 : 0,
+          undos: index % 4,
+          rewinds: 0,
+          conflicted: index % 5 === 0,
+          startedAt: finishedAt - seconds * 1000,
+          resumed: false,
           revealed: false,
           finishedAt,
         };
@@ -177,6 +186,22 @@ async function startPuzzle(
     await page.getByLabel('Close').click({ position: { x: 12, y: 12 } });
     await wait(page, 400);
   }
+}
+
+/**
+ * Moves a screen's own scroller, which is not the window's.
+ *
+ * Every screen in the app is exactly one screen tall and scrolls inside itself,
+ * so `page.mouse.wheel` and a full-page screenshot both see a page that never
+ * moves. The scroller is the one element with more in it than it can show.
+ */
+async function scrollTo(page, where) {
+  await page.evaluate((end) => {
+    const scroller = [...document.querySelectorAll('div')].find(
+      (element) => element.scrollHeight > element.clientHeight + 40,
+    );
+    if (scroller) scroller.scrollTop = end === 'top' ? 0 : scroller.scrollHeight;
+  }, where);
 }
 
 /**
@@ -293,18 +318,18 @@ async function main() {
   // because they were added last.
   await page.getByLabel('How to play').click();
   await wait(page, 600);
-  await shot('19-lessons');
+  await shot('20-lessons');
 
   await page.getByLabel('Understanding clues').click();
   await wait(page, 500);
-  await shot('20-clue-lessons');
+  await shot('21-clue-lessons');
 
   // The grouped lesson: the one whose clues describe people instead of naming
   // them, which is the most a clue ever asks of a reader. It opens on its own
   // briefing, in the window a puzzle tells its story in.
   await page.getByLabel('Grouped clues').click();
   await wait(page, 700);
-  await shot('21-lesson-briefing');
+  await shot('22-lesson-briefing');
 
   // Clue hands over the clue and what to do with it — the window a lesson is
   // actually driven from.
@@ -312,7 +337,7 @@ async function main() {
   await wait(page, 400);
   await page.getByLabel('Clue').click();
   await wait(page, 600);
-  await shot('22-lesson-clue');
+  await shot('23-lesson-clue');
 
   // Then the board, with the ring on the square being waited for.
   await page.getByLabel('Close').click({ position: { x: 12, y: 12 } });
@@ -321,12 +346,12 @@ async function main() {
     page.getByRole('button', { name: new RegExp(`^${customer} and ${drink}: `) });
   await lessonSquare('Ms Barley', 'Latte').click();
   await wait(page, 500);
-  await shot('23-lesson-board');
+  await shot('24-lesson-board');
 
   // And Clue again reads the board: right, so it moves straight on.
   await page.getByLabel('Clue').click();
   await wait(page, 600);
-  await shot('24-lesson-next');
+  await shot('25-lesson-next');
 
   // Leaving part-way through asks first, since the walk starts over next time.
   await page.getByLabel('Close').click({ position: { x: 12, y: 12 } });
@@ -507,8 +532,21 @@ async function main() {
   await wait(page, 800);
   await shot('16-statistics', { fullPage: true });
 
-  // 17. The setup screen in night colours, with a game waiting to be resumed.
-  await page.getByLabel('Back').click();
+  // 17. What the player has done, at the foot of the same screen. The screen's
+  // own scroller is what moves: the page is exactly one screen tall, so a
+  // full-page shot shows the top of it and nothing else.
+  await scrollTo(page, 'bottom');
+  await wait(page, 600);
+  await shot('17-achievements');
+  // Back where the walk left it, or the way out is below the fold and the next
+  // step waits for a link it cannot reach.
+  await scrollTo(page, 'top');
+  await wait(page, 400);
+
+  // 18. The setup screen in night colours, with a game waiting to be resumed.
+  // Exactly "Back": the achievement cards read out as a sentence apiece, and
+  // one of them is called "Back again".
+  await page.getByLabel('Back', { exact: true }).click();
   await wait(page, 500);
   await page.getByLabel('Settings').click();
   await wait(page, 500);
@@ -534,7 +572,7 @@ async function main() {
   await wait(page, 600);
   await page.getByLabel('Back to the difficulties').click();
   await wait(page, 900);
-  await shot('17-night');
+  await shot('18-night');
 
   // The catalogue zoomed out twice: rows of thirty-six puzzles apiece.
   await page.getByLabel('Advanced', { exact: true }).click();
@@ -543,7 +581,7 @@ async function main() {
   await wait(page, 300);
   await page.getByLabel('Zoom out').click();
   await wait(page, 500);
-  await shot('18-catalogue');
+  await shot('19-catalogue');
 
   await browser.close();
   server.close();

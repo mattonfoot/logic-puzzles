@@ -518,6 +518,7 @@ src/game/usePersistence.ts  saved game + finished games as React state
 src/game/time.ts            duration formatting
 src/game/useTimer.ts        elapsed-time hook
 src/stats/summary.ts        history → stats per difficulty, streaks, improvement notes
+src/game/achievements.ts    history → what the player has actually done, one card each
 src/storage/store.ts        the only module that touches AsyncStorage
 src/components/             GridBoard, Mark, SolutionTable, ItemCard, …
 src/components/Popup.tsx    the window shell the briefing, the clue and a lesson
@@ -1469,7 +1470,8 @@ the save, since that hook lives inside the tree that just failed. The error's
 message is printed small under the buttons, for whoever reports it. Tests throw
 on purpose from inside it and press both buttons.
 
-Five things about a finished board are written down that nothing yet reads:
+Five things about a finished board are written down for the cards at the foot
+of the statistics to read:
 how many marks were taken back, how many times it was rewound, whether two
 marks ever disagreed with each other, when it was opened, and whether it was
 put down and picked back up. They are measured because only the board can see
@@ -1480,8 +1482,8 @@ fresh attempt at the same puzzle. A game finished before any of it existed
 records `null` rather than a nought, told apart on purpose: a game that could
 not have counted its undos is not a game solved without taking a mark back.
 
-The lessons are written down the same way and for the same reason, with one
-rule around them: **the tutorial never reads the record back.** A lesson opens
+The lessons are written down the same way and for the same reason — *Read the
+manual* is the one card that is not about a game — with one rule around them: **the tutorial never reads the record back.** A lesson opens
 on an empty board every time it is taken, which is what keeps it a lesson
 rather than a thing with a tick against it — so the note goes past the screen
 to `usePersistence`, and nothing hands it back. Clearing the statistics clears
@@ -1520,6 +1522,29 @@ has games, since a player who has only ever played Pure Deduction should not be
 asked which of three tables they want. The totals above it — solved, time
 played, clues, hints, themes, streak — count everything, because how many
 puzzles somebody has finished is a count of everything they have done.
+
+`src/game/achievements.ts` turns the same history into the cards at the foot of
+the statistics: a drawing, a name and a line saying what it took. Nothing is
+stored for any of it, which is what makes them arrive backdated — a player with
+forty games behind them gets everything those games earned the first time the
+screen opens. The history is walked once, oldest first, and each card is dated
+by the game that earned it, so a hat trick is dated the day the third game was
+finished rather than today.
+
+Most of them count: first, third, tenth, hundredth, over everything, over each
+kind of game, and over each kind at each difficulty. A difficulty never counts
+on its own — an Expert board the hard way is not the same game as an Expert
+board with the bookkeeping done — which is the same rule the statistics follow
+above. The rest are about the shape of what somebody has done rather than how
+much: days running, the whole ladder in one kind, every theme met, puzzles 1 to
+10 off one list in order, a board finished without a hint, a fast one (two
+thresholds, since the same grid takes half again as long the hard way), the
+small hours, and the five the board measures about how it was solved.
+
+**Only what has been earned is ever built.** A hundred and twenty greyed-out
+rows is a chore list, and the app counts nothing at anybody: no total, no
+progress bar, nothing on the front door. The cards are found rather than
+pushed, which is the same stance the daily streak line is held to.
 
 ## Notes
 
