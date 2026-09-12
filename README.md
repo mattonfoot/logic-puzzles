@@ -696,9 +696,9 @@ screens hold none of their own:
 
 | | | |
 | --- | --- | --- |
-| `type.door` | 48 / 56, weight 800 | The front door's ways in: **Daily**, **Play**, **How to play**. |
+| `type.door` | 42 / 50, weight 800 | The front door's ways in: **Daily**, **Play**, **How to play**. |
 | `type.menu` | 33 / 40, weight 800 | A choice in a list: a difficulty, a numbered puzzle, a daily. |
-| `type.menuLong` | 28 / 36, weight 800 | The same, where the choices are named in phrases: the two lesson menus. |
+| `type.menuLong` | 23 / 30, weight 800 | The same, where the choices are named in phrases: the two lesson menus. |
 | `type.title` | 22 / 28, weight 800 | What a screen is called, over its rule. |
 | `type.note` | 14 / 20, weight 600 | The quiet line beside or under one of those: a time, a hint, a count. |
 
@@ -710,15 +710,28 @@ how much room the words need. The front door has three of them and the longest
 is eleven letters, so it can afford to be the largest decision on the page —
 though it stops short of the panel's own 62, so the doors are plainly the
 second-largest thing rather than a rival to the name. The lesson menus go the
-other way: "Compare the gap clues" measures 328 points at the middle size,
-against the 311 an iPhone 11 Pro leaves between the margins, so it wrapped, and
-a menu with a two-line row in it is a menu with a mistake in it.
+other way, and go a long way: "Compare the gap clues" is the longest choice in
+the app, and it alone holds `menuLong` six points below where every other row
+on that menu would sit.
+
+It is that low because a phone gets a say in the size. iOS multiplies every
+label by the reader's own text setting and React Native lets it, so the size in
+the scale is a floor rather than the number that gets drawn. The narrowest phone
+the app is built for draws that row on one line up to 31 points; 23 is what
+keeps it there at xxxLarge, the largest of the ordinary settings. Above those
+are the accessibility sizes, which go to three times and more — everything in
+every app reflows at three times, and a menu that refused to would be a menu
+refusing to honour the setting at all.
 
 `npm run sizes` is what holds all of that honest. It opens every menu on five
 phones and counts the line boxes each label was drawn in — a range over the
-words reports one rectangle per line — so a size that no longer fits fails the
-build rather than shipping. Nothing else would have caught it: a wrapped label
-still fits the screen and still clears everything under it.
+words reports one rectangle per line — and it asks twice: once at the size the
+scale sets, and once at 1.35 times it. The second question is the one that
+matters, and it is new: at 28 points the longest row went to two lines at 1.11,
+which is one notch above the common setting, and this script cheerfully reported
+that every screen fit, because a browser has one text size and a phone has
+twelve. Nothing else would have caught it either — a wrapped label still fits
+the screen and still clears everything under it.
 `src/ui/__tests__/type.test.ts` holds the relationships instead of the numbers,
 since the numbers are the part that gets changed.
 

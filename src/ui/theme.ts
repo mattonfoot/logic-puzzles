@@ -146,10 +146,17 @@ export const type = {
    * anybody sees and the largest decision on it, and it reads that way. It
    * stops short of the panel's own 62 so the doors under the name are plainly
    * the second-largest thing on the page rather than a rival to it.
+   *
+   * 42 rather than the 48 it was, because a phone gets a say in this. iOS scales
+   * every label by the reader's own text setting, and at 48 "How to play"
+   * measured 253 points against the 335 an iPhone 11 Pro leaves between the
+   * margins — one line until xxxLarge, and two from there on. At 42 it comes to
+   * 221 and holds to half again as large as it is drawn, which covers every
+   * setting short of the accessibility sizes.
    */
   door: {
-    fontSize: 48,
-    lineHeight: 56,
+    fontSize: 42,
+    lineHeight: 50,
     fontWeight: '800',
     letterSpacing: -1,
   },
@@ -164,14 +171,23 @@ export const type = {
    * The same, for a list whose choices are named in phrases rather than words.
    *
    * "Compare the gap clues" measures 328 points at the size above, against the
-   * 311 an iPhone 11 Pro leaves between the margins, so it wrapped — and a menu
-   * where one row is two lines high is a menu with a mistake in it. At this
-   * size the longest of them comes to 276 and the shortest list still reads as
-   * the same kind of question the others ask.
+   * 343 an iPhone 11 Pro leaves between the margins, so it wrapped — and a menu
+   * where one row is two lines high is a menu with a mistake in it.
+   *
+   * 28 fixed that on a browser and not on a phone. iOS multiplies every label
+   * by the reader's own text setting, and at 28 the longest row went to two
+   * lines at 1.11 — xLarge, one notch above the common setting and not remotely
+   * an unusual one. The narrowest phone the app is built for draws that row on
+   * one line up to 31 points, so 23 is what holds it to xxxLarge, the largest of
+   * the ordinary sizes.
+   *
+   * It is a low number for a menu, and one row is why: every other choice here
+   * would sit happily at 29. "Compare the gap clues" is six points of type on
+   * its own.
    */
   menuLong: {
-    fontSize: 28,
-    lineHeight: 36,
+    fontSize: 23,
+    lineHeight: 30,
     fontWeight: '800',
     letterSpacing: -1,
   },

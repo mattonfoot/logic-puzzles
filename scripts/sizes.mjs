@@ -49,35 +49,70 @@ const box = (page, label) =>
   }, label);
 
 /**
- * Whether a label has wrapped onto a second line.
+ * How far a label has to stretch before the check will accept it.
  *
- * Counted rather than measured: a range over the words reports one rectangle
- * per line box, so this asks the browser how many lines it drew instead of
- * inferring it from a height and a guess at what padding is on the button. It
- * holds whatever the type scale says today for the same reason.
+ * iOS scales text by the reader's setting, and 1.35 is xxxLarge — the largest of
+ * the ordinary sizes, above which come the accessibility ones. Those go to three
+ * times and more, and everything in every app reflows at three times; asking a
+ * menu row to survive that would be asking it not to honour the setting at all.
+ * This is the line between "the design has to hold" and "the reader has asked
+ * for something else".
+ */
+const DYNAMIC_TYPE = 1.35;
+
+/**
+ * Whether a label wraps onto a second line, at the size a phone would draw it.
  *
  * A menu with a two-line choice in it is a menu with a mistake in it — "Compare
  * the gap clues" was exactly that at the size the difficulties are set in — and
- * nothing else here would have noticed, since a wrapped label still fits the
- * screen and still clears everything under it.
+ * nothing else here would notice, since a wrapped label still fits the screen
+ * and still clears everything under it.
+ *
+ * The lines are counted rather than measured: a range over the words reports one
+ * rectangle per line box, so this asks the browser how many it drew instead of
+ * inferring it from a height and a guess at what padding is on the button.
+ *
+ * What is new is the `scale`. The browser has one text size and a phone has
+ * twelve: iOS multiplies every label by the reader's own setting, and React
+ * Native lets it. Asking only what the browser draws at 1.0 is how both of the
+ * menus behind How to play came to wrap on an iPhone 11 Pro while this script
+ * reported that every screen fit. So the words are grown to the size the phone
+ * would grow them to and the question is asked there — which is a real question
+ * about this layout, since every box around the label is free to grow with it up
+ * to the margin, exactly as it is on the device.
  */
-const wraps = (page, label) =>
-  page.evaluate((name) => {
-    const found = document.querySelector(`[aria-label="${name}"]`);
-    if (!found) return false;
-    // The words themselves, not the button around them: a range over the
-    // pressable would span its picture and its padding and report a line box
-    // for each. This is the innermost element holding the whole label.
-    const text = [found, ...found.querySelectorAll('*')]
-      .reverse()
-      .find((el) => el.children.length === 0 && el.textContent.trim() === name);
-    if (!text) return false;
-    // One rectangle per line box, which is the question being asked.
-    const range = document.createRange();
-    range.selectNodeContents(text);
-    const lines = new Set([...range.getClientRects()].map((rect) => Math.round(rect.top)));
-    return lines.size > 1;
-  }, label);
+const wrapsAt = (page, label, scale) =>
+  page.evaluate(
+    ({ name, factor }) => {
+      const found = document.querySelector(`[aria-label="${name}"]`);
+      if (!found) return false;
+      // The words themselves, not the button around them: a range over the
+      // pressable would span its picture and its padding and report a line box
+      // for each. This is the innermost element holding the whole label.
+      const text = [found, ...found.querySelectorAll('*')]
+        .reverse()
+        .find((el) => el.children.length === 0 && el.textContent.trim() === name);
+      if (!text) return false;
+
+      const own = text.style.fontSize;
+      const drawn = parseFloat(getComputedStyle(text).fontSize);
+      text.style.fontSize = `${drawn * factor}px`;
+      const range = document.createRange();
+      range.selectNodeContents(text);
+      const lines = new Set([...range.getClientRects()].map((rect) => Math.round(rect.top)));
+      text.style.fontSize = own;
+      return lines.size > 1;
+    },
+    { name: label, factor: scale },
+  );
+
+/** The two questions every label is asked, said the same way each time. */
+async function tooTight(page, label) {
+  if (await wrapsAt(page, label, 1)) return `${label} wraps onto two lines`;
+  if (await wrapsAt(page, label, DYNAMIC_TYPE))
+    return `${label} wraps at ${DYNAMIC_TYPE}×, which is a phone set one or two notches above the default`;
+  return null;
+}
 
 /** Anything on the page that has more in it than it can show. */
 const scrollers = (page) =>
@@ -122,7 +157,10 @@ async function main() {
       if (!seen) complain(`the front door has no ${door}`);
       else if (seen.bottom > phone.height)
         complain(`${door} runs off the bottom of the front door`);
-      else if (await wraps(page, door)) complain(`${door} wraps onto two lines on the front door`);
+      else {
+        const tight = await tooTight(page, door);
+        if (tight) complain(`${tight}, on the front door`);
+      }
     }
 
     // The two menus behind How to play: the same panel over the same half, so
@@ -133,7 +171,10 @@ async function main() {
       const seen = await box(page, name);
       if (!seen) complain(`the lessons menu has no ${name}`);
       else if (seen.bottom > phone.height) complain(`${name} runs off the lessons menu`);
-      else if (await wraps(page, name)) complain(`${name} wraps onto two lines`);
+      else {
+        const tight = await tooTight(page, name);
+        if (tight) complain(`${tight}, on the lessons menu`);
+      }
     }
     await page.getByLabel('Understanding clues').click();
     await wait(page, 500);
@@ -147,7 +188,10 @@ async function main() {
       const seen = await box(page, name);
       if (!seen) complain(`the clue lessons have no ${name}`);
       else if (seen.bottom > phone.height) complain(`${name} runs off the clue lessons`);
-      else if (await wraps(page, name)) complain(`${name} wraps onto two lines`);
+      else {
+        const tight = await tooTight(page, name);
+        if (tight) complain(`${tight}, on the clue lessons`);
+      }
     }
     const overLessons = await scrollers(page);
     if (overLessons.length > 0) complain(`the clue lessons scroll by ${overLessons.join(', ')}pt`);
@@ -158,11 +202,14 @@ async function main() {
 
     await page.getByLabel('Play', { exact: true }).click();
     await wait(page, 500);
-    for (const difficulty of ['Beginner', 'Advanced', 'Expert', 'Pro']) {
+    for (const difficulty of ['Beginner', 'Advanced', 'Expert', 'Pro', 'Legend']) {
       const seen = await box(page, difficulty);
       if (!seen) complain(`the difficulties have no ${difficulty}`);
       else if (seen.bottom > phone.height) complain(`${difficulty} runs off the difficulties`);
-      else if (await wraps(page, difficulty)) complain(`${difficulty} wraps onto two lines`);
+      else {
+        const tight = await tooTight(page, difficulty);
+        if (tight) complain(`${tight}, on the difficulties`);
+      }
     }
 
     // The numbered list: six rows, the pager under them, and the way back under
