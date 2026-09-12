@@ -10,6 +10,7 @@
  * The daily challenge is the same trick with the seed handed to it by the
  * calendar instead of by the player.
  */
+import type { ModeId } from './modes';
 import type { CompletedGame } from './persistence';
 
 /**
@@ -104,6 +105,25 @@ function columnOf(sizeId: string): number {
 }
 
 /**
+ * And a column for the way it is being played, on the same principle.
+ *
+ * Pure Deduction and Classic logic are the same catalogue of numbers and not the
+ * same games: the board does the bookkeeping in one and none of it in the other,
+ * and a puzzle that suits one can be a slog in the other. Giving each its own
+ * column makes game 7 at Advanced two puzzles rather than one played two ways —
+ * and puts the mode in the seed, so a game picked back up knows how it was being
+ * played without being told.
+ */
+const MODE_STEP = 10;
+const MODE_COLUMN: Record<string, number> = { pure: 0, classic: 1 };
+
+function modeColumnOf(mode: ModeId): number {
+  const column = MODE_COLUMN[mode];
+  if (column === undefined) throw new Error(`No seed column for mode: ${mode}`);
+  return column;
+}
+
+/**
  * The seed behind a numbered game.
  *
  * The number is multiplied up and the difficulty dropped into the column that
@@ -116,25 +136,59 @@ function columnOf(sizeId: string): number {
  * the number: the packing happens on the way to the generator and is undone by
  * `numberOn` on the way back.
  */
-export function numberedSeed(number: number, sizeId: string): number {
-  return number * DIFFICULTY_STEP + columnOf(sizeId);
+export function numberedSeed(number: number, sizeId: string, mode: ModeId): number {
+  return (number * DIFFICULTY_STEP + columnOf(sizeId)) * MODE_STEP + modeColumnOf(mode);
 }
 
 /**
  * Which numbered game a seed is, at this difficulty, or null if it is not one
  * of them. A seed from another difficulty's column belongs to another list.
  */
-export function numberOn(seed: number, sizeId: string): number | null {
-  if (!Number.isInteger(seed) || seed % DIFFICULTY_STEP !== columnOf(sizeId)) return null;
-  return Math.floor(seed / DIFFICULTY_STEP);
+export function numberOn(seed: number, sizeId: string, mode: ModeId): number | null {
+  if (!Number.isInteger(seed) || seed % MODE_STEP !== modeColumnOf(mode)) return null;
+  const packed = Math.floor(seed / MODE_STEP);
+  if (packed % DIFFICULTY_STEP !== columnOf(sizeId)) return null;
+  return Math.floor(packed / DIFFICULTY_STEP);
+}
+
+/**
+ * Which way a numbered game was being played, read back out of its seed.
+ *
+ * `null` for a seed that is not a numbered game's — a daily's, most of all. A
+ * daily has no mode column and never had one: there is one per difficulty per
+ * day, and doubling that so the same date could be played twice would make a
+ * daily something you can have another go at.
+ */
+export function modeOf(seed: number): ModeId | null {
+  if (!Number.isInteger(seed) || looksDaily(seed)) return null;
+  const found = Object.entries(MODE_COLUMN).find(([, column]) => column === seed % MODE_STEP);
+  return (found?.[0] as ModeId) ?? null;
+}
+
+/**
+ * Which numbered game a seed is, however it was being played.
+ *
+ * The list asks `numberOn` with a mode in hand, because a number on the Classic
+ * page is only ticked off by a Classic game. A board in play has only its seed —
+ * and the seed carries the mode, so here it is read back out rather than handed
+ * down through every screen that wants to print "Puzzle 7".
+ */
+export function numberFor(seed: number, sizeId: string): number | null {
+  const mode = modeOf(seed);
+  return mode === null ? null : numberOn(seed, sizeId, mode);
 }
 
 /** How many puzzles in the run are finished, each counted once. */
-export function completedInRange(history: CompletedGame[], sizeId: string, range: Range): number {
+export function completedInRange(
+  history: CompletedGame[],
+  sizeId: string,
+  mode: ModeId,
+  range: Range,
+): number {
   const seen = new Set<number>();
   for (const game of history) {
     if (game.sizeId !== sizeId) continue;
-    const number = numberOn(game.seed, sizeId);
+    const number = numberOn(game.seed, sizeId, mode);
     if (number !== null && number >= range.first && number <= range.last) seen.add(number);
   }
   return seen.size;
@@ -150,9 +204,10 @@ export function completedInRange(history: CompletedGame[], sizeId: string, range
 export function findCompleted(
   history: CompletedGame[],
   sizeId: string,
+  mode: ModeId,
   number: number,
 ): CompletedGame | null {
-  const seed = numberedSeed(number, sizeId);
+  const seed = numberedSeed(number, sizeId, mode);
   return history.find((game) => game.sizeId === sizeId && game.seed === seed) ?? null;
 }
 
@@ -160,13 +215,14 @@ export function findCompleted(
 export function completedOnPage(
   history: CompletedGame[],
   sizeId: string,
+  mode: ModeId,
   numbers: number[],
 ): Map<number, CompletedGame> {
   const wanted = new Set(numbers);
   const found = new Map<number, CompletedGame>();
   for (const game of history) {
     if (game.sizeId !== sizeId) continue;
-    const number = numberOn(game.seed, sizeId);
+    const number = numberOn(game.seed, sizeId, mode);
     // Newest first, so the first sighting of a number is the one to keep.
     if (number !== null && wanted.has(number) && !found.has(number)) found.set(number, game);
   }

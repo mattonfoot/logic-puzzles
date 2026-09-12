@@ -224,10 +224,23 @@ captures are for.
    the window and the inset alone, so every screen wearing the panel on a given
    phone gets the same one — which is the whole point of it — and a phone with
    the room still gets exactly half.
-2. **Play** opens the difficulties, which is the same page with its bottom half
+2. **Play** asks which of two games you want, and then how big. The first thing
+   under Play is two words: **Pure Deduction**, where the board keeps the
+   bookkeeping, and **Classic logic**, where every mark on it is yours. All
+   three board settings — automatic crosses, worked-out ticks, marks checked
+   against the clues read — are off for the whole of a Classic game and cannot
+   be turned back on, so ruling out the rest of a row is part of the work and
+   forgetting to is part of the risk. It is not a setting, because a setting is
+   something you forget you changed: it is chosen on the way in, it holds for
+   the game, and it goes into the seed — so game 7 at Advanced is two puzzles,
+   one on each side, and each list ticks off only its own. The player's own
+   settings are never written to; they are what comes back the next time a Pure
+   Deduction game opens.
+
+   Either one opens the difficulties, which is the same page with its bottom half
    swapped — the panel above is the same block, given the same half, as it is on
-   every screen before a board: Play → a difficulty → a number changes the
-   bottom half three times and never the top. It is
+   every screen before a board: Play → a way of playing → a difficulty → a
+   number changes the bottom half four times and never the top. It is
    where a game you left in progress waits: **Continue**, one word above
    everything else, which picks it up with the clock where it stopped. Under it
    a **Play** heading — with a rule drawn out of the word to the right of it —
@@ -477,7 +490,7 @@ scripts/icons.mjs           draws the silhouettes and collects them into path da
 scripts/icons/              the drawing kit, and one module per theme
 src/data/themes.ts          the five themes as a skeleton: which sets, which
                             items, in what order — the words are in the locale
-src/data/sizes.ts           the four sizes, and the difficulty each is called
+src/data/sizes.ts           the five sizes, and the difficulty each is called
 src/data/openers.ts         who is supposed to have said a clue
 locales/en-GB.yaml          every word the app says — the language file
 src/i18n/                   t(), plural(), and the module built from that file
@@ -489,6 +502,7 @@ src/puzzle/solver.ts        constraint solver: propagation + search
 src/puzzle/describe.ts      clue objects → sentences, using each theme's wording
 src/game/board.ts           the player's ticks and crosses, contradictions, win check
 src/game/library.ts         the numbered catalogue and the daily seed
+src/game/modes.ts           the two ways a numbered game can be played
 src/game/lessons.ts         the seven boards behind How to play, their walks,
                             and what the Clue button makes of a marked one
 src/game/clues.ts           what a clue asks of the board, which are spent, and
@@ -506,8 +520,9 @@ src/components/Popup.tsx    the window shell the briefing, the clue and a lesson
 src/screens/                SplashScreen, StartScreen, SetupScreen, NumbersScreen,
                             DailyScreen, ResultScreen, SettingsScreen,
                             GameScreen, GameMenuScreen, StatsScreen,
-                            LessonsScreen and TutorialScreen behind How to play,
-                            and CrashScreen, which none of the others lead to
+                            MenuScreen (the ways of playing and the two menus
+                            behind How to play), TutorialScreen, and
+                            CrashScreen, which none of the others lead to
 src/ui/Boundary.tsx         the one error boundary, around the whole shell
 src/game/settings.ts        the player's settings, and reading them back
 src/game/useSettings.ts     those settings as React state, written as they change
@@ -1345,8 +1360,8 @@ The seed is therefore never re-rolled for a puzzle already in play:
 
 | Action | Seed |
 |---|---|
-| A numbered game | the number itself: game 7 is seed 7 |
-| A daily challenge | the date read off the calendar: `20260829` |
+| A numbered game | the number, the difficulty and the way it is being played, each in its own column: game 7 at Advanced in Pure Deduction is seed 710 |
+| A daily challenge | the date read off the calendar with a column for the difficulty: `202608291` |
 | **Restart** | unchanged — same theme, sets, items, answer and clues; only the board and the clock start over |
 | **Continue** | unchanged — the saved puzzle is stored whole and comes back as it was, clock included |
 
@@ -1354,6 +1369,18 @@ Nothing is rolled any more. Every puzzle in the app can be named and asked for
 again, which is what makes a numbered list a catalogue rather than a wall of
 strangers, and what lets two people compare a time on game 7. The seed is
 printed under the title on the game screen.
+
+A numbered game's seed packs three things into their own columns —
+`(number × 10 + difficulty) × 10 + mode` — because the seed is the only thing
+the generator is handed, so two games that should differ have to differ in it.
+The number alone used to be the whole seed, which made the five game sevens one
+cast in one place at five sizes; and without the mode column, playing game 7
+the hard way would be the same puzzle over again rather than a game of its own.
+Columns rather than multipliers, for the same reason the date uses them: a
+column can be read back, so `numberOn` recovers the number for the list,
+`modeOf` recovers the way it was being played, and nothing collides. A daily
+has no mode column and never had one — there is one per difficulty per day, and
+a second column would make a daily something you can have another go at.
 
 The daily seed packs the three parts of the date into their own columns —
 `year × 10000 + month × 100 + day` — so every date gets its own puzzle and the
@@ -1533,8 +1560,9 @@ before them for the longer-run trend the chart draws.
   `src/ui/icons.generated.ts` from every file there. It never overwrites one
   that exists, so edit the SVG to change an icon and delete it to redraw it from
   code; `--sheet` also refreshes the contact sheet at `docs/icons.html`.
-- `npm run sizes` walks the front door, the difficulties and the numbered list
-  at five iPhone sizes — SE through 15 Pro Max — and fails when anything runs
+- `npm run sizes` walks the front door, the ways of playing, the difficulties
+  and the numbered list at five iPhone sizes — SE through 15 Pro Max — and
+  fails when anything runs
   off the bottom or scrolls that should not. The walkthrough drives one phone,
   which is what a picture wants and not what a layout wants: a screen that fits
   a 15 Pro can push its last row under the pager on an 11 Pro and nothing would

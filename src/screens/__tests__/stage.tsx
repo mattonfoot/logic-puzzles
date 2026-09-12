@@ -44,7 +44,7 @@ export function stage(
 export const NOON = new Date(2026, 7, 20, 12, 0, 0).getTime();
 
 /** The Advanced puzzle numbered one — the one the screenshots open too. */
-export function puzzleOne(sizeId = 'sm', seed = numberedSeed(1, sizeId)): Puzzle {
+export function puzzleOne(sizeId = 'sm', seed = numberedSeed(1, sizeId, 'pure')): Puzzle {
   return generatePuzzle({ theme: THEMES, size: sizeById(sizeId), seed });
 }
 

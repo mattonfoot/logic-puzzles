@@ -11,6 +11,8 @@ import {
   dayKey,
   looksDaily,
   findCompleted,
+  modeOf,
+  numberFor,
   numberOn,
   numberedSeed,
   MAX_ZOOM,
@@ -21,6 +23,7 @@ import {
   zoomInto,
   zoomOut,
 } from '../library';
+import { MODES, type ModeId } from '../modes';
 import type { CompletedGame } from '../persistence';
 
 function finished(overrides: Partial<CompletedGame> = {}): CompletedGame {
@@ -59,52 +62,86 @@ describe('findCompleted', () => {
   // What a finished game carries: the seed its number and difficulty pack to,
   // which is what the generator was handed.
   const history = [
-    finished({ seed: numberedSeed(3, 'sm'), seconds: 90 }),
-    finished({ seed: numberedSeed(3, 'sm'), seconds: 200 }),
-    finished({ seed: numberedSeed(3, 'lg'), sizeId: 'lg', seconds: 500 }),
+    finished({ seed: numberedSeed(3, 'sm', 'pure'), seconds: 90 }),
+    finished({ seed: numberedSeed(3, 'sm', 'pure'), seconds: 200 }),
+    finished({ seed: numberedSeed(3, 'lg', 'pure'), sizeId: 'lg', seconds: 500 }),
   ];
 
   it('matches on the shape as well as the number', () => {
-    expect(findCompleted(history, 'lg', 3)?.seconds).toBe(500);
+    expect(findCompleted(history, 'lg', 'pure', 3)?.seconds).toBe(500);
   });
 
   it('takes the newest of a game played more than once', () => {
     // History is kept newest first, so that is the one at the front.
-    expect(findCompleted(history, 'sm', 3)?.seconds).toBe(90);
+    expect(findCompleted(history, 'sm', 'pure', 3)?.seconds).toBe(90);
   });
 
   it('says nothing for a game that has not been played', () => {
-    expect(findCompleted(history, 'sm', 4)).toBeNull();
+    expect(findCompleted(history, 'sm', 'pure', 4)).toBeNull();
   });
 
   /**
-   * Game 3 at Master is seed 33, which is game 3 at Master and nothing else.
-   * The number a seed reads back to depends on the column it is in, so no
-   * list can pick up another list's games by arithmetic.
+   * Game 3 at Expert is seed 320, which is that game played that way and
+   * nothing else. The number a seed reads back to depends on the columns it is
+   * in, so no list can pick up another list's games by arithmetic.
    */
-  it("does not read another difficulty's game as one of this list's", () => {
+  it("does not read another list's game as one of this list's", () => {
     for (const size of SIZES) {
-      for (let number = 1; number <= 20; number++) {
-        const seed = numberedSeed(number, size.id);
-        expect(numberOn(seed, size.id)).toBe(number);
-        for (const other of SIZES) {
-          if (other.id !== size.id) expect(numberOn(seed, other.id)).toBeNull();
+      for (const mode of MODES) {
+        for (let number = 1; number <= 20; number++) {
+          const seed = numberedSeed(number, size.id, mode.id);
+          expect(numberOn(seed, size.id, mode.id)).toBe(number);
+          for (const other of SIZES) {
+            if (other.id !== size.id) expect(numberOn(seed, other.id, mode.id)).toBeNull();
+          }
+          for (const way of MODES) {
+            if (way.id !== mode.id) expect(numberOn(seed, size.id, way.id)).toBeNull();
+          }
         }
       }
     }
   });
+
+  it('keeps the two ways of playing a number apart in the history', () => {
+    const history = [
+      finished({ seed: numberedSeed(3, 'sm', 'classic'), seconds: 400 }),
+      finished({ seed: numberedSeed(3, 'sm', 'pure'), seconds: 90 }),
+    ];
+    expect(findCompleted(history, 'sm', 'pure', 3)?.seconds).toBe(90);
+    expect(findCompleted(history, 'sm', 'classic', 3)?.seconds).toBe(400);
+    expect(completedInRange(history, 'sm', 'pure', { first: 1, last: 5 })).toBe(1);
+  });
 });
 
 describe('numberedSeed', () => {
-  it('puts the number in its columns and the difficulty in the last one', () => {
-    expect(numberedSeed(7, 'xs')).toBe(70);
-    expect(numberedSeed(7, 'sm')).toBe(71);
-    expect(numberedSeed(7, 'md')).toBe(72);
-    expect(numberedSeed(7, 'lg')).toBe(73);
+  it('puts the number in its columns, then the difficulty, then the mode', () => {
+    expect(numberedSeed(7, 'xs', 'pure')).toBe(700);
+    expect(numberedSeed(7, 'sm', 'pure')).toBe(710);
+    expect(numberedSeed(7, 'md', 'pure')).toBe(720);
+    expect(numberedSeed(7, 'lg', 'pure')).toBe(730);
+    expect(numberedSeed(7, 'xl', 'pure')).toBe(740);
+    expect(numberedSeed(7, 'xs', 'classic')).toBe(701);
+    expect(numberedSeed(7, 'xl', 'classic')).toBe(741);
+  });
+
+  it('gives the same number played each way a different puzzle', () => {
+    const seeds = MODES.map((mode) => numberedSeed(7, 'sm', mode.id));
+    expect(new Set(seeds).size).toBe(MODES.length);
+
+    // The seed is the only thing the generator is handed, so the two game
+    // sevens are two puzzles rather than one puzzle played two ways.
+    const drawn = seeds.map((seed) =>
+      JSON.stringify(generatePuzzle({ theme: THEMES, size: SIZES[1], seed }).solution),
+    );
+    expect(new Set(drawn).size).toBe(MODES.length);
+  });
+
+  it('refuses a way of playing it has no column for', () => {
+    expect(() => numberedSeed(7, 'sm', 'speedrun' as ModeId)).toThrow('speedrun');
   });
 
   it('gives the same number at each difficulty a different puzzle', () => {
-    const seeds = SIZES.map((size) => numberedSeed(7, size.id));
+    const seeds = SIZES.map((size) => numberedSeed(7, size.id, 'pure'));
     expect(new Set(seeds).size).toBe(SIZES.length);
 
     // The seed is the only thing the generator is handed, so four seeds is what
@@ -118,33 +155,65 @@ describe('numberedSeed', () => {
   });
 
   it('keeps the list in order, so a later number is a larger seed', () => {
-    expect(numberedSeed(7, 'lg')).toBeLessThan(numberedSeed(8, 'xs'));
+    expect(numberedSeed(7, 'lg', 'pure')).toBeLessThan(numberedSeed(8, 'xs', 'pure'));
   });
 
   it('refuses a shape it has no column for', () => {
-    expect(() => numberedSeed(7, 'xxl')).toThrow('xxl');
+    expect(() => numberedSeed(7, 'xxl', 'pure')).toThrow('xxl');
+  });
+});
+
+describe('modeOf', () => {
+  it('reads back the way a numbered game was being played', () => {
+    for (const size of SIZES) {
+      for (const mode of MODES) {
+        expect(modeOf(numberedSeed(9, size.id, mode.id))).toBe(mode.id);
+      }
+    }
+  });
+
+  /**
+   * A daily has no mode column and never had one: there is one per difficulty
+   * per day, and giving the date a second column so it could be played twice
+   * would make a daily something you can have another go at.
+   */
+  it('says nothing for a daily', () => {
+    expect(modeOf(dailySeed(new Date(2026, 7, 29), 'sm'))).toBeNull();
+  });
+});
+
+describe('numberFor', () => {
+  it('names the game without being told which list it came from', () => {
+    for (const mode of MODES) {
+      expect(numberFor(numberedSeed(7, 'md', mode.id), 'md')).toBe(7);
+    }
+  });
+
+  it("says nothing about another difficulty's game, or a daily's", () => {
+    expect(numberFor(numberedSeed(7, 'md', 'classic'), 'sm')).toBeNull();
+    expect(numberFor(dailySeed(new Date(2026, 7, 29), 'sm'), 'sm')).toBeNull();
   });
 });
 
 describe('completedOnPage', () => {
   it('finds every game on the page and no others', () => {
     const history = [
-      finished({ seed: numberedSeed(2, 'sm') }),
-      finished({ seed: numberedSeed(40, 'sm') }),
-      finished({ seed: numberedSeed(5, 'sm') }),
+      finished({ seed: numberedSeed(2, 'sm', 'pure') }),
+      finished({ seed: numberedSeed(40, 'sm', 'pure') }),
+      finished({ seed: numberedSeed(5, 'sm', 'pure') }),
     ];
     // 40 is off this page; 2 and 5 are on it.
-    const found = completedOnPage(history, 'sm', pageNumbers(0));
+    const found = completedOnPage(history, 'sm', 'pure', pageNumbers(0));
     expect([...found.keys()].sort((a, b) => a - b)).toEqual([2, 5]);
   });
 
   it('agrees with findCompleted on which game each number holds', () => {
     const history = [
-      finished({ seed: numberedSeed(5, 'sm'), seconds: 61 }),
-      finished({ seed: numberedSeed(5, 'sm'), seconds: 62 }),
+      finished({ seed: numberedSeed(5, 'sm', 'pure'), seconds: 61 }),
+      finished({ seed: numberedSeed(5, 'sm', 'pure'), seconds: 62 }),
     ];
-    const found = completedOnPage(history, 'sm', pageNumbers(0));
-    expect(found.get(5)).toEqual(findCompleted(history, 'sm', 5));
+    const found = completedOnPage(history, 'sm', 'pure', pageNumbers(0));
+    expect(found.get(5)).toEqual(findCompleted(history, 'sm', 'pure', 5));
   });
 });
 
@@ -393,14 +462,14 @@ describe('the catalogue, zoomed out', () => {
 
   it('counts the puzzles finished in a run, each once', () => {
     const history = [
-      finished({ seed: numberedSeed(2, 'sm') }),
-      finished({ seed: numberedSeed(2, 'sm'), seconds: 50 }),
-      finished({ seed: numberedSeed(5, 'sm') }),
-      finished({ seed: numberedSeed(7, 'sm') }),
-      finished({ seed: numberedSeed(3, 'lg'), sizeId: 'lg' }),
+      finished({ seed: numberedSeed(2, 'sm', 'pure') }),
+      finished({ seed: numberedSeed(2, 'sm', 'pure'), seconds: 50 }),
+      finished({ seed: numberedSeed(5, 'sm', 'pure') }),
+      finished({ seed: numberedSeed(7, 'sm', 'pure') }),
+      finished({ seed: numberedSeed(3, 'lg', 'pure'), sizeId: 'lg' }),
     ];
-    expect(completedInRange(history, 'sm', { first: 1, last: 5 })).toBe(2);
-    expect(completedInRange(history, 'sm', { first: 6, last: 10 })).toBe(1);
-    expect(completedInRange(history, 'lg', { first: 1, last: 5 })).toBe(1);
+    expect(completedInRange(history, 'sm', 'pure', { first: 1, last: 5 })).toBe(2);
+    expect(completedInRange(history, 'sm', 'pure', { first: 6, last: 10 })).toBe(1);
+    expect(completedInRange(history, 'lg', 'pure', { first: 1, last: 5 })).toBe(1);
   });
 });

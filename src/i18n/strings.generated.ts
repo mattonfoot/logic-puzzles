@@ -217,6 +217,21 @@ export const STRINGS = {
       finish: 'And the customer nobody has settled takes the drink nobody has taken.',
     },
   },
+  modes: {
+    title: 'Play',
+    back: 'Back',
+    note: 'In Pure Deduction the board keeps the bookkeeping. In Classic logic every mark on it is yours.',
+    pure: {
+      name: 'Pure Deduction',
+      hint: 'The board keeps the bookkeeping',
+    },
+    classic: {
+      name: 'Classic logic',
+      hint: 'Every mark on the board is yours',
+    },
+    locked:
+      'Classic logic works nothing out for you. Start a Pure Deduction game to have the board keep up.',
+  },
   setup: {
     title: 'Play',
     continue: 'Continue',
@@ -5248,6 +5263,14 @@ export type StringKey =
   | 'menu.restart'
   | 'menu.thisPuzzle'
   | 'menu.title'
+  | 'modes.back'
+  | 'modes.classic.hint'
+  | 'modes.classic.name'
+  | 'modes.locked'
+  | 'modes.note'
+  | 'modes.pure.hint'
+  | 'modes.pure.name'
+  | 'modes.title'
   | 'numbers.back'
   | 'numbers.finishedHint'
   | 'numbers.group'

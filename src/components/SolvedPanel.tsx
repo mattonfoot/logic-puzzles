@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
-import { dailyDate, numberOn } from '../game/library';
+import { dailyDate, numberFor } from '../game/library';
 import { formatDate } from '../game/share';
 import { formatDuration } from '../game/time';
 import { t } from '../i18n';
@@ -172,7 +172,7 @@ export function SolvedPanel({
  */
 function gameName(puzzle: Puzzle, daily: boolean): string {
   if (daily) return formatDate(dailyDate(puzzle.seed));
-  return t('numbers.puzzle', { number: numberOn(puzzle.seed, puzzle.size.id) ?? puzzle.seed });
+  return t('numbers.puzzle', { number: numberFor(puzzle.seed, puzzle.size.id) ?? puzzle.seed });
 }
 
 function Stat({

@@ -3,7 +3,7 @@ import { Share } from 'react-native';
 import { plural, t } from '../i18n';
 import type { Puzzle } from '../puzzle/types';
 import { formatDuration } from './time';
-import { dailyDate, numberOn } from './library';
+import { dailyDate, numberFor } from './library';
 
 /**
  * A finished game as a few lines somebody can be sent.
@@ -51,7 +51,7 @@ export function resultText({ puzzle, seconds, cluesUsed, hintsAsked, daily }: Re
     : t('share.numbered', {
         difficulty: puzzle.size.difficulty,
         // The number off the list, not the seed it packs to.
-        number: numberOn(puzzle.seed, puzzle.size.id) ?? puzzle.seed,
+        number: numberFor(puzzle.seed, puzzle.size.id) ?? puzzle.seed,
       });
   // Hints only when there were some. The separator is joined here rather than
   // written into a template, because which parts there are depends on the game.

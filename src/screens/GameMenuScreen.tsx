@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ConfirmDialog } from '../components/ConfirmDialog';
-import { numberOn } from '../game/library';
+import { numberFor } from '../game/library';
 import { t } from '../i18n';
 import type { Puzzle } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
@@ -12,7 +12,7 @@ import { RuledTitle } from '../ui/RuledTitle';
 import { ActionRow, CheckRow, CycleRow } from '../ui/SettingRow';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme, type ColourPreference } from '../ui/ThemeProvider';
-import { space, type Palette } from '../ui/theme';
+import { space, type, type Palette } from '../ui/theme';
 
 interface Props {
   puzzle: Puzzle;
@@ -22,6 +22,12 @@ interface Props {
   autoFacts: boolean;
   /** Whether a mark that argues with a clue already read is shaded. */
   checkClues: boolean;
+  /**
+   * Whether the board is allowed to work anything out. False in a Classic logic
+   * game, where the three switches above are shown as they stand — off — and
+   * cannot be moved, with the reason under them.
+   */
+  assists: boolean;
   /** The colour the app is drawn in, which is the player's rather than the puzzle's. */
   accent: string;
   /** Day, night, or whatever the device is doing. */
@@ -69,6 +75,7 @@ export function GameMenuScreen({
   autoEliminate,
   autoFacts,
   checkClues,
+  assists,
   accent,
   colours,
   onChangeAccent,
@@ -96,28 +103,37 @@ export function GameMenuScreen({
             says it. The two are a tap apart and were disagreeing: the board
             read the number out of the seed and this printed the seed. */}
         <Text style={styles.subtitle} numberOfLines={1}>
-          {t('game.seed', { seed: numberOn(puzzle.seed, puzzle.size.id) ?? puzzle.seed })}
+          {t('game.seed', { seed: numberFor(puzzle.seed, puzzle.size.id) ?? puzzle.seed })}
         </Text>
 
         <View style={styles.list}>
+          {/* The three the mode decides. In Classic logic they are off and stay
+              off: shown rather than hidden, because what the board is not doing
+              for you is the point of the game you chose, and a row that has gone
+              missing says nothing. The line under them is why they will not
+              move — a dead switch with no reason beside it reads as a fault. */}
           <CheckRow
             label={t('menu.automaticCrosses')}
             on={autoEliminate}
             accent={palette.accent}
+            disabled={!assists}
             onPress={onToggleAutoEliminate}
           />
           <CheckRow
             label={t('menu.autoAddFacts')}
             on={autoFacts}
             accent={palette.accent}
+            disabled={!assists}
             onPress={onToggleAutoFacts}
           />
           <CheckRow
             label={t('menu.checkAgainstClues')}
             on={checkClues}
             accent={palette.accent}
+            disabled={!assists}
             onPress={onToggleCheckClues}
           />
+          {assists ? null : <Text style={styles.locked}>{t('modes.locked')}</Text>}
           {/* The same pair, in the same order and with the same rules, as the
               settings screen sets them by. Night is a thing a room does rather
               than a thing a player decides once, and the board is where it gets
@@ -189,6 +205,10 @@ const makeStyles = (palette: Palette) =>
       fontSize: 12,
       color: palette.inkFaint,
       marginTop: space(1.5),
+    },
+    locked: {
+      ...type.note,
+      color: palette.inkFaint,
     },
     list: {
       marginTop: space(4),

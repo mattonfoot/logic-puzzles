@@ -202,6 +202,22 @@ async function main() {
 
     await page.getByLabel('Play', { exact: true }).click();
     await wait(page, 500);
+
+    // The two ways of playing, which Play asks before anything else. Both names
+    // are phrases rather than words, so they are set at the lessons' size and
+    // have the same question asked of them.
+    for (const mode of ['Pure Deduction', 'Classic logic']) {
+      const seen = await box(page, mode);
+      if (!seen) complain(`the ways of playing have no ${mode}`);
+      else if (seen.bottom > phone.height) complain(`${mode} runs off the ways of playing`);
+      else {
+        const tight = await tooTight(page, mode);
+        if (tight) complain(`${tight}, on the ways of playing`);
+      }
+    }
+
+    await page.getByLabel('Pure Deduction', { exact: true }).click();
+    await wait(page, 500);
     for (const difficulty of ['Beginner', 'Advanced', 'Expert', 'Pro', 'Legend']) {
       const seen = await box(page, difficulty);
       if (!seen) complain(`the difficulties have no ${difficulty}`);

@@ -12,7 +12,8 @@ import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { THEMES } from './src/data/themes';
-import { dailySeed, looksDaily, numberedSeed } from './src/game/library';
+import { dailySeed, looksDaily, modeOf, numberedSeed } from './src/game/library';
+import { DEFAULT_MODE, MODES, modeById, type ModeId } from './src/game/modes';
 import type { CompletedGame, SavedGame } from './src/game/persistence';
 import { usePersistence } from './src/game/usePersistence';
 import { useSettings } from './src/game/useSettings';
@@ -22,7 +23,7 @@ import { t } from './src/i18n';
 import type { Puzzle, SizeOption } from './src/puzzle/types';
 import { DailyScreen } from './src/screens/DailyScreen';
 import { GameScreen } from './src/screens/GameScreen';
-import { LessonsScreen } from './src/screens/LessonsScreen';
+import { MenuScreen } from './src/screens/MenuScreen';
 import { NumbersScreen } from './src/screens/NumbersScreen';
 import { ResultScreen } from './src/screens/ResultScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
@@ -39,6 +40,7 @@ import { inkOn, type Palette } from './src/ui/theme';
 type Screen =
   | 'start'
   | 'daily'
+  | 'mode'
   | 'setup'
   | 'numbers'
   | 'result'
@@ -50,7 +52,15 @@ type Screen =
   | 'tutorial';
 
 /** The screens that wear `TitlePanel`, which is what the status bar reads off. */
-const PANELLED = new Set<Screen>(['start', 'setup', 'numbers', 'daily', 'lessons', 'clueLessons']);
+const PANELLED = new Set<Screen>([
+  'start',
+  'mode',
+  'setup',
+  'numbers',
+  'daily',
+  'lessons',
+  'clueLessons',
+]);
 
 export default function App() {
   // One file per weight; `src/ui/Text` picks between them. Until they are here
@@ -136,6 +146,11 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
   // The difficulty whose numbered list is open, and the finished game being
   // read back. Both are set on the way in and cleared by going back.
   const [chosen, setChosen] = useState<SizeOption | null>(null);
+  // Which way the numbered games are being played. It is chosen on the way in,
+  // holds until it is chosen again, and is packed into the seed of every game
+  // started under it — so it is here to pick a game *with* rather than to be
+  // remembered by the game afterwards.
+  const [mode, setMode] = useState<ModeId>(DEFAULT_MODE);
   const [result, setResult] = useState<CompletedGame | null>(null);
   // Where leaving a game returns to: the list it was started from.
   const [cameFrom, setCameFrom] = useState<Screen>('numbers');
@@ -186,6 +201,12 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
     setScreen(cameFrom);
   }, [cameFrom]);
 
+  // Whether the board is allowed to work anything out for the game in play.
+  // The mode is in the puzzle's seed rather than in `mode`, so a game picked
+  // back up is played the way it was started however the menus have been walked
+  // since — and a daily, which has no mode column, is Pure Deduction.
+  const assists = puzzle ? modeById(modeOf(puzzle.seed) ?? DEFAULT_MODE).assists : true;
+
   const recordCompletion = useCallback(
     (input: Parameters<typeof persistence.recordCompletion>[1]) => {
       if (!puzzle) throw new Error('No puzzle in play');
@@ -216,9 +237,13 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
           <GameScreen
             key={puzzle.seed}
             puzzle={puzzle}
-            autoEliminate={settings.settings.autoEliminate}
-            autoFacts={settings.settings.autoFacts}
-            checkClues={settings.settings.checkClues}
+            // Classic logic takes all three away for the length of the game.
+            // The player's own settings are not touched: they are what comes
+            // back the next time a Pure Deduction game is opened.
+            autoEliminate={assists && settings.settings.autoEliminate}
+            autoFacts={assists && settings.settings.autoFacts}
+            checkClues={assists && settings.settings.checkClues}
+            assists={assists}
             colours={settings.settings.colours}
             accent={settings.settings.accent}
             onToggleAutoEliminate={() =>
@@ -239,24 +264,49 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             onDiscardProgress={persistence.discardSavedGame}
             onCompleted={recordCompletion}
           />
+        ) : screen === 'mode' ? (
+          <MenuScreen
+            title={t('modes.title')}
+            note={t('modes.note')}
+            backLabel={t('modes.back')}
+            entries={MODES.map((option) => ({
+              key: option.id,
+              label: option.name,
+              hint: option.hint,
+              onPress: () => {
+                setMode(option.id);
+                setScreen('setup');
+              },
+            }))}
+            onBack={() => setScreen('start')}
+          />
         ) : screen === 'setup' ? (
           <SetupScreen
             busy={busy}
-            savedGame={persistence.savedGame}
+            // Continue belongs to the mode it was started in: the saved game's
+            // seed says which, and offering it under the other one would be
+            // offering a Classic board from the Pure list.
+            savedGame={
+              persistence.savedGame &&
+              (modeOf(persistence.savedGame.puzzle.seed) ?? DEFAULT_MODE) === mode
+                ? persistence.savedGame
+                : null
+            }
             savedGameDamaged={persistence.savedGameDamaged}
             onChoose={(size) => {
               setChosen(size);
               setScreen('numbers');
             }}
             onResume={resume}
-            onBack={() => setScreen('start')}
+            onBack={() => setScreen('mode')}
           />
         ) : screen === 'numbers' && chosen ? (
           <NumbersScreen
             size={chosen}
+            mode={mode}
             busy={busy}
             history={persistence.history}
-            onPlay={(number) => build(chosen, numberedSeed(number, chosen.id), 'numbers')}
+            onPlay={(number) => build(chosen, numberedSeed(number, chosen.id, mode), 'numbers')}
             onBack={() => setScreen('setup')}
           />
         ) : screen === 'daily' ? (
@@ -273,7 +323,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
         ) : screen === 'result' && result ? (
           <ResultScreen game={result} onBack={() => setScreen('daily')} />
         ) : screen === 'lessons' ? (
-          <LessonsScreen
+          <MenuScreen
             title={t('lessons.title')}
             backLabel={t('lessons.back')}
             entries={[
@@ -296,7 +346,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             onBack={() => setScreen('start')}
           />
         ) : screen === 'clueLessons' ? (
-          <LessonsScreen
+          <MenuScreen
             title={t('lessons.clues.title')}
             backLabel={t('lessons.clues.back')}
             entries={CLUE_LESSONS.map((id) => ({
@@ -329,7 +379,7 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
         ) : (
           <StartScreen
             onDaily={() => setScreen('daily')}
-            onPlay={() => setScreen('setup')}
+            onPlay={() => setScreen('mode')}
             onHowToPlay={() => setScreen('lessons')}
             onOpenSettings={() => setScreen('settings')}
             onOpenStats={() => setScreen('stats')}

@@ -16,6 +16,8 @@ import type { Improvement } from '../../stats/summary';
 import { sizeById } from '../../data/sizes';
 import { dailySeed, numberedSeed } from '../../game/library';
 import type { SavedGame } from '../../game/persistence';
+import { MODES } from '../../game/modes';
+import { t } from '../../i18n';
 import { DEFAULT_SETTINGS } from '../../game/settings';
 import { DailyScreen } from '../DailyScreen';
 import { GameMenuScreen } from '../GameMenuScreen';
@@ -29,7 +31,7 @@ import { StartScreen } from '../StartScreen';
 import { StatsScreen } from '../StatsScreen';
 import { TutorialScreen } from '../TutorialScreen';
 import { CLUE_LESSONS, FIRST_LESSONS, lessonById, type LessonId } from '../../game/lessons';
-import { LessonsScreen, type Entry } from '../LessonsScreen';
+import { MenuScreen, type Entry } from '../MenuScreen';
 import { NOON, game, puzzleOne, savedGame, stage, statsOf } from './stage';
 
 /**
@@ -141,6 +143,50 @@ describe('the front door', () => {
   });
 });
 
+/**
+ * The menu Play opens: the same screen the lessons use, given the two ways a
+ * numbered game can be played. Mounted the way App mounts it, since what is on
+ * it is the point — two names a first-time player has not met, and the line
+ * that says what they mean.
+ */
+describe('the two ways of playing', () => {
+  it('offers both, and says what the choice is', () => {
+    const chosen: string[] = [];
+    stage(
+      <MenuScreen
+        title={t('modes.title')}
+        note={t('modes.note')}
+        entries={MODES.map((mode) => ({
+          key: mode.id,
+          label: mode.name,
+          hint: mode.hint,
+          onPress: () => chosen.push(mode.id),
+        }))}
+        backLabel={t('modes.back')}
+        onBack={none}
+      />,
+    );
+
+    expect(header('Play')).toBeOnTheScreen();
+    expect(button('Pure Deduction')).toBeEnabled();
+    expect(button('Classic logic')).toBeEnabled();
+    // Two names that cannot explain themselves, so the screen explains them
+    // once rather than putting a paragraph under each.
+    expect(
+      screen.getByText(
+        'In Pure Deduction the board keeps the bookkeeping. In Classic logic every mark on it is yours.',
+      ),
+    ).toBeOnTheScreen();
+    // And each is read out with its own line, for somebody being read the page.
+    expect(button('Classic logic').props.accessibilityHint).toBe(
+      'Every mark on the board is yours',
+    );
+
+    fireEvent.press(button('Classic logic'));
+    expect(chosen).toEqual(['classic']);
+  });
+});
+
 describe('how to play', () => {
   const lesson = lessonById('deduction');
   const puzzle = lesson.puzzle;
@@ -152,7 +198,7 @@ describe('how to play', () => {
     );
 
   function menu(entries: Entry[] = lessonEntries) {
-    stage(<LessonsScreen title="How to play" entries={entries} backLabel="Back" onBack={none} />);
+    stage(<MenuScreen title="How to play" entries={entries} backLabel="Back" onBack={none} />);
   }
 
   const opened: string[] = [];
@@ -614,7 +660,16 @@ describe('the numbered puzzles', () => {
   const ticked = (name: string) => button(name).props.accessibilityState.checked;
 
   it('shows the first five, with the way back closed on page one', () => {
-    stage(<NumbersScreen size={advanced} busy={false} history={[]} onPlay={none} onBack={none} />);
+    stage(
+      <NumbersScreen
+        size={advanced}
+        mode="pure"
+        busy={false}
+        history={[]}
+        onPlay={none}
+        onBack={none}
+      />,
+    );
 
     expect(header('Play Advanced')).toBeOnTheScreen();
     for (let number = 1; number <= 5; number += 1) {
@@ -632,8 +687,9 @@ describe('the numbered puzzles', () => {
     stage(
       <NumbersScreen
         size={advanced}
+        mode="pure"
         busy={false}
-        history={[game({ seed: numberedSeed(3, advanced.id), seconds: 95 })]}
+        history={[game({ seed: numberedSeed(3, advanced.id, 'pure'), seconds: 95 })]}
         onPlay={onPlay}
         onBack={none}
       />,
@@ -648,7 +704,16 @@ describe('the numbered puzzles', () => {
   });
 
   it('turns the page', () => {
-    stage(<NumbersScreen size={advanced} busy={false} history={[]} onPlay={none} onBack={none} />);
+    stage(
+      <NumbersScreen
+        size={advanced}
+        mode="pure"
+        busy={false}
+        history={[]}
+        onPlay={none}
+        onBack={none}
+      />,
+    );
 
     fireEvent.press(button('Next'));
     expect(button('Puzzle 6')).toBeOnTheScreen();
@@ -657,7 +722,16 @@ describe('the numbered puzzles', () => {
   });
 
   it('zooms out to pages of pages, and back in through one of them', () => {
-    stage(<NumbersScreen size={advanced} busy={false} history={[]} onPlay={none} onBack={none} />);
+    stage(
+      <NumbersScreen
+        size={advanced}
+        mode="pure"
+        busy={false}
+        history={[]}
+        onPlay={none}
+        onBack={none}
+      />,
+    );
 
     fireEvent.press(button('Zoom out'));
     expect(screen.queryByRole('button', { name: 'Puzzle 1' })).toBeNull();
@@ -684,7 +758,16 @@ describe('the numbered puzzles', () => {
   });
 
   it('comes back out to the page that holds the one it left', () => {
-    stage(<NumbersScreen size={advanced} busy={false} history={[]} onPlay={none} onBack={none} />);
+    stage(
+      <NumbersScreen
+        size={advanced}
+        mode="pure"
+        busy={false}
+        history={[]}
+        onPlay={none}
+        onBack={none}
+      />,
+    );
     for (let turn = 0; turn < 16; turn++) fireEvent.press(button('Next'));
     expect(button('Puzzle 81')).toBeOnTheScreen();
 
@@ -694,9 +777,18 @@ describe('the numbered puzzles', () => {
   });
 
   it('stops zooming out at the top, and says how far through a group you are', () => {
-    const history = [2, 4, 40].map((number) => game({ seed: numberedSeed(number, advanced.id) }));
+    const history = [2, 4, 40].map((number) =>
+      game({ seed: numberedSeed(number, advanced.id, 'pure') }),
+    );
     stage(
-      <NumbersScreen size={advanced} busy={false} history={history} onPlay={none} onBack={none} />,
+      <NumbersScreen
+        size={advanced}
+        mode="pure"
+        busy={false}
+        history={history}
+        onPlay={none}
+        onBack={none}
+      />,
     );
     fireEvent.press(button('Zoom out'));
     expect(button('Puzzles 1–5').props.accessibilityHint).toBe('2 of 5 finished');
@@ -711,7 +803,9 @@ describe('the numbered puzzles', () => {
   });
 
   it('deadens the numbers while a puzzle is being built', () => {
-    stage(<NumbersScreen size={advanced} busy history={[]} onPlay={none} onBack={none} />);
+    stage(
+      <NumbersScreen size={advanced} mode="pure" busy history={[]} onPlay={none} onBack={none} />,
+    );
 
     expect(screen.getByText('Building your puzzle…')).toBeOnTheScreen();
     for (let number = 1; number <= 5; number += 1)
@@ -1131,9 +1225,36 @@ describe('the board', () => {
    * the player has read and marks they can see; nothing is drawn from the answer.
    */
   describe('checking marks against the clues read', () => {
+    // A game whose first clue is a plain link — "A goes with B" — so there is
+    // one mark that plainly argues with it: tying A to somebody else instead.
+    // Which square that is comes from the clue rather than from whichever one
+    // the grid draws first: the first square on the board belongs to whatever
+    // pair the layout puts there, and a clue with nothing to say about it
+    // shades nothing, which would pass this test for the wrong reason.
+    const linked = puzzleOne('sm', numberedSeed(2, 'sm', 'pure'));
+    const first = linked.clues[0];
+    if (first.kind !== 'link' || !first.positive) throw new Error('Puzzle 2 has changed');
+    const named = (attribute: { category: number; item: number }) =>
+      linked.categories[attribute.category].items[attribute.item].label;
+    // Not the pair the clue names — ticking that agrees with it — but the one
+    // next to it in the same row. The tick crosses out the square the clue
+    // wanted, which is the contradiction.
+    const instead = { category: first.b.category, item: (first.b.item + 1) % linked.size.items };
+    /** The square to tick, whichever way round the grid draws its pair. */
+    const wrongSquare = () =>
+      screen
+        .getAllByRole('button')
+        .find(
+          (node) =>
+            typeof node.props.accessibilityLabel === 'string' &&
+            node.props.accessibilityLabel.endsWith(': unknown') &&
+            node.props.accessibilityLabel.includes(named(first.a)) &&
+            node.props.accessibilityLabel.includes(named(instead)),
+        );
+
     /** Reads the first clue, then marks the board past it. */
     function afterAClue(checkClues: boolean) {
-      const puzzleToPlay = puzzle;
+      const puzzleToPlay = linked;
       stage(
         <GameScreen
           puzzle={puzzleToPlay}
@@ -1170,11 +1291,12 @@ describe('the board', () => {
 
     it('shades the marks a read clue disagrees with, as they are made', () => {
       afterAClue(true);
-      // The clue is on the table and the board is empty, so the squares it
-      // calls for are blank rather than wrong. Marking one the other way round
-      // is the first thing it can argue with.
-      const [blank] = screen.getAllByRole('button', { name: /: unknown$/ });
-      fireEvent(blank, 'longPress');
+      // The clue is on the table and the board is empty, so nothing on it is
+      // wrong yet. Tying its subject to the wrong partner is the first thing it
+      // can argue with.
+      const blank = wrongSquare();
+      expect(blank).toBeDefined();
+      fireEvent(blank!, 'longPress');
       // Not asked for, not waited for: no window was opened and Clue was not
       // pressed again.
       expect(flagged()).toBeGreaterThan(0);
@@ -1182,8 +1304,9 @@ describe('the board', () => {
 
     it('shades nothing at all when the setting is off', () => {
       afterAClue(false);
-      const [blank] = screen.getAllByRole('button', { name: /: unknown$/ });
-      fireEvent(blank, 'longPress');
+      const blank = wrongSquare();
+      expect(blank).toBeDefined();
+      fireEvent(blank!, 'longPress');
       expect(flagged()).toBe(0);
     });
   });
@@ -1433,6 +1556,7 @@ describe('the puzzle settings', () => {
         autoEliminate
         autoFacts={false}
         checkClues
+        assists
         accent={DEFAULT_SETTINGS.accent}
         colours={DEFAULT_SETTINGS.colours}
         onChangeAccent={none}
@@ -1467,6 +1591,49 @@ describe('the puzzle settings', () => {
     expect(onChangeColours).toHaveBeenCalledWith('day');
   });
 
+  /**
+   * A Classic logic game arrives with all three board settings off and holds
+   * them there. They are shown rather than hidden: what the board is *not*
+   * doing for you is the point of the game that was chosen, and a row that has
+   * gone missing says nothing.
+   */
+  it('holds the board settings down in a Classic logic game, and says why', () => {
+    const onToggleAutoEliminate = jest.fn();
+    stage(
+      <GameMenuScreen
+        puzzle={puzzleOne('sm', numberedSeed(1, 'sm', 'classic'))}
+        autoEliminate={false}
+        autoFacts={false}
+        checkClues={false}
+        assists={false}
+        accent={DEFAULT_SETTINGS.accent}
+        colours={DEFAULT_SETTINGS.colours}
+        onChangeAccent={none}
+        onChangeColours={none}
+        onToggleAutoEliminate={onToggleAutoEliminate}
+        onToggleAutoFacts={none}
+        onToggleCheckClues={none}
+        onRestart={none}
+        onClose={none}
+      />,
+    );
+
+    for (const setting of ['Automatic crosses', 'Auto add facts', 'Check against clues']) {
+      expect(checkbox(setting)).toBeDisabled();
+      expect(checkbox(setting)).not.toBeChecked();
+    }
+    fireEvent.press(checkbox('Automatic crosses'));
+    expect(onToggleAutoEliminate).not.toHaveBeenCalled();
+    expect(
+      screen.getByText(
+        'Classic logic works nothing out for you. Start a Pure Deduction game to have the board keep up.',
+      ),
+    ).toBeOnTheScreen();
+
+    // The colours are the player's whichever game is on the table.
+    expect(checkbox('Match the device')).toBeEnabled();
+  });
+
   it('asks before throwing a board away', () => {
     const onRestart = jest.fn();
     stage(
@@ -1475,6 +1642,7 @@ describe('the puzzle settings', () => {
         autoEliminate
         autoFacts
         checkClues
+        assists
         accent={DEFAULT_SETTINGS.accent}
         colours={DEFAULT_SETTINGS.colours}
         onChangeAccent={none}

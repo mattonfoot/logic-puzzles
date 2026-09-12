@@ -11,6 +11,7 @@ import {
   zoomOut,
   type Catalogue,
 } from '../game/library';
+import type { ModeId } from '../game/modes';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
 import { t } from '../i18n';
@@ -26,6 +27,8 @@ import { TitlePanel } from '../ui/TitlePanel';
 
 interface Props {
   size: SizeOption;
+  /** Which way these games are to be played; the two lists are separate. */
+  mode: ModeId;
   busy: boolean;
   history: CompletedGame[];
   /** Starts the numbered game: the number is the seed. */
@@ -50,14 +53,14 @@ interface Props {
  * checkbox, because that is what they are.
  *
  * It wears the same panel the front door and the difficulties do, given the
- * same half of the screen, so walking Play → a difficulty → a number changes
- * the bottom half three times and never the top. That leaves half a screen for
- * the numbers, which is why a page holds six: the list is paged rather than
- * scrolled, and a page that has to be scrolled to be read is a page that has
- * lost the point of being one. The two links that move between them sit at the
+ * same half of the screen, so walking Play → a way of playing → a difficulty →
+ * a number changes the bottom half four times and never the top. That leaves
+ * half a screen for the numbers, which is why a page holds five: the list is
+ * paged rather than scrolled, and a page that has to be scrolled to be read is
+ * a page that has lost the point of being one. The two links that move between them sit at the
  * foot, where the eye ends up — the same pair the item card and the clue use.
  */
-export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
+export function NumbersScreen({ size, mode, busy, history, onPlay, onBack }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const [view, setView] = useState<Catalogue>({ level: 0, page: 0 });
@@ -66,8 +69,8 @@ export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
   const ranges = useMemo(() => rangesOn(view), [view]);
   const numbers = useMemo(() => ranges.map((range) => range.first), [ranges]);
   const done = useMemo(
-    () => (level === 0 ? completedOnPage(history, size.id, numbers) : new Map()),
-    [history, level, size.id, numbers],
+    () => (level === 0 ? completedOnPage(history, size.id, mode, numbers) : new Map()),
+    [history, level, size.id, mode, numbers],
   );
   const each = span(level);
 
@@ -86,7 +89,7 @@ export function NumbersScreen({ size, busy, history, onPlay, onBack }: Props) {
                   // every puzzle in it is finished, the run it stands for
                   // where the number would be, and how far through it on the
                   // right, once there is anything to say.
-                  const finished = completedInRange(history, size.id, range);
+                  const finished = completedInRange(history, size.id, mode, range);
                   const label = t('numbers.group', { first: range.first, last: range.last });
                   const progress =
                     finished > 0 ? t('numbers.groupDone', { done: finished, total: each }) : null;

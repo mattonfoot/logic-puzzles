@@ -231,6 +231,24 @@ lessons:
       fiveDone: Three clues that each offered a choice, and not one square left in doubt.
     finish: And the customer nobody has settled takes the drink nobody has taken.
 
+# The two ways to play a numbered game, chosen on the way in rather than set in
+# the settings: a choice that holds for a whole game, and rides in its seed.
+modes:
+  title: Play
+  back: Back
+  # One line under the heading rather than a line under each name: the two names
+  # cannot explain themselves, and what they mean is what is being chosen.
+  note: In Pure Deduction the board keeps the bookkeeping. In Classic logic every mark on it is yours.
+  pure:
+    name: Pure Deduction
+    hint: The board keeps the bookkeeping
+  classic:
+    name: Classic logic
+    hint: Every mark on the board is yours
+  # On the puzzle menu, under switches that are shown as they stand and cannot
+  # be moved, so the reason is the row rather than a dead control.
+  locked: Classic logic works nothing out for you. Start a Pure Deduction game to have the board keep up.
+
 setup:
   title: Play
   continue: Continue
