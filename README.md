@@ -316,7 +316,14 @@ captures are for.
    with it — anything you crossed by hand stays put. **Automatic crosses** and
    **Auto add facts** — which fills in a tick that follows from two others, so a
    pairing carried across a shared entity lands on the board without you copying
-   it over — can both be turned off, from the menu or from Settings. A mark you
+   it over — can both be turned off, from the menu or from Settings. So can
+   **Check against clues**, which shades a mark that argues with a clue you have
+   already read: not a hint, since the clue is on the screen and the shading says
+   only what re-reading it would have said, but *having* to re-read it is the
+   game, so it is a switch rather than a rule. It gives nothing away that the
+   board does not — nothing in it comes from the answer — and it says so on the
+   square's own label as well as in the shading, since shading is the one thing a
+   screen reader cannot see. A mark you
    made is drawn heavily and one the board worked out lightly, in the same shape
    and the same colour, so which is which survives being read in greyscale.
    The set names and item pictures stay pinned while the grids scroll sideways,

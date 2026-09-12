@@ -186,7 +186,13 @@ async function mark(page, puzzle, c1, i1, c2, i2, want = 'matched') {
     // The board goes away the moment the puzzle is finished, so a square that
     // stops answering is the run being over rather than a fault.
     const label = await square.getAttribute('aria-label', { timeout: 2000 }).catch(() => null);
-    if (label === null || label.endsWith(want)) return;
+    if (label === null) return;
+    // What the square is showing is the part after the colon and before
+    // anything else the board has to add — a flagged square says so on the end
+    // of its own label, and a run that matched the whole string would cycle
+    // such a square forever looking for a state it was already in.
+    const showing = label.slice(label.indexOf(': ') + 2).split(',')[0];
+    if (showing === want) return;
     await square.click();
     await wait(page, 60);
   }

@@ -838,9 +838,11 @@ describe('the board', () => {
         puzzle={puzzle}
         autoEliminate
         autoFacts
+        checkClues={DEFAULT_SETTINGS.checkClues}
         accent={DEFAULT_SETTINGS.accent}
         onToggleAutoEliminate={none}
         onToggleAutoFacts={none}
+        onToggleCheckClues={none}
         onChangeAccent={none}
         restore={restore}
         onExit={onExit}
@@ -950,27 +952,37 @@ describe('the board', () => {
 
     const hold = (element: ReturnType<typeof screen.getByRole>) => fireEvent(element, 'longPress');
 
+    /**
+     * The square by name, whatever the board has since added to its label. These
+     * tests hold squares down at random, and a random tick after a clue has been
+     * read is quite likely to argue with it — at which point the board says so
+     * in the label as well as in the shading, and an exact match would be
+     * testing the flagging rather than the gesture.
+     */
+    const square = (name: string, mark: string) =>
+      screen.getByRole('button', { name: new RegExp(`^${name}: ${mark}\\b`) });
+
     it('ticks a blank square in one, where a tap would want two', () => {
       playing();
       const [blank] = screen.getAllByRole('button', { name: /: unknown$/ });
       const name = blank.props.accessibilityLabel.replace(/: unknown$/, '');
 
       hold(blank);
-      expect(screen.getByRole('button', { name: `${name}: matched` })).toBeOnTheScreen();
+      expect(square(name, 'matched')).toBeOnTheScreen();
       // And it settles a row and a column like any other tick.
       expect(screen.getAllByRole('button', { name: /: ruled out$/ }).length).toBeGreaterThan(0);
     });
 
     it('ticks a square that is already crossed, without cycling through blank', () => {
       playing();
-      const [square] = screen.getAllByRole('button', { name: /: unknown$/ });
-      const name = square.props.accessibilityLabel.replace(/: unknown$/, '');
+      const [blank] = screen.getAllByRole('button', { name: /: unknown$/ });
+      const name = blank.props.accessibilityLabel.replace(/: unknown$/, '');
 
-      fireEvent.press(square);
-      expect(screen.getByRole('button', { name: `${name}: ruled out` })).toBeOnTheScreen();
+      fireEvent.press(blank);
+      expect(square(name, 'ruled out')).toBeOnTheScreen();
 
-      hold(screen.getByRole('button', { name: `${name}: ruled out` }));
-      expect(screen.getByRole('button', { name: `${name}: matched` })).toBeOnTheScreen();
+      hold(square(name, 'ruled out'));
+      expect(square(name, 'matched')).toBeOnTheScreen();
     });
 
     /**
@@ -984,12 +996,12 @@ describe('the board', () => {
       const name = blank.props.accessibilityLabel.replace(/: unknown$/, '');
 
       hold(blank);
-      hold(screen.getByRole('button', { name: `${name}: matched` }));
-      expect(screen.getByRole('button', { name: `${name}: matched` })).toBeOnTheScreen();
+      hold(square(name, 'matched'));
+      expect(square(name, 'matched')).toBeOnTheScreen();
 
       // One press to take back, not two: the second did nothing.
       fireEvent.press(button('Undo'));
-      expect(screen.getByRole('button', { name: `${name}: unknown` })).toBeOnTheScreen();
+      expect(square(name, 'unknown')).toBeOnTheScreen();
       expect(button('Undo')).toBeDisabled();
     });
 
@@ -1108,6 +1120,67 @@ describe('the board', () => {
       fireEvent.press(button('Clue'));
       expect(screen.getByLabelText('Clue in play')).toBeOnTheScreen();
       expect(screen.queryByRole('button', { name: 'Hint' })).toBeNull();
+    });
+  });
+
+  /**
+   * The board saying which mark a clue on the table argues with, which is an
+   * assist and therefore a setting. Everything it points at is drawn from a clue
+   * the player has read and marks they can see; nothing is drawn from the answer.
+   */
+  describe('checking marks against the clues read', () => {
+    /** Reads the first clue, then marks the board past it. */
+    function afterAClue(checkClues: boolean) {
+      const puzzleToPlay = puzzle;
+      stage(
+        <GameScreen
+          puzzle={puzzleToPlay}
+          autoEliminate
+          autoFacts
+          checkClues={checkClues}
+          accent={DEFAULT_SETTINGS.accent}
+          onToggleAutoEliminate={none}
+          onToggleAutoFacts={none}
+          onToggleCheckClues={none}
+          onChangeAccent={none}
+          restore={null}
+          onExit={none}
+          onSaveProgress={async () => true}
+          onDiscardProgress={none}
+          onCompleted={() => Promise.reject(new Error('nothing is finished here'))}
+        />,
+      );
+      fireEvent.press(button('Close'));
+      fireEvent.press(button('Clue'));
+      fireEvent.press(button('Close'));
+      layOut();
+    }
+
+    /** How many squares the board is currently pointing at. */
+    const flagged = () => screen.queryAllByRole('button', { name: /, flagged$/ }).length;
+
+    it('shades nothing until a mark argues with something', () => {
+      afterAClue(true);
+      expect(flagged()).toBe(0);
+    });
+
+    it('shades the marks a read clue disagrees with, as they are made', () => {
+      afterAClue(true);
+      // The clue is on the table and the board is empty, so the squares it
+      // calls for are blank rather than wrong. Marking one the other way round
+      // is the first thing it can argue with.
+      const [blank] = screen.getAllByRole('button', { name: /: unknown$/ });
+      fireEvent(blank, 'longPress');
+      // Not asked for, not waited for: no window was opened and Clue was not
+      // pressed again.
+      expect(flagged()).toBeGreaterThan(0);
+    });
+
+    it('shades nothing at all when the setting is off', () => {
+      afterAClue(false);
+      const [blank] = screen.getAllByRole('button', { name: /: unknown$/ });
+      fireEvent(blank, 'longPress');
+      expect(flagged()).toBe(0);
     });
   });
 
@@ -1239,9 +1312,11 @@ describe('the board', () => {
         puzzle={puzzle}
         autoEliminate
         autoFacts
+        checkClues={DEFAULT_SETTINGS.checkClues}
         accent={DEFAULT_SETTINGS.accent}
         onToggleAutoEliminate={none}
         onToggleAutoFacts={none}
+        onToggleCheckClues={none}
         onChangeAccent={none}
         restore={{ ...savedGame(puzzle), marks: solvedMarks() }}
         onExit={none}
@@ -1269,9 +1344,11 @@ describe('the board', () => {
         puzzle={puzzle}
         autoEliminate
         autoFacts
+        checkClues={DEFAULT_SETTINGS.checkClues}
         accent={DEFAULT_SETTINGS.accent}
         onToggleAutoEliminate={none}
         onToggleAutoFacts={none}
+        onToggleCheckClues={none}
         onChangeAccent={none}
         restore={{ ...savedGame(puzzle), marks: solvedMarks(), hintsAsked: 7 }}
         onExit={none}
@@ -1297,9 +1374,11 @@ describe('the board', () => {
         puzzle={puzzle}
         autoEliminate
         autoFacts
+        checkClues={DEFAULT_SETTINGS.checkClues}
         accent={DEFAULT_SETTINGS.accent}
         onToggleAutoEliminate={none}
         onToggleAutoFacts={none}
+        onToggleCheckClues={none}
         onChangeAccent={none}
         restore={{ ...savedGame(puzzle), marks: solvedMarks(), seconds: 300 }}
         onExit={none}
@@ -1342,10 +1421,12 @@ describe('the puzzle settings', () => {
         puzzle={puzzle}
         autoEliminate
         autoFacts={false}
+        checkClues
         accent={DEFAULT_SETTINGS.accent}
         onChangeAccent={none}
         onToggleAutoEliminate={none}
         onToggleAutoFacts={onToggleAutoFacts}
+        onToggleCheckClues={none}
         onRestart={none}
         onClose={none}
       />,
@@ -1354,6 +1435,7 @@ describe('the puzzle settings', () => {
     expect(header('Puzzle settings')).toBeOnTheScreen();
     expect(header('This puzzle')).toBeOnTheScreen();
     expect(checkbox('Automatic crosses')).toBeChecked();
+    expect(checkbox('Check against clues')).toBeChecked();
     expect(checkbox('Auto add facts')).not.toBeChecked();
     expect(button('Colour')).toBeEnabled();
 
@@ -1368,10 +1450,12 @@ describe('the puzzle settings', () => {
         puzzle={puzzle}
         autoEliminate
         autoFacts
+        checkClues
         accent={DEFAULT_SETTINGS.accent}
         onChangeAccent={none}
         onToggleAutoEliminate={none}
         onToggleAutoFacts={none}
+        onToggleCheckClues={none}
         onRestart={onRestart}
         onClose={none}
       />,
@@ -1455,6 +1539,7 @@ describe('the settings', () => {
     expect(header('Settings')).toBeOnTheScreen();
     expect(checkbox('Automatic crosses')).toBeChecked();
     expect(checkbox('Auto add facts')).toBeChecked();
+    expect(checkbox('Check against clues')).toBeChecked();
     expect(checkbox('Match the device')).toBeChecked();
     expect(checkbox('Vibration')).toBeChecked();
     expect(button('Colour')).toBeEnabled();
@@ -1462,6 +1547,9 @@ describe('the settings', () => {
 
     fireEvent.press(checkbox('Automatic crosses'));
     expect(onChange).toHaveBeenCalledWith({ autoEliminate: false });
+
+    fireEvent.press(checkbox('Check against clues'));
+    expect(onChange).toHaveBeenCalledWith({ checkClues: false });
   });
 
   it('leaves the night switch to the device while the device is deciding', () => {

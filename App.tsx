@@ -218,11 +218,15 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             puzzle={puzzle}
             autoEliminate={settings.settings.autoEliminate}
             autoFacts={settings.settings.autoFacts}
+            checkClues={settings.settings.checkClues}
             accent={settings.settings.accent}
             onToggleAutoEliminate={() =>
               settings.update({ autoEliminate: !settings.settings.autoEliminate })
             }
             onToggleAutoFacts={() => settings.update({ autoFacts: !settings.settings.autoFacts })}
+            onToggleCheckClues={() =>
+              settings.update({ checkClues: !settings.settings.checkClues })
+            }
             onChangeAccent={(accent) => settings.update({ accent })}
             restore={restore ?? persistence.savedGame}
             // A game picked back up does not say which list it came from; its

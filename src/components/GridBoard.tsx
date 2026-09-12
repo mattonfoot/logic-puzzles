@@ -129,6 +129,10 @@ export function fitCellSize(
  * The set names and pictures down the left stay put while the blocks themselves
  * scroll sideways, so a wide board never loses its row headings.
  */
+/** A square's own label, plus the one word its shading would otherwise keep. */
+const labelFor = (square: string, flagged: boolean) =>
+  flagged ? t('game.flagged', { square }) : square;
+
 export function GridBoard({
   puzzle,
   marks,
@@ -327,13 +331,19 @@ export function GridBoard({
                                 <Pressable
                                   key={colItem}
                                   accessibilityRole="button"
-                                  accessibilityLabel={`${puzzle.categories[rowCategory].items[rowItem].label} and ${puzzle.categories[colCategory].items[colItem].label}: ${
-                                    mark === 'yes'
-                                      ? 'matched'
-                                      : mark === 'no'
-                                        ? 'ruled out'
-                                        : 'unknown'
-                                  }`}
+                                  // Shading is the whole of what a flagged square
+                                  // says, and shading is the one thing a screen
+                                  // reader cannot see — so it is said here too.
+                                  accessibilityLabel={labelFor(
+                                    `${puzzle.categories[rowCategory].items[rowItem].label} and ${puzzle.categories[colCategory].items[colItem].label}: ${
+                                      mark === 'yes'
+                                        ? 'matched'
+                                        : mark === 'no'
+                                          ? 'ruled out'
+                                          : 'unknown'
+                                    }`,
+                                    wrong,
+                                  )}
                                   onPress={() => onToggle(cell)}
                                   onLongPress={onSettle ? () => onSettle(cell) : undefined}
                                   // A long press is a gesture, and a gesture is

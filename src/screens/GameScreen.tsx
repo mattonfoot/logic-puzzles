@@ -22,7 +22,7 @@ import {
   type Cell,
   type Marks,
 } from '../game/board';
-import { cluesDone, inventClue, nextClue } from '../game/clues';
+import { cluesDone, inventClue, marksAgainstClues, nextClue } from '../game/clues';
 import { hintFor } from '../game/hint';
 import { numberOn } from '../game/library';
 import { SAVE_VERSION, SAVED_UNDO, type SavedGame } from '../game/persistence';
@@ -54,10 +54,13 @@ interface Props {
   /** The player's board settings, which live outside any one game. */
   autoEliminate: boolean;
   autoFacts: boolean;
+  /** Whether a mark that argues with a clue already read is shaded on the board. */
+  checkClues: boolean;
   /** The colour the app is drawn in — the player's, reachable from the menu. */
   accent: string;
   onToggleAutoEliminate: () => void;
   onToggleAutoFacts: () => void;
+  onToggleCheckClues: () => void;
   onChangeAccent: (accent: string) => void;
   /** Board to start from when the player is picking a game back up. */
   restore?: SavedGame | null;
@@ -88,9 +91,11 @@ export function GameScreen({
   puzzle,
   autoEliminate,
   autoFacts,
+  checkClues,
   accent,
   onToggleAutoEliminate,
   onToggleAutoFacts,
+  onToggleCheckClues,
   onChangeAccent,
   restore,
   daily = false,
@@ -174,6 +179,25 @@ export function GameScreen({
   // guess the solution says is wrong would hand the solution over.
   const wrong = useMemo(() => findConflicts(marks, puzzle), [marks, puzzle]);
   const stuck = flagged && wrong.length > 0;
+  /**
+   * Marks that argue with a clue the player has already read, when they have
+   * asked to be shown them.
+   *
+   * A different question from `wrong`, and it earns its shading differently.
+   * `wrong` is the board disagreeing with itself, which the game knows without
+   * being told anything; this is the board disagreeing with a sentence already
+   * on the screen, which the player could have found by reading it again. That
+   * makes it an assist rather than a tell — nothing here is drawn from the
+   * answer — and an assist is a setting.
+   *
+   * It is shown the moment the mark goes down rather than held back until Clue
+   * is pressed, because a contradiction you are told about three moves later is
+   * three moves of work to unpick.
+   */
+  const againstClues = useMemo(
+    () => (checkClues ? marksAgainstClues(marks, inPlay, cluesSeen) : []),
+    [checkClues, cluesSeen, inPlay, marks],
+  );
   /**
    * What the clue on the table would say about the board, if asked.
    *
@@ -361,6 +385,17 @@ export function GameScreen({
       if (statusTimer.current) clearTimeout(statusTimer.current);
     },
     [],
+  );
+
+  /**
+   * Every square the board is currently pointing at: what the clue button found
+   * the last time it was pressed, and whatever a read clue is arguing with right
+   * now. The first is a moment, cleared by the next mark; the second is a state
+   * of the board, and stays until the mark that caused it moves.
+   */
+  const shaded = useMemo(
+    () => (againstClues.length === 0 ? mistakes : new Set([...mistakes, ...againstClues])),
+    [againstClues, mistakes],
   );
 
   /** Records a move so it can be taken back, then makes it. */
@@ -617,10 +652,12 @@ export function GameScreen({
         puzzle={puzzle}
         autoEliminate={autoEliminate}
         autoFacts={autoFacts}
+        checkClues={checkClues}
         accent={accent}
         onChangeAccent={onChangeAccent}
         onToggleAutoEliminate={onToggleAutoEliminate}
         onToggleAutoFacts={onToggleAutoFacts}
+        onToggleCheckClues={onToggleCheckClues}
         onRestart={() => {
           restart();
           setMenuOpen(false);
@@ -715,7 +752,7 @@ export function GameScreen({
                 <GridBoard
                   puzzle={puzzle}
                   marks={marks}
-                  mistakes={mistakes}
+                  mistakes={shaded}
                   highlight={highlight}
                   cellSize={cellSize}
                   onToggle={toggleCell}

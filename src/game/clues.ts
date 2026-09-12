@@ -15,7 +15,7 @@ import { buildPools, clueKey } from '../puzzle/generator';
 import { createRng } from '../puzzle/rng';
 import { contextFor } from '../puzzle/solver';
 import type { Attribute, Clue, Puzzle } from '../puzzle/types';
-import { getMark, type Cell, type Mark, type Marks } from './board';
+import { getMark, markKey, type Cell, type Mark, type Marks } from './board';
 
 export interface RequiredMark {
   cell: Cell;
@@ -138,6 +138,41 @@ export function clueBreaks(clue: Clue, marks: Marks, puzzle: Puzzle): RequiredMa
     const mark = getMark(marks, required.cell);
     return mark !== undefined && mark !== required.mark;
   });
+}
+
+/**
+ * Every mark standing against a clue the player has already been told.
+ *
+ * The board's own shading is for marks that disagree with *each other*, and
+ * never with the answer — shading a guess the solution says is wrong would hand
+ * the solution over. This is the third thing, and it gives nothing away either:
+ * a clue that has been read is already on the screen, so pointing at the mark it
+ * argues with says only what the player could have worked out by reading it
+ * again. It is behind a setting because *having* to read it again is the game.
+ *
+ * Only clues in `read` count. A clue nobody has asked for cannot be contradicted
+ * — the player has not been told it — and flagging against one would be the
+ * board playing the puzzle.
+ */
+export function marksAgainstClues(marks: Marks, puzzle: Puzzle, read: Iterable<number>): string[] {
+  const against = new Set<string>();
+  for (const index of read) {
+    const clue = puzzle.clues[index];
+    if (!clue) continue;
+    for (const broken of clueBreaks(clue, marks, puzzle)) {
+      const key = markKey(broken.cell);
+      against.add(key);
+      // The square a clue argues with is often not a square anybody touched: a
+      // tick crosses out the rest of its row, and one of those crosses can be
+      // the very cell the clue wanted ticked. Shading that cross alone points at
+      // a square doing exactly what it was told. The tick that told it is the
+      // mark the player can move, so it is shaded too, and the pair of them read
+      // as the row they are both in.
+      const from = marks[key]?.from;
+      if (from) against.add(from);
+    }
+  }
+  return [...against];
 }
 
 /** The indices of every clue the board has caught up with. */

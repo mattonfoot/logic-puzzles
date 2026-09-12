@@ -19,11 +19,14 @@ interface Props {
   autoEliminate: boolean;
   /** Whether ticks that follow from other ticks are filled in. */
   autoFacts: boolean;
+  /** Whether a mark that argues with a clue already read is shaded. */
+  checkClues: boolean;
   /** The colour the app is drawn in, which is the player's rather than the puzzle's. */
   accent: string;
   onChangeAccent: (accent: string) => void;
   onToggleAutoEliminate: () => void;
   onToggleAutoFacts: () => void;
+  onToggleCheckClues: () => void;
   onRestart: () => void;
   onClose: () => void;
 }
@@ -57,10 +60,12 @@ export function GameMenuScreen({
   puzzle,
   autoEliminate,
   autoFacts,
+  checkClues,
   accent,
   onChangeAccent,
   onToggleAutoEliminate,
   onToggleAutoFacts,
+  onToggleCheckClues,
   onRestart,
   onClose,
 }: Props) {
@@ -92,6 +97,12 @@ export function GameMenuScreen({
             on={autoFacts}
             accent={palette.accent}
             onPress={onToggleAutoFacts}
+          />
+          <CheckRow
+            label={t('menu.checkAgainstClues')}
+            on={checkClues}
+            accent={palette.accent}
+            onPress={onToggleCheckClues}
           />
           <CycleRow
             label={t('menu.colour')}

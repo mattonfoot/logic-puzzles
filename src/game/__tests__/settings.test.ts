@@ -23,6 +23,18 @@ describe('reading settings back', () => {
     });
   });
 
+  /**
+   * Settings written before the board could check marks against the clues come
+   * back with it on, which is what the default says. It is an assist rather than
+   * a change to the rules, so arriving switched on is the friendlier reading of
+   * a field that simply was not there.
+   */
+  it('turns clue checking on for settings written before it existed', () => {
+    const before = { ...DEFAULT_SETTINGS } as Record<string, unknown>;
+    delete before.checkClues;
+    expect(reviveSettings(before)?.checkClues).toBe(true);
+  });
+
   it('refuses a colour it does not have', () => {
     const odd = { ...DEFAULT_SETTINGS, colours: 'dusk' };
     expect(reviveSettings(odd)?.colours).toBe(DEFAULT_SETTINGS.colours);

@@ -1,7 +1,7 @@
 import { DEFAULT_CLUE_TEMPLATES } from '../../puzzle/describe';
 import type { Clue, ItemDef, Puzzle } from '../../puzzle/types';
 import { categoryPairs, setMark, type Cell, type Marks } from '../board';
-import { clueBreaks } from '../clues';
+import { clueBreaks, marksAgainstClues } from '../clues';
 import { hintFor } from '../hint';
 
 /** A bare item: these tests are about what is said, not about the words. */
@@ -177,6 +177,58 @@ describe('the hint a clue gives', () => {
     );
     expect(hintFor(kellHasLance, shuffled, elsewhere)).toEqual(
       hintFor(kellHasLance, shuffled, puzzle),
+    );
+  });
+});
+
+/**
+ * The board pointing at a mark that argues with a clue already on the table.
+ *
+ * The same reading as the hint and the same guarantee: everything it says comes
+ * from a clue the player has been told and a mark they can see, so it gives away
+ * nothing the answer knows. What separates it from the hint is that it does not
+ * wait to be asked, which is why it is a setting.
+ */
+describe('marks against the clues already read', () => {
+  it('says nothing about a board that agrees with them', () => {
+    const right = boardOf(puzzle.solution[1]);
+    expect(marksAgainstClues(right, { ...puzzle, clues: [kellHasNoSabre] }, [0])).toEqual([]);
+  });
+
+  it('says nothing about a clue nobody has asked for', () => {
+    // The board breaks it, and the player has not been told it, so the board
+    // has no business knowing.
+    const broken = { ...puzzle, clues: [kellHasNoSabre] };
+    expect(marksAgainstClues(shuffled, broken, [])).toEqual([]);
+    expect(marksAgainstClues(shuffled, broken, [0])).toEqual(['0.0-1.0']);
+  });
+
+  it('points at the tick behind an automatic mark as well as the mark itself', () => {
+    // Kell has the Sabre by hand, so the board crossed Kell and the Lance for
+    // itself — and that cross is what this clue argues with. Shading it alone
+    // would point at a square doing what it was told.
+    const hint = marksAgainstClues(shuffled, { ...puzzle, clues: [kellHasLance] }, [0]);
+    expect(hint).toContain('0.0-1.2');
+    expect(hint).toContain('0.0-1.0');
+  });
+
+  it('counts every clue read, and each square once', () => {
+    const both = { ...puzzle, clues: [kellHasNoSabre, kellHasNoSabre] };
+    expect(marksAgainstClues(shuffled, both, [0, 1])).toEqual(['0.0-1.0']);
+  });
+
+  it('gives the same answer on a puzzle with a different answer', () => {
+    const elsewhere: Puzzle = {
+      ...puzzle,
+      clues: [kellHasNoSabre],
+      solution: [
+        [0, 1, 2],
+        [1, 2, 0],
+        [2, 0, 1],
+      ],
+    };
+    expect(marksAgainstClues(shuffled, elsewhere, [0])).toEqual(
+      marksAgainstClues(shuffled, { ...puzzle, clues: [kellHasNoSabre] }, [0]),
     );
   });
 });

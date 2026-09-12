@@ -51,6 +51,11 @@ export function SettingsScreen({ settings, onChange, onBack }: Props) {
             onPress={() => onChange({ autoFacts: !settings.autoFacts })}
           />
           <CheckRow
+            label={t('settings.checkAgainstClues')}
+            on={settings.checkClues}
+            onPress={() => onChange({ checkClues: !settings.checkClues })}
+          />
+          <CheckRow
             label={t('settings.matchDevice')}
             on={auto}
             onPress={() =>

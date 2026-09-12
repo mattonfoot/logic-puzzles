@@ -16,6 +16,12 @@ export interface Settings {
   autoEliminate: boolean;
   /** Whether ticks that follow from other ticks are filled in. */
   autoFacts: boolean;
+  /**
+   * Whether a mark that argues with a clue already read is shaded on the board.
+   * Not a hint: the clue is on the screen, so this says only what re-reading it
+   * would have said.
+   */
+  checkClues: boolean;
   /** Day, night, or whatever the device is doing. */
   colours: ColourPreference;
   /** Which colour the app draws its links, marks and headings in. */
@@ -49,6 +55,7 @@ export const DEFAULT_SETTINGS: Settings = {
   version: SETTINGS_VERSION,
   autoEliminate: true,
   autoFacts: true,
+  checkClues: true,
   colours: 'auto',
   accent: DEFAULT_ACCENT,
   haptics: true,
@@ -72,6 +79,7 @@ export function reviveSettings(value: unknown): Settings | null {
     autoEliminate:
       typeof raw.autoEliminate === 'boolean' ? raw.autoEliminate : DEFAULT_SETTINGS.autoEliminate,
     autoFacts: typeof raw.autoFacts === 'boolean' ? raw.autoFacts : DEFAULT_SETTINGS.autoFacts,
+    checkClues: typeof raw.checkClues === 'boolean' ? raw.checkClues : DEFAULT_SETTINGS.checkClues,
     colours:
       typeof raw.colours === 'string' && PREFERENCES.includes(raw.colours as ColourPreference)
         ? (raw.colours as ColourPreference)

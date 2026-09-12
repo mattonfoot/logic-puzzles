@@ -256,6 +256,7 @@ export const STRINGS = {
     back: 'Back to setup',
     seed: '#{seed}',
     square: '{row} and {column}',
+    flagged: '{square}, flagged',
     hint: {
       ask: 'Hint',
       ticked:
@@ -997,6 +998,7 @@ export const STRINGS = {
     thisPuzzle: 'This puzzle',
     automaticCrosses: 'Automatic crosses',
     autoAddFacts: 'Auto add facts',
+    checkAgainstClues: 'Check against clues',
     colour: 'Colour',
     restart: 'Restart puzzle',
     back: 'Back to the board',
@@ -1010,6 +1012,7 @@ export const STRINGS = {
     title: 'Settings',
     automaticCrosses: 'Automatic crosses',
     autoAddFacts: 'Auto add facts',
+    checkAgainstClues: 'Check against clues',
     matchDevice: 'Match the device',
     nightColours: 'Night colours',
     colour: 'Colour',
@@ -5059,6 +5062,7 @@ export type StringKey =
   | 'daily.title'
   | 'game.back'
   | 'game.clue'
+  | 'game.flagged'
   | 'game.highlight'
   | 'game.hint.ask'
   | 'game.hint.crossed'
@@ -5225,6 +5229,7 @@ export type StringKey =
   | 'menu.autoAddFacts'
   | 'menu.automaticCrosses'
   | 'menu.back'
+  | 'menu.checkAgainstClues'
   | 'menu.colour'
   | 'menu.confirm.body'
   | 'menu.confirm.confirmLabel'
@@ -5243,6 +5248,7 @@ export type StringKey =
   | 'settings.autoAddFacts'
   | 'settings.automaticCrosses'
   | 'settings.back'
+  | 'settings.checkAgainstClues'
   | 'settings.colour'
   | 'settings.matchDevice'
   | 'settings.nightColours'

@@ -282,6 +282,10 @@ game:
   # A square, by the two things it names: "Ms Barley and the Mocha". Said by
   # the lessons and by the clue window's hint, so it lives with the board.
   square: '{row} and {column}'
+  # Added to a square's own label when the board is pointing at it. The shading
+  # says this to everybody else; without the word, a screen reader is the one
+  # reader the flagging never reaches.
+  flagged: '{square}, flagged'
   # Offered in the clue window once every square carries a mark and the clue on
   # the table still disagrees with one of them. A full board has no blank left
   # to work at, so a player whose answer is wrong but holds together has only
@@ -709,6 +713,9 @@ menu:
   thisPuzzle: This puzzle
   automaticCrosses: Automatic crosses
   autoAddFacts: Auto add facts
+  # Shades a mark that argues with a clue already read. Not a hint - the clue is
+  # on the screen - but having to re-read it is the game, so it can be turned off.
+  checkAgainstClues: Check against clues
   colour: Colour
   restart: Restart puzzle
   back: Back to the board
@@ -721,6 +728,7 @@ settings:
   title: Settings
   automaticCrosses: Automatic crosses
   autoAddFacts: Auto add facts
+  checkAgainstClues: Check against clues
   matchDevice: Match the device
   nightColours: Night colours
   colour: Colour
