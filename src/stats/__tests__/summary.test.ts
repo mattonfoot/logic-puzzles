@@ -84,20 +84,35 @@ describe('statsForSize', () => {
 });
 
 describe('summarise', () => {
-  it('counts solves, reveals, clues and themes', () => {
+  /**
+   * A game finished before hints existed stores null, and counting that as a
+   * nought would credit somebody with managing without a thing nobody offered
+   * them. It is left out of the total, the way an uncounted clue is.
+   */
+  it('leaves a game that never counted hints out of the total', () => {
     const games = newestFirst(
-      game({ seconds: 100, cluesUsed: 2 }),
-      game({ seconds: 150, themeId: 'reef', cluesUsed: 6 }),
-      game({ seconds: 10, revealed: true, cluesUsed: 9 }),
+      game({ hintsAsked: null }),
+      game({ hintsAsked: 2, themeId: 'reef' }),
+      game({ hintsAsked: null, themeId: 'cafe' }),
+    );
+    expect(summarise(games, SIZES, NOON).hintsAsked).toBe(2);
+  });
+
+  it('counts solves, reveals, clues, hints and themes', () => {
+    const games = newestFirst(
+      game({ seconds: 100, cluesUsed: 2, hintsAsked: 1 }),
+      game({ seconds: 150, themeId: 'reef', cluesUsed: 6, hintsAsked: 3 }),
+      game({ seconds: 10, revealed: true, cluesUsed: 9, hintsAsked: 5 }),
     );
     const stats = summarise(games, SIZES, NOON);
 
     expect(stats.solved).toBe(2);
     expect(stats.revealed).toBe(1);
     expect(stats.totalSeconds).toBe(250);
-    // The revealed game is left out of both, as it is out of the times.
+    // The revealed game is left out of all three, as it is out of the times.
     expect(stats.cluesUsed).toBe(8);
     expect(stats.averageClues).toBe(4);
+    expect(stats.hintsAsked).toBe(4);
     expect(stats.themesPlayed).toBe(2);
     expect(stats.sizes.map((size) => size.sizeId)).toEqual(['sm', 'md']);
   });

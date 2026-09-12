@@ -59,6 +59,7 @@ export function ResultScreen({ game, onBack }: Props) {
               puzzle,
               seconds: game.seconds,
               cluesUsed: game.cluesUsed ?? 0,
+              hintsAsked: game.hintsAsked ?? 0,
               daily: true,
             });
           }}

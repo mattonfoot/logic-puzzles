@@ -45,6 +45,8 @@ export interface OverallStats {
   cluesUsed: number;
   /** Mean clues read per solve, over the solves that recorded it. */
   averageClues: number | null;
+  /** Hints asked for across every solve that recorded them. */
+  hintsAsked: number;
   themesPlayed: number;
   currentStreak: number;
   longestStreak: number;
@@ -62,6 +64,16 @@ const mean = (values: number[]): number | null =>
  */
 const clueCounts = (games: CompletedGame[]): number[] =>
   games.map((game) => game.cluesUsed).filter((used): used is number => used !== null);
+
+/**
+ * The hint counts of the games that have one.
+ *
+ * Read the same way as the clue counts and for the same reason: a game finished
+ * before hints existed stores `null`, and counting that as a nought would say
+ * somebody managed without something they were never offered.
+ */
+const hintCounts = (games: CompletedGame[]): number[] =>
+  games.map((game) => game.hintsAsked).filter((asked): asked is number => asked !== null);
 
 /** Local calendar day, so streaks line up with the player's own days. */
 function dayNumber(timestamp: number): number {
@@ -146,6 +158,7 @@ export function summarise(
     totalSeconds: solvedGames.reduce((total, game) => total + game.seconds, 0),
     cluesUsed: clueCounts(solvedGames).reduce((total, used) => total + used, 0),
     averageClues: mean(clueCounts(solvedGames)),
+    hintsAsked: hintCounts(solvedGames).reduce((total, asked) => total + asked, 0),
     themesPlayed: new Set(solvedGames.map((game) => game.themeId)).size,
     currentStreak: current,
     longestStreak: longest,

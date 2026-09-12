@@ -728,7 +728,7 @@ export function GameScreen({
             notice={recorded === false ? t('solved.notRecorded') : null}
             onShare={() => {
               feedback.tap();
-              void shareResult({ puzzle, seconds, cluesUsed: cluesSeen.size, daily });
+              void shareResult({ puzzle, seconds, cluesUsed: cluesSeen.size, hintsAsked, daily });
             }}
             onPlayAgain={restart}
           />

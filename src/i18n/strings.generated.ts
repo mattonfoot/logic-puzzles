@@ -1037,7 +1037,14 @@ export const STRINGS = {
   share: {
     daily: 'Deduction · Daily, {date} · {difficulty}',
     numbered: 'Deduction · {difficulty} #{number}',
-    line: '{clock} · {clues} clues',
+    clues: {
+      one: '1 clue',
+      other: '{count} clues',
+    },
+    hints: {
+      one: '1 hint',
+      other: '{count} hints',
+    },
   },
   improvement: {
     revealed: {
@@ -1074,7 +1081,8 @@ export const STRINGS = {
     streak: 'Streak',
     bestStreak: 'best {days}d',
     cluesRead: 'Clues read',
-    perPuzzle: 'Per puzzle',
+    perPuzzle: '{count} per puzzle',
+    hintsAsked: 'Hints asked',
     themes: 'Themes',
     byDifficulty: 'By difficulty',
     difficulty: 'Difficulty',
@@ -1089,7 +1097,6 @@ export const STRINGS = {
     emptyBody:
       'Solve one and your time lands here. After a few, you will see whether you are getting quicker.',
     clearStatistics: 'Clear statistics',
-    perPuzzleUnit: 'clues',
     trendPending: '{solved} solved · best {best}. A few more and the trend below fills in.',
     trendDetail: 'Last {count} average {recent} vs {earlier} before that.',
     confirm: {
@@ -5265,8 +5272,11 @@ export type StringKey =
   | 'setup.difficultyHint'
   | 'setup.title'
   | 'setup.unreadable'
+  | 'share.clues.one'
+  | 'share.clues.other'
   | 'share.daily'
-  | 'share.line'
+  | 'share.hints.one'
+  | 'share.hints.other'
   | 'share.numbered'
   | 'sizes.lg.difficulty'
   | 'sizes.lg.label'
@@ -5312,9 +5322,9 @@ export type StringKey =
   | 'stats.emptyBody'
   | 'stats.fasterLately'
   | 'stats.gettingFaster'
+  | 'stats.hintsAsked'
   | 'stats.holdingSteady'
   | 'stats.perPuzzle'
-  | 'stats.perPuzzleUnit'
   | 'stats.slowerLately'
   | 'stats.solved'
   | 'stats.streak'

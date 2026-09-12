@@ -1,6 +1,6 @@
 import { Share } from 'react-native';
 
-import { t } from '../i18n';
+import { plural, t } from '../i18n';
 import type { Puzzle } from '../puzzle/types';
 import { formatDuration } from './time';
 import { dailyDate, numberOn } from './library';
@@ -9,8 +9,8 @@ import { dailyDate, numberOn } from './library';
  * A finished game as a few lines somebody can be sent.
  *
  * What is in it: which puzzle — the date for a daily, the number for a
- * numbered game — the difficulty, the clock, and the clues read as a row of
- * squares. What is not: anything about the answer. The squares are the
+ * numbered game — the difficulty, the clock, the clues read, any hints asked
+ * for, and the clues read again as a row of squares. What is not: anything about the answer. The squares are the
  * puzzle's own clues, filled for the ones read and empty for the ones that were
  * not needed, with a yellow one for each clue the board had to write past the
  * end; how many clues a puzzle has is not a spoiler, and how many it took is
@@ -20,6 +20,8 @@ export interface Result {
   puzzle: Puzzle;
   seconds: number;
   cluesUsed: number;
+  /** How many times a clue was asked what was wrong with the board. */
+  hintsAsked: number;
   /** Today's challenge rather than a numbered game: named by its date. */
   daily: boolean;
 }
@@ -40,7 +42,7 @@ export function formatDate(date: Date): string {
   return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-export function resultText({ puzzle, seconds, cluesUsed, daily }: Result): string {
+export function resultText({ puzzle, seconds, cluesUsed, hintsAsked, daily }: Result): string {
   const heading = daily
     ? t('share.daily', {
         date: formatDate(dailyDate(puzzle.seed)),
@@ -51,7 +53,11 @@ export function resultText({ puzzle, seconds, cluesUsed, daily }: Result): strin
         // The number off the list, not the seed it packs to.
         number: numberOn(puzzle.seed, puzzle.size.id) ?? puzzle.seed,
       });
-  const line = t('share.line', { clock: formatDuration(seconds), clues: cluesUsed });
+  // Hints only when there were some. The separator is joined here rather than
+  // written into a template, because which parts there are depends on the game.
+  const spent = [formatDuration(seconds), plural('share.clues', cluesUsed)];
+  if (hintsAsked > 0) spent.push(plural('share.hints', hintsAsked));
+  const line = spent.join(' · ');
   return [heading, line, clueSquares(cluesUsed, puzzle.clues.length)].join('\n');
 }
 

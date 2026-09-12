@@ -766,7 +766,15 @@ solved:
 share:
   daily: Deduction · Daily, {date} · {difficulty}
   numbered: 'Deduction · {difficulty} #{number}'
-  line: '{clock} · {clues} clues'
+  # The second line is the clock and what it cost, joined by the middot the app
+  # punctuates with everywhere. Hints are left off a game that used none: a
+  # nought on every share says nothing, and their absence is the good news.
+  clues:
+    one: 1 clue
+    other: '{count} clues'
+  hints:
+    one: 1 hint
+    other: '{count} hints'
 
 improvement:
   revealed:
@@ -798,7 +806,11 @@ stats:
   streak: Streak
   bestStreak: best {days}d
   cluesRead: Clues read
-  perPuzzle: Per puzzle
+  # Under the clues, where it used to be a tile of its own. It is a reading of
+  # that number rather than a number beside it, and folding it in left room for
+  # the hints without a row holding one tile.
+  perPuzzle: '{count} per puzzle'
+  hintsAsked: Hints asked
   themes: Themes
   byDifficulty: By difficulty
   difficulty: Difficulty
@@ -812,7 +824,6 @@ stats:
   empty: No finished puzzles yet
   emptyBody: Solve one and your time lands here. After a few, you will see whether you are getting quicker.
   clearStatistics: Clear statistics
-  perPuzzleUnit: clues
   trendPending: '{solved} solved · best {best}. A few more and the trend below fills in.'
   trendDetail: Last {count} average {recent} vs {earlier} before that.
   confirm:

@@ -94,13 +94,22 @@ export function StatsScreen({
                 hint={t('stats.bestStreak', { days: stats.longestStreak })}
               />
             </View>
+            {/* What the games cost, the way the row above says how many there
+                were. The clue average used to be a tile of its own; it is a
+                reading of the number beside it rather than a number in its own
+                right, so it sits under it — which is what left room for the
+                hints without a row holding a single tile. */}
             <View style={styles.tileRow}>
-              <Tile label={t('stats.cluesRead')} value={`${stats.cluesUsed}`} />
               <Tile
-                label={t('stats.perPuzzle')}
-                value={stats.averageClues === null ? '—' : stats.averageClues.toFixed(1)}
-                hint={t('stats.perPuzzleUnit')}
+                label={t('stats.cluesRead')}
+                value={`${stats.cluesUsed}`}
+                hint={
+                  stats.averageClues === null
+                    ? undefined
+                    : t('stats.perPuzzle', { count: stats.averageClues.toFixed(1) })
+                }
               />
+              <Tile label={t('stats.hintsAsked')} value={`${stats.hintsAsked}`} />
               <Tile label={t('stats.themes')} value={`${stats.themesPlayed}/${THEMES.length}`} />
             </View>
           </View>

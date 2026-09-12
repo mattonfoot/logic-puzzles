@@ -1646,6 +1646,12 @@ describe('the statistics', () => {
 
     // Once as a tile, once as a column of the table by difficulty.
     expect(screen.getAllByText('Solved')).toHaveLength(2);
+    // What the games cost, beside how many there were. The clue average reads
+    // under the clues rather than standing as a tile of its own.
+    expect(screen.getByText('Clues read')).toBeOnTheScreen();
+    expect(screen.getByText('Hints asked')).toBeOnTheScreen();
+    expect(screen.getByText('4.0 per puzzle')).toBeOnTheScreen();
+    expect(screen.queryByText('Per puzzle')).toBeNull();
     expect(screen.getByText('3')).toBeOnTheScreen();
     expect(screen.getByRole('tab', { name: 'Advanced' })).toBeSelected();
     expect(screen.getByRole('tab', { name: 'Expert' })).not.toBeSelected();

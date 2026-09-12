@@ -1367,9 +1367,11 @@ for the 29th of August.
 
 A finished game can be sent to somebody. **Share** on the result hands three
 lines to the system share sheet: which puzzle — *Daily, 2 September 2026* or
-*Expert #7* — with its difficulty; the clock and the clues read; and the clues
-as a row of squares, filled for the ones read, empty for the ones not needed,
-yellow for each the board had to write past the end. Nothing about the answer,
+*Expert #7* — with its difficulty; the clock, the clues read and any hints
+asked for; and the clues as a row of squares, filled for the ones read, empty
+for the ones not needed, yellow for each the board had to write past the end.
+Hints appear only on a game that used one — a nought on every share says
+nothing, and their absence is the good news. Nothing about the answer,
 the theme or the cast is in it: how many clues a puzzle has is not a spoiler,
 and how many it took is the whole of what there is to compare. `dailyDate`
 reads the date back out of a seed for the heading, and `looksDaily` decides
