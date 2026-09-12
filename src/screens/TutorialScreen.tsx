@@ -30,6 +30,12 @@ import { ZoomPair } from '../ui/ZoomPair';
 
 interface Props {
   lesson: LessonId;
+  /**
+   * Called once, when the board comes out: this lesson has been walked to the
+   * end. The screen never asks for it back — see below — so a lesson is the
+   * same lesson however many times it has been taken.
+   */
+  onWalked?: (lesson: LessonId) => void;
   onBack: () => void;
 }
 
@@ -66,19 +72,24 @@ const ZOOM_STEP = 8;
  * square is the player working it out, and the lesson finishes when the *board*
  * is out rather than when the list of steps runs off the end.
  *
- * Nothing here is recorded, and that is deliberate rather than unfinished: no
- * clock, no save, nothing in the statistics, and no note anywhere that any of
- * them has been done. They are not games, a first attempt at the app should not
- * arrive in the numbers as one, and a lesson that remembers being finished is a
- * lesson that cannot be taken twice. So each opens on an empty board every time
- * — the screen holds nothing outside itself, which is what makes that true
- * rather than merely intended.
+ * Nothing here is played back to the player, and that is deliberate rather than
+ * unfinished: no clock, no save, nothing in the statistics. They are not games
+ * and a first attempt at the app should not arrive in the numbers as one, and a
+ * lesson that remembers being finished is a lesson that cannot be taken twice.
+ * So each opens on an empty board every time.
+ *
+ * One line does leave: when the board comes out, `onWalked` says so, and the
+ * app writes it down. The screen never reads it back — it holds nothing about
+ * itself and asks nothing on the way in — so the lesson is unchanged by having
+ * been done, which was the point of recording nothing in the first place. What
+ * the note is for is the one thing that cannot be reconstructed later: whether
+ * somebody was ever shown this.
  *
  * The one thing it does ask is whether somebody part-way through meant to
  * leave, since walking out at the third mark and coming back to the first is a
  * surprise worth heading off.
  */
-export function TutorialScreen({ lesson: lessonId, onBack }: Props) {
+export function TutorialScreen({ lesson: lessonId, onWalked, onBack }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
   const insets = useSafeAreaInsets();
@@ -210,7 +221,8 @@ export function TutorialScreen({ lesson: lessonId, onBack }: Props) {
     setProblem(null);
     setFlagged([]);
     setSaying(true);
-  }, [done]);
+    onWalked?.(lessonId);
+  }, [done, lessonId, onWalked]);
 
   const measure = useCallback((event: LayoutChangeEvent) => {
     const { width, height } = event.nativeEvent.layout;

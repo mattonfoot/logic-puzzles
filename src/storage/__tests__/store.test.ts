@@ -3,7 +3,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SIZES } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
 import { byHand } from '../../game/board';
-import { completedGameFrom, EMPTY_HISTORY, SAVE_VERSION, appendGame } from '../../game/persistence';
+import {
+  appendGame,
+  completedGameFrom,
+  EMPTY_HISTORY,
+  EMPTY_WALKED,
+  SAVE_VERSION,
+  withWalked,
+} from '../../game/persistence';
 import { generatePuzzle } from '../../puzzle/generator';
 import { storage, valueOf } from '../store';
 
@@ -20,6 +27,11 @@ const saved = {
   clueIndex: 1,
   history: [{}],
   hintsAsked: 0,
+  undos: 0,
+  rewinds: 0,
+  conflicted: false,
+  startedAt: 1,
+  resumed: false,
   seconds: 30,
   updatedAt: 5,
 };
@@ -50,6 +62,11 @@ describe('storage', () => {
         seconds: 75,
         cluesUsed: 1,
         hintsAsked: 0,
+        undos: 0,
+        rewinds: 0,
+        conflicted: false,
+        startedAt: 0,
+        resumed: false,
         revealed: false,
         finishedAt: 9,
       }),
@@ -59,6 +76,15 @@ describe('storage', () => {
 
     await storage.clearHistory();
     expect(await storage.loadHistory()).toEqual({ kind: 'empty' });
+  });
+
+  it('brings the lessons walked back, and clears them', async () => {
+    const walked = withWalked(EMPTY_WALKED, 'deduction');
+    await expect(storage.saveWalked(walked)).resolves.toBe(true);
+    expect(valueOf(await storage.loadWalked())).toEqual(walked);
+
+    await storage.clearWalked();
+    expect(await storage.loadWalked()).toEqual({ kind: 'empty' });
   });
 
   it('brings a board written before marks had a source forward', async () => {

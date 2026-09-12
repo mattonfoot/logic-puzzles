@@ -1419,8 +1419,9 @@ Two things are stored, both under AsyncStorage, both versioned:
 
 | Key | Holds |
 |-----|-------|
-| `logic-grid:saved-game:v1` | the puzzle in progress: the whole puzzle — including any clues written for this game — every tick and cross, the last twenty boards Undo can step back to, which clues have been read and which is on the table, elapsed seconds |
-| `logic-grid:history:v1` | the last 300 finished games: time, clues read, hints asked, theme, size, seed — which is where the number and the way it was played live — and whether it was revealed |
+| `logic-grid:saved-game:v1` | the puzzle in progress: the whole puzzle — including any clues written for this game — every tick and cross, the last twenty boards Undo can step back to, which clues have been read and which is on the table, elapsed seconds, and how the board has been arrived at (marks taken back, rewinds, whether it has ever contradicted itself, when it was opened, whether it has been put down) |
+| `logic-grid:history:v1` | the last 300 finished games: time, clues read, hints asked, theme, size, seed — which is where the number and the way it was played live — how the board was arrived at, and whether it was revealed |
+| `logic-grid:lessons:v1` | which lessons have been walked to the end, ever |
 
 The keys keep the app's old name. Renaming them would leave every game already
 saved on a device unreadable, and a prefix nobody sees is not worth a player's
@@ -1467,6 +1468,24 @@ store directly for the removal rather than through the hook that usually owns
 the save, since that hook lives inside the tree that just failed. The error's
 message is printed small under the buttons, for whoever reports it. Tests throw
 on purpose from inside it and press both buttons.
+
+Five things about a finished board are written down that nothing yet reads:
+how many marks were taken back, how many times it was rewound, whether two
+marks ever disagreed with each other, when it was opened, and whether it was
+put down and picked back up. They are measured because only the board can see
+them and a game finished today cannot be measured tomorrow — the same reason
+the clues read are counted. All five ride with the save, so putting a puzzle
+down does not wipe the tally, and all five are cleared by Restart, which is a
+fresh attempt at the same puzzle. A game finished before any of it existed
+records `null` rather than a nought, told apart on purpose: a game that could
+not have counted its undos is not a game solved without taking a mark back.
+
+The lessons are written down the same way and for the same reason, with one
+rule around them: **the tutorial never reads the record back.** A lesson opens
+on an empty board every time it is taken, which is what keeps it a lesson
+rather than a thing with a tick against it — so the note goes past the screen
+to `usePersistence`, and nothing hands it back. Clearing the statistics clears
+it too, since what the app has taught you is part of what it knows about you.
 
 `src/stats/summary.ts` derives everything shown from the list of finished games
 — nothing aggregated is stored, so the numbers can never drift out of sync with

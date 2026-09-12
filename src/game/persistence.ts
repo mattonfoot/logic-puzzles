@@ -9,13 +9,16 @@ import type { Puzzle } from '../puzzle/types';
 import type { MarkEntry, Marks } from './board';
 
 /**
- * 2 added the undo stack, 3 the count of hints asked for. Older saves read back
- * with an empty stack and no hints against them, which is what they had: a save
- * written before either existed is a game played without them.
+ * 2 added the undo stack, 3 the count of hints asked for, 4 the five things a
+ * finished game is now measured by — marks taken back, rewinds, whether the
+ * board ever contradicted itself, when it was started and whether it was ever
+ * put down. Older saves read back with an empty stack and nothing against them,
+ * which is what they had: a save written before any of it existed is a game
+ * played without it.
  */
-export const SAVE_VERSION = 3;
+export const SAVE_VERSION = 4;
 /** Every earlier version this build knows how to bring forward. */
-const CARRIED_FORWARD = [1, 2];
+const CARRIED_FORWARD = [1, 2, 3];
 export const HISTORY_VERSION = 1;
 /**
  * How many boards of undo are kept with a saved game.
@@ -49,6 +52,20 @@ export interface SavedGame {
    * way the clock and the clues read are.
    */
   hintsAsked: number;
+  /**
+   * How the board has been arrived at, kept with it for the same reason the
+   * clock is: putting a game down and picking it up must not wipe the tally.
+   * Restart clears all five, because a board put back to blank is a new attempt
+   * at the same puzzle.
+   */
+  undos: number;
+  rewinds: number;
+  /** Whether two marks on this board have ever disagreed with each other. */
+  conflicted: boolean;
+  /** When the board was first opened, rather than when it was last written. */
+  startedAt: number;
+  /** Whether it has been put down and picked back up at least once. */
+  resumed: boolean;
   seconds: number;
   updatedAt: number;
 }
@@ -77,6 +94,20 @@ export interface CompletedGame {
    * hint is not a game played without one.
    */
   hintsAsked: number | null;
+  /**
+   * How the board was arrived at. Null on every game finished before the app
+   * measured it — told apart from a real zero on purpose, the same way the
+   * clues and the hints are: a game that could not have counted its undos is
+   * not a game solved without taking a mark back.
+   */
+  undos: number | null;
+  rewinds: number | null;
+  /** Whether two marks ever disagreed with each other before it came out. */
+  conflicted: boolean | null;
+  /** When the board was opened, which with `finishedAt` gives how long it sat. */
+  startedAt: number | null;
+  /** Whether it was put down and picked back up on the way to being finished. */
+  resumed: boolean | null;
   /** True when the player pressed "reveal" instead of solving it. */
   revealed: boolean;
   finishedAt: number;
@@ -85,6 +116,36 @@ export interface CompletedGame {
 export interface History {
   version: number;
   games: CompletedGame[];
+}
+
+/**
+ * Which lessons have been walked to the end, ever.
+ *
+ * The tutorial itself does not read this — a lesson opens on an empty board
+ * every time it is taken, which is what keeps it a lesson rather than a thing
+ * with a tick against it. The record is written past the screen, for the
+ * statistics and for what is built on them, and never handed back to it.
+ */
+export interface WalkedLessons {
+  version: number;
+  /** Lesson ids, each once, in no particular order. */
+  lessons: string[];
+}
+
+export const WALKED_VERSION = 1;
+export const EMPTY_WALKED: WalkedLessons = { version: WALKED_VERSION, lessons: [] };
+
+export function reviveWalked(value: unknown): WalkedLessons | null {
+  if (!isObject(value) || value.version !== WALKED_VERSION) return null;
+  if (!Array.isArray(value.lessons)) return null;
+  const lessons = value.lessons.filter((id): id is string => typeof id === 'string');
+  return { version: WALKED_VERSION, lessons: [...new Set(lessons)] };
+}
+
+/** The record with one more lesson against it; unchanged if it is already there. */
+export function withWalked(walked: WalkedLessons, lesson: string): WalkedLessons {
+  if (walked.lessons.includes(lesson)) return walked;
+  return { version: WALKED_VERSION, lessons: [...walked.lessons, lesson] };
 }
 
 export const EMPTY_HISTORY: History = { version: HISTORY_VERSION, games: [] };
@@ -138,6 +199,9 @@ export function isSavedGame(value: unknown): value is SavedGame {
   if (value.clueIndex !== null && typeof value.clueIndex !== 'number') return false;
   if (!Array.isArray(value.history) || !value.history.every(isObject)) return false;
   if (typeof value.hintsAsked !== 'number') return false;
+  if (typeof value.undos !== 'number' || typeof value.rewinds !== 'number') return false;
+  if (typeof value.conflicted !== 'boolean' || typeof value.resumed !== 'boolean') return false;
+  if (typeof value.startedAt !== 'number') return false;
   return typeof value.seconds === 'number';
 }
 
@@ -176,6 +240,13 @@ export function reviveHistory(value: unknown): History | null {
       cluesUsed: typeof game.cluesUsed === 'number' ? game.cluesUsed : null,
       hintsAsked: typeof game.hintsAsked === 'number' ? game.hintsAsked : null,
       difficulty: typeof game.difficulty === 'string' ? game.difficulty : game.sizeLabel,
+      // Measured or not measured; never guessed. A game from before any of
+      // these existed reads as null rather than as a nought it never earned.
+      undos: typeof game.undos === 'number' ? game.undos : null,
+      rewinds: typeof game.rewinds === 'number' ? game.rewinds : null,
+      conflicted: typeof game.conflicted === 'boolean' ? game.conflicted : null,
+      startedAt: typeof game.startedAt === 'number' ? game.startedAt : null,
+      resumed: typeof game.resumed === 'boolean' ? game.resumed : null,
       // Games from when themes were an emoji have no drawing to show; the row
       // reads perfectly well without one.
       themeIcon: typeof game.themeIcon === 'string' ? game.themeIcon : '',
@@ -230,8 +301,27 @@ export function reviveSavedGame(value: unknown): SavedGame | null {
     clueIndex: typeof value.clueIndex === 'number' ? value.clueIndex : null,
     history: history.slice(-SAVED_UNDO),
     hintsAsked: typeof value.hintsAsked === 'number' ? value.hintsAsked : 0,
+    undos: typeof value.undos === 'number' ? value.undos : 0,
+    rewinds: typeof value.rewinds === 'number' ? value.rewinds : 0,
+    conflicted: typeof value.conflicted === 'boolean' ? value.conflicted : false,
+    // A save from before the board knew when it was opened is dated backwards
+    // from the clock: the game has had at least this long on it. That is later
+    // than the truth rather than earlier, which is the safe way round — it can
+    // only under-report how long a puzzle has been sat on, never invent time.
+    startedAt:
+      typeof value.startedAt === 'number'
+        ? value.startedAt
+        : startedFrom(value.updatedAt, value.seconds),
+    resumed: typeof value.resumed === 'boolean' ? value.resumed : false,
   };
   return isSavedGame(migrated) ? migrated : null;
+}
+
+/** Where a save with no start time is taken to have begun. */
+function startedFrom(updatedAt: unknown, seconds: unknown): number {
+  const written = typeof updatedAt === 'number' ? updatedAt : Date.now();
+  const played = typeof seconds === 'number' ? seconds : 0;
+  return written - Math.max(0, played) * 1000;
 }
 
 /** Newest first, capped at `limit`. */
@@ -246,6 +336,11 @@ interface CompletionInput {
   seconds: number;
   cluesUsed: number;
   hintsAsked: number;
+  undos: number;
+  rewinds: number;
+  conflicted: boolean;
+  startedAt: number;
+  resumed: boolean;
   revealed: boolean;
   finishedAt: number;
 }
@@ -262,6 +357,11 @@ export function completedGameFrom(puzzle: Puzzle, input: CompletionInput): Compl
     seconds: Math.max(0, Math.round(input.seconds)),
     cluesUsed: input.cluesUsed,
     hintsAsked: input.hintsAsked,
+    undos: input.undos,
+    rewinds: input.rewinds,
+    conflicted: input.conflicted,
+    startedAt: input.startedAt,
+    resumed: input.resumed,
     revealed: input.revealed,
     finishedAt: input.finishedAt,
   };

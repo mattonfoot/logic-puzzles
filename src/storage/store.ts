@@ -18,14 +18,17 @@ import {
   EMPTY_HISTORY,
   reviveHistory,
   reviveSavedGame,
+  reviveWalked,
   type History,
   type SavedGame,
+  type WalkedLessons,
 } from '../game/persistence';
 
 const KEYS = {
   savedGame: 'logic-grid:saved-game:v1',
   history: 'logic-grid:history:v1',
   settings: 'logic-grid:settings:v1',
+  walked: 'logic-grid:lessons:v1',
 } as const;
 
 /**
@@ -89,6 +92,13 @@ export const storage = {
 
   loadSettings: () => readJson(KEYS.settings, reviveSettings),
   saveSettings: (settings: Settings) => writeJson(KEYS.settings, settings),
+
+  // Which lessons have been walked to the end. Written past the tutorial rather
+  // than by it: the screen never reads this back, so a lesson still opens on an
+  // empty board however many times it has been taken.
+  loadWalked: () => readJson(KEYS.walked, reviveWalked),
+  saveWalked: (walked: WalkedLessons) => writeJson(KEYS.walked, walked),
+  clearWalked: () => removeKey(KEYS.walked),
 };
 
 /** The value a read found, or nothing — for a caller that has no use for why. */

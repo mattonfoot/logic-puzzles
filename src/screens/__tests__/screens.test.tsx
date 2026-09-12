@@ -253,8 +253,8 @@ describe('how to play', () => {
     expect(opened).toEqual(['grouped']);
   });
 
-  function walk(id: LessonId = 'deduction') {
-    stage(<TutorialScreen lesson={id} onBack={none} />);
+  function walk(id: LessonId = 'deduction', onWalked?: (lesson: LessonId) => void) {
+    stage(<TutorialScreen lesson={id} onWalked={onWalked} onBack={none} />);
     const measured = screen.UNSAFE_getAllByType(View).find((view) => view.props.onLayout);
     if (!measured) throw new Error('the board never measures itself');
     fireEvent(measured, 'layout', { nativeEvent: { layout: { width: 340, height: 420 } } });
@@ -426,6 +426,31 @@ describe('how to play', () => {
     tap(2, 0, 2);
     expect(screen.getByText(/^Solved\./)).toBeOnTheScreen();
     expect(button('Clue')).toBeDisabled();
+  });
+
+  /**
+   * The one thing a lesson says on its way out. The screen never reads it back
+   * — it still opens on an empty board — so a lesson is the same lesson however
+   * many times it has been taken; the note is for what gets built on it later.
+   */
+  it('says once, when the board comes out, that it has been walked', () => {
+    const onWalked = jest.fn();
+    walk('deduction', onWalked);
+    dismiss();
+    fireEvent.press(button('Clue'));
+    dismiss();
+    tap(0, 1, 2);
+    fireEvent.press(button('Clue'));
+    dismiss();
+    tap(1, 2, 2);
+    fireEvent.press(button('Clue'));
+    dismiss();
+    expect(onWalked).not.toHaveBeenCalled();
+
+    tap(2, 0, 2);
+    expect(screen.getByText(/^Solved\./)).toBeOnTheScreen();
+    expect(onWalked).toHaveBeenCalledTimes(1);
+    expect(onWalked).toHaveBeenCalledWith('deduction');
   });
 
   /** Whether a square is wearing the ring that says "this one". */
@@ -1384,6 +1409,39 @@ describe('the board', () => {
     );
   });
 
+  /**
+   * What the board measures besides the clock: marks taken back, rewinds,
+   * whether it ever contradicted itself, when it was opened and whether it was
+   * ever put down. Nothing shows any of it yet — it is written because only
+   * this screen can see it, and a game finished today cannot be measured
+   * tomorrow.
+   */
+  it('measures how the board was arrived at, and saves it with the board', () => {
+    const { onSaveProgress } = play();
+    fireEvent.press(button('Close'));
+    fireEvent.press(button('Clue'));
+    fireEvent.press(button('Close'));
+    layOut();
+
+    const [blank] = screen.getAllByRole('button', { name: /: unknown$/ });
+    fireEvent(blank, 'longPress');
+    fireEvent.press(button('Undo'));
+
+    screen.unmount();
+    const written = onSaveProgress.mock.calls.at(-1)?.[0];
+    expect(written).toMatchObject({ undos: 1, rewinds: 0, conflicted: false, resumed: false });
+    expect(written?.startedAt).toBeLessThanOrEqual(written?.updatedAt ?? 0);
+  });
+
+  it('counts a board picked back up as one that was put down', () => {
+    const { onSaveProgress } = play(savedGame(puzzle));
+    fireEvent.press(button('Clue'));
+    fireEvent.press(button('Close'));
+    screen.unmount();
+
+    expect(onSaveProgress.mock.calls.at(-1)?.[0]).toMatchObject({ resumed: true });
+  });
+
   it('leaves nothing behind for a board nobody has started', () => {
     const { onSaveProgress, onDiscardProgress } = play();
     fireEvent.press(button('Close'));
@@ -1532,6 +1590,49 @@ describe('the board', () => {
     expect(screen.getByText('Hints asked')).toBeOnTheScreen();
     expect(screen.getByText('7')).toBeOnTheScreen();
     expect(onCompleted).toHaveBeenCalledWith(expect.objectContaining({ hintsAsked: 7 }));
+  });
+
+  /**
+   * And the finish hands all of it on. The history is the only place any of
+   * this survives, so a game that measured itself and then did not say so would
+   * be a game measured for nothing.
+   */
+  it('hands how the board was arrived at to the history', async () => {
+    const onCompleted = jest.fn(async () => ({ improvement: firstTime, recorded: true }));
+    stage(
+      <GameScreen
+        puzzle={puzzle}
+        autoEliminate
+        autoFacts
+        checkClues={DEFAULT_SETTINGS.checkClues}
+        accent={DEFAULT_SETTINGS.accent}
+        colours={DEFAULT_SETTINGS.colours}
+        onToggleAutoEliminate={none}
+        onToggleAutoFacts={none}
+        onToggleCheckClues={none}
+        onChangeAccent={none}
+        onChangeColours={none}
+        restore={{ ...savedGame(puzzle), marks: solvedMarks(), seconds: 300, undos: 2 }}
+        onExit={none}
+        onSaveProgress={async () => true}
+        onDiscardProgress={none}
+        onCompleted={onCompleted}
+      />,
+    );
+    await act(async () => {
+      jest.advanceTimersByTime(0);
+    });
+
+    expect(onCompleted).toHaveBeenCalledWith(
+      expect.objectContaining({
+        seconds: 300,
+        undos: 2,
+        rewinds: 0,
+        conflicted: false,
+        // Picked back up off a save, which is what a restore is.
+        resumed: true,
+      }),
+    );
   });
 
   it('puts the same puzzle back from the finish, and the burger with it', async () => {

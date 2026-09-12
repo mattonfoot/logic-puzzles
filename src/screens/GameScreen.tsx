@@ -177,6 +177,18 @@ export function GameScreen({
   // beside the clues, and kept with the board so putting the game down and
   // picking it up does not wipe the tally.
   const [hintsAsked, setHintsUsed] = useState(() => resumed?.hintsAsked ?? 0);
+  // How the board is being arrived at, rather than how long it is taking. None
+  // of it is shown anywhere yet; it is measured because only this screen can
+  // see it, and a game finished today cannot be measured tomorrow. All of it
+  // rides with the save, so putting the puzzle down does not wipe the tally,
+  // and all of it is cleared by Restart, which is a fresh attempt.
+  const [undos, setUndos] = useState(() => resumed?.undos ?? 0);
+  const [rewinds, setRewinds] = useState(() => resumed?.rewinds ?? 0);
+  const [conflicted, setConflicted] = useState(() => resumed?.conflicted ?? false);
+  const [startedAt, setStartedAt] = useState(() => resumed?.startedAt ?? Date.now());
+  // True from the moment a board is picked back up, and it stays true: a game
+  // put down once was put down, however it ends.
+  const [wasResumed, setWasResumed] = useState(() => Boolean(resumed));
   const [status, setStatus] = useState<string | null>(null);
   const [improvement, setImprovement] = useState<Improvement | null>(null);
   // Whether the finish made it into the history; null until it has been tried.
@@ -208,6 +220,12 @@ export function GameScreen({
   // guess the solution says is wrong would hand the solution over.
   const wrong = useMemo(() => findConflicts(marks, puzzle), [marks, puzzle]);
   const stuck = flagged && wrong.length > 0;
+  // Sticky: a board that has ever held two marks that cannot both be true is a
+  // board that was wrong, whether or not it still is. Taking the bad mark back
+  // fixes the board, not the fact.
+  useEffect(() => {
+    if (wrong.length > 0) setConflicted(true);
+  }, [wrong]);
   /**
    * Marks that argue with a clue the player has already read, when they have
    * asked to be shown them.
@@ -304,6 +322,11 @@ export function GameScreen({
     clueIndex,
     history: history.slice(-SAVED_UNDO),
     hintsAsked,
+    undos,
+    rewinds,
+    conflicted,
+    startedAt,
+    resumed: wasResumed,
     seconds,
     updatedAt: Date.now(),
   });
@@ -335,6 +358,11 @@ export function GameScreen({
       seconds,
       cluesUsed: cluesSeen.size,
       hintsAsked,
+      undos,
+      rewinds,
+      conflicted,
+      startedAt,
+      resumed: wasResumed,
       revealed: false,
     }).then((result) => {
       if (!active) return;
@@ -516,6 +544,7 @@ export function GameScreen({
     }
     feedback.tap();
     setMistakes(new Set());
+    setUndos((taken) => taken + 1);
     setHistory((past) => past.slice(0, -1));
     // Reconciled on the way back in, so a board recorded while Auto ✕ was on
     // comes back the way the setting stands now.
@@ -525,6 +554,7 @@ export function GameScreen({
   /** Takes moves back until the answer is within reach again. */
   const rewind = useCallback(() => {
     feedback.tap();
+    setRewinds((walked) => walked + 1);
     let past = history;
     let board: Marks | null = null;
     let steps = 0;
@@ -672,6 +702,11 @@ export function GameScreen({
     setRecorded(null);
     setHinted(false);
     setHintsUsed(0);
+    setUndos(0);
+    setRewinds(0);
+    setConflicted(false);
+    setStartedAt(Date.now());
+    setWasResumed(false);
     flash(t('game.status.restarted'));
   }, [flash]);
 

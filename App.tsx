@@ -354,7 +354,11 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             onBack={() => setScreen('lessons')}
           />
         ) : screen === 'tutorial' ? (
-          <TutorialScreen lesson={lesson} onBack={() => setScreen(menuOf(lesson))} />
+          <TutorialScreen
+            lesson={lesson}
+            onWalked={persistence.recordLessonWalked}
+            onBack={() => setScreen(menuOf(lesson))}
+          />
         ) : screen === 'settings' ? (
           <SettingsScreen
             settings={settings.settings}

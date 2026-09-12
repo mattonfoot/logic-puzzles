@@ -6,14 +6,18 @@ import {
   appendGame,
   completedGameFrom,
   EMPTY_HISTORY,
+  EMPTY_WALKED,
   HISTORY_VERSION,
   isHistory,
   isSavedGame,
   reviveHistory,
   reviveMarks,
   reviveSavedGame,
+  reviveWalked,
   SAVE_VERSION,
   SAVED_UNDO,
+  WALKED_VERSION,
+  withWalked,
   type CompletedGame,
   type SavedGame,
 } from '../persistence';
@@ -29,6 +33,11 @@ function savedGame(overrides: Partial<SavedGame> = {}): SavedGame {
     clueIndex: 2,
     history: [],
     hintsAsked: 0,
+    undos: 0,
+    rewinds: 0,
+    conflicted: false,
+    startedAt: 1_699_999_000_000,
+    resumed: false,
     seconds: 42,
     updatedAt: 1_700_000_000_000,
     ...overrides,
@@ -40,6 +49,11 @@ const completed = (overrides: Partial<CompletedGame> = {}): CompletedGame => ({
     seconds: 100,
     cluesUsed: 0,
     hintsAsked: 0,
+    undos: 0,
+    rewinds: 0,
+    conflicted: false,
+    startedAt: 0,
+    resumed: false,
     revealed: false,
     finishedAt: 1,
   }),
@@ -100,6 +114,11 @@ describe('completedGameFrom', () => {
       seconds: 61.6,
       cluesUsed: 2,
       hintsAsked: 1,
+      undos: 3,
+      rewinds: 1,
+      conflicted: true,
+      startedAt: 100,
+      resumed: true,
       revealed: false,
       finishedAt: 123,
     });
@@ -108,6 +127,13 @@ describe('completedGameFrom', () => {
       themeId: puzzle.themeId,
       sizeId: puzzle.size.id,
       cluesUsed: 2,
+      // How the board was arrived at, beside how long it took: nothing reads
+      // these yet, and a game finished today cannot be measured tomorrow.
+      undos: 3,
+      rewinds: 1,
+      conflicted: true,
+      startedAt: 100,
+      resumed: true,
       revealed: false,
       finishedAt: 123,
     });
@@ -115,7 +141,56 @@ describe('completedGameFrom', () => {
   });
 });
 
+describe('the lessons walked', () => {
+  /**
+   * Written past the tutorial rather than by it. The screen never reads it
+   * back, so a lesson still opens on an empty board however many times it has
+   * been taken — this exists only so that "has this player ever been shown the
+   * comparison clue" is answerable at all, which is the one thing about the
+   * lessons that cannot be worked out later.
+   */
+  it('notes a lesson once, whatever order they arrive in', () => {
+    const once = withWalked(EMPTY_WALKED, 'deduction');
+    expect(once.lessons).toEqual(['deduction']);
+    expect(withWalked(once, 'deduction')).toBe(once);
+    expect(withWalked(once, 'grouped').lessons).toEqual(['deduction', 'grouped']);
+  });
+
+  it('reads a record back, and refuses one it does not understand', () => {
+    const stored = withWalked(EMPTY_WALKED, 'vague');
+    expect(reviveWalked(JSON.parse(JSON.stringify(stored)))).toEqual(stored);
+    expect(reviveWalked({ version: WALKED_VERSION, lessons: ['a', 'a', 2] })?.lessons).toEqual([
+      'a',
+    ]);
+    expect(reviveWalked({ version: 99, lessons: [] })).toBeNull();
+    expect(reviveWalked({ version: WALKED_VERSION })).toBeNull();
+    expect(reviveWalked('nothing')).toBeNull();
+  });
+});
+
 describe('reading the finished games back', () => {
+  /**
+   * Measured or not measured, never guessed: a game finished before the app
+   * counted undos is not a game solved without taking a mark back.
+   */
+  it('leaves a game from before the board was measured with nothing against it', () => {
+    const { undos, rewinds, conflicted, startedAt, resumed, ...older } = completed();
+    const revived = reviveHistory({ version: HISTORY_VERSION, games: [older] });
+    expect(revived?.games[0]).toMatchObject({
+      undos: null,
+      rewinds: null,
+      conflicted: null,
+      startedAt: null,
+      resumed: null,
+    });
+
+    const measured = reviveHistory(
+      JSON.parse(JSON.stringify(appendGame(EMPTY_HISTORY, completed({ undos: 2 })))),
+    );
+    expect(measured?.games[0].undos).toBe(2);
+    expect(measured?.games[0].conflicted).toBe(false);
+  });
+
   it('leaves a game from before hints were counted without one either', () => {
     const { hintsAsked, ...older } = completed();
     const revived = reviveHistory({ version: HISTORY_VERSION, games: [older] });
@@ -202,6 +277,37 @@ describe('reading a board back', () => {
     const { hintsAsked, ...older } = savedGame({ version: 1 });
     const revived = reviveSavedGame(JSON.parse(JSON.stringify({ ...older, hintsUsed: 2 })));
     expect(revived?.hintsAsked).toBe(0);
+  });
+
+  /**
+   * The five things a board is now measured by ride with it, so putting a
+   * puzzle down and picking it up does not wipe the tally — the same rule the
+   * clock and the clues read already follow.
+   */
+  it('keeps how the board was arrived at across a save and a resume', () => {
+    const before = savedGame({ undos: 3, rewinds: 1, conflicted: true, resumed: true });
+    const revived = reviveSavedGame(JSON.parse(JSON.stringify(before)));
+    expect(revived).toMatchObject({
+      undos: 3,
+      rewinds: 1,
+      conflicted: true,
+      resumed: true,
+      startedAt: before.startedAt,
+    });
+  });
+
+  /**
+   * A save from before any of it was measured comes forward at nothing — which
+   * is what it had — except the start time, which is dated back from its clock.
+   * That lands later than the truth rather than earlier, so a puzzle can only
+   * look newer than it is, never older.
+   */
+  it('brings a save from before the board was measured forward at nothing', () => {
+    const { undos, rewinds, conflicted, startedAt, resumed, ...older } = savedGame({ version: 3 });
+    const revived = reviveSavedGame(JSON.parse(JSON.stringify(older)));
+    expect(revived?.version).toBe(SAVE_VERSION);
+    expect(revived).toMatchObject({ undos: 0, rewinds: 0, conflicted: false, resumed: false });
+    expect(revived?.startedAt).toBe(older.updatedAt - older.seconds * 1000);
   });
 
   it('keeps the hints asked for across a save and a resume', () => {
