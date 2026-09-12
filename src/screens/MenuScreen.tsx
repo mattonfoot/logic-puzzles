@@ -4,10 +4,9 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { BackLink } from '../ui/BackLink';
 import { Choice } from '../ui/Choice';
 import { RuledTitle } from '../ui/RuledTitle';
-import { Text } from '../ui/Text';
 import { TitlePanel } from '../ui/TitlePanel';
 import { useStyles } from '../ui/ThemeProvider';
-import { space, type, type Palette } from '../ui/theme';
+import { space, type Palette } from '../ui/theme';
 
 export interface Entry {
   /** Stable across renders; the label is words and can be translated. */
@@ -20,15 +19,6 @@ export interface Entry {
 interface Props {
   title: string;
   entries: Entry[];
-  /**
-   * One line under the heading, for a menu whose choices cannot explain
-   * themselves. A menu is a list of words the same size and a second line under
-   * each of them would be a different screen — but "Pure Deduction" and
-   * "Classic logic" name two games rather than two sizes of one, and a player
-   * who has met neither has nothing to go on. One sentence for the screen says
-   * it without turning every row into a paragraph.
-   */
-  note?: string;
   backLabel: string;
   onBack: () => void;
 }
@@ -56,7 +46,7 @@ interface Props {
  * No list is long enough to scroll on any phone the app is built for; it
  * scrolls anyway, for the reader who has turned the system text size up.
  */
-export function MenuScreen({ title, entries, note, backLabel, onBack }: Props) {
+export function MenuScreen({ title, entries, backLabel, onBack }: Props) {
   const styles = useStyles(makeStyles);
 
   return (
@@ -66,8 +56,6 @@ export function MenuScreen({ title, entries, note, backLabel, onBack }: Props) {
       <View style={styles.bottom}>
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <RuledTitle>{title}</RuledTitle>
-
-          {note ? <Text style={styles.note}>{note}</Text> : null}
 
           {entries.map((entry) => (
             <Choice
@@ -106,10 +94,5 @@ const makeStyles = (palette: Palette) =>
       paddingHorizontal: space(5),
       paddingTop: space(5),
       paddingBottom: space(5),
-    },
-    note: {
-      ...type.note,
-      color: palette.inkFaint,
-      marginBottom: space(2),
     },
   });

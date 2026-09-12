@@ -146,8 +146,7 @@ describe('the front door', () => {
 /**
  * The menu Play opens: the same screen the lessons use, given the two ways a
  * numbered game can be played. Mounted the way App mounts it, since what is on
- * it is the point — two names a first-time player has not met, and the line
- * that says what they mean.
+ * it is the point.
  */
 describe('the two ways of playing', () => {
   it('offers both, and says what the choice is', () => {
@@ -155,7 +154,6 @@ describe('the two ways of playing', () => {
     stage(
       <MenuScreen
         title={t('modes.title')}
-        note={t('modes.note')}
         entries={MODES.map((mode) => ({
           key: mode.id,
           label: mode.name,
@@ -170,14 +168,9 @@ describe('the two ways of playing', () => {
     expect(header('Play')).toBeOnTheScreen();
     expect(button('Pure Deduction')).toBeEnabled();
     expect(button('Classic logic')).toBeEnabled();
-    // Two names that cannot explain themselves, so the screen explains them
-    // once rather than putting a paragraph under each.
-    expect(
-      screen.getByText(
-        'In Pure Deduction the board keeps the bookkeeping. In Classic logic every mark on it is yours.',
-      ),
-    ).toBeOnTheScreen();
-    // And each is read out with its own line, for somebody being read the page.
+    // A menu is a list of words the same size, with nothing set under them: what
+    // each one means is read out rather than printed, the way a difficulty's
+    // shape is.
     expect(button('Classic logic').props.accessibilityHint).toBe(
       'Every mark on the board is yours',
     );

@@ -267,7 +267,6 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
         ) : screen === 'mode' ? (
           <MenuScreen
             title={t('modes.title')}
-            note={t('modes.note')}
             backLabel={t('modes.back')}
             entries={MODES.map((option) => ({
               key: option.id,

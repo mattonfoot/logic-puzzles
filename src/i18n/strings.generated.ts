@@ -220,7 +220,6 @@ export const STRINGS = {
   modes: {
     title: 'Play',
     back: 'Back',
-    note: 'In Pure Deduction the board keeps the bookkeeping. In Classic logic every mark on it is yours.',
     pure: {
       name: 'Pure Deduction',
       hint: 'The board keeps the bookkeeping',
@@ -5267,7 +5266,6 @@ export type StringKey =
   | 'modes.classic.hint'
   | 'modes.classic.name'
   | 'modes.locked'
-  | 'modes.note'
   | 'modes.pure.hint'
   | 'modes.pure.name'
   | 'modes.title'

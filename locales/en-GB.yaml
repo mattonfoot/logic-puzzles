@@ -236,9 +236,6 @@ lessons:
 modes:
   title: Play
   back: Back
-  # One line under the heading rather than a line under each name: the two names
-  # cannot explain themselves, and what they mean is what is being chosen.
-  note: In Pure Deduction the board keeps the bookkeeping. In Classic logic every mark on it is yours.
   pure:
     name: Pure Deduction
     hint: The board keeps the bookkeeping
