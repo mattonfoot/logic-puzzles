@@ -352,8 +352,13 @@ item:
   aboutHint: About {label}
 
 briefings:
-  # What went wrong, and why anybody wants it sorted out. Three per theme; the
-  # puzzle's seed picks one and keeps it.
+  # What went wrong, and why anybody wants it sorted out. Thirty-three per theme;
+  # the puzzle's seed picks one and keeps it.
+  #
+  # They are all the same story told differently — a record existed, something
+  # ordinary happened to it, and what is left is what people remember — because
+  # that is the story a logic grid actually is. The variety is in the mishap, not
+  # in the shape.
   #
   # A briefing must name no set except the anchor — which sets a puzzle plays
   # with is sampled from its theme, so a briefing promising a cargo manifest
@@ -370,6 +375,66 @@ briefings:
         body: Three departments each kept their own records so that nothing could possibly go missing, and each department has since misplaced a different half of theirs. Between them they are certain of everything except which {noun} is on which flight. The rockets are fuelled and the crews are being polite about it.
       - title: The computer was very confident
         body: The scheduling system reconciled the roster overnight, congratulated itself, and assigned every {noun} to the same berth on the same flight. It cannot be persuaded to explain how. The engineers are working from the crew room whiteboard and whatever anyone can swear to.
+      - title: The tidy cycle ran early
+        body: The housekeeping routine came round a day ahead of itself and treated everything pinned to the crew room board as debris. It was extremely efficient about it. What is left is a wall of drawing pins and five people who were each looking at a different part of it.
+      - title: One magnet, one afternoon
+        body: The backup drive spent an afternoon resting against the ring magnet in the machine shop, which is the one place it was never meant to be. It now reads as a very confident field of zeroes. The paper copy went out with the recycling the same day, because of course it did.
+      - title: Three clocks, three answers
+        body: The pad keeps local time, the control room keeps mission time, and somebody has been filing in whichever came to hand. Every entry is true at some hour of some day. Working out which is the difference between a roster and a list of guesses.
+      - title: The pen that was not a pen
+        body: Somebody borrowed what they took for a permanent marker, wrote up the whole board in it, and found out at the end of the shift that it had been the wipe-clean one all along. A sleeve went past. The board is spotless and the shift is not.
+      - title: Approved by everyone, read by nobody
+        body: The paperwork went round for five signatures and came back with five, which everyone agrees is excellent. Nobody can now find the version that was signed. Each {noun} remembers signing something slightly different.
+      - title: The upgrade was seamless
+        body: The records system was migrated overnight to something faster, cleaner and entirely empty. The old one has been decommissioned with an enthusiasm nobody asked for. Support say the data is definitely somewhere.
+      - title: A very long weekend
+        body: Nobody logged anything from Friday afternoon until Monday, on the reasonable grounds that nothing was meant to happen. Several things happened. They are now a matter of recollection rather than record.
+      - title: The coffee reached the folder
+        body: A full cup went over on the desk where the only complete copy was lying face up. Half the entries survived, and half of anything is worth nothing here. The pad wants the whole thing by the end of the week.
+      - title: Filed correctly, somewhere
+        body: The archive was reorganised by a system nobody wrote down, by somebody who has since gone on leave for a month. Everything is in it. Nothing is findable in it.
+      - title: The radiation alarm was right
+        body: A solar event went through the storage bay and left every drive in it with an opinion rather than a record. The shielded copy was in the unshielded rack, which is a sentence somebody is going to have to explain. What is left is people.
+      - title: Two departments, one truth
+        body: Scheduling and operations each keep their own list so that nothing can possibly be lost, and each has now lost a different half. Between them they are sure of everything except who is where. Neither will take the other's word for it.
+      - title: The whiteboard was needed
+        body: Somebody wanted a whiteboard for a meeting and found one already full, which they solved in the obvious way. The meeting went very well. The board had the only copy of the week on it.
+      - title: Everything in the wrong hand
+        body: The duty officer took notes on their left palm, which then opened a hatch, closed a hatch, and got washed. Four smudges remain and one of them may be a name. It is being treated as a starting point.
+      - title: The label maker got ahead of itself
+        body: Every folder in the bay was relabelled on Tuesday by somebody working from the wrong list. The contents did not move. The labels are now confidently wrong and the contents are anonymous.
+      - title: Signed out and not back
+        body: The master copy was signed out for a quiet read-through and has not been seen since, along with the person who signed for it. They are on the far side of a comms blackout until Thursday. The schedule waits for neither of them.
+      - title: The backup backed up the backup
+        body: Three copies were kept, on the sound principle that three is safe. All three turned out to point at the same file, which is now a single item of zero length. The principle is under review.
+      - title: Handover by shrug
+        body: The outgoing shift explained everything clearly to the incoming shift, who were mostly listening. The written version was going to be done afterwards. It was not done afterwards.
+      - title: The director brought the dog in
+        body: It was a small dog, it was a long afternoon, and the only bound copy was on the low shelf at exactly the right level. Everyone enjoyed the visit enormously. What survives is the cover and part of an index.
+      - title: Two people, one name
+        body: Half the entries use first names and half use call signs, and two of those turn out to belong to the same person. Untangling that took a morning and lost the rest of the day with it. Every {noun} is now being asked to state plainly who they are.
+      - title: The room was clear of people
+        body: Somebody vented the crew room to test a seal, having been told it was empty, which it was of anybody who could object. The paperwork could not object. It is a very tidy room now.
+      - title: A generous reading of the word draft
+        body: Someone found a folder marked draft and cleared it out, which is exactly what you are supposed to do with a folder marked draft. It was the only folder anybody had ever used. The naming convention is being looked at.
+      - title: The scanner was on the wrong setting
+        body: Every page went through at a quality suitable for a thumbnail, and the originals went into the bin standing behind the scanner. What came out is grey, confident and unreadable. Nobody checked the first page.
+      - title: The meeting that settled it
+        body: A meeting was called to sort out the record and sorted it out completely, in a conversation nobody minuted. Everybody left satisfied and went to lunch. Two days later not one of them can reproduce the argument.
+      - title: Written on the back of something important
+        body: The only version of the week was jotted on the reverse of a document that then did what documents do and went where it was meant to go. It is now correctly filed under something else entirely. Getting it back takes longer than starting again.
+      - title: It did ask if I was sure
+        body: It asked twice, which should have been a hint, and then did exactly what it was told with admirable speed. The undo button is decorative. Everything before Tuesday is a memory.
+      - title: A gap in the numbering
+        body: The entries jump from eleven to fourteen with no explanation, and nobody will admit to twelve or thirteen. The missing two are not blank, they are absent. Whoever removed them tidied up properly afterwards.
+      - title: The rehearsal notes were the real notes
+        body: The dry run was written up beautifully and the real thing was not, on the grounds that the real thing would obviously go the same way. It did not go the same way. The rehearsal is no help at all.
+      - title: Everyone was somewhere else
+        body: The one afternoon that needed writing up was the one afternoon the recording officer was called away, twice. Their notes stop mid-sentence. Everyone else was busy being the thing that needed recording.
+      - title: The heater was under the shelf
+        body: A heater was left running under the low shelf for a fortnight, and the low shelf is where the ring binders live. The pages are intact, brown, and stuck together in one solid block. Steaming them apart is going slowly.
+      - title: Nobody is in trouble
+        body: That is what the notice on the door says, which everybody agrees is a strange thing for a notice to say. Behind the door is the store cupboard that used to be the records room. How it became a store cupboard has several versions.
     cafe:
       - title: The order pad met the mop bucket
         body: The morning rush was survived, the pad was set down on the wrong end of the counter, and the wrong end of the counter was where the bucket went over. The ink is a memory. The till has to balance by close, and until it does nobody knows who owes what.
@@ -377,6 +442,66 @@ briefings:
         body: The card reader was upgraded on Tuesday and has since forgotten Monday, Wednesday and the concept of a receipt. Every regular came in, every regular was served, and the record of it is a shrug. The owner is being extremely calm about this in a way that is worrying everybody.
       - title: A very helpful customer
         body: Somebody tidied the counter as a kindness, and in doing so squared up every scrap of paper on it into one beautiful pile in no order whatsoever. Everyone remembers their own morning perfectly and nobody remembers anyone else’s. The lunch shift starts in an hour.
+      - title: The chalkboard was wiped
+        body: Somebody came in early, found the board covered in yesterday's scrawl, and did the helpful thing with a damp cloth. The board is beautifully clean. It was carrying the whole of Saturday morning.
+      - title: The till roll ran out on Tuesday
+        body: It ran out quietly at about eleven and carried on printing nothing with complete confidence until close. Every transaction went through. Not one of them came out on paper.
+      - title: A wasp behind the counter
+        body: The wasp was dealt with eventually, in a way that involved a cloth, the order pad and a certain amount of shouting. Everyone remembers the wasp vividly. Nobody remembers what they ordered.
+      - title: The new part-timer filed it safely
+        body: They were told to keep the morning's notes somewhere safe, and they did, somewhere extremely safe, and then they went home. Their phone is off. The lunch shift starts at twelve.
+      - title: Two pads, one morning
+        body: The counter has a pad and the window end has a pad, and it was busy enough that both were used and neither was finished. Each holds half of everybody. Laid side by side they disagree on three counts.
+      - title: The pipe went in the night
+        body: Water came through the ceiling into the back room, which is where the paperwork lives, in a box, with the lid off. The box did its best. What is legible is about a third of it.
+      - title: Everything on one receipt
+        body: The machine printed the whole morning as a single unbroken run and somebody folded it into a pocket. The pocket went through a wash at sixty degrees. It is now a small grey brick.
+      - title: The regular who knows everyone
+        body: One customer claims to remember the entire morning, and the alarming part is how much of it checks out. The rest of it does not. Sorting the one from the other is the job.
+      - title: The power went at the worst hour
+        body: It went off at the top of the rush and came back forty minutes later with the card machine convinced it was Tuesday. Everyone was served. The record of it starts after the gap.
+      - title: A very helpful delivery driver
+        body: They stacked the crates neatly in the back, which is exactly what you want, on top of the day's paperwork, which is not. Nobody moved the crates for two days. The pages underneath are a shape rather than a document.
+      - title: The owner's excellent memory
+        body: The owner does not write things down, on the grounds that they remember everything, and to be fair they mostly do. Today they remember everything except the order it happened in. The order is the whole question.
+      - title: Rewritten in the good handwriting
+        body: Somebody copied the scrawled version into a neat one and threw the scrawl away, which would have been a kindness if they had been able to read it. Three lines are inventions. Nobody knows which three.
+      - title: The dog under the counter
+        body: A dog was tied up out of the way for twenty minutes and made excellent use of them. The lead is fine. Everything within the length of the lead is not.
+      - title: Filed in the recycling
+        body: The blue bin and the box for the day's notes are the same colour, the same size, and right next to each other. They have been next to each other for a year without incident. Today was the day it mattered.
+      - title: The photograph of the board
+        body: Somebody photographed the board rather than copying it out, which was clever, and then cleaned the board, which was less so. The photograph caught the top half. The bottom half is where the names were.
+      - title: Three people took one order
+        body: It was that kind of morning. Each of the three wrote down their part and not one of them wrote down which part it was. Put together they overlap in places and leave holes in others.
+      - title: The inspection went well
+        body: The inspector was shown everything, was very pleased, and took the folder away to photocopy it. That was Thursday. Nobody thought to take a number.
+      - title: A tidy end to the shift
+        body: The closing routine includes clearing the counter, and for once the closing routine was followed to the letter. The counter had the morning on it. It is a beautifully clear counter.
+      - title: The card reader disagrees
+        body: The machine kept a record and it argues with the pad on four counts, every one of them about who was actually here. It is not obvious which of the two is wrong. It is obvious that one of them is.
+      - title: Somebody's shopping list
+        body: The page on the counter turned out to be shopping rather than orders, and the orders turned out to be on something that has since gone into a carrier bag. The bag left with a customer. They have not come back in.
+      - title: The good pen
+        body: There is one pen in the place that works properly and it went missing at nine, so the rest of the morning is written in a pen that does not. The marks are there. Reading them is another matter entirely.
+      - title: Sunlight and thermal paper
+        body: A south-facing window and a whole afternoon are a poor pairing for a roll of thermal paper. The record faded inward from the edges with great patience. What is left of the middle is a rumour.
+      - title: The phone that had it all
+        body: Every note was typed into one phone, which is a sensible system right up to the moment the phone goes into a sink. It has been in a bag of rice since Tuesday. Nobody is hopeful.
+      - title: Two Mondays
+        body: The pad was started fresh on Monday, and started fresh again on Monday, because nobody turned the page over. Two mornings are written on top of each other. They were not the same morning.
+      - title: Everyone paid in the end
+        body: The total balances to the penny, which is the good news, and says nothing whatever about who paid which part of it. The page that would have said went out with the rubbish. The arithmetic is correct and useless.
+      - title: The chair by the window
+        body: Somebody left the day's notes on the chair by the window and somebody else came in and sat down on them. The pages are creased into a shape that will not flatten out. About half the words survived.
+      - title: A warm fog in the back room
+        body: The machine ran all morning and the extraction did not, which turned the back room into something like a steam bath. Paper in a steam bath goes soft and then goes blank. Nobody noticed until it had dried.
+      - title: The order of the queue
+        body: Everybody agrees on who came in this morning and nobody agrees on the order, which is the one thing the whole reckoning turns on. Each {noun} is quite certain they were before somebody else. They cannot all be right.
+      - title: Gone to the wrong folder
+        body: The morning's notes were tucked into the supplier folder, which gets emptied and posted off on the first of the month. The first of the month was yesterday. The supplier has been extremely polite about it.
+      - title: The clipboard above the kettle
+        body: The clipboard has lived on the shelf above the kettle for years without trouble, and stopped living there happily this morning. Steam does to ink roughly what you would expect. What is left has run downhill.
     quest:
       - title: The bard has been embellishing
         body: The only account of the campaign is a ballad, and the ballad rhymes rather than reports. Every verse is true in some order, but the order is whichever one scanned. The guild will not pay out on a song, so somebody has to work out who actually did what.
@@ -384,6 +509,66 @@ briefings:
         body: The quest ledger was kept in a locked chest, guarded by something that was later persuaded the chest was food. What survives is the memory of a tavern full of witnesses, none of whom were sober and all of whom were there. Nothing gets paid out until the claims agree with each other.
       - title: Everyone tells it differently
         body: Everyone came back at once, everyone had done something worth telling, and every account begins with the word "obviously". They cannot all be right and none of them will go first. The guildmaster wants it settled before the drinks do it for him.
+      - title: The scribe had a cold
+        body: The guild scribe worked through the whole week with a streaming cold and a shaking hand, and the roll shows it. Half the entries are illegible and the other half may be misspelled names. Nobody wants to be the one who asks them to do it again.
+      - title: The chest was locked properly
+        body: The guild chest was shut with the good lock, which nobody has opened since, because the key was locked inside it as well. A smith has been sent for. The guild is not minded to wait for a smith.
+      - title: A fire in the records tower
+        body: It was put out quickly and thoroughly, with water, which is the part nobody thinks about until afterwards. The pages did not burn. They ran instead.
+      - title: The bard sang it from memory
+        body: The only account of the season is a ballad the bard composed on the road and never wrote down, and the bard is now three towns away. Everyone who heard it remembers different verses. The guild will not pay out on a recollection of a song.
+      - title: Everyone signed with a mark
+        body: Half the roll is signed with crosses and thumbprints, which worked perfectly while the clerk who knew whose was whose was still here. That clerk has retired to the coast. The marks are all identical crosses.
+      - title: The courier took the wrong bag
+        body: Two bags left the guildhall that morning and only one of them was meant to. The roll is somewhere on the north road in a saddlebag full of turnips. The turnips arrived safely and on time.
+      - title: A wizard was consulted
+        body: A wizard was asked to preserve the ledger against damp and did so, permanently, inside a block of something clear and extremely hard. The pages are perfectly visible. Two of them are face down.
+      - title: The cellar flooded to the knee
+        body: The cellar took the worst of the water, and the cellar is where the guild keeps the year's paperwork, on the floor, for reasons nobody now defends. What came out is pulp with the odd word in it. The odd word is not enough.
+      - title: Three clerks, three hands
+        body: The roll was kept by whoever happened to be free, which came to three people with three systems and no agreement between them. Each column makes sense on its own. Together they make none at all.
+      - title: The seal was applied to everything
+        body: The guild seal went onto every page at the end of the season, in hot wax, pressed firmly, through the whole stack at once. The top page is impeccable. The eleven underneath have a crest driven through the middle of them.
+      - title: It was written in the good ink
+        body: The expensive ink was used for the entire roll, and the expensive ink is the one that fades in sunlight, which is why it is cheap now. The roll spent a fortnight on a windowsill. It is a blank scroll with a faint memory on it.
+      - title: The guildmaster's own copy
+        body: The guildmaster keeps a private copy, which everybody knew about and nobody had seen, and which turns out to be a list of names with no other columns at all. It confirms who was involved. It settles precisely nothing else.
+      - title: A dispute about the order
+        body: Everyone agrees on what was done and nobody agrees on what was done first, which matters, because the claims are paid out in order. Every account begins with the word obviously. They cannot all have been first.
+      - title: The dog of the guildhall
+        body: The guildhall keeps a dog to discourage rats, and the dog has now discouraged a considerable quantity of parchment. The rats were never the problem. About a third of the season is inside a very pleased animal.
+      - title: Filed by a helpful apprentice
+        body: The apprentice sorted the year alphabetically, which took two days and was done beautifully, working from the first word of each entry. Almost every entry begins with the word the. It is now one enormous heap under T.
+      - title: The contract ate itself
+        body: A clause nobody had read says the paperwork is destroyed at the turn of the season unless it is renewed, and nobody renewed it. The clause was honoured exactly. Whoever drafted it has not been seen since.
+      - title: A very selective burglary
+        body: Nothing of value was taken, which the guild has chosen to find insulting, and the ledger went instead. It is not clear what anybody would want with it. It is extremely clear that it has gone.
+      - title: The roll went out as kindling
+        body: There are two stacks by the hearth, one for burning and one for keeping, and they are the same height and the same colour. The fire was excellent all evening. The keeping stack is ash.
+      - title: Sworn statements, all of them
+        body: Every claimant has sworn an oath that their account is true, in front of witnesses, at considerable length. The accounts still contradict each other in six places. Oaths, it turns out, are not evidence.
+      - title: Copied out twice for safety
+        body: Two fair copies were made so that one could always be kept somewhere safe, and the two differ in eleven places. Neither copyist will accept that the error is theirs. The original went on the fire once the copies were finished.
+      - title: A season of shorthand
+        body: The clerk invented a shorthand halfway through the season on the grounds that it would be quicker, and it was. Nobody else can read a line of it. The clerk has gone travelling for a year.
+      - title: The raven arrived wet
+        body: The message came through weather no bird should have flown in, and arrived as a bird and a small grey pellet. The bird is fine and pleased with itself. The pellet was the season's account.
+      - title: Everyone came back at once
+        body: The whole company arrived within an hour of each other, all of them talking, and the clerk had one pen and two hands. What got written down is the loudest quarter of it. The rest went past at speed.
+      - title: The wax melted in the cart
+        body: The sealed case travelled two days in high summer on the sunny side of an open cart. The seals are now a single pool. Which document was which has become a matter of opinion.
+      - title: A helpful correction
+        body: Somebody went through the roll correcting the spelling of names, which was thoughtful, and corrected two of them to the same name. There were two people. There is now one line.
+      - title: The strongroom was too strong
+        body: The roll was put in the strongroom for safekeeping, and the strongroom was then mortared shut as part of the building work. It is entirely safe in there. It will be safe until the spring.
+      - title: Written on the back of a map
+        body: The only tally of the season was jotted on the reverse of a map, which was then given away to somebody heading north. They needed the map badly. Nobody thought to turn it over first.
+      - title: The moths had a good year
+        body: The cloth wrapping did its job for eleven months and then stopped doing it, and moths are not at all selective about which pages they begin with. What survives is the margins. The margins carry the least.
+      - title: Nobody wrote the day down
+        body: Every entry in the roll is complete apart from the day it happened, which the clerk left until later, every time, for an entire season. The order was obvious at the time. It is not obvious now.
+      - title: The guild moved buildings
+        body: Everything was carried across the square in one afternoon by whoever was standing nearby, in whatever came to hand. It all arrived. Not one box arrived with its lid still on, and the square was windy.
     reef:
       - title: The dive log went for a dive
         body: The log was on the transom, and then the swell was on the transom, and now the log is somewhere between the boat and the sea floor. Everyone surfaced happy and nobody wrote anything down. The permit needs the day’s numbers filed by Friday or the whole trip goes unrecorded.
@@ -391,6 +576,66 @@ briefings:
         body: Somebody rinsed everything at once, hung it on one line, and left it to the wind to decide whose was whose. Every {noun} is certain what they saw and vague about what they wore. The insurance form asks for both.
       - title: The tender was rewriting history
         body: The boat tender kept the day’s notes on their hand, which then met a wave, sun cream and a towel in that order. What is left is four smudges and one word that might be "eel". The dive centre would like a version to pin on the board.
+      - title: The slate went over the side
+        body: The day was written up on the slate on the way back in, and the slate was set down on the gunwale while somebody coiled a line. The sea took it cleanly. Nobody saw it go.
+      - title: The compressor room flooded
+        body: A hose let go overnight in the room where the day's paperwork is pinned to a board at knee level. The board is fine. The paper on it has become one grey sheet.
+      - title: Everything went in the rinse tank
+        body: The tank takes everything at the end of a day, on the sound principle that fresh water fixes most things. It does not fix a notebook. The notebook was in a pocket of the first thing in.
+      - title: The skipper's excellent memory
+        body: The skipper writes nothing down until the evening and has never once been wrong, which is why nobody insists on it. This evening the skipper was called to the harbour office. They came back at midnight with an apology.
+      - title: Two boats, one logbook
+        body: The centre runs two boats and keeps one book, which works beautifully until both boats are out on the same morning. Both crews wrote in it. Neither crew wrote down which boat they were on.
+      - title: The sun took the ink
+        body: The book spent an afternoon face up on the wheelhouse roof in flat calm and full sun. It is a lovely colour now. The pages are exactly the same lovely colour as the writing.
+      - title: Salt, and then time
+        body: The book lives in a bag inside a locker, and the locker has been letting in a fine mist of salt for longer than anybody noticed. The pages are stiff and pale. They crack rather than turn.
+      - title: The permit office wants it Friday
+        body: They are not unreasonable people and they have been extremely clear about the date. What they want is the day's numbers, in order, signed. What there is instead is eight people and a lot of good will.
+      - title: A pen that does not like water
+        body: Somebody brought the wrong pen aboard, and it wrote beautifully all morning and dissolved in the afternoon. The morning half is perfect. The afternoon half is a blue cloud.
+      - title: The clipboard blew off the flybridge
+        body: It went over on the run home in a following wind, spun once, and landed somewhere in the wake. Two pages were still attached when it went. The rest had left earlier and separately.
+      - title: The phone that had the whole week
+        body: One phone held everything, in a case rated to ten metres, which is a number that quietly assumes the case is shut. It was not shut. It is now an expensive paperweight.
+      - title: A very thorough tidy
+        body: Somebody cleared the wheelhouse before the inspection, which was the right instinct, into a bin bag, which was not. The bag went to the skip that evening. The skip was emptied at six.
+      - title: The briefing was given out loud
+        body: The morning run-through was delivered clearly, to everybody, and written down by nobody, because it has never once needed writing down. Today it needed writing down. Eight people heard eight slightly different mornings.
+      - title: The book was lent out
+        body: Another boat borrowed it to copy a page and has not brought it back, being two days up the coast and in no particular hurry. They are perfectly reliable people. They are also out of range.
+      - title: A squall on the way in
+        body: It came through fast and everybody did the sensible thing, which meant securing anything loose without stopping to ask what was paper. Two things went over the side. One of them mattered.
+      - title: The new system is better
+        body: The centre has moved to filling in a form on a laptop, which is better in every way, and the laptop stayed ashore this morning. The paper book was retired last week. Nothing at all was written down.
+      - title: Filed under the coffee cup
+        body: The page spent an afternoon under a cup on the galley counter, in a boat that moves. The ring is perfect. What was inside the ring is not.
+      - title: Everybody checked everybody
+        body: The buddy system means every pair signed for each other, which is excellent practice and produces a page of pairs with nothing else on it. Who went with whom is beyond doubt. Nothing else is.
+      - title: The pencil was the only casualty
+        body: The board survived and the clip survived, and the pencil went in the water first thing and was not missed until the end of the day. Nobody wanted to be the one to mention it. Everything since breakfast is memory.
+      - title: Two people, one first name
+        body: Half the entries use first names and two of the eight aboard share one, which was funny in the morning. It stopped being funny at the desk. Four entries could belong to either of them.
+      - title: The pages stuck together
+        body: A wet thumb, a warm locker and three days will laminate a notebook as well as any machine. The block is intact and will not open. Prising it apart takes the pages with it.
+      - title: The harbour master borrowed it
+        body: He wanted to check one number and took the whole book to his office so he could do it properly. The office was locked at four. He is away until the middle of next week.
+      - title: A gull took the corner of it
+        body: It came down on the transom for something else entirely and left with a corner of the day, which is the corner the times were written in. The gull is fine. The book is missing a triangle.
+      - title: Written on the back of a form
+        body: The day went onto the reverse of a form that gets handed in, signed and filed at the end of every trip. It was handed in, signed and filed. It is now three boxes deep in a cupboard ashore.
+      - title: The boat was hosed down
+        body: End of the season, everything out, everything hosed, which is exactly the procedure. The procedure assumes the paperwork has already been taken off. It had not been taken off.
+      - title: Nobody was aboard
+        body: Everyone was in the water at the same time, which is not supposed to happen and did, and the boat sat quietly with the book open on the bench. It was a breezy afternoon. Several pages are somewhere in the bay.
+      - title: The order of the morning
+        body: Everybody agrees on who went in and nobody agrees on the order, and the order is the one thing the form actually asks for. Each {noun} is certain they were after somebody else. They cannot all have been last.
+      - title: Two versions in one book
+        body: Somebody started writing the day up from the back of the book, which is a perfectly good system as long as everybody knows about it. Nobody else knew about it. The two halves meet in the middle and disagree.
+      - title: The centre keeps a large dog
+        body: It was left aboard for an hour, and there was a bag on the bench that smelled extremely interesting to a large dog. The bag is in pieces. So is the afternoon.
+      - title: Left on the roof of the van
+        body: The book was put on the roof while the doors were unlocked and stayed up there for about a mile of coast road. It came off on the first proper bend. Somebody has gone back to walk the verge.
     garden:
       - title: The entry cards blew away
         body: The show marquee was open at both ends when the wind found it, and the entry cards left in a hurry. The entries are still on their benches, magnificent and entirely anonymous. Judging starts at two and the rosettes have to go to the right benches.
@@ -399,6 +644,66 @@ briefings:
       - title: The judge is new
         body: This year’s judge reorganised the benches for a better light, which was thoughtful, and did it before the cards were checked, which was not. Nobody doubts the measurements; nobody can say whose they are. The blue ribbon is not going anywhere until this is straightened out.
 
+      - title: The entry cards went in the barrow
+        body: Somebody cleared the trestle into the barrow to make room, and the barrow went where barrows go, which is the compost heap. The heap was turned that afternoon. The cards are in there somewhere and are no longer cards.
+      - title: The secretary's beautiful ledger
+        body: The show secretary keeps everything in one book in copperplate, has done for thirty years, and has never once mislaid it. It was in the car on Friday. The car went to be valeted on Saturday.
+      - title: The marquee took off
+        body: One corner came loose at about four in the morning and the wind did the rest, thoroughly, across two fields. The exhibits are fine, being heavy. The paperwork was not heavy.
+      - title: Rain on an open trestle
+        body: The forecast promised a dry afternoon and was wrong by roughly three hours. Everything laid out on the trestle took the lot. What is left of the list is a sheet of even grey.
+      - title: The hose was left running
+        body: It ran all night into the corner of the shed where the box of paperwork sits on the floor, as it has sat for years without incident. There were consequences this time. The box is now a solid cube of papier mache.
+      - title: Two shows on one weekend
+        body: The committee runs two events and keeps one set of forms, and this year the weekends overlapped by a day. Both sets of entries went onto the same sheets. Neither sheet says which show it was.
+      - title: The pen ran out at number six
+        body: It ran out cleanly and quietly, and the scoring carried on for another twenty minutes with nothing coming out at all. The impressions are still in the paper. Reading them wants a raking light and a great deal of patience.
+      - title: A dog in the marquee
+        body: It was in there for perhaps ten minutes, which is ample for a dog with an interest in paper and a low trestle to work from. The exhibits were untouched. The lists were not.
+      - title: Filed on the burning heap
+        body: There is a heap for burning and a heap for keeping, at opposite ends of the shed, and both of them are cardboard boxes. The fire was lit at six. It was an excellent fire.
+      - title: The judge wrote on their hand
+        body: Notes taken on a palm do not survive a watering can, and there was a watering can. Four marks remain and one of them is probably a number. It is being treated as a starting point.
+      - title: A very windy Saturday
+        body: The show is held outdoors, the show was well attended, and the wind was by common agreement a disgrace. Everything unweighted left at speed. The cards were unweighted.
+      - title: The committee minuted nothing
+        body: The judging was settled at a meeting everybody attended and nobody wrote up, because it was all perfectly obvious at the time. It is Monday now. Not one of them can put it back together.
+      - title: Two hands, one list
+        body: The list was kept by two people taking turns, in two hands, using two different abbreviations for the same thing. It reads as twice as many entries as there were. Untangling that is the morning's work.
+      - title: The greenhouse in August
+        body: The folder was left on the bench in the greenhouse over a hot weekend, which is a thing you only do once. The pages have gone the colour of weak tea and curled into tubes. Flattening them lifts the ink off.
+      - title: Somebody tidied the shed
+        body: The shed was cleared, swept and made beautiful by a volunteer who did not know what any of it was for. Everything went into black bags. The bags went out on Tuesday morning.
+      - title: The rosettes were pinned early
+        body: They went on ahead of time to save a job later, and then the order changed, which nobody minded until it emerged that the cards had already gone. The rosettes are on. Whether they are on the right benches is the question.
+      - title: Something got into the box
+        body: Whatever it was worked through a damp fortnight and a cardboard box in a more or less straight line. The trail is very clear. So are the holes it left behind.
+      - title: The clipboard on the roof of the car
+        body: It was put up there while the boot was opened and stayed put for the length of the village. It came off at the junction. Somebody is walking back along the verge with a carrier bag.
+      - title: Written on the back of the schedule
+        body: The tally went onto the reverse of the printed schedule, of which two hundred were made, all identical, all now stacked in the hall. Somewhere in that stack is the one with writing on it. Nobody has volunteered to go through them.
+      - title: The tea urn went over
+        body: It went over on the trestle at the back, which is exactly where the day's papers were, and it had been on since eight. What the water did not take, the tea did. The stain is even and complete.
+      - title: Everyone remembers their own
+        body: Every {noun} can tell you precisely what they entered and precisely nothing about anybody else's, which is natural and entirely useless. The answer lives in the overlap. There is not a great deal of overlap.
+      - title: A gap in the numbering
+        body: The entry numbers run from one to twenty-nine with no seventeen anywhere, and nobody will own up to seventeen. It is not blank, it is absent. Whoever took it out did it neatly.
+      - title: Last year's cards, turned over
+        body: The old cards were reused, which is thrifty and admirable, and now every card carries two sets of writing. Both are in the same hand. Neither is dated.
+      - title: The lock on the hall
+        body: Everything was shut in the hall for safekeeping on Saturday night, and the key holder went to visit family on Sunday morning. The hall is secure. It is secure until Thursday.
+      - title: Somebody's shopping list
+        body: The sheet on the trestle turned out to be a shopping list, and the real list turned out to be on something that has gone home in a coat pocket. The coat belongs to a visitor. Nobody caught a name.
+      - title: The sprinkler is on a timer
+        body: The timer works perfectly, which is the trouble, because nobody told it the marquee would be standing there this week. It came on at four in the morning. It ran for its usual twenty minutes.
+      - title: Two people called Margaret
+        body: There are two Margarets on the entry list and only one of them is written down with a surname. Half the entries are ambiguous on that basis alone. Both Margarets are being very good about it.
+      - title: The frost got in
+        body: The cold frame was left open, and the box of forms was in the cold frame, which is not where it lives and nobody has explained why it was. Paper, frost and then sun do a particular thing between them. The pages have gone to lace.
+      - title: The photograph of the benches
+        body: Somebody photographed the whole row rather than copying the cards out, which was clever, and the sun was behind the benches, which was not. The picture is a beautiful silhouette. Not one card can be read.
+      - title: The show ran late
+        body: Everything overran by two hours and the recording was the thing that got dropped, because it is always the thing that gets dropped. Every result was announced out loud to a field full of people. None of it was written down.
 menu:
   title: Puzzle settings
   thisPuzzle: This puzzle

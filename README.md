@@ -849,13 +849,24 @@ past the end of the ones already read asks for another, which makes reading a
 clue a decision — and the number of them the statistics keep. Going back through
 what you have been told is free; going on is not.
 
-`src/data/briefings.ts` holds what the puzzle is about: three scenes per theme,
-drawn by the seed, saying what went wrong and why it has to be worked out. They
-name no set except the anchor — which sets a puzzle plays with is sampled from
-the theme, so a briefing promising a cargo manifest would sometimes be describing
-a puzzle with no cargo in it, and a test holds every line of them to that. They
+`src/data/briefings.ts` holds what the puzzle is about: thirty-three scenes per
+theme, drawn by the seed, saying what went wrong and why it has to be worked
+out. Every theme carries the same number, which is a fairness question rather
+than a round one — a theme with three repeats itself eleven times as often as
+one with thirty-three, and the repetition is the thing a player notices. They
+are all the same story told differently, because that is the story a logic grid
+actually is: a record existed, something ordinary happened to it, and what is
+left is what people remember. The variety is in the mishap.
+
+They name no set except the anchor — which sets a puzzle plays with is sampled
+from the theme, so a briefing promising a cargo manifest would sometimes be
+describing a puzzle with no cargo in it, and a test holds every line of them to
+that. It matches on substrings, which is stricter than it sounds: a garden scene
+cannot say *spotless* or *potting*, and a reef one cannot say *kitchen*. They
 say what happened and never what the answer is, so opening one is free and
-uncounted, unlike a clue.
+uncounted, unlike a clue. A second test walks two hundred and fifty games per
+theme and fails unless every scene turns up, because a scene nobody is ever
+dealt is a scene nobody proofreads.
 
 Above each clue, `src/data/openers.ts` says who is supposed to have said it. The
 list is fourteen lines, four of which use `{noun}` — the theme's own word for

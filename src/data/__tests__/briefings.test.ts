@@ -4,10 +4,13 @@ import { SIZES } from '../sizes';
 import { THEMES } from '../themes';
 
 describe('BRIEFINGS', () => {
-  it('has a story for every theme', () => {
-    for (const theme of THEMES) {
-      expect(briefingsFor(theme.id).length).toBeGreaterThan(0);
-    }
+  it('gives every theme the same number of stories to draw from', () => {
+    // Not a magic number so much as a fairness one: a theme with three scenes
+    // repeats itself five times as often as one with fifteen, and the repetition
+    // is what a player notices rather than the count.
+    const counts = THEMES.map((theme) => briefingsFor(theme.id).length);
+    expect(Math.min(...counts)).toBeGreaterThan(0);
+    expect(new Set(counts).size).toBe(1);
   });
 
   it('names no set that might not be in play', () => {
@@ -62,12 +65,21 @@ describe('briefingFor', () => {
     expect(briefingFor(orphan).body.length).toBeGreaterThan(0);
   });
 
+  /**
+   * Every story a theme owns is one somebody will actually meet.
+   *
+   * A scene written and never drawn is a scene nobody proofreads, so the whole
+   * set is walked rather than sampled. Two hundred and fifty games is generous:
+   * the last of the thirty-three turns up by game 103, and the slack is there so
+   * that writing one more does not quietly push the last one out of reach.
+   */
   it('reaches every story a theme has across a run of puzzles', () => {
-    const theme = THEMES[0];
-    const seen = new Set<string>();
-    for (let seed = 1; seed <= 60; seed++) {
-      seen.add(briefingFor(generatePuzzle({ theme, size: SIZES[0], seed })).title);
+    for (const theme of THEMES) {
+      const seen = new Set<string>();
+      for (let seed = 1; seed <= 250; seed++) {
+        seen.add(briefingFor(generatePuzzle({ theme, size: SIZES[0], seed })).title);
+      }
+      expect(seen.size).toBe(briefingsFor(theme.id).length);
     }
-    expect(seen.size).toBe(briefingsFor(theme.id).length);
   });
 });
