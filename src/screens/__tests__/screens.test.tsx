@@ -202,9 +202,9 @@ describe('how to play', () => {
 
     for (const name of [
       'Negative clues',
-      'Comparison clues',
+      'Ordering clues',
       'Grouped clues',
-      'Compare the gap clues',
+      'Comparison clues',
       'Vague clues',
     ]) {
       expect(button(name)).toBeEnabled();

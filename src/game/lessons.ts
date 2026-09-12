@@ -733,7 +733,16 @@ const BUILDERS: Record<LessonId, () => Lesson> = {
  */
 export const FIRST_LESSONS: LessonId[] = ['deduction', 'further'];
 
-/** What "Understanding clues" opens: one board per kind of clue the game writes. */
+/**
+ * What "Understanding clues" opens: one board per kind of clue the game writes.
+ *
+ * The ids name the kind of clue; the titles name the lesson, and since the
+ * rename they no longer read alike. `comparison` is the plain one — higher and
+ * lower, no amount — and is called *Ordering clues*; `gap` is the one that gives
+ * an exact difference, and is called *Comparison clues*. The ids are what a
+ * saved lesson and every test key on, so they stayed put while the words on the
+ * screen moved.
+ */
 export const CLUE_LESSONS: LessonId[] = ['negative', 'comparison', 'grouped', 'gap', 'vague'];
 
 /** Built on demand: seven boards nobody has asked for is seven boards too many. */

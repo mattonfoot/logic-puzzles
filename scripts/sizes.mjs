@@ -180,9 +180,9 @@ async function main() {
     await wait(page, 500);
     for (const name of [
       'Negative clues',
-      'Comparison clues',
+      'Ordering clues',
       'Grouped clues',
-      'Compare the gap clues',
+      'Comparison clues',
       'Vague clues',
     ]) {
       const seen = await box(page, name);

@@ -708,36 +708,38 @@ screens hold none of their own:
 | --- | --- | --- |
 | `type.door` | 42 / 50, weight 800 | The front door's ways in: **Daily**, **Play**, **How to play**. |
 | `type.menu` | 33 / 40, weight 800 | A choice in a list: a difficulty, a numbered puzzle, a daily. |
-| `type.menuLong` | 23 / 30, weight 800 | The same, where the choices are named in phrases: the two lesson menus. |
+| `type.menuLong` | 25 / 32, weight 800 | The same, where the choices are named in phrases: the two lesson menus. |
 | `type.title` | 22 / 28, weight 800 | What a screen is called, over its rule. |
 | `type.note` | 14 / 20, weight 600 | The quiet line beside or under one of those: a time, a hint, a count. |
 
 Three steps for one thing, and the three are one voice: same weight, same
 tracking, and only the size between them, so **Daily**, **Advanced** and
-**Compare the gap clues** read as three answers to the same question rather
+**Comparison clues** read as three answers to the same question rather
 than three screens that happen to follow one another. What separates them is
 how much room the words need. The front door has three of them and the longest
 is eleven letters, so it can afford to be the largest decision on the page —
 though it stops short of the panel's own 62, so the doors are plainly the
 second-largest thing rather than a rival to the name. The lesson menus go the
-other way, and go a long way: "Compare the gap clues" is the longest choice in
-the app, and it alone holds `menuLong` six points below where every other row
-on that menu would sit.
+other way: `menuLong` serves both menus behind **How to play**, so the tightest
+row in either decides it, and a phone gets a say in what tight means. iOS
+multiplies every label by the reader's own text setting and React Native lets
+it, so the size in the scale is a floor rather than the number that gets drawn.
 
-It is that low because a phone gets a say in the size. iOS multiplies every
-label by the reader's own text setting and React Native lets it, so the size in
-the scale is a floor rather than the number that gets drawn. The narrowest phone
-the app is built for draws that row on one line up to 31 points; 23 is what
-keeps it there at xxxLarge, the largest of the ordinary settings. Above those
-are the accessibility sizes, which go to three times and more — everything in
-every app reflows at three times, and a menu that refused to would be a menu
-refusing to honour the setting at all.
+That row used to be "Compare the gap clues", which the narrowest phone drew on
+one line only up to 31 points and which held the step down to 23. It was renamed
+to *Comparison clues* — and the constraint moved to the other menu rather than
+going away. "Understanding clues" runs out at 34.5 points, which is 25 at
+xxxLarge, the largest of the ordinary settings. The rename bought two points
+rather than the six that row was costing its own menu, because its own menu was
+never what the number was set by. Above xxxLarge are the accessibility sizes,
+which go to three times and more — everything in every app reflows at three
+times, and a menu that refused to would be refusing to honour the setting.
 
 `npm run sizes` is what holds all of that honest. It opens every menu on five
 phones and counts the line boxes each label was drawn in — a range over the
 words reports one rectangle per line — and it asks twice: once at the size the
 scale sets, and once at 1.35 times it. The second question is the one that
-matters, and it is new: at 28 points the longest row went to two lines at 1.11,
+matters: at 28 points the longest row went to two lines at 1.11,
 which is one notch above the common setting, and this script cheerfully reported
 that every screen fit, because a browser has one text size and a phone has
 twelve. Nothing else would have caught it either — a wrapped label still fits

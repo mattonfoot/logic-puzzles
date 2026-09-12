@@ -170,24 +170,27 @@ export const type = {
   /**
    * The same, for a list whose choices are named in phrases rather than words.
    *
-   * "Compare the gap clues" measures 328 points at the size above, against the
-   * 343 an iPhone 11 Pro leaves between the margins, so it wrapped — and a menu
-   * where one row is two lines high is a menu with a mistake in it.
+   * A menu where one row is two lines high is a menu with a mistake in it, and
+   * the size that avoids it is not the one a browser agrees to. iOS multiplies
+   * every label by the reader's own text setting, so the number here is a floor
+   * rather than what gets drawn: at 28 the longest row went to two lines at
+   * 1.11, which is xLarge, one notch above the common setting.
    *
-   * 28 fixed that on a browser and not on a phone. iOS multiplies every label
-   * by the reader's own text setting, and at 28 the longest row went to two
-   * lines at 1.11 — xLarge, one notch above the common setting and not remotely
-   * an unusual one. The narrowest phone the app is built for draws that row on
-   * one line up to 31 points, so 23 is what holds it to xxxLarge, the largest of
-   * the ordinary sizes.
+   * This step serves both menus behind How to play, so the tightest row in
+   * either decides it. That used to be "Compare the gap clues", which the
+   * narrowest phone drew on one line only up to 31 points and which held the
+   * step down to 23. It has been renamed, and the constraint promptly moved to
+   * the other menu rather than going away: "Understanding clues" runs out at
+   * 34.5, which is 25 at xxxLarge — the largest of the ordinary settings, above
+   * which come the accessibility ones.
    *
-   * It is a low number for a menu, and one row is why: every other choice here
-   * would sit happily at 29. "Compare the gap clues" is six points of type on
-   * its own.
+   * So renaming bought two points rather than the six that row was costing its
+   * own menu, because its own menu was never what the number was set by. Every
+   * choice under Understanding clues would now sit at 29.
    */
   menuLong: {
-    fontSize: 23,
-    lineHeight: 30,
+    fontSize: 25,
+    lineHeight: 32,
     fontWeight: '800',
     letterSpacing: -1,
   },

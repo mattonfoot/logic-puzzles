@@ -137,7 +137,7 @@ export const STRINGS = {
       finish: 'And that settles the last square without a word about it.',
     },
     comparison: {
-      title: 'Comparison clues',
+      title: 'Ordering clues',
       blurb: 'Higher and lower, and the ends they rule out',
       opening:
         'Three customers and three bills. A comparison never names a bill: it says one is above another, and the work is in what that makes impossible.',
@@ -178,7 +178,7 @@ export const STRINGS = {
       finish: 'Which leaves one drink for the one customer still open.',
     },
     gap: {
-      title: 'Compare the gap clues',
+      title: 'Comparison clues',
       blurb: 'An exact difference, and the pairs it allows',
       opening:
         'This one gives the exact difference. Read the numbers on the bills first — $4, $5 and $7 — because the clue is really a question about which two of them are that far apart.',

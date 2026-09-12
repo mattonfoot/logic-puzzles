@@ -61,10 +61,11 @@ export function LessonsScreen({ title, entries, backLabel, onBack }: Props) {
               key={entry.key}
               label={entry.label}
               hint={entry.hint}
-              // "Compare the gap clues" is a phrase, not a word: at the size the
-              // difficulties are set in it wraps onto two lines on a 375-point
-              // phone, and a menu with a two-line row in it is a menu with a
-              // mistake in it.
+              // These choices are phrases rather than words — "Understanding
+              // clues" is the longest — and at the size the difficulties are set
+              // in the longest of them wraps onto two lines on a 375-point
+              // phone, at a text size that phone is not even set to. A menu with
+              // a two-line row in it is a menu with a mistake in it.
               size="long"
               onPress={entry.onPress}
             />
