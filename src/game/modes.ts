@@ -25,7 +25,8 @@ export interface Mode {
   /**
    * The same choice in one word, for a line with no room for the full name: a
    * shared result, where "Deduction · Pure Deduction" would say the app's own
-   * name twice, and a statistics row that has a difficulty to fit as well.
+   * name twice, and the statistics, where all three kinds of game label one row
+   * of tabs over a table that has difficulties to fit as well.
    */
   short: string;
   /**
@@ -71,9 +72,16 @@ export type PlayedAs = ModeId | 'daily';
 
 export const DAILY: PlayedAs = 'daily';
 
-/** The three, in the order the statistics show them. */
+/**
+ * The three, in the order the statistics show them, under their short names.
+ *
+ * Short because all three label one row of tabs over a table of times, where
+ * the full names would take two lines to say what one word each says — and
+ * because the line under the trend chart reads "Classic: recent solve times",
+ * which the full name would make a sentence about a menu.
+ */
 export const PLAYED_AS: { id: PlayedAs; name: string }[] = [
-  ...MODES.map((mode) => ({ id: mode.id as PlayedAs, name: mode.name })),
+  ...MODES.map((mode) => ({ id: mode.id as PlayedAs, name: mode.short })),
   { id: DAILY, name: t('modes.daily') },
 ];
 

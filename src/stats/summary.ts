@@ -64,7 +64,7 @@ export interface SizeStats {
  */
 export interface PlayStats {
   playedAs: PlayedAs;
-  /** What it is called: "Classic logic", "Daily challenges". */
+  /** What it is called, short: "Classic", "Daily". */
   name: string;
   solved: number;
   sizes: SizeStats[];

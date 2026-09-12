@@ -1945,13 +1945,13 @@ describe('the statistics', () => {
 
     // Both games are counted in the totals; only one of them is in the table.
     expect(screen.getByText('2')).toBeOnTheScreen();
-    expect(screen.getAllByText('Pure Deduction').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Pure').length).toBeGreaterThan(0);
     // The Pure time is in the table twice — best and average, one game — and
     // the Classic one is nowhere on it.
     expect(screen.getAllByText('1:40').length).toBeGreaterThan(0);
     expect(screen.queryByText('6:40')).toBeNull();
 
-    fireEvent.press(screen.getByRole('tab', { name: 'Classic logic' }));
+    fireEvent.press(screen.getByRole('tab', { name: 'Classic' }));
     expect(screen.getAllByText('6:40').length).toBeGreaterThan(0);
     expect(screen.queryByText('1:40')).toBeNull();
   });
@@ -1974,10 +1974,10 @@ describe('the statistics', () => {
       />,
     );
 
-    expect(screen.getByRole('tab', { name: 'Daily challenges' })).toBeOnTheScreen();
+    expect(screen.getByRole('tab', { name: 'Daily' })).toBeOnTheScreen();
     expect(screen.queryByText('4:10')).toBeNull();
 
-    fireEvent.press(screen.getByRole('tab', { name: 'Daily challenges' }));
+    fireEvent.press(screen.getByRole('tab', { name: 'Daily' }));
     expect(screen.getAllByText('4:10').length).toBeGreaterThan(0);
     expect(screen.queryByText('1:40')).toBeNull();
   });
@@ -1994,8 +1994,8 @@ describe('the statistics', () => {
       />,
     );
 
-    expect(screen.queryByRole('tab', { name: 'Classic logic' })).toBeNull();
+    expect(screen.queryByRole('tab', { name: 'Classic' })).toBeNull();
     // Still said, so a screen nobody has explained cannot be read as both.
-    expect(screen.getAllByText('Pure Deduction').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Pure').length).toBeGreaterThan(0);
   });
 });

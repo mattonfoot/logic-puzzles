@@ -230,7 +230,7 @@ export const STRINGS = {
       hint: 'Every mark on the board is yours',
       short: 'Classic',
     },
-    daily: 'Daily challenges',
+    daily: 'Daily',
     locked:
       'Classic logic works nothing out for you. Start a Pure Deduction game to have the board keep up.',
   },
