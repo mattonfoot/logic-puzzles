@@ -54,8 +54,8 @@ const ICON = {
    * the hundred is the same edge with a centurion's helmet in profile on it,
    * since a century is a hundred of something and a hundred pips at 26 points
    * is a smudge. The two in between are drawn as what they count, stacked as
-   * pyramids — three and ten are both triangular numbers, so both come out
-   * square with no pip left over.
+   * pyramids standing on their point — three and ten are both triangular
+   * numbers, so both come out square with no pip left over.
    */
   one: 'ui/icon-one',
   three: 'ui/icon-three',
