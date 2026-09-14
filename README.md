@@ -318,12 +318,13 @@ captures are for.
    name, on both axes: a name long enough to read has to be turned on its side
    above a column, and a picture is the same shape whichever edge of the board
    it sits on. The ordered set is the exception — a year, a depth or a price is
-   headed by the number itself, since fourteen drawings of a stack of discs
+   headed by the value itself, since fourteen drawings of a stack of discs
    differ only by how many discs are in the stack, and nobody counts discs at
-   the size a heading gets. The unit goes with the set name down the side of the
-   grid rather than into every square: "185", not "185cm", and a whole scale is
-   set in the size its longest number needs so no heading in it is drawn larger
-   than its neighbour. Tap one to open the card that says, in words, which is
+   the size a heading gets. It is written the way it is written everywhere else
+   — "£17", "215cm" — with the unit set smaller than the figures, since the
+   figures are what you compare and the square is theirs. A whole scale is set
+   in the size its widest value needs, so no heading in it is drawn larger than
+   its neighbour. Tap one to open the card that says, in words, which is
    which.
    Nothing on the screen scrolls: the board opens at the size
    that fits the space it is given, with the clue in play beneath it. The board

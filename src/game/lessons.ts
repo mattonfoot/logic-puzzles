@@ -177,9 +177,9 @@ const of = (category: number, item: number) => ({ category, item });
 const CUSTOMERS = ['barley', 'crumb', 'marzipan'];
 const DRINKS = ['latte', 'mocha', 'chai'];
 const PASTRIES = ['croissant', 'cannel', 'scone'];
-/** $4, $5 and $6, which is the plain run a comparison walks up. */
+/** £4, £5 and £6, which is the plain run a comparison walks up. */
 const BILLS = ['4', '5', '6'];
-/** $4, $5 and $7: one pair a dollar apart, and one bill that is not near either. */
+/** £4, £5 and £7: one pair a pound apart, and one bill that is not near either. */
 const GAPPED_BILLS = ['4', '5', '7'];
 
 /**
@@ -421,7 +421,7 @@ function comparisonClues(): Lesson {
     theme,
     'comparison',
     [setOf(theme, 'customer', CUSTOMERS), setOf(theme, 'bill', BILLS)],
-    // Barley $5, Crumb $4, Marzipan $6.
+    // Barley £5, Crumb £4, Marzipan £6.
     [
       [0, 1, 2],
       [1, 0, 2],
@@ -578,7 +578,7 @@ function groupedClues(): Lesson {
  * One clue settles this whole board, which is the honest lesson: an exact gap
  * is the strongest sentence the game writes. Reading it means reading the
  * numbers on the set first and asking which two of them are that far apart —
- * $4, $5 and $7 leave exactly one pair a dollar apart, and the odd bill out is
+ * £4, £5 and £7 leave exactly one pair a pound apart, and the odd bill out is
  * ruled out of both ends of the clue.
  */
 function gapClues(): Lesson {
@@ -588,7 +588,7 @@ function gapClues(): Lesson {
     theme,
     'gap',
     [setOf(theme, 'customer', CUSTOMERS), setOf(theme, 'bill', GAPPED_BILLS)],
-    // Barley $5, Crumb $4, Marzipan $7.
+    // Barley £5, Crumb £4, Marzipan £7.
     [
       [0, 1, 2],
       [1, 0, 2],

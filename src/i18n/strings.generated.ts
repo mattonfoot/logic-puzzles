@@ -142,18 +142,18 @@ export const STRINGS = {
       opening:
         'Three customers and three bills. A comparison never names a bill: it says one is above another, and the work is in what that makes impossible.',
       steps: {
-        one: 'Barley is above Crumb, so she is not the lowest. Cross off Ms Barley and $4.',
+        one: 'Barley is above Crumb, so she is not the lowest. Cross off Ms Barley and £4.',
         oneDone: 'The one at the bottom cannot be above anybody.',
-        two: 'And the same the other way: Crumb is below her, so he is not the highest. Cross off Alderman Crumb and $6.',
+        two: 'And the same the other way: Crumb is below her, so he is not the highest. Cross off Alderman Crumb and £6.',
         twoDone: 'One clue, two squares, and neither of them named a number.',
         three:
-          'The second clue puts Marzipan above Barley, so she is not the lowest either. Cross off Mrs Marzipan and $4.',
-        threeDone: 'Which leaves one customer in the $4 column.',
-        four: 'Tick Alderman Crumb and $4.',
+          'The second clue puts Marzipan above Barley, so she is not the lowest either. Cross off Mrs Marzipan and £4.',
+        threeDone: 'Which leaves one customer in the £4 column.',
+        four: 'Tick Alderman Crumb and £4.',
         fourDone: 'Settled.',
-        five: 'Barley is below Marzipan, so Barley is not the highest. Cross off Ms Barley and $6.',
+        five: 'Barley is below Marzipan, so Barley is not the highest. Cross off Ms Barley and £6.',
         fiveDone: 'And Barley has nowhere left but the middle.',
-        six: 'Tick Ms Barley and $5.',
+        six: 'Tick Ms Barley and £5.',
         sixDone: 'Two customers placed, and neither clue ever named a number.',
       },
       finish: 'Which leaves the highest bill for the one customer with nothing crossed off.',
@@ -181,17 +181,17 @@ export const STRINGS = {
       title: 'Comparison clues',
       blurb: 'An exact difference, and the pairs it allows',
       opening:
-        'This one gives the exact difference. Read the numbers on the bills first — $4, $5 and $7 — because the clue is really a question about which two of them are that far apart.',
+        'This one gives the exact difference. Read the numbers on the bills first — £4, £5 and £7 — because the clue is really a question about which two of them are that far apart.',
       steps: {
-        one: 'Barley is a dollar above Crumb, so she is not the lowest. Cross off Ms Barley and $4.',
+        one: 'Barley is a pound above Crumb, so she is not the lowest. Cross off Ms Barley and £4.',
         oneDone: 'That much is the ordinary comparison.',
-        two: 'Now the gap. $7 is two dollars above $5 and three above $4, so no bill sits exactly a dollar below it. Cross off Ms Barley and $7.',
+        two: 'Now the gap. £7 is two pounds above £5 and three above £4, so no bill sits exactly a pound below it. Cross off Ms Barley and £7.',
         twoDone: 'The exact difference ruled out a square that a plain "higher than" never could.',
-        three: 'Which leaves the middle. Tick Ms Barley and $5.',
-        threeDone: 'And a dollar below $5 is $4, which is where Crumb has to be.',
-        four: 'So cross off Alderman Crumb and $7.',
+        three: 'Which leaves the middle. Tick Ms Barley and £5.',
+        threeDone: 'And a pound below £5 is £4, which is where Crumb has to be.',
+        four: 'So cross off Alderman Crumb and £7.',
         fourDone: 'Leaving him one bill.',
-        five: 'Tick Alderman Crumb and $4.',
+        five: 'Tick Alderman Crumb and £4.',
         fiveDone:
           'One clue did all of that, which is why an exact gap is the strongest sentence the game writes.',
       },
@@ -2817,7 +2817,7 @@ export const STRINGS = {
           noun: 'bill',
           ordered: {
             noun: 'bill',
-            unit: 'dollars',
+            unit: 'pounds',
             greater: 'higher',
             lesser: 'lower',
           },
@@ -2833,112 +2833,112 @@ export const STRINGS = {
           },
           items: {
             '4': {
-              label: '$4',
-              blurb: 'A $4 ticket. Paid in coins, counted twice, correct both times.',
+              label: '£4',
+              blurb: 'A £4 ticket. Paid in coins, counted twice, correct both times.',
               traits: {
                 band: 'modest',
                 parity: 'even',
               },
             },
             '5': {
-              label: '$5',
-              blurb: 'A $5 ticket. The smallest order anyone has admitted to.',
+              label: '£5',
+              blurb: 'A £5 ticket. The smallest order anyone has admitted to.',
               traits: {
                 band: 'modest',
                 parity: 'odd',
               },
             },
             '6': {
-              label: '$6',
-              blurb: 'A $6 ticket. Rounded up, because the tip jar was watching.',
+              label: '£6',
+              blurb: 'A £6 ticket. Rounded up, because the tip jar was watching.',
               traits: {
                 band: 'modest',
                 parity: 'even',
               },
             },
             '7': {
-              label: '$7',
-              blurb: 'A $7 ticket. Split three ways after some very slow arithmetic.',
+              label: '£7',
+              blurb: 'A £7 ticket. Split three ways after some very slow arithmetic.',
               traits: {
                 band: 'modest',
                 parity: 'odd',
               },
             },
             '8': {
-              label: '$8',
-              blurb: 'A $8 ticket. Settled by card, then queried, then settled again.',
+              label: '£8',
+              blurb: 'An £8 ticket. Settled by card, then queried, then settled again.',
               traits: {
                 band: 'modest',
                 parity: 'even',
               },
             },
             '9': {
-              label: '$9',
-              blurb: 'A $9 ticket. Includes one pastry that was denied at the till.',
+              label: '£9',
+              blurb: 'A £9 ticket. Includes one pastry that was denied at the till.',
               traits: {
                 band: 'middling',
                 parity: 'odd',
               },
             },
             '10': {
-              label: '$10',
-              blurb: 'A $10 ticket. Exactly the price of a quiet hour, apparently.',
+              label: '£10',
+              blurb: 'A £10 ticket. Exactly the price of a quiet hour, apparently.',
               traits: {
                 band: 'middling',
                 parity: 'even',
               },
             },
             '11': {
-              label: '$11',
-              blurb: 'A $11 ticket. Somebody was buying for a friend and regretting it.',
+              label: '£11',
+              blurb: 'An £11 ticket. Somebody was buying for a friend and regretting it.',
               traits: {
                 band: 'middling',
                 parity: 'odd',
               },
             },
             '12': {
-              label: '$12',
-              blurb: 'A $12 ticket. Two drinks and a great deal of foam.',
+              label: '£12',
+              blurb: 'A £12 ticket. Two drinks and a great deal of foam.',
               traits: {
                 band: 'middling',
                 parity: 'even',
               },
             },
             '13': {
-              label: '$13',
-              blurb: 'A $13 ticket. The morning the oat milk went up and nobody warned anyone.',
+              label: '£13',
+              blurb: 'A £13 ticket. The morning the oat milk went up and nobody warned anyone.',
               traits: {
                 band: 'middling',
                 parity: 'odd',
               },
             },
             '14': {
-              label: '$14',
-              blurb: 'A $14 ticket. A round for the table, bravely announced.',
+              label: '£14',
+              blurb: 'A £14 ticket. A round for the table, bravely announced.',
               traits: {
                 band: 'steep',
                 parity: 'even',
               },
             },
             '15': {
-              label: '$15',
-              blurb: 'A $15 ticket. Paid with a note so large the till sighed.',
+              label: '£15',
+              blurb: 'A £15 ticket. Paid with a note so large the till sighed.',
               traits: {
                 band: 'steep',
                 parity: 'odd',
               },
             },
             '16': {
-              label: '$16',
-              blurb: 'A $16 ticket. The record, until the office came in on Friday.',
+              label: '£16',
+              blurb: 'A £16 ticket. The record, until the office came in on Friday.',
               traits: {
                 band: 'steep',
                 parity: 'even',
               },
             },
             '17': {
-              label: '$17',
-              blurb: 'A $17 ticket. Framed behind the counter, unofficially.',
+              label: '£17',
+              blurb: 'A £17 ticket. Framed behind the counter, unofficially.',
               traits: {
                 band: 'steep',
                 parity: 'odd',

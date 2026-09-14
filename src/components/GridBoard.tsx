@@ -115,39 +115,75 @@ const labelFor = (square: string, flagged: boolean) =>
   flagged ? t('game.flagged', { square }) : square;
 
 /**
- * How wide a digit is as a share of its font size, in the weight the numbers
- * are set in. Digits are drawn on one width, so a number is exactly this times
+ * How wide a figure is as a share of its font size, in the weight the values
+ * are set in. Figures are drawn on one width, so a value is exactly this times
  * its length across and the size that fits a square can be solved for rather
  * than measured.
  */
-const DIGIT_WIDTH = 0.64;
-/** How much of the heading square's height the digits may stand in. */
+const FIGURE_WIDTH = 0.64;
+/**
+ * How large the unit is set beside the figures. A heading has to carry both —
+ * "£17" is not "17" and "215cm" is not "215" — but only one of them is what the
+ * player is comparing, and at the size a heading gets, five characters of equal
+ * weight is five characters nobody reads. Setting the mark and the unit smaller
+ * spends the square on the number and still says what the number is in.
+ */
+const UNIT_SCALE = 0.68;
+/** How much of the heading square's height the figures may stand in. */
 const NUMBER_HEIGHT = 0.68;
 /**
- * Below this a number has stopped being one anybody reads, so a long one is
+ * Below this a value has stopped being one anybody reads, so a long one is
  * left to fill its square edge to edge rather than shrink out of sight.
  */
 const MIN_NUMBER = 7;
 
-/** The largest the digits of a `length`-digit number may be set in a `box`. */
-export function numberSize(box: number, length: number): number {
+/** A value pulled apart into its unit and its figures: "215cm" → "215" + "cm". */
+export interface Numeral {
+  /** What comes before the figures, e.g. a currency mark. */
+  before: string;
+  figures: string;
+  /** What comes after them, e.g. "cm". */
+  after: string;
+}
+
+const FIGURES = /^(\D*)(\d+)(\D*)$/;
+
+/**
+ * How a value is written, split so the two halves can be set at two sizes.
+ *
+ * A label the app cannot find figures in is left whole and set as figures, so a
+ * translation that writes its scale some other way is small rather than gone.
+ */
+export function numeral(label: string): Numeral {
+  const found = FIGURES.exec(label);
+  if (!found) return { before: '', figures: label, after: '' };
+  return { before: found[1], figures: found[2], after: found[3] };
+}
+
+/** How wide a value is, counted in the width of one figure. */
+export function numeralWidth({ before, figures, after }: Numeral): number {
+  return figures.length + (before.length + after.length) * UNIT_SCALE;
+}
+
+/** The largest the figures of a value `width` figures across may be set in a `box`. */
+export function numberSize(box: number, width: number): number {
   return Math.max(
     MIN_NUMBER,
-    Math.floor(Math.min(box * NUMBER_HEIGHT, box / (length * DIGIT_WIDTH))),
+    Math.floor(Math.min(box * NUMBER_HEIGHT, box / (width * FIGURE_WIDTH))),
   );
 }
 
 /**
- * The longest number in a set, which is the length every heading in it is sized
- * to. A set is one thing, and one thing is set in one size: "35" drawn larger
- * than "185" beside it reads as emphasis rather than as the shorter number it
+ * The widest value in a set, which is what every heading in it is sized to. A
+ * set is one thing, and one thing is set in one size: "35cm" drawn larger than
+ * the "185cm" beside it reads as emphasis rather than as the shorter number it
  * is, and a column of headings that each found their own size is a ragged edge
  * against a grid of squares that did not.
  */
-export function widestNumber(items: readonly ItemDef[]): number {
+export function widestValue(items: readonly ItemDef[]): number {
   return items.reduce(
-    (longest, item) =>
-      item.value === undefined ? longest : Math.max(longest, String(item.value).length),
+    (widest, item) =>
+      item.value === undefined ? widest : Math.max(widest, numeralWidth(numeral(item.label))),
     1,
   );
 }
@@ -164,34 +200,44 @@ export function widestNumber(items: readonly ItemDef[]): number {
  * are all but the same drawing. The number itself is read at a glance and
  * cannot be miscounted.
  *
- * The unit is left off — "215", not "215cm". The set's name is written down the
- * side of every block it heads, so the unit is said once for the whole grid
- * instead of fourteen times inside squares with no room for it, and the item
- * card a heading opens still gives the label in full.
+ * The value is written the way it is written everywhere else in the app — "£17"
+ * and "215cm", not "17" and "215" — because a heading that disagreed with the
+ * clue, the card and the answer table about what a value is called would be one
+ * more thing to translate between. The unit is set smaller than the figures,
+ * which is how a table of measurements is set anywhere: the figures are what
+ * the player compares, so they get the square, and the unit rides along.
  */
 function ItemHeading({
   item,
-  /** How long the longest number in this item's set is; see `widestNumber`. */
-  length,
+  /** How wide the widest value in this item's set is; see `widestValue`. */
+  width,
   size,
   color,
 }: {
   item: ItemDef;
-  length: number;
+  width: number;
   size: number;
   color: string;
 }) {
   if (item.value === undefined) {
     return <Icon name={item.icon} size={size} color={color} />;
   }
+  const { before, figures, after } = numeral(item.label);
+  const figureSize = numberSize(size, width);
+  const unit = {
+    fontSize: Math.max(1, Math.round(figureSize * UNIT_SCALE)),
+    fontWeight: '800' as const,
+    color,
+  };
   return (
     <Text
       numberOfLines={1}
-      // The size below is worked out for the digits it is given, so this only
-      // catches a face whose figures are wider than the one it was measured on.
+      // The size above is worked out for the characters it is given, so this
+      // only catches a face whose figures are wider than the one it was
+      // measured on.
       adjustsFontSizeToFit
       style={{
-        fontSize: numberSize(size, length),
+        fontSize: figureSize,
         fontWeight: '800',
         // Figures of one width, so a column of them lines up and the width
         // solved for above is the width drawn.
@@ -199,7 +245,9 @@ function ItemHeading({
         color,
       }}
     >
-      {item.value}
+      {before ? <Text style={unit}>{before}</Text> : null}
+      {figures}
+      {after ? <Text style={unit}>{after}</Text> : null}
     </Text>
   );
 }
@@ -256,7 +304,7 @@ export function GridBoard({
 
   // One size per set, so no heading in it is drawn larger than its neighbour.
   const widest = useMemo(
-    () => puzzle.categories.map((category) => widestNumber(category.items)),
+    () => puzzle.categories.map((category) => widestValue(category.items)),
     [puzzle],
   );
 
@@ -308,7 +356,7 @@ export function GridBoard({
                     >
                       <ItemHeading
                         item={item}
-                        length={widest[category]}
+                        width={widest[category]}
                         size={iconSize}
                         color={isLit(category, index) ? palette.accent : palette.inkSoft}
                       />
@@ -369,7 +417,7 @@ export function GridBoard({
                     >
                       <ItemHeading
                         item={item}
-                        length={widest[rowCategory]}
+                        width={widest[rowCategory]}
                         size={iconSize}
                         color={isLit(rowCategory, index) ? palette.accent : palette.inkSoft}
                       />

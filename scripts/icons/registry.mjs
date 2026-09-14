@@ -46,10 +46,10 @@ function cast(themeId, categoryId) {
 /**
  * The ids of each ordered category's rungs, in the order the theme lists them.
  * Ids rather than labels, like every other key here — a bill's id is `4` where
- * the player reads `$4`.
+ * the player reads `£4`.
  */
 const years = Array.from({ length: 14 }, (_, index) => `${2031 + index}`);
-const dollars = Array.from({ length: 14 }, (_, index) => `${4 + index}`);
+const pounds = Array.from({ length: 14 }, (_, index) => `${4 + index}`);
 const gold = Array.from({ length: 14 }, (_, index) => `${30 + index * 15}g`);
 const metres = Array.from({ length: 14 }, (_, index) => `${10 + index * 5}m`);
 const centimetres = Array.from({ length: 14 }, (_, index) => `${20 + index * 15}cm`);
@@ -68,7 +68,7 @@ export const REGISTRY = {
     drink: DRINKS,
     pastry: PASTRIES,
     seat: SEATS,
-    bill: BILLS(dollars),
+    bill: BILLS(pounds),
     theme: { Theme: CAFE_MARK },
   },
   quest: {

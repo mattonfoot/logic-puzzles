@@ -44,12 +44,12 @@ export const LAUNCHES = (labels) =>
     ];
   });
 
-/** $4…$17: a coin for every dollar over the last, stacked up. */
+/** £4…£17: a coin for every pound over the last, stacked up. */
 export const BILLS = (labels) =>
   rungs(labels, (index) => {
     const count = index + 1;
     // The stack is centred on the box rather than resting on the floor of it,
-    // so a four-dollar bill is a coin you can see rather than a line near the
+    // so a four-pound bill is a coin you can see rather than a line near the
     // bottom edge. Tall stacks still fill the box.
     const bottom = Math.min(88, 57 + ((count - 1) * 5.2) / 2);
     const coins = Array.from({ length: count }, (_, step) =>

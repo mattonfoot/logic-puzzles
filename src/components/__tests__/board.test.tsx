@@ -2,7 +2,15 @@ import { fireEvent, render, screen, within } from '@testing-library/react-native
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
-import { GridBoard, MAX_CELL, MIN_CELL, numberSize, widestNumber } from '../GridBoard';
+import {
+  GridBoard,
+  MAX_CELL,
+  MIN_CELL,
+  numberSize,
+  numeral,
+  numeralWidth,
+  widestValue,
+} from '../GridBoard';
 import { lessonById } from '../../game/lessons';
 import { puzzleOne, stage } from '../../screens/__tests__/stage';
 
@@ -159,41 +167,72 @@ describe('an ordered set on the board', () => {
   /** Every heading the given item has, on whichever edges it sits. */
   const headingsFor = (label: string) => screen.getAllByRole('button', { name: `About ${label}` });
 
-  it('heads its items with the number they compare by', () => {
+  /**
+   * The size one run of text is set in. A value is one `Text` holding its
+   * figures with its unit nested inside at a size of its own, so the figures
+   * are read off the outer element and the unit off the inner one.
+   */
+  const fontSizeOf = (text: ReturnType<typeof screen.getByText>): number =>
+    StyleSheet.flatten(text.props.style).fontSize;
+
+  it('heads its items with the value they compare by', () => {
     expect(ordered).toBeDefined();
     grid();
 
     for (const item of ordered!.items) {
       expect(item.value).toEqual(expect.any(Number));
+      expect(item.label).toContain(String(item.value));
       for (const heading of headingsFor(item.label)) {
-        expect(within(heading).getByText(String(item.value))).toBeOnTheScreen();
+        expect(heading).toHaveTextContent(item.label);
       }
     }
   });
 
   /**
-   * The unit is said once, down the side of the block, rather than fourteen
-   * times inside squares with no room for it: "215", not "215cm". The label in
-   * full is still what the heading is called and what its card is headed by.
+   * With its unit, written the way it is written everywhere else in the app:
+   * "215cm", not "215". A heading that disagreed with the clue, the card and
+   * the answer table about what a value is called would be one more thing for
+   * the player to translate between.
    */
-  it('leaves the unit to the set name beside it', () => {
+  it('writes the unit with the figures', () => {
     const units = ordered!.items.filter((item) => item.label !== String(item.value));
     // Not every scale carries one — a launch year is written as its number.
     if (units.length === 0) return;
     grid();
 
     for (const item of units) {
+      const { before, after } = numeral(item.label);
       for (const heading of headingsFor(item.label)) {
-        expect(within(heading).getByText(String(item.value))).toBeOnTheScreen();
-        expect(within(heading).queryByText(item.label)).toBeNull();
+        for (const part of [before, after].filter(Boolean)) {
+          expect(within(heading).getByText(part)).toBeOnTheScreen();
+        }
       }
     }
   });
 
   /**
-   * A set is one thing, so it is set in one size — the size its longest number
-   * needs. "35" drawn larger than the "185" beside it reads as emphasis rather
-   * than as the shorter number it is.
+   * And set smaller than them. Both have to be there, but only one of them is
+   * what the player is comparing, so the figures get the square.
+   */
+  it('sets the unit smaller than the figures', () => {
+    const units = ordered!.items.filter((item) => item.label !== String(item.value));
+    if (units.length === 0) return;
+    grid();
+
+    for (const item of units) {
+      const { before, after } = numeral(item.label);
+      const [heading] = headingsFor(item.label);
+      const figures = fontSizeOf(within(heading).getByText(item.label));
+      for (const part of [before, after].filter(Boolean)) {
+        expect(fontSizeOf(within(heading).getByText(part))).toBeLessThan(figures);
+      }
+    }
+  });
+
+  /**
+   * A set is one thing, so it is set in one size — the size its widest value
+   * needs. "35cm" drawn larger than the "185cm" beside it reads as emphasis
+   * rather than as the shorter number it is.
    */
   it('sets the whole scale in one size', () => {
     grid();
@@ -201,12 +240,11 @@ describe('an ordered set on the board', () => {
     const sizes = new Set<number>();
     for (const item of ordered!.items) {
       for (const heading of headingsFor(item.label)) {
-        const digits = within(heading).getByText(String(item.value));
-        sizes.add(StyleSheet.flatten(digits.props.style).fontSize);
+        sizes.add(fontSizeOf(within(heading).getByText(item.label)));
       }
     }
     expect(sizes.size).toBe(1);
-    expect([...sizes][0]).toBe(numberSize(Math.round(CELL * 0.94), widestNumber(ordered!.items)));
+    expect([...sizes][0]).toBe(numberSize(Math.round(CELL * 0.94), widestValue(ordered!.items)));
   });
 
   /** Every other set keeps its drawing, which carries no text at all. */
@@ -225,11 +263,11 @@ describe('an ordered set on the board', () => {
 });
 
 /**
- * A number is set as large as its square will take it, which is a size that
- * depends on how many digits it has: a bill of "9" gets the whole square and a
- * launch year of "2031" gets a quarter of it each.
+ * A value is set as large as its square will take it, which is a size that
+ * depends on how much of it there is to draw: a bill of "£9" gets the whole
+ * square and a height of "215cm" gets a fifth of it each.
  */
-describe('sizing the digits of a heading', () => {
+describe('sizing the figures of a heading', () => {
   it('gives a shorter number a larger face', () => {
     expect(numberSize(40, 2)).toBeGreaterThan(numberSize(40, 3));
     expect(numberSize(40, 3)).toBeGreaterThan(numberSize(40, 4));
@@ -261,10 +299,36 @@ describe('sizing the digits of a heading', () => {
     expect(numberSize(4, 9)).toBe(7);
   });
 
-  it('measures a set by its longest number', () => {
-    const scale = [35, 65, 110, 185].map((value) => ({ value }) as never);
-    expect(widestNumber(scale)).toBe(3);
+  it('measures a set by its widest value', () => {
+    const scale = [35, 65, 110, 185].map((value) => ({ value, label: `${value}cm` }) as never);
+    // Three figures, plus a two-character unit set smaller than they are.
+    expect(widestValue(scale)).toBeCloseTo(3 + 2 * 0.68);
+    expect(widestValue(scale)).toBeGreaterThan(
+      widestValue([{ value: 185, label: '185' } as never]),
+    );
     // A set with nothing to print is never sized, but never divides by nothing.
-    expect(widestNumber([])).toBe(1);
+    expect(widestValue([])).toBe(1);
+  });
+});
+
+/**
+ * Pulling a value apart so its two halves can be set at two sizes. The figures
+ * are what the player compares; the mark before them or the unit after is what
+ * the figures are in.
+ */
+describe('reading a value', () => {
+  it('finds the unit on either side of the figures', () => {
+    expect(numeral('215cm')).toEqual({ before: '', figures: '215', after: 'cm' });
+    expect(numeral('£17')).toEqual({ before: '£', figures: '17', after: '' });
+    expect(numeral('2031')).toEqual({ before: '', figures: '2031', after: '' });
+  });
+
+  /**
+   * A translation that writes its scale some way the app cannot read is set
+   * small rather than dropped: the whole label goes in as figures.
+   */
+  it('keeps a value it cannot read apart whole', () => {
+    expect(numeral('many')).toEqual({ before: '', figures: 'many', after: '' });
+    expect(numeralWidth(numeral('many'))).toBe(4);
   });
 });

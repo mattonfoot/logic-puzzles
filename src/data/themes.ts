@@ -86,7 +86,7 @@ function set(themeId: string, id: string, itemIds: readonly string[]): CategoryD
 
 /**
  * An ordered set: a plain one plus the numbers its items compare by. The
- * numbers are arithmetic and stay here; how they are written — "2031", "$5",
+ * numbers are arithmetic and stay here; how they are written — "2031", "£5",
  * "40m" — is a label like any other and lives in the language file.
  */
 function scale(
