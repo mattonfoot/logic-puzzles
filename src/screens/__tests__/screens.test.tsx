@@ -2110,6 +2110,15 @@ describe('the statistics', () => {
     expect(screen.getByText('First Classic Advanced puzzle')).toBeOnTheScreen();
     // Each carries what it means, which is the card's second line.
     expect(screen.getByText('Advanced boards, played Classic.')).toBeOnTheScreen();
+    // And every card carries the day the game that earned it was finished,
+    // which is what makes the order they are in mean something. One game earns
+    // six here — the three counts above, plus one finished with no hint asked
+    // for, with nothing taken back, and with the board never contradicting
+    // itself — and each of the six is dated.
+    expect(screen.getAllByText('20 August 2026')).toHaveLength(6);
+    expect(screen.getByText('Unaided')).toBeOnTheScreen();
+    expect(screen.getByText('Clean board')).toBeOnTheScreen();
+    expect(screen.getByText('Never wrong')).toBeOnTheScreen();
 
     screen.unmount();
     stage(<StatsScreen stats={statsOf([])} history={[]} onBack={none} onClearHistory={none} />);

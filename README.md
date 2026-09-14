@@ -1541,6 +1541,14 @@ much: days running, the whole ladder in one kind, every theme met, puzzles 1 to
 thresholds, since the same grid takes half again as long the hard way), the
 small hours, and the five the board measures about how it was solved.
 
+Each card carries the day the game that earned it was finished. The list is
+newest first and said nothing about being in any order at all; the date is what
+makes that legible, and it turns the column into a record of what happened
+rather than a shelf of trophies. The drawing says what *kind* of thing the card
+is rather than which one — one pip, three, ten for the counting tiers, and a
+centurion's helmet for the hundred, since a century is a hundred of something
+and a hundred pips at 26 points is a smudge.
+
 **Only what has been earned is ever built.** A hundred and twenty greyed-out
 rows is a chore list, and the app counts nothing at anybody: no total, no
 progress bar, nothing on the front door. The cards are found rather than

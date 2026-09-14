@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { achievementsFor, type Achievement } from '../game/achievements';
+import { formatDate } from '../game/share';
 import { TrendChart } from '../components/TrendChart';
 import { THEMES } from '../data/themes';
 import { t } from '../i18n';
@@ -281,12 +282,13 @@ export function StatsScreen({
 function AchievementCard({ achievement }: { achievement: Achievement }) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
+  const when = formatDate(new Date(achievement.earnedAt));
   return (
     <View
       style={[styles.card, shadow.card, styles.achievement]}
       accessible
       accessibilityRole="text"
-      accessibilityLabel={`${achievement.title}. ${achievement.description}`}
+      accessibilityLabel={`${achievement.title}. ${achievement.description} ${when}.`}
     >
       <View style={styles.achievementMark}>
         <Icon name={achievement.icon} size={26} color={palette.accent} />
@@ -294,6 +296,11 @@ function AchievementCard({ achievement }: { achievement: Achievement }) {
       <View style={styles.achievementWords}>
         <Text style={styles.achievementTitle}>{achievement.title}</Text>
         <Text style={styles.achievementBody}>{achievement.description}</Text>
+        {/* The day the game that earned it was finished. The list is newest
+            first and said nothing about being in any order at all; this is what
+            makes the ordering legible, and it turns the column into a record of
+            what happened rather than a shelf of trophies. */}
+        <Text style={styles.achievementWhen}>{when}</Text>
       </View>
     </View>
   );
@@ -475,6 +482,12 @@ const makeStyles = (palette: Palette) =>
       fontSize: 12,
       lineHeight: 16,
       color: palette.inkFaint,
+    },
+    achievementWhen: {
+      fontSize: 11,
+      fontWeight: '600',
+      color: palette.accentSoft,
+      marginTop: space(0.5),
     },
     tiles: {
       gap: space(3),

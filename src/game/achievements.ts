@@ -49,11 +49,15 @@ const TIERS = [1, 3, 10, 100] as const;
  * recognise, where seven say what kind of thing this is at a glance.
  */
 const ICON = {
-  /** The four tiers, drawn as what they count: one pip, three, ten, a hundred. */
+  /**
+   * The four tiers. The first three are drawn as what they count — one pip,
+   * three, ten — and the hundred is a centurion's helmet, since a century is a
+   * hundred of something and a hundred pips at 26 points is a smudge.
+   */
   one: 'ui/icon-one',
   three: 'ui/icon-three',
   ten: 'ui/icon-ten',
-  hundred: 'ui/icon-hundred',
+  hundred: 'ui/icon-century',
   /** Days: streaks, a puzzle slept on, a week away and back. */
   calendar: 'ui/icon-calendar',
   /** Ground covered: the ladders, the themes, working through a list. */
