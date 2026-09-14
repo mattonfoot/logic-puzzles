@@ -1546,9 +1546,8 @@ newest first and said nothing about being in any order at all; the date is what
 makes that legible, and it turns the column into a record of what happened
 rather than a shelf of trophies. The drawing says what *kind* of thing the card
 is rather than which one. The four counting tiers are a medal struck with a 1,
-then pyramids of three and ten pips standing on their point — both are
-triangular numbers, so both stack with none left over — and, for the hundred,
-the same struck edge with a
+a rabbit coming out of a hat for the third, a pyramid of ten pips standing on
+its point, and — for the hundred — the same struck edge as the medal with a
 centurion's helmet in profile on it, since a century is a hundred of something
 and a hundred pips at 26 points is a smudge.
 

@@ -53,12 +53,13 @@ const ICON = {
    * The four tiers. The first is a medal — a struck edge with a 1 in it — and
    * the hundred is the same edge with a centurion's helmet in profile on it,
    * since a century is a hundred of something and a hundred pips at 26 points
-   * is a smudge. The two in between are drawn as what they count, stacked as
-   * pyramids standing on their point — three and ten are both triangular
-   * numbers, so both come out square with no pip left over.
+   * is a smudge. The third is a rabbit coming out of a hat, because a third of
+   * anything is a hat trick and the pun is the only joke in the app. The ten is
+   * drawn as what it counts: a pyramid of pips standing on its point, ten being
+   * a triangular number and so coming out square with none left over.
    */
   one: 'ui/icon-one',
-  three: 'ui/icon-three',
+  three: 'ui/icon-hat',
   ten: 'ui/icon-ten',
   hundred: 'ui/icon-century',
   /** Days: streaks, a puzzle slept on, a week away and back. */
