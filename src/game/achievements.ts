@@ -53,8 +53,9 @@ const ICON = {
    * The four tiers. The first is a medal — a struck edge with a 1 in it — and
    * the hundred is the same edge with a centurion's helmet in profile on it,
    * since a century is a hundred of something and a hundred pips at 26 points
-   * is a smudge. The third is a rabbit coming out of a hat, because a third of
-   * anything is a hat trick and the pun is the only joke in the app. The ten is
+   * is a smudge. The third is a rabbit coming out of a top hat — held the way a
+   * magician holds it, mouth up, brim at the top — because a third of anything
+   * is a hat trick and the pun is the only joke in the app. The ten is
    * drawn as what it counts: a pyramid of pips standing on its point, ten being
    * a triangular number and so coming out square with none left over.
    */
