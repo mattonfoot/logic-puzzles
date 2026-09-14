@@ -1545,8 +1545,9 @@ Each card carries the day the game that earned it was finished. The list is
 newest first and said nothing about being in any order at all; the date is what
 makes that legible, and it turns the column into a record of what happened
 rather than a shelf of trophies. The drawing says what *kind* of thing the card
-is rather than which one — one pip, three, ten for the counting tiers, and a
-centurion's helmet for the hundred, since a century is a hundred of something
+is rather than which one. The four counting tiers are a medal struck with a 1,
+three pips, ten pips, and — for the hundred — the same struck edge with a
+centurion's helmet in profile on it, since a century is a hundred of something
 and a hundred pips at 26 points is a smudge.
 
 **Only what has been earned is ever built.** A hundred and twenty greyed-out

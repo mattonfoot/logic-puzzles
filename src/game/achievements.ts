@@ -50,9 +50,11 @@ const TIERS = [1, 3, 10, 100] as const;
  */
 const ICON = {
   /**
-   * The four tiers. The first three are drawn as what they count — one pip,
-   * three, ten — and the hundred is a centurion's helmet, since a century is a
-   * hundred of something and a hundred pips at 26 points is a smudge.
+   * The four tiers. The first is a medal — a struck edge with a 1 in it — and
+   * the hundred is the same edge with a centurion's helmet in profile on it,
+   * since a century is a hundred of something and a hundred pips at 26 points
+   * is a smudge. The two in between are drawn as what they count: three pips,
+   * then ten.
    */
   one: 'ui/icon-one',
   three: 'ui/icon-three',
