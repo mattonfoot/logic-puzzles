@@ -1,10 +1,10 @@
-import { fireEvent, render, screen } from '@testing-library/react-native';
+import { fireEvent, render, screen, within } from '@testing-library/react-native';
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 
-import { GridBoard } from '../GridBoard';
+import { GridBoard, MAX_CELL, MIN_CELL, numberSize, widestNumber } from '../GridBoard';
 import { lessonById } from '../../game/lessons';
-import { stage } from '../../screens/__tests__/stage';
+import { puzzleOne, stage } from '../../screens/__tests__/stage';
 
 const CELL = 40;
 const puzzle = lessonById('deduction').puzzle;
@@ -127,5 +127,144 @@ describe('holding a square down', () => {
     board();
     expect(square(0, 0).props.accessibilityActions).toBeUndefined();
     expect(square(0, 0).props.onLongPress).toBeUndefined();
+  });
+});
+
+/**
+ * The one set whose items are already numbers. Everything else on the board is
+ * headed by its drawing; a year, a depth or a price is headed by the number
+ * itself, because fourteen pictures of a stack of discs differ only by how many
+ * discs are in the stack and nobody counts discs at the size a heading gets.
+ */
+describe('an ordered set on the board', () => {
+  /** An Expert puzzle, which is four sets — one of them always the ordered one. */
+  const numbered = puzzleOne('md');
+  const ordered = numbered.categories.find((category) => category.ordered);
+
+  function grid() {
+    stage(
+      <GridBoard
+        puzzle={numbered}
+        marks={{}}
+        mistakes={new Set()}
+        highlight={[]}
+        cellSize={CELL}
+        onToggle={() => {}}
+        onSettle={undefined}
+        onInspect={() => {}}
+      />,
+    );
+  }
+
+  /** Every heading the given item has, on whichever edges it sits. */
+  const headingsFor = (label: string) => screen.getAllByRole('button', { name: `About ${label}` });
+
+  it('heads its items with the number they compare by', () => {
+    expect(ordered).toBeDefined();
+    grid();
+
+    for (const item of ordered!.items) {
+      expect(item.value).toEqual(expect.any(Number));
+      for (const heading of headingsFor(item.label)) {
+        expect(within(heading).getByText(String(item.value))).toBeOnTheScreen();
+      }
+    }
+  });
+
+  /**
+   * The unit is said once, down the side of the block, rather than fourteen
+   * times inside squares with no room for it: "215", not "215cm". The label in
+   * full is still what the heading is called and what its card is headed by.
+   */
+  it('leaves the unit to the set name beside it', () => {
+    const units = ordered!.items.filter((item) => item.label !== String(item.value));
+    // Not every scale carries one — a launch year is written as its number.
+    if (units.length === 0) return;
+    grid();
+
+    for (const item of units) {
+      for (const heading of headingsFor(item.label)) {
+        expect(within(heading).getByText(String(item.value))).toBeOnTheScreen();
+        expect(within(heading).queryByText(item.label)).toBeNull();
+      }
+    }
+  });
+
+  /**
+   * A set is one thing, so it is set in one size — the size its longest number
+   * needs. "35" drawn larger than the "185" beside it reads as emphasis rather
+   * than as the shorter number it is.
+   */
+  it('sets the whole scale in one size', () => {
+    grid();
+
+    const sizes = new Set<number>();
+    for (const item of ordered!.items) {
+      for (const heading of headingsFor(item.label)) {
+        const digits = within(heading).getByText(String(item.value));
+        sizes.add(StyleSheet.flatten(digits.props.style).fontSize);
+      }
+    }
+    expect(sizes.size).toBe(1);
+    expect([...sizes][0]).toBe(numberSize(Math.round(CELL * 0.94), widestNumber(ordered!.items)));
+  });
+
+  /** Every other set keeps its drawing, which carries no text at all. */
+  it('leaves the drawn sets drawn', () => {
+    grid();
+
+    for (const category of numbered.categories) {
+      if (category.ordered) continue;
+      for (const item of category.items) {
+        for (const heading of headingsFor(item.label)) {
+          expect(within(heading).queryAllByText(/\S/)).toHaveLength(0);
+        }
+      }
+    }
+  });
+});
+
+/**
+ * A number is set as large as its square will take it, which is a size that
+ * depends on how many digits it has: a bill of "9" gets the whole square and a
+ * launch year of "2031" gets a quarter of it each.
+ */
+describe('sizing the digits of a heading', () => {
+  it('gives a shorter number a larger face', () => {
+    expect(numberSize(40, 2)).toBeGreaterThan(numberSize(40, 3));
+    expect(numberSize(40, 3)).toBeGreaterThan(numberSize(40, 4));
+  });
+
+  /**
+   * Up to the point where it would be taller than it is wide. One digit with a
+   * square to itself is held to the same height as two, so a bill of "9" and a
+   * bill of "17" are set in the same face rather than one of them shouting.
+   */
+  it('holds a short number to the height the square allows', () => {
+    expect(numberSize(40, 1)).toBe(numberSize(40, 2));
+  });
+
+  it('never sets a number taller than the square it stands in', () => {
+    for (let box = MIN_CELL; box <= MAX_CELL; box++) {
+      for (let digits = 1; digits <= 4; digits++) {
+        const size = numberSize(box, digits);
+        expect(size).toBeLessThanOrEqual(box);
+        // And the digits, all of one width, stay inside it across as well —
+        // unless the number has bottomed out at the smallest readable size,
+        // which is the one case allowed to fill the square to its edges.
+        if (size > 7) expect(size * digits * 0.64).toBeLessThanOrEqual(box);
+      }
+    }
+  });
+
+  it('stops shrinking where a number stops being readable', () => {
+    expect(numberSize(4, 9)).toBe(7);
+  });
+
+  it('measures a set by its longest number', () => {
+    const scale = [35, 65, 110, 185].map((value) => ({ value }) as never);
+    expect(widestNumber(scale)).toBe(3);
+    // A set with nothing to print is never sized, but never divides by nothing.
+    expect(widestNumber([])).toBe(1);
   });
 });

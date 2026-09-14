@@ -4,7 +4,7 @@ import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { getEntry, markKey, type Cell, type Marks } from '../game/board';
 import { boardLayout } from '../game/layout';
 import { t } from '../i18n';
-import type { Attribute, Puzzle } from '../puzzle/types';
+import type { Attribute, ItemDef, Puzzle } from '../puzzle/types';
 import { Icon } from '../ui/Icon';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
@@ -110,29 +110,120 @@ export function fitCellSize(
   return Math.max(MIN_CELL, Math.min(max, Math.floor(Math.min(byWidth, byHeight))));
 }
 
+/** A square's own label, plus the one word its shading would otherwise keep. */
+const labelFor = (square: string, flagged: boolean) =>
+  flagged ? t('game.flagged', { square }) : square;
+
+/**
+ * How wide a digit is as a share of its font size, in the weight the numbers
+ * are set in. Digits are drawn on one width, so a number is exactly this times
+ * its length across and the size that fits a square can be solved for rather
+ * than measured.
+ */
+const DIGIT_WIDTH = 0.64;
+/** How much of the heading square's height the digits may stand in. */
+const NUMBER_HEIGHT = 0.68;
+/**
+ * Below this a number has stopped being one anybody reads, so a long one is
+ * left to fill its square edge to edge rather than shrink out of sight.
+ */
+const MIN_NUMBER = 7;
+
+/** The largest the digits of a `length`-digit number may be set in a `box`. */
+export function numberSize(box: number, length: number): number {
+  return Math.max(
+    MIN_NUMBER,
+    Math.floor(Math.min(box * NUMBER_HEIGHT, box / (length * DIGIT_WIDTH))),
+  );
+}
+
+/**
+ * The longest number in a set, which is the length every heading in it is sized
+ * to. A set is one thing, and one thing is set in one size: "35" drawn larger
+ * than "185" beside it reads as emphasis rather than as the shorter number it
+ * is, and a column of headings that each found their own size is a ragged edge
+ * against a grid of squares that did not.
+ */
+export function widestNumber(items: readonly ItemDef[]): number {
+  return items.reduce(
+    (longest, item) =>
+      item.value === undefined ? longest : Math.max(longest, String(item.value).length),
+    1,
+  );
+}
+
+/**
+ * What heads an item's row and its column.
+ *
+ * Nearly always its picture — a silhouette is the same shape on either edge and
+ * reads while the eye is on the squares, which a name turned on its side is not
+ * and does not. An ordered set is the exception: its items *are* numbers, and a
+ * number is the one thing a drawing is worst at saying. Fourteen pictures of a
+ * stack of discs differ only by how many discs are in the stack, which is a
+ * count nobody makes at the size a heading gets, and two of them a row apart
+ * are all but the same drawing. The number itself is read at a glance and
+ * cannot be miscounted.
+ *
+ * The unit is left off — "215", not "215cm". The set's name is written down the
+ * side of every block it heads, so the unit is said once for the whole grid
+ * instead of fourteen times inside squares with no room for it, and the item
+ * card a heading opens still gives the label in full.
+ */
+function ItemHeading({
+  item,
+  /** How long the longest number in this item's set is; see `widestNumber`. */
+  length,
+  size,
+  color,
+}: {
+  item: ItemDef;
+  length: number;
+  size: number;
+  color: string;
+}) {
+  if (item.value === undefined) {
+    return <Icon name={item.icon} size={size} color={color} />;
+  }
+  return (
+    <Text
+      numberOfLines={1}
+      // The size below is worked out for the digits it is given, so this only
+      // catches a face whose figures are wider than the one it was measured on.
+      adjustsFontSizeToFit
+      style={{
+        fontSize: numberSize(size, length),
+        fontWeight: '800',
+        // Figures of one width, so a column of them lines up and the width
+        // solved for above is the width drawn.
+        fontVariant: ['tabular-nums'],
+        color,
+      }}
+    >
+      {item.value}
+    </Text>
+  );
+}
+
 /**
  * The whole puzzle as one staircase of blocks, the way a printed logic grid is
  * laid out: every pair of sets meets in its own block, so a mark made in one
  * block can be cross-referenced against the others without leaving the board.
  *
- * An item is headed by its own picture rather than its name, on both axes. A
- * name long enough to read has to be turned on its side above a column and
- * shortened beside a row, and the two readings of the same item then look
- * nothing like each other; a silhouette is the same shape whichever edge it
+ * An item is headed by its own picture rather than its name, on both axes — or
+ * by its number, where it has one; `ItemHeading` above is where that is
+ * decided. A name long enough to read has to be turned on its side above a
+ * column and shortened beside a row, and the two readings of the same item then
+ * look nothing like each other; a picture is the same shape whichever edge it
  * sits on, and reads at a glance while the eye is on the squares. It costs the
- * board nothing either — the headings are now one square deep instead of the
- * best part of a hundred points, and the squares take what they leave.
+ * board nothing either — the headings are one square deep instead of the best
+ * part of a hundred points, and the squares take what they leave.
  *
- * The picture is a button, which is what the item card is for: clues describe
+ * The heading is a button, which is what the item card is for: clues describe
  * things as well as name them, so a tap says which is which, in words.
  *
- * The set names and pictures down the left stay put while the blocks themselves
+ * The set names and headings down the left stay put while the blocks themselves
  * scroll sideways, so a wide board never loses its row headings.
  */
-/** A square's own label, plus the one word its shading would otherwise keep. */
-const labelFor = (square: string, flagged: boolean) =>
-  flagged ? t('game.flagged', { square }) : square;
-
 export function GridBoard({
   puzzle,
   marks,
@@ -162,6 +253,12 @@ export function GridBoard({
   const headerHeight = CATEGORY_NAME + cellSize;
   /** The pinned left-hand column: the set name on its side, then the pictures. */
   const labelWidth = CATEGORY_STRIP + cellSize + LABEL_GAP;
+
+  // One size per set, so no heading in it is drawn larger than its neighbour.
+  const widest = useMemo(
+    () => puzzle.categories.map((category) => widestNumber(category.items)),
+    [puzzle],
+  );
 
   const lit = useMemo(
     () => new Set(highlight.map((attr) => `${attr.category}.${attr.item}`)),
@@ -209,8 +306,9 @@ export function GridBoard({
                         { width: cellSize, height: cellSize, opacity: pressed ? 0.6 : 1 },
                       ]}
                     >
-                      <Icon
-                        name={item.icon}
+                      <ItemHeading
+                        item={item}
+                        length={widest[category]}
                         size={iconSize}
                         color={isLit(category, index) ? palette.accent : palette.inkSoft}
                       />
@@ -269,8 +367,9 @@ export function GridBoard({
                         { height: cellSize, opacity: pressed ? 0.6 : 1 },
                       ]}
                     >
-                      <Icon
-                        name={item.icon}
+                      <ItemHeading
+                        item={item}
+                        length={widest[rowCategory]}
                         size={iconSize}
                         color={isLit(rowCategory, index) ? palette.accent : palette.inkSoft}
                       />
