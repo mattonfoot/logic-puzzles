@@ -262,10 +262,12 @@ captures are for.
    another entity to place — because a step that added both at once would double
    the board rather than stretch it, and read as a different game rather than
    the next one.
-3. **A difficulty opens its games, numbered from one.** A puzzle is decided
-   entirely by its seed and its shape, and the generator is deterministic, so
-   the number *is* the puzzle: game 7 at Expert holds the same cast, the same
-   answer and the same clues on anybody's phone, this year or next. Pick one and
+3. **A difficulty opens its games, numbered from one**, under the name of the
+   game they are — **Play Pure expert**, which is the way of playing and the
+   difficulty chosen on the two screens behind it. A puzzle is decided entirely
+   by its seed and its shape, and the generator is deterministic, so the number
+   *is* the puzzle: game 7 at Expert holds the same cast, the same answer and
+   the same clues on anybody's phone, this year or next. Pick one and
    it starts — that number becomes the seed. The list is paged rather than
    scrolled, five to a page — which is what the half of the screen under the
    panel holds at the size every choice in the app is set in, on every iPhone
@@ -307,8 +309,12 @@ captures are for.
    puzzle 7 are talking about the same disaster. It says what happened and never
    what the answer is, so it costs nothing and is not counted; **Info** in the
    bottom row opens it again, for a game picked up a day later.
-6. **Game** — the board names the puzzle's theme in the same ruled title every
-   other screen uses, with the burger beside it and the seed underneath, and
+6. **Game** — the board names the game in the same ruled title every other
+   screen uses — **Pure advanced**, **Classic legend**, **Daily beginner**:
+   which of the three ways it is being played, then how hard. The difficulty
+   alone stopped being the whole name the day the same number became a
+   different puzzle on each side of the mode menu, and the daily is a third
+   thing again. The burger sits beside it and the seed underneath, and there is
    nothing else: no clock, because one counting up is a thing to watch rather
    than a thing to use. The time is still kept, saved with the game and read
    out at the finish. The whole puzzle is drawn as one staircase of grids, the way a

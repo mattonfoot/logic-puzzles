@@ -85,6 +85,36 @@ export const PLAYED_AS: { id: PlayedAs; name: string }[] = [
   { id: DAILY, name: t('modes.daily') },
 ];
 
+/** What one of the three is called, in the one word the app titles it by. */
+export function playedAsName(id: PlayedAs): string {
+  const found = PLAYED_AS.find((candidate) => candidate.id === id);
+  if (!found) throw new Error(`Unknown way of playing: ${id}`);
+  return found.name;
+}
+
+/**
+ * What a game is called: "Pure beginner", "Daily advanced", "Classic legend".
+ *
+ * A difficulty on its own stopped being the whole name the day the same number
+ * became a different puzzle on each side of the mode menu. Advanced played with
+ * the board keeping the bookkeeping and Advanced played with a pencil are two
+ * jobs of different sizes, and the daily is a third thing again — so a board
+ * titled "Advanced" is a board that will not say which of the three it is.
+ *
+ * The type leads because it is the coarser fact and the one a player chooses
+ * first, and the difficulty follows it in lower case, which is what the
+ * template in the language file decides rather than this function.
+ */
+export function gameTitle(playedAs: PlayedAs, difficulty: string): string {
+  return t('modes.game', {
+    type: playedAsName(playedAs),
+    // The difficulty is no longer the first word of its own name. Folding the
+    // case here rather than keeping a second spelling of every difficulty is
+    // how `describe.ts` writes a set's name into the middle of a clue.
+    difficulty: difficulty.toLowerCase(),
+  });
+}
+
 export function modeById(id: ModeId): Mode {
   const mode = MODES.find((candidate) => candidate.id === id);
   if (!mode) throw new Error(`Unknown mode: ${id}`);

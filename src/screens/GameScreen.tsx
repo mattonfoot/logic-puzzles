@@ -25,7 +25,7 @@ import {
 import { cluesDone, inventClue, marksAgainstClues, nextClue } from '../game/clues';
 import { hintFor } from '../game/hint';
 import { modeOf, numberFor } from '../game/library';
-import { DEFAULT_MODE, modeById } from '../game/modes';
+import { DAILY, DEFAULT_MODE, gameTitle, modeById, type PlayedAs } from '../game/modes';
 import { SAVE_VERSION, SAVED_UNDO, type SavedGame } from '../game/persistence';
 import { shareResult } from '../game/share';
 import type { Completion, CompletionInput } from '../game/usePersistence';
@@ -129,6 +129,12 @@ export function GameScreen({
    * keeps. That is what falls out of the default here.
    */
   const assists = modeById(modeOf(puzzle.seed) ?? DEFAULT_MODE).assists;
+  /**
+   * And what this game is, for the title: one of the two ways a numbered game
+   * is played, or the daily, which is neither and is told apart by the caller
+   * rather than by the seed.
+   */
+  const playedAs: PlayedAs = daily ? DAILY : (modeOf(puzzle.seed) ?? DEFAULT_MODE);
   const autoEliminate = assists && wantsAutoEliminate;
   const autoFacts = assists && wantsAutoFacts;
   const checkClues = assists && wantsCheckClues;
@@ -757,12 +763,15 @@ export function GameScreen({
           </Pressable>
         )}
         <View style={styles.headerCenter}>
-          {/* The difficulty, not the theme. The theme is the puzzle's dressing
-              — its drawing heads the briefing and its cast heads every grid —
-              while how hard this one is, and which one it is, are the two
-              things about the game in play that nothing else on the board
-              says. */}
-          <RuledTitle>{puzzle.size.difficulty}</RuledTitle>
+          {/* What kind of game and how hard, not the theme. The theme is the
+              puzzle's dressing — its drawing heads the briefing and its cast
+              heads every grid — while which game this is, how hard it is and
+              which one of them it is are the things about the board in play
+              that nothing else on it says. The difficulty alone stopped being
+              enough when the same number became a different puzzle on each
+              side of the mode menu: "Pure advanced" and "Classic advanced" are
+              two jobs of different sizes, and "Daily advanced" is a third. */}
+          <RuledTitle>{gameTitle(playedAs, puzzle.size.difficulty)}</RuledTitle>
           {/* The number the player picked, not the seed it packs to: the list
               said "Puzzle 7" and the board has to agree with it. A daily reads
               back as its date the same way. A seed from a save written before

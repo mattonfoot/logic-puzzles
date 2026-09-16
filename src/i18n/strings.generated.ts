@@ -231,6 +231,7 @@ export const STRINGS = {
       short: 'Classic',
     },
     daily: 'Daily',
+    game: '{type} {difficulty}',
     locked:
       'Classic logic works nothing out for you. Start a Pure Deduction game to have the board keep up.',
   },
@@ -243,7 +244,7 @@ export const STRINGS = {
     back: 'Back',
   },
   numbers: {
-    title: 'Play {difficulty}',
+    title: 'Play {game}',
     puzzle: 'Puzzle {number}',
     finishedHint: 'Finished in {clock}',
     zoomOut: 'Zoom out',
@@ -5609,6 +5610,7 @@ export type StringKey =
   | 'modes.classic.name'
   | 'modes.classic.short'
   | 'modes.daily'
+  | 'modes.game'
   | 'modes.locked'
   | 'modes.pure.hint'
   | 'modes.pure.name'

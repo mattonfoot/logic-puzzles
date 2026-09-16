@@ -16,7 +16,8 @@ import type { Improvement } from '../../stats/summary';
 import { sizeById } from '../../data/sizes';
 import { dailySeed, numberedSeed } from '../../game/library';
 import type { SavedGame } from '../../game/persistence';
-import { MODES } from '../../game/modes';
+import { gameTitle, MODES } from '../../game/modes';
+import type { Puzzle } from '../../puzzle/types';
 import { t } from '../../i18n';
 import { DEFAULT_SETTINGS } from '../../game/settings';
 import { DailyScreen } from '../DailyScreen';
@@ -689,7 +690,9 @@ describe('the numbered puzzles', () => {
       />,
     );
 
-    expect(header('Play Advanced')).toBeOnTheScreen();
+    // Named the way the board it leads to is: one way of playing, one
+    // difficulty, both picked on the screens behind this one.
+    expect(header('Play Pure advanced')).toBeOnTheScreen();
     for (let number = 1; number <= 5; number += 1) {
       expect(button(`Puzzle ${number}`)).toBeEnabled();
       expect(ticked(`Puzzle ${number}`)).toBe(false);
@@ -1017,11 +1020,54 @@ describe('the board', () => {
     expect(screen.queryAllByRole('button', { name: /: ruled out$/ })).toHaveLength(0);
   });
 
+  /**
+   * The other two of the three, on the one line that has to tell them apart.
+   * "Advanced" alone names three different boards: the same number played with
+   * the bookkeeping done for you, the same number played with a pencil, and
+   * today's, which nobody picked.
+   */
+  it('titles a Classic game and a daily as what they are', () => {
+    const board = (puzzle: Puzzle, daily = false) =>
+      stage(
+        <GameScreen
+          puzzle={puzzle}
+          autoEliminate={false}
+          autoFacts={false}
+          checkClues={false}
+          accent={DEFAULT_SETTINGS.accent}
+          colours={DEFAULT_SETTINGS.colours}
+          onToggleAutoEliminate={none}
+          onToggleAutoFacts={none}
+          onToggleCheckClues={none}
+          onChangeAccent={none}
+          onChangeColours={none}
+          restore={null}
+          daily={daily}
+          onExit={none}
+          onSaveProgress={async () => true}
+          onDiscardProgress={none}
+          onCompleted={() => Promise.reject(new Error('nothing is finished here'))}
+        />,
+      );
+
+    board(puzzleOne('sm', numberedSeed(1, 'sm', 'classic')));
+    expect(header('Classic advanced')).toBeOnTheScreen();
+
+    // A daily has no mode column in its seed, so the board is told which it is;
+    // it takes the name of the third kind rather than the default of the two.
+    screen.unmount();
+    board(puzzleOne('sm', dailySeed(new Date(2026, 8, 2), 'sm')), true);
+    expect(header('Daily advanced')).toBeOnTheScreen();
+  });
+
   it('opens on the briefing, over a board with nothing to undo or light up', () => {
     play();
 
-    // The difficulty heads the board, and under it the number off the list.
-    expect(header(puzzle.size.difficulty)).toBeOnTheScreen();
+    // What kind of game and how hard heads the board, and under it the number
+    // off the list. A difficulty on its own would not say which of the three
+    // ways of playing this board is.
+    expect(header('Pure advanced')).toBeOnTheScreen();
+    expect(header(gameTitle('pure', puzzle.size.difficulty))).toBeOnTheScreen();
     expect(screen.getByText('#1')).toBeOnTheScreen();
     // The story comes first; the one button on it puts it away.
     expect(button('Close')).toBeEnabled();
@@ -1555,8 +1601,8 @@ describe('the board', () => {
     // The two board settings and the way to start over are all about a board
     // being worked on, and there is no longer one to work on.
     expect(screen.queryByRole('button', { name: 'Menu' })).toBeNull();
-    // The difficulty stays, on the left margin the burger had.
-    expect(header(puzzle.size.difficulty)).toBeOnTheScreen();
+    // The title stays, on the left margin the burger had.
+    expect(header(gameTitle('pure', puzzle.size.difficulty))).toBeOnTheScreen();
   });
 
   it('reads the hints asked out at the finish, and records them with the game', async () => {

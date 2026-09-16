@@ -11,7 +11,7 @@ import {
   zoomOut,
   type Catalogue,
 } from '../game/library';
-import type { ModeId } from '../game/modes';
+import { gameTitle, type ModeId } from '../game/modes';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
 import { t } from '../i18n';
@@ -80,7 +80,10 @@ export function NumbersScreen({ size, mode, busy, history, onPlay, onBack }: Pro
 
       <View style={styles.bottom}>
         <View style={styles.content}>
-          <RuledTitle>{t('numbers.title', { difficulty: size.difficulty })}</RuledTitle>
+          {/* Named the way the board that follows is: the list is one way of
+              playing at one difficulty, and both halves of that were chosen on
+              the two screens behind this one. */}
+          <RuledTitle>{t('numbers.title', { game: gameTitle(mode, size.difficulty) })}</RuledTitle>
 
           <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
             {level > 0

@@ -251,6 +251,14 @@ modes:
   # file a finished game under one of these three, and it is the short one for
   # the same reason the other two are: three of these label one row of tabs.
   daily: Daily
+  # What a game is called wherever the app titles one: the way it is played,
+  # then how hard it is — "Pure beginner", "Daily advanced", "Classic legend".
+  # A difficulty on its own is only half the name now that the same number is a
+  # different puzzle on each side of the mode menu, and a daily is a third thing
+  # again. The difficulty follows the type here rather than leading, so it is
+  # written in lower case; a language that capitalises its nouns should write
+  # this template to suit.
+  game: '{type} {difficulty}'
   # On the puzzle menu, under switches that are shown as they stand and cannot
   # be moved, so the reason is the row rather than a dead control.
   locked: Classic logic works nothing out for you. Start a Pure Deduction game to have the board keep up.
@@ -267,8 +275,8 @@ setup:
   back: Back
 
 numbers:
-  # The heading over the numbered list: "Play Expert".
-  title: Play {difficulty}
+  # The heading over the numbered list: "Play Pure expert".
+  title: Play {game}
   # Every row of it.
   puzzle: Puzzle {number}
   finishedHint: Finished in {clock}
