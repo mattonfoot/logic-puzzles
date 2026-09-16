@@ -274,12 +274,30 @@ describe('sizing the figures of a heading', () => {
   });
 
   /**
-   * Up to the point where it would be taller than it is wide. One digit with a
-   * square to itself is held to the same height as two, so a bill of "9" and a
-   * bill of "17" are set in the same face rather than one of them shouting.
+   * Up to the point where it would be taller than it is wide. A lone figure
+   * with a square to itself is held to the square's height rather than allowed
+   * to fill its width, so a bill of "£9" stands as tall as the drawings beside
+   * it instead of shouting over them.
    */
   it('holds a short number to the height the square allows', () => {
-    expect(numberSize(40, 1)).toBe(numberSize(40, 2));
+    expect(numberSize(40, 1)).toBe(Math.floor(40 * 0.68));
+    expect(numberSize(40, 1)).toBeLessThan((40 * 0.8) / 0.64);
+  });
+
+  /**
+   * And every value keeps a gutter. Headings sit one cell apart with nothing
+   * drawn between them, so a value set edge to edge in its square would meet
+   * its neighbour and a row of years would read as one long number.
+   */
+  it('leaves air on both sides of a value', () => {
+    for (let box = MIN_CELL; box <= MAX_CELL; box++) {
+      for (let figures = 1; figures <= 4; figures++) {
+        const drawn = numberSize(box, figures) * figures * 0.64;
+        // The floor is the one case allowed to fill its square: below it a
+        // value has stopped being readable at any spacing.
+        if (numberSize(box, figures) > 7) expect(box - drawn).toBeGreaterThanOrEqual(box * 0.15);
+      }
+    }
   });
 
   it('never sets a number taller than the square it stands in', () => {
@@ -290,7 +308,7 @@ describe('sizing the figures of a heading', () => {
         // And the digits, all of one width, stay inside it across as well —
         // unless the number has bottomed out at the smallest readable size,
         // which is the one case allowed to fill the square to its edges.
-        if (size > 7) expect(size * digits * 0.64).toBeLessThanOrEqual(box);
+        if (size > 7) expect(size * digits * 0.64).toBeLessThanOrEqual(box * 0.8);
       }
     }
   });

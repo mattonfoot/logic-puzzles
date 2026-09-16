@@ -129,6 +129,18 @@ const FIGURE_WIDTH = 0.64;
  * spends the square on the number and still says what the number is in.
  */
 const UNIT_SCALE = 0.68;
+/**
+ * How much of its square a value may fill across. The rest is gutter, and the
+ * gutter is what keeps one value off the next.
+ *
+ * Headings sit one cell apart with nothing drawn between them, so a value set
+ * edge to edge in its square meets its neighbour with no air in between and a
+ * row of years reads as one long number rather than four of them. A drawing has
+ * the same margin, built into the shape it is cut as — see `ICON_SCALE` — but a
+ * drawing is a silhouette with air already around it and a number is a block of
+ * ink to the last stroke.
+ */
+const VALUE_WIDTH = 0.8;
 /** How much of the heading square's height the figures may stand in. */
 const NUMBER_HEIGHT = 0.68;
 /**
@@ -169,7 +181,7 @@ export function numeralWidth({ before, figures, after }: Numeral): number {
 export function numberSize(box: number, width: number): number {
   return Math.max(
     MIN_NUMBER,
-    Math.floor(Math.min(box * NUMBER_HEIGHT, box / (width * FIGURE_WIDTH))),
+    Math.floor(Math.min(box * NUMBER_HEIGHT, (box * VALUE_WIDTH) / (width * FIGURE_WIDTH))),
   );
 }
 

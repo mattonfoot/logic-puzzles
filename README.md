@@ -330,8 +330,10 @@ captures are for.
    — "£17", "215cm" — with the unit set smaller than the figures, since the
    figures are what you compare and the square is theirs. A whole scale is set
    in the size its widest value needs, so no heading in it is drawn larger than
-   its neighbour. Tap one to open the card that says, in words, which is
-   which.
+   its neighbour, and in four fifths of that square rather than all of it — a
+   number set to the edges meets the next one with no air between them, and a
+   row of years reads as one long number. Tap one to open the card that says,
+   in words, which is which.
    Nothing on the screen scrolls: the board opens at the size
    that fits the space it is given, with the clue in play beneath it. The board
    takes no marks until you have read a clue — with nothing said about the
