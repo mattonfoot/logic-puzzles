@@ -64,9 +64,9 @@ describe('what has been earned', () => {
     expect(earned.map((one) => one.title)).toEqual([
       'First puzzle',
       'First classic game',
-      'First Classic Expert puzzle',
+      'First Classic expert puzzle',
     ]);
-    expect(earned[2].description).toBe('Expert boards, played Classic.');
+    expect(earned[2].description).toBe('Classic expert boards.');
   });
 
   it('hands over the hat trick, the ten and the century as the count reaches them', () => {

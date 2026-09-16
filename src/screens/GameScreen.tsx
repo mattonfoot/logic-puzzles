@@ -773,11 +773,20 @@ export function GameScreen({
               two jobs of different sizes, and "Daily advanced" is a third. */}
           <RuledTitle>{gameTitle(playedAs, puzzle.size.difficulty)}</RuledTitle>
           {/* The number the player picked, not the seed it packs to: the list
-              said "Puzzle 7" and the board has to agree with it. A daily reads
-              back as its date the same way. A seed from a save written before
-              the difficulties had columns of their own can land in one by
-              coincidence and be read a digit short; it is one line of grey
-              text on one old save, and worth less than the plumbing to know. */}
+              said "Puzzle 7" and the board has to agree with it.
+
+              A daily has no number, because nobody picked it: its seed is the
+              day it was set with the difficulty's column on the end, and it
+              unpacks to nothing, so what stands here is the seed itself —
+              "#202609160" for the sixteenth of September at Beginner. It reads
+              as the date with a digit after it, which is what it is. The title
+              above already says it is a daily, and the finish names the date in
+              words, so this is a fingerprint rather than a thing to read.
+
+              A seed from a save written before the difficulties had columns of
+              their own can land in one by coincidence and be read a digit
+              short; it is one line of grey text on one old save, and worth less
+              than the plumbing to know. */}
           <Text style={styles.headerSubtitle} numberOfLines={1}>
             {t('game.seed', { seed: numberFor(puzzle.seed, puzzle.size.id) ?? puzzle.seed })}
           </Text>

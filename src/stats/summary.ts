@@ -5,7 +5,7 @@
  * keeps it easy to test and cheap to recompute on every render.
  */
 import { looksDaily, modeOf } from '../game/library';
-import { DAILY, DEFAULT_MODE, PLAYED_AS, type PlayedAs } from '../game/modes';
+import { DAILY, DEFAULT_MODE, gameTitle, PLAYED_AS, type PlayedAs } from '../game/modes';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration } from '../game/time';
 import { plural, t } from '../i18n';
@@ -251,6 +251,10 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   const averageBefore = mean(times);
   const rank = times.filter((time) => time < game.seconds).length + 1;
   const clues = game.cluesUsed === null ? '' : plural('improvement.clues', game.cluesUsed);
+  // Every headline below is a claim about this pile of games and no other, so
+  // it names the pile the way the board named itself: "Pure advanced", not
+  // "Advanced", which would read as a best across both ways of playing.
+  const named = gameTitle(kind, game.difficulty);
 
   if (game.revealed) {
     return {
@@ -267,7 +271,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   if (previousBest === null) {
     return {
       kind: 'first',
-      headline: t('improvement.first.headline', { difficulty: game.difficulty }),
+      headline: t('improvement.first.headline', { game: named }),
       detail: t('improvement.first.detail', {
         clock: formatDuration(game.seconds),
         clues,
@@ -282,7 +286,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
   if (game.seconds < previousBest) {
     return {
       kind: 'best',
-      headline: t('improvement.best.headline', { difficulty: game.difficulty }),
+      headline: t('improvement.best.headline', { game: named }),
       detail: t('improvement.best.detail', {
         gap: formatDuration(previousBest - game.seconds),
         best: formatDuration(previousBest),
@@ -301,7 +305,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
       kind: 'faster',
       headline: t('improvement.faster.headline', {
         percent: percentOf(share),
-        difficulty: game.difficulty,
+        game: named,
       }),
       detail: t('improvement.faster.detail', {
         rank: String(rank),
@@ -318,7 +322,7 @@ export function improvementFor(game: CompletedGame, previous: CompletedGame[]): 
 
   return {
     kind: 'steady',
-    headline: t('improvement.steady.headline', { difficulty: game.difficulty }),
+    headline: t('improvement.steady.headline', { game: named }),
     detail: t('improvement.steady.detail', {
       gap: formatDuration(game.seconds - previousBest),
       best: formatDuration(previousBest),

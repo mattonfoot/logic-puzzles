@@ -1706,10 +1706,10 @@ describe('the board', () => {
       jest.advanceTimersByTime(0);
     });
     expect(screen.getByText('5:00')).toBeOnTheScreen();
-    // Which game it was, how hard, and which of the two ways it was played: the
-    // note under it compares this time against games played the same way, so
-    // the line has to say which way that was.
-    expect(screen.getByText('Advanced · Puzzle 1 · Pure')).toBeOnTheScreen();
+    // What the game was called and which one of them it was — the same name
+    // the board carried. The note under it compares this time against games
+    // played the same way, so the line has to say which way that was.
+    expect(screen.getByText('Pure advanced · Puzzle 1')).toBeOnTheScreen();
     expect(screen.getByText('First one at this size')).toBeOnTheScreen();
 
     // Beside Share, and it needs no asking: the game is already in the
@@ -1903,7 +1903,7 @@ describe('a finished game, read back', () => {
     // Which game it was and how hard, not what it was dressed as — and the
     // table under it is the cast, built from the puzzle the seed makes rather
     // than from whatever the record says it was.
-    expect(screen.getByText('Advanced · 2 September 2026')).toBeOnTheScreen();
+    expect(screen.getByText('Daily advanced · 2 September 2026')).toBeOnTheScreen();
     expect(screen.getByText('2:05')).toBeOnTheScreen();
     expect(screen.getByText('7')).toBeOnTheScreen();
     for (const item of puzzle.categories[0].items) {
@@ -1940,7 +1940,7 @@ describe('a finished game, read back', () => {
     fireEvent.press(button('Share'));
     expect(sheet).toHaveBeenCalledTimes(1);
     const { message } = sheet.mock.calls[0][0] as { message: string };
-    expect(message).toContain('Daily, 2 September 2026');
+    expect(message).toContain('Daily advanced · 2 September 2026');
     expect(message).toContain('2:05 · 7 clues');
     expect(message).toContain('🟩');
     for (const item of puzzleOne('sm', seed).categories[0].items) {
@@ -2153,9 +2153,9 @@ describe('the statistics', () => {
     // and that kind at that difficulty. A difficulty never counts on its own.
     expect(screen.getByText('First puzzle')).toBeOnTheScreen();
     expect(screen.getByText('First classic game')).toBeOnTheScreen();
-    expect(screen.getByText('First Classic Advanced puzzle')).toBeOnTheScreen();
+    expect(screen.getByText('First Classic advanced puzzle')).toBeOnTheScreen();
     // Each carries what it means, which is the card's second line.
-    expect(screen.getByText('Advanced boards, played Classic.')).toBeOnTheScreen();
+    expect(screen.getByText('Classic advanced boards.')).toBeOnTheScreen();
     // And every card carries the day the game that earned it was finished,
     // which is what makes the order they are in mean something. One game earns
     // six here — the three counts above, plus one finished with no hint asked

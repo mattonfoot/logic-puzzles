@@ -1417,11 +1417,12 @@ game share one seed space, so a numbered game 20,260,829 would otherwise answer
 for the 29th of August.
 
 A finished game can be sent to somebody. **Share** on the result hands three
-lines to the system share sheet: which puzzle — *Daily, 2 September 2026* or
-*Expert #7 · Classic* — with its difficulty and, for a numbered game, which of
-the two ways it was played; the clock, the clues read and any hints
-asked for; and the clues as a row of squares, filled for the ones read, empty
-for the ones not needed, yellow for each the board had to write past the end.
+lines to the system share sheet: what the game was called and which one of them
+it was — *Daily advanced · 2 September 2026* or *Classic expert #7*, the same
+name the board carried, so a time and the screen it was set on agree about what
+the game was; the clock, the clues read and any hints asked for; and the clues
+as a row of squares, filled for the ones read, empty for the ones not needed,
+yellow for each the board had to write past the end.
 Hints appear only on a game that used one — a nought on every share says
 nothing, and their absence is the good news. Nothing about the answer,
 the theme or the cast is in it: how many clues a puzzle has is not a spoiler,

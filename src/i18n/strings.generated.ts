@@ -1042,8 +1042,8 @@ export const STRINGS = {
   },
   solved: {
     title: 'Solved!',
-    subtitle: '{difficulty} · {game}',
-    numbered: 'Puzzle {number} · {mode}',
+    subtitle: '{game} · {which}',
+    numbered: 'Puzzle {number}',
     time: 'Time',
     cluesRead: 'Clues read',
     hintsAsked: 'Hints asked',
@@ -1054,8 +1054,8 @@ export const STRINGS = {
     notRecorded: 'This game could not be recorded — the device may be out of space.',
   },
   share: {
-    daily: 'Deduction · Daily, {date} · {difficulty}',
-    numbered: 'Deduction · {difficulty} #{number} · {mode}',
+    daily: 'Deduction · {game} · {date}',
+    numbered: 'Deduction · {game} #{number}',
     clues: {
       one: '1 clue',
       other: '{count} clues',
@@ -1071,19 +1071,19 @@ export const STRINGS = {
       detail: 'Revealed puzzles are kept out of your times.',
     },
     first: {
-      headline: 'First {difficulty} in the books',
+      headline: 'First {game} in the books',
       detail: 'Time to beat next round: {clock}{clues}.',
     },
     best: {
-      headline: 'New {difficulty} best!',
+      headline: 'New {game} best!',
       detail: '{gap} faster than your old best of {best}{clues}.',
     },
     faster: {
-      headline: '{percent}% faster than your {difficulty} average',
+      headline: '{percent}% faster than your {game} average',
       detail: '#{rank} of {total} · best is {best}{clues}.',
     },
     steady: {
-      headline: '{difficulty} complete',
+      headline: '{game} complete',
       detail: '{gap} off your best of {best}{clues}.',
     },
     clues: {
@@ -1108,7 +1108,7 @@ export const STRINGS = {
     best: 'Best',
     average: 'Average',
     gettingFaster: 'Are you getting faster?',
-    chartCaption: '{mode}: recent solve times, one column per puzzle',
+    chartCaption: '{game}: recent solve times, one column per puzzle',
     fasterLately: '{percent}% faster lately',
     slowerLately: '{percent}% slower lately',
     holdingSteady: 'Holding steady',
@@ -1116,6 +1116,7 @@ export const STRINGS = {
     emptyBody:
       'Solve one and your time lands here. After a few, you will see whether you are getting quicker.',
     clearStatistics: 'Clear statistics',
+    trendEmpty: 'One more {game} solve and the trend shows up here.',
     trendPending: '{solved} solved · best {best}. A few more and the trend below fills in.',
     trendDetail: 'Last {count} average {recent} vs {earlier} before that.',
     confirm: {
@@ -1157,9 +1158,9 @@ export const STRINGS = {
       },
     },
     pair: {
-      one: '{kind} {difficulty} puzzle',
-      many: '{kind} {difficulty} puzzles',
-      body: '{difficulty} boards, played {kind}.',
+      one: '{game} puzzle',
+      many: '{game} puzzles',
+      body: '{game} boards.',
     },
     streak: {
       three: {
@@ -5701,6 +5702,7 @@ export type StringKey =
   | 'stats.timePlayed'
   | 'stats.title'
   | 'stats.trendDetail'
+  | 'stats.trendEmpty'
   | 'stats.trendPending'
   | 'stats.unreadable'
   | 'themes.cafe.blurb'

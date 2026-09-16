@@ -240,8 +240,10 @@ describe('improvementFor', () => {
     expect(result.kind).toBe('faster');
     expect(result.averageBefore).toBe(200);
     expect(result.headline).toContain('25% faster');
-    // Puzzles are called by their difficulty, not by their shape.
-    expect(result.headline).toContain('Advanced');
+    // Games are called by what they are, not by their shape — and the note is
+    // a claim about one pile of games, so it names the pile: these are the
+    // player's Pure Advanced times and no others.
+    expect(result.headline).toContain('Pure advanced');
     expect(result.headline).not.toContain('4 × 4');
     expect(result.rank).toBe(2);
   });

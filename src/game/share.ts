@@ -4,13 +4,13 @@ import { plural, t } from '../i18n';
 import type { Puzzle } from '../puzzle/types';
 import { formatDuration } from './time';
 import { dailyDate, modeOf, numberFor } from './library';
-import { DEFAULT_MODE, modeById } from './modes';
+import { DAILY, DEFAULT_MODE, gameTitle } from './modes';
 
 /**
  * A finished game as a few lines somebody can be sent.
  *
- * What is in it: which puzzle — the date for a daily, the number and the way it
- * was played for a numbered game — the difficulty, the clock, the clues read,
+ * What is in it: what the game was called — the way it was played and how hard,
+ * the same name the board carried — then which puzzle, the clock, the clues read,
  * any hints asked for, and the clues read again as a row of squares. What is not: anything about the answer. The squares are the
  * puzzle's own clues, filled for the ones read and empty for the ones that were
  * not needed, with a yellow one for each clue the board had to write past the
@@ -44,21 +44,21 @@ export function formatDate(date: Date): string {
 }
 
 export function resultText({ puzzle, seconds, cluesUsed, hintsAsked, daily }: Result): string {
+  // What the board called itself: which of the three ways it was played, then
+  // how hard. The same number is a different puzzle on each side of the mode
+  // menu and a different job on each side, so a time sent to somebody without
+  // it is a time they cannot answer — and a share that named the game some
+  // other way than the screen it was set on would be one more thing to match up.
+  const game = gameTitle(
+    daily ? DAILY : (modeOf(puzzle.seed) ?? DEFAULT_MODE),
+    puzzle.size.difficulty,
+  );
   const heading = daily
-    ? t('share.daily', {
-        date: formatDate(dailyDate(puzzle.seed)),
-        difficulty: puzzle.size.difficulty,
-      })
+    ? t('share.daily', { game, date: formatDate(dailyDate(puzzle.seed)) })
     : t('share.numbered', {
-        difficulty: puzzle.size.difficulty,
+        game,
         // The number off the list, not the seed it packs to.
         number: numberFor(puzzle.seed, puzzle.size.id) ?? puzzle.seed,
-        // And which of the two games it was. The same number is a different
-        // puzzle on each side and a different job on each side, so a time sent
-        // to somebody without it is a time they cannot answer. A daily is left
-        // out of this: there is one a day at each difficulty and no choice to
-        // name.
-        mode: modeById(modeOf(puzzle.seed) ?? DEFAULT_MODE).short,
       });
   // Hints only when there were some. The separator is joined here rather than
   // written into a template, because which parts there are depends on the game.

@@ -772,17 +772,18 @@ settings:
 
 solved:
   title: Solved!
-  # "Advanced · Puzzle 7", or "Advanced · 2 September 2026" for a daily.
+  # "Pure advanced · Puzzle 7", or "Daily beginner · 2 September 2026".
   #
   # The theme and the grid size stood here, and neither says which game this
   # was: the theme's own drawing is right above the line and its cast is in the
-  # answer table under it, and the shape is that table's shape. Which puzzle it
-  # was, and how hard, is what somebody comparing two finishes needs.
-  subtitle: '{difficulty} · {game}'
-  # A numbered game, in the same words the share line uses: which one, and which
-  # of the two ways it was played. A daily names its date instead — there is one
-  # a day at each difficulty, and no choice to name.
-  numbered: 'Puzzle {number} · {mode}'
+  # answer table under it, and the shape is that table's shape. What the game
+  # was called and which one of them it was is what somebody comparing two
+  # finishes needs, and the name is the one the board carried.
+  subtitle: '{game} · {which}'
+  # Which one off the list. The name beside it already says how it was played,
+  # so this is only the number. A daily names its date instead — there is one a
+  # day at each difficulty, and no choice to name.
+  numbered: 'Puzzle {number}'
   time: Time
   cluesRead: Clues read
   # Beside the clues, and only on a game that counted them: how many times the
@@ -800,10 +801,14 @@ solved:
 # A finished game as a few lines to send somebody. No spoilers: the third line
 # is the clues read as squares, which the app writes for itself.
 share:
-  daily: Deduction · Daily, {date} · {difficulty}
-  # Which game, then which way it was played: a number is two puzzles now, and
-  # a time means nothing without saying which of them it was.
-  numbered: 'Deduction · {difficulty} #{number} · {mode}'
+  # "Deduction · Daily beginner · 2 September 2026". The game is named the way
+  # the board that was played is titled, so a time sent to somebody and the
+  # screen it was set on agree about what the game was called.
+  daily: 'Deduction · {game} · {date}'
+  # "Deduction · Pure advanced #7". The name carries which of the three ways it
+  # was played as well as how hard it was: the same number is a different puzzle
+  # on each side, so a time without it is a time nobody can answer.
+  numbered: 'Deduction · {game} #{number}'
   # The second line is the clock and what it cost, joined by the middot the app
   # punctuates with everywhere. Hints are left off a game that used none: a
   # nought on every share says nothing, and their absence is the good news.
@@ -814,21 +819,25 @@ share:
     one: 1 hint
     other: '{count} hints'
 
+# The note under a finish. Every one of these measures the game against the
+# player's earlier games at the same difficulty *and* played the same way, so
+# each names the game the way the board did — "First Pure advanced in the
+# books". A difficulty on its own would claim a best across two different jobs.
 improvement:
   revealed:
     headline: Solution revealed
     detail: Revealed puzzles are kept out of your times.
   first:
-    headline: First {difficulty} in the books
+    headline: First {game} in the books
     detail: 'Time to beat next round: {clock}{clues}.'
   best:
-    headline: New {difficulty} best!
+    headline: New {game} best!
     detail: '{gap} faster than your old best of {best}{clues}.'
   faster:
-    headline: '{percent}% faster than your {difficulty} average'
+    headline: '{percent}% faster than your {game} average'
     detail: '#{rank} of {total} · best is {best}{clues}.'
   steady:
-    headline: '{difficulty} complete'
+    headline: '{game} complete'
     detail: '{gap} off your best of {best}{clues}.'
   # Tacked onto the end of a detail line above.
   clues:
@@ -855,13 +864,16 @@ stats:
   best: Best
   average: Average
   gettingFaster: Are you getting faster?
-  chartCaption: '{mode}: recent solve times, one column per puzzle'
+  # Over the chart: which games these times are, named as the board named them.
+  chartCaption: '{game}: recent solve times, one column per puzzle'
   fasterLately: '{percent}% faster lately'
   slowerLately: '{percent}% slower lately'
   holdingSteady: Holding steady
   empty: No finished puzzles yet
   emptyBody: Solve one and your time lands here. After a few, you will see whether you are getting quicker.
   clearStatistics: Clear statistics
+  # Where the chart would be, with only one time to draw.
+  trendEmpty: One more {game} solve and the trend shows up here.
   trendPending: '{solved} solved · best {best}. A few more and the trend below fills in.'
   trendDetail: Last {count} average {recent} vs {earlier} before that.
   confirm:
@@ -905,11 +917,12 @@ achievements:
       many: dailies
       body: The day's challenge, handed out rather than chosen.
   # A difficulty never counts on its own: an Expert board the hard way is not the
-  # same game as an Expert board with the bookkeeping done for you.
+  # same game as an Expert board with the bookkeeping done for you. So the pair
+  # is counted under the name the board itself carried — "Classic expert".
   pair:
-    one: '{kind} {difficulty} puzzle'
-    many: '{kind} {difficulty} puzzles'
-    body: '{difficulty} boards, played {kind}.'
+    one: '{game} puzzle'
+    many: '{game} puzzles'
+    body: '{game} boards.'
   # Coming back.
   streak:
     three:

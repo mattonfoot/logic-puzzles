@@ -42,7 +42,7 @@ describe('the text', () => {
       daily: true,
     });
     const [heading, line, squares] = text.split('\n');
-    expect(heading).toBe('Deduction · Daily, 2 September 2026 · Advanced');
+    expect(heading).toBe('Deduction · Daily advanced · 2 September 2026');
     expect(line).toBe('3:20 · 4 clues');
     expect(squares).toBe(clueSquares(4, daily.clues.length));
     for (const category of daily.categories) {
@@ -59,7 +59,7 @@ describe('the text', () => {
       hintsAsked: 0,
       daily: false,
     });
-    expect(text.split('\n')[0]).toBe('Deduction · Expert #7 · Pure');
+    expect(text.split('\n')[0]).toBe('Deduction · Pure expert #7');
     expect(text).toContain('1:01 · 9 clues');
   });
 
@@ -75,7 +75,7 @@ describe('the text', () => {
       hintsAsked: 0,
       daily: false,
     });
-    expect(text.split('\n')[0]).toBe('Deduction · Expert #7 · Classic');
+    expect(text.split('\n')[0]).toBe('Deduction · Classic expert #7');
   });
 
   /**

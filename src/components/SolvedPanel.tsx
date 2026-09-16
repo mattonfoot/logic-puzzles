@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { dailyDate, modeOf, numberFor } from '../game/library';
-import { DEFAULT_MODE, modeById } from '../game/modes';
+import { DAILY, DEFAULT_MODE, gameTitle } from '../game/modes';
 import { formatDate } from '../game/share';
 import { formatDuration } from '../game/time';
 import { t } from '../i18n';
@@ -93,8 +93,11 @@ export function SolvedPanel({
       <Text style={styles.title}>{title ?? t('solved.title')}</Text>
       <Text style={styles.subtitle}>
         {t('solved.subtitle', {
-          difficulty: puzzle.size.difficulty,
-          game: gameName(puzzle, daily),
+          game: gameTitle(
+            daily ? DAILY : (modeOf(puzzle.seed) ?? DEFAULT_MODE),
+            puzzle.size.difficulty,
+          ),
+          which: whichGame(puzzle, daily),
         })}
       </Text>
 
@@ -165,21 +168,19 @@ export function SolvedPanel({
 }
 
 /**
- * Which game this was: the date for a daily, the number and the way it was
- * played for one off the list.
+ * Which one of them this was: the date for a daily, the number for one off the
+ * list. What kind of game it was is the name beside this, so it is not repeated
+ * here.
  *
- * Both are read back out of the seed rather than taken from anywhere else — it
- * packs the number, the difficulty and the mode into their own columns — and a
- * seed that unpacks to nothing falls back to itself, which is the number it
- * was. The way it was played belongs here because the note under this line is a
- * comparison: a Classic time is only measured against Classic ones, and a
- * finish that did not say which it was would be a number nobody can place.
+ * The number is read back out of the seed rather than taken from anywhere else
+ * — the seed packs the number, the difficulty and the mode into their own
+ * columns — and a seed that unpacks to nothing falls back to itself, which is
+ * the number it was.
  */
-function gameName(puzzle: Puzzle, daily: boolean): string {
+function whichGame(puzzle: Puzzle, daily: boolean): string {
   if (daily) return formatDate(dailyDate(puzzle.seed));
   return t('solved.numbered', {
     number: numberFor(puzzle.seed, puzzle.size.id) ?? puzzle.seed,
-    mode: modeById(modeOf(puzzle.seed) ?? DEFAULT_MODE).short,
   });
 }
 

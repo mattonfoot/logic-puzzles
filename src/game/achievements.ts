@@ -23,7 +23,7 @@ import { SIZES, sizeById } from '../data/sizes';
 import { THEMES } from '../data/themes';
 import { CLUE_LESSONS, FIRST_LESSONS } from './lessons';
 import { dailyDate, numberOn } from './library';
-import { modeById, MODES, type ModeId, type PlayedAs } from './modes';
+import { gameTitle, modeById, MODES, type ModeId, type PlayedAs } from './modes';
 import type { CompletedGame } from './persistence';
 import { filedAs } from '../stats/summary';
 import { dayKey } from './library';
@@ -253,15 +253,16 @@ export function achievementsFor(
     // this difficulty. A difficulty never counts on its own.
     counted('all', count('all'), SETS.all, at);
     counted(`kind.${kind}`, count(`kind.${kind}`), SETS[kind], at);
-    const difficulty = sizeById(game.sizeId)?.difficulty ?? game.difficulty;
-    const kindName = kind === 'daily' ? t('modes.daily') : modeById(kind).short;
+    // Counted under the name the board itself carried, so a card and the game
+    // it was earned on call the same thing the same thing.
+    const played = gameTitle(kind, sizeById(game.sizeId)?.difficulty ?? game.difficulty);
     counted(
       `pair.${kind}.${game.sizeId}`,
       count(`pair.${kind}.${game.sizeId}`),
       {
-        one: t('achievements.pair.one', { kind: kindName, difficulty }),
-        many: t('achievements.pair.many', { kind: kindName, difficulty }),
-        body: t('achievements.pair.body', { kind: kindName, difficulty }),
+        one: t('achievements.pair.one', { game: played }),
+        many: t('achievements.pair.many', { game: played }),
+        body: t('achievements.pair.body', { game: played }),
       },
       at,
     );

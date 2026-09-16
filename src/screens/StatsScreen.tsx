@@ -11,7 +11,7 @@ import { t } from '../i18n';
 import type { CompletedGame } from '../game/persistence';
 import { formatDuration, formatSpan } from '../game/time';
 import { filedAs, type OverallStats, type PlayStats, type SizeStats } from '../stats/summary';
-import type { PlayedAs } from '../game/modes';
+import { gameTitle, type PlayedAs } from '../game/modes';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { Icon } from '../ui/Icon';
@@ -207,7 +207,14 @@ export function StatsScreen({
         {selected ? (
           <View style={[styles.card, shadow.card]}>
             <Text style={styles.cardTitle}>{t('stats.gettingFaster')}</Text>
-            <Text style={styles.cardSubtitle}>{t('stats.chartCaption', { mode: kind.name })}</Text>
+            {/* Named the way the board named itself: these are the times from
+                one kind of game at one difficulty, which is exactly what a
+                title on the board says. */}
+            <Text style={styles.cardSubtitle}>
+              {t('stats.chartCaption', {
+                game: gameTitle(kind.playedAs, selected.difficulty),
+              })}
+            </Text>
 
             <View style={styles.pillRow}>
               {played.map((size) => (
@@ -229,7 +236,9 @@ export function StatsScreen({
               />
             ) : (
               <Text style={styles.cardSubtitle}>
-                One more {selected.difficulty} solve and the trend shows up here.
+                {t('stats.trendEmpty', {
+                  game: gameTitle(kind.playedAs, selected.difficulty),
+                })}
               </Text>
             )}
           </View>
