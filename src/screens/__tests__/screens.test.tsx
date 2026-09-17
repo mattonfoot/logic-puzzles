@@ -1060,6 +1060,40 @@ describe('the board', () => {
     expect(header('Daily advanced')).toBeOnTheScreen();
   });
 
+  /**
+   * And under the title, the day it was set — the only thing that tells one
+   * daily from another, and what the finish names it by too. A daily has no
+   * number because nobody picked it, and its seed packs that date with the
+   * difficulty's column on the end, so the line used to read "#202609160".
+   */
+  it('names a daily under its title by the day it was set', () => {
+    const seed = dailySeed(new Date(2026, 8, 2), 'sm');
+    stage(
+      <GameScreen
+        puzzle={puzzleOne('sm', seed)}
+        autoEliminate={false}
+        autoFacts={false}
+        checkClues={false}
+        accent={DEFAULT_SETTINGS.accent}
+        colours={DEFAULT_SETTINGS.colours}
+        onToggleAutoEliminate={none}
+        onToggleAutoFacts={none}
+        onToggleCheckClues={none}
+        onChangeAccent={none}
+        onChangeColours={none}
+        restore={null}
+        daily
+        onExit={none}
+        onSaveProgress={async () => true}
+        onDiscardProgress={none}
+        onCompleted={() => Promise.reject(new Error('nothing is finished here'))}
+      />,
+    );
+
+    expect(screen.getByText('2 September 2026')).toBeOnTheScreen();
+    expect(screen.queryByText(`#${seed}`)).toBeNull();
+  });
+
   it('opens on the briefing, over a board with nothing to undo or light up', () => {
     play();
 

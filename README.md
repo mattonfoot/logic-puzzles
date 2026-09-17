@@ -314,8 +314,10 @@ captures are for.
    which of the three ways it is being played, then how hard. The difficulty
    alone stopped being the whole name the day the same number became a
    different puzzle on each side of the mode menu, and the daily is a third
-   thing again. The burger sits beside it and the seed underneath, and there is
-   nothing else: no clock, because one counting up is a thing to watch rather
+   thing again. The burger sits beside it, and underneath, which one of them
+   this is: the number off the list for a numbered game, and for a daily the
+   day it was set, since nobody picked a daily and the date is the only thing
+   that tells one from another. There is nothing else: no clock, because one counting up is a thing to watch rather
    than a thing to use. The time is still kept, saved with the game and read
    out at the finish. The whole puzzle is drawn as one staircase of grids, the way a
    printed logic puzzle is laid out: every pair of sets meets in its own grid,
