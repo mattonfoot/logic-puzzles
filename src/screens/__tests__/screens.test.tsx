@@ -929,14 +929,17 @@ describe('the board', () => {
   };
 
   /** Every correct pair ticked, which is a board with nothing left to do. */
-  function solvedMarks(): Marks {
+  function solvedMarks(forPuzzle: Puzzle = puzzle): Marks {
     let marks: Marks = {};
-    for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
-      for (let i1 = 0; i1 < puzzle.size.items; i1++) {
-        for (let i2 = 0; i2 < puzzle.size.items; i2++) {
+    for (const [c1, c2] of categoryPairs(forPuzzle.categories.length)) {
+      for (let i1 = 0; i1 < forPuzzle.size.items; i1++) {
+        for (let i2 = 0; i2 < forPuzzle.size.items; i2++) {
           const cell = { c1, i1, c2, i2 };
-          if (isCorrectPair(puzzle, cell)) {
-            marks = setMark(marks, cell, 'yes', { size: puzzle.size.items, autoEliminate: true });
+          if (isCorrectPair(forPuzzle, cell)) {
+            marks = setMark(marks, cell, 'yes', {
+              size: forPuzzle.size.items,
+              autoEliminate: true,
+            });
           }
         }
       }
@@ -1761,6 +1764,49 @@ describe('the board', () => {
     expect(button('Undo')).toBeDisabled();
     layOut();
     expect(screen.getAllByRole('button', { name: /: unknown$/ })).toHaveLength(6 * 9);
+  });
+
+  /**
+   * But not a daily. There is one a day at each difficulty, nobody picked it,
+   * and the whole of what it is for is that everybody is racing the same board
+   * under the same terms — so a second go at a time already set is not a second
+   * go at the same thing. The finish offers Share and nothing else, which is
+   * what a result read back out of the history has always offered.
+   */
+  it('will not put a finished daily back', async () => {
+    const today = puzzleOne('sm', dailySeed(new Date(2026, 8, 2), 'sm'));
+    stage(
+      <GameScreen
+        puzzle={today}
+        autoEliminate
+        autoFacts
+        checkClues={DEFAULT_SETTINGS.checkClues}
+        accent={DEFAULT_SETTINGS.accent}
+        colours={DEFAULT_SETTINGS.colours}
+        onToggleAutoEliminate={none}
+        onToggleAutoFacts={none}
+        onToggleCheckClues={none}
+        onChangeAccent={none}
+        onChangeColours={none}
+        restore={{ ...savedGame(today), marks: solvedMarks(today), seconds: 300 }}
+        daily
+        onExit={none}
+        onSaveProgress={async () => true}
+        onDiscardProgress={none}
+        onCompleted={async () => ({ improvement: firstTime, recorded: true })}
+      />,
+    );
+    await act(async () => {
+      jest.advanceTimersByTime(0);
+    });
+
+    expect(screen.getByText('Solved!')).toBeOnTheScreen();
+    expect(screen.getByText('Daily advanced · 2 September 2026')).toBeOnTheScreen();
+    // Share stays: a time is still a time to send somebody.
+    expect(button('Share')).toBeEnabled();
+    expect(screen.queryByRole('button', { name: 'Play again' })).toBeNull();
+    // And the burger went with the board, so there is no second door onto it.
+    expect(screen.queryByRole('button', { name: 'Menu' })).toBeNull();
   });
 });
 

@@ -809,7 +809,16 @@ export function GameScreen({
               feedback.tap();
               void shareResult({ puzzle, seconds, cluesUsed: cluesSeen.size, hintsAsked, daily });
             }}
-            onPlayAgain={restart}
+            // A daily is played once. There is one a day at each difficulty,
+            // nobody picked it, and the whole of what it is for is that
+            // everybody is racing the same board under the same terms — a
+            // second go at a time already set is not a second go at the same
+            // thing. The list behind this screen already sends a finished
+            // daily to its result rather than to a board, and the burger goes
+            // with the board at the finish, so withholding this leaves no way
+            // back onto it. The panel shows Share on its own, which is what a
+            // result read back out of the history has always done.
+            onPlayAgain={daily ? undefined : restart}
           />
         ) : (
           <View style={styles.fill}>
