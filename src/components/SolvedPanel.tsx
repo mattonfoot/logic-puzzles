@@ -64,8 +64,11 @@ interface Props {
  * as always, so the result stays something to read rather than a junction to
  * get past.
  *
- * A result read back out of the history has no board to put back, so it is
- * given no `onPlayAgain` and shows Share on its own.
+ * Two finishes show Share on its own, because neither has a board to put back:
+ * a result read back out of the history, and a daily. A daily is played once —
+ * one a day at each difficulty, picked by nobody, and the whole of what it is
+ * for is that everybody is racing the same board under the same terms, so a
+ * second go at a time already set is not a second go at the same thing.
  */
 export function SolvedPanel({
   title,

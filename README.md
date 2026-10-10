@@ -437,8 +437,11 @@ captures are for.
    **Share** and the same width as it, puts the puzzle back the way it was
    found — blank board, clock at zero, no clue read. It asks nothing first,
    since the game is already in the history and there is nothing here to throw
-   away. `◀ Back` still leads to the setup screen, where a *different* puzzle
-   is chosen.
+   away. A finished **daily** gets Share on its own: there is one a day at each
+   difficulty, nobody picked it, and everybody is racing the same board under
+   the same terms, so a second go at a time already set is not a second go at
+   the same thing. `◀ Back` still leads to the setup screen, where a
+   *different* puzzle is chosen.
 9. **Puzzle settings**, behind the burger at the top left, holds everything that acts
    on the game rather than on a square: the two board settings and the colour,
    boxed and named exactly as the settings screen has them (they are the
@@ -860,7 +863,11 @@ everything the squares would.
 
 The result offers two things, on one row: **Play again**, which is `restart` —
 the same call the burger's menu makes, minus the confirmation, because a
-recorded game has nothing left to lose — and **Share**, which leaves the app.
+recorded game has nothing left to lose — and **Share**, which leaves the app. A
+daily is given no `onPlayAgain` and shows Share alone, which is also what a
+result read back out of the history does; with the burger gone and the daily
+list sending a finished challenge to its result rather than to a board, that
+leaves no way back onto a daily once it is done.
 Anything else a player might want next — another puzzle, a different
 difficulty, the statistics — is where it always is, behind `◀ Back`, so the
 panel stays something to read rather than a junction to get past.
