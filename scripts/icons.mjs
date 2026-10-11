@@ -55,6 +55,41 @@ async function write() {
   return { drawn, kept };
 }
 
+const ATTRIBUTE = /([a-zA-Z-]+)="([^"]*)"/g;
+
+/**
+ * The shapes in one file, in the order they are painted.
+ *
+ * Most icons are a single filled outline and read as `[{ d }]`. The rest say
+ * how they are painted as well: a shape the artist set to even-odd, or one
+ * drawn as a line rather than filled, which is a cap and a join as well as a
+ * width. Everything here is what the file says — this reads the artwork, it
+ * does not decide anything about it.
+ */
+function shapesIn(svg, where) {
+  const shapes = [];
+  for (const [, attributes] of svg.matchAll(/<path\b([^>]*)>/g)) {
+    const attr = Object.fromEntries(
+      [...attributes.matchAll(ATTRIBUTE)].map(([, name, value]) => [name, value]),
+    );
+    if (!attr.d) throw new Error(`${where} has a <path> with no outline on it`);
+    const shape = { d: attr.d };
+    if (attr['fill-rule'] === 'evenodd') shape.evenOdd = true;
+    if (attr.stroke && attr.stroke !== 'none') {
+      const width = Number(attr['stroke-width'] ?? 1);
+      if (!Number.isFinite(width) || width <= 0) {
+        throw new Error(`${where} is drawn as a line with no width`);
+      }
+      shape.stroke = width;
+      if (attr['stroke-linecap']) shape.cap = attr['stroke-linecap'];
+      if (attr['stroke-linejoin']) shape.join = attr['stroke-linejoin'];
+    }
+    shapes.push(shape);
+  }
+  if (shapes.length === 0) throw new Error(`${where} has no path in it`);
+  return shapes;
+}
+
 /** Reads every icon back off disk, so hand-edited files are what ships. */
 async function collect() {
   const icons = {};
@@ -62,13 +97,22 @@ async function collect() {
   for (const folder of folders.filter((entry) => entry.isDirectory())) {
     for (const file of (await readdir(join(ICON_DIR, folder.name))).sort()) {
       if (!file.endsWith('.svg')) continue;
+      const where = `${folder.name}/${file}`;
       const svg = await readFile(join(ICON_DIR, folder.name, file), 'utf8');
-      const paths = [...svg.matchAll(/<path[^>]*\sd="([^"]+)"/g)].map((match) => match[1]);
-      if (paths.length === 0) throw new Error(`${folder.name}/${file} has no path in it`);
-      icons[`${folder.name}/${file.replace(/\.svg$/, '')}`] = paths.join('');
+      icons[`${folder.name}/${file.replace(/\.svg$/, '')}`] = shapesIn(svg, where);
     }
   }
   return icons;
+}
+
+/** One shape as the source line it ships as. */
+function serialise(shape) {
+  const fields = [`d: '${shape.d}'`];
+  if (shape.evenOdd) fields.push('evenOdd: true');
+  if (shape.stroke) fields.push(`stroke: ${shape.stroke}`);
+  if (shape.cap) fields.push(`cap: '${shape.cap}'`);
+  if (shape.join) fields.push(`join: '${shape.join}'`);
+  return `{ ${fields.join(', ')} }`;
 }
 
 const HEADER = `/**
@@ -81,13 +125,30 @@ const HEADER = `/**
 /** Every shape is drawn in a 100 × 100 box. */
 export const ICON_BOX = 100;
 
-export const ICONS: Record<string, string> = `;
+/**
+ * One shape of one icon.
+ *
+ * Nearly all of them are a filled outline and carry nothing but \`d\`. The rest
+ * say how the artist painted them: \`evenOdd\` for a shape whose holes are told
+ * apart by crossing count rather than by winding, and \`stroke\` for one drawn
+ * as a line of that width rather than filled, with the cap and join the line
+ * was drawn with.
+ */
+export interface IconShape {
+  d: string;
+  evenOdd?: boolean;
+  stroke?: number;
+  cap?: 'butt' | 'round' | 'square';
+  join?: 'bevel' | 'miter' | 'round';
+}
+
+export const ICONS: Record<string, IconShape[]> = `;
 
 async function main() {
   const { drawn, kept } = await write();
   const icons = await collect();
   const entries = Object.entries(icons)
-    .map(([name, path]) => `  '${name}': '${path}',`)
+    .map(([name, shapes]) => `  '${name}': [${shapes.map(serialise).join(', ')}],`)
     .join('\n');
   await writeFile(MAP_FILE, `${HEADER}{\n${entries}\n};\n`);
 
@@ -95,17 +156,22 @@ async function main() {
   console.log(`  ✓ ${Object.keys(icons).length} icons in src/ui/icons.generated.ts`);
 
   if (process.argv.includes('--sheet')) {
+    const paint = (shape) =>
+      shape.stroke
+        ? `<path d="${shape.d}" fill="none" stroke="currentColor" stroke-width="${shape.stroke}"` +
+          ` stroke-linecap="${shape.cap ?? 'butt'}" stroke-linejoin="${shape.join ?? 'miter'}"/>`
+        : `<path d="${shape.d}" fill-rule="${shape.evenOdd ? 'evenodd' : 'nonzero'}"/>`;
     const cells = Object.entries(icons)
       .map(
-        ([name, path]) =>
-          `<figure><svg viewBox="0 0 100 100"><path d="${path}"/></svg><figcaption>${name}</figcaption></figure>`,
+        ([name, shapes]) =>
+          `<figure><svg viewBox="0 0 100 100">${shapes.map(paint).join('')}</svg><figcaption>${name}</figcaption></figure>`,
       )
       .join('\n');
     const sheet = `<!doctype html><meta charset="utf-8"><style>
       body { font: 11px/1.3 system-ui, sans-serif; background: #F6F3EC; color: #26221B; margin: 24px; }
       main { display: grid; grid-template-columns: repeat(10, 1fr); gap: 16px 8px; }
       figure { margin: 0; text-align: center; }
-      svg { width: 54px; height: 54px; fill: #26221B; background: #fff; border: 1px solid #E4DFD4; }
+      svg { width: 54px; height: 54px; fill: #26221B; color: #26221B; background: #fff; border: 1px solid #E4DFD4; }
       figcaption { margin-top: 4px; color: #6B6455; word-break: break-all; }
     </style><main>${cells}</main>`;
     await writeFile(join(ROOT, 'docs', 'icons.html'), sheet);

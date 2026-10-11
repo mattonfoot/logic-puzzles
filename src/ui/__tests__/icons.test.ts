@@ -1,7 +1,7 @@
 import { markIcon } from '../../components/Mark';
 import { ACHIEVEMENT_ICONS } from '../../game/achievements';
 import { iconName, THEMES } from '../../data/themes';
-import { ICON_BOX, ICONS } from '../icons.generated';
+import { ICON_BOX, ICONS, type IconShape } from '../icons.generated';
 
 /**
  * The drawings and the data are kept in two places — SVG files on disk, path
@@ -15,6 +15,11 @@ import { ICON_BOX, ICONS } from '../icons.generated';
 describe('the icon set', () => {
   const named = (name: string) => `${name}: ${ICONS[name] ? 'drawn' : 'missing'}`;
   const drawn = (name: string) => `${name}: drawn`;
+  /** A whole drawing as one line, for comparing one against another. */
+  const outline = (shapes: IconShape[]) =>
+    shapes
+      .map((shape) => `${shape.d}|${shape.stroke ?? 0}|${shape.evenOdd ? 'odd' : ''}`)
+      .join('~');
 
   it('has a drawing for every theme', () => {
     for (const theme of THEMES) {
@@ -47,7 +52,8 @@ describe('the icon set', () => {
     for (const theme of THEMES) {
       for (const category of theme.categories) {
         for (const item of category.items) {
-          const path = ICONS[item.icon] ?? item.icon;
+          const shapes = ICONS[item.icon];
+          const path = shapes ? outline(shapes) : item.icon;
           byPath.set(path, [...(byPath.get(path) ?? []), item.icon]);
         }
       }
@@ -58,15 +64,28 @@ describe('the icon set', () => {
 
   it('draws everything in the same box, and nothing empty', () => {
     expect(ICON_BOX).toBe(100);
-    for (const [name, path] of Object.entries(ICONS)) {
-      expect(`${name}: ${path.startsWith('M') ? 'a path' : path}`).toBe(`${name}: a path`);
-      // A move, two segments and a close: the least a closed shape can be, and
-      // what the back arrow's triangle actually is.
-      const commands = path.match(/[MLACZ]/g) ?? [];
-      expect(`${name}: ${commands.length} commands`).toBe(
-        `${name}: ${Math.max(commands.length, 4)} commands`,
-      );
-      expect(path.endsWith('Z')).toBe(true);
+    for (const [name, shapes] of Object.entries(ICONS)) {
+      expect(`${name}: ${shapes.length} shapes`).not.toBe(`${name}: 0 shapes`);
+      for (const shape of shapes) {
+        const where = `${name} (${shape.d.slice(0, 12)}…)`;
+        expect(`${where}: ${shape.d.startsWith('M') ? 'a path' : shape.d}`).toBe(
+          `${where}: a path`,
+        );
+        if (shape.stroke) {
+          // A line is open by nature and can be as short as two points — the
+          // straight one laid over the knot in a diver's drawing is exactly
+          // that — so neither the closing Z nor the four commands below apply.
+          expect(shape.stroke).toBeGreaterThan(0);
+          continue;
+        }
+        // A move, two segments and a close: the least a closed shape can be,
+        // and what the back arrow's triangle actually is.
+        const commands = shape.d.match(/[MLACZ]/g) ?? [];
+        expect(`${where}: ${commands.length} commands`).toBe(
+          `${where}: ${Math.max(commands.length, 4)} commands`,
+        );
+        expect(shape.d.endsWith('Z')).toBe(true);
+      }
     }
   });
 
@@ -119,17 +138,25 @@ describe('the icon set', () => {
    */
   it('keeps every drawing inside the box', () => {
     const outside: string[] = [];
-    for (const [name, path] of Object.entries(ICONS)) {
-      for (const step of path.replace(/Z/g, '').split(/(?=[MLAC])/)) {
-        const numbers = step
-          .replace(/^[MLAC]/, '')
-          .trim()
-          .split(/[\s,]+/)
-          .map(Number);
-        const [x, y] = numbers.slice(-2);
-        // A hair may fall past the bottom of the box into the shoulders; it is
-        // the crown, the back and the face that get quietly cut.
-        if (x < 0 || x > ICON_BOX || y < 0) outside.push(`${name} at ${x} ${y}`);
+    for (const [name, shapes] of Object.entries(ICONS)) {
+      for (const shape of shapes) {
+        // A line is drawn *along* its path, so it reaches half its width past
+        // it on every side — a stroke that ends on the edge of the box loses
+        // its outer half, and the file it was authored in never says so.
+        const reach = (shape.stroke ?? 0) / 2;
+        for (const step of shape.d.replace(/Z/g, '').split(/(?=[MLAC])/)) {
+          const numbers = step
+            .replace(/^[MLAC]/, '')
+            .trim()
+            .split(/[\s,]+/)
+            .map(Number);
+          const [x, y] = numbers.slice(-2);
+          // A hair may fall past the bottom of the box into the shoulders; it
+          // is the crown, the back and the face that get quietly cut.
+          if (x - reach < 0 || x + reach > ICON_BOX || y - reach < 0) {
+            outside.push(`${name} at ${x} ${y}`);
+          }
+        }
       }
     }
     expect(outside).toEqual([]);
