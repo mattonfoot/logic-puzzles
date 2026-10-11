@@ -83,8 +83,8 @@ describe('marks on the board', () => {
     for (const kind of ['yes', 'no'] as const) {
       const shape = kind === 'yes' ? 'tick' : 'cross';
       it(`draws the hand ${shape} heavier than the automatic one`, () => {
-        const hand = inkOf(ICONS[markIcon(kind, 'hand')]);
-        const auto = inkOf(ICONS[markIcon(kind, 'auto')]);
+        const hand = inkOf(outline(markIcon(kind, 'hand')));
+        const auto = inkOf(outline(markIcon(kind, 'auto')));
         expect(auto).toBeGreaterThan(0);
         expect(hand / auto).toBeGreaterThan(1.5);
       });
@@ -92,8 +92,8 @@ describe('marks on the board', () => {
       it(`gives the ${shape} enough of the square to see`, () => {
         // Of a 100 × 100 box. Below this a mark reads as a smudge at the size a
         // square gets on a nine-grid board.
-        expect(inkOf(ICONS[markIcon(kind, 'auto')])).toBeGreaterThan(400);
-        expect(inkOf(ICONS[markIcon(kind, 'hand')])).toBeLessThan(2500);
+        expect(inkOf(outline(markIcon(kind, 'auto')))).toBeGreaterThan(400);
+        expect(inkOf(outline(markIcon(kind, 'hand')))).toBeLessThan(2500);
       });
     }
   });
@@ -110,6 +110,11 @@ describe('marks on the board', () => {
  * both weights of the same shape, which is why it measures *ink* rather than
  * area.
  */
+/** A drawing's outlines as one run, which is what `inkOf` measures. */
+function outline(name: string): string {
+  return ICONS[name].map((shape) => shape.d).join('');
+}
+
 function inkOf(path: string): number {
   let ink = 0;
   for (const run of path.split('M').filter(Boolean)) {

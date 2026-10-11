@@ -1131,11 +1131,19 @@ photograph it and nothing else would look at it at all.
 
 Everything the app draws — every item, every theme, the lamp on the clue button,
 the chart on an empty statistics screen, and the tick and cross the board takes
-— is a **silhouette**: one closed shape, filled in one colour, in a 100 × 100
-box. There is no artwork with a palette of its own, so an icon takes the colour
-of whatever it sits in and looks right in day mode, night mode and against the
-accent without being drawn three times. 362 of them, one per entry, and a test
-fails if two share a path.
+— is a **silhouette**: a shape in one colour, in a 100 × 100 box. There is no
+artwork with a palette of its own, so an icon takes the colour of whatever it
+sits in and looks right in day mode, night mode and against the accent without
+being drawn three times. 371 of them, one per entry, and a test fails if two
+draw the same.
+
+Most are a single closed outline and nothing more. A drawing is allowed to be
+**several shapes painted in order**, and a shape is allowed to be **drawn as a
+line** of a given width rather than filled — a tuning fork, a bow, a diver's
+knot. Which it is belongs to the artwork and is read off the file; `Icon` does
+nothing with it but hand every shape the one colour they share. A filled shape
+closes its outline and a line does not, which is the one place the two part
+company in the tests.
 
 They come from three places, in a line:
 
@@ -1151,33 +1159,30 @@ theme says what each item looks like in terms of it. Anything that is a scale
 `scripts/icons/scales.mjs` as a motif that **grows with the number**, so the
 fourteen rungs of one ladder read as a ladder.
 
-People are `people.mjs`, and they are built differently from everything else.
-One body per theme, then **two independent things about the head** — twelve ways
-of wearing hair and eight distinguishing features — every one of which changes
-the *outline*, because a silhouette has no face to tell anyone apart by.
-Ninety-six combinations to draw fourteen people from is what keeps a set of them
-apart at the size a grid heading gets; twelve hairs alone was not.
+**The seventy people are drawn by hand**, and they are the one part of the set
+that is not generated. Their files in `assets/icons` are a designer's, and
+`people.mjs` sits behind them as the fallback that draws a person nobody has
+drawn yet — delete a cast file and the next run fills the gap with a generated
+head rather than shipping a blank.
 
-A feature only counts if it reaches an edge. Anything held inside the head is
-swallowed — a ring punched as a void included, because the head is filled
-underneath it and one shape over another in a single colour is one shape. So
-every one of the eight sticks out past the head somewhere: a moustache past the
-cheeks, hoops below the ears, a beard past the jaw, a headset's boom out in
-front.
+They were generated once, and the way they failed is worth knowing before
+anybody generates them again. One body per theme, then two independent things
+about the head — twelve ways of wearing hair and eight distinguishing features,
+each changing the *outline*, because a silhouette has no face to tell anyone
+apart by. Ninety-six combinations sounds like plenty and was not: at the size a
+grid heading actually gets, a bun and a bob are the same blob, and telling three
+suspects apart meant opening three cards — which is the work the pictures were
+there to save. Two further arrangements were tried, both cutting the people in
+**profile**; each was sharper on paper and worse on the board, and both are in
+the history rather than here.
 
-Two other arrangements were tried and are worth knowing about before either is
-tried again. Both cut the people in **profile** — first as a bust on a full head
-construction, then as a head alone filling the box, on the reasoning that a
-face-on head is a circle and only what sticks past its edge can vary. Each was
-sharper on paper and worse on the board, and both are in the history rather than
-here.
-
-Which hair and which feature is not written here. `registry.mjs` reads them off
-each person's traits in `locales/en-GB.yaml` — the same two lines the player
-sees on their card — so the picture is built *from* the card rather than beside
-it, and the two cannot drift. Rewrite somebody's hair in the language file and
-the next `npm run icons` redraws them. A phrase with no shape behind it stops
-the build rather than quietly drawing a bald stranger.
+What the hand-drawn set does instead is give up on drawing a *face* at all. Each
+person is an emblem — a rank's cap, a tuning fork, a diver's compass, a pair of
+secateurs — chosen from what the card already says about them and distinct in
+outline from the other thirteen in their set. The cost is honest and worth
+naming: a clue that describes somebody by their hair can no longer be matched to
+a heading by eye, where a drawn bun once could be. It buys fourteen headings a
+player can actually tell apart, which the buns never were.
 
 **The SVG files are the artwork, not a cache.** The script writes a file only if
 it is not already there, and then re-reads every file on disk to build the path
@@ -1189,7 +1194,8 @@ quickest way to see whether a change made something worse.
 
 `src/ui/icons.generated.ts` is generated and committed: the app imports path
 data, never SVG files, so nothing is read from disk or parsed at runtime and an
-icon costs one `<Path>`. Prettier leaves that file alone — it would reflow the
+icon costs one `<Path>` per shape — which is one `<Path>` for nearly all of
+them. Prettier leaves that file alone — it would reflow the
 path data and the next run would put it back.
 
 ### The board's two marks
@@ -1236,16 +1242,19 @@ holds every item to all of them, so nothing turns up on a card with a blank in
 it.
 
 The five for people are chosen with the picture in mind. Two of them — **hair**
-and one **distinguishing feature** — are what their silhouette actually draws,
-and the drawing is built from those very words (see [The icons](#the-icons)), so
-a card that says *a bun* and *a chinstrap* sits above a picture of a bun and a
-chinstrap. Every set of people used to be described the same three ways instead:
-hair *colour*, eye colour and star sign, not one of which a shape filled with a
-single colour can show — so what a clue told you about somebody and what their
-heading on the board looked like had nothing to do with one another. The other
-three are the theme's own and are read rather than seen: where an astronaut was
-born and how tall they are, what a hero is sworn as and how old, what a diver is
-known for, what a gardener has won at the village show.
+and one **distinguishing feature** — are things a shape can show, and they are
+what the drawings are drawn *from*: a card that says *a crop* and *a beard* sits
+above a cap and a beard. They are no longer wired to the artwork the way they
+were when the people were generated from those very words, so the two can now
+drift — a rewritten trait does not redraw anybody, and nothing fails if it
+disagrees with the picture. Every set of people used to be described the same
+three ways instead: hair *colour*, eye colour and star sign, not one of which a
+shape filled with a single colour can show — so what a clue told you about
+somebody and what their heading on the board looked like had nothing to do with
+one another. The other three are the theme's own and are read rather than seen:
+where an astronaut was born and how tall they are, what a hero is sworn as and
+how old, what a diver is known for, what a gardener has won at the village
+show.
 
 Traits exist so a clue can point at something without naming it. Each is written
 as a phrase with the noun in it — `{noun} with {}`, `{} {noun}`, `{noun} made of

@@ -2,14 +2,20 @@
 
 A paragraph on each of the seventy people the game can deal you: who they are,
 how they hold themselves, and why they carry the hair and the one distinguishing
-feature their silhouette is built from.
+feature their drawing is built from.
 
 **None of this is in the app.** What the player reads is the item's label and its
 one-line blurb, both of which live in `locales/en-GB.yaml` and are quoted here in
-italics. These paragraphs are reference for whoever draws the cast — the two
+italics. These paragraphs are the brief the cast was drawn from — the two
 drawable traits are called out in each of them on purpose, so a redraw has
-something to work from beyond a name. See [the construction of the
-drawings](../scripts/icons/people.mjs) for how those two traits become a shape.
+something to work from beyond a name.
+
+The seventy drawings are now a designer's, one SVG each, and each is an **emblem
+of the person** rather than a portrait: a rank's cap, a tuning fork, a diver's
+compass. A face-on head could not keep fourteen people apart at the size a grid
+heading gets, which is what the generated construction in
+[`people.mjs`](../scripts/icons/people.mjs) was for and why it was replaced. That
+construction is still there, and still draws anybody whose file is missing.
 
 The **id** is what names the drawing on disk: `assets/icons/<theme>/<category>-<id>.svg`.
 
