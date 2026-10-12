@@ -66,9 +66,9 @@ const ATTRIBUTE = /([a-zA-Z-]+)="([^"]*)"/g;
  * width. Everything here is what the file says — this reads the artwork, it
  * does not decide anything about it.
  */
-function shapesIn(svg, where) {
+function pathsIn(markup, where) {
   const shapes = [];
-  for (const [, attributes] of svg.matchAll(/<path\b([^>]*)>/g)) {
+  for (const [, attributes] of markup.matchAll(/<path\b([^>]*)>/g)) {
     const attr = Object.fromEntries(
       [...attributes.matchAll(ATTRIBUTE)].map(([, name, value]) => [name, value]),
     );
@@ -86,7 +86,48 @@ function shapesIn(svg, where) {
     }
     shapes.push(shape);
   }
+  return shapes;
+}
+
+/**
+ * A drawing's shapes, in the order they are painted, with any mask linearised.
+ *
+ * A mask in one of these files is always the same thing: a white box that shows
+ * everything, then black shapes that knock holes in it. So a masked group reads
+ * as the shapes it paints followed by the shapes that cut them, and anything
+ * after the group is painted on top of the result — which is the order the file
+ * already has them in. Anything else in a mask stops the build rather than
+ * shipping a drawing nobody checked.
+ */
+function shapesIn(svg, where) {
+  const cuts = new Map();
+  for (const [, id, body] of svg.matchAll(/<mask\b[^>]*\bid="([^"]+)"[^>]*>(.*?)<\/mask>/gs)) {
+    const box = body.match(/<rect\b[^>]*fill="#?(?:fff|ffffff|white)"[^>]*>/gi) ?? [];
+    if (box.length !== 1) {
+      throw new Error(`${where} has a mask that is not one white box plus its cuts`);
+    }
+    cuts.set(
+      id,
+      pathsIn(body, where).map((shape) => ({ ...shape, cut: true })),
+    );
+  }
+
+  const shapes = [];
+  // Everything outside <defs>, in order: a masked group, or a bare path.
+  const outside = svg.replace(/<defs\b.*?<\/defs>/gs, '');
+  const chunks = outside.split(/(<g\b[^>]*\bmask="url\(#[^)]+\)"[^>]*>.*?<\/g>)/gs);
+  for (const chunk of chunks) {
+    const masked = chunk.match(/^<g\b[^>]*\bmask="url\(#([^)]+)\)"[^>]*>(.*)<\/g>$/s);
+    if (masked) {
+      const [, id, inner] = masked;
+      if (!cuts.has(id)) throw new Error(`${where} paints through a mask it does not define`);
+      shapes.push(...pathsIn(inner, where), ...cuts.get(id));
+    } else {
+      shapes.push(...pathsIn(chunk, where));
+    }
+  }
   if (shapes.length === 0) throw new Error(`${where} has no path in it`);
+  if (shapes.every((shape) => shape.cut)) throw new Error(`${where} is nothing but cuts`);
   return shapes;
 }
 
@@ -108,6 +149,7 @@ async function collect() {
 /** One shape as the source line it ships as. */
 function serialise(shape) {
   const fields = [`d: '${shape.d}'`];
+  if (shape.cut) fields.push('cut: true');
   if (shape.evenOdd) fields.push('evenOdd: true');
   if (shape.stroke) fields.push(`stroke: ${shape.stroke}`);
   if (shape.cap) fields.push(`cap: '${shape.cap}'`);
@@ -130,12 +172,19 @@ export const ICON_BOX = 100;
  *
  * Nearly all of them are a filled outline and carry nothing but \`d\`. The rest
  * say how the artist painted them: \`evenOdd\` for a shape whose holes are told
- * apart by crossing count rather than by winding, and \`stroke\` for one drawn
- * as a line of that width rather than filled, with the cap and join the line
- * was drawn with.
+ * apart by crossing count rather than by winding, \`stroke\` for one drawn as a
+ * line of that width rather than filled, with the cap and join the line was
+ * drawn with, and \`cut\` for one that takes a piece back out of what is under
+ * it.
  */
 export interface IconShape {
   d: string;
+  /**
+   * Cut out of the shapes before it rather than painted. A drawing with holes
+   * in it reads as the shapes it paints, then the shapes that take pieces back
+   * out of them; anything after that is painted on top of the result.
+   */
+  cut?: boolean;
   evenOdd?: boolean;
   stroke?: number;
   cap?: 'butt' | 'round' | 'square';
@@ -161,10 +210,44 @@ async function main() {
         ? `<path d="${shape.d}" fill="none" stroke="currentColor" stroke-width="${shape.stroke}"` +
           ` stroke-linecap="${shape.cap ?? 'butt'}" stroke-linejoin="${shape.join ?? 'miter'}"/>`
         : `<path d="${shape.d}" fill-rule="${shape.evenOdd ? 'evenodd' : 'nonzero'}"/>`;
+    /** The same runs-and-cuts the app paints, so the sheet shows what ships. */
+    const draw = (name, shapes) => {
+      const out = [];
+      let run = [];
+      let cut = [];
+      let n = 0;
+      const close = () => {
+        if (!run.length) return;
+        if (cut.length) {
+          n += 1;
+          out.push(
+            `<mask id="${name.replace(/\W/g, '-')}-${n}">` +
+              `<rect width="100" height="100" fill="#fff"/>` +
+              cut.map((shape) => `<path d="${shape.d}" fill="#000"/>`).join('') +
+              `</mask>`,
+            `<g mask="url(#${name.replace(/\W/g, '-')}-${n})">${run.map(paint).join('')}</g>`,
+          );
+        } else {
+          out.push(run.map(paint).join(''));
+        }
+        run = [];
+        cut = [];
+      };
+      for (const shape of shapes) {
+        if (shape.cut) {
+          cut.push(shape);
+        } else {
+          if (cut.length) close();
+          run.push(shape);
+        }
+      }
+      close();
+      return out.join('');
+    };
     const cells = Object.entries(icons)
       .map(
         ([name, shapes]) =>
-          `<figure><svg viewBox="0 0 100 100">${shapes.map(paint).join('')}</svg><figcaption>${name}</figcaption></figure>`,
+          `<figure><svg viewBox="0 0 100 100">${draw(name, shapes)}</svg><figcaption>${name}</figcaption></figure>`,
       )
       .join('\n');
     const sheet = `<!doctype html><meta charset="utf-8"><style>

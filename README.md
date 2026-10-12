@@ -1138,12 +1138,33 @@ being drawn three times. 371 of them, one per entry, and a test fails if two
 draw the same.
 
 Most are a single closed outline and nothing more. A drawing is allowed to be
-**several shapes painted in order**, and a shape is allowed to be **drawn as a
+**several shapes painted in order**, a shape is allowed to be **drawn as a
 line** of a given width rather than filled — a tuning fork, a bow, a diver's
-knot. Which it is belongs to the artwork and is read off the file; `Icon` does
-nothing with it but hand every shape the one colour they share. A filled shape
-closes its outline and a line does not, which is the one place the two part
-company in the tests.
+knot — and a shape is allowed to **cut a hole** back out of what is under it,
+which in the file is an ordinary SVG mask. Which it is belongs to the artwork
+and is read off the file; `Icon` does nothing with it but hand every shape the
+one colour they share. A filled shape closes its outline and a line does not,
+which is the one place the two part company in the tests.
+
+A mask in one of these files is always the same thing — a white box that shows
+everything, then black shapes that knock holes in it — so the build linearises
+it: a masked group reads as the shapes it paints followed by the shapes that cut
+them, and anything after the group is painted on top of the result. Anything
+else in a mask stops the build rather than shipping a drawing nobody checked.
+`layersOf` in `src/ui/Icon.tsx` splits that list back into the runs it is
+painted in, and the mask names are made per rendered icon, since two icons on
+one screen would otherwise collide over a shared name.
+
+**An item may be drawn twice.** A set's drawings have to tell fourteen things
+apart at the size a board heading gets, which is a different job from showing
+one of them to somebody who has stopped to read about it. So an item may carry a
+second drawing under the same name with `@detail` on the end — the same subject
+with the interior detail cut back in — and the item card asks for that one.
+Everywhere else takes the plain drawing, and an item drawn only once gives the
+same drawing either way. Only the Reef cast and its sets have both so far. A
+fuller drawing with no plain one behind it fails a test: it would mean an item
+renamed and half its artwork left behind, where the card falls back quietly and
+the board shows nothing at all.
 
 They come from three places, in a line:
 
@@ -1195,7 +1216,7 @@ quickest way to see whether a change made something worse.
 `src/ui/icons.generated.ts` is generated and committed: the app imports path
 data, never SVG files, so nothing is read from disk or parsed at runtime and an
 icon costs one `<Path>` per shape — which is one `<Path>` for nearly all of
-them. Prettier leaves that file alone — it would reflow the
+them, and a `<Mask>` as well for the few that cut holes. Prettier leaves that file alone — it would reflow the
 path data and the next run would put it back.
 
 ### The board's two marks

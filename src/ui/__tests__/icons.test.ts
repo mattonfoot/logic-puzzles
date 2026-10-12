@@ -2,6 +2,7 @@ import { markIcon } from '../../components/Mark';
 import { ACHIEVEMENT_ICONS } from '../../game/achievements';
 import { iconName, THEMES } from '../../data/themes';
 import { ICON_BOX, ICONS, type IconShape } from '../icons.generated';
+import { detailName, layersOf } from '../Icon';
 
 /**
  * The drawings and the data are kept in two places — SVG files on disk, path
@@ -114,6 +115,13 @@ describe('the icon set', () => {
       'ui/icon-zoom-out',
       ...ACHIEVEMENT_ICONS,
     ]);
+    // An item may carry a second, fuller drawing for the card; it is claimed by
+    // the same item as the one the board uses.
+    for (const theme of THEMES) {
+      for (const category of theme.categories) {
+        for (const item of category.items) claimed.add(detailName(item.icon));
+      }
+    }
     for (const kind of ['yes', 'no'] as const) {
       for (const weight of ['hand', 'auto'] as const) claimed.add(markIcon(kind, weight));
     }
@@ -162,11 +170,61 @@ describe('the icon set', () => {
     expect(outside).toEqual([]);
   });
 
+  /**
+   * A fuller drawing is an alternative to one the board uses, never a drawing
+   * in its own right. One with no plain drawing behind it is an item that was
+   * renamed and left half its artwork behind, which nothing else would catch —
+   * the card would quietly fall back and the board would show nothing.
+   */
+  it('gives every fuller drawing a plain one to fall back to', () => {
+    const detailed = Object.keys(ICONS).filter((name) => name.endsWith('@detail'));
+    expect(detailed.length).toBeGreaterThan(0);
+    const stranded = detailed.filter((name) => !ICONS[name.replace(/@detail$/, '')]);
+    expect(stranded).toEqual([]);
+  });
+
   it('covers all four board marks', () => {
     for (const kind of ['yes', 'no'] as const) {
       for (const weight of ['hand', 'auto'] as const) {
         const name = markIcon(kind, weight);
         expect(named(name)).toBe(drawn(name));
+      }
+    }
+  });
+});
+
+/**
+ * A drawing is painted in order, and a cut takes a piece back out of what is
+ * under it — so a cut closes the run before it, and whatever follows is painted
+ * on top of the result rather than being cut as well.
+ */
+describe('splitting a drawing into what is painted and what is cut', () => {
+  const paint = (d: string): IconShape => ({ d });
+  const cut = (d: string): IconShape => ({ d, cut: true });
+
+  it('leaves a plain drawing as one layer with nothing cut', () => {
+    expect(layersOf([paint('A'), paint('B')])).toEqual([
+      { paint: [paint('A'), paint('B')], cut: [] },
+    ]);
+  });
+
+  it('closes a layer at its cuts, and paints what follows on top', () => {
+    expect(layersOf([paint('A'), cut('hole'), paint('B')])).toEqual([
+      { paint: [paint('A')], cut: [cut('hole')] },
+      { paint: [paint('B')], cut: [] },
+    ]);
+  });
+
+  it('keeps every shape of every drawing that ships', () => {
+    for (const [name, shapes] of Object.entries(ICONS)) {
+      const layers = layersOf(shapes);
+      const kept = layers.flatMap((layer) => [...layer.paint, ...layer.cut]).length;
+      expect(`${name}: ${kept} of ${shapes.length}`).toBe(
+        `${name}: ${shapes.length} of ${shapes.length}`,
+      );
+      // Nothing is cut out of nothing: a cut needs shapes under it to take from.
+      for (const layer of layers) {
+        if (layer.cut.length > 0) expect(layer.paint.length).toBeGreaterThan(0);
       }
     }
   });

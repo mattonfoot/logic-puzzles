@@ -60,7 +60,11 @@ export function ItemCard({ puzzle, showing, onShow, onClose }: Props) {
         <Pressable style={[styles.card, shadow.raised]} onPress={() => undefined}>
           <View style={styles.head}>
             <View style={[styles.icon, { backgroundColor: tint(palette.accent, 0.12) }]}>
-              <Icon name={item.icon} size={38} color={palette.accent} />
+              {/* The fuller drawing, where the item has one. A heading has to
+                  tell fourteen things apart at 24 points and is cut back to
+                  what survives that; here the player has stopped to read about
+                  one of them, and the detail is worth having. */}
+              <Icon name={item.icon} detail size={38} color={palette.accent} />
             </View>
             <View style={styles.headText}>
               <Text style={[styles.category, { color: palette.accent }]}>{category.name}</Text>
