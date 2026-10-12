@@ -1,6 +1,3 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor">
-  <path fill="none" stroke="currentColor" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" d="M27 10C67 23 80 49 69 67C60 79 42 88 27 91" />
-  <path fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" d="M27 12L27 89" />
-  <path fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M16 50L83 50" />
-  <path stroke="currentColor" stroke-width="1" stroke-linejoin="round" d="M77 40L91 50L77 60Z" />
+  <path d="M20 43C20 26 35 13 53 17C64 20 71 30 77 43C60 39 42 39 20 43ZM10 47C34 40 65 40 85 48L90 55C64 62 29 61 10 54ZM22 60L33 62C30 72 30 81 35 91C21 84 17 72 22 60ZM64 63L78 60C84 75 78 85 65 92C70 80 67 72 64 63ZM65 39C65 22 75 9 93 7C91 23 80 35 71 39L70 46L65 46Z" />
 </svg>
