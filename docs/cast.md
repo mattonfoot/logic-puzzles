@@ -27,7 +27,7 @@ A pressure collar, sealed square at the throat.
 
 `cosmic/astronaut-zarg` · Hair a crop · Distinguishing feature a beard · Eyes green · Born on Mars · Height 1.9m
 
-*Has commanded eleven ships and can name none of them.*
+*Has commanded eleven ships. Refers to each, with confidence, as “the other one”.*
 
 Tall, square, and entirely certain. Mars-born, which he mentions. Eleven commands behind him and the ships blur, the crews blur, the medals do not. Wears the crop because a barber is a scheduled appointment and Zarg keeps his appointments, and the beard because nobody outranks him enough to raise it. Stands with his chin up and his weight back, addressing a slightly larger room than the one he is in.
 
@@ -83,7 +83,7 @@ Europa-born, which explains a certain relish for cold, dark, enclosed places. We
 
 `cosmic/astronaut-quill` · Hair long hair · Distinguishing feature a beard · Eyes green · Born on Earth · Height 1.6m
 
-*Studying deep-space silence. Has published nine hundred pages on it.*
+*Studying deep-space silence. His nine-hundred-page report has rather undermined the subject.*
 
 Small, soft-voiced and utterly immovable on his subject, which is silence, on which he has published nine hundred pages. The long hair and the long beard have grown at the same rate since roughly 2029, unattended by choice rather than neglect. Sits with his head tilted, listening to something the rest of the crew cannot hear and would not enjoy.
 
@@ -123,7 +123,7 @@ The afro is enormous and thoroughly non-regulation, and the chinstrap belongs to
 
 `cosmic/astronaut-bex` · Hair a shaved head · Distinguishing feature hoop earrings · Eyes brown · Born on Titan · Height 1.8m
 
-*Knows where everything is, and what it costs to find out.*
+*Knows where everything is. Access to this knowledge is a separate budget line.*
 
 Titan-born, and runs the stores like a small sovereign nation with its own weather and customs. Shaves her head, and the gold hoops are the only things she owns that are not stock. Arms folded, one eyebrow up, waiting for you to get to the point.
 
@@ -259,7 +259,7 @@ A pauldron over the near shoulder and a clasp at the throat.
 
 `quest/hero-brannoch` · Hair a shaved head · Distinguishing feature a beard · Eyes blue · Calling a knight · Age 44
 
-*Sworn to slay one beast. Has slain it. Will not stop mentioning it.*
+*Sworn to slay one beast. Has done so. The remaining quest is to hear the end of it.*
 
 A big square knight going comfortably to seed, with a shaved scalp under the helm and a beard kept since the day in question. Stands with one foot forward as though a portrait were imminent. Genuinely brave and genuinely exhausting, in roughly equal measure. The beast does come up.
 
@@ -275,7 +275,7 @@ Lean, still, and visibly bored by any conversation that is not about distance. W
 
 `quest/hero-ivo` · Hair a crop · Distinguishing feature a chinstrap · Eyes brown · Calling a squire · Age 17
 
-*Carries everything. Has never once been asked what he thinks.*
+*Carries everything, including several opinions nobody has asked for.*
 
 Seventeen, and carries everything. Hair cropped short under a helm a size too large, chinstrap buckled tight to stop it turning. Walks half a pace behind and slightly loaded to one side. Watches everything, says almost nothing, and misses nothing at all.
 
@@ -299,7 +299,7 @@ Grey-streaked braids pulled back, heavy side-whiskers, and a coat the colour of 
 
 `quest/hero-kell` · Hair long hair · Distinguishing feature a beard · Eyes grey · Calling a mage · Age 77
 
-*Can turn lead to gold. Has turned a great deal of gold to lead.*
+*Can turn lead to gold. The reverse process has received rather more field testing.*
 
 Seventy-seven, with white hair and a white beard of equal and considerable length, both moving independently of the weather. Stands leaning on a staff he does not need. Delivers bad news with obvious relish and good news as though it were a technicality. The matter of the gold is not discussed.
 
@@ -315,7 +315,7 @@ Tonsured to a shave, small round reading spectacles on a cord, hands permanently
 
 `quest/hero-fenn` · Hair a topknot · Distinguishing feature hoop earrings · Eyes green · Calling a bard · Age 26
 
-*Writes the ballad before the quest, then bends the quest to fit.*
+*Writes the ballad first. The quest is then expected to meet its contractual obligations.*
 
 Twenty-six, topknot, a hoop in each ear, and an instrument that is always slightly in the way. Talks with both hands. Has already decided which of the party is the hero of the piece, and it is not the one anybody would expect — and the ballad, being written, is now somewhat load-bearing.
 
@@ -347,7 +347,7 @@ Nineteen, with a mohawk that was singed into existence rather than chosen, and a
 
 `quest/hero-isolde` · Hair a bob · Distinguishing feature a chinstrap · Eyes blue · Calling a herald · Age 35
 
-*Announces arrivals. Has announced two that had not arrived.*
+*Announces arrivals. Two delegations are still trying to live up to the introduction.*
 
 A precise blunt bob, a strap under the chin holding a tabard's hood, and a voice trained to carry the length of a courtyard. Stands very straight with her chin slightly up. Recovering, with dignity, from an incident involving a delegation, a fog, and two arrivals that had not arrived.
 
@@ -375,7 +375,7 @@ A wetsuit collar, rolled high.
 
 `reef/diver-shoal` · Hair a shaved head · Distinguishing feature a beard · Eyes grey · Known for wreck work · Height 1.8m
 
-*Has named every boat after the last one that sank.*
+*Names every boat after the last one that sank. The insurer has noticed.*
 
 Shaved scalp, salt-white beard, and the permanent squint of forty years of glare off water. Works wrecks, and knows of several that are on no chart. Stands at the wheel with his feet apart and never holds on to anything. The naming of the boats is either sentiment or accounting and he will not say which.
 
@@ -391,7 +391,7 @@ Close crop, heavy side-whiskers, hands like tackle blocks. Rope is his entire su
 
 `reef/diver-ferrand` · Hair a ponytail · Distinguishing feature spectacles · Eyes green · Known for marine science · Height 1.6m
 
-*Counting urchins for science. Up to four hundred thousand.*
+*Has counted four hundred thousand urchins. One moved; she is checking.*
 
 Small, dry and entirely serious, with the hair tied back and the spectacles pushed up on her head for at least half of every conversation. Carries a slate and pencil at all times — including on land, including at dinner. The count stands at four hundred thousand and she is unwilling to round.
 
@@ -415,7 +415,7 @@ Long braids and heavy hoops, and a whistle she has not yet had to use. Polite, i
 
 `reef/diver-nico` · Hair a mohawk · Distinguishing feature a headset · Eyes hazel · Known for nothing yet · Height 1.5m
 
-*Newly qualified. Checks the tank gauge roughly every nine seconds.*
+*Checks the tank gauge every nine seconds. It has asked for some space.*
 
 Small and wiry, with a mohawk that survives a day under a hood and a comms headset kept on for the reassurance of a voice. Known for nothing yet, and painfully aware of it. Nods a great deal more than is strictly necessary.
 
@@ -479,7 +479,7 @@ Small and fast, hair up in a topknot, chinstrap from a helmet worn on deck ever 
 
 `reef/diver-rafa` · Hair a bob · Distinguishing feature mutton chops · Eyes blue · Known for record depths · Height 1.7m
 
-*Dived here before the reef had a name. Disputes the name.*
+*Dived here before the reef had a name. Still refuses to use it.*
 
 A grey bob cut with kitchen scissors, side-whiskers of considerable age, and a set of depth records nobody has verified or dared to question. Sits at the stern with a cigarette he never lights. Corrects the young ones rarely, and devastatingly. Was here first, and disputes the name.
 
@@ -491,7 +491,7 @@ An open collar with the lapel turned back.
 
 `garden/gardener-rose` · Hair a bun · Distinguishing feature hoop earrings · Eyes green · Age 62 · Best prize Best in Show
 
-*Grows the finest blooms in the village and will not say how.*
+*Grows the finest blooms in the village. Her fertiliser recipe is classified above parish accounts.*
 
 Sixty-two, silver bun, small gold hoops, secateurs in a hip pocket at all hours. Takes Best in Show with a regularity described at the parish council as a matter for the committee. Answers questions about method with questions about the weather, and has never once been caught out.
 
@@ -547,7 +547,7 @@ Thirty-seven, two long braids, and a fine moustache she has been asked about exa
 
 `garden/gardener-compost` · Hair a ponytail · Distinguishing feature spectacles · Eyes brown · Age 49 · Best prize a Highly Commended
 
-*Wrote the definitive book on rot. It sold eleven copies.*
+*Wrote the definitive book on rot. Sales have been slow, which he considers thematically appropriate.*
 
 Hair tied back, wire spectacles, and a thermometer permanently stuck in the heap. Will talk about nitrogen until the light goes. Highly Commended for onions, which she regards as beside the point entirely. The definitive book on rot sold eleven copies, two of them to her mother.
 
@@ -555,7 +555,7 @@ Hair tied back, wire spectacles, and a thermometer permanently stuck in the heap
 
 `garden/gardener-bramble` · Hair long hair · Distinguishing feature a beard · Eyes grey · Age 66 · Best prize the Marrow Cup
 
-*Prunes with enormous force and prays over the results.*
+*Prunes with enormous force, then asks forgiveness on behalf of the secateurs.*
 
 Sixty-six, long grey hair, a beard to match, and a pair of loppers he refers to as the instrument. Prunes hard and prays over the results, in that order. Took the Marrow Cup in 2019 and has been magnanimous about it ever since, at length, from a pulpit.
 
@@ -571,7 +571,7 @@ Eighty-four, white curls, a moustache nobody has ever remarked on twice, and han
 
 `garden/gardener-turnip` · Hair a topknot · Distinguishing feature mutton chops · Eyes hazel · Age 52 · Best prize Best in Show
 
-*Owns the land, tends none of it, wins the raffle annually.*
+*Owns the land, tends none of it, wins the raffle. An impressive yield for so little cultivation.*
 
 Fifty-two, hair scraped into a small topknot, side-whiskers grown in a spirit of heritage, and a waxed jacket that has never been rained on. Owns the land and tends none of it. Took Best in Show with a marrow his gardener grew. Enormously pleased with everybody, including himself.
 
@@ -595,6 +595,6 @@ Seventy-nine, bald as an egg, with a white beard and a cap removed only indoors.
 
 `garden/gardener-marrow` · Hair a crop · Distinguishing feature an eye patch · Eyes blue · Age 68 · Best prize Best in Show
 
-*Runs the allotment like a campaign. Has drawn up maps.*
+*Runs the allotment like a campaign. The slugs have declined formal surrender.*
 
 Sixty-eight, a military crop, a black patch, and a stride that covers ground. Has drawn up maps of the allotment — proper ones, contoured, with the water points marked. Best in Show twice, both times announced as though reporting from the field. Refers to slugs as the enemy, without irony.

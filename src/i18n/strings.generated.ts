@@ -1435,7 +1435,8 @@ export const STRINGS = {
           items: {
             zarg: {
               label: 'Rear-Admiral Zarg',
-              blurb: 'Has commanded eleven ships and can name none of them.',
+              blurb:
+                'Has commanded eleven ships. Refers to each, with confidence, as “the other one”.',
               traits: {
                 hair: 'a crop',
                 feature: 'a beard',
@@ -1512,7 +1513,8 @@ export const STRINGS = {
             },
             quill: {
               label: 'Professor Quill',
-              blurb: 'Studying deep-space silence. Has published nine hundred pages on it.',
+              blurb:
+                'Studying deep-space silence. His nine-hundred-page report has rather undermined the subject.',
               traits: {
                 hair: 'long hair',
                 feature: 'a beard',
@@ -1567,7 +1569,8 @@ export const STRINGS = {
             },
             bex: {
               label: 'Quartermaster Bex',
-              blurb: 'Knows where everything is, and what it costs to find out.',
+              blurb:
+                'Knows where everything is. Access to this knowledge is a separate budget line.',
               traits: {
                 hair: 'a shaved head',
                 feature: 'hoop earrings',
@@ -1620,7 +1623,8 @@ export const STRINGS = {
             },
             venus: {
               label: 'Venus',
-              blurb: 'Hot enough to melt a probe. Lovely from a great distance.',
+              blurb:
+                'The probe lasted minutes. The brochure continues to describe it as a warm welcome.',
               traits: {
                 kind: 'planet',
                 surface: 'volcanic',
@@ -1692,7 +1696,7 @@ export const STRINGS = {
             },
             ganymede: {
               label: 'Ganymede',
-              blurb: 'Bigger than Mercury and still filed under moon.',
+              blurb: 'Bigger than Mercury. Still waiting for its job title to be reviewed.',
               traits: {
                 kind: 'moon',
                 surface: 'frozen',
@@ -1701,7 +1705,8 @@ export const STRINGS = {
             },
             enceladus: {
               label: 'Enceladus',
-              blurb: 'Sprays water into space. Nobody has asked it to stop.',
+              blurb:
+                'Sprays water into space. The maintenance ticket has been open for several million years.',
               traits: {
                 kind: 'moon',
                 surface: 'frozen',
@@ -1710,7 +1715,7 @@ export const STRINGS = {
             },
             triton: {
               label: 'Triton',
-              blurb: 'Orbits backwards, deliberately, out of what looks like spite.',
+              blurb: 'Orbits backwards. Has seen the standard procedure and filed an objection.',
               traits: {
                 kind: 'moon',
                 surface: 'frozen',
@@ -1786,7 +1791,8 @@ export const STRINGS = {
             },
             orion: {
               label: 'Orion',
-              blurb: 'Built for grandeur. Turns like a cathedral.',
+              blurb:
+                'Turns like a cathedral. The helmsman starts corners during the previous shift.',
               traits: {
                 hull: 'steel',
                 size: 'huge',
@@ -1795,7 +1801,7 @@ export const STRINGS = {
             },
             pallas: {
               label: 'Pallas',
-              blurb: 'Carries everything. Finds nothing when asked.',
+              blurb: 'Carries everything. The inventory is aboard somewhere.',
               traits: {
                 hull: 'titanium',
                 size: 'huge',
@@ -1813,7 +1819,7 @@ export const STRINGS = {
             },
             merlin: {
               label: 'Merlin',
-              blurb: 'Reliable to a fault, and the fault is a rattling hatch.',
+              blurb: 'Completely reliable, apart from a hatch that contributes to every briefing.',
               traits: {
                 hull: 'steel',
                 size: 'mid-sized',
@@ -1840,7 +1846,8 @@ export const STRINGS = {
             },
             nimbus: {
               label: 'Nimbus',
-              blurb: 'Leaves a cloud behind it. Nobody has traced the source.',
+              blurb:
+                'Leaves a cloud behind it. Engineering has marked the investigation “atmospheric”.',
               traits: {
                 hull: 'carbon',
                 size: 'huge',
@@ -1867,7 +1874,7 @@ export const STRINGS = {
             },
             perseus: {
               label: 'Perseus',
-              blurb: 'Named for a hero. Handles like a filing cabinet.',
+              blurb: 'Named for a hero. Handles like his filing cabinet.',
               traits: {
                 hull: 'titanium',
                 size: 'mid-sized',
@@ -1934,7 +1941,7 @@ export const STRINGS = {
             },
             'rover-kit': {
               label: 'Rover Kit',
-              blurb: 'Some assembly required. The instructions were left behind.',
+              blurb: 'Some assembly required. The missing page appears to have covered wheels.',
               traits: {
                 weight: 'heavy',
                 material: 'metal',
@@ -1979,7 +1986,8 @@ export const STRINGS = {
             },
             'soil-lab': {
               label: 'Soil Lab',
-              blurb: 'Where dirt is asked, politely, whether anything ever lived in it.',
+              blurb:
+                'Asks dirt whether anything lived in it. Gets through a remarkable number of consent forms.',
               traits: {
                 weight: 'middling',
                 material: 'glass',
@@ -2015,7 +2023,8 @@ export const STRINGS = {
             },
             'comms-mast': {
               label: 'Comms Mast',
-              blurb: 'Points at home. Does nothing else, and does it well.',
+              blurb:
+                'Points at home. Still gets asked whether it has tried pointing somewhere else.',
               traits: {
                 weight: 'light',
                 material: 'metal',
@@ -4587,7 +4596,8 @@ export const STRINGS = {
           items: {
             rose: {
               label: 'Ms Rose',
-              blurb: 'Grows the finest blooms in the village and will not say how.',
+              blurb:
+                'Grows the finest blooms in the village. Her fertiliser recipe is classified above parish accounts.',
               traits: {
                 hair: 'a bun',
                 feature: 'hoop earrings',
@@ -4664,7 +4674,8 @@ export const STRINGS = {
             },
             compost: {
               label: 'Dr Compost',
-              blurb: 'Wrote the definitive book on rot. It sold eleven copies.',
+              blurb:
+                'Wrote the definitive book on rot. Sales have been slow, which he considers thematically appropriate.',
               traits: {
                 hair: 'a ponytail',
                 feature: 'spectacles',
@@ -4675,7 +4686,8 @@ export const STRINGS = {
             },
             bramble: {
               label: 'Reverend Bramble',
-              blurb: 'Prunes with enormous force and prays over the results.',
+              blurb:
+                'Prunes with enormous force, then asks forgiveness on behalf of the secateurs.',
               traits: {
                 hair: 'long hair',
                 feature: 'a beard',
@@ -4697,7 +4709,8 @@ export const STRINGS = {
             },
             turnip: {
               label: 'Squire Turnip',
-              blurb: 'Owns the land, tends none of it, wins the raffle annually.',
+              blurb:
+                'Owns the land, tends none of it, wins the raffle. An impressive yield for so little cultivation.',
               traits: {
                 hair: 'a topknot',
                 feature: 'mutton chops',
@@ -4730,7 +4743,8 @@ export const STRINGS = {
             },
             marrow: {
               label: 'Major Marrow',
-              blurb: 'Runs the allotment like a campaign. Has drawn up maps.',
+              blurb:
+                'Runs the allotment like a campaign. The slugs have declined formal surrender.',
               traits: {
                 hair: 'a crop',
                 feature: 'an eye patch',
@@ -4772,7 +4786,8 @@ export const STRINGS = {
             },
             peony: {
               label: 'Peony',
-              blurb: 'Blooms for a fortnight and sulks for the rest of the year.',
+              blurb:
+                'Blooms for a fortnight. Spends the remaining fifty weeks preparing its entrance.',
               traits: {
                 colour: 'pink',
                 scent: 'sweet',
@@ -4799,7 +4814,8 @@ export const STRINGS = {
             },
             aster: {
               label: 'Aster',
-              blurb: 'A star that keeps flowering when everything else has given up.',
+              blurb:
+                'Still flowering after everyone else has packed up. The committee suspects a separate calendar.',
               traits: {
                 colour: 'purple',
                 scent: 'faint',
@@ -4817,7 +4833,7 @@ export const STRINGS = {
             },
             lupin: {
               label: 'Lupin',
-              blurb: 'A spire of flowers and a magnet for every aphid in the county.',
+              blurb: 'A spire of flowers with a fully booked aphid hotel.',
               traits: {
                 colour: 'purple',
                 scent: 'peppery',
@@ -4853,7 +4869,8 @@ export const STRINGS = {
             },
             camellia: {
               label: 'Camellia',
-              blurb: 'Drops every petal the night before the show, without fail.',
+              blurb:
+                'Drops every petal the night before judging. Has excellent timing and no team spirit.',
               traits: {
                 colour: 'pink',
                 scent: 'faint',
@@ -4911,7 +4928,7 @@ export const STRINGS = {
           items: {
             terracotta: {
               label: 'Terracotta',
-              blurb: 'Chipped on one side, which the owner calls provenance.',
+              blurb: 'Chipped on one side. Turned towards the judges, this becomes provenance.',
               traits: {
                 material: 'clay',
                 size: 'big',
@@ -4920,7 +4937,7 @@ export const STRINGS = {
             },
             cobalt: {
               label: 'Cobalt',
-              blurb: 'Blue enough to be seen from the far end of the allotment.',
+              blurb: 'Visible from the gate. Subtlety was apparently sold separately.',
               traits: {
                 material: 'glazed clay',
                 size: 'big',
@@ -4929,7 +4946,7 @@ export const STRINGS = {
             },
             ivory: {
               label: 'Ivory',
-              blurb: 'Shows every speck of soil and is repotted indoors, carefully.',
+              blurb: 'Shows every speck of soil. An ambitious career choice for a plant pot.',
               traits: {
                 material: 'glazed clay',
                 size: 'small',
@@ -4938,7 +4955,7 @@ export const STRINGS = {
             },
             copper: {
               label: 'Copper',
-              blurb: 'Went green in a fortnight and looks better for it.',
+              blurb: 'Went green in a fortnight. The owner now calls it an investment in patina.',
               traits: {
                 material: 'metal',
                 size: 'small',
@@ -4947,7 +4964,8 @@ export const STRINGS = {
             },
             slate: {
               label: 'Slate',
-              blurb: 'Weighs as much as the plant and twice as much when watered.',
+              blurb:
+                'The plant can be moved. The pot requires a working party and a biscuit budget.',
               traits: {
                 material: 'stone',
                 size: 'big',
@@ -4956,7 +4974,7 @@ export const STRINGS = {
             },
             mint: {
               label: 'Mint',
-              blurb: 'Bought in a sale. Matches nothing else on the bench.',
+              blurb: 'Bought in a sale. The saving has been mentioned more often than the plant.',
               traits: {
                 material: 'glazed clay',
                 size: 'small',
@@ -4965,7 +4983,7 @@ export const STRINGS = {
             },
             rust: {
               label: 'Rust',
-              blurb: 'Rusted through the bottom, which is excellent for drainage.',
+              blurb: 'Drainage has improved every year. Structural integrity has not.',
               traits: {
                 material: 'metal',
                 size: 'big',
@@ -4974,7 +4992,7 @@ export const STRINGS = {
             },
             cream: {
               label: 'Cream',
-              blurb: 'Plain, sensible, and quietly the favourite.',
+              blurb: 'Plain, sensible, dependable. Nobody can remember which neighbour lent it.',
               traits: {
                 material: 'clay',
                 size: 'small',
@@ -4983,7 +5001,7 @@ export const STRINGS = {
             },
             indigo: {
               label: 'Indigo',
-              blurb: 'Deep blue and cracked twice by frost. Still going.',
+              blurb: 'Survived two frosts and a repair described as “temporary” in 2018.',
               traits: {
                 material: 'glazed clay',
                 size: 'big',
@@ -4992,7 +5010,7 @@ export const STRINGS = {
             },
             charcoal: {
               label: 'Charcoal',
-              blurb: 'Absorbs heat all afternoon and cooks the roots by August.',
+              blurb: 'Stores the afternoon sun. By August the roots have asked for a fan.',
               traits: {
                 material: 'stone',
                 size: 'small',
@@ -5001,7 +5019,7 @@ export const STRINGS = {
             },
             blush: {
               label: 'Blush',
-              blurb: 'A gift. Kept out of politeness, then rather liked.',
+              blurb: 'A gift, displayed out of politeness. Now defended with surprising force.',
               traits: {
                 material: 'glazed clay',
                 size: 'small',
@@ -5010,7 +5028,7 @@ export const STRINGS = {
             },
             amber: {
               label: 'Amber',
-              blurb: 'Glows at sunset and is photographed more than its plant.',
+              blurb: 'Photographed at sunset. The plant is learning to accept a supporting role.',
               traits: {
                 material: 'clay',
                 size: 'big',
@@ -5019,7 +5037,7 @@ export const STRINGS = {
             },
             olive: {
               label: 'Olive',
-              blurb: 'Second-hand from a farm sale, dents and all.',
+              blurb: 'Bought at a farm sale. The dents were included; the explanation cost extra.',
               traits: {
                 material: 'metal',
                 size: 'small',
@@ -5028,7 +5046,8 @@ export const STRINGS = {
             },
             plum: {
               label: 'Plum',
-              blurb: 'Immovable once filled. Its position is now permanent.',
+              blurb:
+                'Its position became permanent shortly after somebody said “we can always move it”.',
               traits: {
                 material: 'stone',
                 size: 'big',
@@ -5077,7 +5096,7 @@ export const STRINGS = {
             },
             dibber: {
               label: 'Dibber',
-              blurb: 'A stick with ambitions. Makes a hole exactly one seed deep.',
+              blurb: 'A stick with a job title and very reasonable pension expectations.',
               traits: {
                 material: 'wood',
                 use: 'digging',
@@ -5122,7 +5141,7 @@ export const STRINGS = {
             },
             twine: {
               label: 'Twine',
-              blurb: 'Ties everything. Has tied things that were never meant to be tied.',
+              blurb: 'Has secured every plant on the plot and, briefly, the grounds keeper.',
               traits: {
                 material: 'jute',
                 use: 'sorting',
@@ -5241,7 +5260,7 @@ export const STRINGS = {
             },
             '80cm': {
               label: '80cm',
-              blurb: 'A 80cm entry. Staked once, as a precaution, and never needed it.',
+              blurb: 'An 80cm entry. Staked once, as a precaution, and never needed it.',
               traits: {
                 band: 'low',
                 parity: 'even',

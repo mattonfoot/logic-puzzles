@@ -1,6 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor">
-  <path d="M40 30C28 25 25 15 30 7C32 20 40 25 50 26L53 36ZM53 31C66 28 70 18 69 8C80 20 75 34 60 40Z" />
-  <path d="M44 41A6 6 0 1 0 56 41A6 6 0 1 0 44 41Z" />
-  <path fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M44 47L20 84M56 47L80 84" />
-  <path fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" d="M27 74L18 89M73 74L82 89" />
+  <defs>
+    <mask id="cut1">
+      <rect width="100" height="100" fill="#fff" />
+      <path fill="#000" d="M42 79L58 79L58 84L42 84Z" />
+    </mask>
+  </defs>
+  <g mask="url(#cut1)">
+      <path d="M24 39C17 17 30 7 45 13C55 6.333 64.333 8.333 73 19L78 40L65 34L60 25L39 27L29 40ZM20 48L32 52L36 65L50 73L64 65L68 52L80 48L70 80L50 98L30 80ZM43 40L57 40L57 47L43 47Z" />
+  </g>
 </svg>
