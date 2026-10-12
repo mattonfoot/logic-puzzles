@@ -2992,7 +2992,8 @@ export const STRINGS = {
           items: {
             brannoch: {
               label: 'Sir Brannoch',
-              blurb: 'Sworn to slay one beast. Has slain it. Will not stop mentioning it.',
+              blurb:
+                'Sworn to slay one beast. Has done so. The remaining quest is to hear the end of it.',
               traits: {
                 hair: 'a shaved head',
                 feature: 'a beard',
@@ -3014,7 +3015,7 @@ export const STRINGS = {
             },
             ivo: {
               label: 'Squire Ivo',
-              blurb: 'Carries everything. Has never once been asked what he thinks.',
+              blurb: 'Carries everything, including several opinions nobody has asked for.',
               traits: {
                 hair: 'a crop',
                 feature: 'a chinstrap',
@@ -3047,7 +3048,8 @@ export const STRINGS = {
             },
             kell: {
               label: 'Archmage Kell',
-              blurb: 'Can turn lead to gold. Has turned a great deal of gold to lead.',
+              blurb:
+                'Can turn lead to gold. The reverse process has received rather more field testing.',
               traits: {
                 hair: 'long hair',
                 feature: 'a beard',
@@ -3069,7 +3071,8 @@ export const STRINGS = {
             },
             fenn: {
               label: 'Bard Fenn',
-              blurb: 'Writes the ballad before the quest, then bends the quest to fit.',
+              blurb:
+                'Writes the ballad first. The quest is then expected to meet its contractual obligations.',
               traits: {
                 hair: 'a topknot',
                 feature: 'hoop earrings',
@@ -3113,7 +3116,8 @@ export const STRINGS = {
             },
             isolde: {
               label: 'Herald Isolde',
-              blurb: 'Announces arrivals. Has announced two that had not arrived.',
+              blurb:
+                'Announces arrivals. Two delegations are still trying to live up to the introduction.',
               traits: {
                 hair: 'a bob',
                 feature: 'a chinstrap',
@@ -3168,7 +3172,7 @@ export const STRINGS = {
           items: {
             'ash-bow': {
               label: 'Ash Bow',
-              blurb: 'Draws smooth as a promise. Twice as likely to be broken.',
+              blurb: 'Draws as smoothly as a promise. Comes with much the same guarantee.',
               traits: {
                 material: 'wood',
                 reach: 'long',
@@ -3177,7 +3181,8 @@ export const STRINGS = {
             },
             'rune-axe': {
               label: 'Rune Axe',
-              blurb: 'Carved with words nobody living can read. Probably a warranty.',
+              blurb:
+                'The inscription is ancient. The blacksmith is fairly sure it says “no refunds”.',
               traits: {
                 material: 'iron',
                 reach: 'short',
@@ -3186,7 +3191,7 @@ export const STRINGS = {
             },
             'gale-spear': {
               label: 'Gale Spear',
-              blurb: 'Whistles in flight, which ruins every ambush it is part of.',
+              blurb: 'Whistles in flight. The ambush is now more of an appointment.',
               traits: {
                 material: 'wood',
                 reach: 'long',
@@ -3195,7 +3200,7 @@ export const STRINGS = {
             },
             'ember-blade': {
               label: 'Ember Blade',
-              blurb: 'Warm to the touch. Terrible in a scabbard, superb in a snowstorm.',
+              blurb: 'Never needs polishing. Occasionally needs apologising for the curtains.',
               traits: {
                 material: 'iron',
                 reach: 'short',
@@ -3204,7 +3209,8 @@ export const STRINGS = {
             },
             'frost-flail': {
               label: 'Frost Flail',
-              blurb: 'Leaves a rime on everything, including its owner.',
+              blurb:
+                'Freezes whatever it hits. The owner’s fingers have lodged the first complaint.',
               traits: {
                 material: 'iron',
                 reach: 'short',
@@ -3213,7 +3219,8 @@ export const STRINGS = {
             },
             'thorn-whip': {
               label: 'Thorn Whip',
-              blurb: 'Beautiful. Has drawn more of its owner’s blood than anyone else’s.',
+              blurb:
+                'Beautifully made. Has spent most of its career teaching its owner to respect craftsmanship.',
               traits: {
                 material: 'leather',
                 reach: 'long',
@@ -3222,7 +3229,8 @@ export const STRINGS = {
             },
             'storm-mace': {
               label: 'Storm Mace',
-              blurb: 'Attracts lightning. Best carried by somebody else.',
+              blurb:
+                'Attracts lightning. The party has unanimously elected someone else to carry it.',
               traits: {
                 material: 'iron',
                 reach: 'short',
@@ -3231,7 +3239,7 @@ export const STRINGS = {
             },
             'moon-dagger': {
               label: 'Moon Dagger',
-              blurb: 'Only sharp after dark, which is when it is needed.',
+              blurb: 'Sharp only after dark. By daylight it is a very expensive letter opener.',
               traits: {
                 material: 'silver',
                 reach: 'short',
@@ -3240,7 +3248,7 @@ export const STRINGS = {
             },
             'oak-staff': {
               label: 'Oak Staff',
-              blurb: 'A walking stick with ideas above its station.',
+              blurb: 'A walking stick that has started introducing itself as a senior adviser.',
               traits: {
                 material: 'wood',
                 reach: 'long',
@@ -3249,7 +3257,8 @@ export const STRINGS = {
             },
             'bone-sling': {
               label: 'Bone Sling',
-              blurb: 'Cheap, quiet, and unreasonably effective against giants.',
+              blurb:
+                'Costs next to nothing. Giants find the value proposition particularly upsetting.',
               traits: {
                 material: 'bone',
                 reach: 'short',
@@ -3258,7 +3267,7 @@ export const STRINGS = {
             },
             'star-lance': {
               label: 'Star Lance',
-              blurb: 'Fell from the sky. Nobody has asked it to leave.',
+              blurb: 'Fell from the sky. The armourer insists delivery was not included.',
               traits: {
                 material: 'silver',
                 reach: 'long',
@@ -3267,7 +3276,8 @@ export const STRINGS = {
             },
             'wind-sabre': {
               label: 'Wind Sabre',
-              blurb: 'Cuts on the backswing, which surprises everyone once.',
+              blurb:
+                'Cuts on the backswing. The demonstration is always shorter than the explanation.',
               traits: {
                 material: 'silver',
                 reach: 'long',
@@ -3276,7 +3286,7 @@ export const STRINGS = {
             },
             'shadow-pike': {
               label: 'Shadow Pike',
-              blurb: 'Casts no shadow, which is considered showing off.',
+              blurb: 'Casts no shadow. Everyone else’s weapon is finding this rather affected.',
               traits: {
                 material: 'bone',
                 reach: 'long',
@@ -3285,7 +3295,8 @@ export const STRINGS = {
             },
             'iron-halberd': {
               label: 'Iron Halberd',
-              blurb: 'Requires two hands, a wide room and a forgiving ceiling.',
+              blurb:
+                'Needs two hands, a wide room and a landlord who has already kept the deposit.',
               traits: {
                 material: 'iron',
                 reach: 'long',
@@ -3316,7 +3327,7 @@ export const STRINGS = {
           items: {
             griffin: {
               label: 'Griffin',
-              blurb: 'Half eagle, half lion, entirely convinced of its own importance.',
+              blurb: 'Half eagle, half lion. Both halves expect you to bow.',
               traits: {
                 size: 'huge',
                 home: 'mountains',
@@ -3325,7 +3336,7 @@ export const STRINGS = {
             },
             wyvern: {
               label: 'Wyvern',
-              blurb: 'Two legs, one temper, no interest in negotiation.',
+              blurb: 'Two legs, one temper, and a very short section on negotiation.',
               traits: {
                 size: 'huge',
                 home: 'mountains',
@@ -3334,7 +3345,7 @@ export const STRINGS = {
             },
             basilisk: {
               label: 'Basilisk',
-              blurb: 'Do not meet its eye. Do not meet its other eye either.',
+              blurb: 'Do not meet its eye. It takes eye contact very literally.',
               traits: {
                 size: 'small',
                 home: 'caves',
@@ -3343,7 +3354,8 @@ export const STRINGS = {
             },
             kraken: {
               label: 'Kraken',
-              blurb: 'The reason the harbour tax is what it is.',
+              blurb:
+                'The harbour calls it a seasonal difficulty. The ships call it something shorter.',
               traits: {
                 size: 'huge',
                 home: 'sea',
@@ -3352,7 +3364,7 @@ export const STRINGS = {
             },
             chimera: {
               label: 'Chimera',
-              blurb: 'Three heads, none of which agree on lunch.',
+              blurb: 'Three heads, three dietary requirements, one increasingly tired innkeeper.',
               traits: {
                 size: 'huge',
                 home: 'mountains',
@@ -3361,7 +3373,8 @@ export const STRINGS = {
             },
             sphinx: {
               label: 'Sphinx',
-              blurb: 'Asks a riddle. Is visibly bored of the answer.',
+              blurb:
+                'Knows the answer to every riddle. Is waiting for someone to ask a better one.',
               traits: {
                 size: 'huge',
                 home: 'desert',
@@ -3370,7 +3383,8 @@ export const STRINGS = {
             },
             manticore: {
               label: 'Manticore',
-              blurb: 'Tail like a quiver. Manners like a tax collector.',
+              blurb:
+                'Has a lion’s body and a tail full of missiles. Apparently the lion was not enough.',
               traits: {
                 size: 'huge',
                 home: 'desert',
@@ -3379,7 +3393,7 @@ export const STRINGS = {
             },
             hydra: {
               label: 'Hydra',
-              blurb: 'Cut off one head and you have made the day considerably worse.',
+              blurb: 'Cut off one head and the meeting gains two more attendees.',
               traits: {
                 size: 'huge',
                 home: 'marshes',
@@ -3388,7 +3402,7 @@ export const STRINGS = {
             },
             cyclops: {
               label: 'Cyclops',
-              blurb: 'Terrible depth perception, excellent grudge retention.',
+              blurb: 'Remembers every slight. Occasionally misjudges how far away the culprit is.',
               traits: {
                 size: 'huge',
                 home: 'caves',
@@ -3397,7 +3411,7 @@ export const STRINGS = {
             },
             banshee: {
               label: 'Banshee',
-              blurb: 'Announces deaths. Has never once been thanked for it.',
+              blurb: 'Announces deaths. Receives consistently poor feedback on her bedside manner.',
               traits: {
                 size: 'small',
                 home: 'marshes',
@@ -3406,7 +3420,8 @@ export const STRINGS = {
             },
             golem: {
               label: 'Golem',
-              blurb: 'Follows the last instruction it was given, forever, to the letter.',
+              blurb:
+                'Obeys instructions exactly. This has become the main problem with the instructions.',
               traits: {
                 size: 'huge',
                 home: 'caves',
@@ -3415,7 +3430,8 @@ export const STRINGS = {
             },
             harpy: {
               label: 'Harpy',
-              blurb: 'Steals food, insults the cook, leaves a feather as receipt.',
+              blurb:
+                'Steals lunch, reviews it loudly, and leaves the cook a feather instead of a tip.',
               traits: {
                 size: 'small',
                 home: 'mountains',
@@ -3424,7 +3440,7 @@ export const STRINGS = {
             },
             minotaur: {
               label: 'Minotaur',
-              blurb: 'Knows the way out. Has decided not to share it.',
+              blurb: 'Knows the way out. Prefers the current arrangement.',
               traits: {
                 size: 'huge',
                 home: 'caves',
@@ -3433,7 +3449,7 @@ export const STRINGS = {
             },
             direwolf: {
               label: 'Direwolf',
-              blurb: 'Runs with a pack of six and takes all the credit.',
+              blurb: 'Runs with six others. Describes them as support staff.',
               traits: {
                 size: 'small',
                 home: 'forest',
@@ -3464,7 +3480,7 @@ export const STRINGS = {
           items: {
             ashfell: {
               label: 'Ashfell',
-              blurb: 'Everything is grey and everyone insists it is character.',
+              blurb: 'Everything is grey. The tourist board has settled on “a restrained palette”.',
               traits: {
                 land: 'mountains',
                 weather: 'dry',
@@ -3473,7 +3489,7 @@ export const STRINGS = {
             },
             duskmoor: {
               label: 'Duskmoor',
-              blurb: 'The sun sets at three and apologises for nothing.',
+              blurb: 'The sun leaves at three. The inhabitants admire its work-life balance.',
               traits: {
                 land: 'marshes',
                 weather: 'wet',
@@ -3482,7 +3498,7 @@ export const STRINGS = {
             },
             highmere: {
               label: 'Highmere',
-              blurb: 'Thin air, thick accents, excellent cheese.',
+              blurb: 'Thin air, thick accents and cheese that counts as emergency equipment.',
               traits: {
                 land: 'mountains',
                 weather: 'cold',
@@ -3491,7 +3507,7 @@ export const STRINGS = {
             },
             ironvale: {
               label: 'Ironvale',
-              blurb: 'Makes half the swords in the world and complains about the noise.',
+              blurb: 'Forges half the world’s swords. Would appreciate a little peace and quiet.',
               traits: {
                 land: 'mountains',
                 weather: 'dry',
@@ -3500,7 +3516,7 @@ export const STRINGS = {
             },
             sablewood: {
               label: 'Sablewood',
-              blurb: 'Dark by noon. The trees are said to keep notes.',
+              blurb: 'Dark by noon. The trees are believed to keep minutes.',
               traits: {
                 land: 'forest',
                 weather: 'wet',
@@ -3509,7 +3525,7 @@ export const STRINGS = {
             },
             windreach: {
               label: 'Windreach',
-              blurb: 'Hats are a formality here. Nobody bothers.',
+              blurb: 'Hats are worn briefly, then become a matter for the next village.',
               traits: {
                 land: 'coast',
                 weather: 'cold',
@@ -3518,7 +3534,7 @@ export const STRINGS = {
             },
             thornhold: {
               label: 'Thornhold',
-              blurb: 'Walled, moated, and famous for a hedge nobody can get through.',
+              blurb: 'The walls are impressive. The hedge regards them as a junior partner.',
               traits: {
                 land: 'forest',
                 weather: 'dry',
@@ -3527,7 +3543,7 @@ export const STRINGS = {
             },
             greymarch: {
               label: 'Greymarch',
-              blurb: 'Fog with a flag. The border moves when it feels like it.',
+              blurb: 'Mostly fog. The flag is useful for establishing which fog you are in.',
               traits: {
                 land: 'marshes',
                 weather: 'wet',
@@ -3536,7 +3552,8 @@ export const STRINGS = {
             },
             frostgate: {
               label: 'Frostgate',
-              blurb: 'Six months of winter, then a stern autumn.',
+              blurb:
+                'Six months of winter, followed by an autumn with disciplinary responsibilities.',
               traits: {
                 land: 'mountains',
                 weather: 'cold',
@@ -3545,7 +3562,8 @@ export const STRINGS = {
             },
             emberholt: {
               label: 'Emberholt',
-              blurb: 'Warm all year from something underground nobody discusses.',
+              blurb:
+                'Warm all year. The council prefers not to discuss where the heating comes from.',
               traits: {
                 land: 'forest',
                 weather: 'dry',
@@ -3554,7 +3572,8 @@ export const STRINGS = {
             },
             larkspur: {
               label: 'Larkspur',
-              blurb: 'Blossom everywhere. Suspiciously cheerful for a war-torn age.',
+              blurb:
+                'Blossom everywhere. Outsiders keep checking whether a war has been cancelled.',
               traits: {
                 land: 'coast',
                 weather: 'mild',
@@ -3563,7 +3582,7 @@ export const STRINGS = {
             },
             mistvale: {
               label: 'Mistvale',
-              blurb: 'Visitors get lost. Locals claim this is a feature.',
+              blurb: 'Visitors get lost. The welcome committee considers this an extended stay.',
               traits: {
                 land: 'marshes',
                 weather: 'wet',
@@ -3572,7 +3591,8 @@ export const STRINGS = {
             },
             stonebrook: {
               label: 'Stonebrook',
-              blurb: 'Every building is grey and every story is longer than it needs to be.',
+              blurb:
+                'Built entirely of grey stone and stories that should have ended ten minutes ago.',
               traits: {
                 land: 'coast',
                 weather: 'mild',
@@ -3581,7 +3601,7 @@ export const STRINGS = {
             },
             ravenfen: {
               label: 'Ravenfen',
-              blurb: 'The birds outnumber the people and know it.',
+              blurb: 'The ravens outnumber the people. They have begun to take votes.',
               traits: {
                 land: 'marshes',
                 weather: 'cold',
@@ -3614,7 +3634,8 @@ export const STRINGS = {
           items: {
             '30g': {
               label: '30g',
-              blurb: 'A 30g purse. Barely covers the horse feed and the bandages.',
+              blurb:
+                'A 30g purse. Barely covers the horse feed. The horse is proposing a separate contract.',
               traits: {
                 band: 'small',
                 parity: 'even',
@@ -3622,7 +3643,7 @@ export const STRINGS = {
             },
             '45g': {
               label: '45g',
-              blurb: 'A 45g purse. Paid in copper, weighed in front of witnesses.',
+              blurb: 'A 45g purse. Paid in copper. The counting is now a second quest.',
               traits: {
                 band: 'small',
                 parity: 'odd',
@@ -3630,7 +3651,7 @@ export const STRINGS = {
             },
             '60g': {
               label: '60g',
-              blurb: 'A 60g purse. The village emptied its jar and looked hopeful.',
+              blurb: 'A 60g purse. The village emptied its jar. Several of the coins are buttons.',
               traits: {
                 band: 'small',
                 parity: 'even',
@@ -3638,7 +3659,7 @@ export const STRINGS = {
             },
             '75g': {
               label: '75g',
-              blurb: 'A 75g purse. Half up front, the rest promised on a handshake.',
+              blurb: 'A 75g purse. Half now, half later. “Later” has not been defined.',
               traits: {
                 band: 'small',
                 parity: 'odd',
@@ -3646,7 +3667,7 @@ export const STRINGS = {
             },
             '90g': {
               label: '90g',
-              blurb: 'A 90g purse. Enough for a decent inn and one terrible decision.',
+              blurb: 'A 90g purse. A decent inn, a good supper and one poorly researched decision.',
               traits: {
                 band: 'small',
                 parity: 'even',
@@ -3654,7 +3675,7 @@ export const STRINGS = {
             },
             '105g': {
               label: '105g',
-              blurb: 'A 105g purse. Comes with a goat that nobody asked about.',
+              blurb: 'A 105g purse. Includes a goat. The goat appears to have seniority.',
               traits: {
                 band: 'fair',
                 parity: 'odd',
@@ -3662,7 +3683,7 @@ export const STRINGS = {
             },
             '120g': {
               label: '120g',
-              blurb: 'A 120g purse. The bard demanded a share before the fight began.',
+              blurb: 'A 120g purse. The bard has already invoiced for morale.',
               traits: {
                 band: 'fair',
                 parity: 'even',
@@ -3670,7 +3691,7 @@ export const STRINGS = {
             },
             '135g': {
               label: '135g',
-              blurb: 'A 135g purse. The mayor made a speech, which cost extra.',
+              blurb: 'A 135g purse. Presented with a speech whose length suggests a larger purse.',
               traits: {
                 band: 'fair',
                 parity: 'odd',
@@ -3678,7 +3699,7 @@ export const STRINGS = {
             },
             '150g': {
               label: '150g',
-              blurb: 'A 150g purse. Delivered in a chest too heavy for one hero.',
+              blurb: 'A 150g purse. The chest costs extra. So does the person carrying it.',
               traits: {
                 band: 'fair',
                 parity: 'even',
@@ -3686,7 +3707,7 @@ export const STRINGS = {
             },
             '165g': {
               label: '165g',
-              blurb: 'A 165g purse. Enough to retire on, briefly, in a cheap realm.',
+              blurb: 'A 165g purse. Enough to retire on, provided retirement ends on Tuesday.',
               traits: {
                 band: 'fair',
                 parity: 'odd',
@@ -3694,7 +3715,8 @@ export const STRINGS = {
             },
             '180g': {
               label: '180g',
-              blurb: 'A 180g purse. Paid in old coin with an unfamiliar king on it.',
+              blurb:
+                'A 180g purse. Bears the face of a king nobody remembers. The tax office remembers him.',
               traits: {
                 band: 'princely',
                 parity: 'even',
@@ -3702,7 +3724,7 @@ export const STRINGS = {
             },
             '195g': {
               label: '195g',
-              blurb: 'A 195g purse. The kind that attracts a second set of bandits.',
+              blurb: 'A 195g purse. Enough to attract a better class of bandit.',
               traits: {
                 band: 'princely',
                 parity: 'odd',
@@ -3710,7 +3732,7 @@ export const STRINGS = {
             },
             '210g': {
               label: '210g',
-              blurb: 'A 210g purse. Sung about for three counties and two generations.',
+              blurb: 'A 210g purse. Sung about in three counties. The bard retains the royalties.',
               traits: {
                 band: 'princely',
                 parity: 'even',
@@ -3718,7 +3740,8 @@ export const STRINGS = {
             },
             '225g': {
               label: '225g',
-              blurb: 'A 225g purse. The largest since the dragon business, and still talked of.',
+              blurb:
+                'A 225g purse. The largest since the dragon business. The dragon is appealing.',
               traits: {
                 band: 'princely',
                 parity: 'odd',
@@ -3770,7 +3793,7 @@ export const STRINGS = {
           items: {
             shoal: {
               label: 'Skipper Shoal',
-              blurb: 'Has named every boat after the last one that sank.',
+              blurb: 'Names every boat after the last one that sank. The insurer has noticed.',
               traits: {
                 hair: 'a shaved head',
                 feature: 'a beard',
@@ -3792,7 +3815,7 @@ export const STRINGS = {
             },
             ferrand: {
               label: 'Dr Ferrand',
-              blurb: 'Counting urchins for science. Up to four hundred thousand.',
+              blurb: 'Has counted four hundred thousand urchins. One moved; she is checking.',
               traits: {
                 hair: 'a ponytail',
                 feature: 'spectacles',
@@ -3825,7 +3848,7 @@ export const STRINGS = {
             },
             nico: {
               label: 'Cadet Nico',
-              blurb: 'Newly qualified. Checks the tank gauge roughly every nine seconds.',
+              blurb: 'Checks the tank gauge every nine seconds. It has asked for some space.',
               traits: {
                 hair: 'a mohawk',
                 feature: 'a headset',
@@ -3913,7 +3936,7 @@ export const STRINGS = {
             },
             rafa: {
               label: 'Old Rafa',
-              blurb: 'Dived here before the reef had a name. Disputes the name.',
+              blurb: 'Dived here before the reef had a name. Still refuses to use it.',
               traits: {
                 hair: 'a bob',
                 feature: 'mutton chops',
@@ -3946,7 +3969,7 @@ export const STRINGS = {
           items: {
             octopus: {
               label: 'Octopus',
-              blurb: 'Solves the puzzle, takes the treat, judges the scientist.',
+              blurb: 'Solves the puzzle, takes the treat, then checks the scientist’s working.',
               traits: {
                 size: 'big',
                 danger: 'harmless',
@@ -3955,7 +3978,7 @@ export const STRINGS = {
             },
             manta: {
               label: 'Manta',
-              blurb: 'Five metres across and glides past like a rumour.',
+              blurb: 'Five metres wide. Still manages to make the diver look in the way.',
               traits: {
                 size: 'big',
                 danger: 'harmless',
@@ -3964,7 +3987,7 @@ export const STRINGS = {
             },
             turtle: {
               label: 'Turtle',
-              blurb: 'Older than the boat, the crew, and most of the harbour.',
+              blurb: 'Older than the boat. Better maintained. Has never once read the briefing.',
               traits: {
                 size: 'big',
                 danger: 'harmless',
@@ -3973,7 +3996,8 @@ export const STRINGS = {
             },
             seahorse: {
               label: 'Seahorse',
-              blurb: 'Holds on with its tail and refuses to be photographed.',
+              blurb:
+                'Wraps its tail round one twig and treats the rest of the ocean as a delivery service.',
               traits: {
                 size: 'tiny',
                 danger: 'harmless',
@@ -3982,7 +4006,8 @@ export const STRINGS = {
             },
             moray: {
               label: 'Moray',
-              blurb: 'Lives in a hole and looks permanently unimpressed.',
+              blurb:
+                'Lives in a hole. Opens its mouth whenever you pass, like a neighbour with a complaint.',
               traits: {
                 size: 'big',
                 danger: 'venomous',
@@ -3991,7 +4016,7 @@ export const STRINGS = {
             },
             clownfish: {
               label: 'Clownfish',
-              blurb: 'Owns one anemone and defends it against the entire ocean.',
+              blurb: 'Owns one anemone. Has made this very clear to the entire ocean.',
               traits: {
                 size: 'tiny',
                 danger: 'harmless',
@@ -4000,7 +4025,7 @@ export const STRINGS = {
             },
             barracuda: {
               label: 'Barracuda',
-              blurb: 'All teeth and no small talk.',
+              blurb: 'All teeth and no small talk. A considerable saving on the briefing.',
               traits: {
                 size: 'big',
                 danger: 'venomous',
@@ -4009,7 +4034,8 @@ export const STRINGS = {
             },
             stingray: {
               label: 'Stingray',
-              blurb: 'Sleeps under the sand and dislikes being stepped on.',
+              blurb:
+                'Sleeps under the sand. Gives the accommodation a poor review whenever someone steps on it.',
               traits: {
                 size: 'big',
                 danger: 'venomous',
@@ -4018,7 +4044,7 @@ export const STRINGS = {
             },
             lionfish: {
               label: 'Lionfish',
-              blurb: 'Dressed for a ball it will never be invited to.',
+              blurb: 'Dressed for a ball. Armed for a disagreement about the seating plan.',
               traits: {
                 size: 'tiny',
                 danger: 'venomous',
@@ -4027,7 +4053,7 @@ export const STRINGS = {
             },
             grouper: {
               label: 'Grouper',
-              blurb: 'Follows divers about hoping to be handed something.',
+              blurb: 'Follows the divers in case one turns out to be lunch service.',
               traits: {
                 size: 'big',
                 danger: 'harmless',
@@ -4036,7 +4062,7 @@ export const STRINGS = {
             },
             pipefish: {
               label: 'Pipefish',
-              blurb: 'A seahorse that has been through a mangle.',
+              blurb: 'A seahorse redesigned by someone who only had a ruler.',
               traits: {
                 size: 'tiny',
                 danger: 'harmless',
@@ -4045,7 +4071,7 @@ export const STRINGS = {
             },
             'reef-shark': {
               label: 'Reef Shark',
-              blurb: 'Far more frightened of you, allegedly.',
+              blurb: 'Circles once, decides you look expensive to digest, and leaves.',
               traits: {
                 size: 'big',
                 danger: 'venomous',
@@ -4054,7 +4080,8 @@ export const STRINGS = {
             },
             cuttlefish: {
               label: 'Cuttlefish',
-              blurb: 'Changes colour mid-sentence to win the argument.',
+              blurb:
+                'Changes colour halfway through an argument, then denies having said anything.',
               traits: {
                 size: 'tiny',
                 danger: 'harmless',
@@ -4063,7 +4090,7 @@ export const STRINGS = {
             },
             'sea-urchin': {
               label: 'Sea Urchin',
-              blurb: 'Does nothing at all, extremely painfully.',
+              blurb: 'Does nothing all day. Somehow makes this everyone else’s problem.',
               traits: {
                 size: 'tiny',
                 danger: 'venomous',
@@ -4094,7 +4121,7 @@ export const STRINGS = {
           items: {
             'red-fins': {
               label: 'Red Fins',
-              blurb: 'Bought a size too large and worn with three pairs of socks.',
+              blurb: 'Bought a size too large. The socks now have their own packing list.',
               traits: {
                 material: 'rubber',
                 use: 'swimming',
@@ -4103,7 +4130,7 @@ export const STRINGS = {
             },
             'blue-mask': {
               label: 'Blue Mask',
-              blurb: 'Fogs up at the worst possible moment, every dive.',
+              blurb: 'Perfectly clear until there is something worth looking at.',
               traits: {
                 material: 'glass',
                 use: 'seeing',
@@ -4112,7 +4139,7 @@ export const STRINGS = {
             },
             'green-tank': {
               label: 'Green Tank',
-              blurb: 'Heavier out of the water than anyone expects.',
+              blurb: 'Light as a feather underwater. Remembers its responsibilities on the ladder.',
               traits: {
                 material: 'steel',
                 use: 'breathing',
@@ -4121,7 +4148,7 @@ export const STRINGS = {
             },
             'yellow-torch': {
               label: 'Yellow Torch',
-              blurb: 'Bright enough to annoy an eel from ten metres.',
+              blurb: 'Bright enough to find the eel. The eel would prefer you hadn’t.',
               traits: {
                 material: 'steel',
                 use: 'seeing',
@@ -4130,7 +4157,7 @@ export const STRINGS = {
             },
             'black-camera': {
               label: 'Black Camera',
-              blurb: 'Insured for more than the boat it travels on.',
+              blurb: 'Insured for more than the boat. Gets the better seat on the way home.',
               traits: {
                 material: 'glass',
                 use: 'recording',
@@ -4139,7 +4166,7 @@ export const STRINGS = {
             },
             'white-slate': {
               label: 'White Slate',
-              blurb: 'Where the great underwater conversations happen, badly spelled.',
+              blurb: 'For urgent messages such as “SHARK”, “AIR” and “whose sandwich was that?”',
               traits: {
                 material: 'plastic',
                 use: 'recording',
@@ -4148,7 +4175,7 @@ export const STRINGS = {
             },
             'orange-reel': {
               label: 'Orange Reel',
-              blurb: 'Two hundred metres of line and one very important knot.',
+              blurb: 'Two hundred metres of line, all personally committed to becoming one knot.',
               traits: {
                 material: 'plastic',
                 use: 'safety',
@@ -4157,7 +4184,7 @@ export const STRINGS = {
             },
             'pink-buoy': {
               label: 'Pink Buoy',
-              blurb: 'Deployed at the end. Visible from the boat, in theory.',
+              blurb: 'Announces your position to the boat. The boat is looking somewhere else.',
               traits: {
                 material: 'rubber',
                 use: 'safety',
@@ -4166,7 +4193,7 @@ export const STRINGS = {
             },
             'silver-knife': {
               label: 'Silver Knife',
-              blurb: 'For cutting nets. Used, so far, on a sandwich.',
+              blurb: 'Bought for tangled nets. So far, its toughest rescue involved a baguette.',
               traits: {
                 material: 'steel',
                 use: 'safety',
@@ -4175,7 +4202,7 @@ export const STRINGS = {
             },
             'teal-compass': {
               label: 'Teal Compass',
-              blurb: 'Points north. The reef declines to.',
+              blurb: 'Always knows where north is. Declines to explain where you are.',
               traits: {
                 material: 'glass',
                 use: 'finding the way',
@@ -4184,7 +4211,7 @@ export const STRINGS = {
             },
             'grey-gloves': {
               label: 'Grey Gloves',
-              blurb: 'Saved one set of knuckles and lost one wedding ring.',
+              blurb: 'Thick enough to protect your hands from everything except finding your keys.',
               traits: {
                 material: 'rubber',
                 use: 'safety',
@@ -4193,7 +4220,8 @@ export const STRINGS = {
             },
             'amber-lamp': {
               label: 'Amber Lamp',
-              blurb: 'The colour of a late afternoon, forty metres down.',
+              blurb:
+                'Brings a warm glow to a place that has made its feelings about warmth quite clear.',
               traits: {
                 material: 'glass',
                 use: 'seeing',
@@ -4202,7 +4230,8 @@ export const STRINGS = {
             },
             'coral-flag': {
               label: 'Coral Flag',
-              blurb: 'Warns boats off. Boats occasionally read it.',
+              blurb:
+                'Clearly says “divers below”. Several boats remain committed to a different interpretation.',
               traits: {
                 material: 'plastic',
                 use: 'safety',
@@ -4211,7 +4240,7 @@ export const STRINGS = {
             },
             'navy-hood': {
               label: 'Navy Hood',
-              blurb: 'Keeps the head warm and the ears completely useless.',
+              blurb: 'Keeps the head warm and turns every instruction into “mmph”.',
               traits: {
                 material: 'rubber',
                 use: 'warmth',
@@ -4242,7 +4271,7 @@ export const STRINGS = {
           items: {
             'blue-hole': {
               label: 'Blue Hole',
-              blurb: 'Goes down further than the guidebook is willing to print.',
+              blurb: 'Goes deeper than the guidebook admits. The next edition uses a smaller font.',
               traits: {
                 terrain: 'caves',
                 current: 'calm',
@@ -4251,7 +4280,8 @@ export const STRINGS = {
             },
             'lace-wall': {
               label: 'Lace Wall',
-              blurb: 'Fan coral for a hundred metres. Nobody talks on the way back.',
+              blurb:
+                'A hundred metres of fan coral. Even the guide briefly runs out of things to say.',
               traits: {
                 terrain: 'walls',
                 current: 'strong',
@@ -4260,7 +4290,7 @@ export const STRINGS = {
             },
             shipwreck: {
               label: 'Shipwreck',
-              blurb: 'A cargo of teapots, still stacked, still waiting.',
+              blurb: 'Sank with a cargo of teapots. Service has been slow ever since.',
               traits: {
                 terrain: 'wreckage',
                 current: 'calm',
@@ -4269,7 +4299,7 @@ export const STRINGS = {
             },
             'kelp-maze': {
               label: 'Kelp Maze',
-              blurb: 'Easy to enter. The exit is a matter of opinion.',
+              blurb: 'Easy to enter. Every frond has a different opinion about the way out.',
               traits: {
                 terrain: 'weed',
                 current: 'calm',
@@ -4278,7 +4308,8 @@ export const STRINGS = {
             },
             'coral-arch': {
               label: 'Coral Arch',
-              blurb: 'Swim through it for luck. Everyone does. Nobody admits why.',
+              blurb:
+                'Swim through for luck. The guide says this is optional, while already swimming through.',
               traits: {
                 terrain: 'walls',
                 current: 'strong',
@@ -4287,7 +4318,8 @@ export const STRINGS = {
             },
             'night-cove': {
               label: 'Night Cove',
-              blurb: 'Only worth diving after dark, which puts most people off.',
+              blurb:
+                'Lovely after dark. During the day it is mainly somewhere you were told to come back to.',
               traits: {
                 terrain: 'sand',
                 current: 'calm',
@@ -4296,7 +4328,7 @@ export const STRINGS = {
             },
             'tide-pools': {
               label: 'Tide Pools',
-              blurb: 'Waist deep and full of things pretending to be rocks.',
+              blurb: 'Waist deep. Everything that looks like a rock is waiting for you to say so.',
               traits: {
                 terrain: 'sand',
                 current: 'strong',
@@ -4305,7 +4337,8 @@ export const STRINGS = {
             },
             'anchor-bay': {
               label: 'Anchor Bay',
-              blurb: 'Two centuries of lost anchors, arranged by accident.',
+              blurb:
+                'Two centuries of lost anchors. Apparently nobody thought to tie a rope to the first one.',
               traits: {
                 terrain: 'sand',
                 current: 'calm',
@@ -4314,7 +4347,7 @@ export const STRINGS = {
             },
             'sea-fan-bay': {
               label: 'Sea Fan Bay',
-              blurb: 'Purple as a bruise and twice as photogenic.',
+              blurb: 'Purple, enormous, and still unable to get everyone into the same photograph.',
               traits: {
                 terrain: 'walls',
                 current: 'calm',
@@ -4323,7 +4356,8 @@ export const STRINGS = {
             },
             'lantern-reef': {
               label: 'Lantern Reef',
-              blurb: 'Glows at dusk. The science is disputed; the sight is not.',
+              blurb:
+                'Glows at dusk. The scientists disagree; the photographers have already booked.',
               traits: {
                 terrain: 'walls',
                 current: 'calm',
@@ -4332,7 +4366,7 @@ export const STRINGS = {
             },
             'sunken-pier': {
               label: 'Sunken Pier',
-              blurb: 'The town moved. The pier stayed exactly where it was.',
+              blurb: 'The town moved inland. The pier is still waiting for written confirmation.',
               traits: {
                 terrain: 'wreckage',
                 current: 'strong',
@@ -4341,7 +4375,7 @@ export const STRINGS = {
             },
             'green-lagoon': {
               label: 'Green Lagoon',
-              blurb: 'Warm, shallow, and greener than seems entirely healthy.',
+              blurb: 'Warm, shallow and green. The brochure has chosen to call this “emerald”.',
               traits: {
                 terrain: 'weed',
                 current: 'calm',
@@ -4350,7 +4384,8 @@ export const STRINGS = {
             },
             'cavern-ridge': {
               label: 'Cavern Ridge',
-              blurb: 'A torch, a line, and a firm word with yourself.',
+              blurb:
+                'A magnificent entrance. The torch beam is less enthusiastic about what comes next.',
               traits: {
                 terrain: 'caves',
                 current: 'strong',
@@ -4359,7 +4394,8 @@ export const STRINGS = {
             },
             'turtle-point': {
               label: 'Turtle Point',
-              blurb: 'Named optimistically. Delivers about one time in three.',
+              blurb:
+                'Named after a turtle seen in 1987. The marketing department remains confident.',
               traits: {
                 terrain: 'sand',
                 current: 'calm',
@@ -4392,7 +4428,7 @@ export const STRINGS = {
           items: {
             '10m': {
               label: '10m',
-              blurb: 'A 10m dive. Snorkellers keep asking what the fuss is about.',
+              blurb: 'A 10m dive. Snorkellers keep asking what all the equipment is for.',
               traits: {
                 band: 'shallow',
                 parity: 'even',
@@ -4400,7 +4436,7 @@ export const STRINGS = {
             },
             '15m': {
               label: '15m',
-              blurb: 'A 15m dive. Warm, bright, and over far too quickly.',
+              blurb: 'A 15m dive. Still close enough to the boat to remember what you left on it.',
               traits: {
                 band: 'shallow',
                 parity: 'odd',
@@ -4408,7 +4444,7 @@ export const STRINGS = {
             },
             '20m': {
               label: '20m',
-              blurb: 'A 20m dive. The colours start quietly leaving at this point.',
+              blurb: 'A 20m dive. The reds have left. Nobody has told the camera.',
               traits: {
                 band: 'shallow',
                 parity: 'even',
@@ -4416,7 +4452,7 @@ export const STRINGS = {
             },
             '25m': {
               label: '25m',
-              blurb: 'A 25m dive. Red is already gone. Nobody misses it yet.',
+              blurb: 'A 25m dive. The fish look relaxed. They have not paid for a return trip.',
               traits: {
                 band: 'shallow',
                 parity: 'odd',
@@ -4424,7 +4460,8 @@ export const STRINGS = {
             },
             '30m': {
               label: '30m',
-              blurb: 'A 30m dive. Long enough down to forget the surface exists.',
+              blurb:
+                'A 30m dive. The guide points down. You had rather hoped this was the destination.',
               traits: {
                 band: 'shallow',
                 parity: 'even',
@@ -4432,7 +4469,8 @@ export const STRINGS = {
             },
             '35m': {
               label: '35m',
-              blurb: 'A 35m dive. Where the interesting fish stop being shy.',
+              blurb:
+                'A 35m dive. The interesting fish finally appear, having waited for the tourists to leave.',
               traits: {
                 band: 'middling',
                 parity: 'odd',
@@ -4440,7 +4478,7 @@ export const STRINGS = {
             },
             '40m': {
               label: '40m',
-              blurb: 'A 40m dive. The gauge becomes a topic of conversation.',
+              blurb: 'A 40m dive. The surface is beginning to sound like an excellent idea.',
               traits: {
                 band: 'middling',
                 parity: 'even',
@@ -4448,7 +4486,7 @@ export const STRINGS = {
             },
             '45m': {
               label: '45m',
-              blurb: 'A 45m dive. Cold enough to make the hood seem sensible.',
+              blurb: 'A 45m dive. The hood wins its long-running argument with your hairstyle.',
               traits: {
                 band: 'middling',
                 parity: 'odd',
@@ -4456,7 +4494,7 @@ export const STRINGS = {
             },
             '50m': {
               label: '50m',
-              blurb: 'A 50m dive. The torch comes on and stays on.',
+              blurb: 'A 50m dive. The torch is now the most optimistic member of the party.',
               traits: {
                 band: 'middling',
                 parity: 'even',
@@ -4464,7 +4502,7 @@ export const STRINGS = {
             },
             '55m': {
               label: '55m',
-              blurb: 'A 55m dive. Deep enough that the boat sounds like a rumour.',
+              blurb: 'A 55m dive. The boat above has been downgraded from transport to rumour.',
               traits: {
                 band: 'middling',
                 parity: 'odd',
@@ -4472,7 +4510,7 @@ export const STRINGS = {
             },
             '60m': {
               label: '60m',
-              blurb: 'A 60m dive. Two divers, one line, and a great deal of trust.',
+              blurb: 'A 60m dive. Even the bubbles seem to have somewhere more sensible to be.',
               traits: {
                 band: 'deep',
                 parity: 'even',
@@ -4480,7 +4518,7 @@ export const STRINGS = {
             },
             '65m': {
               label: '65m',
-              blurb: 'A 65m dive. The safety stop is no longer optional in anyone’s mind.',
+              blurb: 'A 65m dive. The logbook will require a second adjective.',
               traits: {
                 band: 'deep',
                 parity: 'odd',
@@ -4488,7 +4526,8 @@ export const STRINGS = {
             },
             '70m': {
               label: '70m',
-              blurb: 'A 70m dive. Written up in the log twice, for emphasis.',
+              blurb:
+                'A 70m dive. Mentioned casually at dinner. Repeated less casually at breakfast.',
               traits: {
                 band: 'deep',
                 parity: 'even',
@@ -4496,7 +4535,7 @@ export const STRINGS = {
             },
             '75m': {
               label: '75m',
-              blurb: 'A 75m dive. The one they buy each other drinks over.',
+              blurb: 'A 75m dive. Rafa describes it as “a look round”. Nobody else does.',
               traits: {
                 band: 'deep',
                 parity: 'odd',

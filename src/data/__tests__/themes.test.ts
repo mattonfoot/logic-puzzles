@@ -103,7 +103,9 @@ describe('themes', () => {
             // A line, not an essay: it has a card to itself, not a page.
             expect(item.blurb.length).toBeGreaterThan(20);
             expect(item.blurb.length).toBeLessThanOrEqual(MAX_BLURB);
-            expect(item.blurb).toMatch(/[.!?]$/);
+            // Finished, not trailed off — and a line that ends on something
+            // said ends after the quotation mark rather than before it.
+            expect(item.blurb).toMatch(/[.!?][”’"']?$/u);
 
             for (const trait of category.traits) {
               const value = item.traits[trait.id];
