@@ -232,9 +232,15 @@ describe('a whole puzzle', () => {
   });
 
   it('does not count a clue the board contradicts', () => {
-    const made = puzzles[0];
-    const clue = made.clues.find((one) => one.kind === 'link' && one.positive);
-    if (!clue || clue.kind !== 'link') throw new Error('expected a positive link clue');
+    // Whichever of them carries a plain link, rather than whichever was built
+    // first: which puzzle a seed draws moves every time a theme is added, and
+    // what is being tested is the mark, not the seed.
+    const found = puzzles
+      .map((one) => ({ made: one, clue: one.clues.find((c) => c.kind === 'link' && c.positive) }))
+      .find((pair) => pair.clue !== undefined);
+    const clue = found?.clue;
+    if (!found || !clue || clue.kind !== 'link') throw new Error('expected a positive link clue');
+    const made = found.made;
 
     const wrong: Marks = {
       [markKey({ c1: clue.a.category, i1: clue.a.item, c2: clue.b.category, i2: clue.b.item })]:

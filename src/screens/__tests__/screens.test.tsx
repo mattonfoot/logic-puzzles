@@ -1374,9 +1374,18 @@ describe('the board', () => {
     // the grid draws first: the first square on the board belongs to whatever
     // pair the layout puts there, and a clue with nothing to say about it
     // shades nothing, which would pass this test for the wrong reason.
-    const linked = puzzleOne('sm', numberedSeed(7, 'sm', 'pure'));
+    // Found rather than pinned: which puzzle a number draws moves every time a
+    // theme is added, and any number whose first clue is a plain link will do.
+    const linked = (() => {
+      for (let number = 1; number <= 40; number++) {
+        const made = puzzleOne('sm', numberedSeed(number, 'sm', 'pure'));
+        const opening = made.clues[0];
+        if (opening.kind === 'link' && opening.positive) return made;
+      }
+      throw new Error('no numbered game at Advanced opens on a plain link');
+    })();
     const first = linked.clues[0];
-    if (first.kind !== 'link' || !first.positive) throw new Error('Puzzle 7 has changed');
+    if (first.kind !== 'link' || !first.positive) throw new Error('unreachable');
     const named = (attribute: { category: number; item: number }) =>
       linked.categories[attribute.category].items[attribute.item].label;
     // Not the pair the clue names — ticking that agrees with it — but the one

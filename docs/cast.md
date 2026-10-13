@@ -1,8 +1,8 @@
 # The cast
 
-A paragraph on each of the seventy people the game can deal you: who they are,
-how they hold themselves, and why they carry the hair and the one distinguishing
-feature their drawing is built from.
+A paragraph on each of the people the game can deal you — fourteen per theme:
+who they are, how they hold themselves, and why they carry the hair and the one
+distinguishing feature their drawing is built from.
 
 **None of this is in the app.** What the player reads is the item's label and its
 one-line blurb, both of which live in `locales/en-GB.yaml` and are quoted here in
@@ -10,7 +10,7 @@ italics. These paragraphs are the brief the cast was drawn from — the two
 drawable traits are called out in each of them on purpose, so a redraw has
 something to work from beyond a name.
 
-The seventy drawings are now a designer's, one SVG each, and each is an **emblem
+The drawings are all a designer's now, one SVG each, and each is an **emblem
 of the person** rather than a portrait: a rank's cap, a tuning fork, a diver's
 compass. A face-on head could not keep fourteen people apart at the size a grid
 heading gets, which is what the generated construction in
@@ -598,3 +598,121 @@ Seventy-nine, bald as an egg, with a white beard and a cap removed only indoors.
 *Runs the allotment like a campaign. The slugs have declined formal surrender.*
 
 Sixty-eight, a military crop, a black patch, and a stride that covers ground. Has drawn up maps of the allotment — proper ones, contoured, with the water points marked. Best in Show twice, both times announced as though reporting from the field. Refers to slugs as the enemy, without irony.
+
+## Midnight Museum
+
+Drawn before they were written about, which is why these read differently
+from the five above: the line under each name is the designer's own note on
+what the drawing carries, not a brief it was drawn from.
+
+### Dr Moth
+
+`museum/curator-moth` · Tenure veteran · Shift late · Manner calm
+
+*Studies nocturnal insects. Has asked the lamps to stop interfering with the sample.*
+
+Spiky crown and wing-shaped glasses
+
+### Professor Fable
+
+`museum/curator-fable` · Tenure veteran · Shift early · Manner theatrical
+
+*Every object has a story. Several have asked for a shorter version.*
+
+Monocle and broad sideburns
+
+### Ms Vellum
+
+`museum/curator-vellum` · Tenure senior · Shift late · Manner brisk
+
+*Can date a document by touch. The photocopier has become self-conscious.*
+
+Low bun and diagonal hairpin
+
+### Mr Brass
+
+`museum/curator-brass` · Tenure senior · Shift early · Manner brisk
+
+*Polishes the brass until visitors can see their disappointment in it.*
+
+Flat boater and handlebar moustache
+
+### Dr Sable
+
+`museum/curator-sable` · Tenure junior · Shift late · Manner calm
+
+*Authenticates shadows. So far, all but one have been attached to the correct object.*
+
+Asymmetric bob and one broad eye patch
+
+### Dame Flint
+
+`museum/curator-flint` · Tenure veteran · Shift early · Manner brisk
+
+*Has never dropped an exhibit. The floor would be expected to apologise.*
+
+Swept sculpted quiff and a long diamond earring
+
+### Captain Quince
+
+`museum/curator-quince` · Tenure veteran · Shift late · Manner theatrical
+
+*Retired from the sea. Still checks whether the museum is drifting.*
+
+Tricorne and pointed beard
+
+### Miss Lark
+
+`museum/curator-lark` · Tenure junior · Shift early · Manner theatrical
+
+*Leads the school tours. Can silence thirty children by whispering “the mummy moved”.*
+
+Two flared bunches and notched fringe
+
+### Sir Wick
+
+`museum/curator-wick` · Tenure veteran · Shift early · Manner theatrical
+
+*Donated a wing. Refers to the rest of the building as the extension.*
+
+Tall top hat and bow tie
+
+### Mx Spindle
+
+`museum/curator-spindle` · Tenure senior · Shift late · Manner calm
+
+*Repairs clockwork. Has requested that time stop briefly while the glue sets.*
+
+High curled hair and rectangular goggles
+
+### Mrs Mosaic
+
+`museum/curator-mosaic` · Tenure senior · Shift early · Manner calm
+
+*Restores mosaics. Claims she is only three pieces short of a quiet life.*
+
+Folded headwrap and large hoops
+
+### Mr Tallow
+
+`museum/curator-tallow` · Tenure senior · Shift late · Manner brisk
+
+*Checks every door twice. The doors are beginning to take it personally.*
+
+Bald crown and horseshoe moustache
+
+### Dr Pollen
+
+`museum/curator-pollen` · Tenure junior · Shift early · Manner calm
+
+*Keeps a fern older than the museum. The fern objects to the opening hours.*
+
+Cloud of curls and half-moon spectacles
+
+### Ms Echo
+
+`museum/curator-echo` · Tenure junior · Shift late · Manner theatrical
+
+*Records the audio guides. Every exhibit now sounds mildly disappointed in you.*
+
+Broadcast headphones and a straight bob

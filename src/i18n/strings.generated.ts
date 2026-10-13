@@ -1009,6 +1009,140 @@ export const STRINGS = {
           body: 'Everything overran by two hours and the recording was the thing that got dropped, because it is always the thing that gets dropped. Every result was announced out loud to a field full of people. None of it was written down.',
         },
       ],
+      museum: [
+        {
+          title: 'The tea incident',
+          body: 'The master list was left beneath a teapot whose lid had never fitted properly. The curators rescued the cups first, a decision now recorded more clearly than anything on the page. Piece together the surviving recollections before anyone orders another pot.',
+        },
+        {
+          title: 'Filed under later',
+          body: 'The completed register was put somewhere safe pending a decision about where to keep it. The decision has survived, but the register has not. The curators can remember enough to start an argument and, with assistance, perhaps enough to finish the record.',
+        },
+        {
+          title: 'An unhelpful breeze',
+          body: 'A window was opened to improve concentration during the final checks. The paperwork left with remarkable purpose, while the curators remained to debate whether the window had been authorised. Their recollections are all that can be recovered without a ladder.',
+        },
+        {
+          title: 'The resident cat',
+          body: 'The museum cat chose the only completed copy as a suitable place to be unwell. Nobody is prepared to dispute ownership of the resulting document. The curators have supplied what they remember, from a respectful distance.',
+        },
+        {
+          title: 'A clean desk',
+          body: 'An inspection prompted the curators to clear every desk before the inspector arrived. The room passed with distinction, and the register has not been seen since. Reconstruct it before the inspector asks what the desks are for.',
+        },
+        {
+          title: 'The wrong tray',
+          body: 'The final sheets were placed in the tray marked for copying, which someone had turned round. They have now been shredded with a thoroughness that would have been welcome elsewhere. The curators are offering recollections in lieu of replacement paper.',
+        },
+        {
+          title: 'Minutes of the meeting',
+          body: 'The secretary carefully recorded every objection to the new register and none of its contents. The curators have approved the minutes, subject to several objections. What they remember must now become a record that says something useful.',
+        },
+        {
+          title: 'The borrowed pencil',
+          body: 'Someone borrowed the pencil used to finish the register and took the writing pad with it. The pencil has returned, sharpened and entirely uninformative. The curators are trying to reconstruct the missing pages without reopening the question of stationery lending.',
+        },
+        {
+          title: 'A very quiet alarm',
+          body: 'A faulty alarm emptied the office just as the final checks were being made. By the time the curators returned, a helpful colleague had sorted the loose pages into an order nobody recognised. Restore the record before the alarm develops another opinion.',
+        },
+        {
+          title: 'The carbon copy',
+          body: 'The backup was written on carbon paper facing the wrong way. The curators have an excellent impression of the desk and very little else. Their recollections must do the work the backup was meant to do.',
+        },
+        {
+          title: 'An ambitious sneeze',
+          body: 'A curator sneezed while sorting the loose reference slips. The result reached shelves previously considered beyond normal working height. The slips that came back do not explain their own order, but the curators remember parts of it.',
+        },
+        {
+          title: 'The retirement clear-out',
+          body: 'A departing colleague emptied the filing cabinet with the confidence of someone who would never need it again. The farewell cake remains, but the completed register does not. The curators have been asked to put the record back together before the speech mentions continuity.',
+        },
+        {
+          title: 'A temporary repair',
+          body: 'A leaking pipe was repaired with a towel taken from under the paperwork. The pipe is now dry, and the paperwork has assumed responsibility for the remaining water. The curators are comparing memories while the pages recover on a radiator.',
+        },
+        {
+          title: 'The printer queue',
+          body: 'The register was sent to a printer that nobody could locate. Several test pages have appeared elsewhere, each confirming that the missing printer is working beautifully. The curators need a reconstructed copy before someone prints the search instructions on it.',
+        },
+        {
+          title: 'The spare envelope',
+          body: 'The completed list went into an envelope that was then reused for a perfectly ordinary letter. The recipient has acknowledged the letter without mentioning the unexpected reading. The curators must rebuild the record from their recollections while a polite enquiry travels back.',
+        },
+        {
+          title: 'A matter of handwriting',
+          body: 'The night notes were written in haste by someone whose usual handwriting already required interpretation. The curators agree that the marks are probably words. Their remembered facts may prove a quicker route than forming a handwriting committee.',
+        },
+        {
+          title: 'The demonstration',
+          body: 'A visitor asked how the paper shredder worked and received a remarkably complete answer. Unfortunately, the demonstration used the only checked copy of the register. The curators are now demonstrating how much they can remember.',
+        },
+        {
+          title: 'The desk exchange',
+          body: 'The office desks were exchanged to improve the flow of work. The paperwork flowed with them, then continued beyond anyone who had been consulted. The curators have supplied recollections while management measures the improvement.',
+        },
+        {
+          title: 'A crowded noticeboard',
+          body: 'The working notes were pinned beneath a notice asking staff to keep the board clear. Someone followed the instruction more literally than intended. The curators can remember fragments, though nobody remembers volunteering to write the whole thing again.',
+        },
+        {
+          title: 'The envelope marked urgent',
+          body: 'The final register was sealed in an envelope marked urgent and placed where urgent things usually wait. Nobody can now remember where that is. The curators have offered their recollections as a temporary substitute for the filing system.',
+        },
+        {
+          title: 'The floor polish',
+          body: 'The cleaning rota and the collection register were stacked together on a freshly polished desk. One sheet slipped neatly behind a cabinet that was subsequently bolted to the wall. The curators must reconstruct the missing record while the facilities team considers its position.',
+        },
+        {
+          title: 'The transcription service',
+          body: 'A voice recorder was used to save the final checks, but its microphone was facing the kettle. The recording gives a detailed account of boiling water and very little account of the curators. Their unaided recollections will have to supply the quieter details.',
+        },
+        {
+          title: 'A generous donation',
+          body: 'A box of unwanted paper was donated to a local craft group before anyone checked the bottom. The missing register has returned as something festive and difficult to unfold. The curators are assembling what they remember rather than taking scissors to the goodwill.',
+        },
+        {
+          title: 'The cancelled delivery',
+          body: 'The paperwork was packed with a parcel whose delivery was then cancelled. The parcel came back empty because its contents had already been unpacked somewhere else. The curators can provide fragments of the record, though the tracking service cannot.',
+        },
+        {
+          title: 'The password reminder',
+          body: 'The digital copy is protected by a password nobody remembers, with a hint reading only “the usual”. Every curator has supplied a different usual. Reconstruct the record from what they remember while the computer counts the unsuccessful attempts.',
+        },
+        {
+          title: 'The duplicate original',
+          body: 'Two copies of the register were both labelled original, so each was discarded on the assumption that the other was being kept. The curators agree that the system was intended to prevent confusion. Their recollections are now the only copies available.',
+        },
+        {
+          title: 'A helpful margin',
+          body: 'Corrections were written in the margins until the margins contained more than the page. The next person trimmed the sheet to fit a folder. The curators must recover the missing facts without measuring the folder again.',
+        },
+        {
+          title: 'The open umbrella',
+          body: 'An umbrella was opened indoors to show that superstition had no place in a serious institution. It swept the sorted notes into a waste bin that had just been emptied. The curators are rebuilding the record while carefully avoiding the word unlucky.',
+        },
+        {
+          title: 'The overnight update',
+          body: 'The office computer restarted overnight to make things easier for everyone. The unsaved register was among the difficulties it removed. The curators have contributed their recollections while a cheerful message explains the new features.',
+        },
+        {
+          title: 'The paperweight',
+          body: 'The register was secured with a paperweight and left beside a stack of identical blank sheets. Someone took the completed page to test whether a pen still worked. The curators can remember the facts, but the surviving document is now principally about spirals.',
+        },
+        {
+          title: 'The practice drill',
+          body: 'During a practice drill, the curators carried the register to the assembly point as instructed. It was then used to mark attendance in ink broad enough to settle the question permanently. Rebuild the earlier record from the facts they still remember.',
+        },
+        {
+          title: 'A change of labels',
+          body: 'The drawers were relabelled before their contents were moved, then moved before the new labels were checked. The curators have agreed to stop improving the system for the rest of the night. Their recollections should allow the missing register to be reconstructed without opening another drawer.',
+        },
+        {
+          title: 'The final correction',
+          body: 'A last correction was made after everyone had agreed the register was finished. Nobody can now identify the finished version among the copies that followed. The curators have supplied the facts they remember, which is at least a smaller pile.',
+        },
+      ],
     },
   },
   menu: {
@@ -5348,6 +5482,774 @@ export const STRINGS = {
         },
       },
     },
+    museum: {
+      name: 'Midnight Museum',
+      blurb: 'The labels are precise. The staff are another matter.',
+      clues: {
+        link: '{a} is recorded with {b}.',
+        notLink: '{a} is not recorded with {b}.',
+        groupNot: 'No {a} is recorded with {b}.',
+        either: '{a} is recorded with either {b} or {c}, but not both.',
+        compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
+        compareGap:
+          'The acquisition linked to {greater} is exactly {gap} {unit} later than the one linked to {lesser}.',
+      },
+      categories: {
+        curator: {
+          name: 'Curator',
+          pattern: '{}',
+          describes: 'the {}',
+          noun: 'curator',
+          traits: {
+            tenure: {
+              label: 'Tenure',
+              pattern: '{noun} with {} status',
+            },
+            shift: {
+              label: 'Shift',
+              pattern: '{noun} on the {} shift',
+            },
+            manner: {
+              label: 'Manner',
+              pattern: '{noun} with a {} manner',
+            },
+          },
+          items: {
+            moth: {
+              label: 'Dr Moth',
+              blurb:
+                'Studies nocturnal insects. Has asked the lamps to stop interfering with the sample.',
+              traits: {
+                tenure: 'veteran',
+                shift: 'late',
+                manner: 'calm',
+              },
+            },
+            fable: {
+              label: 'Professor Fable',
+              blurb: 'Every object has a story. Several have asked for a shorter version.',
+              traits: {
+                tenure: 'veteran',
+                shift: 'early',
+                manner: 'theatrical',
+              },
+            },
+            vellum: {
+              label: 'Ms Vellum',
+              blurb: 'Can date a document by touch. The photocopier has become self-conscious.',
+              traits: {
+                tenure: 'senior',
+                shift: 'late',
+                manner: 'brisk',
+              },
+            },
+            brass: {
+              label: 'Mr Brass',
+              blurb: 'Polishes the brass until visitors can see their disappointment in it.',
+              traits: {
+                tenure: 'senior',
+                shift: 'early',
+                manner: 'brisk',
+              },
+            },
+            sable: {
+              label: 'Dr Sable',
+              blurb:
+                'Authenticates shadows. So far, all but one have been attached to the correct object.',
+              traits: {
+                tenure: 'junior',
+                shift: 'late',
+                manner: 'calm',
+              },
+            },
+            flint: {
+              label: 'Dame Flint',
+              blurb: 'Has never dropped an exhibit. The floor would be expected to apologise.',
+              traits: {
+                tenure: 'veteran',
+                shift: 'early',
+                manner: 'brisk',
+              },
+            },
+            quince: {
+              label: 'Captain Quince',
+              blurb: 'Retired from the sea. Still checks whether the museum is drifting.',
+              traits: {
+                tenure: 'veteran',
+                shift: 'late',
+                manner: 'theatrical',
+              },
+            },
+            lark: {
+              label: 'Miss Lark',
+              blurb:
+                'Leads the school tours. Can silence thirty children by whispering “the mummy moved”.',
+              traits: {
+                tenure: 'junior',
+                shift: 'early',
+                manner: 'theatrical',
+              },
+            },
+            wick: {
+              label: 'Sir Wick',
+              blurb: 'Donated a wing. Refers to the rest of the building as the extension.',
+              traits: {
+                tenure: 'veteran',
+                shift: 'early',
+                manner: 'theatrical',
+              },
+            },
+            spindle: {
+              label: 'Mx Spindle',
+              blurb: 'Repairs clockwork. Has requested that time stop briefly while the glue sets.',
+              traits: {
+                tenure: 'senior',
+                shift: 'late',
+                manner: 'calm',
+              },
+            },
+            mosaic: {
+              label: 'Mrs Mosaic',
+              blurb: 'Restores mosaics. Claims she is only three pieces short of a quiet life.',
+              traits: {
+                tenure: 'senior',
+                shift: 'early',
+                manner: 'calm',
+              },
+            },
+            tallow: {
+              label: 'Mr Tallow',
+              blurb: 'Checks every door twice. The doors are beginning to take it personally.',
+              traits: {
+                tenure: 'senior',
+                shift: 'late',
+                manner: 'brisk',
+              },
+            },
+            pollen: {
+              label: 'Dr Pollen',
+              blurb: 'Keeps a fern older than the museum. The fern objects to the opening hours.',
+              traits: {
+                tenure: 'junior',
+                shift: 'early',
+                manner: 'calm',
+              },
+            },
+            echo: {
+              label: 'Ms Echo',
+              blurb:
+                'Records the audio guides. Every exhibit now sounds mildly disappointed in you.',
+              traits: {
+                tenure: 'junior',
+                shift: 'late',
+                manner: 'theatrical',
+              },
+            },
+          },
+        },
+        exhibit: {
+          name: 'Exhibit',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'exhibit',
+          traits: {
+            material: {
+              label: 'Material',
+              pattern: '{noun} of {} construction',
+            },
+            size: {
+              label: 'Size',
+              pattern: '{noun} of {} size',
+            },
+            handling: {
+              label: 'Handling',
+              pattern: '{noun} classified as {}',
+            },
+          },
+          items: {
+            moonstone: {
+              label: 'Moonstone',
+              blurb:
+                'Glows only when nobody is looking. The grant application describes this as promising.',
+              traits: {
+                material: 'mineral',
+                size: 'small',
+                handling: 'robust',
+              },
+            },
+            orrery: {
+              label: 'Brass Orrery',
+              blurb:
+                'Predicts every planet precisely. Cannot account for the lift being out of order.',
+              traits: {
+                material: 'metal',
+                size: 'large',
+                handling: 'delicate',
+              },
+            },
+            owl: {
+              label: 'Clockwork Owl',
+              blurb: 'Hoots on the hour. Unfortunately, it has selected a different hour.',
+              traits: {
+                material: 'metal',
+                size: 'medium',
+                handling: 'robust',
+              },
+            },
+            slipper: {
+              label: 'Glass Slipper',
+              blurb: 'Fits exactly one foot. The other foot has made a formal complaint.',
+              traits: {
+                material: 'glass',
+                size: 'small',
+                handling: 'delicate',
+              },
+            },
+            'storm-bottle': {
+              label: 'Storm Bottle',
+              blurb:
+                'Contains a thunderstorm. The label requests that visitors refrain from shaking the weather.',
+              traits: {
+                material: 'glass',
+                size: 'medium',
+                handling: 'delicate',
+              },
+            },
+            'silk-dragon': {
+              label: 'Silk Dragon',
+              blurb: 'Needs dusting along its entire length. Nobody agrees where that ends.',
+              traits: {
+                material: 'textile',
+                size: 'large',
+                handling: 'delicate',
+              },
+            },
+            'fossil-fern': {
+              label: 'Fossil Fern',
+              blurb: 'Has not grown for millions of years. Still listed on the watering rota.',
+              traits: {
+                material: 'stone',
+                size: 'medium',
+                handling: 'robust',
+              },
+            },
+            'key-crown': {
+              label: 'Crown of Keys',
+              blurb:
+                'Opens no known lock. This has not reduced the queue of people wishing to try.',
+              traits: {
+                material: 'metal',
+                size: 'small',
+                handling: 'robust',
+              },
+            },
+            'bronze-hand': {
+              label: 'Bronze Hand',
+              blurb: 'Pointing at something since 1897. The committee has yet to establish what.',
+              traits: {
+                material: 'metal',
+                size: 'medium',
+                handling: 'robust',
+              },
+            },
+            'laughing-mask': {
+              label: 'Laughing Mask',
+              blurb: 'Nobody knows why it is laughing. The budget meeting is a leading theory.',
+              traits: {
+                material: 'wood',
+                size: 'small',
+                handling: 'delicate',
+              },
+            },
+            pyramid: {
+              label: 'Pocket Pyramid',
+              blurb: 'Sold as portable. The porter has asked the seller to demonstrate.',
+              traits: {
+                material: 'stone',
+                size: 'large',
+                handling: 'robust',
+              },
+            },
+            meteorite: {
+              label: 'Meteorite',
+              blurb:
+                'Arrived without a ticket. Has been allowed to stay on account of its journey.',
+              traits: {
+                material: 'mineral',
+                size: 'medium',
+                handling: 'robust',
+              },
+            },
+            hare: {
+              label: 'Porcelain Hare',
+              blurb:
+                'Both ears have survived three moves. The registrar has not recovered from any of them.',
+              traits: {
+                material: 'ceramic',
+                size: 'medium',
+                handling: 'delicate',
+              },
+            },
+            galleon: {
+              label: 'Paper Galleon',
+              blurb: 'Built from unpaid invoices. Technically the museum’s most valuable ship.',
+              traits: {
+                material: 'paper',
+                size: 'large',
+                handling: 'delicate',
+              },
+            },
+          },
+        },
+        gallery: {
+          name: 'Gallery',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'gallery',
+          traits: {
+            floor: {
+              label: 'Floor',
+              pattern: '{noun} on the {} floor',
+            },
+            lighting: {
+              label: 'Lighting',
+              pattern: '{noun} with {} lighting',
+            },
+            access: {
+              label: 'Access',
+              pattern: '{noun} with {} access',
+            },
+          },
+          items: {
+            rotunda: {
+              label: 'Rotunda',
+              blurb: 'Excellent acoustics. Every whispered complaint has an audience.',
+              traits: {
+                floor: 'ground',
+                lighting: 'bright',
+                access: 'public',
+              },
+            },
+            crypt: {
+              label: 'Crypt',
+              blurb: 'Cool, quiet, and technically not accepting new residents.',
+              traits: {
+                floor: 'lower',
+                lighting: 'dim',
+                access: 'staff',
+              },
+            },
+            'clock-tower': {
+              label: 'Clock Tower',
+              blurb: 'Keeps excellent time. Mostly for a city in another time zone.',
+              traits: {
+                floor: 'upper',
+                lighting: 'bright',
+                access: 'staff',
+              },
+            },
+            glasshouse: {
+              label: 'Glasshouse',
+              blurb: 'The plants are labelled. Several visitors have asked who trained them.',
+              traits: {
+                floor: 'ground',
+                lighting: 'bright',
+                access: 'public',
+              },
+            },
+            observatory: {
+              label: 'Observatory',
+              blurb: 'The roof opens to reveal the stars, or the reason the roof was closed.',
+              traits: {
+                floor: 'upper',
+                lighting: 'dim',
+                access: 'staff',
+              },
+            },
+            'map-room': {
+              label: 'Map Room',
+              blurb:
+                'Every wall shows somewhere else. Staff occasionally need reminding to return.',
+              traits: {
+                floor: 'ground',
+                lighting: 'bright',
+                access: 'public',
+              },
+            },
+            'sculpture-court': {
+              label: 'Sculpture Court',
+              blurb:
+                'The statues have stood through every refurbishment without approving a single one.',
+              traits: {
+                floor: 'ground',
+                lighting: 'bright',
+                access: 'public',
+              },
+            },
+            'lantern-walk': {
+              label: 'Lantern Walk',
+              blurb: 'Atmospheric lighting. The atmosphere has been charged to maintenance.',
+              traits: {
+                floor: 'ground',
+                lighting: 'dim',
+                access: 'public',
+              },
+            },
+            'mosaic-hall': {
+              label: 'Mosaic Hall',
+              blurb:
+                'A million pieces on the floor. Visitors still manage to notice the one missing.',
+              traits: {
+                floor: 'ground',
+                lighting: 'bright',
+                access: 'public',
+              },
+            },
+            'water-gallery': {
+              label: 'Water Gallery',
+              blurb: 'The fountain is original. The damp patch has been dated more recently.',
+              traits: {
+                floor: 'lower',
+                lighting: 'dim',
+                access: 'public',
+              },
+            },
+            attic: {
+              label: 'Attic',
+              blurb: 'Everything upstairs is awaiting a decision made downstairs in 1974.',
+              traits: {
+                floor: 'upper',
+                lighting: 'dim',
+                access: 'staff',
+              },
+            },
+            'reading-room': {
+              label: 'Reading Room',
+              blurb: 'Silence is enforced by a librarian with an exceptionally loud glance.',
+              traits: {
+                floor: 'upper',
+                lighting: 'bright',
+                access: 'public',
+              },
+            },
+            'red-salon': {
+              label: 'Red Salon',
+              blurb: 'Reserved for distinguished guests. The sofa considers itself one.',
+              traits: {
+                floor: 'ground',
+                lighting: 'dim',
+                access: 'public',
+              },
+            },
+            'grand-stair': {
+              label: 'Grand Stair',
+              blurb: 'Built for impressive arrivals. Departures usually involve a handrail.',
+              traits: {
+                floor: 'upper',
+                lighting: 'bright',
+                access: 'public',
+              },
+            },
+          },
+        },
+        equipment: {
+          name: 'Equipment',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'tool',
+          traits: {
+            purpose: {
+              label: 'Purpose',
+              pattern: '{noun} used for {}',
+            },
+            operation: {
+              label: 'Operation',
+              pattern: '{noun} with {} operation',
+            },
+            scale: {
+              label: 'Scale',
+              pattern: '{noun} classed as {}',
+            },
+          },
+          items: {
+            'soft-brush': {
+              label: 'Soft Brush',
+              blurb: 'Removes dust one particle at a time. The dust has a considerable head start.',
+              traits: {
+                purpose: 'cleaning',
+                operation: 'manual',
+                scale: 'compact',
+              },
+            },
+            'cotton-gloves': {
+              label: 'Cotton Gloves',
+              blurb: 'White for approximately eight seconds. Then historically interesting.',
+              traits: {
+                purpose: 'handling',
+                operation: 'manual',
+                scale: 'compact',
+              },
+            },
+            magnifier: {
+              label: 'Magnifier',
+              blurb: 'Makes tiny damage much larger. Has been asked to apply itself to the budget.',
+              traits: {
+                purpose: 'inspection',
+                operation: 'manual',
+                scale: 'compact',
+              },
+            },
+            calipers: {
+              label: 'Calipers',
+              blurb: 'Measures precisely how far the catalogue is from being correct.',
+              traits: {
+                purpose: 'inspection',
+                operation: 'manual',
+                scale: 'compact',
+              },
+            },
+            tweezers: {
+              label: 'Tweezers',
+              blurb:
+                'Picks up the smallest fragments. Does not pick up responsibility for losing them.',
+              traits: {
+                purpose: 'handling',
+                operation: 'manual',
+                scale: 'compact',
+              },
+            },
+            torch: {
+              label: 'Torch',
+              blurb: 'Illuminates the problem. Fixing it is assigned to a different department.',
+              traits: {
+                purpose: 'inspection',
+                operation: 'powered',
+                scale: 'compact',
+              },
+            },
+            'dust-blower': {
+              label: 'Dust Blower',
+              blurb: 'Moves dust from one valuable object to a neighbouring valuable object.',
+              traits: {
+                purpose: 'cleaning',
+                operation: 'manual',
+                scale: 'compact',
+              },
+            },
+            'label-maker': {
+              label: 'Label Maker',
+              blurb: 'The only machine permitted to give everything in the museum a new identity.',
+              traits: {
+                purpose: 'recording',
+                operation: 'powered',
+                scale: 'bulky',
+              },
+            },
+            'padded-tray': {
+              label: 'Padded Tray',
+              blurb: 'Carries priceless objects. Nobody has told it what the insurance costs.',
+              traits: {
+                purpose: 'handling',
+                operation: 'manual',
+                scale: 'bulky',
+              },
+            },
+            'wax-seal': {
+              label: 'Wax Seal',
+              blurb:
+                'Confirms the box is closed. Its contents remain a matter of institutional optimism.',
+              traits: {
+                purpose: 'recording',
+                operation: 'manual',
+                scale: 'compact',
+              },
+            },
+            'humidity-gauge': {
+              label: 'Humidity Gauge',
+              blurb: 'Reports that the air is wrong. Has yet to suggest a helpful alternative.',
+              traits: {
+                purpose: 'inspection',
+                operation: 'powered',
+                scale: 'bulky',
+              },
+            },
+            camera: {
+              label: 'Camera',
+              blurb:
+                'Records the condition before treatment. Occasionally records the expression afterwards.',
+              traits: {
+                purpose: 'recording',
+                operation: 'powered',
+                scale: 'bulky',
+              },
+            },
+            'packing-foam': {
+              label: 'Packing Foam',
+              blurb:
+                'Custom-cut to fit the exhibit. The exhibit is strongly discouraged from changing shape.',
+              traits: {
+                purpose: 'handling',
+                operation: 'manual',
+                scale: 'bulky',
+              },
+            },
+            'lifting-sling': {
+              label: 'Lifting Sling',
+              blurb: 'Rated for half a tonne. Confidence in the operator is measured separately.',
+              traits: {
+                purpose: 'handling',
+                operation: 'manual',
+                scale: 'bulky',
+              },
+            },
+          },
+        },
+        acquisition: {
+          name: 'Acquisition Year',
+          pattern: 'the {} acquisition',
+          describes: 'the {}',
+          noun: 'acquisition',
+          ordered: {
+            noun: 'acquisition',
+            unit: 'years',
+            greater: 'later',
+            lesser: 'earlier',
+          },
+          traits: {
+            era: {
+              label: 'Collection era',
+              pattern: '{noun} from the {} era',
+            },
+            register: {
+              label: 'Register',
+              pattern: '{noun} in the {} register',
+            },
+          },
+          items: {
+            '1880': {
+              label: '1880',
+              blurb: 'The first register. Written with confidence and almost no page numbers.',
+              traits: {
+                era: 'founding',
+                register: 'handwritten',
+              },
+            },
+            '1890': {
+              label: '1890',
+              blurb:
+                'Acquired during the first expansion. The door was widened shortly afterwards.',
+              traits: {
+                era: 'founding',
+                register: 'handwritten',
+              },
+            },
+            '1900': {
+              label: '1900',
+              blurb: 'Entered the new century in a box still marked “temporary”.',
+              traits: {
+                era: 'founding',
+                register: 'handwritten',
+              },
+            },
+            '1910': {
+              label: '1910',
+              blurb: 'The year the committee discovered that storage was finite.',
+              traits: {
+                era: 'founding',
+                register: 'handwritten',
+              },
+            },
+            '1920': {
+              label: '1920',
+              blurb:
+                'Catalogued after lunch. The handwriting records a considerable improvement in morale.',
+              traits: {
+                era: 'expansion',
+                register: 'handwritten',
+              },
+            },
+            '1930': {
+              label: '1930',
+              blurb:
+                'The typed register begins. Several ancient objects acquire very modern spelling errors.',
+              traits: {
+                era: 'expansion',
+                register: 'typed',
+              },
+            },
+            '1940': {
+              label: '1940',
+              blurb: 'Recorded under “miscellaneous”, a department with formidable ambitions.',
+              traits: {
+                era: 'expansion',
+                register: 'typed',
+              },
+            },
+            '1950': {
+              label: '1950',
+              blurb:
+                'Acquired with a promise to build a suitable case. The promise remains in good condition.',
+              traits: {
+                era: 'expansion',
+                register: 'typed',
+              },
+            },
+            '1960': {
+              label: '1960',
+              blurb:
+                'Arrived during the great relabelling. Left briefly under somebody else’s name.',
+              traits: {
+                era: 'expansion',
+                register: 'typed',
+              },
+            },
+            '1970': {
+              label: '1970',
+              blurb: 'A modern addition, according to a label nobody has updated.',
+              traits: {
+                era: 'renewal',
+                register: 'typed',
+              },
+            },
+            '1980': {
+              label: '1980',
+              blurb: 'The year the collection outgrew the storeroom and began annexing opinions.',
+              traits: {
+                era: 'renewal',
+                register: 'typed',
+              },
+            },
+            '1990': {
+              label: '1990',
+              blurb:
+                'Entered the digital catalogue. Also entered twice into the digital catalogue.',
+              traits: {
+                era: 'renewal',
+                register: 'digital',
+              },
+            },
+            '2000': {
+              label: '2000',
+              blurb:
+                'Transferred into the new database, along with three entirely imaginary shelves.',
+              traits: {
+                era: 'renewal',
+                register: 'digital',
+              },
+            },
+            '2010': {
+              label: '2010',
+              blurb:
+                'The latest accession. Already described by the director as “one of our old favourites”.',
+              traits: {
+                era: 'renewal',
+                register: 'digital',
+              },
+            },
+          },
+        },
+      },
+    },
   },
 } as const;
 
@@ -7053,6 +7955,402 @@ export type StringKey =
   | 'themes.garden.clues.link'
   | 'themes.garden.clues.notLink'
   | 'themes.garden.name'
+  | 'themes.museum.blurb'
+  | 'themes.museum.categories.acquisition.describes'
+  | 'themes.museum.categories.acquisition.items.1880.blurb'
+  | 'themes.museum.categories.acquisition.items.1880.label'
+  | 'themes.museum.categories.acquisition.items.1880.traits.era'
+  | 'themes.museum.categories.acquisition.items.1880.traits.register'
+  | 'themes.museum.categories.acquisition.items.1890.blurb'
+  | 'themes.museum.categories.acquisition.items.1890.label'
+  | 'themes.museum.categories.acquisition.items.1890.traits.era'
+  | 'themes.museum.categories.acquisition.items.1890.traits.register'
+  | 'themes.museum.categories.acquisition.items.1900.blurb'
+  | 'themes.museum.categories.acquisition.items.1900.label'
+  | 'themes.museum.categories.acquisition.items.1900.traits.era'
+  | 'themes.museum.categories.acquisition.items.1900.traits.register'
+  | 'themes.museum.categories.acquisition.items.1910.blurb'
+  | 'themes.museum.categories.acquisition.items.1910.label'
+  | 'themes.museum.categories.acquisition.items.1910.traits.era'
+  | 'themes.museum.categories.acquisition.items.1910.traits.register'
+  | 'themes.museum.categories.acquisition.items.1920.blurb'
+  | 'themes.museum.categories.acquisition.items.1920.label'
+  | 'themes.museum.categories.acquisition.items.1920.traits.era'
+  | 'themes.museum.categories.acquisition.items.1920.traits.register'
+  | 'themes.museum.categories.acquisition.items.1930.blurb'
+  | 'themes.museum.categories.acquisition.items.1930.label'
+  | 'themes.museum.categories.acquisition.items.1930.traits.era'
+  | 'themes.museum.categories.acquisition.items.1930.traits.register'
+  | 'themes.museum.categories.acquisition.items.1940.blurb'
+  | 'themes.museum.categories.acquisition.items.1940.label'
+  | 'themes.museum.categories.acquisition.items.1940.traits.era'
+  | 'themes.museum.categories.acquisition.items.1940.traits.register'
+  | 'themes.museum.categories.acquisition.items.1950.blurb'
+  | 'themes.museum.categories.acquisition.items.1950.label'
+  | 'themes.museum.categories.acquisition.items.1950.traits.era'
+  | 'themes.museum.categories.acquisition.items.1950.traits.register'
+  | 'themes.museum.categories.acquisition.items.1960.blurb'
+  | 'themes.museum.categories.acquisition.items.1960.label'
+  | 'themes.museum.categories.acquisition.items.1960.traits.era'
+  | 'themes.museum.categories.acquisition.items.1960.traits.register'
+  | 'themes.museum.categories.acquisition.items.1970.blurb'
+  | 'themes.museum.categories.acquisition.items.1970.label'
+  | 'themes.museum.categories.acquisition.items.1970.traits.era'
+  | 'themes.museum.categories.acquisition.items.1970.traits.register'
+  | 'themes.museum.categories.acquisition.items.1980.blurb'
+  | 'themes.museum.categories.acquisition.items.1980.label'
+  | 'themes.museum.categories.acquisition.items.1980.traits.era'
+  | 'themes.museum.categories.acquisition.items.1980.traits.register'
+  | 'themes.museum.categories.acquisition.items.1990.blurb'
+  | 'themes.museum.categories.acquisition.items.1990.label'
+  | 'themes.museum.categories.acquisition.items.1990.traits.era'
+  | 'themes.museum.categories.acquisition.items.1990.traits.register'
+  | 'themes.museum.categories.acquisition.items.2000.blurb'
+  | 'themes.museum.categories.acquisition.items.2000.label'
+  | 'themes.museum.categories.acquisition.items.2000.traits.era'
+  | 'themes.museum.categories.acquisition.items.2000.traits.register'
+  | 'themes.museum.categories.acquisition.items.2010.blurb'
+  | 'themes.museum.categories.acquisition.items.2010.label'
+  | 'themes.museum.categories.acquisition.items.2010.traits.era'
+  | 'themes.museum.categories.acquisition.items.2010.traits.register'
+  | 'themes.museum.categories.acquisition.name'
+  | 'themes.museum.categories.acquisition.noun'
+  | 'themes.museum.categories.acquisition.ordered.greater'
+  | 'themes.museum.categories.acquisition.ordered.lesser'
+  | 'themes.museum.categories.acquisition.ordered.noun'
+  | 'themes.museum.categories.acquisition.ordered.unit'
+  | 'themes.museum.categories.acquisition.pattern'
+  | 'themes.museum.categories.acquisition.traits.era.label'
+  | 'themes.museum.categories.acquisition.traits.era.pattern'
+  | 'themes.museum.categories.acquisition.traits.register.label'
+  | 'themes.museum.categories.acquisition.traits.register.pattern'
+  | 'themes.museum.categories.curator.describes'
+  | 'themes.museum.categories.curator.items.brass.blurb'
+  | 'themes.museum.categories.curator.items.brass.label'
+  | 'themes.museum.categories.curator.items.brass.traits.manner'
+  | 'themes.museum.categories.curator.items.brass.traits.shift'
+  | 'themes.museum.categories.curator.items.brass.traits.tenure'
+  | 'themes.museum.categories.curator.items.echo.blurb'
+  | 'themes.museum.categories.curator.items.echo.label'
+  | 'themes.museum.categories.curator.items.echo.traits.manner'
+  | 'themes.museum.categories.curator.items.echo.traits.shift'
+  | 'themes.museum.categories.curator.items.echo.traits.tenure'
+  | 'themes.museum.categories.curator.items.fable.blurb'
+  | 'themes.museum.categories.curator.items.fable.label'
+  | 'themes.museum.categories.curator.items.fable.traits.manner'
+  | 'themes.museum.categories.curator.items.fable.traits.shift'
+  | 'themes.museum.categories.curator.items.fable.traits.tenure'
+  | 'themes.museum.categories.curator.items.flint.blurb'
+  | 'themes.museum.categories.curator.items.flint.label'
+  | 'themes.museum.categories.curator.items.flint.traits.manner'
+  | 'themes.museum.categories.curator.items.flint.traits.shift'
+  | 'themes.museum.categories.curator.items.flint.traits.tenure'
+  | 'themes.museum.categories.curator.items.lark.blurb'
+  | 'themes.museum.categories.curator.items.lark.label'
+  | 'themes.museum.categories.curator.items.lark.traits.manner'
+  | 'themes.museum.categories.curator.items.lark.traits.shift'
+  | 'themes.museum.categories.curator.items.lark.traits.tenure'
+  | 'themes.museum.categories.curator.items.mosaic.blurb'
+  | 'themes.museum.categories.curator.items.mosaic.label'
+  | 'themes.museum.categories.curator.items.mosaic.traits.manner'
+  | 'themes.museum.categories.curator.items.mosaic.traits.shift'
+  | 'themes.museum.categories.curator.items.mosaic.traits.tenure'
+  | 'themes.museum.categories.curator.items.moth.blurb'
+  | 'themes.museum.categories.curator.items.moth.label'
+  | 'themes.museum.categories.curator.items.moth.traits.manner'
+  | 'themes.museum.categories.curator.items.moth.traits.shift'
+  | 'themes.museum.categories.curator.items.moth.traits.tenure'
+  | 'themes.museum.categories.curator.items.pollen.blurb'
+  | 'themes.museum.categories.curator.items.pollen.label'
+  | 'themes.museum.categories.curator.items.pollen.traits.manner'
+  | 'themes.museum.categories.curator.items.pollen.traits.shift'
+  | 'themes.museum.categories.curator.items.pollen.traits.tenure'
+  | 'themes.museum.categories.curator.items.quince.blurb'
+  | 'themes.museum.categories.curator.items.quince.label'
+  | 'themes.museum.categories.curator.items.quince.traits.manner'
+  | 'themes.museum.categories.curator.items.quince.traits.shift'
+  | 'themes.museum.categories.curator.items.quince.traits.tenure'
+  | 'themes.museum.categories.curator.items.sable.blurb'
+  | 'themes.museum.categories.curator.items.sable.label'
+  | 'themes.museum.categories.curator.items.sable.traits.manner'
+  | 'themes.museum.categories.curator.items.sable.traits.shift'
+  | 'themes.museum.categories.curator.items.sable.traits.tenure'
+  | 'themes.museum.categories.curator.items.spindle.blurb'
+  | 'themes.museum.categories.curator.items.spindle.label'
+  | 'themes.museum.categories.curator.items.spindle.traits.manner'
+  | 'themes.museum.categories.curator.items.spindle.traits.shift'
+  | 'themes.museum.categories.curator.items.spindle.traits.tenure'
+  | 'themes.museum.categories.curator.items.tallow.blurb'
+  | 'themes.museum.categories.curator.items.tallow.label'
+  | 'themes.museum.categories.curator.items.tallow.traits.manner'
+  | 'themes.museum.categories.curator.items.tallow.traits.shift'
+  | 'themes.museum.categories.curator.items.tallow.traits.tenure'
+  | 'themes.museum.categories.curator.items.vellum.blurb'
+  | 'themes.museum.categories.curator.items.vellum.label'
+  | 'themes.museum.categories.curator.items.vellum.traits.manner'
+  | 'themes.museum.categories.curator.items.vellum.traits.shift'
+  | 'themes.museum.categories.curator.items.vellum.traits.tenure'
+  | 'themes.museum.categories.curator.items.wick.blurb'
+  | 'themes.museum.categories.curator.items.wick.label'
+  | 'themes.museum.categories.curator.items.wick.traits.manner'
+  | 'themes.museum.categories.curator.items.wick.traits.shift'
+  | 'themes.museum.categories.curator.items.wick.traits.tenure'
+  | 'themes.museum.categories.curator.name'
+  | 'themes.museum.categories.curator.noun'
+  | 'themes.museum.categories.curator.pattern'
+  | 'themes.museum.categories.curator.traits.manner.label'
+  | 'themes.museum.categories.curator.traits.manner.pattern'
+  | 'themes.museum.categories.curator.traits.shift.label'
+  | 'themes.museum.categories.curator.traits.shift.pattern'
+  | 'themes.museum.categories.curator.traits.tenure.label'
+  | 'themes.museum.categories.curator.traits.tenure.pattern'
+  | 'themes.museum.categories.equipment.describes'
+  | 'themes.museum.categories.equipment.items.calipers.blurb'
+  | 'themes.museum.categories.equipment.items.calipers.label'
+  | 'themes.museum.categories.equipment.items.calipers.traits.operation'
+  | 'themes.museum.categories.equipment.items.calipers.traits.purpose'
+  | 'themes.museum.categories.equipment.items.calipers.traits.scale'
+  | 'themes.museum.categories.equipment.items.camera.blurb'
+  | 'themes.museum.categories.equipment.items.camera.label'
+  | 'themes.museum.categories.equipment.items.camera.traits.operation'
+  | 'themes.museum.categories.equipment.items.camera.traits.purpose'
+  | 'themes.museum.categories.equipment.items.camera.traits.scale'
+  | 'themes.museum.categories.equipment.items.cotton-gloves.blurb'
+  | 'themes.museum.categories.equipment.items.cotton-gloves.label'
+  | 'themes.museum.categories.equipment.items.cotton-gloves.traits.operation'
+  | 'themes.museum.categories.equipment.items.cotton-gloves.traits.purpose'
+  | 'themes.museum.categories.equipment.items.cotton-gloves.traits.scale'
+  | 'themes.museum.categories.equipment.items.dust-blower.blurb'
+  | 'themes.museum.categories.equipment.items.dust-blower.label'
+  | 'themes.museum.categories.equipment.items.dust-blower.traits.operation'
+  | 'themes.museum.categories.equipment.items.dust-blower.traits.purpose'
+  | 'themes.museum.categories.equipment.items.dust-blower.traits.scale'
+  | 'themes.museum.categories.equipment.items.humidity-gauge.blurb'
+  | 'themes.museum.categories.equipment.items.humidity-gauge.label'
+  | 'themes.museum.categories.equipment.items.humidity-gauge.traits.operation'
+  | 'themes.museum.categories.equipment.items.humidity-gauge.traits.purpose'
+  | 'themes.museum.categories.equipment.items.humidity-gauge.traits.scale'
+  | 'themes.museum.categories.equipment.items.label-maker.blurb'
+  | 'themes.museum.categories.equipment.items.label-maker.label'
+  | 'themes.museum.categories.equipment.items.label-maker.traits.operation'
+  | 'themes.museum.categories.equipment.items.label-maker.traits.purpose'
+  | 'themes.museum.categories.equipment.items.label-maker.traits.scale'
+  | 'themes.museum.categories.equipment.items.lifting-sling.blurb'
+  | 'themes.museum.categories.equipment.items.lifting-sling.label'
+  | 'themes.museum.categories.equipment.items.lifting-sling.traits.operation'
+  | 'themes.museum.categories.equipment.items.lifting-sling.traits.purpose'
+  | 'themes.museum.categories.equipment.items.lifting-sling.traits.scale'
+  | 'themes.museum.categories.equipment.items.magnifier.blurb'
+  | 'themes.museum.categories.equipment.items.magnifier.label'
+  | 'themes.museum.categories.equipment.items.magnifier.traits.operation'
+  | 'themes.museum.categories.equipment.items.magnifier.traits.purpose'
+  | 'themes.museum.categories.equipment.items.magnifier.traits.scale'
+  | 'themes.museum.categories.equipment.items.packing-foam.blurb'
+  | 'themes.museum.categories.equipment.items.packing-foam.label'
+  | 'themes.museum.categories.equipment.items.packing-foam.traits.operation'
+  | 'themes.museum.categories.equipment.items.packing-foam.traits.purpose'
+  | 'themes.museum.categories.equipment.items.packing-foam.traits.scale'
+  | 'themes.museum.categories.equipment.items.padded-tray.blurb'
+  | 'themes.museum.categories.equipment.items.padded-tray.label'
+  | 'themes.museum.categories.equipment.items.padded-tray.traits.operation'
+  | 'themes.museum.categories.equipment.items.padded-tray.traits.purpose'
+  | 'themes.museum.categories.equipment.items.padded-tray.traits.scale'
+  | 'themes.museum.categories.equipment.items.soft-brush.blurb'
+  | 'themes.museum.categories.equipment.items.soft-brush.label'
+  | 'themes.museum.categories.equipment.items.soft-brush.traits.operation'
+  | 'themes.museum.categories.equipment.items.soft-brush.traits.purpose'
+  | 'themes.museum.categories.equipment.items.soft-brush.traits.scale'
+  | 'themes.museum.categories.equipment.items.torch.blurb'
+  | 'themes.museum.categories.equipment.items.torch.label'
+  | 'themes.museum.categories.equipment.items.torch.traits.operation'
+  | 'themes.museum.categories.equipment.items.torch.traits.purpose'
+  | 'themes.museum.categories.equipment.items.torch.traits.scale'
+  | 'themes.museum.categories.equipment.items.tweezers.blurb'
+  | 'themes.museum.categories.equipment.items.tweezers.label'
+  | 'themes.museum.categories.equipment.items.tweezers.traits.operation'
+  | 'themes.museum.categories.equipment.items.tweezers.traits.purpose'
+  | 'themes.museum.categories.equipment.items.tweezers.traits.scale'
+  | 'themes.museum.categories.equipment.items.wax-seal.blurb'
+  | 'themes.museum.categories.equipment.items.wax-seal.label'
+  | 'themes.museum.categories.equipment.items.wax-seal.traits.operation'
+  | 'themes.museum.categories.equipment.items.wax-seal.traits.purpose'
+  | 'themes.museum.categories.equipment.items.wax-seal.traits.scale'
+  | 'themes.museum.categories.equipment.name'
+  | 'themes.museum.categories.equipment.noun'
+  | 'themes.museum.categories.equipment.pattern'
+  | 'themes.museum.categories.equipment.traits.operation.label'
+  | 'themes.museum.categories.equipment.traits.operation.pattern'
+  | 'themes.museum.categories.equipment.traits.purpose.label'
+  | 'themes.museum.categories.equipment.traits.purpose.pattern'
+  | 'themes.museum.categories.equipment.traits.scale.label'
+  | 'themes.museum.categories.equipment.traits.scale.pattern'
+  | 'themes.museum.categories.exhibit.describes'
+  | 'themes.museum.categories.exhibit.items.bronze-hand.blurb'
+  | 'themes.museum.categories.exhibit.items.bronze-hand.label'
+  | 'themes.museum.categories.exhibit.items.bronze-hand.traits.handling'
+  | 'themes.museum.categories.exhibit.items.bronze-hand.traits.material'
+  | 'themes.museum.categories.exhibit.items.bronze-hand.traits.size'
+  | 'themes.museum.categories.exhibit.items.fossil-fern.blurb'
+  | 'themes.museum.categories.exhibit.items.fossil-fern.label'
+  | 'themes.museum.categories.exhibit.items.fossil-fern.traits.handling'
+  | 'themes.museum.categories.exhibit.items.fossil-fern.traits.material'
+  | 'themes.museum.categories.exhibit.items.fossil-fern.traits.size'
+  | 'themes.museum.categories.exhibit.items.galleon.blurb'
+  | 'themes.museum.categories.exhibit.items.galleon.label'
+  | 'themes.museum.categories.exhibit.items.galleon.traits.handling'
+  | 'themes.museum.categories.exhibit.items.galleon.traits.material'
+  | 'themes.museum.categories.exhibit.items.galleon.traits.size'
+  | 'themes.museum.categories.exhibit.items.hare.blurb'
+  | 'themes.museum.categories.exhibit.items.hare.label'
+  | 'themes.museum.categories.exhibit.items.hare.traits.handling'
+  | 'themes.museum.categories.exhibit.items.hare.traits.material'
+  | 'themes.museum.categories.exhibit.items.hare.traits.size'
+  | 'themes.museum.categories.exhibit.items.key-crown.blurb'
+  | 'themes.museum.categories.exhibit.items.key-crown.label'
+  | 'themes.museum.categories.exhibit.items.key-crown.traits.handling'
+  | 'themes.museum.categories.exhibit.items.key-crown.traits.material'
+  | 'themes.museum.categories.exhibit.items.key-crown.traits.size'
+  | 'themes.museum.categories.exhibit.items.laughing-mask.blurb'
+  | 'themes.museum.categories.exhibit.items.laughing-mask.label'
+  | 'themes.museum.categories.exhibit.items.laughing-mask.traits.handling'
+  | 'themes.museum.categories.exhibit.items.laughing-mask.traits.material'
+  | 'themes.museum.categories.exhibit.items.laughing-mask.traits.size'
+  | 'themes.museum.categories.exhibit.items.meteorite.blurb'
+  | 'themes.museum.categories.exhibit.items.meteorite.label'
+  | 'themes.museum.categories.exhibit.items.meteorite.traits.handling'
+  | 'themes.museum.categories.exhibit.items.meteorite.traits.material'
+  | 'themes.museum.categories.exhibit.items.meteorite.traits.size'
+  | 'themes.museum.categories.exhibit.items.moonstone.blurb'
+  | 'themes.museum.categories.exhibit.items.moonstone.label'
+  | 'themes.museum.categories.exhibit.items.moonstone.traits.handling'
+  | 'themes.museum.categories.exhibit.items.moonstone.traits.material'
+  | 'themes.museum.categories.exhibit.items.moonstone.traits.size'
+  | 'themes.museum.categories.exhibit.items.orrery.blurb'
+  | 'themes.museum.categories.exhibit.items.orrery.label'
+  | 'themes.museum.categories.exhibit.items.orrery.traits.handling'
+  | 'themes.museum.categories.exhibit.items.orrery.traits.material'
+  | 'themes.museum.categories.exhibit.items.orrery.traits.size'
+  | 'themes.museum.categories.exhibit.items.owl.blurb'
+  | 'themes.museum.categories.exhibit.items.owl.label'
+  | 'themes.museum.categories.exhibit.items.owl.traits.handling'
+  | 'themes.museum.categories.exhibit.items.owl.traits.material'
+  | 'themes.museum.categories.exhibit.items.owl.traits.size'
+  | 'themes.museum.categories.exhibit.items.pyramid.blurb'
+  | 'themes.museum.categories.exhibit.items.pyramid.label'
+  | 'themes.museum.categories.exhibit.items.pyramid.traits.handling'
+  | 'themes.museum.categories.exhibit.items.pyramid.traits.material'
+  | 'themes.museum.categories.exhibit.items.pyramid.traits.size'
+  | 'themes.museum.categories.exhibit.items.silk-dragon.blurb'
+  | 'themes.museum.categories.exhibit.items.silk-dragon.label'
+  | 'themes.museum.categories.exhibit.items.silk-dragon.traits.handling'
+  | 'themes.museum.categories.exhibit.items.silk-dragon.traits.material'
+  | 'themes.museum.categories.exhibit.items.silk-dragon.traits.size'
+  | 'themes.museum.categories.exhibit.items.slipper.blurb'
+  | 'themes.museum.categories.exhibit.items.slipper.label'
+  | 'themes.museum.categories.exhibit.items.slipper.traits.handling'
+  | 'themes.museum.categories.exhibit.items.slipper.traits.material'
+  | 'themes.museum.categories.exhibit.items.slipper.traits.size'
+  | 'themes.museum.categories.exhibit.items.storm-bottle.blurb'
+  | 'themes.museum.categories.exhibit.items.storm-bottle.label'
+  | 'themes.museum.categories.exhibit.items.storm-bottle.traits.handling'
+  | 'themes.museum.categories.exhibit.items.storm-bottle.traits.material'
+  | 'themes.museum.categories.exhibit.items.storm-bottle.traits.size'
+  | 'themes.museum.categories.exhibit.name'
+  | 'themes.museum.categories.exhibit.noun'
+  | 'themes.museum.categories.exhibit.pattern'
+  | 'themes.museum.categories.exhibit.traits.handling.label'
+  | 'themes.museum.categories.exhibit.traits.handling.pattern'
+  | 'themes.museum.categories.exhibit.traits.material.label'
+  | 'themes.museum.categories.exhibit.traits.material.pattern'
+  | 'themes.museum.categories.exhibit.traits.size.label'
+  | 'themes.museum.categories.exhibit.traits.size.pattern'
+  | 'themes.museum.categories.gallery.describes'
+  | 'themes.museum.categories.gallery.items.attic.blurb'
+  | 'themes.museum.categories.gallery.items.attic.label'
+  | 'themes.museum.categories.gallery.items.attic.traits.access'
+  | 'themes.museum.categories.gallery.items.attic.traits.floor'
+  | 'themes.museum.categories.gallery.items.attic.traits.lighting'
+  | 'themes.museum.categories.gallery.items.clock-tower.blurb'
+  | 'themes.museum.categories.gallery.items.clock-tower.label'
+  | 'themes.museum.categories.gallery.items.clock-tower.traits.access'
+  | 'themes.museum.categories.gallery.items.clock-tower.traits.floor'
+  | 'themes.museum.categories.gallery.items.clock-tower.traits.lighting'
+  | 'themes.museum.categories.gallery.items.crypt.blurb'
+  | 'themes.museum.categories.gallery.items.crypt.label'
+  | 'themes.museum.categories.gallery.items.crypt.traits.access'
+  | 'themes.museum.categories.gallery.items.crypt.traits.floor'
+  | 'themes.museum.categories.gallery.items.crypt.traits.lighting'
+  | 'themes.museum.categories.gallery.items.glasshouse.blurb'
+  | 'themes.museum.categories.gallery.items.glasshouse.label'
+  | 'themes.museum.categories.gallery.items.glasshouse.traits.access'
+  | 'themes.museum.categories.gallery.items.glasshouse.traits.floor'
+  | 'themes.museum.categories.gallery.items.glasshouse.traits.lighting'
+  | 'themes.museum.categories.gallery.items.grand-stair.blurb'
+  | 'themes.museum.categories.gallery.items.grand-stair.label'
+  | 'themes.museum.categories.gallery.items.grand-stair.traits.access'
+  | 'themes.museum.categories.gallery.items.grand-stair.traits.floor'
+  | 'themes.museum.categories.gallery.items.grand-stair.traits.lighting'
+  | 'themes.museum.categories.gallery.items.lantern-walk.blurb'
+  | 'themes.museum.categories.gallery.items.lantern-walk.label'
+  | 'themes.museum.categories.gallery.items.lantern-walk.traits.access'
+  | 'themes.museum.categories.gallery.items.lantern-walk.traits.floor'
+  | 'themes.museum.categories.gallery.items.lantern-walk.traits.lighting'
+  | 'themes.museum.categories.gallery.items.map-room.blurb'
+  | 'themes.museum.categories.gallery.items.map-room.label'
+  | 'themes.museum.categories.gallery.items.map-room.traits.access'
+  | 'themes.museum.categories.gallery.items.map-room.traits.floor'
+  | 'themes.museum.categories.gallery.items.map-room.traits.lighting'
+  | 'themes.museum.categories.gallery.items.mosaic-hall.blurb'
+  | 'themes.museum.categories.gallery.items.mosaic-hall.label'
+  | 'themes.museum.categories.gallery.items.mosaic-hall.traits.access'
+  | 'themes.museum.categories.gallery.items.mosaic-hall.traits.floor'
+  | 'themes.museum.categories.gallery.items.mosaic-hall.traits.lighting'
+  | 'themes.museum.categories.gallery.items.observatory.blurb'
+  | 'themes.museum.categories.gallery.items.observatory.label'
+  | 'themes.museum.categories.gallery.items.observatory.traits.access'
+  | 'themes.museum.categories.gallery.items.observatory.traits.floor'
+  | 'themes.museum.categories.gallery.items.observatory.traits.lighting'
+  | 'themes.museum.categories.gallery.items.reading-room.blurb'
+  | 'themes.museum.categories.gallery.items.reading-room.label'
+  | 'themes.museum.categories.gallery.items.reading-room.traits.access'
+  | 'themes.museum.categories.gallery.items.reading-room.traits.floor'
+  | 'themes.museum.categories.gallery.items.reading-room.traits.lighting'
+  | 'themes.museum.categories.gallery.items.red-salon.blurb'
+  | 'themes.museum.categories.gallery.items.red-salon.label'
+  | 'themes.museum.categories.gallery.items.red-salon.traits.access'
+  | 'themes.museum.categories.gallery.items.red-salon.traits.floor'
+  | 'themes.museum.categories.gallery.items.red-salon.traits.lighting'
+  | 'themes.museum.categories.gallery.items.rotunda.blurb'
+  | 'themes.museum.categories.gallery.items.rotunda.label'
+  | 'themes.museum.categories.gallery.items.rotunda.traits.access'
+  | 'themes.museum.categories.gallery.items.rotunda.traits.floor'
+  | 'themes.museum.categories.gallery.items.rotunda.traits.lighting'
+  | 'themes.museum.categories.gallery.items.sculpture-court.blurb'
+  | 'themes.museum.categories.gallery.items.sculpture-court.label'
+  | 'themes.museum.categories.gallery.items.sculpture-court.traits.access'
+  | 'themes.museum.categories.gallery.items.sculpture-court.traits.floor'
+  | 'themes.museum.categories.gallery.items.sculpture-court.traits.lighting'
+  | 'themes.museum.categories.gallery.items.water-gallery.blurb'
+  | 'themes.museum.categories.gallery.items.water-gallery.label'
+  | 'themes.museum.categories.gallery.items.water-gallery.traits.access'
+  | 'themes.museum.categories.gallery.items.water-gallery.traits.floor'
+  | 'themes.museum.categories.gallery.items.water-gallery.traits.lighting'
+  | 'themes.museum.categories.gallery.name'
+  | 'themes.museum.categories.gallery.noun'
+  | 'themes.museum.categories.gallery.pattern'
+  | 'themes.museum.categories.gallery.traits.access.label'
+  | 'themes.museum.categories.gallery.traits.access.pattern'
+  | 'themes.museum.categories.gallery.traits.floor.label'
+  | 'themes.museum.categories.gallery.traits.floor.pattern'
+  | 'themes.museum.categories.gallery.traits.lighting.label'
+  | 'themes.museum.categories.gallery.traits.lighting.pattern'
+  | 'themes.museum.clues.compare'
+  | 'themes.museum.clues.compareGap'
+  | 'themes.museum.clues.either'
+  | 'themes.museum.clues.groupNot'
+  | 'themes.museum.clues.link'
+  | 'themes.museum.clues.notLink'
+  | 'themes.museum.name'
   | 'themes.quest.blurb'
   | 'themes.quest.categories.beast.describes'
   | 'themes.quest.categories.beast.items.banshee.blurb'
