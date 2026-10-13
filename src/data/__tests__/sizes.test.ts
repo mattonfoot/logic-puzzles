@@ -14,17 +14,17 @@ import { THEMES } from '../themes';
 describe('the difficulties', () => {
   const LADDER = [
     ['xs', 'Beginner', 3, 3],
-    ['sm', 'Advanced', 3, 4],
-    ['md', 'Expert', 3, 5],
+    ['sm', 'Advanced', 4, 3],
+    ['md', 'Expert', 5, 3],
     ['lg', 'Pro', 4, 4],
-    ['xl', 'Legend', 4, 5],
+    ['xl', 'Legend', 5, 4],
   ] as const;
 
   /** Squares on the board: a row and a column of each pair of sets. */
   const squares = (items: number, categories: number) =>
     items * items * ((categories * (categories - 1)) / 2);
 
-  it('climbs from three of each across three sets to five across five', () => {
+  it('climbs from three of each across three sets to five across four', () => {
     expect(SIZES.map((size) => size.id)).toEqual(LADDER.map(([id]) => id));
     for (const [id, difficulty, items, categories] of LADDER) {
       const size = sizeById(id);
@@ -87,8 +87,8 @@ describe('the difficulties', () => {
   it('builds a solvable Legend board', () => {
     const size = sizeById('xl');
     const puzzle = generatePuzzle({ theme: THEMES, size, seed: 5 });
-    expect(puzzle.solution).toHaveLength(5);
-    expect(puzzle.categories).toHaveLength(5);
+    expect(puzzle.solution).toHaveLength(4);
+    expect(puzzle.categories).toHaveLength(4);
 
     const ctx = contextFor(puzzle.categories, size.items);
     expect(hasUniqueSolution(puzzle.clues, ctx)).toBe(true);

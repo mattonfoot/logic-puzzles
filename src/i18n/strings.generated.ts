@@ -2302,11 +2302,11 @@ export const STRINGS = {
     },
     sm: {
       difficulty: 'Advanced',
-      label: '3 × 4',
+      label: '4 × 3',
     },
     md: {
       difficulty: 'Expert',
-      label: '3 × 5',
+      label: '5 × 3',
     },
     lg: {
       difficulty: 'Pro',
@@ -2314,7 +2314,7 @@ export const STRINGS = {
     },
     xl: {
       difficulty: 'Legend',
-      label: '4 × 5',
+      label: '5 × 4',
     },
   },
   accents: {

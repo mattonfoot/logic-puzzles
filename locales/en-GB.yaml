@@ -1462,7 +1462,7 @@ achievements:
       body: Ten finished one after another without a hint between them.
     legend:
       title: Legend, unaided
-      body: A 5 × 5 finished without a hint, with the board keeping up.
+      body: A 5 × 4 finished without a hint, with the board keeping up.
     legendClassic:
       title: Legend unaided, the hard way
       body: The same board with nothing worked out for you, and still no hint.
@@ -1546,16 +1546,16 @@ sizes:
     label: 3 × 3
   sm:
     difficulty: Advanced
-    label: 3 × 4
+    label: 4 × 3
   md:
     difficulty: Expert
-    label: 3 × 5
+    label: 5 × 3
   lg:
     difficulty: Pro
     label: 4 × 4
   xl:
     difficulty: Legend
-    label: 4 × 5
+    label: 5 × 4
 
 # The colours the app can be drawn in.
 accents:

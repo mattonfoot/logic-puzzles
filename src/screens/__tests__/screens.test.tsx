@@ -1123,10 +1123,10 @@ describe('the board', () => {
     play();
     layOut();
 
-    // A 3 × 4 puzzle is six grids of nine squares, every one of them a button
+    // A 4 × 3 puzzle is three grids of sixteen squares, every one of them a button
     // that says what it is.
     const squares = screen.getAllByRole('button', { name: /: unknown$/ });
-    expect(squares).toHaveLength(6 * 9);
+    expect(squares).toHaveLength(3 * 16);
     // Every item heads a row or a column somewhere on the staircase — most of
     // them more than once — and each of those headings opens its card.
     for (const category of puzzle.categories) {
@@ -1772,7 +1772,7 @@ describe('the board', () => {
     expect(button('Menu')).toBeEnabled();
     expect(button('Undo')).toBeDisabled();
     layOut();
-    expect(screen.getAllByRole('button', { name: /: unknown$/ })).toHaveLength(6 * 9);
+    expect(screen.getAllByRole('button', { name: /: unknown$/ })).toHaveLength(3 * 16);
   });
 
   /**
