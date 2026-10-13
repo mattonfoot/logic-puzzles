@@ -10,6 +10,8 @@ import type { SizeOption } from '../puzzle/types';
  * which is how a difficulty ends up feeling like a different game instead of
  * the next one — and a set costs more than an entity, since every set pairs
  * with every other one, so trading one for the other still grows the board.
+ *
+ * clues: ['link', 'notLink', 'groupNot', 'either', 'compare', 'compareGap']
  */
 export const SIZES: SizeOption[] = [
   {
@@ -21,7 +23,7 @@ export const SIZES: SizeOption[] = [
     // Plain matches, groups and either-ors only. A beginner's board asks the
     // player to put things together; working from what a sentence rules out,
     // or from an order held in the head, is what the next rungs are for.
-    clues: ['link', 'groupNot', 'either'],
+    clues: ['link', 'either'],
   },
   {
     id: 'sm',
@@ -29,6 +31,7 @@ export const SIZES: SizeOption[] = [
     categories: 4,
     label: t('sizes.sm.label'),
     difficulty: t('sizes.sm.difficulty'),
+    clues: ['link', 'groupNot', 'compare'],
   },
   {
     id: 'md',
@@ -36,6 +39,7 @@ export const SIZES: SizeOption[] = [
     categories: 5,
     label: t('sizes.md.label'),
     difficulty: t('sizes.md.difficulty'),
+    clues: ['link', 'notLink', 'groupNot', 'either', 'compare'],
   },
   {
     id: 'lg',
