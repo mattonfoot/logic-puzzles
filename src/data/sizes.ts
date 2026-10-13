@@ -4,11 +4,12 @@ import type { SizeOption } from '../puzzle/types';
 /**
  * `items` is the number of rows per grid, `categories` how many columns of grids.
  *
- * The ladder climbs one at a time, and alternates which way it grows: another
- * set to keep track of, then another entity to place, then another set. A step
- * that added both at once would double the board rather than stretch it, which
- * is how a difficulty ends up feeling like a different game instead of the next
- * one.
+ * The ladder climbs one at a time: another set to keep track of, until there
+ * are five, and then one set is given back to buy another entity to place. A
+ * step that added both at once would double the board rather than stretch it,
+ * which is how a difficulty ends up feeling like a different game instead of
+ * the next one — and a set costs more than an entity, since every set pairs
+ * with every other one, so trading one for the other still grows the board.
  */
 export const SIZES: SizeOption[] = [
   {
@@ -17,6 +18,10 @@ export const SIZES: SizeOption[] = [
     categories: 3,
     label: t('sizes.xs.label'),
     difficulty: t('sizes.xs.difficulty'),
+    // Plain matches, groups and either-ors only. A beginner's board asks the
+    // player to put things together; working from what a sentence rules out,
+    // or from an order held in the head, is what the next rungs are for.
+    clues: ['link', 'groupNot', 'either'],
   },
   {
     id: 'sm',

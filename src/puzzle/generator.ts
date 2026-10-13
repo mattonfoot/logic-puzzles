@@ -20,6 +20,7 @@ import type {
   Attribute,
   CategoryDef,
   Clue,
+  ClueKind,
   Puzzle,
   PuzzleCategory,
   SizeOption,
@@ -44,7 +45,7 @@ export function generatePuzzle({ theme: themeOrPool, size, seed }: GenerateOptio
   const categories = pickCategories(theme, size, rng);
   const solution = rollSolution(size.items, categories.length, rng);
   const ctx = contextFor(categories, size.items);
-  const clues = buildClues(solution, categories, ctx, rng);
+  const clues = buildClues(solution, categories, ctx, rng, size);
 
   return {
     seed: actualSeed,
@@ -138,6 +139,41 @@ export function clueKey(clue: Clue): string {
   }
 }
 
+/** Every kind of clue, which is what a size takes when it names none. */
+export const CLUE_KINDS: readonly ClueKind[] = [
+  'link',
+  'notLink',
+  'groupNot',
+  'either',
+  'compare',
+  'compareGap',
+];
+
+/** Which pool each kind fills. */
+const POOL_OF: Record<ClueKind, keyof Pools> = {
+  link: 'positive',
+  notLink: 'negative',
+  groupNot: 'group',
+  either: 'either',
+  compare: 'compare',
+  compareGap: 'compareGap',
+};
+
+/**
+ * The kinds a board is allowed to be built from.
+ *
+ * A size that says nothing takes all six. Saying so is the whole of what makes
+ * a difficulty gentler than its shape alone would: a 3 x 3 board of plain
+ * matches is a different thing to teach than a 3 x 3 of comparisons.
+ */
+export function cluesAllowed(size: SizeOption): readonly ClueKind[] {
+  const allowed = size.clues ?? CLUE_KINDS;
+  if (!allowed.includes('link')) {
+    throw new Error(`Size ${size.id} bans plain matches, which a puzzle cannot be built without`);
+  }
+  return allowed;
+}
+
 export interface Pools {
   positive: Clue[];
   negative: Clue[];
@@ -159,6 +195,7 @@ export function buildPools(
   categories: PuzzleCategory[],
   ctx: SolveContext,
   rng: Rng,
+  allowed: readonly ClueKind[] = CLUE_KINDS,
 ): Pools {
   const size = ctx.size;
   const count = ctx.categoryCount;
@@ -257,6 +294,13 @@ export function buildPools(
     }
   }
 
+  // Emptied at the end rather than skipped at the start: every pool is built
+  // the same way whatever a board allows, so a kind a size turns off is one
+  // nothing is offered from rather than one that works differently.
+  for (const kind of CLUE_KINDS) {
+    if (!allowed.includes(kind)) pools[POOL_OF[kind]] = [];
+  }
+
   return pools;
 }
 
@@ -328,8 +372,9 @@ function buildClues(
   categories: PuzzleCategory[],
   ctx: SolveContext,
   rng: Rng,
+  size: SizeOption,
 ): Clue[] {
-  const pools = buildPools(solution, categories, ctx, rng);
+  const pools = buildPools(solution, categories, ctx, rng, cluesAllowed(size));
 
   // Thinning the flavour out is the only reliable way to hit the link share:
   // which clues survive is decided by the deduction, not by the offer. The last

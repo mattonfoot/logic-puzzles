@@ -11,7 +11,7 @@
  * tick, or the tick that follows from the last blank in a row, are the grid's
  * rules rather than the clue's, and the board fills those in on its own.
  */
-import { buildPools, clueKey } from '../puzzle/generator';
+import { buildPools, clueKey, cluesAllowed } from '../puzzle/generator';
 import { createRng } from '../puzzle/rng';
 import { contextFor } from '../puzzle/solver';
 import type { Attribute, Clue, Puzzle } from '../puzzle/types';
@@ -218,7 +218,9 @@ export function nextClue(current: number | null, done: Set<number>, total: numbe
 export function inventClue(puzzle: Puzzle, marks: Marks, attempt: number): Clue | null {
   const rng = createRng(puzzle.seed + attempt + 1);
   const ctx = contextFor(puzzle.categories, puzzle.size.items);
-  const pools = buildPools(puzzle.solution, puzzle.categories, ctx, rng);
+  // Held to the same kinds the board was built from: a player who has never
+  // met a comparison should not be handed one when they ask for help.
+  const pools = buildPools(puzzle.solution, puzzle.categories, ctx, rng, cluesAllowed(puzzle.size));
   const said = new Set(puzzle.clues.map(clueKey));
 
   for (const pool of [

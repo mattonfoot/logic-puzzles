@@ -25,8 +25,8 @@ import {
 
 // Four of each, which is the smallest board these tests can say anything on:
 // they reach for a fourth row to prove a tick has not crossed out more than its
-// own, and three would leave nothing outside it.
-const puzzle = generatePuzzle({ theme: THEMES[0], size: sizeById('md'), seed: 2024 });
+// own, and three would leave nothing outside it. Pro is where four rows start.
+const puzzle = generatePuzzle({ theme: THEMES[0], size: sizeById('lg'), seed: 2024 });
 const size = puzzle.size.items;
 const options = { size };
 

@@ -1,4 +1,4 @@
-import { generatePuzzle } from '../../puzzle/generator';
+import { cluesAllowed, generatePuzzle } from '../../puzzle/generator';
 import { contextFor, hasUniqueSolution, solveByDeduction } from '../../puzzle/solver';
 import { SIZES, sizeById } from '../sizes';
 import { THEMES } from '../themes';
@@ -15,10 +15,14 @@ describe('the difficulties', () => {
   const LADDER = [
     ['xs', 'Beginner', 3, 3],
     ['sm', 'Advanced', 3, 4],
-    ['md', 'Expert', 4, 4],
-    ['lg', 'Pro', 4, 5],
-    ['xl', 'Legend', 5, 5],
+    ['md', 'Expert', 3, 5],
+    ['lg', 'Pro', 4, 4],
+    ['xl', 'Legend', 4, 5],
   ] as const;
+
+  /** Squares on the board: a row and a column of each pair of sets. */
+  const squares = (items: number, categories: number) =>
+    items * items * ((categories * (categories - 1)) / 2);
 
   it('climbs from three of each across three sets to five across five', () => {
     expect(SIZES.map((size) => size.id)).toEqual(LADDER.map(([id]) => id));
@@ -32,13 +36,21 @@ describe('the difficulties', () => {
     }
   });
 
-  it('adds one thing per step, and never two', () => {
+  it('grows the board every step, and never both ways at once', () => {
     for (let step = 1; step < SIZES.length; step++) {
-      const grew =
-        SIZES[step].items -
-        SIZES[step - 1].items +
-        (SIZES[step].categories - SIZES[step - 1].categories);
-      expect(grew).toBe(1);
+      const was = SIZES[step - 1];
+      const now = SIZES[step];
+      // The board itself has to get bigger, which is what the player meets.
+      // Counting squares rather than the two numbers: a set costs more than an
+      // item, because every set pairs with every other one.
+      expect(squares(now.items, now.categories)).toBeGreaterThan(
+        squares(was.items, was.categories),
+      );
+      // A step that added an entity and a set at once would double the board
+      // rather than stretch it. The ladder adds sets until there are five, then
+      // takes one back to buy the next entity.
+      const more = (a: number, b: number) => (a > b ? 1 : 0);
+      expect(more(now.items, was.items) + more(now.categories, was.categories)).toBe(1);
     }
   });
 
@@ -56,6 +68,19 @@ describe('the difficulties', () => {
         }
       }
     }
+  });
+
+  it('never bans the plain match, which every puzzle falls back on', () => {
+    for (const size of SIZES) {
+      // A size that says nothing takes every kind; one that names them has to
+      // keep this one, or the generator's own fallback would put it back and
+      // the config would be describing a board it does not get.
+      expect(`${size.id}: ${cluesAllowed(size).join(', ')}`).toContain('link');
+    }
+  });
+
+  it('refuses a board built without plain matches', () => {
+    expect(() => cluesAllowed({ ...sizeById('xs'), clues: ['notLink'] })).toThrow(/plain matches/);
   });
 
   /** And the generator has to reach a real puzzle at the top of the ladder. */

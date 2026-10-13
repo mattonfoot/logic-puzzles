@@ -1,8 +1,9 @@
-import { SIZES } from '../../data/sizes';
+import { SIZES, sizeById } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
 import { describeClue } from '../describe';
-import { generatePuzzle } from '../generator';
-import { contextFor, satisfiesAll, solve, solveByDeduction } from '../solver';
+import { CLUE_KINDS, cluesAllowed, generatePuzzle } from '../generator';
+import { contextFor, hasUniqueSolution, satisfiesAll, solve, solveByDeduction } from '../solver';
+import type { Clue, ClueKind, SizeOption } from '../types';
 
 jest.setTimeout(120_000);
 
@@ -49,6 +50,55 @@ describe('generatePuzzle', () => {
         expect(solveByDeduction(without, ctx)).toBeNull();
       }
     }
+  });
+
+  describe('the kinds a board is allowed', () => {
+    const kindOf = (clue: Clue): ClueKind =>
+      clue.kind === 'link'
+        ? clue.positive
+          ? 'link'
+          : 'notLink'
+        : clue.kind === 'compare'
+          ? clue.gap === undefined
+            ? 'compare'
+            : 'compareGap'
+          : clue.kind;
+
+    const kindsAt = (size: SizeOption, runs = 40) => {
+      const seen = new Set<ClueKind>();
+      for (let n = 1; n <= runs; n++) {
+        const puzzle = generatePuzzle({ theme: THEMES, size, seed: n * 100 + 7 });
+        for (const clue of puzzle.clues) seen.add(kindOf(clue));
+      }
+      return seen;
+    };
+
+    it('builds a board from nothing its size turns off', () => {
+      for (const size of SIZES) {
+        const allowed = cluesAllowed(size);
+        for (const kind of kindsAt(size)) {
+          expect(`${size.id} used ${kind}`).toBe(
+            allowed.includes(kind) ? `${size.id} used ${kind}` : `${size.id} may not use ${kind}`,
+          );
+        }
+      }
+    });
+
+    it('still reaches for every kind when a size turns none off', () => {
+      // Otherwise the filter could be stuck on and nothing would notice.
+      const open = { ...sizeById('xl'), clues: undefined };
+      expect(kindsAt(open).size).toBe(CLUE_KINDS.length);
+    });
+
+    it('comes out solvable without guessing on a board that bans most of them', () => {
+      const size = { ...sizeById('xs'), clues: ['link', 'either'] as ClueKind[] };
+      for (let n = 1; n <= 30; n++) {
+        const puzzle = generatePuzzle({ theme: THEMES, size, seed: n * 13 });
+        const ctx = contextFor(puzzle.categories, size.items);
+        expect(hasUniqueSolution(puzzle.clues, ctx)).toBe(true);
+        expect(solveByDeduction(puzzle.clues, ctx)).not.toBeNull();
+      }
+    });
   });
 
   describe('drawing from the pool', () => {

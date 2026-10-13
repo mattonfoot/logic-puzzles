@@ -1147,13 +1147,13 @@ sizes:
     label: 3 × 4
   md:
     difficulty: Expert
-    label: 4 × 4
+    label: 3 × 5
   lg:
     difficulty: Pro
-    label: 4 × 5
+    label: 4 × 4
   xl:
     difficulty: Legend
-    label: 5 × 5
+    label: 4 × 5
 
 # The colours the app can be drawn in.
 accents:

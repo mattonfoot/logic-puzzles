@@ -302,11 +302,23 @@ async function main() {
     if (columns.length === 0 || rows.length === 0) {
       complain('the board has no headings to pin');
     } else {
-      await page.evaluate(() => {
+      // Whether the board had anywhere to scroll on each axis. On the largest
+      // phone the biggest board can fit without scrolling at all, and a heading
+      // that never moves because nothing moved says nothing about its pinning.
+      const scrolled = await page.evaluate(() => {
+        let down = false;
+        let across = false;
         for (const el of document.querySelectorAll('div')) {
-          if (el.scrollHeight > el.clientHeight + 1 && el.clientHeight > 100) el.scrollTop = 150;
-          if (el.scrollWidth > el.clientWidth + 1 && el.clientWidth > 100) el.scrollLeft = 150;
+          if (el.scrollHeight > el.clientHeight + 1 && el.clientHeight > 100) {
+            el.scrollTop = 150;
+            down ||= el.scrollTop > 0;
+          }
+          if (el.scrollWidth > el.clientWidth + 1 && el.clientWidth > 100) {
+            el.scrollLeft = 150;
+            across ||= el.scrollLeft > 0;
+          }
         }
+        return { down, across };
       });
       await wait(page, 500);
       const after = await headings();
@@ -322,10 +334,10 @@ async function main() {
       // And each has to follow the grid on its own axis, or it would be pinned
       // to nothing: a column heading that never moves sideways is not above the
       // column it names.
-      if (columns.every((h) => after[h.at] && after[h.at].x === h.x)) {
+      if (scrolled.across && columns.every((h) => after[h.at] && after[h.at].x === h.x)) {
         complain('the column headings did not follow the grid sideways');
       }
-      if (rows.every((h) => after[h.at] && after[h.at].y === h.y)) {
+      if (scrolled.down && rows.every((h) => after[h.at] && after[h.at].y === h.y)) {
         complain('the row headings did not follow the grid down');
       }
     }

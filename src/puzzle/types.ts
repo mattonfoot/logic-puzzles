@@ -109,6 +109,13 @@ export interface ClueTemplates {
   compareGap: string;
 }
 
+/**
+ * The kinds of clue a puzzle can be built from, named the way their wording is
+ * — so a size saying which kinds it allows and a theme saying how each one is
+ * worded are talking about the same six things.
+ */
+export type ClueKind = keyof ClueTemplates;
+
 export interface ThemeDef {
   id: string;
   name: string;
@@ -180,6 +187,19 @@ export interface SizeOption {
   label: string;
   /** What that shape asks of the player: "Beginner", "Pro". */
   difficulty: string;
+  /**
+   * Which kinds of clue this board is allowed to be built from.
+   *
+   * Left out, it takes all six. A smaller board is a gentler one, so the lowest
+   * rungs can be kept to the kinds a first-time player can act on without being
+   * taught anything: a comparison asks you to hold an order in your head, and a
+   * negative asks you to act on what a sentence does not say.
+   *
+   * `link` cannot be excluded. The generator falls back to plain matches when a
+   * puzzle will not come out any other way, so a board that banned them would
+   * get them anyway — better to say so than to let the config quietly lie.
+   */
+  clues?: readonly ClueKind[];
 }
 
 export interface Puzzle {

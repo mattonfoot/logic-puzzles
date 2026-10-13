@@ -1502,15 +1502,15 @@ export const STRINGS = {
     },
     md: {
       difficulty: 'Expert',
-      label: '4 × 4',
+      label: '3 × 5',
     },
     lg: {
       difficulty: 'Pro',
-      label: '4 × 5',
+      label: '4 × 4',
     },
     xl: {
       difficulty: 'Legend',
-      label: '5 × 5',
+      label: '4 × 5',
     },
   },
   accents: {

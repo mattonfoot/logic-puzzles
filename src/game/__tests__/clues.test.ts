@@ -1,7 +1,7 @@
-import { SIZES } from '../../data/sizes';
+import { SIZES, sizeById } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
 import { DEFAULT_CLUE_TEMPLATES } from '../../puzzle/describe';
-import { clueKey, generatePuzzle } from '../../puzzle/generator';
+import { clueKey, cluesAllowed, generatePuzzle } from '../../puzzle/generator';
 import type { Clue, ItemDef, Puzzle } from '../../puzzle/types';
 
 /** A bare item: these tests are about the logic, not the words. */
@@ -210,6 +210,26 @@ describe('the clue on the table', () => {
 
   it('has nothing to offer once every clue is used up', () => {
     expect(nextClue(1, new Set([0, 1, 2]), 3)).toBeNull();
+  });
+});
+
+describe('inventing another clue', () => {
+  it("offers nothing the board's size turns off", () => {
+    const size = sizeById('xs');
+    const allowed = cluesAllowed(size);
+    for (let seed = 1; seed <= 12; seed++) {
+      const puzzle = generatePuzzle({ theme: THEMES, size, seed: seed * 101 });
+      for (let attempt = 0; attempt < 8; attempt++) {
+        const clue = inventClue(puzzle, {}, attempt);
+        if (!clue) break;
+        const kind = clue.kind === 'link' ? (clue.positive ? 'link' : 'notLink') : clue.kind;
+        expect(`${kind} offered at ${size.id}`).toBe(
+          allowed.includes(kind as (typeof allowed)[number])
+            ? `${kind} offered at ${size.id}`
+            : `${kind} is not allowed at ${size.id}`,
+        );
+      }
+    }
   });
 });
 
