@@ -1142,6 +1142,73 @@ briefings:
         body: A passenger has kindly offered to take over the records, inspiring the staff to solve the problem promptly. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
       - title: The Final Check
         body: The conductor wants one dependable account before putting the folder away with an expression of professional certainty. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+    cloudtop-academy:
+      - title: The Wandering Ledger
+        body: The assessment ledger has wandered off and returned with its pages in a more adventurous order. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: A Helpful Breeze
+        body: An open window has introduced the records to the weather and left the tutor gathering the consequences. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Headteacher's Visit
+        body: The headteacher has asked to see the records, and the tutor has begun smiling with unusual concentration. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Enchanted Ink
+        body: The ink has settled back into ordinary letters, but the headings have not returned to their original places. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: A Model Pupil
+        body: A pupil has tidied the desk so thoroughly that the filing system now exists chiefly in memory. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Duplicate Register
+        body: The duplicate register contains the same information in an arrangement that disagrees with the original. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Floating Pages
+        body: The pages have stopped floating, which is a welcome first step towards making sense of them. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Tutor's Shortcut
+        body: The tutor's abbreviated notes save time only if somebody can first work out what they mean. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: A Very Small Dragon
+        body: An uninvited visitor has sneezed near the desk, leaving the paperwork warm, intact and unexpectedly rearranged. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Missing Index
+        body: The index has vanished while the pages it was meant to explain remain inconveniently present. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Neat Rewrite
+        body: A pupil has copied the records with immaculate penmanship and complete loyalty to their original confusion. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Advisory Committee
+        body: The pupils have formed a committee to discuss the mix-up, creating an immediate need for a quicker method. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: A Fresh Cover
+        body: The register has received a splendid new binding around contents that still require considerable attention. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Silent Inspection
+        body: The inspector has said nothing about the paperwork, which the tutor finds considerably worse than a complaint. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Overhelpful Quill
+        body: The automatic quill has completed several unfinished lines using information it found nearby. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: A Matter of Margins
+        body: The tutor's useful comments were in the margins, which the copying process has treated as optional. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Wrong Shelf
+        body: The records have been found among the adventure stories, where their recent history apparently qualified them. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Folding Lesson
+        body: An exercise in paper folding has accidentally included several sheets that were supposed to remain administrative. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Almost Accurate Copy
+        body: The latest copy looks reassuring until the headings are compared with the entries beneath them. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Desk Has Opinions
+        body: The desk has rearranged its drawers overnight and appears unwilling to explain its preferred system. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: A Polite Reminder
+        body: The headteacher has sent a polite reminder, carefully leaving space for a less polite follow-up. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Unreadable Initials
+        body: The tutor's initials have become indistinguishable from the flourish used to cross out mistakes. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Helpful Bell
+        body: The bell has announced the end of administrative work while the administrative work remains unconvinced. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: A Perfectly Good Folder
+        body: The folder is in excellent condition, a fact the tutor mentions whenever anyone asks about its contents. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Pupils' Account
+        body: The pupils remember the assessment vividly but disagree about which details belong in which record. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Blue Ribbon
+        body: A blue ribbon marks the important pages, though someone has applied it to every page for fairness. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Floating Pencil
+        body: The pencil has finally landed after correcting several entries that nobody asked it to correct. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: An Unexpected Audience
+        body: A group of visiting tutors has gathered at the desk just as the filing problem becomes difficult to disguise. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Backup Plan
+        body: The backup records have been recovered and appear to preserve the original uncertainty with impressive care. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: A Brief Experiment
+        body: An experiment in self-organising paperwork has ended with the papers organised according to their own priorities. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Morning Promise
+        body: The tutor promised an orderly register by the next meeting and would appreciate reality catching up. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: The Last Annotation
+        body: The final note says see previous note, beginning a journey that has so far produced no destination. Use the clues to restore the pupils' records before the tutor submits the register.
+      - title: Ready for the Head
+        body: The register needs one trustworthy arrangement before it is presented with the customary air of academic certainty. Use the clues to restore the pupils' records before the tutor submits the register.
 menu:
   title: Puzzle settings
   thisPuzzle: This puzzle
@@ -5110,10 +5177,10 @@ themes:
     name: 'Backstage Mystery'
     blurb: 'A flawless production, pending several small explanations.'
     clues:
-      link: '{a} is recorded with {b}.'
-      notLink: '{a} is not recorded with {b}.'
-      groupNot: 'No {a} is recorded with {b}.'
-      either: '{a} is recorded with either {b} or {c}, but not both.'
+      link: '{a} appears in the same act as {b}.'
+      notLink: '{a} does not appear in the same act as {b}.'
+      groupNot: 'No {a} appears in the same act as {b}.'
+      either: '{a} appears in the same act as either {b} or {c}, but not both.'
       compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.'
       compareGap: 'The appearance linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     categories:
@@ -5679,10 +5746,10 @@ themes:
     name: 'Clockwork Workshop'
     blurb: 'Precision engineering. Approximate supervision.'
     clues:
-      link: '{a} is recorded with {b}.'
-      notLink: '{a} is not recorded with {b}.'
-      groupNot: 'No {a} is recorded with {b}.'
-      either: '{a} is recorded with either {b} or {c}, but not both.'
+      link: '{a} shares a workshop job with {b}.'
+      notLink: '{a} does not share a workshop job with {b}.'
+      groupNot: 'No {a} shares a workshop job with {b}.'
+      either: '{a} shares a workshop job with either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
       compareGap: 'The build linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     categories:
@@ -6248,10 +6315,10 @@ themes:
     name: 'Harbour Watch'
     blurb: 'The tide is dependable. The paperwork is less so.'
     clues:
-      link: '{a} is recorded with {b}.'
-      notLink: '{a} is not recorded with {b}.'
-      groupNot: 'No {a} is recorded with {b}.'
-      either: '{a} is recorded with either {b} or {c}, but not both.'
+      link: '{a} shares a port call with {b}.'
+      notLink: '{a} does not share a port call with {b}.'
+      groupNot: 'No {a} shares a port call with {b}.'
+      either: '{a} shares a port call with either {b} or {c}, but not both.'
       compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.'
       compareGap: 'The arrival linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     categories:
@@ -6817,10 +6884,10 @@ themes:
     name: 'Lantern Festival'
     blurb: 'A thousand lights. One rather confused running order.'
     clues:
-      link: '{a} is recorded with {b}.'
-      notLink: '{a} is not recorded with {b}.'
-      groupNot: 'No {a} is recorded with {b}.'
-      either: '{a} is recorded with either {b} or {c}, but not both.'
+      link: '{a} joins the same festival act as {b}.'
+      notLink: '{a} does not join the same festival act as {b}.'
+      groupNot: 'No {a} joins the same festival act as {b}.'
+      either: '{a} joins the same festival act as either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
       compareGap: 'The performance linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     categories:
@@ -7386,10 +7453,10 @@ themes:
     name: 'Last Train'
     blurb: 'Everyone is certain they are on the right train.'
     clues:
-      link: '{a} is recorded with {b}.'
-      notLink: '{a} is not recorded with {b}.'
-      groupNot: 'No {a} is recorded with {b}.'
-      either: '{a} is recorded with either {b} or {c}, but not both.'
+      link: '{a} travels on the same booking as {b}.'
+      notLink: '{a} does not travel on the same booking as {b}.'
+      groupNot: 'No {a} travels on the same booking as {b}.'
+      either: '{a} travels on the same booking as either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
       compareGap: 'The departure linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     categories:
@@ -7951,3 +8018,572 @@ themes:
             traits:
               period: 'late'
               window: 'second-half'
+  cloudtop-academy:
+    name: 'Cloudtop Academy'
+    blurb: 'Outstanding potential. Unsupervised results may vary.'
+    clues:
+      link: '{a} shares an assessment with {b}.'
+      notLink: '{a} does not share an assessment with {b}.'
+      groupNot: 'No {a} shares an assessment with {b}.'
+      either: '{a} shares an assessment with either {b} or {c}, but not both.'
+      compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
+      compareGap: 'The score linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+    categories:
+      pupil:
+        name: 'Pupil'
+        pattern: '{}'
+        describes: 'the {}'
+        noun: 'pupil'
+        traits:
+          experience:
+            label: 'Experience'
+            pattern: '{noun} with {} experience'
+          shift:
+            label: 'Shift'
+            pattern: '{noun} on the {} shift'
+          manner:
+            label: 'Manner'
+            pattern: '{} {noun}'
+        items:
+          finch-featherby:
+            label: 'Finch Featherby'
+            blurb: 'Raises a hand before every question, including rhetorical ones.'
+            traits:
+              experience: 'limited'
+              shift: 'early'
+              manner: 'patient'
+          pippa-puddle:
+            label: 'Pippa Puddle'
+            blurb: 'Has never met a practical lesson that could not become more practical.'
+            traits:
+              experience: 'considerable'
+              shift: 'late'
+              manner: 'patient'
+          theo-thistle:
+            label: 'Theo Thistle'
+            blurb: 'Annotates the textbook until the margins request their own textbook.'
+            traits:
+              experience: 'extensive'
+              shift: 'early'
+              manner: 'brisk'
+          mina-moonlet:
+            label: 'Mina Moonlet'
+            blurb: 'Maintains that staring out of the window counts as sky research.'
+            traits:
+              experience: 'limited'
+              shift: 'late'
+              manner: 'brisk'
+          basil-brim:
+            label: 'Basil Brim'
+            blurb: 'Dresses for graduation several academic years ahead of schedule.'
+            traits:
+              experience: 'considerable'
+              shift: 'early'
+              manner: 'dramatic'
+          cora-cloud:
+            label: 'Cora Cloud'
+            blurb: 'Volunteers first and reads the instructions with mounting interest afterwards.'
+            traits:
+              experience: 'extensive'
+              shift: 'late'
+              manner: 'dramatic'
+          ned-nimbus:
+            label: 'Ned Nimbus'
+            blurb: 'Brings emergency snacks for himself and hypothetical future versions of himself.'
+            traits:
+              experience: 'limited'
+              shift: 'early'
+              manner: 'patient'
+          ari-aster:
+            label: 'Ari Aster'
+            blurb: 'Hears every announcement, except the one about listening carefully.'
+            traits:
+              experience: 'considerable'
+              shift: 'late'
+              manner: 'patient'
+          kit-kestrel:
+            label: 'Kit Kestrel'
+            blurb: 'Describes an unexpected explosion as an unusually visible answer.'
+            traits:
+              experience: 'extensive'
+              shift: 'early'
+              manner: 'brisk'
+          lottie-lark:
+            label: 'Lottie Lark'
+            blurb: 'Smiles at difficult questions until they begin to feel unreasonable.'
+            traits:
+              experience: 'limited'
+              shift: 'late'
+              manner: 'brisk'
+          peregrine-plum:
+            label: 'Peregrine Plum'
+            blurb: 'Keeps a list of achievements with several spaces reserved for imminent ones.'
+            traits:
+              experience: 'considerable'
+              shift: 'early'
+              manner: 'dramatic'
+          rowan-rook:
+            label: 'Rowan Rook'
+            blurb: 'Regards detention as an opportunity to inspect the furniture.'
+            traits:
+              experience: 'extensive'
+              shift: 'late'
+              manner: 'dramatic'
+          wren-willow:
+            label: 'Wren Willow'
+            blurb: 'Remembers every exception and regards the rules as useful background reading.'
+            traits:
+              experience: 'limited'
+              shift: 'early'
+              manner: 'patient'
+          sylvie-sleet:
+            label: 'Sylvie Sleet'
+            blurb: 'Has perfected the expression of someone whose homework is technically elsewhere.'
+            traits:
+              experience: 'considerable'
+              shift: 'late'
+              manner: 'patient'
+      familiar:
+        name: 'Familiar'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'familiar'
+        traits:
+          temper:
+            label: 'Temper'
+            pattern: '{} {noun}'
+          habit:
+            label: 'Habit'
+            pattern: '{noun} active at {}'
+          size:
+            label: 'Size'
+            pattern: '{} {noun}'
+        items:
+          barn-owl:
+            label: 'Barn Owl'
+            blurb: 'Offers silent judgement at a very reasonable hourly rate.'
+            traits:
+              temper: 'watchful'
+              habit: 'night'
+              size: 'medium'
+          ember-fox:
+            label: 'Ember Fox'
+            blurb: 'Returns borrowed things in a way that raises additional questions.'
+            traits:
+              temper: 'mischievous'
+              habit: 'dusk'
+              size: 'medium'
+          moon-hare:
+            label: 'Moon Hare'
+            blurb: 'Has completed the escape exercise before it is announced.'
+            traits:
+              temper: 'timid'
+              habit: 'dusk'
+              size: 'small'
+          velvet-cat:
+            label: 'Velvet Cat'
+            blurb: 'Considers the pupil a promising but undertrained assistant.'
+            traits:
+              temper: 'aloof'
+              habit: 'night'
+              size: 'small'
+          pocket-bat:
+            label: 'Pocket Bat'
+            blurb: 'Mistakes every coat cupboard for an excellent dormitory.'
+            traits:
+              temper: 'timid'
+              habit: 'night'
+              size: 'small'
+          teacup-dragon:
+            label: 'Teacup Dragon'
+            blurb: 'Breathes just enough fire to create a highly personal toast preference.'
+            traits:
+              temper: 'mischievous'
+              habit: 'dawn'
+              size: 'small'
+          marble-tortoise:
+            label: 'Marble Tortoise'
+            blurb: 'Approaches every emergency as an opportunity for measured reflection.'
+            traits:
+              temper: 'aloof'
+              habit: 'dawn'
+              size: 'medium'
+          puddle-frog:
+            label: 'Puddle Frog'
+            blurb: 'Contributes enthusiastic punctuation to otherwise serious discussions.'
+            traits:
+              temper: 'mischievous'
+              habit: 'dusk'
+              size: 'small'
+          velvet-moth:
+            label: 'Velvet Moth'
+            blurb: 'Assists with illumination by standing directly in front of it.'
+            traits:
+              temper: 'timid'
+              habit: 'night'
+              size: 'small'
+          clock-mouse:
+            label: 'Clock Mouse'
+            blurb: 'Can hear the lunch bell several promising minutes in advance.'
+            traits:
+              temper: 'watchful'
+              habit: 'dawn'
+              size: 'small'
+          ribbon-snake:
+            label: 'Ribbon Snake'
+            blurb: 'Ties itself into a helpful diagram whenever nobody needs one.'
+            traits:
+              temper: 'aloof'
+              habit: 'dusk'
+              size: 'medium'
+          ink-raven:
+            label: 'Ink Raven'
+            blurb: 'Collects shiny objects and damaging quotations.'
+            traits:
+              temper: 'watchful'
+              habit: 'dawn'
+              size: 'medium'
+          thimble-hedgehog:
+            label: 'Thimble Hedgehog'
+            blurb: 'A reliable companion with a limited interest in being hugged.'
+            traits:
+              temper: 'timid'
+              habit: 'dusk'
+              size: 'small'
+          copper-salamander:
+            label: 'Copper Salamander'
+            blurb: 'Enjoys warm pockets and the occasional unauthorised practical lesson.'
+            traits:
+              temper: 'mischievous'
+              habit: 'night'
+              size: 'small'
+      spell:
+        name: 'Spell'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'spell'
+        traits:
+          school:
+            label: 'School'
+            pattern: '{noun} from the {} school'
+          delivery:
+            label: 'Delivery'
+            pattern: '{} {noun}'
+          duration:
+            label: 'Duration'
+            pattern: '{} {noun}'
+        items:
+          hearthspark:
+            label: 'Hearthspark'
+            blurb: "Lights a fire and briefly elevates everyone's confidence in the syllabus."
+            traits:
+              school: 'elemental'
+              delivery: 'spoken'
+              duration: 'brief'
+          frostlace:
+            label: 'Frostlace'
+            blurb: 'Produces decorative ice where a less ambitious spell would use a coaster.'
+            traits:
+              school: 'elemental'
+              delivery: 'gestured'
+              duration: 'lingering'
+          thunderblink:
+            label: 'Thunderblink'
+            blurb: 'A flash of inspiration with a small accompanying maintenance request.'
+            traits:
+              school: 'elemental'
+              delivery: 'spoken'
+              duration: 'brief'
+          tidal-turn:
+            label: 'Tidal Turn'
+            blurb: 'Moves water politely until someone loses concentration.'
+            traits:
+              school: 'elemental'
+              delivery: 'gestured'
+              duration: 'lingering'
+          leafwake:
+            label: 'Leafwake'
+            blurb: 'Encourages plants to participate, sometimes beyond the planned lesson.'
+            traits:
+              school: 'growth'
+              delivery: 'spoken'
+              duration: 'lingering'
+          moonveil:
+            label: 'Moonveil'
+            blurb: 'Makes the room mysterious without explaining where the homework went.'
+            traits:
+              school: 'illusion'
+              delivery: 'whispered'
+              duration: 'lingering'
+          stargleam:
+            label: 'Stargleam'
+            blurb: 'Adds sparkle to answers that still require proper working.'
+            traits:
+              school: 'illusion'
+              delivery: 'gestured'
+              duration: 'brief'
+          aegis-arc:
+            label: 'Aegis Arc'
+            blurb: 'Protects the caster from most impacts and none of the subsequent questions.'
+            traits:
+              school: 'protection'
+              delivery: 'spoken'
+              duration: 'lingering'
+          lockwhisper:
+            label: 'Lockwhisper'
+            blurb: 'Opens a lock after a short conversation about trust.'
+            traits:
+              school: 'alteration'
+              delivery: 'whispered'
+              duration: 'brief'
+          minute-mend:
+            label: 'Minute Mend'
+            blurb: 'Buys a little time. The timetable will invoice for it later.'
+            traits:
+              school: 'alteration'
+              delivery: 'whispered'
+              duration: 'brief'
+          farseeing:
+            label: 'Farseeing'
+            blurb: 'Reveals distant details, excluding the obvious answer on the board.'
+            traits:
+              school: 'illusion'
+              delivery: 'gestured'
+              duration: 'brief'
+          featherfloat:
+            label: 'Featherfloat'
+            blurb: 'Lifts a small object and an entirely disproportionate amount of expectation.'
+            traits:
+              school: 'alteration'
+              delivery: 'spoken'
+              duration: 'lingering'
+          whirlward:
+            label: 'Whirlward'
+            blurb: 'Redirects a draught that had become too involved in the lesson.'
+            traits:
+              school: 'protection'
+              delivery: 'gestured'
+              duration: 'lingering'
+          tanglebind:
+            label: 'Tanglebind'
+            blurb: 'Secures loose ends, including a few that were behaving perfectly well.'
+            traits:
+              school: 'protection'
+              delivery: 'whispered'
+              duration: 'brief'
+      classroom:
+        name: 'Classroom'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'classroom'
+        traits:
+          level:
+            label: 'Level'
+            pattern: '{noun} on the {} level'
+          light:
+            label: 'Light'
+            pattern: '{} {noun}'
+          access:
+            label: 'Access'
+            pattern: '{noun} with {} access'
+        items:
+          scriptorium:
+            label: 'Scriptorium'
+            blurb: 'The books insist that silence applies chiefly to the pupils.'
+            traits:
+              level: 'lower'
+              light: 'bright'
+              access: 'step-free'
+          potion-kitchen:
+            label: 'Potion Kitchen'
+            blurb: 'The recipe ends with a phrase equivalent to hope for the best.'
+            traits:
+              level: 'lower'
+              light: 'dim'
+              access: 'step-free'
+          star-laboratory:
+            label: 'Star Laboratory'
+            blurb: 'The lesson plan is subject to cloud cover and celestial enthusiasm.'
+            traits:
+              level: 'upper'
+              light: 'dim'
+              access: 'stairs-only'
+          moving-stair-hall:
+            label: 'Moving Stair Hall'
+            blurb: 'Arriving on time requires a persuasive relationship with architecture.'
+            traits:
+              level: 'middle'
+              light: 'bright'
+              access: 'stairs-only'
+          door-studies:
+            label: 'Door Studies'
+            blurb: 'Entry is the first exercise. Leaving is reserved for advanced pupils.'
+            traits:
+              level: 'middle'
+              light: 'dim'
+              access: 'step-free'
+          glasshouse:
+            label: 'Glasshouse'
+            blurb: 'The vines attend every lesson and occasionally take attendance.'
+            traits:
+              level: 'lower'
+              light: 'bright'
+              access: 'step-free'
+          illusion-theatre:
+            label: 'Illusion Theatre'
+            blurb: 'The applause may be imaginary, but the stage fright is fully accredited.'
+            traits:
+              level: 'middle'
+              light: 'dim'
+              access: 'step-free'
+          strategy-room:
+            label: 'Strategy Room'
+            blurb: 'The pieces argue about the lesson more vigorously than the pupils.'
+            traits:
+              level: 'middle'
+              light: 'bright'
+              access: 'step-free'
+          broom-loft:
+            label: 'Broom Loft'
+            blurb: 'The ceiling is high for reasons the incident book makes clear.'
+            traits:
+              level: 'upper'
+              light: 'bright'
+              access: 'stairs-only'
+          cloud-balcony:
+            label: 'Cloud Balcony'
+            blurb: 'The view is excellent whenever the floor agrees to remain visible.'
+            traits:
+              level: 'upper'
+              light: 'bright'
+              access: 'stairs-only'
+          bell-chamber:
+            label: 'Bell Chamber'
+            blurb: 'A room where every answer can become the final answer very loudly.'
+            traits:
+              level: 'upper'
+              light: 'dim'
+              access: 'stairs-only'
+          time-study:
+            label: 'Time Study'
+            blurb: 'Extra homework appears to take exactly as long as expected.'
+            traits:
+              level: 'middle'
+              light: 'dim'
+              access: 'step-free'
+          map-turret:
+            label: 'Map Turret'
+            blurb: 'Contains detailed routes to places that have since changed their minds.'
+            traits:
+              level: 'upper'
+              light: 'bright'
+              access: 'stairs-only'
+          garden-classroom:
+            label: 'Garden Classroom'
+            blurb: 'Outdoor learning with an unusually vocal hedge.'
+            traits:
+              level: 'lower'
+              light: 'bright'
+              access: 'step-free'
+      score:
+        name: 'Score'
+        pattern: 'the score of {}'
+        describes: 'the {}'
+        noun: 'score'
+        ordered:
+          noun: 'score'
+          unit: 'points'
+          greater: 'higher'
+          lesser: 'lower'
+        traits:
+          band:
+            label: 'Band'
+            pattern: '{noun} in the {} band'
+          review:
+            label: 'Review'
+            pattern: '{noun} with {} review'
+        items:
+          35:
+            label: '35'
+            blurb: 'A modest result, accompanied by an ambitious explanation.'
+            traits:
+              band: 'developing'
+              review: 'routine'
+          40:
+            label: '40'
+            blurb: 'The assessor has detected potential beneath the annotations.'
+            traits:
+              band: 'developing'
+              review: 'routine'
+          45:
+            label: '45'
+            blurb: 'Shows progress, although the progress has chosen a scenic route.'
+            traits:
+              band: 'developing'
+              review: 'routine'
+          50:
+            label: '50'
+            blurb: 'A respectable attempt with one conspicuously imaginative interpretation.'
+            traits:
+              band: 'developing'
+              review: 'routine'
+          55:
+            label: '55'
+            blurb: 'The answer is improving. The handwriting is pursuing independent interests.'
+            traits:
+              band: 'developing'
+              review: 'routine'
+          60:
+            label: '60'
+            blurb: 'The assessor begins using the word promising without a long pause.'
+            traits:
+              band: 'secure'
+              review: 'routine'
+          65:
+            label: '65'
+            blurb: 'A solid result with room left for an encouraging paragraph.'
+            traits:
+              band: 'secure'
+              review: 'routine'
+          70:
+            label: '70'
+            blurb: 'The work has crossed into territory described as quite impressive.'
+            traits:
+              band: 'secure'
+              review: 'extended'
+          75:
+            label: '75'
+            blurb: 'An achievement that will be mentioned at dinner at least twice.'
+            traits:
+              band: 'secure'
+              review: 'extended'
+          80:
+            label: '80'
+            blurb: 'The assessor has run out of minor corrections and moved on to punctuation.'
+            traits:
+              band: 'secure'
+              review: 'extended'
+          85:
+            label: '85'
+            blurb: 'Strong work, despite a flourish that was not strictly necessary.'
+            traits:
+              band: 'excellent'
+              review: 'extended'
+          90:
+            label: '90'
+            blurb: 'A result that makes the next assignment feel slightly more demanding.'
+            traits:
+              band: 'excellent'
+              review: 'extended'
+          95:
+            label: '95'
+            blurb: 'Almost immaculate. The remaining comment has been written very small.'
+            traits:
+              band: 'excellent'
+              review: 'extended'
+          100:
+            label: '100'
+            blurb: 'The top listed mark. Modesty is recommended as an optional extension.'
+            traits:
+              band: 'excellent'
+              review: 'extended'

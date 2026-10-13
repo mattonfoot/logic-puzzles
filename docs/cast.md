@@ -19,11 +19,11 @@ construction is still there, and still draws anybody whose file is missing.
 
 The **id** is what names the drawing on disk: `assets/icons/<theme>/<category>-<id>.svg`.
 
-**Six themes of the eleven are here.** Backstage Mystery, Clockwork Workshop,
-Harbour Watch, Lantern Festival and Last Train arrived drawn and written, with
-no notes on the people behind the drawings, so there is nothing to quote for
-them that the app does not already say on the card. They belong here the day
-those notes exist.
+**Six themes of the twelve are here.** Backstage Mystery, Clockwork Workshop,
+Cloudtop Academy, Harbour Watch, Lantern Festival and Last Train arrived drawn
+and written, with no notes on the people behind the drawings, so there is
+nothing to quote for them that the app does not already say on the card. They
+belong here the day those notes exist.
 
 ## Cosmic Voyage
 
