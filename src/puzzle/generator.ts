@@ -3,7 +3,8 @@
  *
  * 1. Pick a theme, then categories and items from it, and roll a random
  *    solution. Every one of those picks comes from the seeded generator, so a
- *    seed rebuilds the whole puzzle — cast included.
+ *    seed rebuilds the whole puzzle — cast included. The theme is the one pick
+ *    that is dealt rather than drawn: see `themeFor`.
  * 2. Build a pool of clues that are all *true* for that solution.
  * 3. Greedily add clues until plain propagation cracks the puzzle — that makes
  *    the answer unique *and* reachable without ever guessing.
@@ -11,6 +12,7 @@
  * 5. Check the mix: link clues must carry at least three quarters of the
  *    puzzle. If they do not, build it again with the flavour spread thinner.
  */
+import { themeFor } from '../game/library';
 import { resolveClueTemplates } from './describe';
 import { createRng, randomSeed, type Rng } from './rng';
 import { contextFor, solveByDeduction, type SolveContext } from './solver';
@@ -25,7 +27,7 @@ import type {
 } from './types';
 
 export interface GenerateOptions {
-  /** One theme, or a pool for the generator to choose from. */
+  /** One theme, or the pool the seed's turn is dealt from. */
   theme: ThemeDef | ThemeDef[];
   size: SizeOption;
   seed?: number;
@@ -35,7 +37,10 @@ export function generatePuzzle({ theme: themeOrPool, size, seed }: GenerateOptio
   const actualSeed = seed ?? randomSeed();
   const rng = createRng(actualSeed);
 
-  const theme = Array.isArray(themeOrPool) ? rng.pick(themeOrPool) : themeOrPool;
+  // Dealt from the seed's place in its list rather than rolled, so no two
+  // puzzles next to each other are set in the same theme. Everything after this
+  // line is drawn from the seeded generator as before.
+  const theme = Array.isArray(themeOrPool) ? themeFor(actualSeed, themeOrPool) : themeOrPool;
   const categories = pickCategories(theme, size, rng);
   const solution = rollSolution(size.items, categories.length, rng);
   const ctx = contextFor(categories, size.items);

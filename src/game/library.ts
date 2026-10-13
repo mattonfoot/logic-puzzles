@@ -386,3 +386,73 @@ export function dailyStreak(history: CompletedGame[], now: Date = new Date()): n
   }
   return run;
 }
+
+/**
+ * Days since the start of 1970, worked out from the calendar rather than from a
+ * clock.
+ *
+ * Subtracting two `Date`s would be the obvious way and the wrong one: a day
+ * with a clock change in it is 23 or 25 hours long, so two dates either side of
+ * one can round to the same number of days — and two days that count as the
+ * same day would wear the same theme, which is the one thing the rotation below
+ * exists to prevent.
+ */
+function epochDay(day: number): number {
+  const year = Math.floor(day / 10000);
+  const month = Math.floor((day % 10000) / 100);
+  const date = day % 100;
+  // The civil-to-days shift: count years from March, so a leap day is the last
+  // day of its year and every other month sits at a fixed offset.
+  const shifted = year - (month <= 2 ? 1 : 0);
+  const era = Math.floor(shifted / 400);
+  const yearOfEra = shifted - era * 400;
+  const dayOfYear = Math.floor((153 * (month + (month > 2 ? -3 : 9)) + 2) / 5) + date - 1;
+  const dayOfEra =
+    yearOfEra * 365 + Math.floor(yearOfEra / 4) - Math.floor(yearOfEra / 100) + dayOfYear;
+  return era * 146097 + dayOfEra - 719468;
+}
+
+/**
+ * Where a puzzle sits in the run its theme turns through.
+ *
+ * The number on the list for a numbered game, the calendar day for a daily, and
+ * in both cases plus the columns that say which list it is on. Two puzzles next
+ * to each other therefore differ by one, which is what makes `themeFor` hand
+ * them different themes; so do the same number at two difficulties, and the
+ * same number played Pure and played Classic.
+ *
+ * Note what this is not: the seed itself. A numbered seed carries the number in
+ * its high digits and the difficulty and mode in its last two, so consecutive
+ * numbers are a hundred apart and consecutive days ten — and a hundred and ten
+ * are both multiples of five, which with five themes would have given every
+ * puzzle in a list the same one. The number has to come out of the seed before
+ * it can be counted on.
+ */
+export function themeTurn(seed: number): number {
+  const day = dayOf(seed);
+  if (day !== null) {
+    // A daily from before the difficulties were told apart is the bare day and
+    // has no column to add.
+    return epochDay(day) + (seed === day ? 0 : seed % DIFFICULTY_STEP);
+  }
+  const columns = seed % (DIFFICULTY_STEP * MODE_STEP);
+  return (
+    Math.floor(seed / (DIFFICULTY_STEP * MODE_STEP)) +
+    Math.floor(columns / MODE_STEP) +
+    (columns % MODE_STEP)
+  );
+}
+
+/**
+ * Which theme a seed's puzzle is set in.
+ *
+ * The themes are dealt in order rather than drawn at random, so a player
+ * working down a list meets all five before meeting any of them twice, and
+ * never meets the same one twice running. Generic in the theme so that the
+ * catalogue need not know what a theme is.
+ */
+export function themeFor<T>(seed: number, themes: readonly T[]): T {
+  if (themes.length === 0) throw new Error('No themes to choose from');
+  const turn = themeTurn(seed);
+  return themes[((turn % themes.length) + themes.length) % themes.length];
+}

@@ -1374,9 +1374,9 @@ describe('the board', () => {
     // the grid draws first: the first square on the board belongs to whatever
     // pair the layout puts there, and a clue with nothing to say about it
     // shades nothing, which would pass this test for the wrong reason.
-    const linked = puzzleOne('sm', numberedSeed(2, 'sm', 'pure'));
+    const linked = puzzleOne('sm', numberedSeed(7, 'sm', 'pure'));
     const first = linked.clues[0];
-    if (first.kind !== 'link' || !first.positive) throw new Error('Puzzle 2 has changed');
+    if (first.kind !== 'link' || !first.positive) throw new Error('Puzzle 7 has changed');
     const named = (attribute: { category: number; item: number }) =>
       linked.categories[attribute.category].items[attribute.item].label;
     // Not the pair the clue names — ticking that agrees with it — but the one

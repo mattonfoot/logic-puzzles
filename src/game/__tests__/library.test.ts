@@ -15,6 +15,7 @@ import {
   numberFor,
   numberOn,
   numberedSeed,
+  themeFor,
   MAX_ZOOM,
   pageNumbers,
   PAGE_SIZE,
@@ -154,7 +155,7 @@ describe('numberedSeed', () => {
     // in one place at four sizes. Drawn at one shape, so it is the seed being
     // compared and nothing else.
     const drawn = seeds.map((seed) =>
-      JSON.stringify(generatePuzzle({ theme: THEMES, size: SIZES[1], seed }).solution),
+      JSON.stringify(generatePuzzle({ theme: THEMES, size: SIZES[1], seed })),
     );
     expect(new Set(drawn).size).toBe(SIZES.length);
   });
@@ -240,9 +241,10 @@ describe('dailySeed', () => {
     // The seed is the only thing the generator is handed, so four seeds is what
     // it takes for four challenges to be four puzzles rather than one puzzle at
     // four shapes. Drawn at one shape, so it is the seed being compared and
-    // nothing else.
+    // nothing else — and the whole puzzle, since two different puzzles can land
+    // on the same solution and only the theme and cast tell them apart.
     const drawn = seeds.map((seed) =>
-      JSON.stringify(generatePuzzle({ theme: THEMES, size: SIZES[1], seed }).solution),
+      JSON.stringify(generatePuzzle({ theme: THEMES, size: SIZES[1], seed })),
     );
     expect(new Set(drawn).size).toBe(SIZES.length);
   });
@@ -476,5 +478,67 @@ describe('the catalogue, zoomed out', () => {
     expect(completedInRange(history, 'sm', 'pure', { first: 1, last: 5 })).toBe(2);
     expect(completedInRange(history, 'sm', 'pure', { first: 6, last: 10 })).toBe(1);
     expect(completedInRange(history, 'lg', 'pure', { first: 1, last: 5 })).toBe(1);
+  });
+});
+
+describe('themeFor', () => {
+  const idOf = (seed: number) => themeFor(seed, THEMES).id;
+
+  it('never sets two puzzles next to each other in the same theme', () => {
+    for (const size of SIZES) {
+      for (const mode of ['pure', 'classic'] as const) {
+        for (let number = 1; number < 60; number++) {
+          const here = idOf(numberedSeed(number, size.id, mode));
+          const next = idOf(numberedSeed(number + 1, size.id, mode));
+          expect(`${size.id}/${mode} ${number}: ${here} then ${next}`).not.toContain(
+            `${here} then ${here}`,
+          );
+        }
+      }
+    }
+  });
+
+  it('never sets two days running in the same theme, month and year ends included', () => {
+    // Two years of them, so February, the thirty-day months and the turn of the
+    // year are all walked over rather than argued about.
+    let day = new Date(2027, 0, 1);
+    for (let count = 0; count < 800; count++) {
+      const next = new Date(day.getFullYear(), day.getMonth(), day.getDate() + 1);
+      for (const size of SIZES) {
+        const here = idOf(dailySeed(day, size.id));
+        const after = idOf(dailySeed(next, size.id));
+        expect(`${day.toDateString()}: ${here} then ${after}`).not.toContain(
+          `${here} then ${here}`,
+        );
+      }
+      day = next;
+    }
+  });
+
+  it('deals every theme before dealing any of them twice', () => {
+    const run = Array.from({ length: THEMES.length }, (_, index) =>
+      idOf(numberedSeed(index + 1, 'md', 'pure')),
+    );
+    expect(new Set(run).size).toBe(THEMES.length);
+  });
+
+  it('does not put the same number at two difficulties in the same theme', () => {
+    const atEachSize = SIZES.map((size) => idOf(numberedSeed(7, size.id, 'pure')));
+    expect(new Set(atEachSize).size).toBe(SIZES.length);
+    expect(idOf(numberedSeed(7, 'md', 'pure'))).not.toBe(idOf(numberedSeed(7, 'md', 'classic')));
+  });
+
+  it('is the theme the generator actually builds', () => {
+    // The generator deals from the same turn rather than drawing its own, so a
+    // screen can say which theme a puzzle is in without building it first.
+    for (const number of [1, 2, 3, 12, 40]) {
+      const seed = numberedSeed(number, 'lg', 'classic');
+      const puzzle = generatePuzzle({ theme: THEMES, size: SIZES[3], seed });
+      expect(puzzle.themeId).toBe(idOf(seed));
+    }
+  });
+
+  it('refuses an empty pool rather than handing back nothing', () => {
+    expect(() => themeFor(1, [])).toThrow();
   });
 });
