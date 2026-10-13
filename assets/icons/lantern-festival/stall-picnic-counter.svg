@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor">
+  <defs>
+    <mask id="cut1">
+      <rect width="100" height="100" fill="#fff" />
+      <path fill="#000" d="M20 74L50 23L80 74ZM15 83L85 83L85 87L15 87Z" />
+    </mask>
+  </defs>
+  <g mask="url(#cut1)">
+      <path d="M8 79L50 9L92 79L92 92L8 92Z" />
+  </g>
+  <path d="M28 67L42 57L52 64L63 57L74 70L25 70Z" />
+</svg>

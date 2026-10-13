@@ -46,11 +46,18 @@ describe('the icon set', () => {
     expect(new Set(names).size).toBe(names.length);
   });
 
-  it('draws no two items the same', () => {
+  it('draws no two items of a theme the same', () => {
     // A shared path means two items have the same silhouette, which on a grid
     // of fourteen suspects is no better than having no icon at all.
-    const byPath = new Map<string, string[]>();
+    //
+    // Within a theme, because that is what a board is drawn from: two themes
+    // never meet on one grid, so a teapot doing duty as a tea stall in one and
+    // a pot of breakfast tea in another costs the player nothing. It is still
+    // worth knowing about — a theme that borrows its whole set from another has
+    // a thinner identity than one drawn for itself — but it is a question for
+    // the artwork rather than a broken board.
     for (const theme of THEMES) {
+      const byPath = new Map<string, string[]>();
       for (const category of theme.categories) {
         for (const item of category.items) {
           const shapes = ICONS[item.icon];
@@ -58,9 +65,9 @@ describe('the icon set', () => {
           byPath.set(path, [...(byPath.get(path) ?? []), item.icon]);
         }
       }
+      const shared = [...byPath.values()].filter((names) => names.length > 1);
+      expect(`${theme.id}: ${JSON.stringify(shared)}`).toBe(`${theme.id}: []`);
     }
-    const shared = [...byPath.values()].filter((names) => names.length > 1);
-    expect(shared).toEqual([]);
   });
 
   it('draws everything in the same box, and nothing empty', () => {

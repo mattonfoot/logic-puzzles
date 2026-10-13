@@ -1143,6 +1143,676 @@ export const STRINGS = {
           body: 'A last correction was made after everyone had agreed the register was finished. Nobody can now identify the finished version among the copies that followed. The curators have supplied the facts they remember, which is at least a smaller pile.',
         },
       ],
+      'backstage-mystery': [
+        {
+          title: "The Director's Pencil",
+          body: "The director has corrected the production ledger so enthusiastically that the original headings are now difficult to identify. Use the clues to restore the performers' records before the director requests the ledger.",
+        },
+        {
+          title: 'The Dress Rehearsal',
+          body: 'The rehearsal went remarkably well, leaving the company free to notice how thoroughly the paperwork disagrees with itself. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        },
+        {
+          title: 'A Helpful Understudy',
+          body: "An understudy has reorganised the notes by dramatic importance, a system that places nearly everything first. Put the performers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'The Unplanned Draught',
+          body: "A draught has swept across the director's desk and given the record slips a brief touring engagement. Use the clues to restore the performers' records before the director requests the ledger.",
+        },
+        {
+          title: 'The Duplicate Ledger',
+          body: 'Two ledgers are labelled final, and both have acquired annotations insisting that the other should be ignored. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        },
+        {
+          title: 'The Interval Tea',
+          body: "A cup of tea has spread across the notes with the leisurely confidence of someone who knows the interval will be extended. Put the performers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'A Convincing Account',
+          body: "Every performer has supplied a convincing explanation, but the explanations have declined to agree with one another. Use the clues to restore the performers' records before the director requests the ledger.",
+        },
+        {
+          title: 'The Gold Pen',
+          body: "The director's gold pen makes the corrections look authoritative without making their meaning any clearer. Reconstruct the records from the clues so the company can rely on its paperwork again.",
+        },
+        {
+          title: 'The Prompt Desk',
+          body: "The desk is ready for a difficult evening, except for the untidy collection of records occupying its useful surface. Put the performers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'The Neat Copy',
+          body: "A performer has produced a beautiful copy of the ledger, including faithful reproductions of its contradictions. Use the clues to restore the performers' records before the director requests the ledger.",
+        },
+        {
+          title: 'The Binding Gives Way',
+          body: "The ledger's binding has retired from service, leaving a company of loose pages awaiting direction. Reconstruct the records from the clues so the company can rely on its paperwork again.",
+        },
+        {
+          title: 'An Eager Assistant',
+          body: "An assistant has arranged the records according to the length of each paragraph, with pleasing visual results. Put the performers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'The Last Annotation',
+          body: "The final annotation refers to an earlier annotation that appears to have been crossed out with conviction. Use the clues to restore the performers' records before the director requests the ledger.",
+        },
+        {
+          title: 'A Public Assurance',
+          body: 'The director has announced that the company is ready and is now quietly seeking supporting evidence. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        },
+        {
+          title: 'The Missing Tab',
+          body: "The index tabs have detached themselves, leaving the folder with excellent contents and very little guidance. Put the performers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'The Applause Test',
+          body: "A loud rehearsal of applause has briefly distracted the clerk from a task that required rather more concentration. Use the clues to restore the performers' records before the director requests the ledger.",
+        },
+        {
+          title: 'The Wrong Notebook',
+          body: "The director's working notes were copied into a notebook already full of unrelated but equally dramatic comments. Reconstruct the records from the clues so the company can rely on its paperwork again.",
+        },
+        {
+          title: 'A Particularly Good Question',
+          body: "A visiting producer has asked how the records are organised, prompting an unexpectedly long pause. Put the performers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'The Evening Bulletin',
+          body: "The bulletin is ready to print once the clerk can replace the confident placeholders with dependable information. Use the clues to restore the performers' records before the director requests the ledger.",
+        },
+        {
+          title: 'The Second Draft',
+          body: 'The second draft corrects the first in ways that the third draft regards as a serious misunderstanding. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        },
+        {
+          title: 'The Polite Disagreement',
+          body: "The performers are disagreeing so politely that the director suspects everyone has been rehearsing it. Put the performers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'A Fresh Folder',
+          body: "The new folder has solved the problem of torn corners while leaving the problem of muddled records fully intact. Use the clues to restore the performers' records before the director requests the ledger.",
+        },
+        {
+          title: 'The Overeager Copier',
+          body: 'The copying machine has supplied enough duplicates to give every uncertainty its own personal audience. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        },
+        {
+          title: 'The Narrow Desk',
+          body: "The desk is too narrow for the paperwork, encouraging the clerk to stack things before reading their headings. Put the performers' records back in order using the surviving clues.",
+        },
+        {
+          title: "The Manager's Visit",
+          body: "The manager has arrived carrying an empty file and an expression that suggests it should soon contain answers. Use the clues to restore the performers' records before the director requests the ledger.",
+        },
+        {
+          title: 'A Well-Meant Correction',
+          body: 'A performer has corrected a record using a recollection that another performer remembers correcting yesterday. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        },
+        {
+          title: 'The Smudged Initials',
+          body: "The initials identifying several entries have been smudged into something that might generously be called decorative. Put the performers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'The Rehearsal Notes',
+          body: "The rehearsal notes contain every useful detail, surrounded by enough encouragement to conceal it effectively. Use the clues to restore the performers' records before the director requests the ledger.",
+        },
+        {
+          title: 'An Elegant Abbreviation',
+          body: "The director's shorthand saves paper by omitting nearly everything a reader might reasonably need. Reconstruct the records from the clues so the company can rely on its paperwork again.",
+        },
+        {
+          title: 'The Helpful Ribbon',
+          body: "A ribbon marks the important pages, although somebody has extended that distinction to the entire ledger. Put the performers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'The Unexpected Audience',
+          body: "Several visitors have gathered at the office door just as the clerk begins to appreciate the scale of the mix-up. Use the clues to restore the performers' records before the director requests the ledger.",
+        },
+        {
+          title: 'The Company Promise',
+          body: 'The company has promised a tidy account before the next meeting, generously leaving the practical arrangements unresolved. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        },
+        {
+          title: 'The Final Bow',
+          body: "The director would like to close the ledger with the same confidence the performers bring to closing a rehearsal. Put the performers' records back in order using the surviving clues.",
+        },
+      ],
+      'clockwork-workshop': [
+        {
+          title: 'Inspection Pending',
+          body: "The workshop inspector has polished a clipboard, leaving the makers little doubt about the seriousness of the visit. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Helpful Magnet',
+          body: "A large magnet has gathered every metal clip from the paperwork and left the pages pursuing separate careers. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'Under the Bench',
+          body: "The missing job cards have been recovered from beneath a bench, alongside several explanations nobody finds convincing. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'A New Filing System',
+          body: "The makers have adopted a colour-coded system without recording what any of the colours mean. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: "The Apprentice's Sort",
+          body: "An apprentice has arranged the records by how impressive the handwriting looked, with predictably artistic results. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'A Gust of Progress',
+          body: "The ventilation test has succeeded beyond expectations and redistributed the paperwork throughout the workshop. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Quiet Morning',
+          body: "The makers planned a calm administrative session before discovering that the folder marked current contains three different versions. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Ink Test',
+          body: "A demonstration of indelible ink has left the record headings impressively permanent and largely unreadable. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Committee Copy',
+          body: "A committee has approved the ledger in principle, provided someone can explain which entries belong together. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Bench Shuffle',
+          body: "Clearing a space for inspection has moved every loose note into a single impressively unhelpful stack. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Rubber Stamp',
+          body: "The new approval stamp has been tested enthusiastically on paperwork that had not reached the approval stage. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'An Elegant Abbreviation',
+          body: "The makers' shorthand saves an extraordinary amount of space by omitting most of the information needed to read it. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Wrong Envelope',
+          body: "The correct notes have arrived in an envelope marked obsolete, triggering a small but passionate debate. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Filing Demonstration',
+          body: "A demonstration of efficiency has finished with the ledger upside down and the audience waiting politely. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Duplicate Ledger',
+          body: "Two identical-looking books contain different arrangements, and both have been signed with considerable confidence. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'A Clean Desk',
+          body: "The desk is spotless because every working note has been swept into the same drawer. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: "The Supervisor's Pencil",
+          body: "The supervisor has corrected several records, but the pencil marks stop just before the useful part. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'A Minor Vibration',
+          body: "A routine test has shaken the page dividers loose without disturbing the makers' belief that everything is under control. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Long Explanation',
+          body: "The makers have explained the mix-up so thoroughly that the clerk now understands less than at the start. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'A Fresh Cover',
+          body: "The ledger has a handsome new cover and the same unresolved contents that made the old cover look tired. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Last Binder',
+          body: "The remaining binder contains all the right paperwork, held together by determination rather than any clear sequence. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'A Very Good Question',
+          body: "A visiting apprentice has asked how the records are organised, and the room has become unusually quiet. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Noticeboard',
+          body: "The relevant slips are pinned to the noticeboard among reminders to organise the relevant slips. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Spare Register',
+          body: "The backup register appears to have backed up the confusion with remarkable accuracy. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Afternoon Tidy',
+          body: "The makers' collective tidying effort has removed every obvious sign of the filing system. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Demonstration Day',
+          body: "Visitors are expected to admire the workshop shortly, making a coherent administrative story suddenly desirable. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Smudged Initials',
+          body: "The entries survived a damp cloth, but the identifying initials did not share their resilience. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'A Matter of Sequence',
+          body: "The pages have been numbered beautifully in an order that nobody can justify. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Overeager Copyist',
+          body: "The copyist has filled every blank with information from the nearest available line. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Box of Certainty',
+          body: "A box labelled definitely correct contains notes that disagree with one another in several decisive ways. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Return of Order',
+          body: "The makers have promised the manager that the confusion is nearly resolved, generously leaving the final part to you. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'The Desk Bell',
+          body: "The manager has rung for the records and now appears to be practising patient silence. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+        {
+          title: 'Ready for Review',
+          body: "The workshop can demonstrate plenty of activity, but the clerk still needs a dependable account of what was recorded. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        },
+      ],
+      'harbour-watch': [
+        {
+          title: 'The Open Window',
+          body: "A sea breeze has rearranged the harbour office papers with more enthusiasm than respect for the headings. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        },
+        {
+          title: "A Gull's Opinion",
+          body: 'A gull has inspected the ledger and left the clerk with a small cleaning job and a large administrative one. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        },
+        {
+          title: 'The Damp Log',
+          body: "The logbook survived its encounter with a wet coat, but several identifying marks were less fortunate. Put the skippers' records back in order using the surviving clues.",
+        },
+        {
+          title: "The Harbourmaster's Tea",
+          body: "The harbourmaster has set down a cup directly over the note explaining how the loose records fit together. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        },
+        {
+          title: 'A Neat Hand',
+          body: 'A skipper has copied the muddled log in beautiful handwriting, preserving every uncertainty with exceptional care. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        },
+        {
+          title: 'The Duplicate Register',
+          body: "Two copies of the register claim to be definitive, and the clerk is reluctant to disappoint either of them. Put the skippers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'The Missing Divider',
+          body: "The folder dividers have gone missing, leaving the paperwork neatly stacked but no longer usefully separated. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        },
+        {
+          title: 'The Loud Whistle',
+          body: 'The harbourmaster has requested the completed records by whistle, which the clerk considers an unnecessary escalation. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        },
+        {
+          title: 'A Helpful Visitor',
+          body: "A visitor has sorted the loose slips according to how important they looked, producing several impressive piles. Put the skippers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'The Inspection Coat',
+          body: "The inspector has hung up a very dry coat and is now waiting for an equally reassuring account of the records. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        },
+        {
+          title: 'A Better Filing Method',
+          body: 'The office adopted a better filing method yesterday, but nobody recorded how it differs from the previous one. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        },
+        {
+          title: 'The Overconfident Stamp',
+          body: "Every sheet has been stamped checked, including the blank sheet used to test the stamp. Put the skippers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'A Brief Squall',
+          body: "A brief squall rattled the office so thoroughly that the loose notes have abandoned their previous arrangement. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        },
+        {
+          title: 'The Polite Skippers',
+          body: 'The skippers are explaining the mix-up with remarkable courtesy and remarkably little agreement. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        },
+        {
+          title: 'The Top Drawer',
+          body: "The missing notes have been found in the drawer reserved for completed work, where they had apparently been optimistic. Put the skippers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'An Admirable Index',
+          body: "The index points to the correct pages, provided someone can establish which page numbers are correct. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        },
+        {
+          title: 'The Pencil Change',
+          body: 'The clerk changed pencils halfway through the corrections and can no longer remember which marks were final. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        },
+        {
+          title: 'The Drying Rack',
+          body: "The paperwork is dry again, but the washing line has imposed an order based entirely on available space. Put the skippers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'The Shore Office',
+          body: "The office looks unusually tidy because every unresolved note has been transferred to one very full folder. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        },
+        {
+          title: 'A Firm Assurance',
+          body: 'The harbourmaster has assured the inspector that the records are in order and would now like that to be true. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        },
+        {
+          title: 'The Rubber Band',
+          body: "A rubber band has kept all the loose slips together without making any promises about their sequence. Put the skippers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'The Second Explanation',
+          body: "The clerk's second explanation has clarified why the first explanation was insufficient, leaving the original problem untouched. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        },
+        {
+          title: 'A New Cover',
+          body: 'The logbook has a handsome new cover around information that still needs a dependable arrangement. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        },
+        {
+          title: "The Clerk's Holiday",
+          body: "The returning clerk is pleased to find everything present and less pleased to find everything mixed together. Put the skippers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'The Helpful Arrow',
+          body: "Someone has drawn arrows between the notes, creating an impressive diagram with no obvious beginning. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        },
+        {
+          title: 'An Official Copy',
+          body: 'The official copy has arrived bearing a seal, a signature and several unresolved questions. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        },
+        {
+          title: 'The Narrow Margin',
+          body: "The most useful comments were squeezed into the margin that the copying machine decided to omit. Put the skippers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'A Quiet Morning',
+          body: "The harbour office had planned a quiet administrative morning before opening the folder labelled straightforward. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        },
+        {
+          title: 'The Wrong Clipboard',
+          body: 'The correct clipboard has been returned after a visitor used its records to organise a completely different discussion. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        },
+        {
+          title: 'The Rewritten List',
+          body: "The list has been rewritten so often that the paper now looks more certain than the people who wrote on it. Put the skippers' records back in order using the surviving clues.",
+        },
+        {
+          title: 'The Harbour Meeting',
+          body: "The skippers have agreed that the confusion should be resolved before it earns a permanent place on the agenda. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        },
+        {
+          title: 'A Weatherproof Folder',
+          body: 'The weatherproof folder has protected every word while doing nothing to explain which words belong together. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        },
+        {
+          title: 'The Final Signature',
+          body: "The harbourmaster is ready to sign the log as soon as somebody can offer a convincing reason to do so. Put the skippers' records back in order using the surviving clues.",
+        },
+      ],
+      'lantern-festival': [
+        {
+          title: 'The Unplanned Breeze',
+          body: "A breeze has swept through the organising desk and given every loose page a brief public appearance. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Committee Folder',
+          body: "The committee's master folder contains several master copies, each quietly disagreeing with the others. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'A Helpful Volunteer',
+          body: "A volunteer has sorted the artists' records by handwriting style, producing a handsome but impractical display. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: "The Mayor's Question",
+          body: "The mayor has asked whether the paperwork is ready, using the voice reserved for expecting a reassuring answer. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Ribbon Knot',
+          body: "The organisers have tied the records together securely without first checking the sequence of the pages. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'A Splash of Colour',
+          body: "Decorative paint has reached the desk, improving its appearance while complicating several important headings. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Rehearsed Welcome',
+          body: "The welcome speech is perfectly rehearsed, but the clerk is still improvising an explanation for the ledger. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Spare Clipboard',
+          body: "The spare clipboard has been found underneath the missing clipboard, and neither contains a trustworthy arrangement. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Neat Hand',
+          body: "An artist has rewritten the muddled notes in beautiful lettering without making them any less muddled. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'A Civic Smile',
+          body: "The organisers are smiling for the official photograph while quietly passing the confused records behind their backs. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Folded List',
+          body: "The master list has been folded so often that its creases now look more authoritative than its headings. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Helpful Arrow',
+          body: "Someone has added arrows to clarify the paperwork, and several arrows now point confidently towards one another. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Volunteer Desk',
+          body: "The volunteer desk has enough enthusiasm for three celebrations and one unresolved pile of record slips. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'An Extra Copy',
+          body: "The photocopier has supplied another version with excellent contrast and a newly confusing arrangement. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Almost Finished File',
+          body: "The file marked nearly finished turns out to describe the organiser's hopes rather than its contents. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Lost Corner',
+          body: "The corner of the register has torn away precisely where the clerk had written the useful explanation. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'A Matter of Presentation',
+          body: "The committee has chosen an elegant cover for the records and would now appreciate some dependable contents. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Noticeboard Shuffle',
+          body: "The noticeboard has been refreshed by someone who assumed all the pinned slips were interchangeable. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Overfull Envelope',
+          body: "Every necessary note is in the envelope, along with enough unrelated reminders to make finding it an achievement. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Ink Runs',
+          body: "A damp sleeve has turned the clerk's careful headings into a small abstract landscape. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Smiling Artists',
+          body: "The artists have agreed that the confusion is easily fixed, although none has volunteered to explain how. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Official Stamp',
+          body: "The official stamp has been applied before the official checking, creating a strong incentive to finish the latter. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Confident Delegate',
+          body: "A committee delegate has announced that the records are complete and is now looking for evidence. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'A Short Interruption',
+          body: "A brief interruption has become a long conversation, during which the paperwork has lost its original order. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Neighbourly Advice',
+          body: "Several neighbours have offered helpful suggestions, leaving the clerk with more annotations than records. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Second Draft',
+          body: "The second draft corrects the first draft in ways that the third draft appears to dispute. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Borrowed Desk',
+          body: "The borrowed desk is smaller than expected, so the records have been stacked according to gravitational necessity. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Wrong Drawer',
+          body: "The missing paperwork has emerged from a drawer labelled decorations, where it was doing neither job well. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Final Flourish',
+          body: "The organisers have added a decorative flourish to every page except the one explaining their order. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'A Quiet Request',
+          body: "The clerk has quietly requested help before the committee turns the mix-up into a formal discussion. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Proud Parent',
+          body: "A visiting parent has praised the organisation, producing a sudden and collective interest in accurate records. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Paper Trail',
+          body: "The loose slips form an impressive trail across the desk but stop short of forming a usable account. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+        {
+          title: 'The Closing Folder',
+          body: "The organisers want to close the folder with confidence instead of simply closing it firmly. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        },
+      ],
+      'last-train': [
+        {
+          title: 'The Unhelpful Breeze',
+          body: "A draught has rearranged the conductor's notes into a system admired only by the open window. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        },
+        {
+          title: 'Carbon Copy',
+          body: "The duplicate ledger is perfectly readable, but every passenger's entry has acquired somebody else's heading. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        },
+        {
+          title: 'The Ink Incident',
+          body: 'A clerk has discovered that shaking a pen above the register is an excellent way to change its contents. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'Platform Diplomacy',
+          body: 'Several passengers have offered to explain the confusion, producing several incompatible and unusually confident explanations. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Great Stapling',
+          body: 'A well-meaning assistant has fastened the loose records together according to paper size rather than meaning. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'An Orderly Queue',
+          body: "The queue is immaculate, which makes the disorganised paperwork on the conductor's desk feel particularly personal. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        },
+        {
+          title: 'The Reversed Register',
+          body: 'Someone has copied the ledger from the last page backwards and called the result a fresh perspective. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'A Very Helpful Child',
+          body: 'A young volunteer has sorted the paperwork into piles labelled interesting, boring and probably important. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Wrong Clipboard',
+          body: 'The conductor has retrieved the missing clipboard, unfortunately from someone who had already started improving it. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'A Quiet Carriage',
+          body: 'The passengers have agreed to keep quiet while the clerk works, except when offering essential corrections. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Duplicate Stamp',
+          body: 'Every entry has been stamped checked, including several entries that the clerk is certain have not been checked. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'A Matter of Handwriting',
+          body: "The clerk's elegant loops have been interpreted as letters, numbers and one small drawing of a duck. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        },
+        {
+          title: 'The Folding Method',
+          body: 'The register was folded for safekeeping and now presents its information in a particularly unhelpful sequence. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'Lost in Translation',
+          body: "A passenger has translated the clerk's abbreviations into longer phrases that remain just as mysterious. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        },
+        {
+          title: 'The Helpful Announcement',
+          body: 'An announcement has reassured everyone that the records are in order, creating immediate demand for that to become true. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'Loose Leaves',
+          body: 'The binding has given up before the staff, leaving a fan of pages with excellent freedom of movement. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Blue Pencil',
+          body: "The conductor's corrections are clear, but nobody remembers which of two blue pencils marked the final version. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        },
+        {
+          title: 'The Inspection Smile',
+          body: 'An inspector has arrived smiling, a development the clerk considers more alarming than open criticism. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'A Fresh Start',
+          body: 'The replacement ledger is beautifully clean because the information is still on an untidy collection of slips. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Polite Dispute',
+          body: 'Two clerks are disagreeing with such courtesy that the passengers have mistaken it for a welcoming ceremony. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Desk Drawer',
+          body: 'The missing notes have been found in the drawer marked completed, where they had no business being. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'A Promising Index',
+          body: 'The index points to pages that point to other pages, showing admirable initiative but little practical value. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Almost Final Draft',
+          body: 'The conductor has discovered another version labelled final, with handwriting that suggests considerable optimism. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Clipping Problem',
+          body: 'Paper clips have preserved every scrap while quietly obscuring several headings needed to understand them. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Red Carpet',
+          body: 'A ceremonial welcome is ready outside, while inside the office the paperwork remains stubbornly informal. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Familiar Face',
+          body: 'Every passenger seems familiar to the clerk, which is comforting until accurate records are required. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Restored Folder',
+          body: 'The rescued folder is dry again, but its contents have settled into an arrangement of their own choosing. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Neat Rewrite',
+          body: 'A passenger has rewritten the notes neatly, preserving every uncertainty with exceptional penmanship. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: "The Supervisor's Visit",
+          body: 'The supervisor has asked one simple question about the ledger and is now waiting for a simple answer. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'An Excess of Labels',
+          body: 'The filing system has more labels than files, and several labels appear to be giving conflicting instructions. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Missing Margin',
+          body: "A copying error has removed the margins containing the clerk's most useful clarifications. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        },
+        {
+          title: 'A Seat at the Desk',
+          body: 'A passenger has kindly offered to take over the records, inspiring the staff to solve the problem promptly. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+        {
+          title: 'The Final Check',
+          body: 'The conductor wants one dependable account before putting the folder away with an expression of professional certainty. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        },
+      ],
     },
   },
   menu: {
@@ -6250,6 +6920,3746 @@ export const STRINGS = {
         },
       },
     },
+    'backstage-mystery': {
+      name: 'Backstage Mystery',
+      blurb: 'A flawless production, pending several small explanations.',
+      clues: {
+        link: '{a} is recorded with {b}.',
+        notLink: '{a} is not recorded with {b}.',
+        groupNot: 'No {a} is recorded with {b}.',
+        either: '{a} is recorded with either {b} or {c}, but not both.',
+        compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.',
+        compareGap:
+          'The appearance linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
+      },
+      categories: {
+        performer: {
+          name: 'Performer',
+          pattern: '{}',
+          describes: 'the {}',
+          noun: 'performer',
+          traits: {
+            standing: {
+              label: 'Standing',
+              pattern: '{noun} with {} standing',
+            },
+            shift: {
+              label: 'Shift',
+              pattern: '{noun} on the {} shift',
+            },
+            manner: {
+              label: 'Manner',
+              pattern: '{noun} with a {} manner',
+            },
+          },
+          items: {
+            'felix-flourish': {
+              label: 'Felix Flourish',
+              blurb: 'Can turn an entrance into an event and an exit into a scheduling concern.',
+              traits: {
+                standing: 'junior',
+                shift: 'early',
+                manner: 'measured',
+              },
+            },
+            'vera-velvet': {
+              label: 'Vera Velvet',
+              blurb: 'Remembers every line, especially the ones somebody else has forgotten.',
+              traits: {
+                standing: 'established',
+                shift: 'late',
+                manner: 'measured',
+              },
+            },
+            'percy-plume': {
+              label: 'Percy Plume',
+              blurb: 'Projects to the back row even when asking where the biscuits are.',
+              traits: {
+                standing: 'veteran',
+                shift: 'early',
+                manner: 'brisk',
+              },
+            },
+            'mabel-moon': {
+              label: 'Mabel Moon',
+              blurb: 'Describes every missed rehearsal as valuable private preparation.',
+              traits: {
+                standing: 'junior',
+                shift: 'late',
+                manner: 'brisk',
+              },
+            },
+            'lord-limelight': {
+              label: 'Lord Limelight',
+              blurb: 'Bows as though the applause has been waiting its entire life for him.',
+              traits: {
+                standing: 'established',
+                shift: 'early',
+                manner: 'theatrical',
+              },
+            },
+            'tilly-twirl': {
+              label: 'Tilly Twirl',
+              blurb:
+                'Can improvise a recovery faster than anyone can identify the original mistake.',
+              traits: {
+                standing: 'veteran',
+                shift: 'late',
+                manner: 'theatrical',
+              },
+            },
+            'dr-diction': {
+              label: 'Dr Diction',
+              blurb:
+                'Pronounces every syllable, including several the author may not have intended.',
+              traits: {
+                standing: 'junior',
+                shift: 'early',
+                manner: 'measured',
+              },
+            },
+            'bertie-bravo': {
+              label: 'Bertie Bravo',
+              blurb:
+                'Believes enthusiasm can fill any gap, including the gap before his next line.',
+              traits: {
+                standing: 'established',
+                shift: 'late',
+                manner: 'measured',
+              },
+            },
+            'august-vale': {
+              label: 'August Vale',
+              blurb: 'A specialist in grave expressions and unexpectedly cheerful lunch breaks.',
+              traits: {
+                standing: 'veteran',
+                shift: 'early',
+                manner: 'brisk',
+              },
+            },
+            'pippa-pirouette': {
+              label: 'Pippa Pirouette',
+              blurb: 'Counts every movement and disputes any arithmetic offered by the director.',
+              traits: {
+                standing: 'junior',
+                shift: 'late',
+                manner: 'brisk',
+              },
+            },
+            'silas-sigh': {
+              label: 'Silas Sigh',
+              blurb: 'Has perfected a pause that makes the audience question its own intentions.',
+              traits: {
+                standing: 'established',
+                shift: 'early',
+                manner: 'theatrical',
+              },
+            },
+            'dame-encore': {
+              label: 'Dame Encore',
+              blurb: 'Treats the first ovation as a promising rehearsal for the next one.',
+              traits: {
+                standing: 'veteran',
+                shift: 'late',
+                manner: 'theatrical',
+              },
+            },
+            'cecil-cue': {
+              label: 'Cecil Cue',
+              blurb:
+                "Knows everyone's lines and occasionally offers them before they are requested.",
+              traits: {
+                standing: 'junior',
+                shift: 'early',
+                manner: 'measured',
+              },
+            },
+            'ruby-reverie': {
+              label: 'Ruby Reverie',
+              blurb: 'Remains mysterious even when giving perfectly ordinary directions.',
+              traits: {
+                standing: 'established',
+                shift: 'late',
+                manner: 'measured',
+              },
+            },
+          },
+        },
+        prop: {
+          name: 'Prop',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'prop',
+          traits: {
+            handling: {
+              label: 'Handling',
+              pattern: '{noun} requiring {} handling',
+            },
+            storage: {
+              label: 'Storage',
+              pattern: '{noun} stored in the {} area',
+            },
+            finish: {
+              label: 'Finish',
+              pattern: '{noun} with a {} finish',
+            },
+          },
+          items: {
+            'folding-fan': {
+              label: 'Folding Fan',
+              blurb: 'Signals disdain with impressive efficiency and very little rehearsal.',
+              traits: {
+                handling: 'one-handed',
+                storage: 'left',
+                finish: 'matte',
+              },
+            },
+            'sealed-letter': {
+              label: 'Sealed Letter',
+              blurb: 'Contains news too important to survive being read aloud accurately.',
+              traits: {
+                handling: 'one-handed',
+                storage: 'right',
+                finish: 'matte',
+              },
+            },
+            'golden-goblet': {
+              label: 'Golden Goblet',
+              blurb: 'Looks expensive enough to justify the remarkably ordinary water inside.',
+              traits: {
+                handling: 'one-handed',
+                storage: 'left',
+                finish: 'shiny',
+              },
+            },
+            'hand-mirror': {
+              label: 'Hand Mirror',
+              blurb:
+                "Reflects magnificence, subject to lighting and the performer's own expectations.",
+              traits: {
+                handling: 'one-handed',
+                storage: 'right',
+                finish: 'shiny',
+              },
+            },
+            'storm-lantern': {
+              label: 'Storm Lantern',
+              blurb: 'Creates atmosphere without being permitted to create actual fire.',
+              traits: {
+                handling: 'one-handed',
+                storage: 'left',
+                finish: 'matte',
+              },
+            },
+            'royal-sceptre': {
+              label: 'Royal Sceptre',
+              blurb: 'Confers authority for the duration of the speech and no longer.',
+              traits: {
+                handling: 'one-handed',
+                storage: 'right',
+                finish: 'shiny',
+              },
+            },
+            'map-scroll': {
+              label: 'Map Scroll',
+              blurb:
+                'The kingdom is detailed beautifully, apart from the bit needed in this scene.',
+              traits: {
+                handling: 'two-handed',
+                storage: 'left',
+                finish: 'matte',
+              },
+            },
+            'throne-chair': {
+              label: 'Throne Chair',
+              blurb: 'Reserved for royalty, except when somebody needs to reach the top shelf.',
+              traits: {
+                handling: 'two-handed',
+                storage: 'central',
+                finish: 'shiny',
+              },
+            },
+            'feather-quill': {
+              label: 'Feather Quill',
+              blurb: 'Writes convincing declarations until the nib encounters paper.',
+              traits: {
+                handling: 'one-handed',
+                storage: 'right',
+                finish: 'matte',
+              },
+            },
+            'blunt-dagger': {
+              label: 'Blunt Dagger',
+              blurb: 'Threatening from the audience, reassuringly unambitious at close range.',
+              traits: {
+                handling: 'one-handed',
+                storage: 'left',
+                finish: 'shiny',
+              },
+            },
+            'silk-bouquet': {
+              label: 'Silk Bouquet',
+              blurb: 'Remains fresh through every love scene and several storage winters.',
+              traits: {
+                handling: 'two-handed',
+                storage: 'right',
+                finish: 'matte',
+              },
+            },
+            'alarm-clock': {
+              label: 'Alarm Clock',
+              blurb: 'Its ringing has better timing than several members of the company.',
+              traits: {
+                handling: 'two-handed',
+                storage: 'central',
+                finish: 'shiny',
+              },
+            },
+            'walking-cane': {
+              label: 'Walking Cane',
+              blurb: 'Adds dignity to an entrance and complexity to a narrow doorway.',
+              traits: {
+                handling: 'one-handed',
+                storage: 'left',
+                finish: 'shiny',
+              },
+            },
+            'treasure-coffer': {
+              label: 'Treasure Coffer',
+              blurb: 'The treasure is imaginary, but the lifting instructions are very real.',
+              traits: {
+                handling: 'two-handed',
+                storage: 'central',
+                finish: 'matte',
+              },
+            },
+          },
+        },
+        costume: {
+          name: 'Costume',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'costume',
+          traits: {
+            fastening: {
+              label: 'Fastening',
+              pattern: '{noun} secured with {}',
+            },
+            weight: {
+              label: 'Weight',
+              pattern: '{noun} of {} weight',
+            },
+            rack: {
+              label: 'Rack',
+              pattern: '{noun} on the {} rack',
+            },
+          },
+          items: {
+            'knight-s-armour': {
+              label: "Knight's Armour",
+              blurb: 'Clanks heroically while the wearer searches for a dignified way to sit down.',
+              traits: {
+                fastening: 'straps',
+                weight: 'heavy',
+                rack: 'north',
+              },
+            },
+            'court-gown': {
+              label: 'Court Gown',
+              blurb: 'Requires one performer and a supportive relationship with every doorway.',
+              traits: {
+                fastening: 'laces',
+                weight: 'heavy',
+                rack: 'south',
+              },
+            },
+            'jester-s-motley': {
+              label: "Jester's Motley",
+              blurb: 'The pattern makes it difficult to tell whether the wearer is moving.',
+              traits: {
+                fastening: 'buttons',
+                weight: 'light',
+                rack: 'east',
+              },
+            },
+            'sailor-s-blouse': {
+              label: "Sailor's Blouse",
+              blurb: "Has spent less time at sea than the wardrobe supervisor's favourite mug.",
+              traits: {
+                fastening: 'buttons',
+                weight: 'light',
+                rack: 'north',
+              },
+            },
+            'wizard-s-robe': {
+              label: "Wizard's Robe",
+              blurb: "The sleeves conceal many secrets, including the wearer's actual hands.",
+              traits: {
+                fastening: 'ties',
+                weight: 'medium',
+                rack: 'south',
+              },
+            },
+            'ballet-tutu': {
+              label: 'Ballet Tutu',
+              blurb: 'Occupies a surprising amount of space for something described as delicate.',
+              traits: {
+                fastening: 'hooks',
+                weight: 'light',
+                rack: 'east',
+              },
+            },
+            'footman-s-livery': {
+              label: "Footman's Livery",
+              blurb: 'The buttons are decorative until someone has to fasten all of them.',
+              traits: {
+                fastening: 'buttons',
+                weight: 'medium',
+                rack: 'north',
+              },
+            },
+            'pirate-coat': {
+              label: 'Pirate Coat',
+              blurb:
+                'Looks convincingly weathered after a thoroughly supervised afternoon indoors.',
+              traits: {
+                fastening: 'buttons',
+                weight: 'heavy',
+                rack: 'south',
+              },
+            },
+            'ghost-sheet': {
+              label: 'Ghost Sheet',
+              blurb:
+                'The simplest design still requires a detailed discussion about eye placement.',
+              traits: {
+                fastening: 'ties',
+                weight: 'light',
+                rack: 'east',
+              },
+            },
+            'moth-cape': {
+              label: 'Moth Cape',
+              blurb: 'The wings are majestic until the wearer attempts the narrow corridor.',
+              traits: {
+                fastening: 'hooks',
+                weight: 'medium',
+                rack: 'south',
+              },
+            },
+            'cook-s-apron': {
+              label: "Cook's Apron",
+              blurb: 'Has never met a real kitchen but carries several persuasive stains.',
+              traits: {
+                fastening: 'ties',
+                weight: 'light',
+                rack: 'north',
+              },
+            },
+            'winter-furs': {
+              label: 'Winter Furs',
+              blurb: 'Suggests a frozen wilderness while quietly overheating the performer.',
+              traits: {
+                fastening: 'hooks',
+                weight: 'heavy',
+                rack: 'east',
+              },
+            },
+            'ringmaster-tails': {
+              label: 'Ringmaster Tails',
+              blurb: 'Every turn offers the coat another opportunity to introduce itself.',
+              traits: {
+                fastening: 'buttons',
+                weight: 'medium',
+                rack: 'north',
+              },
+            },
+            'royal-mantle': {
+              label: 'Royal Mantle',
+              blurb: 'Projects authority from the shoulders and inconvenience from the hem.',
+              traits: {
+                fastening: 'hooks',
+                weight: 'heavy',
+                rack: 'south',
+              },
+            },
+          },
+        },
+        scenery: {
+          name: 'Scenery',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'scene',
+          traits: {
+            setting: {
+              label: 'Setting',
+              pattern: '{noun} with an {} setting',
+            },
+            light: {
+              label: 'Lighting',
+              pattern: '{noun} under {} lighting',
+            },
+            construction: {
+              label: 'Construction',
+              pattern: '{noun} of {} construction',
+            },
+          },
+          items: {
+            'painted-forest': {
+              label: 'Painted Forest',
+              blurb: 'The trees are convincing until someone leans on the horizon.',
+              traits: {
+                setting: 'outdoor',
+                light: 'bright',
+                construction: 'flat',
+              },
+            },
+            'castle-gate': {
+              label: 'Castle Gate',
+              blurb: 'A formidable entrance with a surprisingly cooperative rear support.',
+              traits: {
+                setting: 'outdoor',
+                light: 'dim',
+                construction: 'built',
+              },
+            },
+            'moonlit-balcony': {
+              label: 'Moonlit Balcony',
+              blurb: 'Romance flourishes within the marked load-bearing area.',
+              traits: {
+                setting: 'outdoor',
+                light: 'dim',
+                construction: 'built',
+              },
+            },
+            'desert-dunes': {
+              label: 'Desert Dunes',
+              blurb: 'The heat is imaginary. The dust in the storage room is more committed.',
+              traits: {
+                setting: 'outdoor',
+                light: 'bright',
+                construction: 'flat',
+              },
+            },
+            'snowy-peak': {
+              label: 'Snowy Peak',
+              blurb: 'The expedition reaches the summit shortly before the interval.',
+              traits: {
+                setting: 'outdoor',
+                light: 'bright',
+                construction: 'flat',
+              },
+            },
+            'village-well': {
+              label: 'Village Well',
+              blurb: 'Deep enough for dramatic symbolism, much less suitable for fetching water.',
+              traits: {
+                setting: 'outdoor',
+                light: 'bright',
+                construction: 'built',
+              },
+            },
+            'garden-arch': {
+              label: 'Garden Arch',
+              blurb:
+                'The climbing plants have been trained to remain within the transport dimensions.',
+              traits: {
+                setting: 'outdoor',
+                light: 'bright',
+                construction: 'built',
+              },
+            },
+            'ship-s-deck': {
+              label: "Ship's Deck",
+              blurb: 'The ocean moves on cue while the floor is strongly encouraged not to.',
+              traits: {
+                setting: 'outdoor',
+                light: 'dim',
+                construction: 'built',
+              },
+            },
+            'palace-stair': {
+              label: 'Palace Stair',
+              blurb: 'A grand approach to a platform only slightly above everyone else.',
+              traits: {
+                setting: 'indoor',
+                light: 'bright',
+                construction: 'built',
+              },
+            },
+            'prison-cell': {
+              label: 'Prison Cell',
+              blurb: 'The bars suggest despair while the exit latch suggests a tea break.',
+              traits: {
+                setting: 'indoor',
+                light: 'dim',
+                construction: 'built',
+              },
+            },
+            'ruined-temple': {
+              label: 'Ruined Temple',
+              blurb:
+                'Painstakingly constructed to look as though the builders gave up centuries ago.',
+              traits: {
+                setting: 'outdoor',
+                light: 'dim',
+                construction: 'flat',
+              },
+            },
+            'city-rooftops': {
+              label: 'City Rooftops',
+              blurb: 'An impressive skyline with a modest requirement for actual buildings.',
+              traits: {
+                setting: 'outdoor',
+                light: 'dim',
+                construction: 'flat',
+              },
+            },
+            'cave-mouth': {
+              label: 'Cave Mouth',
+              blurb: 'The entrance to darkness is stored beside the spare extension leads.',
+              traits: {
+                setting: 'outdoor',
+                light: 'dim',
+                construction: 'flat',
+              },
+            },
+            'village-watermill': {
+              label: 'Village Watermill',
+              blurb: 'Turns steadily, provided the person behind it has not been called elsewhere.',
+              traits: {
+                setting: 'outdoor',
+                light: 'bright',
+                construction: 'built',
+              },
+            },
+          },
+        },
+        'stage-time': {
+          name: 'Stage Time',
+          pattern: 'the {}-minute appearance',
+          describes: 'the {}',
+          noun: 'appearance',
+          ordered: {
+            noun: 'appearance',
+            unit: 'minutes',
+            greater: 'longer',
+            lesser: 'shorter',
+          },
+          traits: {
+            band: {
+              label: 'Band',
+              pattern: '{noun} in the {} band',
+            },
+            review: {
+              label: 'Review',
+              pattern: '{noun} requiring {} review',
+            },
+          },
+          items: {
+            '5': {
+              label: '5',
+              blurb:
+                'A brief appearance with just enough time to establish unreasonable confidence.',
+              traits: {
+                band: 'brief',
+                review: 'routine',
+              },
+            },
+            '10': {
+              label: '10',
+              blurb: 'Long enough for an entrance, a complication and a meaningful look.',
+              traits: {
+                band: 'brief',
+                review: 'routine',
+              },
+            },
+            '15': {
+              label: '15',
+              blurb: 'The performer calls this a compact opportunity for dramatic development.',
+              traits: {
+                band: 'brief',
+                review: 'routine',
+              },
+            },
+            '20': {
+              label: '20',
+              blurb: 'Allows one carefully measured pause and several that happen by themselves.',
+              traits: {
+                band: 'brief',
+                review: 'routine',
+              },
+            },
+            '25': {
+              label: '25',
+              blurb: 'A comfortable interval for making the audience wonder what comes next.',
+              traits: {
+                band: 'standard',
+                review: 'routine',
+              },
+            },
+            '30': {
+              label: '30',
+              blurb: 'The director requests energy throughout and specificity about the ending.',
+              traits: {
+                band: 'standard',
+                review: 'routine',
+              },
+            },
+            '35': {
+              label: '35',
+              blurb: 'Enough time for a character to change their mind with suitable ceremony.',
+              traits: {
+                band: 'standard',
+                review: 'routine',
+              },
+            },
+            '40': {
+              label: '40',
+              blurb: 'A substantial appearance with room for a particularly expressive silence.',
+              traits: {
+                band: 'standard',
+                review: 'detailed',
+              },
+            },
+            '45': {
+              label: '45',
+              blurb: 'The audience has become familiar with the performer and the nearby scenery.',
+              traits: {
+                band: 'standard',
+                review: 'detailed',
+              },
+            },
+            '50': {
+              label: '50',
+              blurb: 'The notes request variety without explaining where the variety should begin.',
+              traits: {
+                band: 'extended',
+                review: 'detailed',
+              },
+            },
+            '55': {
+              label: '55',
+              blurb: 'A lengthy contribution that the performer describes as almost understated.',
+              traits: {
+                band: 'extended',
+                review: 'detailed',
+              },
+            },
+            '60': {
+              label: '60',
+              blurb: 'An hour of commitment, measured by a clock with no artistic opinions.',
+              traits: {
+                band: 'extended',
+                review: 'detailed',
+              },
+            },
+            '65': {
+              label: '65',
+              blurb:
+                'The director suggests that every minute should justify its continued existence.',
+              traits: {
+                band: 'extended',
+                review: 'detailed',
+              },
+            },
+            '70': {
+              label: '70',
+              blurb: 'The longest listed appearance. The understudy has packed a second sandwich.',
+              traits: {
+                band: 'extended',
+                review: 'detailed',
+              },
+            },
+          },
+        },
+      },
+    },
+    'clockwork-workshop': {
+      name: 'Clockwork Workshop',
+      blurb: 'Precision engineering. Approximate supervision.',
+      clues: {
+        link: '{a} is recorded with {b}.',
+        notLink: '{a} is not recorded with {b}.',
+        groupNot: 'No {a} is recorded with {b}.',
+        either: '{a} is recorded with either {b} or {c}, but not both.',
+        compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
+        compareGap:
+          'The build linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
+      },
+      categories: {
+        maker: {
+          name: 'Maker',
+          pattern: '{}',
+          describes: 'the {}',
+          noun: 'maker',
+          traits: {
+            experience: {
+              label: 'Experience',
+              pattern: '{noun} with {} experience',
+            },
+            shift: {
+              label: 'Shift',
+              pattern: '{noun} on the {} shift',
+            },
+            manner: {
+              label: 'Manner',
+              pattern: '{} {noun}',
+            },
+          },
+          items: {
+            'master-rivet': {
+              label: 'Master Rivet',
+              blurb: 'Measures twice, cuts once, then measures the offcut accusingly.',
+              traits: {
+                experience: 'limited',
+                shift: 'early',
+                manner: 'patient',
+              },
+            },
+            'mrs-bobbin': {
+              label: 'Mrs Bobbin',
+              blurb:
+                "Repairs anything except a colleague's insistence that it was already like that.",
+              traits: {
+                experience: 'considerable',
+                shift: 'late',
+                manner: 'patient',
+              },
+            },
+            'dr-ratchet': {
+              label: 'Dr Ratchet',
+              blurb: 'Has invented a quieter alarm. Nobody has heard whether it works.',
+              traits: {
+                experience: 'extensive',
+                shift: 'early',
+                manner: 'brisk',
+              },
+            },
+            'ms-sprocket': {
+              label: 'Ms Sprocket',
+              blurb: 'Labels every drawer. The drawers regard this as an opening proposal.',
+              traits: {
+                experience: 'limited',
+                shift: 'late',
+                manner: 'brisk',
+              },
+            },
+            'sir-flywheel': {
+              label: 'Sir Flywheel',
+              blurb: 'Treats a minor adjustment as a suitable occasion for formal dress.',
+              traits: {
+                experience: 'considerable',
+                shift: 'early',
+                manner: 'dramatic',
+              },
+            },
+            'dame-copper': {
+              label: 'Dame Copper',
+              blurb: 'Can hear a loose screw from three rooms and one argument away.',
+              traits: {
+                experience: 'extensive',
+                shift: 'late',
+                manner: 'dramatic',
+              },
+            },
+            'mr-sawdust': {
+              label: 'Mr Sawdust',
+              blurb: 'Calls the pile on his bench a highly localised filing system.',
+              traits: {
+                experience: 'limited',
+                shift: 'early',
+                manner: 'patient',
+              },
+            },
+            'mx-ticker': {
+              label: 'Mx Ticker',
+              blurb: 'Keeps impeccable time, mostly in small tins.',
+              traits: {
+                experience: 'considerable',
+                shift: 'late',
+                manner: 'patient',
+              },
+            },
+            'professor-piston': {
+              label: 'Professor Piston',
+              blurb: 'Explains the fault so thoroughly that lunchtime becomes hypothetical.',
+              traits: {
+                experience: 'extensive',
+                shift: 'early',
+                manner: 'brisk',
+              },
+            },
+            'miss-emery': {
+              label: 'Miss Emery',
+              blurb: 'Smooths rough edges. Colleagues remain outside the warranty.',
+              traits: {
+                experience: 'limited',
+                shift: 'late',
+                manner: 'brisk',
+              },
+            },
+            'mr-spanner': {
+              label: 'Mr Spanner',
+              blurb: 'Has one tool for every job and a speech about each of them.',
+              traits: {
+                experience: 'considerable',
+                shift: 'early',
+                manner: 'dramatic',
+              },
+            },
+            'captain-crank': {
+              label: 'Captain Crank',
+              blurb: 'Supervises the test bench as if it might attempt a mutiny.',
+              traits: {
+                experience: 'extensive',
+                shift: 'late',
+                manner: 'dramatic',
+              },
+            },
+            'aunt-toggle': {
+              label: 'Aunt Toggle',
+              blurb: "Adds a safety switch to everything, including the kettle's safety switch.",
+              traits: {
+                experience: 'limited',
+                shift: 'early',
+                manner: 'patient',
+              },
+            },
+            'dr-fuse': {
+              label: 'Dr Fuse',
+              blurb: 'Describes the smoke as an encouraging sign of activity.',
+              traits: {
+                experience: 'considerable',
+                shift: 'late',
+                manner: 'patient',
+              },
+            },
+          },
+        },
+        invention: {
+          name: 'Invention',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'invention',
+          traits: {
+            power: {
+              label: 'Power',
+              pattern: '{} {noun}',
+            },
+            purpose: {
+              label: 'Purpose',
+              pattern: '{noun} for {}',
+            },
+            scale: {
+              label: 'Scale',
+              pattern: '{} {noun}',
+            },
+          },
+          items: {
+            'polite-automaton': {
+              label: 'Polite Automaton',
+              blurb: 'Apologises before malfunctioning, which the customers find considerate.',
+              traits: {
+                power: 'spring-powered',
+                purpose: 'assistance',
+                scale: 'large',
+              },
+            },
+            'self-pouring-pot': {
+              label: 'Self-Pouring Pot',
+              blurb: 'Pours with confidence. Cup placement remains a human weakness.',
+              traits: {
+                power: 'steam-powered',
+                purpose: 'assistance',
+                scale: 'small',
+              },
+            },
+            'clockwork-wren': {
+              label: 'Clockwork Wren',
+              blurb: 'Sings at dawn, provided someone has wound dawn correctly.',
+              traits: {
+                power: 'spring-powered',
+                purpose: 'entertainment',
+                scale: 'small',
+              },
+            },
+            'pocket-submarine': {
+              label: 'Pocket Submarine',
+              blurb: 'For explorers whose ambitions are larger than their garden pond.',
+              traits: {
+                power: 'battery-powered',
+                purpose: 'transport',
+                scale: 'small',
+              },
+            },
+            'parlour-airship': {
+              label: 'Parlour Airship',
+              blurb: 'Carries one biscuit over difficult living-room terrain.',
+              traits: {
+                power: 'battery-powered',
+                purpose: 'transport',
+                scale: 'large',
+              },
+            },
+            'helping-hand': {
+              label: 'Helping Hand',
+              blurb: 'Volunteers for every task and then asks which finger to use.',
+              traits: {
+                power: 'battery-powered',
+                purpose: 'assistance',
+                scale: 'small',
+              },
+            },
+            'waltzing-box': {
+              label: 'Waltzing Box',
+              blurb: 'Plays one tune until the room learns to appreciate silence.',
+              traits: {
+                power: 'spring-powered',
+                purpose: 'entertainment',
+                scale: 'small',
+              },
+            },
+            'walking-clock': {
+              label: 'Walking Clock',
+              blurb: 'Time flies, but this model prefers a brisk constitutional.',
+              traits: {
+                power: 'spring-powered',
+                purpose: 'assistance',
+                scale: 'large',
+              },
+            },
+            'sun-powered-fan': {
+              label: 'Sun-Powered Fan',
+              blurb: 'Offers a breeze whenever the weather is already doing enough.',
+              traits: {
+                power: 'solar-powered',
+                purpose: 'assistance',
+                scale: 'large',
+              },
+            },
+            'perpetual-cog': {
+              label: 'Perpetual Cog',
+              blurb: 'Almost runs forever. The remaining part is described as administrative.',
+              traits: {
+                power: 'spring-powered',
+                purpose: 'research',
+                scale: 'small',
+              },
+            },
+            'dictation-machine': {
+              label: 'Dictation Machine',
+              blurb: 'Records every word, including the ones addressed to the machine.',
+              traits: {
+                power: 'battery-powered',
+                purpose: 'assistance',
+                scale: 'large',
+              },
+            },
+            'garden-rocket': {
+              label: 'Garden Rocket',
+              blurb: 'Designed to reach the far flowerbed without consulting the fence.',
+              traits: {
+                power: 'steam-powered',
+                purpose: 'transport',
+                scale: 'large',
+              },
+            },
+            'whisper-horn': {
+              label: 'Whisper Horn',
+              blurb: 'Makes a secret audible to a much more satisfying number of people.',
+              traits: {
+                power: 'spring-powered',
+                purpose: 'entertainment',
+                scale: 'large',
+              },
+            },
+            'mechanical-carp': {
+              label: 'Mechanical Carp',
+              blurb: 'Swims in circles while the team debates whether this is navigation.',
+              traits: {
+                power: 'solar-powered',
+                purpose: 'research',
+                scale: 'small',
+              },
+            },
+          },
+        },
+        material: {
+          name: 'Material',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'material',
+          traits: {
+            origin: {
+              label: 'Origin',
+              pattern: '{} {noun}',
+            },
+            texture: {
+              label: 'Texture',
+              pattern: '{}-textured {noun}',
+            },
+            supply: {
+              label: 'Supply',
+              pattern: '{noun} from {} stock',
+            },
+          },
+          items: {
+            'oak-offcut': {
+              label: 'Oak Offcut',
+              blurb: 'Too short for the planned job, too promising to throw away.',
+              traits: {
+                origin: 'natural',
+                texture: 'rough',
+                supply: 'standard',
+              },
+            },
+            'brass-ingot': {
+              label: 'Brass Ingot',
+              blurb: 'Shines convincingly enough to be mistaken for progress.',
+              traits: {
+                origin: 'processed',
+                texture: 'smooth',
+                supply: 'standard',
+              },
+            },
+            'glass-flask': {
+              label: 'Glass Flask',
+              blurb: 'Transparent about everything except how much it cost.',
+              traits: {
+                origin: 'processed',
+                texture: 'smooth',
+                supply: 'special',
+              },
+            },
+            'copper-coil': {
+              label: 'Copper Coil',
+              blurb: 'The wire has developed a detailed interest in becoming a knot.',
+              traits: {
+                origin: 'processed',
+                texture: 'smooth',
+                supply: 'standard',
+              },
+            },
+            'leather-hide': {
+              label: 'Leather Hide',
+              blurb: 'Reserved for grips, straps and improvements described as traditional.',
+              traits: {
+                origin: 'natural',
+                texture: 'rough',
+                supply: 'special',
+              },
+            },
+            'canvas-sheet': {
+              label: 'Canvas Sheet',
+              blurb: 'Covers unfinished work with an air of professional discretion.',
+              traits: {
+                origin: 'processed',
+                texture: 'rough',
+                supply: 'standard',
+              },
+            },
+            'cork-block': {
+              label: 'Cork Block',
+              blurb: 'Floats above most workshop disagreements.',
+              traits: {
+                origin: 'natural',
+                texture: 'rough',
+                supply: 'standard',
+              },
+            },
+            'hemp-rope': {
+              label: 'Hemp Rope',
+              blurb: 'Sold by length, stored by tangle.',
+              traits: {
+                origin: 'natural',
+                texture: 'rough',
+                supply: 'standard',
+              },
+            },
+            'rubber-ring': {
+              label: 'Rubber Ring',
+              blurb: 'Absorbs vibrations and a surprising amount of blame.',
+              traits: {
+                origin: 'processed',
+                texture: 'smooth',
+                supply: 'standard',
+              },
+            },
+            'porcelain-jar': {
+              label: 'Porcelain Jar',
+              blurb:
+                'The material request said delicate. The handling instructions said very delicate.',
+              traits: {
+                origin: 'processed',
+                texture: 'smooth',
+                supply: 'special',
+              },
+            },
+            'paper-stack': {
+              label: 'Paper Stack',
+              blurb: 'The prototype will be finished just after the paperwork prototype.',
+              traits: {
+                origin: 'processed',
+                texture: 'smooth',
+                supply: 'standard',
+              },
+            },
+            'granite-lump': {
+              label: 'Granite Lump',
+              blurb: 'Offers excellent stability and no help carrying it.',
+              traits: {
+                origin: 'natural',
+                texture: 'rough',
+                supply: 'special',
+              },
+            },
+            'wool-felt': {
+              label: 'Wool Felt',
+              blurb: 'Softens machinery that has become too pleased with its own noise.',
+              traits: {
+                origin: 'natural',
+                texture: 'rough',
+                supply: 'special',
+              },
+            },
+            'steel-spring': {
+              label: 'Steel Spring',
+              blurb: 'Stores energy and occasionally releases a strongly worded opinion.',
+              traits: {
+                origin: 'processed',
+                texture: 'smooth',
+                supply: 'special',
+              },
+            },
+          },
+        },
+        tool: {
+          name: 'Tool',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'tool',
+          traits: {
+            operation: {
+              label: 'Operation',
+              pattern: '{} {noun}',
+            },
+            purpose: {
+              label: 'Purpose',
+              pattern: '{noun} for {}',
+            },
+            storage: {
+              label: 'Storage',
+              pattern: '{noun} stored on the {}',
+            },
+          },
+          items: {
+            'claw-hammer': {
+              label: 'Claw Hammer',
+              blurb: 'Persuasion, with a withdrawal procedure at the other end.',
+              traits: {
+                operation: 'manual',
+                purpose: 'assembly',
+                storage: 'pegboard',
+              },
+            },
+            'open-spanner': {
+              label: 'Open Spanner',
+              blurb: 'Fits the bolt that nobody has dropped behind the bench yet.',
+              traits: {
+                operation: 'manual',
+                purpose: 'assembly',
+                storage: 'pegboard',
+              },
+            },
+            'panel-saw': {
+              label: 'Panel Saw',
+              blurb: 'Converts one expensive mistake into two more manageable pieces.',
+              traits: {
+                operation: 'manual',
+                purpose: 'cutting',
+                storage: 'pegboard',
+              },
+            },
+            'long-pliers': {
+              label: 'Long Pliers',
+              blurb: 'Reaches the places fingers have sensibly declined to visit.',
+              traits: {
+                operation: 'manual',
+                purpose: 'assembly',
+                storage: 'pegboard',
+              },
+            },
+            'slot-driver': {
+              label: 'Slot Driver',
+              blurb: 'Also used for pointing at the person who over-tightened the screw.',
+              traits: {
+                operation: 'manual',
+                purpose: 'assembly',
+                storage: 'pegboard',
+              },
+            },
+            'bench-drill': {
+              label: 'Bench Drill',
+              blurb: 'Makes the hole exactly where the clamping allows it.',
+              traits: {
+                operation: 'powered',
+                purpose: 'cutting',
+                storage: 'bench',
+              },
+            },
+            'small-anvil': {
+              label: 'Small Anvil',
+              blurb: 'The only colleague who never objects to being hit with a hammer.',
+              traits: {
+                operation: 'manual',
+                purpose: 'shaping',
+                storage: 'bench',
+              },
+            },
+            'bench-vice': {
+              label: 'Bench Vice',
+              blurb: 'Holds the work firmly while everyone changes their mind.',
+              traits: {
+                operation: 'manual',
+                purpose: 'assembly',
+                storage: 'bench',
+              },
+            },
+            dividers: {
+              label: 'Dividers',
+              blurb: 'Measures the gap between nearly right and starting again.',
+              traits: {
+                operation: 'manual',
+                purpose: 'measuring',
+                storage: 'drawer',
+              },
+            },
+            'flat-file': {
+              label: 'Flat File',
+              blurb: 'Removes tiny amounts until patience becomes the limiting material.',
+              traits: {
+                operation: 'manual',
+                purpose: 'shaping',
+                storage: 'drawer',
+              },
+            },
+            'soldering-iron': {
+              label: 'Soldering Iron',
+              blurb: 'Joins components and introduces a new respect for where hands are placed.',
+              traits: {
+                operation: 'powered',
+                purpose: 'assembly',
+                storage: 'bench',
+              },
+            },
+            'g-clamp': {
+              label: 'G-Clamp',
+              blurb: 'Temporary assistance that usually remains in place for a week.',
+              traits: {
+                operation: 'manual',
+                purpose: 'assembly',
+                storage: 'pegboard',
+              },
+            },
+            'steel-rule': {
+              label: 'Steel Rule',
+              blurb: 'The straightest answer available in the building.',
+              traits: {
+                operation: 'manual',
+                purpose: 'measuring',
+                storage: 'drawer',
+              },
+            },
+            'forge-bellows': {
+              label: 'Forge Bellows',
+              blurb: 'Encourages the fire without contributing a single useful suggestion.',
+              traits: {
+                operation: 'manual',
+                purpose: 'shaping',
+                storage: 'bench',
+              },
+            },
+          },
+        },
+        'build-year': {
+          name: 'Build Year',
+          pattern: 'the {} build',
+          describes: 'the {}',
+          noun: 'build',
+          ordered: {
+            noun: 'build',
+            unit: 'years',
+            greater: 'later',
+            lesser: 'earlier',
+          },
+          traits: {
+            era: {
+              label: 'Era',
+              pattern: '{noun} from the {} era',
+            },
+            register: {
+              label: 'Register',
+              pattern: '{noun} in the {} register',
+            },
+          },
+          items: {
+            '1900': {
+              label: '1900',
+              blurb: 'The first build. Confidence was high and the filing system was a shoebox.',
+              traits: {
+                era: 'founding',
+                register: 'handwritten',
+              },
+            },
+            '1905': {
+              label: '1905',
+              blurb: 'Made when the workshop still called every setback a promising curiosity.',
+              traits: {
+                era: 'founding',
+                register: 'handwritten',
+              },
+            },
+            '1910': {
+              label: '1910',
+              blurb: 'The safety notice acquired its first underlined word.',
+              traits: {
+                era: 'founding',
+                register: 'handwritten',
+              },
+            },
+            '1915': {
+              label: '1915',
+              blurb: 'The year someone suggested keeping the useful offcuts. All of them.',
+              traits: {
+                era: 'founding',
+                register: 'handwritten',
+              },
+            },
+            '1920': {
+              label: '1920',
+              blurb: 'A build from the brief period when every drawer had an accurate label.',
+              traits: {
+                era: 'founding',
+                register: 'handwritten',
+              },
+            },
+            '1925': {
+              label: '1925',
+              blurb: 'The workshop expanded. So did the distance to the missing spanner.',
+              traits: {
+                era: 'expansion',
+                register: 'handwritten',
+              },
+            },
+            '1930': {
+              label: '1930',
+              blurb: 'The instructions began to include a section entitled Before You Start.',
+              traits: {
+                era: 'expansion',
+                register: 'handwritten',
+              },
+            },
+            '1935': {
+              label: '1935',
+              blurb: 'A confident design from the year the test bench received wheels.',
+              traits: {
+                era: 'expansion',
+                register: 'typed',
+              },
+            },
+            '1940': {
+              label: '1940',
+              blurb: 'The records became neater while the workbench pursued the opposite policy.',
+              traits: {
+                era: 'expansion',
+                register: 'typed',
+              },
+            },
+            '1945': {
+              label: '1945',
+              blurb: 'Made after the committee approved a more encouraging shade of paint.',
+              traits: {
+                era: 'expansion',
+                register: 'typed',
+              },
+            },
+            '1950': {
+              label: '1950',
+              blurb: 'The year the spare-parts cupboard was promoted to a department.',
+              traits: {
+                era: 'modern',
+                register: 'typed',
+              },
+            },
+            '1955': {
+              label: '1955',
+              blurb: 'A modern build, according to a sign nobody has revisited.',
+              traits: {
+                era: 'modern',
+                register: 'typed',
+              },
+            },
+            '1960': {
+              label: '1960',
+              blurb: 'The design includes several improvements explained only by their inventor.',
+              traits: {
+                era: 'modern',
+                register: 'typed',
+              },
+            },
+            '1965': {
+              label: '1965',
+              blurb: 'The newest build. Already attracting suggestions for the next version.',
+              traits: {
+                era: 'modern',
+                register: 'typed',
+              },
+            },
+          },
+        },
+      },
+    },
+    'harbour-watch': {
+      name: 'Harbour Watch',
+      blurb: 'The tide is dependable. The paperwork is less so.',
+      clues: {
+        link: '{a} is recorded with {b}.',
+        notLink: '{a} is not recorded with {b}.',
+        groupNot: 'No {a} is recorded with {b}.',
+        either: '{a} is recorded with either {b} or {c}, but not both.',
+        compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.',
+        compareGap:
+          'The arrival linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
+      },
+      categories: {
+        skipper: {
+          name: 'Skipper',
+          pattern: '{}',
+          describes: 'the {}',
+          noun: 'skipper',
+          traits: {
+            standing: {
+              label: 'Standing',
+              pattern: '{noun} with {} standing',
+            },
+            shift: {
+              label: 'Shift',
+              pattern: '{noun} on the {} shift',
+            },
+            manner: {
+              label: 'Manner',
+              pattern: '{noun} with a {} manner',
+            },
+          },
+          items: {
+            'captain-brine': {
+              label: 'Captain Brine',
+              blurb: 'Has weathered every kind of storm except a change to the filing system.',
+              traits: {
+                standing: 'junior',
+                shift: 'early',
+                manner: 'measured',
+              },
+            },
+            'ada-reef': {
+              label: 'Ada Reef',
+              blurb: 'Can untie any knot, provided nobody explains how they tied it.',
+              traits: {
+                standing: 'established',
+                shift: 'late',
+                manner: 'measured',
+              },
+            },
+            'dr-compass': {
+              label: 'Dr Compass',
+              blurb: 'Knows exactly where north is and approximately where the receipt went.',
+              traits: {
+                standing: 'veteran',
+                shift: 'early',
+                manner: 'brisk',
+              },
+            },
+            'nell-nor-east': {
+              label: "Nell Nor'east",
+              blurb: 'Regards a headwind as the weather offering unsolicited advice.',
+              traits: {
+                standing: 'junior',
+                shift: 'late',
+                manner: 'brisk',
+              },
+            },
+            'bosun-gull': {
+              label: 'Bosun Gull',
+              blurb: "Polishes the brass until it reflects badly on everyone else's brass.",
+              traits: {
+                standing: 'established',
+                shift: 'early',
+                manner: 'theatrical',
+              },
+            },
+            'marina-mallow': {
+              label: 'Marina Mallow',
+              blurb: 'Remembers every face and the exact favour it still owes her.',
+              traits: {
+                standing: 'veteran',
+                shift: 'late',
+                manner: 'theatrical',
+              },
+            },
+            'mx-sounding': {
+              label: 'Mx Sounding',
+              blurb: 'Listens carefully to the radio, then asks it to be more specific.',
+              traits: {
+                standing: 'junior',
+                shift: 'early',
+                manner: 'measured',
+              },
+            },
+            'old-tom-tiller': {
+              label: 'Old Tom Tiller',
+              blurb: 'Has a story for every occasion and very few short versions.',
+              traits: {
+                standing: 'established',
+                shift: 'late',
+                manner: 'measured',
+              },
+            },
+            'sir-keel': {
+              label: 'Sir Keel',
+              blurb: 'Considers a smart appearance an essential aid to navigation.',
+              traits: {
+                standing: 'veteran',
+                shift: 'early',
+                manner: 'brisk',
+              },
+            },
+            'penny-shoal': {
+              label: 'Penny Shoal',
+              blurb: 'Can spot a sandbank at a distance and an excuse considerably further away.',
+              traits: {
+                standing: 'junior',
+                shift: 'late',
+                manner: 'brisk',
+              },
+            },
+            'finn-breaker': {
+              label: 'Finn Breaker',
+              blurb: 'Describes every rough crossing as character development for the passengers.',
+              traits: {
+                standing: 'established',
+                shift: 'early',
+                manner: 'theatrical',
+              },
+            },
+            'captain-capstan': {
+              label: 'Captain Capstan',
+              blurb: 'Believes a firm voice can influence the tide. Results remain inconclusive.',
+              traits: {
+                standing: 'veteran',
+                shift: 'late',
+                manner: 'theatrical',
+              },
+            },
+            'professor-fathom': {
+              label: 'Professor Fathom',
+              blurb: 'Measures everything except the length of the explanation afterwards.',
+              traits: {
+                standing: 'junior',
+                shift: 'early',
+                manner: 'measured',
+              },
+            },
+            'dame-drift': {
+              label: 'Dame Drift',
+              blurb: 'Has perfected the look that makes a whole crew remember something urgent.',
+              traits: {
+                standing: 'established',
+                shift: 'late',
+                manner: 'measured',
+              },
+            },
+          },
+        },
+        vessel: {
+          name: 'Vessel',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'vessel',
+          traits: {
+            drive: {
+              label: 'Drive',
+              pattern: '{noun} driven by {}',
+            },
+            hull: {
+              label: 'Hull',
+              pattern: '{noun} with a {} hull',
+            },
+            duty: {
+              label: 'Duty',
+              pattern: '{noun} assigned to {}',
+            },
+          },
+          items: {
+            'brassbound-tug': {
+              label: 'Brassbound Tug',
+              blurb: 'Pulls far more than its weight and makes sure everyone hears about it.',
+              traits: {
+                drive: 'diesel',
+                hull: 'steel',
+                duty: 'service',
+              },
+            },
+            'whisper-cutter': {
+              label: 'Whisper Cutter',
+              blurb: 'Sails quietly, leaving its skipper to provide the commentary.',
+              traits: {
+                drive: 'sail',
+                hull: 'wood',
+                duty: 'transport',
+              },
+            },
+            'twinmast-schooner': {
+              label: 'Twinmast Schooner',
+              blurb: 'Two masts offer twice the opportunity to blame the wind.',
+              traits: {
+                drive: 'sail',
+                hull: 'wood',
+                duty: 'transport',
+              },
+            },
+            'proud-paddleboat': {
+              label: 'Proud Paddleboat',
+              blurb: 'Makes substantial progress in converting water into a public spectacle.',
+              traits: {
+                drive: 'steam',
+                hull: 'steel',
+                duty: 'transport',
+              },
+            },
+            'pocket-submersible': {
+              label: 'Pocket Submersible',
+              blurb: 'The inspection form asks whether it is supposed to be below the surface.',
+              traits: {
+                drive: 'battery',
+                hull: 'steel',
+                duty: 'survey',
+              },
+            },
+            'willow-canoe': {
+              label: 'Willow Canoe',
+              blurb: 'A quiet crossing depends on a very civil discussion between the paddlers.',
+              traits: {
+                drive: 'oars',
+                hull: 'wood',
+                duty: 'survey',
+              },
+            },
+            'twinfin-catamaran': {
+              label: 'Twinfin Catamaran',
+              blurb: 'Two hulls, one destination and several opinions about the route.',
+              traits: {
+                drive: 'diesel',
+                hull: 'composite',
+                duty: 'transport',
+              },
+            },
+            'netmender-trawler': {
+              label: 'Netmender Trawler',
+              blurb: 'The nets are neatly stowed, a condition the crew hopes to repeat someday.',
+              traits: {
+                drive: 'diesel',
+                hull: 'steel',
+                duty: 'fishing',
+              },
+            },
+            'harbour-ferry': {
+              label: 'Harbour Ferry',
+              blurb:
+                'Crosses the same stretch of water while passengers explain better ways to do it.',
+              traits: {
+                drive: 'diesel',
+                hull: 'steel',
+                duty: 'transport',
+              },
+            },
+            'cushion-hovercraft': {
+              label: 'Cushion Hovercraft',
+              blurb: "Arrives on a cushion of air and a generous cloud of everyone's belongings.",
+              traits: {
+                drive: 'diesel',
+                hull: 'composite',
+                duty: 'service',
+              },
+            },
+            'scarlet-fireboat': {
+              label: 'Scarlet Fireboat',
+              blurb: 'Has the most enthusiastic water supply of any department in town.',
+              traits: {
+                drive: 'diesel',
+                hull: 'steel',
+                duty: 'service',
+              },
+            },
+            'mudlark-dredger': {
+              label: 'Mudlark Dredger',
+              blurb: 'Finds the bottom of every problem and relocates it somewhere inconvenient.',
+              traits: {
+                drive: 'diesel',
+                hull: 'steel',
+                duty: 'service',
+              },
+            },
+            'lantern-lightship': {
+              label: 'Lantern Lightship',
+              blurb: 'Stays conspicuously useful without going very far at all.',
+              traits: {
+                drive: 'diesel',
+                hull: 'steel',
+                duty: 'service',
+              },
+            },
+            'oak-longboat': {
+              label: 'Oak Longboat',
+              blurb: 'Every rower has been asked to agree on the meaning of forwards.',
+              traits: {
+                drive: 'oars',
+                hull: 'wood',
+                duty: 'transport',
+              },
+            },
+          },
+        },
+        cargo: {
+          name: 'Cargo',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'cargo',
+          traits: {
+            handling: {
+              label: 'Handling',
+              pattern: '{noun} requiring {} handling',
+            },
+            origin: {
+              label: 'Origin',
+              pattern: '{noun} from the {} depot',
+            },
+            cover: {
+              label: 'Cover',
+              pattern: '{noun} under {} cover',
+            },
+          },
+          items: {
+            'tea-leaves': {
+              label: 'Tea Leaves',
+              blurb: 'Expected to restore calm once someone finds a sufficiently large kettle.',
+              traits: {
+                handling: 'dry',
+                origin: 'eastern',
+                cover: 'sealed',
+              },
+            },
+            'lamp-oil': {
+              label: 'Lamp Oil',
+              blurb:
+                'The drum is upright, which everyone agrees is the most encouraging orientation.',
+              traits: {
+                handling: 'careful',
+                origin: 'western',
+                cover: 'sealed',
+              },
+            },
+            'wool-bale': {
+              label: 'Wool Bale',
+              blurb:
+                'Excellent insulation for the shipment and several small administrative mysteries.',
+              traits: {
+                handling: 'dry',
+                origin: 'northern',
+                cover: 'wrapped',
+              },
+            },
+            'sawn-timber': {
+              label: 'Sawn Timber',
+              blurb: 'Counted twice because the first total was described as roughly a tree.',
+              traits: {
+                handling: 'standard',
+                origin: 'northern',
+                cover: 'open',
+              },
+            },
+            'copper-ingots': {
+              label: 'Copper Ingots',
+              blurb:
+                'The shipment has considerable value and no interest in being carried upstairs.',
+              traits: {
+                handling: 'standard',
+                origin: 'eastern',
+                cover: 'open',
+              },
+            },
+            'marble-blocks': {
+              label: 'Marble Blocks',
+              blurb: 'Arrives already looking permanent, to the concern of the unloading crew.',
+              traits: {
+                handling: 'careful',
+                origin: 'western',
+                cover: 'open',
+              },
+            },
+            'grain-sacks': {
+              label: 'Grain Sacks',
+              blurb:
+                'The manifest says every grain is accounted for, a bold administrative position.',
+              traits: {
+                handling: 'dry',
+                origin: 'eastern',
+                cover: 'sealed',
+              },
+            },
+            'silk-rolls': {
+              label: 'Silk Rolls',
+              blurb: 'The softest shipment has the least forgiving inspection instructions.',
+              traits: {
+                handling: 'dry',
+                origin: 'western',
+                cover: 'wrapped',
+              },
+            },
+            'spice-jars': {
+              label: 'Spice Jars',
+              blurb: 'The paperwork is bland enough to qualify as suitable packaging.',
+              traits: {
+                handling: 'careful',
+                origin: 'eastern',
+                cover: 'sealed',
+              },
+            },
+            'citrus-basket': {
+              label: 'Citrus Basket',
+              blurb: 'Fresh fruit with a sunny disposition and a rather urgent delivery note.',
+              traits: {
+                handling: 'careful',
+                origin: 'southern',
+                cover: 'open',
+              },
+            },
+            'clay-pots': {
+              label: 'Clay Pots',
+              blurb: 'The packing list contains a reassuring number of repetitions of fragile.',
+              traits: {
+                handling: 'careful',
+                origin: 'southern',
+                cover: 'wrapped',
+              },
+            },
+            'glass-bottles': {
+              label: 'Glass Bottles',
+              blurb: 'Counted by the bottle, preferably before anyone counts by the shard.',
+              traits: {
+                handling: 'careful',
+                origin: 'western',
+                cover: 'wrapped',
+              },
+            },
+            'machine-parts': {
+              label: 'Machine Parts',
+              blurb:
+                'All the important pieces are present, according to the pieces that were counted.',
+              traits: {
+                handling: 'standard',
+                origin: 'northern',
+                cover: 'wrapped',
+              },
+            },
+            'ice-blocks': {
+              label: 'Ice Blocks',
+              blurb: 'The only shipment actively trying to simplify its own inventory.',
+              traits: {
+                handling: 'chilled',
+                origin: 'northern',
+                cover: 'sealed',
+              },
+            },
+          },
+        },
+        berth: {
+          name: 'Berth',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'berth',
+          traits: {
+            basin: {
+              label: 'Basin',
+              pattern: '{noun} in the {} basin',
+            },
+            shelter: {
+              label: 'Shelter',
+              pattern: '{noun} with {} shelter',
+            },
+            access: {
+              label: 'Access',
+              pattern: '{noun} with {} access',
+            },
+          },
+          items: {
+            'lighthouse-quay': {
+              label: 'Lighthouse Quay',
+              blurb: 'The light is easy to find. The correct office door is a separate challenge.',
+              traits: {
+                basin: 'outer',
+                shelter: 'limited',
+                access: 'road',
+              },
+            },
+            'gantry-pier': {
+              label: 'Gantry Pier',
+              blurb: 'The crane can lift almost anything except the tone of the safety meeting.',
+              traits: {
+                basin: 'inner',
+                shelter: 'full',
+                access: 'road',
+              },
+            },
+            'old-graving-dock': {
+              label: 'Old Graving Dock',
+              blurb: 'A dry place to discuss why everything else is wet.',
+              traits: {
+                basin: 'inner',
+                shelter: 'full',
+                access: 'road',
+              },
+            },
+            'customs-steps': {
+              label: 'Customs Steps',
+              blurb: 'A fine welcome, followed by several forms in increasingly narrow boxes.',
+              traits: {
+                basin: 'inner',
+                shelter: 'full',
+                access: 'footpath',
+              },
+            },
+            'ropewalk-landing': {
+              label: 'Ropewalk Landing',
+              blurb: 'The ropes are long. The explanation of their storage is longer.',
+              traits: {
+                basin: 'middle',
+                shelter: 'partial',
+                access: 'footpath',
+              },
+            },
+            'coal-wharf': {
+              label: 'Coal Wharf',
+              blurb: 'Visitors tend to leave with a much clearer understanding of the dust.',
+              traits: {
+                basin: 'outer',
+                shelter: 'limited',
+                access: 'road',
+              },
+            },
+            'beacon-jetty': {
+              label: 'Beacon Jetty',
+              blurb: 'The marker flashes confidently through weather nobody else finds reassuring.',
+              traits: {
+                basin: 'outer',
+                shelter: 'limited',
+                access: 'footpath',
+              },
+            },
+            'mill-basin': {
+              label: 'Mill Basin',
+              blurb: 'The windmill has been turning the same argument over for generations.',
+              traits: {
+                basin: 'middle',
+                shelter: 'partial',
+                access: 'road',
+              },
+            },
+            'east-lock': {
+              label: 'East Lock',
+              blurb: 'Progress depends on opening the correct thing after closing the other thing.',
+              traits: {
+                basin: 'inner',
+                shelter: 'full',
+                access: 'road',
+              },
+            },
+            'bell-buoy': {
+              label: 'Bell Buoy',
+              blurb: 'Provides directions with one note and absolutely no follow-up questions.',
+              traits: {
+                basin: 'outer',
+                shelter: 'limited',
+                access: 'launch',
+              },
+            },
+            'salt-house': {
+              label: 'Salt House',
+              blurb: 'Everything stored here develops a strong opinion about moisture.',
+              traits: {
+                basin: 'middle',
+                shelter: 'partial',
+                access: 'road',
+              },
+            },
+            'anchor-point': {
+              label: 'Anchor Point',
+              blurb:
+                'The name suggests certainty that the harbourmaster would like extended to the forms.',
+              traits: {
+                basin: 'outer',
+                shelter: 'partial',
+                access: 'launch',
+              },
+            },
+            'stone-arch': {
+              label: 'Stone Arch',
+              blurb: 'Built to last, unlike the notice explaining which side to approach.',
+              traits: {
+                basin: 'middle',
+                shelter: 'full',
+                access: 'footpath',
+              },
+            },
+            'net-loft': {
+              label: 'Net Loft',
+              blurb: 'The loft contains enough nets to make a filing system seem almost plausible.',
+              traits: {
+                basin: 'inner',
+                shelter: 'partial',
+                access: 'footpath',
+              },
+            },
+          },
+        },
+        arrival: {
+          name: 'Arrival Time',
+          pattern: 'the {} arrival',
+          describes: 'the {}',
+          noun: 'arrival',
+          ordered: {
+            noun: 'arrival',
+            unit: 'minutes',
+            greater: 'later',
+            lesser: 'earlier',
+          },
+          traits: {
+            watch: {
+              label: 'Watch',
+              pattern: '{noun} during the {} watch',
+            },
+            window: {
+              label: 'Window',
+              pattern: '{noun} in the {} window',
+            },
+          },
+          items: {
+            '04-00': {
+              label: '04:00',
+              blurb:
+                'The office is open in principle. Several members of staff remain theoretical.',
+              traits: {
+                watch: 'first',
+                window: 'early',
+              },
+            },
+            '04-30': {
+              label: '04:30',
+              blurb: 'Early enough for the gulls to consider themselves the senior shift.',
+              traits: {
+                watch: 'first',
+                window: 'early',
+              },
+            },
+            '05-00': {
+              label: '05:00',
+              blurb: 'The horizon is becoming clearer than the handwriting in the log.',
+              traits: {
+                watch: 'first',
+                window: 'early',
+              },
+            },
+            '05-30': {
+              label: '05:30',
+              blurb: 'A sensible hour to admit that another cup of tea is operationally necessary.',
+              traits: {
+                watch: 'first',
+                window: 'early',
+              },
+            },
+            '06-00': {
+              label: '06:00',
+              blurb: 'The harbour begins to sound as though everyone has found their whistle.',
+              traits: {
+                watch: 'first',
+                window: 'early',
+              },
+            },
+            '06-30': {
+              label: '06:30',
+              blurb: 'Morning has arrived with the confidence missing from several signatures.',
+              traits: {
+                watch: 'middle',
+                window: 'early',
+              },
+            },
+            '07-00': {
+              label: '07:00',
+              blurb: 'The clerk is now awake enough to notice the earlier clerk was not.',
+              traits: {
+                watch: 'middle',
+                window: 'early',
+              },
+            },
+            '07-30': {
+              label: '07:30',
+              blurb: 'A respectable time to insist that everything is proceeding normally.',
+              traits: {
+                watch: 'middle',
+                window: 'late',
+              },
+            },
+            '08-00': {
+              label: '08:00',
+              blurb: 'The office has developed a queue with a strong sense of maritime purpose.',
+              traits: {
+                watch: 'middle',
+                window: 'late',
+              },
+            },
+            '08-30': {
+              label: '08:30',
+              blurb: 'A brief period of calm, according to a note written before it ended.',
+              traits: {
+                watch: 'middle',
+                window: 'late',
+              },
+            },
+            '09-00': {
+              label: '09:00',
+              blurb: 'The morning report is growing faster than the morning certainty.',
+              traits: {
+                watch: 'final',
+                window: 'late',
+              },
+            },
+            '09-30': {
+              label: '09:30',
+              blurb: 'The tea has gone cold while the discussion remains remarkably warm.',
+              traits: {
+                watch: 'final',
+                window: 'late',
+              },
+            },
+            '10-00': {
+              label: '10:00',
+              blurb: 'Late enough for the first explanation to have acquired several corrections.',
+              traits: {
+                watch: 'final',
+                window: 'late',
+              },
+            },
+            '10-30': {
+              label: '10:30',
+              blurb: 'The last listed slot. The harbourmaster would appreciate a tidy conclusion.',
+              traits: {
+                watch: 'final',
+                window: 'late',
+              },
+            },
+          },
+        },
+      },
+    },
+    'lantern-festival': {
+      name: 'Lantern Festival',
+      blurb: 'A thousand lights. One rather confused running order.',
+      clues: {
+        link: '{a} is recorded with {b}.',
+        notLink: '{a} is not recorded with {b}.',
+        groupNot: 'No {a} is recorded with {b}.',
+        either: '{a} is recorded with either {b} or {c}, but not both.',
+        compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
+        compareGap:
+          'The performance linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
+      },
+      categories: {
+        artist: {
+          name: 'Artist',
+          pattern: '{}',
+          describes: 'the {}',
+          noun: 'artist',
+          traits: {
+            experience: {
+              label: 'Experience',
+              pattern: '{noun} with {} experience',
+            },
+            shift: {
+              label: 'Shift',
+              pattern: '{noun} on the {} shift',
+            },
+            manner: {
+              label: 'Manner',
+              pattern: '{} {noun}',
+            },
+          },
+          items: {
+            'mr-glow': {
+              label: 'Mr Glow',
+              blurb: 'Practises his entrance until the entrance requests an interval.',
+              traits: {
+                experience: 'limited',
+                shift: 'early',
+                manner: 'patient',
+              },
+            },
+            'madam-ribbon': {
+              label: 'Madam Ribbon',
+              blurb: 'Considers every breeze an unsolicited contribution to the choreography.',
+              traits: {
+                experience: 'considerable',
+                shift: 'late',
+                manner: 'patient',
+              },
+            },
+            'dr-dazzle': {
+              label: 'Dr Dazzle',
+              blurb: 'Tests each flourish scientifically, then adds one for luck.',
+              traits: {
+                experience: 'extensive',
+                shift: 'early',
+                manner: 'brisk',
+              },
+            },
+            'miss-wisp': {
+              label: 'Miss Wisp',
+              blurb: 'Can make an awkward silence feel like a deliberate artistic choice.',
+              traits: {
+                experience: 'limited',
+                shift: 'late',
+                manner: 'brisk',
+              },
+            },
+            'lord-confetti': {
+              label: 'Lord Confetti',
+              blurb: 'Arrives formally and leaves several small pieces of himself behind.',
+              traits: {
+                experience: 'considerable',
+                shift: 'early',
+                manner: 'dramatic',
+              },
+            },
+            'dame-firefly': {
+              label: 'Dame Firefly',
+              blurb: 'Has mastered the expression that makes volunteers stand in straighter rows.',
+              traits: {
+                experience: 'extensive',
+                shift: 'late',
+                manner: 'dramatic',
+              },
+            },
+            'mr-flutter': {
+              label: 'Mr Flutter',
+              blurb: 'Rehearses bows more carefully than the performance before them.',
+              traits: {
+                experience: 'limited',
+                shift: 'early',
+                manner: 'patient',
+              },
+            },
+            'mx-chorus': {
+              label: 'Mx Chorus',
+              blurb: 'Provides backing vocals even when the conversation has not requested any.',
+              traits: {
+                experience: 'considerable',
+                shift: 'late',
+                manner: 'patient',
+              },
+            },
+            'professor-glimmer': {
+              label: 'Professor Glimmer',
+              blurb: 'Lectures on spectacle. Occasionally remembers to supply some.',
+              traits: {
+                experience: 'extensive',
+                shift: 'early',
+                manner: 'brisk',
+              },
+            },
+            'mrs-twinkle': {
+              label: 'Mrs Twinkle',
+              blurb: 'Smiles through every rehearsal and keeps a private list of improvements.',
+              traits: {
+                experience: 'limited',
+                shift: 'late',
+                manner: 'brisk',
+              },
+            },
+            'sir-rattle': {
+              label: 'Sir Rattle',
+              blurb: 'Believes enthusiasm is an acceptable substitute for a sound check.',
+              traits: {
+                experience: 'considerable',
+                shift: 'early',
+                manner: 'dramatic',
+              },
+            },
+            'captain-spark': {
+              label: 'Captain Spark',
+              blurb: 'Runs the rehearsal with naval discipline and decorative bunting.',
+              traits: {
+                experience: 'extensive',
+                shift: 'late',
+                manner: 'dramatic',
+              },
+            },
+            'aunt-echo': {
+              label: 'Aunt Echo',
+              blurb: 'Can project to the back row, the next street and several neighbouring years.',
+              traits: {
+                experience: 'limited',
+                shift: 'early',
+                manner: 'patient',
+              },
+            },
+            'ms-shimmer': {
+              label: 'Ms Shimmer',
+              blurb: 'Calls every costume emergency an opportunity for movement.',
+              traits: {
+                experience: 'considerable',
+                shift: 'late',
+                manner: 'patient',
+              },
+            },
+          },
+        },
+        lantern: {
+          name: 'Lantern',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'lantern',
+          traits: {
+            light: {
+              label: 'Light',
+              pattern: '{noun} with a {} light',
+            },
+            colour: {
+              label: 'Colour',
+              pattern: '{} {noun}',
+            },
+            frame: {
+              label: 'Frame',
+              pattern: '{}-framed {noun}',
+            },
+          },
+          items: {
+            'star-lantern': {
+              label: 'Star Lantern',
+              blurb: 'Five points of light and several more points raised by the committee.',
+              traits: {
+                light: 'steady',
+                colour: 'amber',
+                frame: 'bamboo',
+              },
+            },
+            'moon-lantern': {
+              label: 'Moon Lantern',
+              blurb: 'Waxing lyrical is permitted. Waxing the paper is discouraged.',
+              traits: {
+                light: 'flickering',
+                colour: 'silver',
+                frame: 'wire',
+              },
+            },
+            'owl-lantern': {
+              label: 'Owl Lantern',
+              blurb: 'Looks wise enough to have read the fire regulations.',
+              traits: {
+                light: 'steady',
+                colour: 'indigo',
+                frame: 'bamboo',
+              },
+            },
+            'fox-lantern': {
+              label: 'Fox Lantern',
+              blurb: 'Its expression suggests it knows where the spare candles went.',
+              traits: {
+                light: 'flickering',
+                colour: 'amber',
+                frame: 'wire',
+              },
+            },
+            'hare-lantern': {
+              label: 'Hare Lantern',
+              blurb: 'The ears arrived before the rest of the procession.',
+              traits: {
+                light: 'steady',
+                colour: 'silver',
+                frame: 'bamboo',
+              },
+            },
+            'cat-lantern': {
+              label: 'Cat Lantern',
+              blurb: 'Judges the entire celebration from a slightly elevated position.',
+              traits: {
+                light: 'flickering',
+                colour: 'indigo',
+                frame: 'wire',
+              },
+            },
+            'dragon-lantern': {
+              label: 'Dragon Lantern',
+              blurb: 'A flame-free dragon, following a vigorous insurance discussion.',
+              traits: {
+                light: 'steady',
+                colour: 'crimson',
+                frame: 'bamboo',
+              },
+            },
+            'moth-lantern': {
+              label: 'Moth Lantern',
+              blurb: 'Attracted to itself. The designer calls this a feature.',
+              traits: {
+                light: 'flickering',
+                colour: 'silver',
+                frame: 'wire',
+              },
+            },
+            'rocket-lantern': {
+              label: 'Rocket Lantern',
+              blurb: 'Strictly decorative, a detail repeated to the launch team.',
+              traits: {
+                light: 'steady',
+                colour: 'crimson',
+                frame: 'wire',
+              },
+            },
+            'apple-lantern': {
+              label: 'Apple Lantern',
+              blurb: 'Provides a warm glow and no part of the recommended daily fruit intake.',
+              traits: {
+                light: 'flickering',
+                colour: 'amber',
+                frame: 'bamboo',
+              },
+            },
+            'pear-lantern': {
+              label: 'Pear Lantern',
+              blurb: 'The artist insists the lopsidedness is seasonal character.',
+              traits: {
+                light: 'steady',
+                colour: 'crimson',
+                frame: 'bamboo',
+              },
+            },
+            'cloud-lantern': {
+              label: 'Cloud Lantern',
+              blurb: 'Promises a dry evening with no meteorological authority.',
+              traits: {
+                light: 'flickering',
+                colour: 'silver',
+                frame: 'wire',
+              },
+            },
+            'kite-lantern': {
+              label: 'Kite Lantern',
+              blurb: 'Kept firmly on a hook after an ambitious outdoor rehearsal.',
+              traits: {
+                light: 'steady',
+                colour: 'indigo',
+                frame: 'bamboo',
+              },
+            },
+            'pinwheel-lantern': {
+              label: 'Pinwheel Lantern',
+              blurb: 'Turns heads while remaining sensibly stationary itself.',
+              traits: {
+                light: 'flickering',
+                colour: 'amber',
+                frame: 'wire',
+              },
+            },
+          },
+        },
+        instrument: {
+          name: 'Instrument',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'instrument',
+          traits: {
+            family: {
+              label: 'Family',
+              pattern: '{noun} in the {} family',
+            },
+            volume: {
+              label: 'Volume',
+              pattern: '{} {noun}',
+            },
+            position: {
+              label: 'Position',
+              pattern: '{noun} played {}',
+            },
+          },
+          items: {
+            'brass-trumpet': {
+              label: 'Brass Trumpet',
+              blurb: 'Makes sure the neighbouring street knows the rehearsal has begun.',
+              traits: {
+                family: 'wind',
+                volume: 'loud',
+                position: 'standing',
+              },
+            },
+            'celtic-harp': {
+              label: 'Celtic Harp',
+              blurb: 'Requires careful tuning and a less ambitious doorway.',
+              traits: {
+                family: 'strings',
+                volume: 'soft',
+                position: 'seated',
+              },
+            },
+            'marching-drum': {
+              label: 'Marching Drum',
+              blurb: 'Keeps the beat while the rest of the parade negotiates it.',
+              traits: {
+                family: 'percussion',
+                volume: 'loud',
+                position: 'standing',
+              },
+            },
+            'round-lute': {
+              label: 'Round Lute',
+              blurb: 'The romantic option, provided the peg stays where it was put.',
+              traits: {
+                family: 'strings',
+                volume: 'soft',
+                position: 'seated',
+              },
+            },
+            'silver-flute': {
+              label: 'Silver Flute',
+              blurb: 'A small tube with a surprisingly large repertoire of complaints.',
+              traits: {
+                family: 'wind',
+                volume: 'soft',
+                position: 'standing',
+              },
+            },
+            'hand-cymbals': {
+              label: 'Hand Cymbals',
+              blurb: 'The ending is always clear, even if it arrives unexpectedly.',
+              traits: {
+                family: 'percussion',
+                volume: 'loud',
+                position: 'standing',
+              },
+            },
+            'box-accordion': {
+              label: 'Box Accordion',
+              blurb: 'Breathes more dramatically than the performer carrying it.',
+              traits: {
+                family: 'wind',
+                volume: 'loud',
+                position: 'seated',
+              },
+            },
+            'town-bell': {
+              label: 'Town Bell',
+              blurb: 'One note, delivered with absolute conviction.',
+              traits: {
+                family: 'percussion',
+                volume: 'loud',
+                position: 'standing',
+              },
+            },
+            tambourine: {
+              label: 'Tambourine',
+              blurb: 'Adds sparkle and a persistent suspicion that someone is ahead of the beat.',
+              traits: {
+                family: 'percussion',
+                volume: 'soft',
+                position: 'standing',
+              },
+            },
+            'parade-pipes': {
+              label: 'Parade Pipes',
+              blurb: 'Can be heard from wherever you were hoping to stand.',
+              traits: {
+                family: 'wind',
+                volume: 'loud',
+                position: 'standing',
+              },
+            },
+            'wood-xylophone': {
+              label: 'Wood Xylophone',
+              blurb: 'Fourteen bars of confidence, assuming they are struck in the right order.',
+              traits: {
+                family: 'percussion',
+                volume: 'soft',
+                position: 'seated',
+              },
+            },
+            'reed-panpipes': {
+              label: 'Reed Panpipes',
+              blurb: 'Several small pipes united by a common refusal to stay in tune outdoors.',
+              traits: {
+                family: 'wind',
+                volume: 'soft',
+                position: 'standing',
+              },
+            },
+            'festival-fiddle': {
+              label: 'Festival Fiddle',
+              blurb: 'Plays the fast bit faster when the audience starts clapping.',
+              traits: {
+                family: 'strings',
+                volume: 'loud',
+                position: 'seated',
+              },
+            },
+            'bronze-gong': {
+              label: 'Bronze Gong',
+              blurb: 'The final note has booked the square for another three minutes.',
+              traits: {
+                family: 'percussion',
+                volume: 'loud',
+                position: 'standing',
+              },
+            },
+          },
+        },
+        stall: {
+          name: 'Stall',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'stall',
+          traits: {
+            offering: {
+              label: 'Offering',
+              pattern: '{noun} selling {}',
+            },
+            location: {
+              label: 'Location',
+              pattern: '{noun} in the {} row',
+            },
+            cover: {
+              label: 'Cover',
+              pattern: '{} {noun}',
+            },
+          },
+          items: {
+            'tea-pavilion': {
+              label: 'Tea Pavilion',
+              blurb:
+                'The queue forms with the solemn purpose usually reserved for civic ceremonies.',
+              traits: {
+                offering: 'drinks',
+                location: 'east',
+                cover: 'covered',
+              },
+            },
+            'coffee-cart': {
+              label: 'Coffee Cart',
+              blurb: 'Keeps the volunteers upright long after their optimism has sat down.',
+              traits: {
+                offering: 'drinks',
+                location: 'west',
+                cover: 'open-air',
+              },
+            },
+            'pastry-tent': {
+              label: 'Pastry Tent',
+              blurb: 'A convincing argument for arriving before the official opening.',
+              traits: {
+                offering: 'food',
+                location: 'east',
+                cover: 'covered',
+              },
+            },
+            'picnic-counter': {
+              label: 'Picnic Counter',
+              blurb: 'Serves portable meals to people who immediately stop walking.',
+              traits: {
+                offering: 'food',
+                location: 'west',
+                cover: 'covered',
+              },
+            },
+            'orchard-stand': {
+              label: 'Orchard Stand',
+              blurb: 'The display is so polished that several apples look overqualified.',
+              traits: {
+                offering: 'food',
+                location: 'east',
+                cover: 'open-air',
+              },
+            },
+            'pear-preserve-booth': {
+              label: 'Pear Preserve Booth',
+              blurb: 'A remarkably specialised business with very firm opinions about jam.',
+              traits: {
+                offering: 'food',
+                location: 'west',
+                cover: 'covered',
+              },
+            },
+            'cake-table': {
+              label: 'Cake Table',
+              blurb: 'The judging began informally and has become difficult to stop.',
+              traits: {
+                offering: 'food',
+                location: 'east',
+                cover: 'open-air',
+              },
+            },
+            'biscuit-bar': {
+              label: 'Biscuit Bar',
+              blurb:
+                'Small purchases encouraged. Repeat small purchases enthusiastically supported.',
+              traits: {
+                offering: 'food',
+                location: 'west',
+                cover: 'covered',
+              },
+            },
+            'lemonade-stand': {
+              label: 'Lemonade Stand',
+              blurb: 'The secret ingredient is an optimistic estimate of the evening temperature.',
+              traits: {
+                offering: 'drinks',
+                location: 'east',
+                cover: 'open-air',
+              },
+            },
+            'soup-kitchen': {
+              label: 'Soup Kitchen',
+              blurb: 'Offers a warm welcome in a bowl with a negotiable lid.',
+              traits: {
+                offering: 'food',
+                location: 'west',
+                cover: 'covered',
+              },
+            },
+            'ribbon-stall': {
+              label: 'Ribbon Stall',
+              blurb: 'Can improve almost anything except the knot already tied in it.',
+              traits: {
+                offering: 'crafts',
+                location: 'east',
+                cover: 'covered',
+              },
+            },
+            'mask-maker': {
+              label: 'Mask Maker',
+              blurb: 'Provides a new face for anyone regretting their volunteer commitments.',
+              traits: {
+                offering: 'crafts',
+                location: 'west',
+                cover: 'open-air',
+              },
+            },
+            'kite-seller': {
+              label: 'Kite Seller',
+              blurb: "Sells excellent flying prospects, subject to the sky's approval.",
+              traits: {
+                offering: 'crafts',
+                location: 'east',
+                cover: 'open-air',
+              },
+            },
+            'pinwheel-cart': {
+              label: 'Pinwheel Cart',
+              blurb: 'Business picks up whenever the weather does.',
+              traits: {
+                offering: 'crafts',
+                location: 'west',
+                cover: 'open-air',
+              },
+            },
+          },
+        },
+        showtime: {
+          name: 'Showtime',
+          pattern: 'the {} performance',
+          describes: 'the {}',
+          noun: 'performance',
+          ordered: {
+            noun: 'performance',
+            unit: 'minutes',
+            greater: 'later',
+            lesser: 'earlier',
+          },
+          traits: {
+            period: {
+              label: 'Period',
+              pattern: '{noun} in the {} period',
+            },
+            programme: {
+              label: 'Programme',
+              pattern: '{noun} in the {} programme',
+            },
+          },
+          items: {
+            '18-00': {
+              label: '18:00',
+              blurb: 'The first slot. The evening is still full of untested optimism.',
+              traits: {
+                period: 'opening',
+                programme: 'first',
+              },
+            },
+            '18-15': {
+              label: '18:15',
+              blurb: 'Enough time for a flourish and a very efficient change of costume.',
+              traits: {
+                period: 'opening',
+                programme: 'first',
+              },
+            },
+            '18-30': {
+              label: '18:30',
+              blurb: 'The audience has settled, apart from someone searching for a better view.',
+              traits: {
+                period: 'opening',
+                programme: 'first',
+              },
+            },
+            '18-45': {
+              label: '18:45',
+              blurb: 'The rehearsal notes describe this as the sensible part of the evening.',
+              traits: {
+                period: 'opening',
+                programme: 'first',
+              },
+            },
+            '19-00': {
+              label: '19:00',
+              blurb: 'A promising moment for anyone whose entrance depends on being noticed.',
+              traits: {
+                period: 'opening',
+                programme: 'first',
+              },
+            },
+            '19-15': {
+              label: '19:15',
+              blurb: 'The organisers briefly consider themselves ahead of schedule.',
+              traits: {
+                period: 'central',
+                programme: 'first',
+              },
+            },
+            '19-30': {
+              label: '19:30',
+              blurb: 'The square is glowing and the running order is beginning to curl.',
+              traits: {
+                period: 'central',
+                programme: 'first',
+              },
+            },
+            '19-45': {
+              label: '19:45',
+              blurb: 'The evening has reached the point where every pause attracts applause.',
+              traits: {
+                period: 'central',
+                programme: 'second',
+              },
+            },
+            '20-00': {
+              label: '20:00',
+              blurb: 'The volunteers have developed a refined appreciation of comfortable shoes.',
+              traits: {
+                period: 'central',
+                programme: 'second',
+              },
+            },
+            '20-15': {
+              label: '20:15',
+              blurb: 'An excellent slot for pretending the slight delay was atmospheric.',
+              traits: {
+                period: 'central',
+                programme: 'second',
+              },
+            },
+            '20-30': {
+              label: '20:30',
+              blurb: 'The sky has darkened and the audience has become harder to count.',
+              traits: {
+                period: 'closing',
+                programme: 'second',
+              },
+            },
+            '20-45': {
+              label: '20:45',
+              blurb: 'Late enough for a grand gesture, early enough for one more.',
+              traits: {
+                period: 'closing',
+                programme: 'second',
+              },
+            },
+            '21-00': {
+              label: '21:00',
+              blurb: 'The organisers start smiling with a new and slightly urgent determination.',
+              traits: {
+                period: 'closing',
+                programme: 'second',
+              },
+            },
+            '21-15': {
+              label: '21:15',
+              blurb: 'The final listed slot. The closing speech is waiting with visible ambition.',
+              traits: {
+                period: 'closing',
+                programme: 'second',
+              },
+            },
+          },
+        },
+      },
+    },
+    'last-train': {
+      name: 'Last Train',
+      blurb: 'Everyone is certain they are on the right train.',
+      clues: {
+        link: '{a} is recorded with {b}.',
+        notLink: '{a} is not recorded with {b}.',
+        groupNot: 'No {a} is recorded with {b}.',
+        either: '{a} is recorded with either {b} or {c}, but not both.',
+        compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
+        compareGap:
+          'The departure linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
+      },
+      categories: {
+        passenger: {
+          name: 'Passenger',
+          pattern: '{}',
+          describes: 'the {}',
+          noun: 'passenger',
+          traits: {
+            experience: {
+              label: 'Experience',
+              pattern: '{noun} with {} experience',
+            },
+            shift: {
+              label: 'Shift',
+              pattern: '{noun} on the {} shift',
+            },
+            manner: {
+              label: 'Manner',
+              pattern: '{} {noun}',
+            },
+          },
+          items: {
+            'captain-plover': {
+              label: 'Captain Plover',
+              blurb: 'Retired from the sea. Still asks which side of the train is starboard.',
+              traits: {
+                experience: 'limited',
+                shift: 'early',
+                manner: 'patient',
+              },
+            },
+            'madam-thimble': {
+              label: 'Madam Thimble',
+              blurb: 'Travels light, provided nobody counts the emergency curtain fabric.',
+              traits: {
+                experience: 'considerable',
+                shift: 'late',
+                manner: 'patient',
+              },
+            },
+            'dr-turnpike': {
+              label: 'Dr Turnpike',
+              blurb: 'Studies delays. Describes this journey as an unusually generous sample.',
+              traits: {
+                experience: 'extensive',
+                shift: 'early',
+                manner: 'brisk',
+              },
+            },
+            'miss-tansy': {
+              label: 'Miss Tansy',
+              blurb: 'Packed for every climate except the one inside this compartment.',
+              traits: {
+                experience: 'limited',
+                shift: 'late',
+                manner: 'brisk',
+              },
+            },
+            'lord-ticket': {
+              label: 'Lord Ticket',
+              blurb: 'Believes a reserved seat should come with a small hereditary title.',
+              traits: {
+                experience: 'considerable',
+                shift: 'early',
+                manner: 'dramatic',
+              },
+            },
+            'aunt-marigold': {
+              label: 'Aunt Marigold',
+              blurb: 'Has brought enough advice for everyone, including the locomotive.',
+              traits: {
+                experience: 'extensive',
+                shift: 'late',
+                manner: 'dramatic',
+              },
+            },
+            'mr-buffer': {
+              label: 'Mr Buffer',
+              blurb: 'Enjoys a quiet journey. Has submitted the request in triplicate.',
+              traits: {
+                experience: 'limited',
+                shift: 'early',
+                manner: 'patient',
+              },
+            },
+            'mx-whistle': {
+              label: 'Mx Whistle',
+              blurb: 'Knows every announcement by heart and corrects the pauses.',
+              traits: {
+                experience: 'considerable',
+                shift: 'late',
+                manner: 'patient',
+              },
+            },
+            'professor-cinder': {
+              label: 'Professor Cinder',
+              blurb: 'Calls missing a train an experiment in alternative arrival.',
+              traits: {
+                experience: 'extensive',
+                shift: 'early',
+                manner: 'brisk',
+              },
+            },
+            'mrs-bunbury': {
+              label: 'Mrs Bunbury',
+              blurb: 'Offers sweets to strangers. Maintains very detailed acceptance records.',
+              traits: {
+                experience: 'limited',
+                shift: 'late',
+                manner: 'brisk',
+              },
+            },
+            'sir-sidings': {
+              label: 'Sir Sidings',
+              blurb: 'Insists he knows a shortcut. The rails remain unconvinced.',
+              traits: {
+                experience: 'considerable',
+                shift: 'early',
+                manner: 'dramatic',
+              },
+            },
+            'ms-velvet': {
+              label: 'Ms Velvet',
+              blurb: 'Sleeps through everything except someone touching the window latch.',
+              traits: {
+                experience: 'extensive',
+                shift: 'late',
+                manner: 'dramatic',
+              },
+            },
+            'mr-crump': {
+              label: 'Mr Crump',
+              blurb: 'Has an opinion on the timetable and a separate opinion on its font.',
+              traits: {
+                experience: 'limited',
+                shift: 'early',
+                manner: 'patient',
+              },
+            },
+            'dame-semaphore': {
+              label: 'Dame Semaphore',
+              blurb: 'Can stop a conversation with the efficiency of a red signal.',
+              traits: {
+                experience: 'considerable',
+                shift: 'late',
+                manner: 'patient',
+              },
+            },
+          },
+        },
+        luggage: {
+          name: 'Luggage',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'bag',
+          traits: {
+            size: {
+              label: 'Size',
+              pattern: '{} {noun}',
+            },
+            closure: {
+              label: 'Closure',
+              pattern: '{noun} with a {} closure',
+            },
+            handling: {
+              label: 'Handling',
+              pattern: '{noun} carried by its {}',
+            },
+          },
+          items: {
+            'steamer-trunk': {
+              label: 'Steamer Trunk',
+              blurb: 'Packed for a weekend that may turn into a minor expedition.',
+              traits: {
+                size: 'large',
+                closure: 'latch',
+                handling: 'handles',
+              },
+            },
+            'leather-satchel': {
+              label: 'Leather Satchel',
+              blurb: 'Contains a notebook for recording where the other notebook went.',
+              traits: {
+                size: 'small',
+                closure: 'buckle',
+                handling: 'strap',
+              },
+            },
+            'round-hatbox': {
+              label: 'Round Hatbox',
+              blurb: 'The hat has more personal space than its owner.',
+              traits: {
+                size: 'medium',
+                closure: 'latch',
+                handling: 'handle',
+              },
+            },
+            'canvas-rucksack': {
+              label: 'Canvas Rucksack',
+              blurb: 'Every pocket contains a smaller emergency.',
+              traits: {
+                size: 'large',
+                closure: 'buckle',
+                handling: 'straps',
+              },
+            },
+            'violin-case': {
+              label: 'Violin Case',
+              blurb: 'Travels in dignified silence, to the relief of the entire train.',
+              traits: {
+                size: 'medium',
+                closure: 'latch',
+                handling: 'handle',
+              },
+            },
+            'folded-umbrella': {
+              label: 'Folded Umbrella',
+              blurb: 'Displayed open here. On board, it waits for an indoor weather event.',
+              traits: {
+                size: 'small',
+                closure: 'tie',
+                handling: 'handle',
+              },
+            },
+            'striped-duffel': {
+              label: 'Striped Duffel',
+              blurb: 'Its owner calls this packing. The zip calls it a negotiation.',
+              traits: {
+                size: 'large',
+                closure: 'zip',
+                handling: 'handles',
+              },
+            },
+            'songbird-carrier': {
+              label: 'Songbird Carrier',
+              blurb: "The occupant has already reviewed the conductor's whistle.",
+              traits: {
+                size: 'medium',
+                closure: 'latch',
+                handling: 'handle',
+              },
+            },
+            'rolled-bedding': {
+              label: 'Rolled Bedding',
+              blurb: 'Optimistically assumes that lying down will become an option.',
+              traits: {
+                size: 'large',
+                closure: 'tie',
+                handling: 'straps',
+              },
+            },
+            'business-case': {
+              label: 'Business Case',
+              blurb: 'Important papers, arranged in descending order of unnecessary urgency.',
+              traits: {
+                size: 'small',
+                closure: 'latch',
+                handling: 'handle',
+              },
+            },
+            'hanging-suit-bag': {
+              label: 'Hanging Suit Bag',
+              blurb: 'Keeps the jacket presentable while its owner gradually unfolds.',
+              traits: {
+                size: 'large',
+                closure: 'zip',
+                handling: 'hook',
+              },
+            },
+            'wicker-hamper': {
+              label: 'Wicker Hamper',
+              blurb: 'The picnic has been scheduled independently of the journey.',
+              traits: {
+                size: 'medium',
+                closure: 'latch',
+                handling: 'handle',
+              },
+            },
+            'ribbon-parcel': {
+              label: 'Ribbon Parcel',
+              blurb: 'Wrapped beautifully. Nobody can remember whether it belongs on this train.',
+              traits: {
+                size: 'small',
+                closure: 'tie',
+                handling: 'ribbon',
+              },
+            },
+            'oak-chest': {
+              label: 'Oak Chest',
+              blurb: "The contents are private. The weight is everybody's business.",
+              traits: {
+                size: 'large',
+                closure: 'latch',
+                handling: 'handles',
+              },
+            },
+          },
+        },
+        destination: {
+          name: 'Destination',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'destination',
+          traits: {
+            region: {
+              label: 'Region',
+              pattern: '{noun} in the {} region',
+            },
+            terrain: {
+              label: 'Terrain',
+              pattern: '{} {noun}',
+            },
+            service: {
+              label: 'Service',
+              pattern: '{noun} on the {} service',
+            },
+          },
+          items: {
+            'beacon-point': {
+              label: 'Beacon Point',
+              blurb: 'The lighthouse flashes a welcome. It has not read the arrival board.',
+              traits: {
+                region: 'coastal',
+                terrain: 'level',
+                service: 'local',
+              },
+            },
+            'high-crag': {
+              label: 'High Crag',
+              blurb: 'A destination with an impressive elevation and a modest luggage lift.',
+              traits: {
+                region: 'upland',
+                terrain: 'steep',
+                service: 'express',
+              },
+            },
+            'miller-s-halt': {
+              label: "Miller's Halt",
+              blurb: 'The windmill turns more reliably than the station clock.',
+              traits: {
+                region: 'inland',
+                terrain: 'level',
+                service: 'local',
+              },
+            },
+            'port-brindle': {
+              label: 'Port Brindle',
+              blurb: 'The harbour smells of adventure and several unfinished sandwiches.',
+              traits: {
+                region: 'coastal',
+                terrain: 'level',
+                service: 'express',
+              },
+            },
+            'pine-hollow': {
+              label: 'Pine Hollow',
+              blurb: 'A quiet woodland stop, unless the trees have news.',
+              traits: {
+                region: 'inland',
+                terrain: 'level',
+                service: 'local',
+              },
+            },
+            'seven-arches': {
+              label: 'Seven Arches',
+              blurb: 'Named by someone who counted the bridge rather than the platforms.',
+              traits: {
+                region: 'inland',
+                terrain: 'level',
+                service: 'express',
+              },
+            },
+            'castle-rook': {
+              label: 'Castle Rook',
+              blurb: 'The drawbridge has been replaced by a less romantic ticket barrier.',
+              traits: {
+                region: 'upland',
+                terrain: 'steep',
+                service: 'local',
+              },
+            },
+            applewick: {
+              label: 'Applewick',
+              blurb: 'The orchard offers seasonal fruit and permanent opinions about cider.',
+              traits: {
+                region: 'inland',
+                terrain: 'level',
+                service: 'local',
+              },
+            },
+            'star-ridge': {
+              label: 'Star Ridge',
+              blurb: 'The observatory can locate distant planets but not the replacement bus.',
+              traits: {
+                region: 'upland',
+                terrain: 'steep',
+                service: 'express',
+              },
+            },
+            'silver-falls': {
+              label: 'Silver Falls',
+              blurb: 'The waterfall drowns out complaints with admirable consistency.',
+              traits: {
+                region: 'upland',
+                terrain: 'steep',
+                service: 'local',
+              },
+            },
+            'seabell-pier': {
+              label: 'Seabell Pier',
+              blurb: 'The sea air is bracing. The pier would prefer a gentler description.',
+              traits: {
+                region: 'coastal',
+                terrain: 'level',
+                service: 'express',
+              },
+            },
+            'slate-cut': {
+              label: 'Slate Cut',
+              blurb: 'The quarry supplies stone and a remarkable quantity of echo.',
+              traits: {
+                region: 'upland',
+                terrain: 'steep',
+                service: 'local',
+              },
+            },
+            steamwell: {
+              label: 'Steamwell',
+              blurb: 'The baths promise relaxation, subject to towel availability.',
+              traits: {
+                region: 'inland',
+                terrain: 'level',
+                service: 'express',
+              },
+            },
+            clockhaven: {
+              label: 'Clockhaven',
+              blurb: 'The clock tower insists the train is late. The train blames the tower.',
+              traits: {
+                region: 'inland',
+                terrain: 'level',
+                service: 'express',
+              },
+            },
+          },
+        },
+        refreshment: {
+          name: 'Refreshment',
+          pattern: 'the {}',
+          describes: 'the {}',
+          noun: 'refreshment',
+          traits: {
+            course: {
+              label: 'Course',
+              pattern: '{} {noun}',
+            },
+            temperature: {
+              label: 'Temperature',
+              pattern: '{noun} served {}',
+            },
+            portion: {
+              label: 'Portion',
+              pattern: '{}-portion {noun}',
+            },
+          },
+          items: {
+            'breakfast-tea': {
+              label: 'Breakfast Tea',
+              blurb: 'Strong enough to encourage the timetable to take itself seriously.',
+              traits: {
+                course: 'drink',
+                temperature: 'hot',
+                portion: 'single',
+              },
+            },
+            'platform-coffee': {
+              label: 'Platform Coffee',
+              blurb: 'Tastes faintly of urgency, with a persistent note of queue.',
+              traits: {
+                course: 'drink',
+                temperature: 'hot',
+                portion: 'single',
+              },
+            },
+            'butter-croissant': {
+              label: 'Butter Croissant',
+              blurb: 'Distributes evidence of consumption across the whole seat.',
+              traits: {
+                course: 'snack',
+                temperature: 'ambient',
+                portion: 'single',
+              },
+            },
+            'cheese-sandwich': {
+              label: 'Cheese Sandwich',
+              blurb: 'The filling has settled into the corner nearest the window.',
+              traits: {
+                course: 'snack',
+                temperature: 'cold',
+                portion: 'single',
+              },
+            },
+            'polished-apple': {
+              label: 'Polished Apple',
+              blurb: 'The healthiest item on the trolley. It seems rather pleased.',
+              traits: {
+                course: 'snack',
+                temperature: 'ambient',
+                portion: 'single',
+              },
+            },
+            'conference-pear': {
+              label: 'Conference Pear',
+              blurb: 'Ripens during the exact moment nobody is looking.',
+              traits: {
+                course: 'snack',
+                temperature: 'ambient',
+                portion: 'single',
+              },
+            },
+            'layer-cake': {
+              label: 'Layer Cake',
+              blurb: 'Two layers of sponge and one layer of travel optimism.',
+              traits: {
+                course: 'dessert',
+                temperature: 'ambient',
+                portion: 'sharing',
+              },
+            },
+            'ginger-biscuit': {
+              label: 'Ginger Biscuit',
+              blurb: 'Designed for dunking. Recovery from the cup is not guaranteed.',
+              traits: {
+                course: 'snack',
+                temperature: 'ambient',
+                portion: 'sharing',
+              },
+            },
+            'cloudy-lemonade': {
+              label: 'Cloudy Lemonade',
+              blurb: 'The weather forecast in a glass is refreshingly inaccurate.',
+              traits: {
+                course: 'drink',
+                temperature: 'cold',
+                portion: 'single',
+              },
+            },
+            'tomato-soup': {
+              label: 'Tomato Soup',
+              blurb: 'A bold choice on a moving train with an expressive suspension.',
+              traits: {
+                course: 'snack',
+                temperature: 'hot',
+                portion: 'single',
+              },
+            },
+            'salted-pretzel': {
+              label: 'Salted Pretzel',
+              blurb: 'A knot that the catering staff insist is intentional.',
+              traits: {
+                course: 'snack',
+                temperature: 'ambient',
+                portion: 'sharing',
+              },
+            },
+            'cheese-wedge': {
+              label: 'Cheese Wedge',
+              blurb: 'Develops character faster than the conversation across the aisle.',
+              traits: {
+                course: 'snack',
+                temperature: 'cold',
+                portion: 'sharing',
+              },
+            },
+            'dark-chocolate': {
+              label: 'Dark Chocolate',
+              blurb: 'Reserved for emergencies, a category the owner interprets generously.',
+              traits: {
+                course: 'dessert',
+                temperature: 'ambient',
+                portion: 'sharing',
+              },
+            },
+            'vanilla-cone': {
+              label: 'Vanilla Cone',
+              blurb: 'An ambitious purchase with a very short planning horizon.',
+              traits: {
+                course: 'dessert',
+                temperature: 'cold',
+                portion: 'single',
+              },
+            },
+          },
+        },
+        departure: {
+          name: 'Departure',
+          pattern: 'the {} departure',
+          describes: 'the {}',
+          noun: 'departure',
+          ordered: {
+            noun: 'departure',
+            unit: 'minutes',
+            greater: 'later',
+            lesser: 'earlier',
+          },
+          traits: {
+            period: {
+              label: 'Period',
+              pattern: '{noun} in the {} period',
+            },
+            window: {
+              label: 'Window',
+              pattern: '{noun} in the {} window',
+            },
+          },
+          items: {
+            '06-00': {
+              label: '06:00',
+              blurb: 'An early start for anyone who thinks sleep is a negotiable extra.',
+              traits: {
+                period: 'early',
+                window: 'first-half',
+              },
+            },
+            '06-30': {
+              label: '06:30',
+              blurb: 'Enough time for tea, if the tea is prepared to cooperate.',
+              traits: {
+                period: 'early',
+                window: 'first-half',
+              },
+            },
+            '07-00': {
+              label: '07:00',
+              blurb: 'The platform is awake. Several passengers are still considering it.',
+              traits: {
+                period: 'early',
+                window: 'first-half',
+              },
+            },
+            '07-30': {
+              label: '07:30',
+              blurb: 'A civilised departure, according to the uncivilised alarm that preceded it.',
+              traits: {
+                period: 'early',
+                window: 'first-half',
+              },
+            },
+            '08-00': {
+              label: '08:00',
+              blurb: 'The breakfast queue has begun to develop its own timetable.',
+              traits: {
+                period: 'early',
+                window: 'first-half',
+              },
+            },
+            '08-30': {
+              label: '08:30',
+              blurb: 'Morning is progressing more reliably than the station announcements.',
+              traits: {
+                period: 'early',
+                window: 'first-half',
+              },
+            },
+            '09-00': {
+              label: '09:00',
+              blurb: 'A plausible hour for making confident statements about arrival.',
+              traits: {
+                period: 'mid-morning',
+                window: 'first-half',
+              },
+            },
+            '09-30': {
+              label: '09:30',
+              blurb: 'Late enough to be hungry again, early enough to deny it.',
+              traits: {
+                period: 'mid-morning',
+                window: 'second-half',
+              },
+            },
+            '10-00': {
+              label: '10:00',
+              blurb: 'The clock suggests progress. The queue offers a different interpretation.',
+              traits: {
+                period: 'mid-morning',
+                window: 'second-half',
+              },
+            },
+            '10-30': {
+              label: '10:30',
+              blurb: 'A departure with just enough time left for one unnecessary errand.',
+              traits: {
+                period: 'mid-morning',
+                window: 'second-half',
+              },
+            },
+            '11-00': {
+              label: '11:00',
+              blurb: 'Lunch approaches with considerably more certainty than the train.',
+              traits: {
+                period: 'late',
+                window: 'second-half',
+              },
+            },
+            '11-30': {
+              label: '11:30',
+              blurb:
+                'The conductor has begun to recognise repeat questions by their opening breath.',
+              traits: {
+                period: 'late',
+                window: 'second-half',
+              },
+            },
+            '12-00': {
+              label: '12:00',
+              blurb: 'A respectable hour to admit that the extra sandwich was sensible.',
+              traits: {
+                period: 'late',
+                window: 'second-half',
+              },
+            },
+            '12-30': {
+              label: '12:30',
+              blurb: 'The last listed departure. The clock seems pleased to have finished.',
+              traits: {
+                period: 'late',
+                window: 'second-half',
+              },
+            },
+          },
+        },
+      },
+    },
   },
 } as const;
 
@@ -6671,6 +11081,402 @@ export type StringKey =
   | 'stats.trendEmpty'
   | 'stats.trendPending'
   | 'stats.unreadable'
+  | 'themes.backstage-mystery.blurb'
+  | 'themes.backstage-mystery.categories.costume.describes'
+  | 'themes.backstage-mystery.categories.costume.items.ballet-tutu.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.ballet-tutu.label'
+  | 'themes.backstage-mystery.categories.costume.items.ballet-tutu.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.ballet-tutu.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.ballet-tutu.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.items.cook-s-apron.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.cook-s-apron.label'
+  | 'themes.backstage-mystery.categories.costume.items.cook-s-apron.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.cook-s-apron.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.cook-s-apron.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.items.court-gown.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.court-gown.label'
+  | 'themes.backstage-mystery.categories.costume.items.court-gown.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.court-gown.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.court-gown.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.items.footman-s-livery.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.footman-s-livery.label'
+  | 'themes.backstage-mystery.categories.costume.items.footman-s-livery.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.footman-s-livery.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.footman-s-livery.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.items.ghost-sheet.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.ghost-sheet.label'
+  | 'themes.backstage-mystery.categories.costume.items.ghost-sheet.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.ghost-sheet.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.ghost-sheet.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.items.jester-s-motley.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.jester-s-motley.label'
+  | 'themes.backstage-mystery.categories.costume.items.jester-s-motley.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.jester-s-motley.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.jester-s-motley.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.items.knight-s-armour.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.knight-s-armour.label'
+  | 'themes.backstage-mystery.categories.costume.items.knight-s-armour.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.knight-s-armour.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.knight-s-armour.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.items.moth-cape.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.moth-cape.label'
+  | 'themes.backstage-mystery.categories.costume.items.moth-cape.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.moth-cape.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.moth-cape.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.items.pirate-coat.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.pirate-coat.label'
+  | 'themes.backstage-mystery.categories.costume.items.pirate-coat.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.pirate-coat.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.pirate-coat.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.items.ringmaster-tails.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.ringmaster-tails.label'
+  | 'themes.backstage-mystery.categories.costume.items.ringmaster-tails.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.ringmaster-tails.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.ringmaster-tails.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.items.royal-mantle.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.royal-mantle.label'
+  | 'themes.backstage-mystery.categories.costume.items.royal-mantle.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.royal-mantle.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.royal-mantle.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.items.sailor-s-blouse.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.sailor-s-blouse.label'
+  | 'themes.backstage-mystery.categories.costume.items.sailor-s-blouse.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.sailor-s-blouse.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.sailor-s-blouse.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.items.winter-furs.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.winter-furs.label'
+  | 'themes.backstage-mystery.categories.costume.items.winter-furs.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.winter-furs.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.winter-furs.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.items.wizard-s-robe.blurb'
+  | 'themes.backstage-mystery.categories.costume.items.wizard-s-robe.label'
+  | 'themes.backstage-mystery.categories.costume.items.wizard-s-robe.traits.fastening'
+  | 'themes.backstage-mystery.categories.costume.items.wizard-s-robe.traits.rack'
+  | 'themes.backstage-mystery.categories.costume.items.wizard-s-robe.traits.weight'
+  | 'themes.backstage-mystery.categories.costume.name'
+  | 'themes.backstage-mystery.categories.costume.noun'
+  | 'themes.backstage-mystery.categories.costume.pattern'
+  | 'themes.backstage-mystery.categories.costume.traits.fastening.label'
+  | 'themes.backstage-mystery.categories.costume.traits.fastening.pattern'
+  | 'themes.backstage-mystery.categories.costume.traits.rack.label'
+  | 'themes.backstage-mystery.categories.costume.traits.rack.pattern'
+  | 'themes.backstage-mystery.categories.costume.traits.weight.label'
+  | 'themes.backstage-mystery.categories.costume.traits.weight.pattern'
+  | 'themes.backstage-mystery.categories.performer.describes'
+  | 'themes.backstage-mystery.categories.performer.items.august-vale.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.august-vale.label'
+  | 'themes.backstage-mystery.categories.performer.items.august-vale.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.august-vale.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.august-vale.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.items.bertie-bravo.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.bertie-bravo.label'
+  | 'themes.backstage-mystery.categories.performer.items.bertie-bravo.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.bertie-bravo.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.bertie-bravo.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.items.cecil-cue.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.cecil-cue.label'
+  | 'themes.backstage-mystery.categories.performer.items.cecil-cue.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.cecil-cue.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.cecil-cue.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.items.dame-encore.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.dame-encore.label'
+  | 'themes.backstage-mystery.categories.performer.items.dame-encore.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.dame-encore.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.dame-encore.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.items.dr-diction.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.dr-diction.label'
+  | 'themes.backstage-mystery.categories.performer.items.dr-diction.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.dr-diction.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.dr-diction.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.items.felix-flourish.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.felix-flourish.label'
+  | 'themes.backstage-mystery.categories.performer.items.felix-flourish.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.felix-flourish.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.felix-flourish.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.items.lord-limelight.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.lord-limelight.label'
+  | 'themes.backstage-mystery.categories.performer.items.lord-limelight.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.lord-limelight.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.lord-limelight.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.items.mabel-moon.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.mabel-moon.label'
+  | 'themes.backstage-mystery.categories.performer.items.mabel-moon.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.mabel-moon.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.mabel-moon.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.items.percy-plume.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.percy-plume.label'
+  | 'themes.backstage-mystery.categories.performer.items.percy-plume.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.percy-plume.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.percy-plume.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.items.pippa-pirouette.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.pippa-pirouette.label'
+  | 'themes.backstage-mystery.categories.performer.items.pippa-pirouette.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.pippa-pirouette.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.pippa-pirouette.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.items.ruby-reverie.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.ruby-reverie.label'
+  | 'themes.backstage-mystery.categories.performer.items.ruby-reverie.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.ruby-reverie.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.ruby-reverie.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.items.silas-sigh.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.silas-sigh.label'
+  | 'themes.backstage-mystery.categories.performer.items.silas-sigh.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.silas-sigh.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.silas-sigh.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.items.tilly-twirl.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.tilly-twirl.label'
+  | 'themes.backstage-mystery.categories.performer.items.tilly-twirl.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.tilly-twirl.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.tilly-twirl.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.items.vera-velvet.blurb'
+  | 'themes.backstage-mystery.categories.performer.items.vera-velvet.label'
+  | 'themes.backstage-mystery.categories.performer.items.vera-velvet.traits.manner'
+  | 'themes.backstage-mystery.categories.performer.items.vera-velvet.traits.shift'
+  | 'themes.backstage-mystery.categories.performer.items.vera-velvet.traits.standing'
+  | 'themes.backstage-mystery.categories.performer.name'
+  | 'themes.backstage-mystery.categories.performer.noun'
+  | 'themes.backstage-mystery.categories.performer.pattern'
+  | 'themes.backstage-mystery.categories.performer.traits.manner.label'
+  | 'themes.backstage-mystery.categories.performer.traits.manner.pattern'
+  | 'themes.backstage-mystery.categories.performer.traits.shift.label'
+  | 'themes.backstage-mystery.categories.performer.traits.shift.pattern'
+  | 'themes.backstage-mystery.categories.performer.traits.standing.label'
+  | 'themes.backstage-mystery.categories.performer.traits.standing.pattern'
+  | 'themes.backstage-mystery.categories.prop.describes'
+  | 'themes.backstage-mystery.categories.prop.items.alarm-clock.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.alarm-clock.label'
+  | 'themes.backstage-mystery.categories.prop.items.alarm-clock.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.alarm-clock.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.alarm-clock.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.items.blunt-dagger.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.blunt-dagger.label'
+  | 'themes.backstage-mystery.categories.prop.items.blunt-dagger.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.blunt-dagger.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.blunt-dagger.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.items.feather-quill.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.feather-quill.label'
+  | 'themes.backstage-mystery.categories.prop.items.feather-quill.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.feather-quill.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.feather-quill.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.items.folding-fan.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.folding-fan.label'
+  | 'themes.backstage-mystery.categories.prop.items.folding-fan.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.folding-fan.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.folding-fan.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.items.golden-goblet.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.golden-goblet.label'
+  | 'themes.backstage-mystery.categories.prop.items.golden-goblet.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.golden-goblet.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.golden-goblet.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.items.hand-mirror.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.hand-mirror.label'
+  | 'themes.backstage-mystery.categories.prop.items.hand-mirror.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.hand-mirror.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.hand-mirror.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.items.map-scroll.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.map-scroll.label'
+  | 'themes.backstage-mystery.categories.prop.items.map-scroll.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.map-scroll.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.map-scroll.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.items.royal-sceptre.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.royal-sceptre.label'
+  | 'themes.backstage-mystery.categories.prop.items.royal-sceptre.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.royal-sceptre.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.royal-sceptre.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.items.sealed-letter.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.sealed-letter.label'
+  | 'themes.backstage-mystery.categories.prop.items.sealed-letter.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.sealed-letter.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.sealed-letter.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.items.silk-bouquet.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.silk-bouquet.label'
+  | 'themes.backstage-mystery.categories.prop.items.silk-bouquet.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.silk-bouquet.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.silk-bouquet.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.items.storm-lantern.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.storm-lantern.label'
+  | 'themes.backstage-mystery.categories.prop.items.storm-lantern.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.storm-lantern.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.storm-lantern.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.items.throne-chair.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.throne-chair.label'
+  | 'themes.backstage-mystery.categories.prop.items.throne-chair.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.throne-chair.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.throne-chair.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.items.treasure-coffer.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.treasure-coffer.label'
+  | 'themes.backstage-mystery.categories.prop.items.treasure-coffer.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.treasure-coffer.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.treasure-coffer.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.items.walking-cane.blurb'
+  | 'themes.backstage-mystery.categories.prop.items.walking-cane.label'
+  | 'themes.backstage-mystery.categories.prop.items.walking-cane.traits.finish'
+  | 'themes.backstage-mystery.categories.prop.items.walking-cane.traits.handling'
+  | 'themes.backstage-mystery.categories.prop.items.walking-cane.traits.storage'
+  | 'themes.backstage-mystery.categories.prop.name'
+  | 'themes.backstage-mystery.categories.prop.noun'
+  | 'themes.backstage-mystery.categories.prop.pattern'
+  | 'themes.backstage-mystery.categories.prop.traits.finish.label'
+  | 'themes.backstage-mystery.categories.prop.traits.finish.pattern'
+  | 'themes.backstage-mystery.categories.prop.traits.handling.label'
+  | 'themes.backstage-mystery.categories.prop.traits.handling.pattern'
+  | 'themes.backstage-mystery.categories.prop.traits.storage.label'
+  | 'themes.backstage-mystery.categories.prop.traits.storage.pattern'
+  | 'themes.backstage-mystery.categories.scenery.describes'
+  | 'themes.backstage-mystery.categories.scenery.items.castle-gate.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.castle-gate.label'
+  | 'themes.backstage-mystery.categories.scenery.items.castle-gate.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.castle-gate.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.castle-gate.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.items.cave-mouth.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.cave-mouth.label'
+  | 'themes.backstage-mystery.categories.scenery.items.cave-mouth.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.cave-mouth.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.cave-mouth.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.items.city-rooftops.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.city-rooftops.label'
+  | 'themes.backstage-mystery.categories.scenery.items.city-rooftops.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.city-rooftops.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.city-rooftops.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.items.desert-dunes.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.desert-dunes.label'
+  | 'themes.backstage-mystery.categories.scenery.items.desert-dunes.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.desert-dunes.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.desert-dunes.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.items.garden-arch.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.garden-arch.label'
+  | 'themes.backstage-mystery.categories.scenery.items.garden-arch.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.garden-arch.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.garden-arch.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.items.moonlit-balcony.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.moonlit-balcony.label'
+  | 'themes.backstage-mystery.categories.scenery.items.moonlit-balcony.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.moonlit-balcony.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.moonlit-balcony.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.items.painted-forest.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.painted-forest.label'
+  | 'themes.backstage-mystery.categories.scenery.items.painted-forest.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.painted-forest.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.painted-forest.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.items.palace-stair.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.palace-stair.label'
+  | 'themes.backstage-mystery.categories.scenery.items.palace-stair.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.palace-stair.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.palace-stair.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.items.prison-cell.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.prison-cell.label'
+  | 'themes.backstage-mystery.categories.scenery.items.prison-cell.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.prison-cell.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.prison-cell.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.items.ruined-temple.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.ruined-temple.label'
+  | 'themes.backstage-mystery.categories.scenery.items.ruined-temple.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.ruined-temple.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.ruined-temple.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.items.ship-s-deck.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.ship-s-deck.label'
+  | 'themes.backstage-mystery.categories.scenery.items.ship-s-deck.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.ship-s-deck.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.ship-s-deck.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.items.snowy-peak.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.snowy-peak.label'
+  | 'themes.backstage-mystery.categories.scenery.items.snowy-peak.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.snowy-peak.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.snowy-peak.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.items.village-watermill.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.village-watermill.label'
+  | 'themes.backstage-mystery.categories.scenery.items.village-watermill.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.village-watermill.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.village-watermill.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.items.village-well.blurb'
+  | 'themes.backstage-mystery.categories.scenery.items.village-well.label'
+  | 'themes.backstage-mystery.categories.scenery.items.village-well.traits.construction'
+  | 'themes.backstage-mystery.categories.scenery.items.village-well.traits.light'
+  | 'themes.backstage-mystery.categories.scenery.items.village-well.traits.setting'
+  | 'themes.backstage-mystery.categories.scenery.name'
+  | 'themes.backstage-mystery.categories.scenery.noun'
+  | 'themes.backstage-mystery.categories.scenery.pattern'
+  | 'themes.backstage-mystery.categories.scenery.traits.construction.label'
+  | 'themes.backstage-mystery.categories.scenery.traits.construction.pattern'
+  | 'themes.backstage-mystery.categories.scenery.traits.light.label'
+  | 'themes.backstage-mystery.categories.scenery.traits.light.pattern'
+  | 'themes.backstage-mystery.categories.scenery.traits.setting.label'
+  | 'themes.backstage-mystery.categories.scenery.traits.setting.pattern'
+  | 'themes.backstage-mystery.categories.stage-time.describes'
+  | 'themes.backstage-mystery.categories.stage-time.items.10.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.10.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.10.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.10.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.items.15.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.15.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.15.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.15.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.items.20.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.20.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.20.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.20.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.items.25.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.25.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.25.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.25.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.items.30.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.30.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.30.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.30.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.items.35.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.35.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.35.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.35.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.items.40.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.40.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.40.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.40.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.items.45.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.45.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.45.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.45.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.items.5.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.5.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.5.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.5.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.items.50.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.50.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.50.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.50.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.items.55.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.55.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.55.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.55.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.items.60.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.60.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.60.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.60.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.items.65.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.65.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.65.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.65.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.items.70.blurb'
+  | 'themes.backstage-mystery.categories.stage-time.items.70.label'
+  | 'themes.backstage-mystery.categories.stage-time.items.70.traits.band'
+  | 'themes.backstage-mystery.categories.stage-time.items.70.traits.review'
+  | 'themes.backstage-mystery.categories.stage-time.name'
+  | 'themes.backstage-mystery.categories.stage-time.noun'
+  | 'themes.backstage-mystery.categories.stage-time.ordered.greater'
+  | 'themes.backstage-mystery.categories.stage-time.ordered.lesser'
+  | 'themes.backstage-mystery.categories.stage-time.ordered.noun'
+  | 'themes.backstage-mystery.categories.stage-time.ordered.unit'
+  | 'themes.backstage-mystery.categories.stage-time.pattern'
+  | 'themes.backstage-mystery.categories.stage-time.traits.band.label'
+  | 'themes.backstage-mystery.categories.stage-time.traits.band.pattern'
+  | 'themes.backstage-mystery.categories.stage-time.traits.review.label'
+  | 'themes.backstage-mystery.categories.stage-time.traits.review.pattern'
+  | 'themes.backstage-mystery.clues.compare'
+  | 'themes.backstage-mystery.clues.compareGap'
+  | 'themes.backstage-mystery.clues.either'
+  | 'themes.backstage-mystery.clues.groupNot'
+  | 'themes.backstage-mystery.clues.link'
+  | 'themes.backstage-mystery.clues.notLink'
+  | 'themes.backstage-mystery.name'
   | 'themes.cafe.blurb'
   | 'themes.cafe.categories.bill.describes'
   | 'themes.cafe.categories.bill.items.10.blurb'
@@ -7099,6 +11905,402 @@ export type StringKey =
   | 'themes.cafe.clues.link'
   | 'themes.cafe.clues.notLink'
   | 'themes.cafe.name'
+  | 'themes.clockwork-workshop.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.describes'
+  | 'themes.clockwork-workshop.categories.build-year.items.1900.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1900.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1900.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1900.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.items.1905.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1905.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1905.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1905.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.items.1910.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1910.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1910.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1910.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.items.1915.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1915.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1915.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1915.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.items.1920.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1920.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1920.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1920.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.items.1925.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1925.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1925.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1925.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.items.1930.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1930.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1930.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1930.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.items.1935.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1935.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1935.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1935.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.items.1940.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1940.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1940.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1940.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.items.1945.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1945.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1945.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1945.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.items.1950.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1950.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1950.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1950.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.items.1955.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1955.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1955.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1955.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.items.1960.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1960.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1960.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1960.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.items.1965.blurb'
+  | 'themes.clockwork-workshop.categories.build-year.items.1965.label'
+  | 'themes.clockwork-workshop.categories.build-year.items.1965.traits.era'
+  | 'themes.clockwork-workshop.categories.build-year.items.1965.traits.register'
+  | 'themes.clockwork-workshop.categories.build-year.name'
+  | 'themes.clockwork-workshop.categories.build-year.noun'
+  | 'themes.clockwork-workshop.categories.build-year.ordered.greater'
+  | 'themes.clockwork-workshop.categories.build-year.ordered.lesser'
+  | 'themes.clockwork-workshop.categories.build-year.ordered.noun'
+  | 'themes.clockwork-workshop.categories.build-year.ordered.unit'
+  | 'themes.clockwork-workshop.categories.build-year.pattern'
+  | 'themes.clockwork-workshop.categories.build-year.traits.era.label'
+  | 'themes.clockwork-workshop.categories.build-year.traits.era.pattern'
+  | 'themes.clockwork-workshop.categories.build-year.traits.register.label'
+  | 'themes.clockwork-workshop.categories.build-year.traits.register.pattern'
+  | 'themes.clockwork-workshop.categories.invention.describes'
+  | 'themes.clockwork-workshop.categories.invention.items.clockwork-wren.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.clockwork-wren.label'
+  | 'themes.clockwork-workshop.categories.invention.items.clockwork-wren.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.clockwork-wren.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.clockwork-wren.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.items.dictation-machine.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.dictation-machine.label'
+  | 'themes.clockwork-workshop.categories.invention.items.dictation-machine.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.dictation-machine.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.dictation-machine.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.items.garden-rocket.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.garden-rocket.label'
+  | 'themes.clockwork-workshop.categories.invention.items.garden-rocket.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.garden-rocket.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.garden-rocket.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.items.helping-hand.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.helping-hand.label'
+  | 'themes.clockwork-workshop.categories.invention.items.helping-hand.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.helping-hand.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.helping-hand.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.items.mechanical-carp.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.mechanical-carp.label'
+  | 'themes.clockwork-workshop.categories.invention.items.mechanical-carp.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.mechanical-carp.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.mechanical-carp.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.items.parlour-airship.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.parlour-airship.label'
+  | 'themes.clockwork-workshop.categories.invention.items.parlour-airship.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.parlour-airship.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.parlour-airship.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.items.perpetual-cog.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.perpetual-cog.label'
+  | 'themes.clockwork-workshop.categories.invention.items.perpetual-cog.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.perpetual-cog.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.perpetual-cog.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.items.pocket-submarine.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.pocket-submarine.label'
+  | 'themes.clockwork-workshop.categories.invention.items.pocket-submarine.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.pocket-submarine.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.pocket-submarine.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.items.polite-automaton.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.polite-automaton.label'
+  | 'themes.clockwork-workshop.categories.invention.items.polite-automaton.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.polite-automaton.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.polite-automaton.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.items.self-pouring-pot.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.self-pouring-pot.label'
+  | 'themes.clockwork-workshop.categories.invention.items.self-pouring-pot.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.self-pouring-pot.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.self-pouring-pot.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.items.sun-powered-fan.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.sun-powered-fan.label'
+  | 'themes.clockwork-workshop.categories.invention.items.sun-powered-fan.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.sun-powered-fan.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.sun-powered-fan.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.items.walking-clock.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.walking-clock.label'
+  | 'themes.clockwork-workshop.categories.invention.items.walking-clock.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.walking-clock.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.walking-clock.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.items.waltzing-box.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.waltzing-box.label'
+  | 'themes.clockwork-workshop.categories.invention.items.waltzing-box.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.waltzing-box.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.waltzing-box.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.items.whisper-horn.blurb'
+  | 'themes.clockwork-workshop.categories.invention.items.whisper-horn.label'
+  | 'themes.clockwork-workshop.categories.invention.items.whisper-horn.traits.power'
+  | 'themes.clockwork-workshop.categories.invention.items.whisper-horn.traits.purpose'
+  | 'themes.clockwork-workshop.categories.invention.items.whisper-horn.traits.scale'
+  | 'themes.clockwork-workshop.categories.invention.name'
+  | 'themes.clockwork-workshop.categories.invention.noun'
+  | 'themes.clockwork-workshop.categories.invention.pattern'
+  | 'themes.clockwork-workshop.categories.invention.traits.power.label'
+  | 'themes.clockwork-workshop.categories.invention.traits.power.pattern'
+  | 'themes.clockwork-workshop.categories.invention.traits.purpose.label'
+  | 'themes.clockwork-workshop.categories.invention.traits.purpose.pattern'
+  | 'themes.clockwork-workshop.categories.invention.traits.scale.label'
+  | 'themes.clockwork-workshop.categories.invention.traits.scale.pattern'
+  | 'themes.clockwork-workshop.categories.maker.describes'
+  | 'themes.clockwork-workshop.categories.maker.items.aunt-toggle.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.aunt-toggle.label'
+  | 'themes.clockwork-workshop.categories.maker.items.aunt-toggle.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.aunt-toggle.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.aunt-toggle.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.items.captain-crank.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.captain-crank.label'
+  | 'themes.clockwork-workshop.categories.maker.items.captain-crank.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.captain-crank.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.captain-crank.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.items.dame-copper.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.dame-copper.label'
+  | 'themes.clockwork-workshop.categories.maker.items.dame-copper.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.dame-copper.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.dame-copper.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.items.dr-fuse.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.dr-fuse.label'
+  | 'themes.clockwork-workshop.categories.maker.items.dr-fuse.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.dr-fuse.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.dr-fuse.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.items.dr-ratchet.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.dr-ratchet.label'
+  | 'themes.clockwork-workshop.categories.maker.items.dr-ratchet.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.dr-ratchet.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.dr-ratchet.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.items.master-rivet.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.master-rivet.label'
+  | 'themes.clockwork-workshop.categories.maker.items.master-rivet.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.master-rivet.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.master-rivet.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.items.miss-emery.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.miss-emery.label'
+  | 'themes.clockwork-workshop.categories.maker.items.miss-emery.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.miss-emery.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.miss-emery.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.items.mr-sawdust.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.mr-sawdust.label'
+  | 'themes.clockwork-workshop.categories.maker.items.mr-sawdust.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.mr-sawdust.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.mr-sawdust.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.items.mr-spanner.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.mr-spanner.label'
+  | 'themes.clockwork-workshop.categories.maker.items.mr-spanner.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.mr-spanner.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.mr-spanner.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.items.mrs-bobbin.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.mrs-bobbin.label'
+  | 'themes.clockwork-workshop.categories.maker.items.mrs-bobbin.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.mrs-bobbin.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.mrs-bobbin.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.items.ms-sprocket.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.ms-sprocket.label'
+  | 'themes.clockwork-workshop.categories.maker.items.ms-sprocket.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.ms-sprocket.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.ms-sprocket.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.items.mx-ticker.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.mx-ticker.label'
+  | 'themes.clockwork-workshop.categories.maker.items.mx-ticker.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.mx-ticker.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.mx-ticker.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.items.professor-piston.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.professor-piston.label'
+  | 'themes.clockwork-workshop.categories.maker.items.professor-piston.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.professor-piston.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.professor-piston.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.items.sir-flywheel.blurb'
+  | 'themes.clockwork-workshop.categories.maker.items.sir-flywheel.label'
+  | 'themes.clockwork-workshop.categories.maker.items.sir-flywheel.traits.experience'
+  | 'themes.clockwork-workshop.categories.maker.items.sir-flywheel.traits.manner'
+  | 'themes.clockwork-workshop.categories.maker.items.sir-flywheel.traits.shift'
+  | 'themes.clockwork-workshop.categories.maker.name'
+  | 'themes.clockwork-workshop.categories.maker.noun'
+  | 'themes.clockwork-workshop.categories.maker.pattern'
+  | 'themes.clockwork-workshop.categories.maker.traits.experience.label'
+  | 'themes.clockwork-workshop.categories.maker.traits.experience.pattern'
+  | 'themes.clockwork-workshop.categories.maker.traits.manner.label'
+  | 'themes.clockwork-workshop.categories.maker.traits.manner.pattern'
+  | 'themes.clockwork-workshop.categories.maker.traits.shift.label'
+  | 'themes.clockwork-workshop.categories.maker.traits.shift.pattern'
+  | 'themes.clockwork-workshop.categories.material.describes'
+  | 'themes.clockwork-workshop.categories.material.items.brass-ingot.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.brass-ingot.label'
+  | 'themes.clockwork-workshop.categories.material.items.brass-ingot.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.brass-ingot.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.brass-ingot.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.items.canvas-sheet.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.canvas-sheet.label'
+  | 'themes.clockwork-workshop.categories.material.items.canvas-sheet.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.canvas-sheet.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.canvas-sheet.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.items.copper-coil.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.copper-coil.label'
+  | 'themes.clockwork-workshop.categories.material.items.copper-coil.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.copper-coil.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.copper-coil.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.items.cork-block.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.cork-block.label'
+  | 'themes.clockwork-workshop.categories.material.items.cork-block.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.cork-block.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.cork-block.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.items.glass-flask.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.glass-flask.label'
+  | 'themes.clockwork-workshop.categories.material.items.glass-flask.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.glass-flask.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.glass-flask.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.items.granite-lump.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.granite-lump.label'
+  | 'themes.clockwork-workshop.categories.material.items.granite-lump.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.granite-lump.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.granite-lump.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.items.hemp-rope.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.hemp-rope.label'
+  | 'themes.clockwork-workshop.categories.material.items.hemp-rope.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.hemp-rope.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.hemp-rope.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.items.leather-hide.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.leather-hide.label'
+  | 'themes.clockwork-workshop.categories.material.items.leather-hide.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.leather-hide.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.leather-hide.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.items.oak-offcut.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.oak-offcut.label'
+  | 'themes.clockwork-workshop.categories.material.items.oak-offcut.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.oak-offcut.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.oak-offcut.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.items.paper-stack.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.paper-stack.label'
+  | 'themes.clockwork-workshop.categories.material.items.paper-stack.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.paper-stack.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.paper-stack.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.items.porcelain-jar.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.porcelain-jar.label'
+  | 'themes.clockwork-workshop.categories.material.items.porcelain-jar.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.porcelain-jar.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.porcelain-jar.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.items.rubber-ring.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.rubber-ring.label'
+  | 'themes.clockwork-workshop.categories.material.items.rubber-ring.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.rubber-ring.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.rubber-ring.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.items.steel-spring.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.steel-spring.label'
+  | 'themes.clockwork-workshop.categories.material.items.steel-spring.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.steel-spring.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.steel-spring.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.items.wool-felt.blurb'
+  | 'themes.clockwork-workshop.categories.material.items.wool-felt.label'
+  | 'themes.clockwork-workshop.categories.material.items.wool-felt.traits.origin'
+  | 'themes.clockwork-workshop.categories.material.items.wool-felt.traits.supply'
+  | 'themes.clockwork-workshop.categories.material.items.wool-felt.traits.texture'
+  | 'themes.clockwork-workshop.categories.material.name'
+  | 'themes.clockwork-workshop.categories.material.noun'
+  | 'themes.clockwork-workshop.categories.material.pattern'
+  | 'themes.clockwork-workshop.categories.material.traits.origin.label'
+  | 'themes.clockwork-workshop.categories.material.traits.origin.pattern'
+  | 'themes.clockwork-workshop.categories.material.traits.supply.label'
+  | 'themes.clockwork-workshop.categories.material.traits.supply.pattern'
+  | 'themes.clockwork-workshop.categories.material.traits.texture.label'
+  | 'themes.clockwork-workshop.categories.material.traits.texture.pattern'
+  | 'themes.clockwork-workshop.categories.tool.describes'
+  | 'themes.clockwork-workshop.categories.tool.items.bench-drill.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.bench-drill.label'
+  | 'themes.clockwork-workshop.categories.tool.items.bench-drill.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.bench-drill.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.bench-drill.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.items.bench-vice.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.bench-vice.label'
+  | 'themes.clockwork-workshop.categories.tool.items.bench-vice.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.bench-vice.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.bench-vice.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.items.claw-hammer.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.claw-hammer.label'
+  | 'themes.clockwork-workshop.categories.tool.items.claw-hammer.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.claw-hammer.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.claw-hammer.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.items.dividers.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.dividers.label'
+  | 'themes.clockwork-workshop.categories.tool.items.dividers.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.dividers.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.dividers.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.items.flat-file.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.flat-file.label'
+  | 'themes.clockwork-workshop.categories.tool.items.flat-file.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.flat-file.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.flat-file.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.items.forge-bellows.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.forge-bellows.label'
+  | 'themes.clockwork-workshop.categories.tool.items.forge-bellows.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.forge-bellows.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.forge-bellows.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.items.g-clamp.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.g-clamp.label'
+  | 'themes.clockwork-workshop.categories.tool.items.g-clamp.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.g-clamp.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.g-clamp.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.items.long-pliers.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.long-pliers.label'
+  | 'themes.clockwork-workshop.categories.tool.items.long-pliers.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.long-pliers.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.long-pliers.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.items.open-spanner.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.open-spanner.label'
+  | 'themes.clockwork-workshop.categories.tool.items.open-spanner.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.open-spanner.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.open-spanner.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.items.panel-saw.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.panel-saw.label'
+  | 'themes.clockwork-workshop.categories.tool.items.panel-saw.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.panel-saw.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.panel-saw.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.items.slot-driver.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.slot-driver.label'
+  | 'themes.clockwork-workshop.categories.tool.items.slot-driver.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.slot-driver.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.slot-driver.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.items.small-anvil.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.small-anvil.label'
+  | 'themes.clockwork-workshop.categories.tool.items.small-anvil.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.small-anvil.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.small-anvil.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.items.soldering-iron.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.soldering-iron.label'
+  | 'themes.clockwork-workshop.categories.tool.items.soldering-iron.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.soldering-iron.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.soldering-iron.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.items.steel-rule.blurb'
+  | 'themes.clockwork-workshop.categories.tool.items.steel-rule.label'
+  | 'themes.clockwork-workshop.categories.tool.items.steel-rule.traits.operation'
+  | 'themes.clockwork-workshop.categories.tool.items.steel-rule.traits.purpose'
+  | 'themes.clockwork-workshop.categories.tool.items.steel-rule.traits.storage'
+  | 'themes.clockwork-workshop.categories.tool.name'
+  | 'themes.clockwork-workshop.categories.tool.noun'
+  | 'themes.clockwork-workshop.categories.tool.pattern'
+  | 'themes.clockwork-workshop.categories.tool.traits.operation.label'
+  | 'themes.clockwork-workshop.categories.tool.traits.operation.pattern'
+  | 'themes.clockwork-workshop.categories.tool.traits.purpose.label'
+  | 'themes.clockwork-workshop.categories.tool.traits.purpose.pattern'
+  | 'themes.clockwork-workshop.categories.tool.traits.storage.label'
+  | 'themes.clockwork-workshop.categories.tool.traits.storage.pattern'
+  | 'themes.clockwork-workshop.clues.compare'
+  | 'themes.clockwork-workshop.clues.compareGap'
+  | 'themes.clockwork-workshop.clues.either'
+  | 'themes.clockwork-workshop.clues.groupNot'
+  | 'themes.clockwork-workshop.clues.link'
+  | 'themes.clockwork-workshop.clues.notLink'
+  | 'themes.clockwork-workshop.name'
   | 'themes.cosmic.blurb'
   | 'themes.cosmic.categories.astronaut.describes'
   | 'themes.cosmic.categories.astronaut.items.bex.blurb'
@@ -7955,6 +13157,1194 @@ export type StringKey =
   | 'themes.garden.clues.link'
   | 'themes.garden.clues.notLink'
   | 'themes.garden.name'
+  | 'themes.harbour-watch.blurb'
+  | 'themes.harbour-watch.categories.arrival.describes'
+  | 'themes.harbour-watch.categories.arrival.items.04-00.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.04-00.label'
+  | 'themes.harbour-watch.categories.arrival.items.04-00.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.04-00.traits.window'
+  | 'themes.harbour-watch.categories.arrival.items.04-30.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.04-30.label'
+  | 'themes.harbour-watch.categories.arrival.items.04-30.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.04-30.traits.window'
+  | 'themes.harbour-watch.categories.arrival.items.05-00.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.05-00.label'
+  | 'themes.harbour-watch.categories.arrival.items.05-00.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.05-00.traits.window'
+  | 'themes.harbour-watch.categories.arrival.items.05-30.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.05-30.label'
+  | 'themes.harbour-watch.categories.arrival.items.05-30.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.05-30.traits.window'
+  | 'themes.harbour-watch.categories.arrival.items.06-00.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.06-00.label'
+  | 'themes.harbour-watch.categories.arrival.items.06-00.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.06-00.traits.window'
+  | 'themes.harbour-watch.categories.arrival.items.06-30.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.06-30.label'
+  | 'themes.harbour-watch.categories.arrival.items.06-30.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.06-30.traits.window'
+  | 'themes.harbour-watch.categories.arrival.items.07-00.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.07-00.label'
+  | 'themes.harbour-watch.categories.arrival.items.07-00.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.07-00.traits.window'
+  | 'themes.harbour-watch.categories.arrival.items.07-30.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.07-30.label'
+  | 'themes.harbour-watch.categories.arrival.items.07-30.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.07-30.traits.window'
+  | 'themes.harbour-watch.categories.arrival.items.08-00.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.08-00.label'
+  | 'themes.harbour-watch.categories.arrival.items.08-00.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.08-00.traits.window'
+  | 'themes.harbour-watch.categories.arrival.items.08-30.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.08-30.label'
+  | 'themes.harbour-watch.categories.arrival.items.08-30.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.08-30.traits.window'
+  | 'themes.harbour-watch.categories.arrival.items.09-00.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.09-00.label'
+  | 'themes.harbour-watch.categories.arrival.items.09-00.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.09-00.traits.window'
+  | 'themes.harbour-watch.categories.arrival.items.09-30.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.09-30.label'
+  | 'themes.harbour-watch.categories.arrival.items.09-30.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.09-30.traits.window'
+  | 'themes.harbour-watch.categories.arrival.items.10-00.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.10-00.label'
+  | 'themes.harbour-watch.categories.arrival.items.10-00.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.10-00.traits.window'
+  | 'themes.harbour-watch.categories.arrival.items.10-30.blurb'
+  | 'themes.harbour-watch.categories.arrival.items.10-30.label'
+  | 'themes.harbour-watch.categories.arrival.items.10-30.traits.watch'
+  | 'themes.harbour-watch.categories.arrival.items.10-30.traits.window'
+  | 'themes.harbour-watch.categories.arrival.name'
+  | 'themes.harbour-watch.categories.arrival.noun'
+  | 'themes.harbour-watch.categories.arrival.ordered.greater'
+  | 'themes.harbour-watch.categories.arrival.ordered.lesser'
+  | 'themes.harbour-watch.categories.arrival.ordered.noun'
+  | 'themes.harbour-watch.categories.arrival.ordered.unit'
+  | 'themes.harbour-watch.categories.arrival.pattern'
+  | 'themes.harbour-watch.categories.arrival.traits.watch.label'
+  | 'themes.harbour-watch.categories.arrival.traits.watch.pattern'
+  | 'themes.harbour-watch.categories.arrival.traits.window.label'
+  | 'themes.harbour-watch.categories.arrival.traits.window.pattern'
+  | 'themes.harbour-watch.categories.berth.describes'
+  | 'themes.harbour-watch.categories.berth.items.anchor-point.blurb'
+  | 'themes.harbour-watch.categories.berth.items.anchor-point.label'
+  | 'themes.harbour-watch.categories.berth.items.anchor-point.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.anchor-point.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.anchor-point.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.items.beacon-jetty.blurb'
+  | 'themes.harbour-watch.categories.berth.items.beacon-jetty.label'
+  | 'themes.harbour-watch.categories.berth.items.beacon-jetty.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.beacon-jetty.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.beacon-jetty.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.items.bell-buoy.blurb'
+  | 'themes.harbour-watch.categories.berth.items.bell-buoy.label'
+  | 'themes.harbour-watch.categories.berth.items.bell-buoy.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.bell-buoy.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.bell-buoy.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.items.coal-wharf.blurb'
+  | 'themes.harbour-watch.categories.berth.items.coal-wharf.label'
+  | 'themes.harbour-watch.categories.berth.items.coal-wharf.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.coal-wharf.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.coal-wharf.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.items.customs-steps.blurb'
+  | 'themes.harbour-watch.categories.berth.items.customs-steps.label'
+  | 'themes.harbour-watch.categories.berth.items.customs-steps.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.customs-steps.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.customs-steps.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.items.east-lock.blurb'
+  | 'themes.harbour-watch.categories.berth.items.east-lock.label'
+  | 'themes.harbour-watch.categories.berth.items.east-lock.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.east-lock.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.east-lock.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.items.gantry-pier.blurb'
+  | 'themes.harbour-watch.categories.berth.items.gantry-pier.label'
+  | 'themes.harbour-watch.categories.berth.items.gantry-pier.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.gantry-pier.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.gantry-pier.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.items.lighthouse-quay.blurb'
+  | 'themes.harbour-watch.categories.berth.items.lighthouse-quay.label'
+  | 'themes.harbour-watch.categories.berth.items.lighthouse-quay.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.lighthouse-quay.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.lighthouse-quay.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.items.mill-basin.blurb'
+  | 'themes.harbour-watch.categories.berth.items.mill-basin.label'
+  | 'themes.harbour-watch.categories.berth.items.mill-basin.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.mill-basin.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.mill-basin.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.items.net-loft.blurb'
+  | 'themes.harbour-watch.categories.berth.items.net-loft.label'
+  | 'themes.harbour-watch.categories.berth.items.net-loft.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.net-loft.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.net-loft.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.items.old-graving-dock.blurb'
+  | 'themes.harbour-watch.categories.berth.items.old-graving-dock.label'
+  | 'themes.harbour-watch.categories.berth.items.old-graving-dock.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.old-graving-dock.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.old-graving-dock.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.items.ropewalk-landing.blurb'
+  | 'themes.harbour-watch.categories.berth.items.ropewalk-landing.label'
+  | 'themes.harbour-watch.categories.berth.items.ropewalk-landing.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.ropewalk-landing.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.ropewalk-landing.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.items.salt-house.blurb'
+  | 'themes.harbour-watch.categories.berth.items.salt-house.label'
+  | 'themes.harbour-watch.categories.berth.items.salt-house.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.salt-house.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.salt-house.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.items.stone-arch.blurb'
+  | 'themes.harbour-watch.categories.berth.items.stone-arch.label'
+  | 'themes.harbour-watch.categories.berth.items.stone-arch.traits.access'
+  | 'themes.harbour-watch.categories.berth.items.stone-arch.traits.basin'
+  | 'themes.harbour-watch.categories.berth.items.stone-arch.traits.shelter'
+  | 'themes.harbour-watch.categories.berth.name'
+  | 'themes.harbour-watch.categories.berth.noun'
+  | 'themes.harbour-watch.categories.berth.pattern'
+  | 'themes.harbour-watch.categories.berth.traits.access.label'
+  | 'themes.harbour-watch.categories.berth.traits.access.pattern'
+  | 'themes.harbour-watch.categories.berth.traits.basin.label'
+  | 'themes.harbour-watch.categories.berth.traits.basin.pattern'
+  | 'themes.harbour-watch.categories.berth.traits.shelter.label'
+  | 'themes.harbour-watch.categories.berth.traits.shelter.pattern'
+  | 'themes.harbour-watch.categories.cargo.describes'
+  | 'themes.harbour-watch.categories.cargo.items.citrus-basket.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.citrus-basket.label'
+  | 'themes.harbour-watch.categories.cargo.items.citrus-basket.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.citrus-basket.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.citrus-basket.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.items.clay-pots.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.clay-pots.label'
+  | 'themes.harbour-watch.categories.cargo.items.clay-pots.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.clay-pots.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.clay-pots.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.items.copper-ingots.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.copper-ingots.label'
+  | 'themes.harbour-watch.categories.cargo.items.copper-ingots.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.copper-ingots.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.copper-ingots.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.items.glass-bottles.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.glass-bottles.label'
+  | 'themes.harbour-watch.categories.cargo.items.glass-bottles.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.glass-bottles.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.glass-bottles.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.items.grain-sacks.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.grain-sacks.label'
+  | 'themes.harbour-watch.categories.cargo.items.grain-sacks.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.grain-sacks.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.grain-sacks.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.items.ice-blocks.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.ice-blocks.label'
+  | 'themes.harbour-watch.categories.cargo.items.ice-blocks.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.ice-blocks.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.ice-blocks.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.items.lamp-oil.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.lamp-oil.label'
+  | 'themes.harbour-watch.categories.cargo.items.lamp-oil.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.lamp-oil.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.lamp-oil.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.items.machine-parts.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.machine-parts.label'
+  | 'themes.harbour-watch.categories.cargo.items.machine-parts.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.machine-parts.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.machine-parts.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.items.marble-blocks.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.marble-blocks.label'
+  | 'themes.harbour-watch.categories.cargo.items.marble-blocks.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.marble-blocks.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.marble-blocks.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.items.sawn-timber.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.sawn-timber.label'
+  | 'themes.harbour-watch.categories.cargo.items.sawn-timber.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.sawn-timber.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.sawn-timber.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.items.silk-rolls.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.silk-rolls.label'
+  | 'themes.harbour-watch.categories.cargo.items.silk-rolls.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.silk-rolls.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.silk-rolls.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.items.spice-jars.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.spice-jars.label'
+  | 'themes.harbour-watch.categories.cargo.items.spice-jars.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.spice-jars.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.spice-jars.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.items.tea-leaves.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.tea-leaves.label'
+  | 'themes.harbour-watch.categories.cargo.items.tea-leaves.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.tea-leaves.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.tea-leaves.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.items.wool-bale.blurb'
+  | 'themes.harbour-watch.categories.cargo.items.wool-bale.label'
+  | 'themes.harbour-watch.categories.cargo.items.wool-bale.traits.cover'
+  | 'themes.harbour-watch.categories.cargo.items.wool-bale.traits.handling'
+  | 'themes.harbour-watch.categories.cargo.items.wool-bale.traits.origin'
+  | 'themes.harbour-watch.categories.cargo.name'
+  | 'themes.harbour-watch.categories.cargo.noun'
+  | 'themes.harbour-watch.categories.cargo.pattern'
+  | 'themes.harbour-watch.categories.cargo.traits.cover.label'
+  | 'themes.harbour-watch.categories.cargo.traits.cover.pattern'
+  | 'themes.harbour-watch.categories.cargo.traits.handling.label'
+  | 'themes.harbour-watch.categories.cargo.traits.handling.pattern'
+  | 'themes.harbour-watch.categories.cargo.traits.origin.label'
+  | 'themes.harbour-watch.categories.cargo.traits.origin.pattern'
+  | 'themes.harbour-watch.categories.skipper.describes'
+  | 'themes.harbour-watch.categories.skipper.items.ada-reef.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.ada-reef.label'
+  | 'themes.harbour-watch.categories.skipper.items.ada-reef.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.ada-reef.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.ada-reef.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.items.bosun-gull.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.bosun-gull.label'
+  | 'themes.harbour-watch.categories.skipper.items.bosun-gull.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.bosun-gull.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.bosun-gull.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.items.captain-brine.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.captain-brine.label'
+  | 'themes.harbour-watch.categories.skipper.items.captain-brine.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.captain-brine.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.captain-brine.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.items.captain-capstan.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.captain-capstan.label'
+  | 'themes.harbour-watch.categories.skipper.items.captain-capstan.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.captain-capstan.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.captain-capstan.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.items.dame-drift.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.dame-drift.label'
+  | 'themes.harbour-watch.categories.skipper.items.dame-drift.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.dame-drift.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.dame-drift.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.items.dr-compass.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.dr-compass.label'
+  | 'themes.harbour-watch.categories.skipper.items.dr-compass.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.dr-compass.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.dr-compass.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.items.finn-breaker.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.finn-breaker.label'
+  | 'themes.harbour-watch.categories.skipper.items.finn-breaker.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.finn-breaker.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.finn-breaker.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.items.marina-mallow.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.marina-mallow.label'
+  | 'themes.harbour-watch.categories.skipper.items.marina-mallow.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.marina-mallow.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.marina-mallow.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.items.mx-sounding.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.mx-sounding.label'
+  | 'themes.harbour-watch.categories.skipper.items.mx-sounding.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.mx-sounding.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.mx-sounding.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.items.nell-nor-east.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.nell-nor-east.label'
+  | 'themes.harbour-watch.categories.skipper.items.nell-nor-east.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.nell-nor-east.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.nell-nor-east.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.items.old-tom-tiller.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.old-tom-tiller.label'
+  | 'themes.harbour-watch.categories.skipper.items.old-tom-tiller.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.old-tom-tiller.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.old-tom-tiller.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.items.penny-shoal.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.penny-shoal.label'
+  | 'themes.harbour-watch.categories.skipper.items.penny-shoal.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.penny-shoal.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.penny-shoal.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.items.professor-fathom.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.professor-fathom.label'
+  | 'themes.harbour-watch.categories.skipper.items.professor-fathom.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.professor-fathom.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.professor-fathom.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.items.sir-keel.blurb'
+  | 'themes.harbour-watch.categories.skipper.items.sir-keel.label'
+  | 'themes.harbour-watch.categories.skipper.items.sir-keel.traits.manner'
+  | 'themes.harbour-watch.categories.skipper.items.sir-keel.traits.shift'
+  | 'themes.harbour-watch.categories.skipper.items.sir-keel.traits.standing'
+  | 'themes.harbour-watch.categories.skipper.name'
+  | 'themes.harbour-watch.categories.skipper.noun'
+  | 'themes.harbour-watch.categories.skipper.pattern'
+  | 'themes.harbour-watch.categories.skipper.traits.manner.label'
+  | 'themes.harbour-watch.categories.skipper.traits.manner.pattern'
+  | 'themes.harbour-watch.categories.skipper.traits.shift.label'
+  | 'themes.harbour-watch.categories.skipper.traits.shift.pattern'
+  | 'themes.harbour-watch.categories.skipper.traits.standing.label'
+  | 'themes.harbour-watch.categories.skipper.traits.standing.pattern'
+  | 'themes.harbour-watch.categories.vessel.describes'
+  | 'themes.harbour-watch.categories.vessel.items.brassbound-tug.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.brassbound-tug.label'
+  | 'themes.harbour-watch.categories.vessel.items.brassbound-tug.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.brassbound-tug.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.brassbound-tug.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.items.cushion-hovercraft.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.cushion-hovercraft.label'
+  | 'themes.harbour-watch.categories.vessel.items.cushion-hovercraft.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.cushion-hovercraft.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.cushion-hovercraft.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.items.harbour-ferry.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.harbour-ferry.label'
+  | 'themes.harbour-watch.categories.vessel.items.harbour-ferry.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.harbour-ferry.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.harbour-ferry.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.items.lantern-lightship.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.lantern-lightship.label'
+  | 'themes.harbour-watch.categories.vessel.items.lantern-lightship.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.lantern-lightship.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.lantern-lightship.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.items.mudlark-dredger.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.mudlark-dredger.label'
+  | 'themes.harbour-watch.categories.vessel.items.mudlark-dredger.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.mudlark-dredger.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.mudlark-dredger.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.items.netmender-trawler.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.netmender-trawler.label'
+  | 'themes.harbour-watch.categories.vessel.items.netmender-trawler.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.netmender-trawler.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.netmender-trawler.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.items.oak-longboat.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.oak-longboat.label'
+  | 'themes.harbour-watch.categories.vessel.items.oak-longboat.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.oak-longboat.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.oak-longboat.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.items.pocket-submersible.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.pocket-submersible.label'
+  | 'themes.harbour-watch.categories.vessel.items.pocket-submersible.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.pocket-submersible.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.pocket-submersible.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.items.proud-paddleboat.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.proud-paddleboat.label'
+  | 'themes.harbour-watch.categories.vessel.items.proud-paddleboat.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.proud-paddleboat.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.proud-paddleboat.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.items.scarlet-fireboat.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.scarlet-fireboat.label'
+  | 'themes.harbour-watch.categories.vessel.items.scarlet-fireboat.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.scarlet-fireboat.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.scarlet-fireboat.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.items.twinfin-catamaran.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.twinfin-catamaran.label'
+  | 'themes.harbour-watch.categories.vessel.items.twinfin-catamaran.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.twinfin-catamaran.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.twinfin-catamaran.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.items.twinmast-schooner.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.twinmast-schooner.label'
+  | 'themes.harbour-watch.categories.vessel.items.twinmast-schooner.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.twinmast-schooner.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.twinmast-schooner.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.items.whisper-cutter.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.whisper-cutter.label'
+  | 'themes.harbour-watch.categories.vessel.items.whisper-cutter.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.whisper-cutter.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.whisper-cutter.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.items.willow-canoe.blurb'
+  | 'themes.harbour-watch.categories.vessel.items.willow-canoe.label'
+  | 'themes.harbour-watch.categories.vessel.items.willow-canoe.traits.drive'
+  | 'themes.harbour-watch.categories.vessel.items.willow-canoe.traits.duty'
+  | 'themes.harbour-watch.categories.vessel.items.willow-canoe.traits.hull'
+  | 'themes.harbour-watch.categories.vessel.name'
+  | 'themes.harbour-watch.categories.vessel.noun'
+  | 'themes.harbour-watch.categories.vessel.pattern'
+  | 'themes.harbour-watch.categories.vessel.traits.drive.label'
+  | 'themes.harbour-watch.categories.vessel.traits.drive.pattern'
+  | 'themes.harbour-watch.categories.vessel.traits.duty.label'
+  | 'themes.harbour-watch.categories.vessel.traits.duty.pattern'
+  | 'themes.harbour-watch.categories.vessel.traits.hull.label'
+  | 'themes.harbour-watch.categories.vessel.traits.hull.pattern'
+  | 'themes.harbour-watch.clues.compare'
+  | 'themes.harbour-watch.clues.compareGap'
+  | 'themes.harbour-watch.clues.either'
+  | 'themes.harbour-watch.clues.groupNot'
+  | 'themes.harbour-watch.clues.link'
+  | 'themes.harbour-watch.clues.notLink'
+  | 'themes.harbour-watch.name'
+  | 'themes.lantern-festival.blurb'
+  | 'themes.lantern-festival.categories.artist.describes'
+  | 'themes.lantern-festival.categories.artist.items.aunt-echo.blurb'
+  | 'themes.lantern-festival.categories.artist.items.aunt-echo.label'
+  | 'themes.lantern-festival.categories.artist.items.aunt-echo.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.aunt-echo.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.aunt-echo.traits.shift'
+  | 'themes.lantern-festival.categories.artist.items.captain-spark.blurb'
+  | 'themes.lantern-festival.categories.artist.items.captain-spark.label'
+  | 'themes.lantern-festival.categories.artist.items.captain-spark.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.captain-spark.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.captain-spark.traits.shift'
+  | 'themes.lantern-festival.categories.artist.items.dame-firefly.blurb'
+  | 'themes.lantern-festival.categories.artist.items.dame-firefly.label'
+  | 'themes.lantern-festival.categories.artist.items.dame-firefly.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.dame-firefly.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.dame-firefly.traits.shift'
+  | 'themes.lantern-festival.categories.artist.items.dr-dazzle.blurb'
+  | 'themes.lantern-festival.categories.artist.items.dr-dazzle.label'
+  | 'themes.lantern-festival.categories.artist.items.dr-dazzle.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.dr-dazzle.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.dr-dazzle.traits.shift'
+  | 'themes.lantern-festival.categories.artist.items.lord-confetti.blurb'
+  | 'themes.lantern-festival.categories.artist.items.lord-confetti.label'
+  | 'themes.lantern-festival.categories.artist.items.lord-confetti.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.lord-confetti.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.lord-confetti.traits.shift'
+  | 'themes.lantern-festival.categories.artist.items.madam-ribbon.blurb'
+  | 'themes.lantern-festival.categories.artist.items.madam-ribbon.label'
+  | 'themes.lantern-festival.categories.artist.items.madam-ribbon.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.madam-ribbon.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.madam-ribbon.traits.shift'
+  | 'themes.lantern-festival.categories.artist.items.miss-wisp.blurb'
+  | 'themes.lantern-festival.categories.artist.items.miss-wisp.label'
+  | 'themes.lantern-festival.categories.artist.items.miss-wisp.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.miss-wisp.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.miss-wisp.traits.shift'
+  | 'themes.lantern-festival.categories.artist.items.mr-flutter.blurb'
+  | 'themes.lantern-festival.categories.artist.items.mr-flutter.label'
+  | 'themes.lantern-festival.categories.artist.items.mr-flutter.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.mr-flutter.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.mr-flutter.traits.shift'
+  | 'themes.lantern-festival.categories.artist.items.mr-glow.blurb'
+  | 'themes.lantern-festival.categories.artist.items.mr-glow.label'
+  | 'themes.lantern-festival.categories.artist.items.mr-glow.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.mr-glow.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.mr-glow.traits.shift'
+  | 'themes.lantern-festival.categories.artist.items.mrs-twinkle.blurb'
+  | 'themes.lantern-festival.categories.artist.items.mrs-twinkle.label'
+  | 'themes.lantern-festival.categories.artist.items.mrs-twinkle.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.mrs-twinkle.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.mrs-twinkle.traits.shift'
+  | 'themes.lantern-festival.categories.artist.items.ms-shimmer.blurb'
+  | 'themes.lantern-festival.categories.artist.items.ms-shimmer.label'
+  | 'themes.lantern-festival.categories.artist.items.ms-shimmer.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.ms-shimmer.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.ms-shimmer.traits.shift'
+  | 'themes.lantern-festival.categories.artist.items.mx-chorus.blurb'
+  | 'themes.lantern-festival.categories.artist.items.mx-chorus.label'
+  | 'themes.lantern-festival.categories.artist.items.mx-chorus.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.mx-chorus.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.mx-chorus.traits.shift'
+  | 'themes.lantern-festival.categories.artist.items.professor-glimmer.blurb'
+  | 'themes.lantern-festival.categories.artist.items.professor-glimmer.label'
+  | 'themes.lantern-festival.categories.artist.items.professor-glimmer.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.professor-glimmer.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.professor-glimmer.traits.shift'
+  | 'themes.lantern-festival.categories.artist.items.sir-rattle.blurb'
+  | 'themes.lantern-festival.categories.artist.items.sir-rattle.label'
+  | 'themes.lantern-festival.categories.artist.items.sir-rattle.traits.experience'
+  | 'themes.lantern-festival.categories.artist.items.sir-rattle.traits.manner'
+  | 'themes.lantern-festival.categories.artist.items.sir-rattle.traits.shift'
+  | 'themes.lantern-festival.categories.artist.name'
+  | 'themes.lantern-festival.categories.artist.noun'
+  | 'themes.lantern-festival.categories.artist.pattern'
+  | 'themes.lantern-festival.categories.artist.traits.experience.label'
+  | 'themes.lantern-festival.categories.artist.traits.experience.pattern'
+  | 'themes.lantern-festival.categories.artist.traits.manner.label'
+  | 'themes.lantern-festival.categories.artist.traits.manner.pattern'
+  | 'themes.lantern-festival.categories.artist.traits.shift.label'
+  | 'themes.lantern-festival.categories.artist.traits.shift.pattern'
+  | 'themes.lantern-festival.categories.instrument.describes'
+  | 'themes.lantern-festival.categories.instrument.items.box-accordion.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.box-accordion.label'
+  | 'themes.lantern-festival.categories.instrument.items.box-accordion.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.box-accordion.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.box-accordion.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.items.brass-trumpet.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.brass-trumpet.label'
+  | 'themes.lantern-festival.categories.instrument.items.brass-trumpet.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.brass-trumpet.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.brass-trumpet.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.items.bronze-gong.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.bronze-gong.label'
+  | 'themes.lantern-festival.categories.instrument.items.bronze-gong.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.bronze-gong.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.bronze-gong.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.items.celtic-harp.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.celtic-harp.label'
+  | 'themes.lantern-festival.categories.instrument.items.celtic-harp.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.celtic-harp.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.celtic-harp.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.items.festival-fiddle.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.festival-fiddle.label'
+  | 'themes.lantern-festival.categories.instrument.items.festival-fiddle.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.festival-fiddle.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.festival-fiddle.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.items.hand-cymbals.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.hand-cymbals.label'
+  | 'themes.lantern-festival.categories.instrument.items.hand-cymbals.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.hand-cymbals.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.hand-cymbals.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.items.marching-drum.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.marching-drum.label'
+  | 'themes.lantern-festival.categories.instrument.items.marching-drum.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.marching-drum.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.marching-drum.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.items.parade-pipes.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.parade-pipes.label'
+  | 'themes.lantern-festival.categories.instrument.items.parade-pipes.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.parade-pipes.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.parade-pipes.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.items.reed-panpipes.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.reed-panpipes.label'
+  | 'themes.lantern-festival.categories.instrument.items.reed-panpipes.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.reed-panpipes.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.reed-panpipes.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.items.round-lute.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.round-lute.label'
+  | 'themes.lantern-festival.categories.instrument.items.round-lute.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.round-lute.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.round-lute.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.items.silver-flute.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.silver-flute.label'
+  | 'themes.lantern-festival.categories.instrument.items.silver-flute.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.silver-flute.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.silver-flute.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.items.tambourine.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.tambourine.label'
+  | 'themes.lantern-festival.categories.instrument.items.tambourine.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.tambourine.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.tambourine.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.items.town-bell.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.town-bell.label'
+  | 'themes.lantern-festival.categories.instrument.items.town-bell.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.town-bell.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.town-bell.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.items.wood-xylophone.blurb'
+  | 'themes.lantern-festival.categories.instrument.items.wood-xylophone.label'
+  | 'themes.lantern-festival.categories.instrument.items.wood-xylophone.traits.family'
+  | 'themes.lantern-festival.categories.instrument.items.wood-xylophone.traits.position'
+  | 'themes.lantern-festival.categories.instrument.items.wood-xylophone.traits.volume'
+  | 'themes.lantern-festival.categories.instrument.name'
+  | 'themes.lantern-festival.categories.instrument.noun'
+  | 'themes.lantern-festival.categories.instrument.pattern'
+  | 'themes.lantern-festival.categories.instrument.traits.family.label'
+  | 'themes.lantern-festival.categories.instrument.traits.family.pattern'
+  | 'themes.lantern-festival.categories.instrument.traits.position.label'
+  | 'themes.lantern-festival.categories.instrument.traits.position.pattern'
+  | 'themes.lantern-festival.categories.instrument.traits.volume.label'
+  | 'themes.lantern-festival.categories.instrument.traits.volume.pattern'
+  | 'themes.lantern-festival.categories.lantern.describes'
+  | 'themes.lantern-festival.categories.lantern.items.apple-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.apple-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.apple-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.apple-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.apple-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.items.cat-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.cat-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.cat-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.cat-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.cat-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.items.cloud-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.cloud-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.cloud-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.cloud-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.cloud-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.items.dragon-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.dragon-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.dragon-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.dragon-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.dragon-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.items.fox-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.fox-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.fox-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.fox-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.fox-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.items.hare-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.hare-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.hare-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.hare-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.hare-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.items.kite-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.kite-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.kite-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.kite-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.kite-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.items.moon-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.moon-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.moon-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.moon-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.moon-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.items.moth-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.moth-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.moth-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.moth-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.moth-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.items.owl-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.owl-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.owl-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.owl-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.owl-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.items.pear-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.pear-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.pear-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.pear-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.pear-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.items.pinwheel-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.pinwheel-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.pinwheel-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.pinwheel-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.pinwheel-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.items.rocket-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.rocket-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.rocket-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.rocket-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.rocket-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.items.star-lantern.blurb'
+  | 'themes.lantern-festival.categories.lantern.items.star-lantern.label'
+  | 'themes.lantern-festival.categories.lantern.items.star-lantern.traits.colour'
+  | 'themes.lantern-festival.categories.lantern.items.star-lantern.traits.frame'
+  | 'themes.lantern-festival.categories.lantern.items.star-lantern.traits.light'
+  | 'themes.lantern-festival.categories.lantern.name'
+  | 'themes.lantern-festival.categories.lantern.noun'
+  | 'themes.lantern-festival.categories.lantern.pattern'
+  | 'themes.lantern-festival.categories.lantern.traits.colour.label'
+  | 'themes.lantern-festival.categories.lantern.traits.colour.pattern'
+  | 'themes.lantern-festival.categories.lantern.traits.frame.label'
+  | 'themes.lantern-festival.categories.lantern.traits.frame.pattern'
+  | 'themes.lantern-festival.categories.lantern.traits.light.label'
+  | 'themes.lantern-festival.categories.lantern.traits.light.pattern'
+  | 'themes.lantern-festival.categories.showtime.describes'
+  | 'themes.lantern-festival.categories.showtime.items.18-00.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.18-00.label'
+  | 'themes.lantern-festival.categories.showtime.items.18-00.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.18-00.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.items.18-15.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.18-15.label'
+  | 'themes.lantern-festival.categories.showtime.items.18-15.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.18-15.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.items.18-30.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.18-30.label'
+  | 'themes.lantern-festival.categories.showtime.items.18-30.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.18-30.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.items.18-45.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.18-45.label'
+  | 'themes.lantern-festival.categories.showtime.items.18-45.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.18-45.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.items.19-00.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.19-00.label'
+  | 'themes.lantern-festival.categories.showtime.items.19-00.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.19-00.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.items.19-15.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.19-15.label'
+  | 'themes.lantern-festival.categories.showtime.items.19-15.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.19-15.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.items.19-30.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.19-30.label'
+  | 'themes.lantern-festival.categories.showtime.items.19-30.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.19-30.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.items.19-45.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.19-45.label'
+  | 'themes.lantern-festival.categories.showtime.items.19-45.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.19-45.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.items.20-00.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.20-00.label'
+  | 'themes.lantern-festival.categories.showtime.items.20-00.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.20-00.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.items.20-15.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.20-15.label'
+  | 'themes.lantern-festival.categories.showtime.items.20-15.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.20-15.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.items.20-30.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.20-30.label'
+  | 'themes.lantern-festival.categories.showtime.items.20-30.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.20-30.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.items.20-45.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.20-45.label'
+  | 'themes.lantern-festival.categories.showtime.items.20-45.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.20-45.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.items.21-00.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.21-00.label'
+  | 'themes.lantern-festival.categories.showtime.items.21-00.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.21-00.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.items.21-15.blurb'
+  | 'themes.lantern-festival.categories.showtime.items.21-15.label'
+  | 'themes.lantern-festival.categories.showtime.items.21-15.traits.period'
+  | 'themes.lantern-festival.categories.showtime.items.21-15.traits.programme'
+  | 'themes.lantern-festival.categories.showtime.name'
+  | 'themes.lantern-festival.categories.showtime.noun'
+  | 'themes.lantern-festival.categories.showtime.ordered.greater'
+  | 'themes.lantern-festival.categories.showtime.ordered.lesser'
+  | 'themes.lantern-festival.categories.showtime.ordered.noun'
+  | 'themes.lantern-festival.categories.showtime.ordered.unit'
+  | 'themes.lantern-festival.categories.showtime.pattern'
+  | 'themes.lantern-festival.categories.showtime.traits.period.label'
+  | 'themes.lantern-festival.categories.showtime.traits.period.pattern'
+  | 'themes.lantern-festival.categories.showtime.traits.programme.label'
+  | 'themes.lantern-festival.categories.showtime.traits.programme.pattern'
+  | 'themes.lantern-festival.categories.stall.describes'
+  | 'themes.lantern-festival.categories.stall.items.biscuit-bar.blurb'
+  | 'themes.lantern-festival.categories.stall.items.biscuit-bar.label'
+  | 'themes.lantern-festival.categories.stall.items.biscuit-bar.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.biscuit-bar.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.biscuit-bar.traits.offering'
+  | 'themes.lantern-festival.categories.stall.items.cake-table.blurb'
+  | 'themes.lantern-festival.categories.stall.items.cake-table.label'
+  | 'themes.lantern-festival.categories.stall.items.cake-table.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.cake-table.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.cake-table.traits.offering'
+  | 'themes.lantern-festival.categories.stall.items.coffee-cart.blurb'
+  | 'themes.lantern-festival.categories.stall.items.coffee-cart.label'
+  | 'themes.lantern-festival.categories.stall.items.coffee-cart.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.coffee-cart.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.coffee-cart.traits.offering'
+  | 'themes.lantern-festival.categories.stall.items.kite-seller.blurb'
+  | 'themes.lantern-festival.categories.stall.items.kite-seller.label'
+  | 'themes.lantern-festival.categories.stall.items.kite-seller.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.kite-seller.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.kite-seller.traits.offering'
+  | 'themes.lantern-festival.categories.stall.items.lemonade-stand.blurb'
+  | 'themes.lantern-festival.categories.stall.items.lemonade-stand.label'
+  | 'themes.lantern-festival.categories.stall.items.lemonade-stand.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.lemonade-stand.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.lemonade-stand.traits.offering'
+  | 'themes.lantern-festival.categories.stall.items.mask-maker.blurb'
+  | 'themes.lantern-festival.categories.stall.items.mask-maker.label'
+  | 'themes.lantern-festival.categories.stall.items.mask-maker.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.mask-maker.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.mask-maker.traits.offering'
+  | 'themes.lantern-festival.categories.stall.items.orchard-stand.blurb'
+  | 'themes.lantern-festival.categories.stall.items.orchard-stand.label'
+  | 'themes.lantern-festival.categories.stall.items.orchard-stand.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.orchard-stand.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.orchard-stand.traits.offering'
+  | 'themes.lantern-festival.categories.stall.items.pastry-tent.blurb'
+  | 'themes.lantern-festival.categories.stall.items.pastry-tent.label'
+  | 'themes.lantern-festival.categories.stall.items.pastry-tent.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.pastry-tent.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.pastry-tent.traits.offering'
+  | 'themes.lantern-festival.categories.stall.items.pear-preserve-booth.blurb'
+  | 'themes.lantern-festival.categories.stall.items.pear-preserve-booth.label'
+  | 'themes.lantern-festival.categories.stall.items.pear-preserve-booth.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.pear-preserve-booth.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.pear-preserve-booth.traits.offering'
+  | 'themes.lantern-festival.categories.stall.items.picnic-counter.blurb'
+  | 'themes.lantern-festival.categories.stall.items.picnic-counter.label'
+  | 'themes.lantern-festival.categories.stall.items.picnic-counter.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.picnic-counter.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.picnic-counter.traits.offering'
+  | 'themes.lantern-festival.categories.stall.items.pinwheel-cart.blurb'
+  | 'themes.lantern-festival.categories.stall.items.pinwheel-cart.label'
+  | 'themes.lantern-festival.categories.stall.items.pinwheel-cart.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.pinwheel-cart.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.pinwheel-cart.traits.offering'
+  | 'themes.lantern-festival.categories.stall.items.ribbon-stall.blurb'
+  | 'themes.lantern-festival.categories.stall.items.ribbon-stall.label'
+  | 'themes.lantern-festival.categories.stall.items.ribbon-stall.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.ribbon-stall.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.ribbon-stall.traits.offering'
+  | 'themes.lantern-festival.categories.stall.items.soup-kitchen.blurb'
+  | 'themes.lantern-festival.categories.stall.items.soup-kitchen.label'
+  | 'themes.lantern-festival.categories.stall.items.soup-kitchen.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.soup-kitchen.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.soup-kitchen.traits.offering'
+  | 'themes.lantern-festival.categories.stall.items.tea-pavilion.blurb'
+  | 'themes.lantern-festival.categories.stall.items.tea-pavilion.label'
+  | 'themes.lantern-festival.categories.stall.items.tea-pavilion.traits.cover'
+  | 'themes.lantern-festival.categories.stall.items.tea-pavilion.traits.location'
+  | 'themes.lantern-festival.categories.stall.items.tea-pavilion.traits.offering'
+  | 'themes.lantern-festival.categories.stall.name'
+  | 'themes.lantern-festival.categories.stall.noun'
+  | 'themes.lantern-festival.categories.stall.pattern'
+  | 'themes.lantern-festival.categories.stall.traits.cover.label'
+  | 'themes.lantern-festival.categories.stall.traits.cover.pattern'
+  | 'themes.lantern-festival.categories.stall.traits.location.label'
+  | 'themes.lantern-festival.categories.stall.traits.location.pattern'
+  | 'themes.lantern-festival.categories.stall.traits.offering.label'
+  | 'themes.lantern-festival.categories.stall.traits.offering.pattern'
+  | 'themes.lantern-festival.clues.compare'
+  | 'themes.lantern-festival.clues.compareGap'
+  | 'themes.lantern-festival.clues.either'
+  | 'themes.lantern-festival.clues.groupNot'
+  | 'themes.lantern-festival.clues.link'
+  | 'themes.lantern-festival.clues.notLink'
+  | 'themes.lantern-festival.name'
+  | 'themes.last-train.blurb'
+  | 'themes.last-train.categories.departure.describes'
+  | 'themes.last-train.categories.departure.items.06-00.blurb'
+  | 'themes.last-train.categories.departure.items.06-00.label'
+  | 'themes.last-train.categories.departure.items.06-00.traits.period'
+  | 'themes.last-train.categories.departure.items.06-00.traits.window'
+  | 'themes.last-train.categories.departure.items.06-30.blurb'
+  | 'themes.last-train.categories.departure.items.06-30.label'
+  | 'themes.last-train.categories.departure.items.06-30.traits.period'
+  | 'themes.last-train.categories.departure.items.06-30.traits.window'
+  | 'themes.last-train.categories.departure.items.07-00.blurb'
+  | 'themes.last-train.categories.departure.items.07-00.label'
+  | 'themes.last-train.categories.departure.items.07-00.traits.period'
+  | 'themes.last-train.categories.departure.items.07-00.traits.window'
+  | 'themes.last-train.categories.departure.items.07-30.blurb'
+  | 'themes.last-train.categories.departure.items.07-30.label'
+  | 'themes.last-train.categories.departure.items.07-30.traits.period'
+  | 'themes.last-train.categories.departure.items.07-30.traits.window'
+  | 'themes.last-train.categories.departure.items.08-00.blurb'
+  | 'themes.last-train.categories.departure.items.08-00.label'
+  | 'themes.last-train.categories.departure.items.08-00.traits.period'
+  | 'themes.last-train.categories.departure.items.08-00.traits.window'
+  | 'themes.last-train.categories.departure.items.08-30.blurb'
+  | 'themes.last-train.categories.departure.items.08-30.label'
+  | 'themes.last-train.categories.departure.items.08-30.traits.period'
+  | 'themes.last-train.categories.departure.items.08-30.traits.window'
+  | 'themes.last-train.categories.departure.items.09-00.blurb'
+  | 'themes.last-train.categories.departure.items.09-00.label'
+  | 'themes.last-train.categories.departure.items.09-00.traits.period'
+  | 'themes.last-train.categories.departure.items.09-00.traits.window'
+  | 'themes.last-train.categories.departure.items.09-30.blurb'
+  | 'themes.last-train.categories.departure.items.09-30.label'
+  | 'themes.last-train.categories.departure.items.09-30.traits.period'
+  | 'themes.last-train.categories.departure.items.09-30.traits.window'
+  | 'themes.last-train.categories.departure.items.10-00.blurb'
+  | 'themes.last-train.categories.departure.items.10-00.label'
+  | 'themes.last-train.categories.departure.items.10-00.traits.period'
+  | 'themes.last-train.categories.departure.items.10-00.traits.window'
+  | 'themes.last-train.categories.departure.items.10-30.blurb'
+  | 'themes.last-train.categories.departure.items.10-30.label'
+  | 'themes.last-train.categories.departure.items.10-30.traits.period'
+  | 'themes.last-train.categories.departure.items.10-30.traits.window'
+  | 'themes.last-train.categories.departure.items.11-00.blurb'
+  | 'themes.last-train.categories.departure.items.11-00.label'
+  | 'themes.last-train.categories.departure.items.11-00.traits.period'
+  | 'themes.last-train.categories.departure.items.11-00.traits.window'
+  | 'themes.last-train.categories.departure.items.11-30.blurb'
+  | 'themes.last-train.categories.departure.items.11-30.label'
+  | 'themes.last-train.categories.departure.items.11-30.traits.period'
+  | 'themes.last-train.categories.departure.items.11-30.traits.window'
+  | 'themes.last-train.categories.departure.items.12-00.blurb'
+  | 'themes.last-train.categories.departure.items.12-00.label'
+  | 'themes.last-train.categories.departure.items.12-00.traits.period'
+  | 'themes.last-train.categories.departure.items.12-00.traits.window'
+  | 'themes.last-train.categories.departure.items.12-30.blurb'
+  | 'themes.last-train.categories.departure.items.12-30.label'
+  | 'themes.last-train.categories.departure.items.12-30.traits.period'
+  | 'themes.last-train.categories.departure.items.12-30.traits.window'
+  | 'themes.last-train.categories.departure.name'
+  | 'themes.last-train.categories.departure.noun'
+  | 'themes.last-train.categories.departure.ordered.greater'
+  | 'themes.last-train.categories.departure.ordered.lesser'
+  | 'themes.last-train.categories.departure.ordered.noun'
+  | 'themes.last-train.categories.departure.ordered.unit'
+  | 'themes.last-train.categories.departure.pattern'
+  | 'themes.last-train.categories.departure.traits.period.label'
+  | 'themes.last-train.categories.departure.traits.period.pattern'
+  | 'themes.last-train.categories.departure.traits.window.label'
+  | 'themes.last-train.categories.departure.traits.window.pattern'
+  | 'themes.last-train.categories.destination.describes'
+  | 'themes.last-train.categories.destination.items.applewick.blurb'
+  | 'themes.last-train.categories.destination.items.applewick.label'
+  | 'themes.last-train.categories.destination.items.applewick.traits.region'
+  | 'themes.last-train.categories.destination.items.applewick.traits.service'
+  | 'themes.last-train.categories.destination.items.applewick.traits.terrain'
+  | 'themes.last-train.categories.destination.items.beacon-point.blurb'
+  | 'themes.last-train.categories.destination.items.beacon-point.label'
+  | 'themes.last-train.categories.destination.items.beacon-point.traits.region'
+  | 'themes.last-train.categories.destination.items.beacon-point.traits.service'
+  | 'themes.last-train.categories.destination.items.beacon-point.traits.terrain'
+  | 'themes.last-train.categories.destination.items.castle-rook.blurb'
+  | 'themes.last-train.categories.destination.items.castle-rook.label'
+  | 'themes.last-train.categories.destination.items.castle-rook.traits.region'
+  | 'themes.last-train.categories.destination.items.castle-rook.traits.service'
+  | 'themes.last-train.categories.destination.items.castle-rook.traits.terrain'
+  | 'themes.last-train.categories.destination.items.clockhaven.blurb'
+  | 'themes.last-train.categories.destination.items.clockhaven.label'
+  | 'themes.last-train.categories.destination.items.clockhaven.traits.region'
+  | 'themes.last-train.categories.destination.items.clockhaven.traits.service'
+  | 'themes.last-train.categories.destination.items.clockhaven.traits.terrain'
+  | 'themes.last-train.categories.destination.items.high-crag.blurb'
+  | 'themes.last-train.categories.destination.items.high-crag.label'
+  | 'themes.last-train.categories.destination.items.high-crag.traits.region'
+  | 'themes.last-train.categories.destination.items.high-crag.traits.service'
+  | 'themes.last-train.categories.destination.items.high-crag.traits.terrain'
+  | 'themes.last-train.categories.destination.items.miller-s-halt.blurb'
+  | 'themes.last-train.categories.destination.items.miller-s-halt.label'
+  | 'themes.last-train.categories.destination.items.miller-s-halt.traits.region'
+  | 'themes.last-train.categories.destination.items.miller-s-halt.traits.service'
+  | 'themes.last-train.categories.destination.items.miller-s-halt.traits.terrain'
+  | 'themes.last-train.categories.destination.items.pine-hollow.blurb'
+  | 'themes.last-train.categories.destination.items.pine-hollow.label'
+  | 'themes.last-train.categories.destination.items.pine-hollow.traits.region'
+  | 'themes.last-train.categories.destination.items.pine-hollow.traits.service'
+  | 'themes.last-train.categories.destination.items.pine-hollow.traits.terrain'
+  | 'themes.last-train.categories.destination.items.port-brindle.blurb'
+  | 'themes.last-train.categories.destination.items.port-brindle.label'
+  | 'themes.last-train.categories.destination.items.port-brindle.traits.region'
+  | 'themes.last-train.categories.destination.items.port-brindle.traits.service'
+  | 'themes.last-train.categories.destination.items.port-brindle.traits.terrain'
+  | 'themes.last-train.categories.destination.items.seabell-pier.blurb'
+  | 'themes.last-train.categories.destination.items.seabell-pier.label'
+  | 'themes.last-train.categories.destination.items.seabell-pier.traits.region'
+  | 'themes.last-train.categories.destination.items.seabell-pier.traits.service'
+  | 'themes.last-train.categories.destination.items.seabell-pier.traits.terrain'
+  | 'themes.last-train.categories.destination.items.seven-arches.blurb'
+  | 'themes.last-train.categories.destination.items.seven-arches.label'
+  | 'themes.last-train.categories.destination.items.seven-arches.traits.region'
+  | 'themes.last-train.categories.destination.items.seven-arches.traits.service'
+  | 'themes.last-train.categories.destination.items.seven-arches.traits.terrain'
+  | 'themes.last-train.categories.destination.items.silver-falls.blurb'
+  | 'themes.last-train.categories.destination.items.silver-falls.label'
+  | 'themes.last-train.categories.destination.items.silver-falls.traits.region'
+  | 'themes.last-train.categories.destination.items.silver-falls.traits.service'
+  | 'themes.last-train.categories.destination.items.silver-falls.traits.terrain'
+  | 'themes.last-train.categories.destination.items.slate-cut.blurb'
+  | 'themes.last-train.categories.destination.items.slate-cut.label'
+  | 'themes.last-train.categories.destination.items.slate-cut.traits.region'
+  | 'themes.last-train.categories.destination.items.slate-cut.traits.service'
+  | 'themes.last-train.categories.destination.items.slate-cut.traits.terrain'
+  | 'themes.last-train.categories.destination.items.star-ridge.blurb'
+  | 'themes.last-train.categories.destination.items.star-ridge.label'
+  | 'themes.last-train.categories.destination.items.star-ridge.traits.region'
+  | 'themes.last-train.categories.destination.items.star-ridge.traits.service'
+  | 'themes.last-train.categories.destination.items.star-ridge.traits.terrain'
+  | 'themes.last-train.categories.destination.items.steamwell.blurb'
+  | 'themes.last-train.categories.destination.items.steamwell.label'
+  | 'themes.last-train.categories.destination.items.steamwell.traits.region'
+  | 'themes.last-train.categories.destination.items.steamwell.traits.service'
+  | 'themes.last-train.categories.destination.items.steamwell.traits.terrain'
+  | 'themes.last-train.categories.destination.name'
+  | 'themes.last-train.categories.destination.noun'
+  | 'themes.last-train.categories.destination.pattern'
+  | 'themes.last-train.categories.destination.traits.region.label'
+  | 'themes.last-train.categories.destination.traits.region.pattern'
+  | 'themes.last-train.categories.destination.traits.service.label'
+  | 'themes.last-train.categories.destination.traits.service.pattern'
+  | 'themes.last-train.categories.destination.traits.terrain.label'
+  | 'themes.last-train.categories.destination.traits.terrain.pattern'
+  | 'themes.last-train.categories.luggage.describes'
+  | 'themes.last-train.categories.luggage.items.business-case.blurb'
+  | 'themes.last-train.categories.luggage.items.business-case.label'
+  | 'themes.last-train.categories.luggage.items.business-case.traits.closure'
+  | 'themes.last-train.categories.luggage.items.business-case.traits.handling'
+  | 'themes.last-train.categories.luggage.items.business-case.traits.size'
+  | 'themes.last-train.categories.luggage.items.canvas-rucksack.blurb'
+  | 'themes.last-train.categories.luggage.items.canvas-rucksack.label'
+  | 'themes.last-train.categories.luggage.items.canvas-rucksack.traits.closure'
+  | 'themes.last-train.categories.luggage.items.canvas-rucksack.traits.handling'
+  | 'themes.last-train.categories.luggage.items.canvas-rucksack.traits.size'
+  | 'themes.last-train.categories.luggage.items.folded-umbrella.blurb'
+  | 'themes.last-train.categories.luggage.items.folded-umbrella.label'
+  | 'themes.last-train.categories.luggage.items.folded-umbrella.traits.closure'
+  | 'themes.last-train.categories.luggage.items.folded-umbrella.traits.handling'
+  | 'themes.last-train.categories.luggage.items.folded-umbrella.traits.size'
+  | 'themes.last-train.categories.luggage.items.hanging-suit-bag.blurb'
+  | 'themes.last-train.categories.luggage.items.hanging-suit-bag.label'
+  | 'themes.last-train.categories.luggage.items.hanging-suit-bag.traits.closure'
+  | 'themes.last-train.categories.luggage.items.hanging-suit-bag.traits.handling'
+  | 'themes.last-train.categories.luggage.items.hanging-suit-bag.traits.size'
+  | 'themes.last-train.categories.luggage.items.leather-satchel.blurb'
+  | 'themes.last-train.categories.luggage.items.leather-satchel.label'
+  | 'themes.last-train.categories.luggage.items.leather-satchel.traits.closure'
+  | 'themes.last-train.categories.luggage.items.leather-satchel.traits.handling'
+  | 'themes.last-train.categories.luggage.items.leather-satchel.traits.size'
+  | 'themes.last-train.categories.luggage.items.oak-chest.blurb'
+  | 'themes.last-train.categories.luggage.items.oak-chest.label'
+  | 'themes.last-train.categories.luggage.items.oak-chest.traits.closure'
+  | 'themes.last-train.categories.luggage.items.oak-chest.traits.handling'
+  | 'themes.last-train.categories.luggage.items.oak-chest.traits.size'
+  | 'themes.last-train.categories.luggage.items.ribbon-parcel.blurb'
+  | 'themes.last-train.categories.luggage.items.ribbon-parcel.label'
+  | 'themes.last-train.categories.luggage.items.ribbon-parcel.traits.closure'
+  | 'themes.last-train.categories.luggage.items.ribbon-parcel.traits.handling'
+  | 'themes.last-train.categories.luggage.items.ribbon-parcel.traits.size'
+  | 'themes.last-train.categories.luggage.items.rolled-bedding.blurb'
+  | 'themes.last-train.categories.luggage.items.rolled-bedding.label'
+  | 'themes.last-train.categories.luggage.items.rolled-bedding.traits.closure'
+  | 'themes.last-train.categories.luggage.items.rolled-bedding.traits.handling'
+  | 'themes.last-train.categories.luggage.items.rolled-bedding.traits.size'
+  | 'themes.last-train.categories.luggage.items.round-hatbox.blurb'
+  | 'themes.last-train.categories.luggage.items.round-hatbox.label'
+  | 'themes.last-train.categories.luggage.items.round-hatbox.traits.closure'
+  | 'themes.last-train.categories.luggage.items.round-hatbox.traits.handling'
+  | 'themes.last-train.categories.luggage.items.round-hatbox.traits.size'
+  | 'themes.last-train.categories.luggage.items.songbird-carrier.blurb'
+  | 'themes.last-train.categories.luggage.items.songbird-carrier.label'
+  | 'themes.last-train.categories.luggage.items.songbird-carrier.traits.closure'
+  | 'themes.last-train.categories.luggage.items.songbird-carrier.traits.handling'
+  | 'themes.last-train.categories.luggage.items.songbird-carrier.traits.size'
+  | 'themes.last-train.categories.luggage.items.steamer-trunk.blurb'
+  | 'themes.last-train.categories.luggage.items.steamer-trunk.label'
+  | 'themes.last-train.categories.luggage.items.steamer-trunk.traits.closure'
+  | 'themes.last-train.categories.luggage.items.steamer-trunk.traits.handling'
+  | 'themes.last-train.categories.luggage.items.steamer-trunk.traits.size'
+  | 'themes.last-train.categories.luggage.items.striped-duffel.blurb'
+  | 'themes.last-train.categories.luggage.items.striped-duffel.label'
+  | 'themes.last-train.categories.luggage.items.striped-duffel.traits.closure'
+  | 'themes.last-train.categories.luggage.items.striped-duffel.traits.handling'
+  | 'themes.last-train.categories.luggage.items.striped-duffel.traits.size'
+  | 'themes.last-train.categories.luggage.items.violin-case.blurb'
+  | 'themes.last-train.categories.luggage.items.violin-case.label'
+  | 'themes.last-train.categories.luggage.items.violin-case.traits.closure'
+  | 'themes.last-train.categories.luggage.items.violin-case.traits.handling'
+  | 'themes.last-train.categories.luggage.items.violin-case.traits.size'
+  | 'themes.last-train.categories.luggage.items.wicker-hamper.blurb'
+  | 'themes.last-train.categories.luggage.items.wicker-hamper.label'
+  | 'themes.last-train.categories.luggage.items.wicker-hamper.traits.closure'
+  | 'themes.last-train.categories.luggage.items.wicker-hamper.traits.handling'
+  | 'themes.last-train.categories.luggage.items.wicker-hamper.traits.size'
+  | 'themes.last-train.categories.luggage.name'
+  | 'themes.last-train.categories.luggage.noun'
+  | 'themes.last-train.categories.luggage.pattern'
+  | 'themes.last-train.categories.luggage.traits.closure.label'
+  | 'themes.last-train.categories.luggage.traits.closure.pattern'
+  | 'themes.last-train.categories.luggage.traits.handling.label'
+  | 'themes.last-train.categories.luggage.traits.handling.pattern'
+  | 'themes.last-train.categories.luggage.traits.size.label'
+  | 'themes.last-train.categories.luggage.traits.size.pattern'
+  | 'themes.last-train.categories.passenger.describes'
+  | 'themes.last-train.categories.passenger.items.aunt-marigold.blurb'
+  | 'themes.last-train.categories.passenger.items.aunt-marigold.label'
+  | 'themes.last-train.categories.passenger.items.aunt-marigold.traits.experience'
+  | 'themes.last-train.categories.passenger.items.aunt-marigold.traits.manner'
+  | 'themes.last-train.categories.passenger.items.aunt-marigold.traits.shift'
+  | 'themes.last-train.categories.passenger.items.captain-plover.blurb'
+  | 'themes.last-train.categories.passenger.items.captain-plover.label'
+  | 'themes.last-train.categories.passenger.items.captain-plover.traits.experience'
+  | 'themes.last-train.categories.passenger.items.captain-plover.traits.manner'
+  | 'themes.last-train.categories.passenger.items.captain-plover.traits.shift'
+  | 'themes.last-train.categories.passenger.items.dame-semaphore.blurb'
+  | 'themes.last-train.categories.passenger.items.dame-semaphore.label'
+  | 'themes.last-train.categories.passenger.items.dame-semaphore.traits.experience'
+  | 'themes.last-train.categories.passenger.items.dame-semaphore.traits.manner'
+  | 'themes.last-train.categories.passenger.items.dame-semaphore.traits.shift'
+  | 'themes.last-train.categories.passenger.items.dr-turnpike.blurb'
+  | 'themes.last-train.categories.passenger.items.dr-turnpike.label'
+  | 'themes.last-train.categories.passenger.items.dr-turnpike.traits.experience'
+  | 'themes.last-train.categories.passenger.items.dr-turnpike.traits.manner'
+  | 'themes.last-train.categories.passenger.items.dr-turnpike.traits.shift'
+  | 'themes.last-train.categories.passenger.items.lord-ticket.blurb'
+  | 'themes.last-train.categories.passenger.items.lord-ticket.label'
+  | 'themes.last-train.categories.passenger.items.lord-ticket.traits.experience'
+  | 'themes.last-train.categories.passenger.items.lord-ticket.traits.manner'
+  | 'themes.last-train.categories.passenger.items.lord-ticket.traits.shift'
+  | 'themes.last-train.categories.passenger.items.madam-thimble.blurb'
+  | 'themes.last-train.categories.passenger.items.madam-thimble.label'
+  | 'themes.last-train.categories.passenger.items.madam-thimble.traits.experience'
+  | 'themes.last-train.categories.passenger.items.madam-thimble.traits.manner'
+  | 'themes.last-train.categories.passenger.items.madam-thimble.traits.shift'
+  | 'themes.last-train.categories.passenger.items.miss-tansy.blurb'
+  | 'themes.last-train.categories.passenger.items.miss-tansy.label'
+  | 'themes.last-train.categories.passenger.items.miss-tansy.traits.experience'
+  | 'themes.last-train.categories.passenger.items.miss-tansy.traits.manner'
+  | 'themes.last-train.categories.passenger.items.miss-tansy.traits.shift'
+  | 'themes.last-train.categories.passenger.items.mr-buffer.blurb'
+  | 'themes.last-train.categories.passenger.items.mr-buffer.label'
+  | 'themes.last-train.categories.passenger.items.mr-buffer.traits.experience'
+  | 'themes.last-train.categories.passenger.items.mr-buffer.traits.manner'
+  | 'themes.last-train.categories.passenger.items.mr-buffer.traits.shift'
+  | 'themes.last-train.categories.passenger.items.mr-crump.blurb'
+  | 'themes.last-train.categories.passenger.items.mr-crump.label'
+  | 'themes.last-train.categories.passenger.items.mr-crump.traits.experience'
+  | 'themes.last-train.categories.passenger.items.mr-crump.traits.manner'
+  | 'themes.last-train.categories.passenger.items.mr-crump.traits.shift'
+  | 'themes.last-train.categories.passenger.items.mrs-bunbury.blurb'
+  | 'themes.last-train.categories.passenger.items.mrs-bunbury.label'
+  | 'themes.last-train.categories.passenger.items.mrs-bunbury.traits.experience'
+  | 'themes.last-train.categories.passenger.items.mrs-bunbury.traits.manner'
+  | 'themes.last-train.categories.passenger.items.mrs-bunbury.traits.shift'
+  | 'themes.last-train.categories.passenger.items.ms-velvet.blurb'
+  | 'themes.last-train.categories.passenger.items.ms-velvet.label'
+  | 'themes.last-train.categories.passenger.items.ms-velvet.traits.experience'
+  | 'themes.last-train.categories.passenger.items.ms-velvet.traits.manner'
+  | 'themes.last-train.categories.passenger.items.ms-velvet.traits.shift'
+  | 'themes.last-train.categories.passenger.items.mx-whistle.blurb'
+  | 'themes.last-train.categories.passenger.items.mx-whistle.label'
+  | 'themes.last-train.categories.passenger.items.mx-whistle.traits.experience'
+  | 'themes.last-train.categories.passenger.items.mx-whistle.traits.manner'
+  | 'themes.last-train.categories.passenger.items.mx-whistle.traits.shift'
+  | 'themes.last-train.categories.passenger.items.professor-cinder.blurb'
+  | 'themes.last-train.categories.passenger.items.professor-cinder.label'
+  | 'themes.last-train.categories.passenger.items.professor-cinder.traits.experience'
+  | 'themes.last-train.categories.passenger.items.professor-cinder.traits.manner'
+  | 'themes.last-train.categories.passenger.items.professor-cinder.traits.shift'
+  | 'themes.last-train.categories.passenger.items.sir-sidings.blurb'
+  | 'themes.last-train.categories.passenger.items.sir-sidings.label'
+  | 'themes.last-train.categories.passenger.items.sir-sidings.traits.experience'
+  | 'themes.last-train.categories.passenger.items.sir-sidings.traits.manner'
+  | 'themes.last-train.categories.passenger.items.sir-sidings.traits.shift'
+  | 'themes.last-train.categories.passenger.name'
+  | 'themes.last-train.categories.passenger.noun'
+  | 'themes.last-train.categories.passenger.pattern'
+  | 'themes.last-train.categories.passenger.traits.experience.label'
+  | 'themes.last-train.categories.passenger.traits.experience.pattern'
+  | 'themes.last-train.categories.passenger.traits.manner.label'
+  | 'themes.last-train.categories.passenger.traits.manner.pattern'
+  | 'themes.last-train.categories.passenger.traits.shift.label'
+  | 'themes.last-train.categories.passenger.traits.shift.pattern'
+  | 'themes.last-train.categories.refreshment.describes'
+  | 'themes.last-train.categories.refreshment.items.breakfast-tea.blurb'
+  | 'themes.last-train.categories.refreshment.items.breakfast-tea.label'
+  | 'themes.last-train.categories.refreshment.items.breakfast-tea.traits.course'
+  | 'themes.last-train.categories.refreshment.items.breakfast-tea.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.breakfast-tea.traits.temperature'
+  | 'themes.last-train.categories.refreshment.items.butter-croissant.blurb'
+  | 'themes.last-train.categories.refreshment.items.butter-croissant.label'
+  | 'themes.last-train.categories.refreshment.items.butter-croissant.traits.course'
+  | 'themes.last-train.categories.refreshment.items.butter-croissant.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.butter-croissant.traits.temperature'
+  | 'themes.last-train.categories.refreshment.items.cheese-sandwich.blurb'
+  | 'themes.last-train.categories.refreshment.items.cheese-sandwich.label'
+  | 'themes.last-train.categories.refreshment.items.cheese-sandwich.traits.course'
+  | 'themes.last-train.categories.refreshment.items.cheese-sandwich.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.cheese-sandwich.traits.temperature'
+  | 'themes.last-train.categories.refreshment.items.cheese-wedge.blurb'
+  | 'themes.last-train.categories.refreshment.items.cheese-wedge.label'
+  | 'themes.last-train.categories.refreshment.items.cheese-wedge.traits.course'
+  | 'themes.last-train.categories.refreshment.items.cheese-wedge.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.cheese-wedge.traits.temperature'
+  | 'themes.last-train.categories.refreshment.items.cloudy-lemonade.blurb'
+  | 'themes.last-train.categories.refreshment.items.cloudy-lemonade.label'
+  | 'themes.last-train.categories.refreshment.items.cloudy-lemonade.traits.course'
+  | 'themes.last-train.categories.refreshment.items.cloudy-lemonade.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.cloudy-lemonade.traits.temperature'
+  | 'themes.last-train.categories.refreshment.items.conference-pear.blurb'
+  | 'themes.last-train.categories.refreshment.items.conference-pear.label'
+  | 'themes.last-train.categories.refreshment.items.conference-pear.traits.course'
+  | 'themes.last-train.categories.refreshment.items.conference-pear.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.conference-pear.traits.temperature'
+  | 'themes.last-train.categories.refreshment.items.dark-chocolate.blurb'
+  | 'themes.last-train.categories.refreshment.items.dark-chocolate.label'
+  | 'themes.last-train.categories.refreshment.items.dark-chocolate.traits.course'
+  | 'themes.last-train.categories.refreshment.items.dark-chocolate.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.dark-chocolate.traits.temperature'
+  | 'themes.last-train.categories.refreshment.items.ginger-biscuit.blurb'
+  | 'themes.last-train.categories.refreshment.items.ginger-biscuit.label'
+  | 'themes.last-train.categories.refreshment.items.ginger-biscuit.traits.course'
+  | 'themes.last-train.categories.refreshment.items.ginger-biscuit.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.ginger-biscuit.traits.temperature'
+  | 'themes.last-train.categories.refreshment.items.layer-cake.blurb'
+  | 'themes.last-train.categories.refreshment.items.layer-cake.label'
+  | 'themes.last-train.categories.refreshment.items.layer-cake.traits.course'
+  | 'themes.last-train.categories.refreshment.items.layer-cake.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.layer-cake.traits.temperature'
+  | 'themes.last-train.categories.refreshment.items.platform-coffee.blurb'
+  | 'themes.last-train.categories.refreshment.items.platform-coffee.label'
+  | 'themes.last-train.categories.refreshment.items.platform-coffee.traits.course'
+  | 'themes.last-train.categories.refreshment.items.platform-coffee.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.platform-coffee.traits.temperature'
+  | 'themes.last-train.categories.refreshment.items.polished-apple.blurb'
+  | 'themes.last-train.categories.refreshment.items.polished-apple.label'
+  | 'themes.last-train.categories.refreshment.items.polished-apple.traits.course'
+  | 'themes.last-train.categories.refreshment.items.polished-apple.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.polished-apple.traits.temperature'
+  | 'themes.last-train.categories.refreshment.items.salted-pretzel.blurb'
+  | 'themes.last-train.categories.refreshment.items.salted-pretzel.label'
+  | 'themes.last-train.categories.refreshment.items.salted-pretzel.traits.course'
+  | 'themes.last-train.categories.refreshment.items.salted-pretzel.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.salted-pretzel.traits.temperature'
+  | 'themes.last-train.categories.refreshment.items.tomato-soup.blurb'
+  | 'themes.last-train.categories.refreshment.items.tomato-soup.label'
+  | 'themes.last-train.categories.refreshment.items.tomato-soup.traits.course'
+  | 'themes.last-train.categories.refreshment.items.tomato-soup.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.tomato-soup.traits.temperature'
+  | 'themes.last-train.categories.refreshment.items.vanilla-cone.blurb'
+  | 'themes.last-train.categories.refreshment.items.vanilla-cone.label'
+  | 'themes.last-train.categories.refreshment.items.vanilla-cone.traits.course'
+  | 'themes.last-train.categories.refreshment.items.vanilla-cone.traits.portion'
+  | 'themes.last-train.categories.refreshment.items.vanilla-cone.traits.temperature'
+  | 'themes.last-train.categories.refreshment.name'
+  | 'themes.last-train.categories.refreshment.noun'
+  | 'themes.last-train.categories.refreshment.pattern'
+  | 'themes.last-train.categories.refreshment.traits.course.label'
+  | 'themes.last-train.categories.refreshment.traits.course.pattern'
+  | 'themes.last-train.categories.refreshment.traits.portion.label'
+  | 'themes.last-train.categories.refreshment.traits.portion.pattern'
+  | 'themes.last-train.categories.refreshment.traits.temperature.label'
+  | 'themes.last-train.categories.refreshment.traits.temperature.pattern'
+  | 'themes.last-train.clues.compare'
+  | 'themes.last-train.clues.compareGap'
+  | 'themes.last-train.clues.either'
+  | 'themes.last-train.clues.groupNot'
+  | 'themes.last-train.clues.link'
+  | 'themes.last-train.clues.notLink'
+  | 'themes.last-train.name'
   | 'themes.museum.blurb'
   | 'themes.museum.categories.acquisition.describes'
   | 'themes.museum.categories.acquisition.items.1880.blurb'
