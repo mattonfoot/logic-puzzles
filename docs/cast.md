@@ -151,7 +151,7 @@ Tunes pianos, which has left her unable to ignore anything slightly out. Neat sh
 
 `cafe/customer-crumb` · Hair a shaved head · Distinguishing feature a moustache · Eyes grey · Age 61 · Trade a retired alderman
 
-*Has opinions about the paving and will share them, unprompted.*
+*Has opinions about the paving. The coffee cools while he establishes jurisdiction.*
 
 Retired from the council and not at all from the opinions. Has views on the paving, the bins, the one-way system and the new awning, and will share them with anybody within range. Shaved head, magnificent grey moustache, and a lapel that still expects a badge. Leans back with both hands flat on the table, like a man about to open a meeting.
 
@@ -231,7 +231,7 @@ Hair in the same bun it has been in for fourteen hours, hoops still in, tunic st
 
 `cafe/customer-praline` · Hair an afro · Distinguishing feature a moustache · Eyes brown · Age 55 · Trade a councillor
 
-*Holds a surgery by the window. Nobody has ever booked one.*
+*Holds a surgery by the window. So far the only complaint concerns his table.*
 
 Holds a weekly constituency surgery at the window table, with a folder, a pen and an entirely undimmed sense of civic purpose, and a diary four years empty. A fine afro and a finer moustache, both maintained. Sits facing outward so as to be available, and greets people who are simply walking past.
 
@@ -239,7 +239,7 @@ Holds a weekly constituency surgery at the window table, with a folder, a pen an
 
 `cafe/customer-battenberg` · Hair a bun · Distinguishing feature a chinstrap · Eyes grey · Age 81 · Trade a champion knitter
 
-*Knits through anything, including a small kitchen fire.*
+*Knits through anything. The kitchen fire became a very brisk three rows.*
 
 Eighty-one, a champion knitter three counties over, and knits through absolutely anything — including, once, a small kitchen fire. Silver bun, and a scarf tied under the chin against a draught only she can feel. The needles do not stop while she talks, and she talks a good deal. Watches the door over the top of the work.
 

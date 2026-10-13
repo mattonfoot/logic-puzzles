@@ -2234,7 +2234,8 @@ export const STRINGS = {
             },
             crumb: {
               label: 'Alderman Crumb',
-              blurb: 'Has opinions about the paving and will share them, unprompted.',
+              blurb:
+                'Has opinions about the paving. The coffee cools while he establishes jurisdiction.',
               traits: {
                 hair: 'a shaved head',
                 feature: 'a moustache',
@@ -2344,7 +2345,7 @@ export const STRINGS = {
             },
             praline: {
               label: 'Councillor Praline',
-              blurb: 'Holds a surgery by the window. Nobody has ever booked one.',
+              blurb: 'Holds a surgery by the window. So far the only complaint concerns his table.',
               traits: {
                 hair: 'an afro',
                 feature: 'a moustache',
@@ -2355,7 +2356,7 @@ export const STRINGS = {
             },
             battenberg: {
               label: 'Mrs Battenberg',
-              blurb: 'Knits through anything, including a small kitchen fire.',
+              blurb: 'Knits through anything. The kitchen fire became a very brisk three rows.',
               traits: {
                 hair: 'a bun',
                 feature: 'a chinstrap',
@@ -2453,7 +2454,8 @@ export const STRINGS = {
             },
             'flat-white': {
               label: 'Flat White',
-              blurb: 'The subject of a long-running dispute with the latte.',
+              blurb:
+                'The latte’s smaller relative. Neither acknowledges the relationship in public.',
               traits: {
                 served: 'hot',
                 strength: 'strong',
@@ -2480,7 +2482,7 @@ export const STRINGS = {
             },
             macchiato: {
               label: 'Macchiato',
-              blurb: 'Espresso wearing the smallest possible hat.',
+              blurb: 'Espresso with a spot of milk. The milk has been told not to get comfortable.',
               traits: {
                 served: 'hot',
                 strength: 'strong',
@@ -2489,7 +2491,7 @@ export const STRINGS = {
             },
             'cold-brew': {
               label: 'Cold Brew',
-              blurb: 'Steeped overnight by someone who plans ahead.',
+              blurb: 'Planned yesterday. Ordered by somebody who woke up four minutes ago.',
               traits: {
                 served: 'iced',
                 strength: 'strong',
@@ -2592,7 +2594,7 @@ export const STRINGS = {
             },
             tartlet: {
               label: 'Tartlet',
-              blurb: 'Glazed to a shine you can check your hair in.',
+              blurb: 'Glazed to a mirror finish. Briefly admired, then structurally compromised.',
               traits: {
                 texture: 'crisp',
                 filling: 'fruit',
@@ -2655,7 +2657,8 @@ export const STRINGS = {
             },
             cruffin: {
               label: 'Cruffin',
-              blurb: 'A croissant and a muffin, filed as neither.',
+              blurb:
+                'Half croissant, half muffin. Both families are still discussing the paperwork.',
               traits: {
                 texture: 'flaky',
                 filling: 'cream',
@@ -2664,7 +2667,7 @@ export const STRINGS = {
             },
             turnover: {
               label: 'Turnover',
-              blurb: 'Molten inside for far longer than seems physically fair.',
+              blurb: 'Cool to the touch. Filled with a substance the sun would consider excessive.',
               traits: {
                 texture: 'flaky',
                 filling: 'fruit',
@@ -2704,7 +2707,8 @@ export const STRINGS = {
             },
             corner: {
               label: 'Corner',
-              blurb: 'Where the laptops go to nest for the afternoon.',
+              blurb:
+                'A laptop habitat. Purchases one coffee and gradually acquires territorial rights.',
               traits: {
                 where: 'indoors',
                 size: 'snug',
@@ -2713,7 +2717,7 @@ export const STRINGS = {
             },
             patio: {
               label: 'Patio',
-              blurb: 'Charming for eleven minutes a year.',
+              blurb: 'Outdoor seating, subject to Britain.',
               traits: {
                 where: 'outdoors',
                 size: 'roomy',
@@ -2731,7 +2735,8 @@ export const STRINGS = {
             },
             loft: {
               label: 'Loft',
-              blurb: 'Up the creaking stairs. Nobody is ever sent to find you.',
+              blurb:
+                'Up the creaking stairs. Your coffee arrives with a short account of the climb.',
               traits: {
                 where: 'indoors',
                 size: 'roomy',
@@ -2776,7 +2781,7 @@ export const STRINGS = {
             },
             booth: {
               label: 'Booth',
-              blurb: 'Seats four, occupied by one and a great many bags.',
+              blurb: 'Seats four. Currently reserved by one coat and a charging cable.',
               traits: {
                 where: 'indoors',
                 size: 'roomy',
@@ -2803,7 +2808,8 @@ export const STRINGS = {
             },
             nook: {
               label: 'Nook',
-              blurb: 'Shelved on three sides. The books are glued in place.',
+              blurb:
+                'Shelved on three sides. The books are glued down after the philosophy incident.',
               traits: {
                 where: 'indoors',
                 size: 'snug',
