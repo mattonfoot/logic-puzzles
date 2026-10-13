@@ -332,6 +332,10 @@ const SEED_MATCH_SHARE = 8;
  * handful of direct matches lead, since without them a puzzle carried by links
  * alone needs half as many clues again; the rest come last and usually get
  * dropped, which is what makes the puzzles feel like puzzles.
+ *
+ * A board that turns crosses off has nothing to space the flavour with, so the
+ * rest of the matches stand in: left at the back they would never be reached,
+ * and such a board would come out mostly flavour whatever the spacing asked.
  */
 function orderPool(pools: Pools, rng: Rng, linksPerFlavour: number): Clue[] {
   const negative = rng.shuffle(pools.negative);
@@ -355,16 +359,18 @@ function orderPool(pools: Pools, rng: Rng, linksPerFlavour: number): Clue[] {
   // lot to a puzzle — but only if it survives minimising, and what survives is
   // mostly what was offered early. A couple lead, with the rest in the mix.
   const mixed: Clue[] = [...positive.slice(0, seeded), ...group.slice(0, 3)];
+  const spare = positive.slice(seeded);
+  const spacers = negative.length > 0 ? negative : spare;
   let n = 0;
   let f = 0;
-  while (n < negative.length || f < flavour.length) {
+  while (n < spacers.length || f < flavour.length) {
     if (f < flavour.length) mixed.push(flavour[f++]);
-    for (let step = 0; step < linksPerFlavour && n < negative.length; step++) {
-      mixed.push(negative[n++]);
+    for (let step = 0; step < linksPerFlavour && n < spacers.length; step++) {
+      mixed.push(spacers[n++]);
     }
   }
 
-  return [...mixed, ...positive.slice(seeded)];
+  return spacers === spare ? mixed : [...mixed, ...spare];
 }
 
 function buildClues(
