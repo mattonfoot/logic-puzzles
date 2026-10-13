@@ -2191,7 +2191,7 @@ export const STRINGS = {
       },
       legend: {
         title: 'Legend, unaided',
-        body: 'A 5 × 5 finished without a hint, with the board keeping up.',
+        body: 'A 5 × 4 finished without a hint, with the board keeping up.',
       },
       legendClassic: {
         title: 'Legend unaided, the hard way',
