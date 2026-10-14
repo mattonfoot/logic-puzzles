@@ -271,7 +271,7 @@ export function GameScreen({
   // not shown while playing — a clock counting up is a thing to watch rather
   // than a thing to use — but it is kept, saved, and read out at the finish.
   const started = cluesSeen.size > 0;
-  const seconds = useTimer(
+  const { seconds, elapsed } = useTimer(
     started && !solved,
     `${puzzle.seed}:${attempt}`,
     attempt === 0 ? (resumed?.seconds ?? 0) : 0,
@@ -333,7 +333,7 @@ export function GameScreen({
     conflicted,
     startedAt,
     resumed: wasResumed,
-    seconds,
+    seconds: elapsed(),
     updatedAt: Date.now(),
   });
   const finished = useRef(false);
@@ -361,7 +361,7 @@ export function GameScreen({
     let active = true;
     // Nothing reveals a board any more, so a finished one was always solved.
     void onCompleted({
-      seconds,
+      seconds: elapsed(),
       cluesUsed: cluesSeen.size,
       hintsAsked,
       undos,
@@ -378,7 +378,7 @@ export function GameScreen({
     return () => {
       active = false;
     };
-    // `seconds` is read at the moment of the win; it must not retrigger this.
+    // The clock is read at the moment of the win; it must not retrigger this.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [solved]);
 
@@ -461,6 +461,12 @@ export function GameScreen({
     [againstClues, mistakes],
   );
 
+  // The board as it stands, for the square handlers: reading it from here
+  // rather than closing over it keeps them the same function from one move to
+  // the next, so a mark redraws the one square it lands on and not the board.
+  const board = useRef(marks);
+  board.current = marks;
+
   /** Records a move so it can be taken back, then makes it. */
   const move = useCallback((change: (current: Marks) => Marks) => {
     setMistakes(new Set());
@@ -499,13 +505,13 @@ export function GameScreen({
     // nothing attached is indistinguishable from a bug. Said every time
     // rather than once, because unlike the not-saving warning it is a direct
     // answer to a thing the player just did.
-    if (!started) {
+    if (!begun.current) {
       feedback.warn();
       flash(t('game.status.nothingToGoOn'));
       return false;
     }
     return true;
-  }, [flash, started]);
+  }, [flash]);
 
   const toggleCell = useCallback(
     (cell: Cell) => {
@@ -536,12 +542,17 @@ export function GameScreen({
   const settleCell = useCallback(
     (cell: Cell) => {
       if (!markable()) return;
-      if (getMark(marks, cell) === 'yes') return;
+      if (getMark(board.current, cell) === 'yes') return;
       feedback.settle();
       move((current) => setMark(current, cell, 'yes', boardOptions));
     },
-    [boardOptions, markable, marks, move],
+    [boardOptions, markable, move],
   );
+
+  const inspect = useCallback((attr: Attribute) => {
+    feedback.tap();
+    setInspecting(attr);
+  }, []);
 
   const undo = useCallback(() => {
     if (history.length === 0) {
@@ -852,10 +863,7 @@ export function GameScreen({
                   cellSize={cellSize}
                   onToggle={toggleCell}
                   onSettle={settleCell}
-                  onInspect={(attr) => {
-                    feedback.tap();
-                    setInspecting(attr);
-                  }}
+                  onInspect={inspect}
                 />
               ) : null}
             </View>

@@ -1,7 +1,7 @@
-import React, { useMemo, useRef } from 'react';
+import React, { memo, useMemo, useRef } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
-import { getEntry, markKey, type Cell, type Marks } from '../game/board';
+import { markKey, type Cell, type Mark as MarkKind, type Marks } from '../game/board';
 import { boardLayout } from '../game/layout';
 import { t } from '../i18n';
 import type { Attribute, ItemDef, Puzzle } from '../puzzle/types';
@@ -284,7 +284,7 @@ function ItemHeading({
  * The set names and headings down the left stay put while the blocks themselves
  * scroll sideways, so a wide board never loses its row headings.
  */
-export function GridBoard({
+export const GridBoard = memo(function GridBoard({
   puzzle,
   marks,
   mistakes,
@@ -326,8 +326,19 @@ export function GridBoard({
   );
   const isLit = (category: number, item: number) => lit.has(`${category}.${item}`);
 
-  const blockAt = (row: number, col: number) =>
-    layout.blocks.find((block) => block.row === row && block.col === col);
+  const blocks = useMemo(
+    () => new Set(layout.blocks.map((block) => `${block.row}.${block.col}`)),
+    [layout],
+  );
+
+  const tints = useMemo(
+    () => ({
+      wrong: tint(palette.danger, SETTLED_TINT),
+      matched: tint(palette.accent, SETTLED_TINT),
+      crosshair: tint(palette.accent, 0.07),
+    }),
+    [palette],
+  );
 
   return (
     <View style={styles.board}>
@@ -457,8 +468,7 @@ export function GridBoard({
               {layout.rowCategories.map((rowCategory, row) => (
                 <View key={`row-${rowCategory}`} style={[styles.row, { height: blockBox }]}>
                   {layout.colCategories.map((colCategory, col) => {
-                    const block = blockAt(row, col);
-                    if (!block) {
+                    if (!blocks.has(`${row}.${col}`)) {
                       return (
                         <View
                           key={`gap-${colCategory}`}
@@ -480,20 +490,23 @@ export function GridBoard({
                                 c2: colCategory,
                                 i2: colItem,
                               };
-                              const entry = getEntry(marks, cell);
+                              const key = markKey(cell);
+                              const entry = marks[key];
                               const mark = entry?.mark;
-                              const wrong = mistakes.has(markKey(cell));
+                              const wrong = mistakes.has(key);
                               const crosshair =
                                 isLit(rowCategory, rowItem) || isLit(colCategory, colItem);
-                              const asked = wanted !== null && markKey(cell) === wanted;
                               return (
-                                <Pressable
+                                <BoardCell
                                   key={colItem}
-                                  accessibilityRole="button"
+                                  c1={rowCategory}
+                                  i1={rowItem}
+                                  c2={colCategory}
+                                  i2={colItem}
                                   // Shading is the whole of what a flagged square
                                   // says, and shading is the one thing a screen
                                   // reader cannot see — so it is said here too.
-                                  accessibilityLabel={labelFor(
+                                  label={labelFor(
                                     `${puzzle.categories[rowCategory].items[rowItem].label} and ${puzzle.categories[colCategory].items[colItem].label}: ${
                                       mark === 'yes'
                                         ? 'matched'
@@ -503,64 +516,35 @@ export function GridBoard({
                                     }`,
                                     wrong,
                                   )}
-                                  onPress={() => onToggle(cell)}
-                                  onLongPress={onSettle ? () => onSettle(cell) : undefined}
-                                  // A long press is a gesture, and a gesture is
-                                  // the one thing a screen reader cannot make.
-                                  // The same thing is offered as an action on
-                                  // the square instead, which is where VoiceOver
-                                  // looks for the second thing a control does.
-                                  accessibilityActions={onSettle ? SETTLE_ACTION : undefined}
-                                  onAccessibilityAction={
-                                    onSettle
-                                      ? (event) => {
-                                          if (event.nativeEvent.actionName === 'settle') {
-                                            onSettle(cell);
-                                          }
-                                        }
-                                      : undefined
+                                  mark={mark}
+                                  // Colour says one thing — whether the mark is
+                                  // wrong — and weight says the other: a mark
+                                  // the player made is laid down heavily, one
+                                  // the board filled in for itself lightly.
+                                  auto={entry?.source === 'auto'}
+                                  fill={
+                                    wrong
+                                      ? tints.wrong
+                                      : mark === 'yes'
+                                        ? tints.matched
+                                        : crosshair
+                                          ? tints.crosshair
+                                          : (rowItem + colItem) % 2 === 1
+                                            ? palette.boardShade
+                                            : palette.boardLight
                                   }
-                                  style={({ pressed }) => [
-                                    styles.cell,
-                                    asked && {
-                                      borderWidth: 3,
-                                      borderColor: palette.accent,
-                                    },
-                                    {
-                                      width: cellSize,
-                                      height: cellSize,
-                                      backgroundColor: wrong
-                                        ? tint(palette.danger, SETTLED_TINT)
-                                        : mark === 'yes'
-                                          ? tint(palette.accent, SETTLED_TINT)
-                                          : crosshair
-                                            ? tint(palette.accent, 0.07)
-                                            : (rowItem + colItem) % 2 === 1
-                                              ? palette.boardShade
-                                              : palette.boardLight,
-                                      opacity: pressed ? 0.7 : 1,
-                                    },
-                                  ]}
-                                >
-                                  {mark === 'yes' || mark === 'no' ? (
-                                    <Mark
-                                      kind={mark}
-                                      // Colour says one thing — whether the mark is
-                                      // wrong — and weight says the other: a mark
-                                      // the player made is laid down heavily, one
-                                      // the board filled in for itself lightly.
-                                      weight={entry?.source === 'auto' ? 'auto' : 'hand'}
-                                      size={cellSize}
-                                      color={
-                                        wrong
-                                          ? palette.danger
-                                          : mark === 'yes'
-                                            ? palette.accent
-                                            : palette.inkSoft
-                                      }
-                                    />
-                                  ) : null}
-                                </Pressable>
+                                  ink={
+                                    wrong
+                                      ? palette.danger
+                                      : mark === 'yes'
+                                        ? palette.accent
+                                        : palette.inkSoft
+                                  }
+                                  asked={key === wanted}
+                                  size={cellSize}
+                                  onToggle={onToggle}
+                                  onSettle={onSettle}
+                                />
                               );
                             })}
                           </View>
@@ -576,7 +560,79 @@ export function GridBoard({
       </ScrollView>
     </View>
   );
+});
+
+interface CellProps {
+  c1: number;
+  i1: number;
+  c2: number;
+  i2: number;
+  label: string;
+  mark: MarkKind | undefined;
+  /** Filled in by the board rather than by the player. */
+  auto: boolean;
+  /** The square's background. */
+  fill: string;
+  /** The mark's colour. */
+  ink: string;
+  /** The square the tutorial is waiting on. */
+  asked: boolean;
+  size: number;
+  onToggle: (cell: Cell) => void;
+  onSettle?: (cell: Cell) => void;
 }
+
+/**
+ * One square. It takes nothing but plain values and the board's own handlers,
+ * so a move redraws the square it lands on and leaves the rest alone — a Legend
+ * board has 216 of them.
+ */
+const BoardCell = memo(function BoardCell({
+  c1,
+  i1,
+  c2,
+  i2,
+  label,
+  mark,
+  auto,
+  fill,
+  ink,
+  asked,
+  size,
+  onToggle,
+  onSettle,
+}: CellProps) {
+  const palette = useTheme();
+  const styles = useStyles(makeStyles);
+  const cell = { c1, i1, c2, i2 };
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      onPress={() => onToggle(cell)}
+      onLongPress={onSettle ? () => onSettle(cell) : undefined}
+      // A long press is a gesture, and a gesture is the one thing a screen
+      // reader cannot make. The same thing is offered as an action on the square
+      // instead, which is where VoiceOver looks for the second thing a control
+      // does.
+      accessibilityActions={onSettle ? SETTLE_ACTION : undefined}
+      onAccessibilityAction={
+        onSettle
+          ? (event) => {
+              if (event.nativeEvent.actionName === 'settle') onSettle(cell);
+            }
+          : undefined
+      }
+      style={({ pressed }) => [
+        styles.cell,
+        asked && { borderWidth: 3, borderColor: palette.accent },
+        { width: size, height: size, backgroundColor: fill, opacity: pressed ? 0.7 : 1 },
+      ]}
+    >
+      {mark ? <Mark kind={mark} weight={auto ? 'auto' : 'hand'} size={size} color={ink} /> : null}
+    </Pressable>
+  );
+});
 
 const makeStyles = (palette: Palette) =>
   StyleSheet.create({
