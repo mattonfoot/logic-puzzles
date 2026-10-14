@@ -11,12 +11,9 @@
 # Anything ending in `.one` / `.other` is a count: `.one` is used when the number
 # is exactly one and `.other` for everything else, including zero.
 #
-# What is NOT here: the puzzle themes' item names, their one-line blurbs and
-# their trait values, which are still in src/data/themes.ts. An item's name is
-# load-bearing as well as readable — the file name of its drawing is derived
-# from it, and a test enforces that — so translating those means decoupling the
-# icon naming first. Everything the interface says, and every word of the
-# narrative around a puzzle, is here.
+# Everything the interface says, every word of the narrative around a puzzle,
+# and every theme's cast is here. What is not: the numbers an ordered set
+# compares by, which are arithmetic and live in src/data/themes.ts.
 
 app:
   # The name is the last line of the sentence above it, so the two are written
@@ -1574,9 +1571,11 @@ volumes:
 
 # The themes: every word of every cast.
 #
-# `src/data/themes.ts` holds the skeleton — which sets a theme plays with, which
-# items are in them, in what order, and the numbers the ordered ones compare by.
-# Everything readable is here, keyed by the item's id.
+# Which sets a theme plays with and which items are in them are read from here,
+# in the order they are written: that order is what puzzles are drawn from, so
+# moving an item changes what a seed deals. `src/data/themes.ts` holds the list
+# of themes and the numbers the ordered sets compare by. Everything readable is
+# here, keyed by the item's id.
 #
 # An id (`nova`, `seed-vault`) is not language: it names the item's drawing in
 # assets/icons, and a test checks the two agree. Change a `label` freely; leave

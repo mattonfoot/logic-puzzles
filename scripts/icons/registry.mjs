@@ -3,7 +3,7 @@
  *
  * Keyed the way the app keys them: theme, then category, then the item's **id**
  * — never its label, which is language and can be rewritten or translated
- * without the picture moving. `src/data/themes.ts` holds the ids and this holds
+ * without the picture moving. The language file holds the ids and this holds
  * their pictures; a test checks the two agree, so an item added here and not
  * there (or the other way round) fails loudly rather than quietly leaving a
  * blank square on the board.

@@ -514,8 +514,8 @@ scripts/screenshots.mjs     drives the app in a browser to refresh docs/screensh
 scripts/sounds.mjs          synthesises the three effects in assets/sounds
 scripts/icons.mjs           draws the silhouettes and collects them into path data
 scripts/icons/              the drawing kit, and one module per theme
-src/data/themes.ts          the five themes as a skeleton: which sets, which
-                            items, in what order — the words are in the locale
+src/data/themes.ts          which themes, in what order, and the numbers the
+                            ordered sets compare by — the rest is in the locale
 src/data/sizes.ts           the five sizes, and the difficulty each is called
 src/data/openers.ts         who is supposed to have said a clue
 locales/en-GB.yaml          every word the app says — the language file
@@ -905,7 +905,9 @@ blurbs, trait values, describing patterns and clue templates are in the language
 file under `themes.<theme>.categories.<set>`, and `src/data/themes.ts` is now
 the skeleton they hang on: which sets a theme plays with, which items are in
 them, in what order, and the numbers the ordered ones compare by. It went from
-1,007 lines to 221.
+1,007 lines to 221. Later the sets and items went too, since the language file
+already listed every one of them by id, in order: the file is now the list of
+themes and the arithmetic, at under 200 lines.
 
 That was possible because an item now has an **id** — `nova`, `seed-vault` — and
 `iconName` builds the file name of its drawing from the id rather than from its
@@ -1615,12 +1617,16 @@ pushed, which is the same stance the daily streak line is held to.
 
 ## Notes
 
-- A theme is written in two halves. `src/data/themes.ts` says which five
-  categories it plays with, which items are in each and in what order, and the
-  numbers an ordered category compares by; `locales/en-GB.yaml` says what all of
-  it is called — set names, the `pattern` and `describes` frames, the `noun`,
-  the traits, and every item's label, blurb and trait values, plus a `clues`
-  block for the theme's own voice. Adding one means a block in each. Icons are
+- A theme is written almost entirely in `locales/en-GB.yaml`: its sets and
+  their items, in order and keyed by id, and what all of it is called — set
+  names, the `pattern` and `describes` frames, the `noun`, the traits, and every
+  item's label, blurb and trait values, plus a `clues` block for the theme's own
+  voice. `src/data/themes.ts` adds the theme to the list and, for an ordered set
+  whose ids are not plain numbers, says what the numbers are. The order of the
+  sets and items in the language file is the order puzzles are drawn from, so
+  reordering them changes what a seed — and a daily — deals; a second language
+  has to list them in the same order. Adding a theme means a block in the
+  language file and a line in the list. Icons are
   not listed: each item's is named after its id, and drawing the new ones is
   `npm run icons`. The pools hold fourteen items apiece — well over the six a
   5 × 5 puzzle uses — which is what makes the draw feel fresh; tests keep every
