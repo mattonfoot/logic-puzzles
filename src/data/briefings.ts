@@ -29,7 +29,12 @@ export interface Briefing {
   body: string;
 }
 
-const BY_THEME: Record<string, readonly Briefing[]> = STRINGS.briefings.themes;
+/** The briefings, as the language file lays them out; it types them no closer. */
+const SAID = STRINGS.briefings as unknown as {
+  themes: Record<string, readonly Briefing[]>;
+  fallback: Briefing;
+};
+const BY_THEME = SAID.themes;
 
 /** Every scene written for a theme, in the order the language file lists them. */
 export function briefingsFor(themeId: string): readonly Briefing[] {
@@ -48,7 +53,7 @@ export function briefingFor(puzzle: Puzzle): Briefing {
   const written = briefingsFor(puzzle.themeId);
   const noun = puzzle.categories[0].noun;
   if (written.length === 0) {
-    const fallback = STRINGS.briefings.fallback;
+    const fallback = SAID.fallback;
     return { title: fallback.title, body: fill(fallback.body, { noun }) };
   }
   // A different draw from the seed than the clue openers take, so a puzzle's
