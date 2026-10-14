@@ -2354,7 +2354,7 @@ export const STRINGS = {
               pattern: '{noun} with {}',
             },
             feature: {
-              label: 'Distinguishing feature',
+              label: 'Feature',
               pattern: '{noun} with {}',
             },
             eyes: {
@@ -3142,7 +3142,7 @@ export const STRINGS = {
               pattern: '{noun} with {}',
             },
             feature: {
-              label: 'Distinguishing feature',
+              label: 'Feature',
               pattern: '{noun} with {}',
             },
             eyes: {
@@ -3926,7 +3926,7 @@ export const STRINGS = {
               pattern: '{noun} with {}',
             },
             feature: {
-              label: 'Distinguishing feature',
+              label: 'Feature',
               pattern: '{noun} with {}',
             },
             eyes: {
@@ -4727,7 +4727,7 @@ export const STRINGS = {
               pattern: '{noun} with {}',
             },
             feature: {
-              label: 'Distinguishing feature',
+              label: 'Feature',
               pattern: '{noun} with {}',
             },
             eyes: {
@@ -5521,7 +5521,7 @@ export const STRINGS = {
               pattern: '{noun} with {}',
             },
             feature: {
-              label: 'Distinguishing feature',
+              label: 'Feature',
               pattern: '{noun} with {}',
             },
             eyes: {

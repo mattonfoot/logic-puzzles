@@ -168,7 +168,11 @@ const makeStyles = (palette: Palette) =>
       borderBottomWidth: border,
       borderBottomColor: palette.line,
     },
+    // Never more than half the row: a long label wraps onto a second line
+    // rather than squeezing the value, which is what the player came to read.
     traitLabel: {
+      flexShrink: 1,
+      maxWidth: '50%',
       fontSize: 11,
       fontWeight: '700',
       letterSpacing: 0.8,

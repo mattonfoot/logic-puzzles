@@ -1610,7 +1610,7 @@ themes:
             label: 'Hair'
             pattern: '{noun} with {}'
           feature:
-            label: 'Distinguishing feature'
+            label: 'Feature'
             pattern: '{noun} with {}'
           eyes:
             label: 'Eyes'
@@ -2213,7 +2213,7 @@ themes:
             label: 'Hair'
             pattern: '{noun} with {}'
           feature:
-            label: 'Distinguishing feature'
+            label: 'Feature'
             pattern: '{noun} with {}'
           eyes:
             label: 'Eyes'
@@ -2816,7 +2816,7 @@ themes:
             label: 'Hair'
             pattern: '{noun} with {}'
           feature:
-            label: 'Distinguishing feature'
+            label: 'Feature'
             pattern: '{noun} with {}'
           eyes:
             label: 'Eyes'
@@ -3419,7 +3419,7 @@ themes:
             label: 'Hair'
             pattern: '{noun} with {}'
           feature:
-            label: 'Distinguishing feature'
+            label: 'Feature'
             pattern: '{noun} with {}'
           eyes:
             label: 'Eyes'
@@ -4022,7 +4022,7 @@ themes:
             label: 'Hair'
             pattern: '{noun} with {}'
           feature:
-            label: 'Distinguishing feature'
+            label: 'Feature'
             pattern: '{noun} with {}'
           eyes:
             label: 'Eyes'
