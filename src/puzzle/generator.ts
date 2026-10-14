@@ -15,7 +15,7 @@
 import { themeFor } from '../game/library';
 import { resolveClueTemplates } from './describe';
 import { createRng, randomSeed, type Rng } from './rng';
-import { contextFor, solveByDeduction, type SolveContext } from './solver';
+import { contextFor, Deduction, solveByDeduction, type SolveContext } from './solver';
 import type {
   Attribute,
   CategoryDef,
@@ -407,18 +407,24 @@ function assembleClues(
   const pool = orderPool(pools, rng, linksPerFlavour);
   const chosen: Clue[] = [];
   const used = new Set<string>();
+  const deduction = new Deduction(ctx);
+  let solved = false;
 
   for (const clue of pool) {
     const key = clueKey(clue);
     if (used.has(key)) continue;
     used.add(key);
     chosen.push(clue);
-    if (solveByDeduction(chosen, ctx)) break;
+    deduction.add(clue);
+    if (deduction.solution()) {
+      solved = true;
+      break;
+    }
   }
 
   // The pool always contains a full set of positive links, so this is only a
   // guard against a future pool change leaving the puzzle ambiguous.
-  if (!solveByDeduction(chosen, ctx)) {
+  if (!solved) {
     for (let entity = 0; entity < ctx.size; entity++) {
       for (let c = 1; c < ctx.categoryCount; c++) {
         chosen.push({

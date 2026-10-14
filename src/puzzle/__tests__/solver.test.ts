@@ -1,4 +1,7 @@
-import { contextFor, satisfiesAll, solve, solveByDeduction } from '../solver';
+import { SIZES } from '../../data/sizes';
+import { THEMES } from '../../data/themes';
+import { generatePuzzle } from '../generator';
+import { contextFor, Deduction, satisfiesAll, solve, solveByDeduction } from '../solver';
 import type { Clue, ItemDef, PuzzleCategory } from '../types';
 
 /** A bare item: these tests are about the logic, not the words. */
@@ -185,5 +188,32 @@ describe('a clue about a described group', () => {
     ];
     expect(satisfiesAll([noSmallPet], withNewt, ctx)).toBe(true);
     expect(satisfiesAll([noSmallPet], withCat, ctx)).toBe(false);
+  });
+});
+
+/**
+ * The generator grows its clue list one at a time and asks after each one
+ * whether the puzzle is pinned down yet. Carrying the grid on from the last
+ * clue has to give the answer a fresh solve of the whole list would, every
+ * step of the way — including the steps where nothing is pinned down yet.
+ */
+describe('deduction a clue at a time', () => {
+  it('agrees with a fresh solve after every clue', () => {
+    for (const size of SIZES) {
+      for (let seed = 1; seed <= 8; seed++) {
+        const puzzle = generatePuzzle({ theme: THEMES, size, seed: seed * 131 });
+        const ctx = contextFor(puzzle.categories, puzzle.size.items);
+        // The clues in reverse as well: the order they arrive in must not matter.
+        for (const clues of [puzzle.clues, [...puzzle.clues].reverse()]) {
+          const growing = new Deduction(ctx);
+          clues.forEach((clue, index) => {
+            growing.add(clue);
+            expect(growing.solution()).toEqual(solveByDeduction(clues.slice(0, index + 1), ctx));
+          });
+        }
+        // And before any clue at all.
+        expect(new Deduction(ctx).solution()).toEqual(solveByDeduction([], ctx));
+      }
+    }
   });
 });

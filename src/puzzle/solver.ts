@@ -407,6 +407,17 @@ export function hasUniqueSolution(clues: Clue[], ctx: SolveContext): boolean {
   return solve(clues, ctx, 2).count === 1;
 }
 
+/** The solution a grid propagation has settled, or null if it has not. */
+function settled(grid: Grid, clues: Clue[], ctx: SolveContext): number[][] | null {
+  for (let c = 0; c < ctx.categoryCount; c++) {
+    for (let e = 0; e < ctx.size; e++) {
+      if (popcount(grid.at(c, e)) !== 1) return null;
+    }
+  }
+  const solution = toSolution(grid);
+  return satisfiesAll(clues, solution, ctx) ? solution : null;
+}
+
 /**
  * Solves using propagation only — no branching, no guessing.
  *
@@ -417,11 +428,41 @@ export function hasUniqueSolution(clues: Clue[], ctx: SolveContext): boolean {
 export function solveByDeduction(clues: Clue[], ctx: SolveContext): number[][] | null {
   const grid = Grid.initial(ctx);
   if (!propagate(grid, clues, ctx)) return null;
-  for (let c = 0; c < ctx.categoryCount; c++) {
-    for (let e = 0; e < ctx.size; e++) {
-      if (popcount(grid.at(c, e)) !== 1) return null;
-    }
+  return settled(grid, clues, ctx);
+}
+
+/**
+ * `solveByDeduction` over a list of clues that only grows, one at a time.
+ *
+ * Every rule only ever narrows the candidates, so propagation reaches the same
+ * fixpoint whatever order the clues arrive in: carrying on from where the last
+ * clue left the grid gives the answer a fresh solve of the whole list would,
+ * without working through the list again from a blank grid every time it
+ * grows by one.
+ */
+export class Deduction {
+  private readonly grid: Grid;
+  private readonly clues: Clue[] = [];
+  private broken: boolean;
+
+  constructor(private readonly ctx: SolveContext) {
+    this.grid = Grid.initial(ctx);
+    this.broken = !propagate(this.grid, [], ctx);
   }
-  const solution = toSolution(grid);
-  return satisfiesAll(clues, solution, ctx) ? solution : null;
+
+  add(clue: Clue): void {
+    this.clues.push(clue);
+    if (this.broken) return;
+    // The grid is already settled against everything before this clue, so a
+    // clue that moves nothing leaves it settled.
+    this.grid.changed = false;
+    applyClue(clue, this.grid, this.ctx);
+    if (this.grid.broken) this.broken = true;
+    else if (this.grid.changed) this.broken = !propagate(this.grid, this.clues, this.ctx);
+  }
+
+  /** The solution the clues so far pin down, or null if they do not yet. */
+  solution(): number[][] | null {
+    return this.broken ? null : settled(this.grid, this.clues, this.ctx);
+  }
 }
