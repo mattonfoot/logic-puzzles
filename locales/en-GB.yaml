@@ -53,7 +53,7 @@ splash:
   # The name on its own, without the ellipsis that joins it to the tagline on
   # the front door — nothing here is completing a sentence.
   name: Deduction
-  byline: a game by Matt Smith
+  byline: one solution, never guessed
 
 start:
   daily: Daily

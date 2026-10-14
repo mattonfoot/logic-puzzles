@@ -27,7 +27,7 @@ export const STRINGS = {
   },
   splash: {
     name: 'Deduction',
-    byline: 'a game by Matt Smith',
+    byline: 'one solution, never guessed',
   },
   start: {
     daily: 'Daily',

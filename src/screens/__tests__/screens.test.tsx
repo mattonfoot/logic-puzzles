@@ -85,11 +85,11 @@ const none = () => {};
  * it before the first frame — so nothing else looks at it at all.
  */
 describe('the splash', () => {
-  it('is the accent, with the name and whose game it is on it', () => {
+  it('is the accent, with the name and the line under it', () => {
     stage(<SplashScreen words />);
 
     expect(screen.getByText('Deduction')).toBeOnTheScreen();
-    expect(screen.getByText('a game by Matt Smith')).toBeOnTheScreen();
+    expect(screen.getByText('one solution, never guessed')).toBeOnTheScreen();
 
     // The default accent's ground, which is the block the title panel wears on
     // every screen before a board.
@@ -106,7 +106,7 @@ describe('the splash', () => {
     stage(<SplashScreen words={false} />);
 
     expect(screen.queryByText('Deduction')).toBeNull();
-    expect(screen.queryByText('a game by Matt Smith')).toBeNull();
+    expect(screen.queryByText('one solution, never guessed')).toBeNull();
     const ground = screen.UNSAFE_getAllByType(View)[0];
     expect(StyleSheet.flatten(ground.props.style).backgroundColor).toBe('#064789');
   });

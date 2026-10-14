@@ -85,7 +85,7 @@ async function main() {
 </style>
 <div id="block">
   <div id="name">Deduction</div>
-  <div id="byline">a game by Matt Smith</div>
+  <div id="byline">one solution, never guessed</div>
 </div>`);
   // Asked for by name and then waited on. `document.fonts.ready` alone resolves
   // before a face set this way has been applied, and everything measured under
