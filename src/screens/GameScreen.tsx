@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AppState, Pressable, StyleSheet, View } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { BoardHeader } from '../components/BoardHeader';
 import { BriefingPopup } from '../components/BriefingPopup';
@@ -11,14 +11,11 @@ import { SolvedPanel } from '../components/SolvedPanel';
 import { ToolRow } from '../components/ToolRow';
 import { GameMenuScreen } from './GameMenuScreen';
 import {
-  clearMistakes,
   findConflicts,
   getMark,
   isFull,
-  isSolvable,
   isSolved,
   nextMark,
-  reconcile,
   setMark,
   type Cell,
   type Marks,
@@ -27,22 +24,21 @@ import { cluesDone, inventClue, marksAgainstClues, nextClue } from '../game/clue
 import { hintFor } from '../game/hint';
 import { dailyDate, modeOf, numberFor } from '../game/library';
 import { DAILY, DEFAULT_MODE, gameTitle, modeById, type PlayedAs } from '../game/modes';
-import { SAVE_VERSION, SAVED_UNDO, type SavedGame } from '../game/persistence';
+import type { SavedGame } from '../game/persistence';
+import { completionOf, findRewind, saveOf, sessionReducer, startSession } from '../game/session';
 import { formatDate, shareResult } from '../game/share';
 import type { Completion, CompletionInput } from '../game/usePersistence';
+import { useAutosave } from '../game/useAutosave';
 import { plural, t } from '../i18n';
 import { useTimer } from '../game/useTimer';
 import { clueAttributes } from '../puzzle/describe';
-import type { Attribute, Clue, Puzzle } from '../puzzle/types';
+import type { Attribute, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
 import { Text } from '../ui/Text';
 import { useStyles, type ColourPreference } from '../ui/ThemeProvider';
 import { space, type Palette } from '../ui/theme';
-
-/** How many moves back the undo button can reach. */
-const UNDO_LIMIT = 200;
 
 interface Props {
   puzzle: Puzzle;
@@ -136,18 +132,12 @@ export function GameScreen({
   const styles = useStyles(makeStyles);
   const resumed = restore?.puzzle.seed === puzzle.seed ? restore : null;
 
-  // Bumped by "Restart": the puzzle stays exactly as it is — same seed, same
-  // theme, sets and items — while the board and the clock start over.
-  const [attempt, setAttempt] = useState(0);
+  // Restart puts all of this back: the puzzle stays exactly as it is — same
+  // seed, same theme, sets and items — while the board and the clock start
+  // over.
+  const [session, dispatch] = useReducer(sessionReducer, resumed, (saved) => startSession(saved));
+  const { attempt, marks, history, clueIndex, cluesSeen, extraClues, hintsAsked } = session;
   const [menuOpen, setMenuOpen] = useState(false);
-  const [marks, setMarks] = useState<Marks>(() => resumed?.marks ?? {});
-  // The clue on the table, and every clue the player has asked to see. Reading
-  // one is the cost of a hint here, so the set is what the statistics count.
-  const [clueIndex, setClueIndex] = useState<number | null>(() => resumed?.clueIndex ?? null);
-  const [cluesSeen, setCluesSeen] = useState<Set<number>>(() => new Set(resumed?.cluesSeen ?? []));
-  // Clues written for this game after the puzzle's own ran out. They are saved
-  // with the board, so a resumed game keeps the ones it was given.
-  const [extraClues, setExtraClues] = useState<Clue[]>([]);
   const [lit, setLit] = useState(false);
   // Whether the clue window is open. It opens on the Clue button and on a new
   // clue arriving, so a clue is always read rather than glanced at.
@@ -158,12 +148,6 @@ export function GameScreen({
   const [briefingOpen, setBriefingOpen] = useState(!resumed);
   // The item whose card is open, from a tap on its label in the grid.
   const [inspecting, setInspecting] = useState<Attribute | null>(null);
-  const [mistakes, setMistakes] = useState<Set<string>>(new Set());
-  // Every board the player has moved on from, newest last, so a move can be
-  // taken back. The last twenty are saved with the game, so a board picked
-  // back up can still be stepped back from — and Rewind, which walks this same
-  // stack, has somewhere to walk to.
-  const [history, setHistory] = useState<Marks[]>(() => resumed?.history ?? []);
   // Set when the clue button finds the board past saving, which opens the
   // window saying so; cleared by either of the two ways out of it.
   const [flagged, setFlagged] = useState(false);
@@ -171,31 +155,11 @@ export function GameScreen({
   // it stood when it was asked, so any change to either the board or the clue on
   // the table takes it back down again.
   const [hinted, setHinted] = useState(false);
-  // How many have been asked for over the whole game. Read out at the finish
-  // beside the clues, and kept with the board so putting the game down and
-  // picking it up does not wipe the tally.
-  const [hintsAsked, setHintsUsed] = useState(() => resumed?.hintsAsked ?? 0);
-  // How the board is being arrived at, rather than how long it is taking. None
-  // of it is shown anywhere yet; it is measured because only this screen can
-  // see it, and a game finished today cannot be measured tomorrow. All of it
-  // rides with the save, so putting the puzzle down does not wipe the tally,
-  // and all of it is cleared by Restart, which is a fresh attempt.
-  const [undos, setUndos] = useState(() => resumed?.undos ?? 0);
-  const [rewinds, setRewinds] = useState(() => resumed?.rewinds ?? 0);
-  const [conflicted, setConflicted] = useState(() => resumed?.conflicted ?? false);
-  const [startedAt, setStartedAt] = useState(() => resumed?.startedAt ?? Date.now());
-  // True from the moment a board is picked back up, and it stays true: a game
-  // put down once was put down, however it ends.
-  const [wasResumed, setWasResumed] = useState(() => Boolean(resumed));
   const [status, setStatus] = useState<string | null>(null);
   const [improvement, setImprovement] = useState<Improvement | null>(null);
   // Whether the finish made it into the history; null until it has been tried.
   const [recorded, setRecorded] = useState<boolean | null>(null);
   const statusTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  // Set once the player has been told a save failed, so the line is said once
-  // rather than after every move; cleared by a save that lands, so a later
-  // failure is news again.
-  const warnedNotSaving = useRef(false);
 
   /** What the board works out for itself, as the settings currently stand. */
   const boardOptions = useMemo(
@@ -222,7 +186,7 @@ export function GameScreen({
   // board that was wrong, whether or not it still is. Taking the bad mark back
   // fixes the board, not the fact.
   useEffect(() => {
-    if (wrong.length > 0) setConflicted(true);
+    if (wrong.length > 0) dispatch({ type: 'conflicted' });
   }, [wrong]);
   /**
    * Marks that argue with a clue the player has already read, when they have
@@ -276,7 +240,7 @@ export function GameScreen({
   useEffect(() => {
     if (applied.current === boardOptions) return;
     applied.current = boardOptions;
-    setMarks((current) => reconcile(current, boardOptions));
+    dispatch({ type: 'reconcile', options: boardOptions });
   }, [boardOptions]);
 
   // The clues read, oldest first — a Set keeps what went in in the order it went
@@ -289,40 +253,10 @@ export function GameScreen({
     [clueIndex, inPlay.clues, lit],
   );
 
-  // A snapshot of the board that the autosave paths can read without having to
-  // re-subscribe every time the clock ticks.
-  const snapshot = useRef<() => SavedGame>(() => ({}) as SavedGame);
-  snapshot.current = () => ({
-    version: SAVE_VERSION,
-    // Written clues ride along inside the puzzle, so picking the game back up
-    // brings them with it.
-    puzzle: inPlay,
-    marks,
-    cluesSeen: [...cluesSeen],
-    clueIndex,
-    history: history.slice(-SAVED_UNDO),
-    hintsAsked,
-    undos,
-    rewinds,
-    conflicted,
-    startedAt,
-    resumed: wasResumed,
-    seconds: elapsed(),
-    updatedAt: Date.now(),
-  });
   const finished = useRef(false);
   finished.current = solved;
-  // Whether there is a game here worth keeping. Before the first clue there
-  // is nothing on the board and no clock running — Restart puts it back to
-  // exactly that — and a save of it would only put a Continue on the setup
-  // screen with nothing behind it.
   const begun = useRef(false);
   begun.current = started;
-  const keep = useCallback(() => {
-    if (finished.current) return;
-    if (begun.current) void onSaveProgress(snapshot.current());
-    else onDiscardProgress();
-  }, [onDiscardProgress, onSaveProgress]);
 
   useEffect(() => {
     if (!solved) return;
@@ -333,18 +267,7 @@ export function GameScreen({
   useEffect(() => {
     if (!solved) return;
     let active = true;
-    // Nothing reveals a board any more, so a finished one was always solved.
-    void onCompleted({
-      seconds: elapsed(),
-      cluesUsed: cluesSeen.size,
-      hintsAsked,
-      undos,
-      rewinds,
-      conflicted,
-      startedAt,
-      resumed: wasResumed,
-      revealed: false,
-    }).then((result) => {
+    void onCompleted(completionOf(session, elapsed())).then((result) => {
       if (!active) return;
       setImprovement(result.improvement);
       setRecorded(result.recorded);
@@ -368,54 +291,14 @@ export function GameScreen({
     statusTimer.current = setTimeout(() => setStatus(null), 2600);
   }, []);
 
-  // Save the board shortly after every change, so closing the app mid-puzzle
-  // loses nothing worth keeping.
-  useEffect(() => {
-    if (solved) return;
-    if (!started) {
-      // Restart lands here with the old board still on disk; a fresh puzzle
-      // lands here with nothing there, and clearing nothing costs nothing.
-      onDiscardProgress();
-      return;
-    }
-    const timer = setTimeout(() => {
-      void onSaveProgress(snapshot.current()).then((landed) => {
-        if (landed) {
-          warnedNotSaving.current = false;
-        } else if (!warnedNotSaving.current) {
-          // Said once, in the line the board already keeps for what it has
-          // to say, rather than in a window the player has to get past. The
-          // game plays on exactly as before; only the promise of picking it
-          // back up later has gone.
-          warnedNotSaving.current = true;
-          flash(t('game.status.notSaving'));
-        }
-      });
-    }, 600);
-    return () => clearTimeout(timer);
-  }, [
-    marks,
-    cluesSeen,
-    clueIndex,
-    extraClues,
-    solved,
+  const notSaving = useCallback(() => flash(t('game.status.notSaving')), [flash]);
+  useAutosave(() => saveOf(session, inPlay, elapsed()), session, {
     started,
-    onSaveProgress,
-    onDiscardProgress,
-    flash,
-  ]);
-
-  // Backgrounding the app and leaving the screen both save immediately — or
-  // clear the slot, for a board nobody has started.
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', (state) => {
-      if (state !== 'active') keep();
-    });
-    return () => {
-      subscription.remove();
-      keep();
-    };
-  }, [keep]);
+    solved,
+    onSave: onSaveProgress,
+    onDiscard: onDiscardProgress,
+    onFailed: notSaving,
+  });
 
   useEffect(
     () => () => {
@@ -430,9 +313,10 @@ export function GameScreen({
    * now. The first is a moment, cleared by the next mark; the second is a state
    * of the board, and stays until the mark that caused it moves.
    */
+  const { pointing } = session;
   const shaded = useMemo(
-    () => (againstClues.length === 0 ? mistakes : new Set([...mistakes, ...againstClues])),
-    [againstClues, mistakes],
+    () => (againstClues.length === 0 ? pointing : new Set([...pointing, ...againstClues])),
+    [againstClues, pointing],
   );
 
   // The board as it stands, for the square handlers: reading it from here
@@ -442,15 +326,10 @@ export function GameScreen({
   board.current = marks;
 
   /** Records a move so it can be taken back, then makes it. */
-  const move = useCallback((change: (current: Marks) => Marks) => {
-    setMistakes(new Set());
-    setMarks((current) => {
-      const next = change(current);
-      if (next === current) return current;
-      setHistory((past) => [...past.slice(-(UNDO_LIMIT - 1)), current]);
-      return next;
-    });
-  }, []);
+  const move = useCallback(
+    (change: (current: Marks) => Marks) => dispatch({ type: 'move', change }),
+    [],
+  );
 
   /**
    * Whether the board will take a mark at all, and what to say when it will
@@ -534,43 +413,21 @@ export function GameScreen({
       return;
     }
     feedback.tap();
-    setMistakes(new Set());
-    setUndos((taken) => taken + 1);
-    setHistory((past) => past.slice(0, -1));
-    // Reconciled on the way back in, so a board recorded while Auto ✕ was on
-    // comes back the way the setting stands now.
-    setMarks(reconcile(history[history.length - 1], boardOptions));
-  }, [boardOptions, flash, history]);
+    dispatch({ type: 'undo', options: boardOptions });
+  }, [boardOptions, flash, history.length]);
 
   /** Takes moves back until the answer is within reach again. */
   const rewind = useCallback(() => {
     feedback.tap();
-    setRewinds((walked) => walked + 1);
-    let past = history;
-    let board: Marks | null = null;
-    let steps = 0;
-
-    while (past.length > 0) {
-      const candidate = reconcile(past[past.length - 1], boardOptions);
-      past = past.slice(0, -1);
-      steps++;
-      if (isSolvable(candidate, puzzle)) {
-        board = candidate;
-        break;
-      }
-    }
-
-    setHistory(past);
-    setMistakes(new Set());
-    if (board) {
-      setMarks(board);
-      flash(plural('game.status.rewound', steps, { steps }));
-      return;
-    }
+    const to = findRewind(history, puzzle, boardOptions);
+    dispatch({ type: 'rewind', to, puzzle, options: boardOptions });
     // Nothing recorded is clean — a resumed board carries only its last twenty
-    // moves, and a mistake can be older than that. Take the bad marks off.
-    setMarks((current) => clearMistakes(current, puzzle, boardOptions));
-    flash(t('game.status.clearedMistakes'));
+    // moves, and a mistake can be older than that — so the bad marks came off.
+    flash(
+      to.board
+        ? plural('game.status.rewound', to.steps, { steps: to.steps })
+        : t('game.status.clearedMistakes'),
+    );
   }, [boardOptions, flash, history, puzzle]);
 
   /**
@@ -594,7 +451,7 @@ export function GameScreen({
   const showNextClue = useCallback(() => {
     if (wrong.length > 0) {
       feedback.warn();
-      setMistakes(new Set(wrong));
+      dispatch({ type: 'point', keys: wrong });
       setFlagged(true);
       // The window that says so is the only thing worth looking at, and the
       // marks it is about are on the board behind it.
@@ -620,18 +477,14 @@ export function GameScreen({
         return;
       }
       feedback.tap();
-      const next = inPlay.clues.length;
-      setExtraClues((extras) => [...extras, invented]);
-      setClueIndex(next);
-      setCluesSeen((read) => new Set(read).add(next));
+      dispatch({ type: 'write', clue: invented, index: inPlay.clues.length });
       setClueOpen(true);
       return;
     }
     feedback.tap();
-    setClueIndex(index);
-    setCluesSeen((read) => (read.has(index) ? read : new Set(read).add(index)));
+    dispatch({ type: 'read', index });
     setClueOpen(true);
-  }, [clueIndex, extraClues.length, flash, inPlay, marks, spent, wrong]);
+  }, [clueIndex, extraClues.length, inPlay, marks, spent, wrong]);
 
   /**
    * Back through the clues already read. Free, because being reminded what you
@@ -640,7 +493,7 @@ export function GameScreen({
   const previousClue = useCallback(() => {
     if (at <= 0) return;
     feedback.tap();
-    setClueIndex(seen[at - 1]);
+    dispatch({ type: 'turn', index: seen[at - 1] });
   }, [at, seen]);
 
   /**
@@ -650,7 +503,7 @@ export function GameScreen({
   const forwardClue = useCallback(() => {
     if (at >= 0 && at < seen.length - 1) {
       feedback.tap();
-      setClueIndex(seen[at + 1]);
+      dispatch({ type: 'turn', index: seen[at + 1] });
       return;
     }
     showNextClue();
@@ -668,36 +521,23 @@ export function GameScreen({
     if (!hint) return;
     feedback.tap();
     setHinted(true);
-    setHintsUsed((asked) => asked + 1);
     // Lit behind the window as well as named in it, so closing the window
     // leaves the square it was about still pointed at.
-    setMistakes(new Set(hint.keys));
+    dispatch({ type: 'hint', keys: hint.keys });
   }, [hint]);
 
   const restart = useCallback(() => {
     feedback.tap();
-    setAttempt((count) => count + 1);
-    setMarks({});
-    setHistory([]);
-    setMistakes(new Set());
+    dispatch({ type: 'restart', now: Date.now() });
     setFlagged(false);
-    setClueIndex(null);
-    setCluesSeen(new Set());
-    setExtraClues([]);
     setLit(false);
     setClueOpen(false);
+    setHinted(false);
     // How the last go compared belongs to the last go. Restart can be pressed
     // from the finish now, and a board on its way back to blank carrying the
     // note from the run before it would read as a note about this one.
     setImprovement(null);
     setRecorded(null);
-    setHinted(false);
-    setHintsUsed(0);
-    setUndos(0);
-    setRewinds(0);
-    setConflicted(false);
-    setStartedAt(Date.now());
-    setWasResumed(false);
     flash(t('game.status.restarted'));
   }, [flash]);
 
