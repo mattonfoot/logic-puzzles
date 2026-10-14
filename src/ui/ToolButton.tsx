@@ -7,7 +7,8 @@ import { inkOn, radius, space, tint, type Palette } from './theme';
 
 interface Props {
   label: string;
-  accent: string;
+  /** The colour it is drawn in; the app's own unless said otherwise. */
+  accent?: string;
   disabled?: boolean;
   /** A switch rather than an action: filled when it is on. */
   active?: boolean;
@@ -26,8 +27,15 @@ interface Props {
  * near-copy of its controls would be teaching a board the player is about to
  * stop having.
  */
-export function ToolButton({ label, accent, disabled = false, active = false, onPress }: Props) {
+export function ToolButton({
+  label,
+  accent: given,
+  disabled = false,
+  active = false,
+  onPress,
+}: Props) {
   const palette = useTheme();
+  const accent = given ?? palette.accent;
   const styles = useStyles(makeStyles);
   return (
     <Pressable

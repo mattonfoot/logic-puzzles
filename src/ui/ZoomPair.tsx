@@ -10,7 +10,8 @@ const OUT = '−';
 const IN = '+';
 
 interface Props {
-  accent: string;
+  /** The colour it is drawn in; the app's own unless said otherwise. */
+  accent?: string;
   /** Already as small as the board goes. */
   outDisabled: boolean;
   /** Already as large as a square gets. */
@@ -28,8 +29,10 @@ interface Props {
  * fit the space it has, and a player who wants the squares bigger than that
  * should get them wherever they are.
  */
-export function ZoomPair({ accent, outDisabled, inDisabled, onOut, onIn }: Props) {
+export function ZoomPair({ accent: given, outDisabled, inDisabled, onOut, onIn }: Props) {
   const styles = useStyles(makeStyles);
+  const palette = useTheme();
+  const accent = given ?? palette.accent;
   return (
     <View style={styles.pair}>
       <ZoomButton label={OUT} accent={accent} disabled={outDisabled} onPress={onOut} />

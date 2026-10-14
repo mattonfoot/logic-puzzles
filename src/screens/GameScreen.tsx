@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AppState, LayoutChangeEvent, Pressable, StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { AppState, Pressable, StyleSheet, View } from 'react-native';
 
+import { BoardHeader } from '../components/BoardHeader';
 import { BriefingPopup } from '../components/BriefingPopup';
 import { CluePopup } from '../components/CluePopup';
 import { ConfirmDialog } from '../components/ConfirmDialog';
-import { fitCellSize, GridBoard, MAX_CELL } from '../components/GridBoard';
 import { ItemCard } from '../components/ItemCard';
+import { PlayBoard } from '../components/PlayBoard';
 import { SolvedPanel } from '../components/SolvedPanel';
+import { ToolRow } from '../components/ToolRow';
 import { GameMenuScreen } from './GameMenuScreen';
 import {
   clearMistakes,
@@ -36,17 +37,10 @@ import type { Attribute, Clue, Puzzle } from '../puzzle/types';
 import type { Improvement } from '../stats/summary';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
-import { RuledTitle } from '../ui/RuledTitle';
 import { Text } from '../ui/Text';
-import { useStyles, useTheme, type ColourPreference } from '../ui/ThemeProvider';
-import { space, tint, type Palette } from '../ui/theme';
-import { ToolButton } from '../ui/ToolButton';
-import { ZoomPair } from '../ui/ZoomPair';
+import { useStyles, type ColourPreference } from '../ui/ThemeProvider';
+import { space, type Palette } from '../ui/theme';
 
-/** The two zoom glyphs: signs rather than words, so they are not translated. */
-
-/** How much each press of the zoom buttons adds or takes away. */
-const ZOOM_STEP = 8;
 /** How many moves back the undo button can reach. */
 const UNDO_LIMIT = 200;
 
@@ -139,9 +133,7 @@ export function GameScreen({
   const autoFacts = assists && wantsAutoFacts;
   const checkClues = assists && wantsCheckClues;
 
-  const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const insets = useSafeAreaInsets();
   const resumed = restore?.puzzle.seed === puzzle.seed ? restore : null;
 
   // Bumped by "Restart": the puzzle stays exactly as it is — same seed, same
@@ -276,24 +268,6 @@ export function GameScreen({
     `${puzzle.seed}:${attempt}`,
     attempt === 0 ? (resumed?.seconds ?? 0) : 0,
   );
-
-  // The whole staircase is drawn at once, so the cell size decides whether it
-  // fits. It is measured against the space the board is actually left, and
-  // the player can zoom in from there; a zoomed-in board scrolls both ways.
-  const [boardArea, setBoardArea] = useState({ width: 0, height: 0 });
-  const fitCell = useMemo(
-    () => fitCellSize(puzzle, boardArea.width, boardArea.height),
-    [puzzle, boardArea],
-  );
-  const [zoom, setZoom] = useState(0);
-  const cellSize = Math.min(MAX_CELL, fitCell + zoom);
-
-  const measureBoard = useCallback((event: LayoutChangeEvent) => {
-    const { width, height } = event.nativeEvent.layout;
-    setBoardArea((current) =>
-      current.width === width && current.height === height ? current : { width, height },
-    );
-  }, []);
 
   // The settings can change from the menu or from the settings screen, so the
   // board is brought back in line with them whenever they move rather than at
@@ -753,57 +727,58 @@ export function GameScreen({
 
   return (
     <View style={styles.screen}>
-      <View style={[styles.header, { paddingTop: insets.top + space(4) }]}>
-        {/* The burger holds the two board settings and the way to start this
-            puzzle over, none of which a finished board has any use for: the
-            marks are all in, the answer is on the screen, and the way on is
-            the summary's own. So it goes when the board does, and the theme's
-            name takes the left margin every other screen's title stands on. */}
-        {solved ? null : (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={t('game.menu')}
-            onPress={() => {
-              feedback.tap();
-              setMenuOpen(true);
-            }}
-            style={styles.headerButton}
-            hitSlop={12}
-          >
-            <Text style={styles.headerButtonText}>☰</Text>
-          </Pressable>
-        )}
-        <View style={styles.headerCenter}>
-          {/* What kind of game and how hard, not the theme. The theme is the
-              puzzle's dressing — its drawing heads the briefing and its cast
-              heads every grid — while which game this is, how hard it is and
-              which one of them it is are the things about the board in play
-              that nothing else on it says. The difficulty alone stopped being
-              enough when the same number became a different puzzle on each
-              side of the mode menu: "Pure advanced" and "Classic advanced" are
-              two jobs of different sizes, and "Daily advanced" is a third. */}
-          <RuledTitle>{gameTitle(playedAs, puzzle.size.difficulty)}</RuledTitle>
-          {/* Which one of them this is. For a numbered game it is the number
-              the player picked, not the seed it packs to: the list said
-              "Puzzle 7" and the board has to agree with it. A seed from a save
-              written before the difficulties had columns of their own can land
-              in one by coincidence and be read a digit short; it is one line of
-              grey text on one old save, and worth less than the plumbing to
-              know.
+      {/* What kind of game and how hard, not the theme. The theme is the
+          puzzle's dressing — its drawing heads the briefing and its cast
+          heads every grid — while which game this is, how hard it is and
+          which one of them it is are the things about the board in play
+          that nothing else on it says. The difficulty alone stopped being
+          enough when the same number became a different puzzle on each
+          side of the mode menu: "Pure advanced" and "Classic advanced" are
+          two jobs of different sizes, and "Daily advanced" is a third.
 
-              A daily has no number, because nobody picked it — so it is named
-              by the day it was set, which is the only thing that tells one from
-              another, and is what the finish names it by too. Its seed packs
-              that date with the difficulty's column on the end, so what stood
-              here before was "#202609160": the date, read as a number, with a
-              digit after it. */}
-          <Text style={styles.headerSubtitle} numberOfLines={1}>
-            {daily
-              ? formatDate(dailyDate(puzzle.seed))
-              : t('game.seed', { seed: numberFor(puzzle.seed, puzzle.size.id) ?? puzzle.seed })}
-          </Text>
-        </View>
-      </View>
+          The line under it says which one of them this is. For a numbered game it is the number
+          the player picked, not the seed it packs to: the list said
+          "Puzzle 7" and the board has to agree with it. A seed from a save
+          written before the difficulties had columns of their own can land
+          in one by coincidence and be read a digit short; it is one line of
+          grey text on one old save, and worth less than the plumbing to
+          know.
+
+          A daily has no number, because nobody picked it — so it is named
+          by the day it was set, which is the only thing that tells one from
+          another, and is what the finish names it by too. Its seed packs
+          that date with the difficulty's column on the end, so what stood
+          here before was "#202609160": the date, read as a number, with a
+          digit after it. */}
+      <BoardHeader
+        title={gameTitle(playedAs, puzzle.size.difficulty)}
+        subtitle={
+          daily
+            ? formatDate(dailyDate(puzzle.seed))
+            : t('game.seed', { seed: numberFor(puzzle.seed, puzzle.size.id) ?? puzzle.seed })
+        }
+        // The burger holds the two board settings and the way to start this
+        // puzzle over, none of which a finished board has any use for: the
+        // marks are all in, the answer is on the screen, and the way on is the
+        // summary's own. So it goes when the board does, and the theme's name
+        // takes the left margin every other screen's title stands on.
+        left={
+          solved ? null : (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={t('game.menu')}
+              onPress={() => {
+                feedback.tap();
+                setMenuOpen(true);
+              }}
+              style={styles.headerButton}
+              hitSlop={12}
+            >
+              <Text style={styles.headerButtonText}>☰</Text>
+            </Pressable>
+          )
+        }
+      />
 
       <View style={styles.body}>
         {solved ? (
@@ -832,42 +807,25 @@ export function GameScreen({
             onPlayAgain={daily ? undefined : restart}
           />
         ) : (
-          <View style={styles.fill}>
-            {/* Above the board, on the right: the zoom pair, with whatever the
-                app has to say in the room it leaves beside it. A message that
-                shows for two seconds should not hold a band of screen open for
-                the rest of the game, and a board that resized every time one
-                arrived would be worse than either. */}
-            <View style={styles.zoomRow}>
+          // Above the board, on the right: the zoom pair, with whatever the app
+          // has to say in the room it leaves beside it. A message that shows for
+          // two seconds should not hold a band of screen open for the rest of
+          // the game, and a board that resized every time one arrived would be
+          // worse than either.
+          <PlayBoard
+            puzzle={puzzle}
+            marks={marks}
+            mistakes={shaded}
+            highlight={highlight}
+            onToggle={toggleCell}
+            onSettle={settleCell}
+            onInspect={inspect}
+            aside={
               <Text style={styles.status} numberOfLines={2}>
                 {status ?? ''}
               </Text>
-              <ZoomPair
-                accent={palette.accent}
-                outDisabled={zoom <= 0}
-                inDisabled={cellSize >= MAX_CELL}
-                onOut={() => setZoom((step) => Math.max(0, step - ZOOM_STEP))}
-                onIn={() => setZoom((step) => step + ZOOM_STEP)}
-              />
-            </View>
-
-            {/* The board scrolls itself, in both directions, so its headings
-                can stay put while the grids slide under them. */}
-            <View style={[styles.fill, styles.boardArea]} onLayout={measureBoard}>
-              {boardArea.width > 0 ? (
-                <GridBoard
-                  puzzle={puzzle}
-                  marks={marks}
-                  mistakes={shaded}
-                  highlight={highlight}
-                  cellSize={cellSize}
-                  onToggle={toggleCell}
-                  onSettle={settleCell}
-                  onInspect={inspect}
-                />
-              ) : null}
-            </View>
-          </View>
+            }
+          />
         )}
       </View>
 
@@ -885,47 +843,27 @@ export function GameScreen({
             hint at, light up or be told the reason for, so the row goes with
             it. */}
         {solved ? null : (
-          <View style={styles.play}>
-            <View style={styles.tools}>
-              <ToolButton
-                label={t('game.undo')}
-                accent={palette.accent}
-                disabled={history.length === 0}
-                onPress={undo}
-              />
-              <ToolButton
-                label={t('game.clue')}
-                accent={palette.accent}
-                onPress={() => {
-                  // A clue already read opens where it was left; the first press
-                  // of the game has nothing to open, so it asks for one.
-                  feedback.tap();
-                  if (clueIndex === null) showNextClue();
-                  else setClueOpen(true);
-                }}
-              />
-            </View>
-            <View style={styles.tools}>
-              <ToolButton
-                label={t('game.info')}
-                accent={palette.accent}
-                onPress={() => {
-                  feedback.tap();
-                  setBriefingOpen(true);
-                }}
-              />
-              <ToolButton
-                label={t('game.highlight')}
-                accent={palette.accent}
-                active={lit}
-                disabled={clueIndex === null}
-                onPress={() => {
-                  feedback.tap();
-                  setLit((on) => !on);
-                }}
-              />
-            </View>
-          </View>
+          <ToolRow
+            onUndo={undo}
+            undoDisabled={history.length === 0}
+            onClue={() => {
+              // A clue already read opens where it was left; the first press
+              // of the game has nothing to open, so it asks for one.
+              feedback.tap();
+              if (clueIndex === null) showNextClue();
+              else setClueOpen(true);
+            }}
+            onInfo={() => {
+              feedback.tap();
+              setBriefingOpen(true);
+            }}
+            onHighlight={() => {
+              feedback.tap();
+              setLit((on) => !on);
+            }}
+            lit={lit}
+            highlightDisabled={clueIndex === null}
+          />
         )}
       </View>
 
@@ -976,17 +914,6 @@ const makeStyles = (palette: Palette) =>
       flex: 1,
       backgroundColor: palette.bg,
     },
-    fill: {
-      flex: 1,
-    },
-    header: {
-      flexDirection: 'row',
-      // The burger sits with the title rather than with the line under it.
-      alignItems: 'flex-start',
-      paddingHorizontal: space(4),
-      paddingBottom: space(3),
-      gap: space(3),
-    },
     headerButton: {
       // A glyph rather than a boxed button: the burger is a way out of the
       // board, the same as the `◀ Back` at the foot of every other screen, and
@@ -1003,31 +930,10 @@ const makeStyles = (palette: Palette) =>
       color: palette.ink,
       marginTop: -2,
     },
-    headerCenter: {
-      flex: 1,
-    },
-    headerSubtitle: {
-      fontSize: 12,
-      color: palette.inkFaint,
-      marginTop: space(1.5),
-    },
     body: {
       flex: 1,
       paddingHorizontal: space(4),
       paddingTop: space(3),
-    },
-    boardArea: {
-      // Centred, so a board that fits sits in the middle of the space rather
-      // than hanging from the top of it.
-      justifyContent: 'center',
-    },
-    zoomRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      // Under the board: whatever the app is saying on the left, the zoom pair
-      // on the right-hand end.
-      gap: space(3),
-      marginTop: space(2),
     },
     footer: {
       paddingHorizontal: space(4),
@@ -1035,18 +941,6 @@ const makeStyles = (palette: Palette) =>
       // The clue and its two buttons run straight into the `◀ Back` under
       // them; what used to sit between was an empty status line, and the space
       // it held open is board now.
-    },
-    play: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      // The two that work the clue at one end, the one that lights it at the
-      // other, and the board's own width between them.
-      justifyContent: 'space-between',
-      gap: space(2),
-    },
-    tools: {
-      flexDirection: 'row',
-      gap: space(2),
     },
     status: {
       flex: 1,

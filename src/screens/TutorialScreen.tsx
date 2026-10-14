@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { StyleSheet, View } from 'react-native';
 
+import { BoardHeader } from '../components/BoardHeader';
 import { BriefingPopup } from '../components/BriefingPopup';
 import { ConfirmDialog } from '../components/ConfirmDialog';
-import { fitCellSize, GridBoard } from '../components/GridBoard';
 import { ItemCard } from '../components/ItemCard';
 import { LessonPopup } from '../components/LessonPopup';
+import { PlayBoard } from '../components/PlayBoard';
+import { ToolRow } from '../components/ToolRow';
 import { getMark, nextMark, setMark, type Cell, type Marks } from '../game/board';
 import {
   checkFinished,
@@ -21,12 +22,8 @@ import { describeClue } from '../puzzle/describe';
 import type { Attribute } from '../puzzle/types';
 import { BackLink } from '../ui/BackLink';
 import { feedback } from '../ui/feedback';
-import { RuledTitle } from '../ui/RuledTitle';
-import { Text } from '../ui/Text';
-import { useStyles, useTheme } from '../ui/ThemeProvider';
+import { useStyles } from '../ui/ThemeProvider';
 import { space, type Palette } from '../ui/theme';
-import { ToolButton } from '../ui/ToolButton';
-import { ZoomPair } from '../ui/ZoomPair';
 
 interface Props {
   lesson: LessonId;
@@ -38,8 +35,6 @@ interface Props {
   onWalked?: (lesson: LessonId) => void;
   onBack: () => void;
 }
-
-const ZOOM_STEP = 8;
 
 /**
  * One lesson, on the screen a puzzle is played on.
@@ -90,9 +85,7 @@ const ZOOM_STEP = 8;
  * surprise worth heading off.
  */
 export function TutorialScreen({ lesson: lessonId, onWalked, onBack }: Props) {
-  const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const insets = useSafeAreaInsets();
 
   const lesson = useMemo(() => lessonById(lessonId), [lessonId]);
   const puzzle = lesson.puzzle;
@@ -110,8 +103,6 @@ export function TutorialScreen({ lesson: lessonId, onWalked, onBack }: Props) {
   const [lit, setLit] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const [inspecting, setInspecting] = useState<Attribute | null>(null);
-  const [boardArea, setBoardArea] = useState({ width: 0, height: 0 });
-  const [zoom, setZoom] = useState(0);
 
   const step = lesson.steps[at];
   const done = useMemo(() => checkFinished(marks, puzzle).ok, [marks, puzzle]);
@@ -132,7 +123,6 @@ export function TutorialScreen({ lesson: lessonId, onWalked, onBack }: Props) {
     setSaying(false);
     setLit(false);
     setInspecting(null);
-    setZoom(0);
   }, [lessonId]);
 
   /** Records a move so it can be taken back, then makes it. */
@@ -224,19 +214,6 @@ export function TutorialScreen({ lesson: lessonId, onWalked, onBack }: Props) {
     onWalked?.(lessonId);
   }, [done, lessonId, onWalked]);
 
-  const measure = useCallback((event: LayoutChangeEvent) => {
-    const { width, height } = event.nativeEvent.layout;
-    setBoardArea((current) =>
-      current.width === width && current.height === height ? current : { width, height },
-    );
-  }, []);
-
-  const fitCell = useMemo(
-    () => fitCellSize(puzzle, boardArea.width, boardArea.height, TEACHING_CELL),
-    [puzzle, boardArea],
-  );
-  const cellSize = Math.min(TEACHING_CELL, fitCell + zoom);
-
   // What the window says, which depends only on where the walk has got to.
   const instruction = done ? t('lessons.solved') : (step?.line ?? lesson.finish);
   const clue =
@@ -250,56 +227,42 @@ export function TutorialScreen({ lesson: lessonId, onWalked, onBack }: Props) {
 
   return (
     <View style={styles.screen}>
-      <View style={[styles.header, { paddingTop: insets.top + space(4) }]}>
-        <RuledTitle>{lesson.title}</RuledTitle>
-        <Text style={styles.subtitle} numberOfLines={1}>
-          {t('lessons.step', {
-            at: Math.min(at + 1, lesson.steps.length + 1),
-            total: lesson.steps.length + 1,
-          })}
-        </Text>
-      </View>
+      <BoardHeader
+        title={lesson.title}
+        subtitle={t('lessons.step', {
+          at: Math.min(at + 1, lesson.steps.length + 1),
+          total: lesson.steps.length + 1,
+        })}
+      />
 
       <View style={styles.body}>
-        <View style={styles.zoomRow}>
-          <View style={styles.spacer} />
-          <ZoomPair
-            accent={palette.accent}
-            outDisabled={zoom <= 0}
-            inDisabled={cellSize >= TEACHING_CELL}
-            onOut={() => setZoom((by) => Math.max(0, by - ZOOM_STEP))}
-            onIn={() => setZoom((by) => by + ZOOM_STEP)}
-          />
-        </View>
-
-        <View style={[styles.fill, styles.boardArea]} onLayout={measure}>
-          {boardArea.width > 0 ? (
-            <GridBoard
-              puzzle={puzzle}
-              marks={marks}
-              mistakes={shaded}
-              // Two ways of pointing, saying two different things. The
-              // crosshair is the game's own — the row and the column of the
-              // pair a clue talks about — and it is behind Highlight here for
-              // the same reason it is there. The ring says *that* square, and
-              // stays until the mark asked for is on it, which is the one
-              // thing a lesson can say that a puzzle cannot.
-              highlight={lit && pointing ? stepHighlight(step) : []}
-              awaiting={waitingOn}
-              cellSize={cellSize}
-              onToggle={toggle}
-              onSettle={settle}
-              onInspect={
-                lesson.cards
-                  ? (attribute) => {
-                      feedback.tap();
-                      setInspecting(attribute);
-                    }
-                  : () => undefined
-              }
-            />
-          ) : null}
-        </View>
+        <PlayBoard
+          // A lesson opened straight after another starts at the size that
+          // fits, like everything else on it.
+          key={lessonId}
+          puzzle={puzzle}
+          max={TEACHING_CELL}
+          marks={marks}
+          mistakes={shaded}
+          // Two ways of pointing, saying two different things. The crosshair is
+          // the game's own — the row and the column of the pair a clue talks
+          // about — and it is behind Highlight here for the same reason it is
+          // there. The ring says *that* square, and stays until the mark asked
+          // for is on it, which is the one thing a lesson can say that a puzzle
+          // cannot.
+          highlight={lit && pointing ? stepHighlight(step) : []}
+          awaiting={waitingOn}
+          onToggle={toggle}
+          onSettle={settle}
+          onInspect={
+            lesson.cards
+              ? (attribute) => {
+                  feedback.tap();
+                  setInspecting(attribute);
+                }
+              : () => undefined
+          }
+        />
       </View>
 
       {lesson.cards ? (
@@ -312,42 +275,22 @@ export function TutorialScreen({ lesson: lessonId, onWalked, onBack }: Props) {
       ) : null}
 
       <View style={styles.footer}>
-        <View style={styles.play}>
-          <View style={styles.tools}>
-            <ToolButton
-              label={t('game.undo')}
-              accent={palette.accent}
-              disabled={history.length === 0}
-              onPress={undo}
-            />
-            <ToolButton
-              label={t('game.clue')}
-              accent={palette.accent}
-              disabled={done}
-              onPress={askClue}
-            />
-          </View>
-          <View style={styles.tools}>
-            <ToolButton
-              label={t('game.info')}
-              accent={palette.accent}
-              onPress={() => {
-                feedback.tap();
-                setBriefingOpen(true);
-              }}
-            />
-            <ToolButton
-              label={t('game.highlight')}
-              accent={palette.accent}
-              active={lit}
-              disabled={!pointing}
-              onPress={() => {
-                feedback.tap();
-                setLit((on) => !on);
-              }}
-            />
-          </View>
-        </View>
+        <ToolRow
+          onUndo={undo}
+          undoDisabled={history.length === 0}
+          onClue={askClue}
+          clueDisabled={done}
+          onInfo={() => {
+            feedback.tap();
+            setBriefingOpen(true);
+          }}
+          onHighlight={() => {
+            feedback.tap();
+            setLit((on) => !on);
+          }}
+          lit={lit}
+          highlightDisabled={!pointing}
+        />
       </View>
 
       {/* What the lesson is about, in the window a puzzle's story opens in,
@@ -407,49 +350,13 @@ const makeStyles = (palette: Palette) =>
       flex: 1,
       backgroundColor: palette.bg,
     },
-    header: {
-      paddingHorizontal: space(4),
-      paddingBottom: space(3),
-    },
-    subtitle: {
-      fontSize: 12,
-      color: palette.inkFaint,
-      marginTop: space(1.5),
-    },
     body: {
       flex: 1,
       paddingHorizontal: space(4),
       paddingTop: space(3),
     },
-    fill: {
-      flex: 1,
-    },
-    boardArea: {
-      // Centred, so a board that fits sits in the middle of the space rather
-      // than hanging from the top of it.
-      justifyContent: 'center',
-    },
-    zoomRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: space(3),
-      marginTop: space(2),
-    },
-    spacer: {
-      flex: 1,
-    },
     footer: {
       paddingHorizontal: space(4),
       paddingTop: space(2),
-    },
-    play: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      gap: space(2),
-    },
-    tools: {
-      flexDirection: 'row',
-      gap: space(2),
     },
   });
