@@ -43,7 +43,7 @@ every list screen empty, and the eye has nowhere to go.
 
 **The board stops growing at `MAX_CELL`.** A square is capped at 46 points so it
 does not become a dinner plate on a big phone, and the cap holds on a tablet
-too: a 6 × 4 staircase sits in the top-left of the canvas with the toolbar
+too: the staircase sits in the top-left of the canvas with the toolbar
 pinned to corners several hundred points away from it. The zoom pair is at its
 limit before the player touches it.
 

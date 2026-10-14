@@ -4,12 +4,16 @@ import type { SizeOption } from '../puzzle/types';
 /**
  * `items` is the number of rows per grid, `categories` how many columns of grids.
  *
- * The ladder climbs one at a time: another set to keep track of, until there
- * are five, and then one set is given back to buy another entity to place. A
- * step that added both at once would double the board rather than stretch it,
- * which is how a difficulty ends up feeling like a different game instead of
- * the next one — and a set costs more than an entity, since every set pairs
- * with every other one, so trading one for the other still grows the board.
+ * The ladder climbs one at a time, and never both ways at once: a step that
+ * added a set and an entity together would double the board rather than
+ * stretch it, which is how a difficulty ends up feeling like a different game
+ * instead of the next one.
+ *
+ * Sets stop at four and the entities carry the rest of the climb. A set costs
+ * more than an entity — every set pairs with every other one, so a fifth set
+ * would add as much again as the fourth did — and past four there is more board
+ * than a phone has room for. Another row is the gentler way to make a puzzle
+ * harder, and it is the one the top of the ladder uses.
  *
  * clues: ['link', 'notLink', 'groupNot', 'either', 'compare', 'compareGap']
  */
@@ -35,22 +39,22 @@ export const SIZES: SizeOption[] = [
   },
   {
     id: 'md',
-    items: 5,
-    categories: 3,
+    items: 4,
+    categories: 4,
     label: t('sizes.md.label'),
     difficulty: t('sizes.md.difficulty'),
     clues: ['link', 'notLink', 'groupNot', 'either', 'compare'],
   },
   {
     id: 'lg',
-    items: 4,
+    items: 5,
     categories: 4,
     label: t('sizes.lg.label'),
     difficulty: t('sizes.lg.difficulty'),
   },
   {
     id: 'xl',
-    items: 5,
+    items: 6,
     categories: 4,
     label: t('sizes.xl.label'),
     difficulty: t('sizes.xl.difficulty'),

@@ -9,22 +9,22 @@ import { THEMES } from '../themes';
  * Five boards, and the shape of each is the whole of what a difficulty means —
  * the word on the door is just a name for it. A step that changed both numbers
  * at once would double the board rather than stretch it, so the ladder climbs
- * one at a time and alternates which way it grows.
+ * one at a time, by a set while there is room for one and by an entity after.
  */
 describe('the difficulties', () => {
   const LADDER = [
     ['xs', 'Beginner', 3, 3],
     ['sm', 'Advanced', 4, 3],
-    ['md', 'Expert', 5, 3],
-    ['lg', 'Pro', 4, 4],
-    ['xl', 'Legend', 5, 4],
+    ['md', 'Expert', 4, 4],
+    ['lg', 'Pro', 5, 4],
+    ['xl', 'Legend', 6, 4],
   ] as const;
 
   /** Squares on the board: a row and a column of each pair of sets. */
   const squares = (items: number, categories: number) =>
     items * items * ((categories * (categories - 1)) / 2);
 
-  it('climbs from three of each across three sets to five across four', () => {
+  it('climbs from three of each across three sets to six across four', () => {
     expect(SIZES.map((size) => size.id)).toEqual(LADDER.map(([id]) => id));
     for (const [id, difficulty, items, categories] of LADDER) {
       const size = sizeById(id);
@@ -47,8 +47,8 @@ describe('the difficulties', () => {
         squares(was.items, was.categories),
       );
       // A step that added an entity and a set at once would double the board
-      // rather than stretch it. The ladder adds sets until there are five, then
-      // takes one back to buy the next entity.
+      // rather than stretch it. The ladder adds sets until there are four, and
+      // then the entities carry the rest of the climb.
       const more = (a: number, b: number) => (a > b ? 1 : 0);
       expect(more(now.items, was.items) + more(now.categories, was.categories)).toBe(1);
     }

@@ -909,6 +909,9 @@ describe('the daily challenges', () => {
   });
 });
 
+/** How many grids a staircase has: one for every pair of sets. */
+const gridsOf = (puzzle: Puzzle) => (puzzle.categories.length * (puzzle.categories.length - 1)) / 2;
+
 describe('the board', () => {
   const puzzle = puzzleOne();
 
@@ -1123,10 +1126,11 @@ describe('the board', () => {
     play();
     layOut();
 
-    // A 4 × 3 puzzle is three grids of sixteen squares, every one of them a button
-    // that says what it is.
+    // Every pair of sets is a grid, and every grid is a square per entity each
+    // way — all of them buttons that say what they are. Worked out from the
+    // puzzle rather than written down, since the ladder's shapes move.
     const squares = screen.getAllByRole('button', { name: /: unknown$/ });
-    expect(squares).toHaveLength(3 * 16);
+    expect(squares).toHaveLength(gridsOf(puzzle) * puzzle.size.items ** 2);
     // Every item heads a row or a column somewhere on the staircase — most of
     // them more than once — and each of those headings opens its card.
     for (const category of puzzle.categories) {
@@ -1772,7 +1776,9 @@ describe('the board', () => {
     expect(button('Menu')).toBeEnabled();
     expect(button('Undo')).toBeDisabled();
     layOut();
-    expect(screen.getAllByRole('button', { name: /: unknown$/ })).toHaveLength(3 * 16);
+    expect(screen.getAllByRole('button', { name: /: unknown$/ })).toHaveLength(
+      gridsOf(puzzle) * puzzle.size.items ** 2,
+    );
   });
 
   /**

@@ -2306,15 +2306,15 @@ export const STRINGS = {
     },
     md: {
       difficulty: 'Expert',
-      label: '5 × 3',
+      label: '4 × 4',
     },
     lg: {
       difficulty: 'Pro',
-      label: '4 × 4',
+      label: '5 × 4',
     },
     xl: {
       difficulty: 'Legend',
-      label: '5 × 4',
+      label: '6 × 4',
     },
   },
   accents: {
