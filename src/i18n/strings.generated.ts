@@ -10837,7 +10837,6 @@ export const STRINGS = {
     whenDone: 'Hit the Clue button again when you are done.',
     clue: 'The clue',
     saying: 'What to do',
-    finish: 'Nothing left to read. Finish it.',
     solved:
       'Solved. Every puzzle in the app is that, on a bigger board with more to hold in your head.',
     check: {
@@ -11733,7 +11732,6 @@ export type StringKey =
   | 'lessons.deduction.steps.two'
   | 'lessons.deduction.steps.twoDone'
   | 'lessons.deduction.title'
-  | 'lessons.finish'
   | 'lessons.further.blurb'
   | 'lessons.further.finish'
   | 'lessons.further.opening'

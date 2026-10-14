@@ -115,7 +115,6 @@ export const border = 1;
  * row or column after the first.
  */
 export const joinLeft = { marginLeft: -border };
-export const joinTop = { marginTop: -border };
 
 export const space = (steps: number) => steps * 4;
 
@@ -208,9 +207,6 @@ export const type = {
     fontWeight: '600',
   },
 } as const;
-
-/** What one menu row takes, including the air above and below it. */
-export const MENU_ROW = type.menu.lineHeight + space(1) * 2;
 
 /**
  * The air under a screen's title, and above the first thing it names. Held here

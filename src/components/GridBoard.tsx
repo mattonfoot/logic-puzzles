@@ -370,7 +370,7 @@ export const GridBoard = memo(function GridBoard({
                     <Pressable
                       key={item.label}
                       accessibilityRole="button"
-                      accessibilityLabel={`About ${item.label}`}
+                      accessibilityLabel={t('item.aboutHint', { label: item.label })}
                       onPress={() => onInspect({ category, item: index })}
                       style={({ pressed }) => [
                         styles.columnLabel,
@@ -431,7 +431,7 @@ export const GridBoard = memo(function GridBoard({
                     <Pressable
                       key={item.label}
                       accessibilityRole="button"
-                      accessibilityLabel={`About ${item.label}`}
+                      accessibilityLabel={t('item.aboutHint', { label: item.label })}
                       onPress={() => onInspect({ category: rowCategory, item: index })}
                       style={({ pressed }) => [
                         styles.rowLabel,

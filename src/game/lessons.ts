@@ -773,9 +773,6 @@ export function stepHighlight(step: Step) {
   ];
 }
 
-/** Used by the test that holds every walk to being walkable. */
-export const stepKey = (step: Step) => markKey(step.cell);
-
 /** A short list of them, as a sentence would say it. */
 function listOf(names: string[]): string {
   if (names.length <= 1) return names[0] ?? '';

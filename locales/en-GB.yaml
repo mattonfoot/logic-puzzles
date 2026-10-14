@@ -79,8 +79,6 @@ lessons:
   clue: The clue
   # And over what to do about it.
   saying: What to do
-  # The line while there is board left and no step left to read.
-  finish: 'Nothing left to read. Finish it.'
   # Once the board is out.
   solved: 'Solved. Every puzzle in the app is that, on a bigger board with more to hold in your head.'
   # What the Clue button finds when the board is not what the step asked for.
@@ -382,6 +380,9 @@ clue:
 item:
   # The heading over an item's traits on its card is the trait's own label, which
   # lives with the theme. Nothing else on the card is fixed wording.
+  #
+  # What a screen reader says for an item's heading on the board, which opens
+  # its card.
   aboutHint: About {label}
 
 briefings:
