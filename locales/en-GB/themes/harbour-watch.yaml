@@ -1,0 +1,646 @@
+# Harbour Watch — en-GB
+#
+# Everything this theme says: its sets and their items, in the order puzzles
+# draw them, the sentences its clues are written in, and the briefings a puzzle
+# opens on. How these are written: locales/README.md.
+
+themes:
+  harbour-watch:
+    name: 'Harbour Watch'
+    blurb: 'The tide is dependable. The paperwork is less so.'
+    clues:
+      link: '{a} shares a port call with {b}.'
+      notLink: '{a} does not share a port call with {b}.'
+      groupNot: 'No {a} shares a port call with {b}.'
+      either: '{a} shares a port call with either {b} or {c}, but not both.'
+      compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.'
+      compareGap: 'The arrival linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+    categories:
+      skipper:
+        name: 'Skipper'
+        pattern: '{}'
+        describes: 'the {}'
+        noun: 'skipper'
+        traits:
+          standing:
+            label: 'Standing'
+            pattern: '{noun} with {} standing'
+          shift:
+            label: 'Shift'
+            pattern: '{noun} on the {} shift'
+          manner:
+            label: 'Manner'
+            pattern: '{noun} with a {} manner'
+        items:
+          captain-brine:
+            label: 'Captain Brine'
+            blurb: 'Has weathered every kind of storm except a change to the filing system.'
+            traits:
+              standing: 'junior'
+              shift: 'early'
+              manner: 'measured'
+          ada-reef:
+            label: 'Ada Reef'
+            blurb: 'Can untie any knot, provided nobody explains how they tied it.'
+            traits:
+              standing: 'established'
+              shift: 'late'
+              manner: 'measured'
+          dr-compass:
+            label: 'Dr Compass'
+            blurb: 'Knows exactly where north is and approximately where the receipt went.'
+            traits:
+              standing: 'veteran'
+              shift: 'early'
+              manner: 'brisk'
+          nell-nor-east:
+            label: "Nell Nor'east"
+            blurb: 'Regards a headwind as the weather offering unsolicited advice.'
+            traits:
+              standing: 'junior'
+              shift: 'late'
+              manner: 'brisk'
+          bosun-gull:
+            label: 'Bosun Gull'
+            blurb: "Polishes the brass until it reflects badly on everyone else's brass."
+            traits:
+              standing: 'established'
+              shift: 'early'
+              manner: 'theatrical'
+          marina-mallow:
+            label: 'Marina Mallow'
+            blurb: 'Remembers every face and the exact favour it still owes her.'
+            traits:
+              standing: 'veteran'
+              shift: 'late'
+              manner: 'theatrical'
+          mx-sounding:
+            label: 'Mx Sounding'
+            blurb: 'Listens carefully to the radio, then asks it to be more specific.'
+            traits:
+              standing: 'junior'
+              shift: 'early'
+              manner: 'measured'
+          old-tom-tiller:
+            label: 'Old Tom Tiller'
+            blurb: 'Has a story for every occasion and very few short versions.'
+            traits:
+              standing: 'established'
+              shift: 'late'
+              manner: 'measured'
+          sir-keel:
+            label: 'Sir Keel'
+            blurb: 'Considers a smart appearance an essential aid to navigation.'
+            traits:
+              standing: 'veteran'
+              shift: 'early'
+              manner: 'brisk'
+          penny-shoal:
+            label: 'Penny Shoal'
+            blurb: 'Can spot a sandbank at a distance and an excuse considerably further away.'
+            traits:
+              standing: 'junior'
+              shift: 'late'
+              manner: 'brisk'
+          finn-breaker:
+            label: 'Finn Breaker'
+            blurb: 'Describes every rough crossing as character development for the passengers.'
+            traits:
+              standing: 'established'
+              shift: 'early'
+              manner: 'theatrical'
+          captain-capstan:
+            label: 'Captain Capstan'
+            blurb: 'Believes a firm voice can influence the tide. Results remain inconclusive.'
+            traits:
+              standing: 'veteran'
+              shift: 'late'
+              manner: 'theatrical'
+          professor-fathom:
+            label: 'Professor Fathom'
+            blurb: 'Measures everything except the length of the explanation afterwards.'
+            traits:
+              standing: 'junior'
+              shift: 'early'
+              manner: 'measured'
+          dame-drift:
+            label: 'Dame Drift'
+            blurb: 'Has perfected the look that makes a whole crew remember something urgent.'
+            traits:
+              standing: 'established'
+              shift: 'late'
+              manner: 'measured'
+      vessel:
+        name: 'Vessel'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'vessel'
+        traits:
+          drive:
+            label: 'Drive'
+            pattern: '{noun} driven by {}'
+          hull:
+            label: 'Hull'
+            pattern: '{noun} with a {} hull'
+          duty:
+            label: 'Duty'
+            pattern: '{noun} assigned to {}'
+        items:
+          brassbound-tug:
+            label: 'Brassbound Tug'
+            blurb: 'Pulls far more than its weight and makes sure everyone hears about it.'
+            traits:
+              drive: 'diesel'
+              hull: 'steel'
+              duty: 'service'
+          whisper-cutter:
+            label: 'Whisper Cutter'
+            blurb: 'Sails quietly, leaving its skipper to provide the commentary.'
+            traits:
+              drive: 'sail'
+              hull: 'wood'
+              duty: 'transport'
+          twinmast-schooner:
+            label: 'Twinmast Schooner'
+            blurb: 'Two masts offer twice the opportunity to blame the wind.'
+            traits:
+              drive: 'sail'
+              hull: 'wood'
+              duty: 'transport'
+          proud-paddleboat:
+            label: 'Proud Paddleboat'
+            blurb: 'Makes substantial progress in converting water into a public spectacle.'
+            traits:
+              drive: 'steam'
+              hull: 'steel'
+              duty: 'transport'
+          pocket-submersible:
+            label: 'Pocket Submersible'
+            blurb: 'The inspection form asks whether it is supposed to be below the surface.'
+            traits:
+              drive: 'battery'
+              hull: 'steel'
+              duty: 'survey'
+          willow-canoe:
+            label: 'Willow Canoe'
+            blurb: 'A quiet crossing depends on a very civil discussion between the paddlers.'
+            traits:
+              drive: 'oars'
+              hull: 'wood'
+              duty: 'survey'
+          twinfin-catamaran:
+            label: 'Twinfin Catamaran'
+            blurb: 'Two hulls, one destination and several opinions about the route.'
+            traits:
+              drive: 'diesel'
+              hull: 'composite'
+              duty: 'transport'
+          netmender-trawler:
+            label: 'Netmender Trawler'
+            blurb: 'The nets are neatly stowed, a condition the crew hopes to repeat someday.'
+            traits:
+              drive: 'diesel'
+              hull: 'steel'
+              duty: 'fishing'
+          harbour-ferry:
+            label: 'Harbour Ferry'
+            blurb: 'Crosses the same stretch of water while passengers explain better ways to do it.'
+            traits:
+              drive: 'diesel'
+              hull: 'steel'
+              duty: 'transport'
+          cushion-hovercraft:
+            label: 'Cushion Hovercraft'
+            blurb: "Arrives on a cushion of air and a generous cloud of everyone's belongings."
+            traits:
+              drive: 'diesel'
+              hull: 'composite'
+              duty: 'service'
+          scarlet-fireboat:
+            label: 'Scarlet Fireboat'
+            blurb: 'Has the most enthusiastic water supply of any department in town.'
+            traits:
+              drive: 'diesel'
+              hull: 'steel'
+              duty: 'service'
+          mudlark-dredger:
+            label: 'Mudlark Dredger'
+            blurb: 'Finds the bottom of every problem and relocates it somewhere inconvenient.'
+            traits:
+              drive: 'diesel'
+              hull: 'steel'
+              duty: 'service'
+          lantern-lightship:
+            label: 'Lantern Lightship'
+            blurb: 'Stays conspicuously useful without going very far at all.'
+            traits:
+              drive: 'diesel'
+              hull: 'steel'
+              duty: 'service'
+          oak-longboat:
+            label: 'Oak Longboat'
+            blurb: 'Every rower has been asked to agree on the meaning of forwards.'
+            traits:
+              drive: 'oars'
+              hull: 'wood'
+              duty: 'transport'
+      cargo:
+        name: 'Cargo'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'cargo'
+        traits:
+          handling:
+            label: 'Handling'
+            pattern: '{noun} requiring {} handling'
+          origin:
+            label: 'Origin'
+            pattern: '{noun} from the {} depot'
+          cover:
+            label: 'Cover'
+            pattern: '{noun} under {} cover'
+        items:
+          tea-leaves:
+            label: 'Tea Leaves'
+            blurb: 'Expected to restore calm once someone finds a sufficiently large kettle.'
+            traits:
+              handling: 'dry'
+              origin: 'eastern'
+              cover: 'sealed'
+          lamp-oil:
+            label: 'Lamp Oil'
+            blurb: 'The drum is upright, which everyone agrees is the most encouraging orientation.'
+            traits:
+              handling: 'careful'
+              origin: 'western'
+              cover: 'sealed'
+          wool-bale:
+            label: 'Wool Bale'
+            blurb: 'Excellent insulation for the shipment and several small administrative mysteries.'
+            traits:
+              handling: 'dry'
+              origin: 'northern'
+              cover: 'wrapped'
+          sawn-timber:
+            label: 'Sawn Timber'
+            blurb: 'Counted twice because the first total was described as roughly a tree.'
+            traits:
+              handling: 'standard'
+              origin: 'northern'
+              cover: 'open'
+          copper-ingots:
+            label: 'Copper Ingots'
+            blurb: 'The shipment has considerable value and no interest in being carried upstairs.'
+            traits:
+              handling: 'standard'
+              origin: 'eastern'
+              cover: 'open'
+          marble-blocks:
+            label: 'Marble Blocks'
+            blurb: 'Arrives already looking permanent, to the concern of the unloading crew.'
+            traits:
+              handling: 'careful'
+              origin: 'western'
+              cover: 'open'
+          grain-sacks:
+            label: 'Grain Sacks'
+            blurb: 'The manifest says every grain is accounted for, a bold administrative position.'
+            traits:
+              handling: 'dry'
+              origin: 'eastern'
+              cover: 'sealed'
+          silk-rolls:
+            label: 'Silk Rolls'
+            blurb: 'The softest shipment has the least forgiving inspection instructions.'
+            traits:
+              handling: 'dry'
+              origin: 'western'
+              cover: 'wrapped'
+          spice-jars:
+            label: 'Spice Jars'
+            blurb: 'The paperwork is bland enough to qualify as suitable packaging.'
+            traits:
+              handling: 'careful'
+              origin: 'eastern'
+              cover: 'sealed'
+          citrus-basket:
+            label: 'Citrus Basket'
+            blurb: 'Fresh fruit with a sunny disposition and a rather urgent delivery note.'
+            traits:
+              handling: 'careful'
+              origin: 'southern'
+              cover: 'open'
+          clay-pots:
+            label: 'Clay Pots'
+            blurb: 'The packing list contains a reassuring number of repetitions of fragile.'
+            traits:
+              handling: 'careful'
+              origin: 'southern'
+              cover: 'wrapped'
+          glass-bottles:
+            label: 'Glass Bottles'
+            blurb: 'Counted by the bottle, preferably before anyone counts by the shard.'
+            traits:
+              handling: 'careful'
+              origin: 'western'
+              cover: 'wrapped'
+          machine-parts:
+            label: 'Machine Parts'
+            blurb: 'All the important pieces are present, according to the pieces that were counted.'
+            traits:
+              handling: 'standard'
+              origin: 'northern'
+              cover: 'wrapped'
+          ice-blocks:
+            label: 'Ice Blocks'
+            blurb: 'The only shipment actively trying to simplify its own inventory.'
+            traits:
+              handling: 'chilled'
+              origin: 'northern'
+              cover: 'sealed'
+      berth:
+        name: 'Berth'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'berth'
+        traits:
+          basin:
+            label: 'Basin'
+            pattern: '{noun} in the {} basin'
+          shelter:
+            label: 'Shelter'
+            pattern: '{noun} with {} shelter'
+          access:
+            label: 'Access'
+            pattern: '{noun} with {} access'
+        items:
+          lighthouse-quay:
+            label: 'Lighthouse Quay'
+            blurb: 'The light is easy to find. The correct office door is a separate challenge.'
+            traits:
+              basin: 'outer'
+              shelter: 'limited'
+              access: 'road'
+          gantry-pier:
+            label: 'Gantry Pier'
+            blurb: 'The crane can lift almost anything except the tone of the safety meeting.'
+            traits:
+              basin: 'inner'
+              shelter: 'full'
+              access: 'road'
+          old-graving-dock:
+            label: 'Old Graving Dock'
+            blurb: 'A dry place to discuss why everything else is wet.'
+            traits:
+              basin: 'inner'
+              shelter: 'full'
+              access: 'road'
+          customs-steps:
+            label: 'Customs Steps'
+            blurb: 'A fine welcome, followed by several forms in increasingly narrow boxes.'
+            traits:
+              basin: 'inner'
+              shelter: 'full'
+              access: 'footpath'
+          ropewalk-landing:
+            label: 'Ropewalk Landing'
+            blurb: 'The ropes are long. The explanation of their storage is longer.'
+            traits:
+              basin: 'middle'
+              shelter: 'partial'
+              access: 'footpath'
+          coal-wharf:
+            label: 'Coal Wharf'
+            blurb: 'Visitors tend to leave with a much clearer understanding of the dust.'
+            traits:
+              basin: 'outer'
+              shelter: 'limited'
+              access: 'road'
+          beacon-jetty:
+            label: 'Beacon Jetty'
+            blurb: 'The marker flashes confidently through weather nobody else finds reassuring.'
+            traits:
+              basin: 'outer'
+              shelter: 'limited'
+              access: 'footpath'
+          mill-basin:
+            label: 'Mill Basin'
+            blurb: 'The windmill has been turning the same argument over for generations.'
+            traits:
+              basin: 'middle'
+              shelter: 'partial'
+              access: 'road'
+          east-lock:
+            label: 'East Lock'
+            blurb: 'Progress depends on opening the correct thing after closing the other thing.'
+            traits:
+              basin: 'inner'
+              shelter: 'full'
+              access: 'road'
+          bell-buoy:
+            label: 'Bell Buoy'
+            blurb: 'Provides directions with one note and absolutely no follow-up questions.'
+            traits:
+              basin: 'outer'
+              shelter: 'limited'
+              access: 'launch'
+          salt-house:
+            label: 'Salt House'
+            blurb: 'Everything stored here develops a strong opinion about moisture.'
+            traits:
+              basin: 'middle'
+              shelter: 'partial'
+              access: 'road'
+          anchor-point:
+            label: 'Anchor Point'
+            blurb: 'The name suggests certainty that the harbourmaster would like extended to the forms.'
+            traits:
+              basin: 'outer'
+              shelter: 'partial'
+              access: 'launch'
+          stone-arch:
+            label: 'Stone Arch'
+            blurb: 'Built to last, unlike the notice explaining which side to approach.'
+            traits:
+              basin: 'middle'
+              shelter: 'full'
+              access: 'footpath'
+          net-loft:
+            label: 'Net Loft'
+            blurb: 'The loft contains enough nets to make a filing system seem almost plausible.'
+            traits:
+              basin: 'inner'
+              shelter: 'partial'
+              access: 'footpath'
+      arrival:
+        name: 'Arrival Time'
+        pattern: 'the {} arrival'
+        describes: 'the {}'
+        noun: 'arrival'
+        ordered:
+          noun: 'arrival'
+          unit: 'minutes'
+          greater: 'later'
+          lesser: 'earlier'
+        traits:
+          watch:
+            label: 'Watch'
+            pattern: '{noun} during the {} watch'
+          window:
+            label: 'Window'
+            pattern: '{noun} in the {} window'
+        items:
+          04-00:
+            label: '04:00'
+            blurb: 'The office is open in principle. Several members of staff remain theoretical.'
+            traits:
+              watch: 'first'
+              window: 'early'
+          04-30:
+            label: '04:30'
+            blurb: 'Early enough for the gulls to consider themselves the senior shift.'
+            traits:
+              watch: 'first'
+              window: 'early'
+          05-00:
+            label: '05:00'
+            blurb: 'The horizon is becoming clearer than the handwriting in the log.'
+            traits:
+              watch: 'first'
+              window: 'early'
+          05-30:
+            label: '05:30'
+            blurb: 'A sensible hour to admit that another cup of tea is operationally necessary.'
+            traits:
+              watch: 'first'
+              window: 'early'
+          06-00:
+            label: '06:00'
+            blurb: 'The harbour begins to sound as though everyone has found their whistle.'
+            traits:
+              watch: 'first'
+              window: 'early'
+          06-30:
+            label: '06:30'
+            blurb: 'Morning has arrived with the confidence missing from several signatures.'
+            traits:
+              watch: 'middle'
+              window: 'early'
+          07-00:
+            label: '07:00'
+            blurb: 'The clerk is now awake enough to notice the earlier clerk was not.'
+            traits:
+              watch: 'middle'
+              window: 'early'
+          07-30:
+            label: '07:30'
+            blurb: 'A respectable time to insist that everything is proceeding normally.'
+            traits:
+              watch: 'middle'
+              window: 'late'
+          08-00:
+            label: '08:00'
+            blurb: 'The office has developed a queue with a strong sense of maritime purpose.'
+            traits:
+              watch: 'middle'
+              window: 'late'
+          08-30:
+            label: '08:30'
+            blurb: 'A brief period of calm, according to a note written before it ended.'
+            traits:
+              watch: 'middle'
+              window: 'late'
+          09-00:
+            label: '09:00'
+            blurb: 'The morning report is growing faster than the morning certainty.'
+            traits:
+              watch: 'final'
+              window: 'late'
+          09-30:
+            label: '09:30'
+            blurb: 'The tea has gone cold while the discussion remains remarkably warm.'
+            traits:
+              watch: 'final'
+              window: 'late'
+          10-00:
+            label: '10:00'
+            blurb: 'Late enough for the first explanation to have acquired several corrections.'
+            traits:
+              watch: 'final'
+              window: 'late'
+          10-30:
+            label: '10:30'
+            blurb: 'The last listed slot. The harbourmaster would appreciate a tidy conclusion.'
+            traits:
+              watch: 'final'
+              window: 'late'
+
+briefings:
+  themes:
+    harbour-watch:
+      - title: The Open Window
+        body: A sea breeze has rearranged the harbour office papers with more enthusiasm than respect for the headings. Reconstruct the skippers' records from the clues so the office can trust its log again.
+      - title: A Gull's Opinion
+        body: A gull has inspected the ledger and left the clerk with a small cleaning job and a large administrative one. Use the clues to restore the records before the harbourmaster calls for the ledger.
+      - title: The Damp Log
+        body: The logbook survived its encounter with a wet coat, but several identifying marks were less fortunate. Put the skippers' records back in order using the surviving clues.
+      - title: The Harbourmaster's Tea
+        body: The harbourmaster has set down a cup directly over the note explaining how the loose records fit together. Reconstruct the skippers' records from the clues so the office can trust its log again.
+      - title: A Neat Hand
+        body: A skipper has copied the muddled log in beautiful handwriting, preserving every uncertainty with exceptional care. Use the clues to restore the records before the harbourmaster calls for the ledger.
+      - title: The Duplicate Register
+        body: Two copies of the register claim to be definitive, and the clerk is reluctant to disappoint either of them. Put the skippers' records back in order using the surviving clues.
+      - title: The Missing Divider
+        body: The folder dividers have gone missing, leaving the paperwork neatly stacked but no longer usefully separated. Reconstruct the skippers' records from the clues so the office can trust its log again.
+      - title: The Loud Whistle
+        body: The harbourmaster has requested the completed records by whistle, which the clerk considers an unnecessary escalation. Use the clues to restore the records before the harbourmaster calls for the ledger.
+      - title: A Helpful Visitor
+        body: A visitor has sorted the loose slips according to how important they looked, producing several impressive piles. Put the skippers' records back in order using the surviving clues.
+      - title: The Inspection Coat
+        body: The inspector has hung up a very dry coat and is now waiting for an equally reassuring account of the records. Reconstruct the skippers' records from the clues so the office can trust its log again.
+      - title: A Better Filing Method
+        body: The office adopted a better filing method yesterday, but nobody recorded how it differs from the previous one. Use the clues to restore the records before the harbourmaster calls for the ledger.
+      - title: The Overconfident Stamp
+        body: Every sheet has been stamped checked, including the blank sheet used to test the stamp. Put the skippers' records back in order using the surviving clues.
+      - title: A Brief Squall
+        body: A brief squall rattled the office so thoroughly that the loose notes have abandoned their previous arrangement. Reconstruct the skippers' records from the clues so the office can trust its log again.
+      - title: The Polite Skippers
+        body: The skippers are explaining the mix-up with remarkable courtesy and remarkably little agreement. Use the clues to restore the records before the harbourmaster calls for the ledger.
+      - title: The Top Drawer
+        body: The missing notes have been found in the drawer reserved for completed work, where they had apparently been optimistic. Put the skippers' records back in order using the surviving clues.
+      - title: An Admirable Index
+        body: The index points to the correct pages, provided someone can establish which page numbers are correct. Reconstruct the skippers' records from the clues so the office can trust its log again.
+      - title: The Pencil Change
+        body: The clerk changed pencils halfway through the corrections and can no longer remember which marks were final. Use the clues to restore the records before the harbourmaster calls for the ledger.
+      - title: The Drying Rack
+        body: The paperwork is dry again, but the washing line has imposed an order based entirely on available space. Put the skippers' records back in order using the surviving clues.
+      - title: The Shore Office
+        body: The office looks unusually tidy because every unresolved note has been transferred to one very full folder. Reconstruct the skippers' records from the clues so the office can trust its log again.
+      - title: A Firm Assurance
+        body: The harbourmaster has assured the inspector that the records are in order and would now like that to be true. Use the clues to restore the records before the harbourmaster calls for the ledger.
+      - title: The Rubber Band
+        body: A rubber band has kept all the loose slips together without making any promises about their sequence. Put the skippers' records back in order using the surviving clues.
+      - title: The Second Explanation
+        body: The clerk's second explanation has clarified why the first explanation was insufficient, leaving the original problem untouched. Reconstruct the skippers' records from the clues so the office can trust its log again.
+      - title: A New Cover
+        body: The logbook has a handsome new cover around information that still needs a dependable arrangement. Use the clues to restore the records before the harbourmaster calls for the ledger.
+      - title: The Clerk's Holiday
+        body: The returning clerk is pleased to find everything present and less pleased to find everything mixed together. Put the skippers' records back in order using the surviving clues.
+      - title: The Helpful Arrow
+        body: Someone has drawn arrows between the notes, creating an impressive diagram with no obvious beginning. Reconstruct the skippers' records from the clues so the office can trust its log again.
+      - title: An Official Copy
+        body: The official copy has arrived bearing a seal, a signature and several unresolved questions. Use the clues to restore the records before the harbourmaster calls for the ledger.
+      - title: The Narrow Margin
+        body: The most useful comments were squeezed into the margin that the copying machine decided to omit. Put the skippers' records back in order using the surviving clues.
+      - title: A Quiet Morning
+        body: The harbour office had planned a quiet administrative morning before opening the folder labelled straightforward. Reconstruct the skippers' records from the clues so the office can trust its log again.
+      - title: The Wrong Clipboard
+        body: The correct clipboard has been returned after a visitor used its records to organise a completely different discussion. Use the clues to restore the records before the harbourmaster calls for the ledger.
+      - title: The Rewritten List
+        body: The list has been rewritten so often that the paper now looks more certain than the people who wrote on it. Put the skippers' records back in order using the surviving clues.
+      - title: The Harbour Meeting
+        body: The skippers have agreed that the confusion should be resolved before it earns a permanent place on the agenda. Reconstruct the skippers' records from the clues so the office can trust its log again.
+      - title: A Weatherproof Folder
+        body: The weatherproof folder has protected every word while doing nothing to explain which words belong together. Use the clues to restore the records before the harbourmaster calls for the ledger.
+      - title: The Final Signature
+        body: The harbourmaster is ready to sign the log as soon as somebody can offer a convincing reason to do so. Put the skippers' records back in order using the surviving clues.

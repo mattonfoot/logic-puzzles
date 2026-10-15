@@ -1,0 +1,646 @@
+# Lantern Festival — en-GB
+#
+# Everything this theme says: its sets and their items, in the order puzzles
+# draw them, the sentences its clues are written in, and the briefings a puzzle
+# opens on. How these are written: locales/README.md.
+
+themes:
+  lantern-festival:
+    name: 'Lantern Festival'
+    blurb: 'A thousand lights. One rather confused running order.'
+    clues:
+      link: '{a} joins the same festival act as {b}.'
+      notLink: '{a} does not join the same festival act as {b}.'
+      groupNot: 'No {a} joins the same festival act as {b}.'
+      either: '{a} joins the same festival act as either {b} or {c}, but not both.'
+      compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
+      compareGap: 'The performance linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+    categories:
+      artist:
+        name: 'Artist'
+        pattern: '{}'
+        describes: 'the {}'
+        noun: 'artist'
+        traits:
+          experience:
+            label: 'Experience'
+            pattern: '{noun} with {} experience'
+          shift:
+            label: 'Shift'
+            pattern: '{noun} on the {} shift'
+          manner:
+            label: 'Manner'
+            pattern: '{} {noun}'
+        items:
+          mr-glow:
+            label: 'Mr Glow'
+            blurb: 'Practises his entrance until the entrance requests an interval.'
+            traits:
+              experience: 'limited'
+              shift: 'early'
+              manner: 'patient'
+          madam-ribbon:
+            label: 'Madam Ribbon'
+            blurb: 'Considers every breeze an unsolicited contribution to the choreography.'
+            traits:
+              experience: 'considerable'
+              shift: 'late'
+              manner: 'patient'
+          dr-dazzle:
+            label: 'Dr Dazzle'
+            blurb: 'Tests each flourish scientifically, then adds one for luck.'
+            traits:
+              experience: 'extensive'
+              shift: 'early'
+              manner: 'brisk'
+          miss-wisp:
+            label: 'Miss Wisp'
+            blurb: 'Can make an awkward silence feel like a deliberate artistic choice.'
+            traits:
+              experience: 'limited'
+              shift: 'late'
+              manner: 'brisk'
+          lord-confetti:
+            label: 'Lord Confetti'
+            blurb: 'Arrives formally and leaves several small pieces of himself behind.'
+            traits:
+              experience: 'considerable'
+              shift: 'early'
+              manner: 'dramatic'
+          dame-firefly:
+            label: 'Dame Firefly'
+            blurb: 'Has mastered the expression that makes volunteers stand in straighter rows.'
+            traits:
+              experience: 'extensive'
+              shift: 'late'
+              manner: 'dramatic'
+          mr-flutter:
+            label: 'Mr Flutter'
+            blurb: 'Rehearses bows more carefully than the performance before them.'
+            traits:
+              experience: 'limited'
+              shift: 'early'
+              manner: 'patient'
+          mx-chorus:
+            label: 'Mx Chorus'
+            blurb: 'Provides backing vocals even when the conversation has not requested any.'
+            traits:
+              experience: 'considerable'
+              shift: 'late'
+              manner: 'patient'
+          professor-glimmer:
+            label: 'Professor Glimmer'
+            blurb: 'Lectures on spectacle. Occasionally remembers to supply some.'
+            traits:
+              experience: 'extensive'
+              shift: 'early'
+              manner: 'brisk'
+          mrs-twinkle:
+            label: 'Mrs Twinkle'
+            blurb: 'Smiles through every rehearsal and keeps a private list of improvements.'
+            traits:
+              experience: 'limited'
+              shift: 'late'
+              manner: 'brisk'
+          sir-rattle:
+            label: 'Sir Rattle'
+            blurb: 'Believes enthusiasm is an acceptable substitute for a sound check.'
+            traits:
+              experience: 'considerable'
+              shift: 'early'
+              manner: 'dramatic'
+          captain-spark:
+            label: 'Captain Spark'
+            blurb: 'Runs the rehearsal with naval discipline and decorative bunting.'
+            traits:
+              experience: 'extensive'
+              shift: 'late'
+              manner: 'dramatic'
+          aunt-echo:
+            label: 'Aunt Echo'
+            blurb: 'Can project to the back row, the next street and several neighbouring years.'
+            traits:
+              experience: 'limited'
+              shift: 'early'
+              manner: 'patient'
+          ms-shimmer:
+            label: 'Ms Shimmer'
+            blurb: 'Calls every costume emergency an opportunity for movement.'
+            traits:
+              experience: 'considerable'
+              shift: 'late'
+              manner: 'patient'
+      lantern:
+        name: 'Lantern'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'lantern'
+        traits:
+          light:
+            label: 'Light'
+            pattern: '{noun} with a {} light'
+          colour:
+            label: 'Colour'
+            pattern: '{} {noun}'
+          frame:
+            label: 'Frame'
+            pattern: '{}-framed {noun}'
+        items:
+          star-lantern:
+            label: 'Star Lantern'
+            blurb: 'Five points of light and several more points raised by the committee.'
+            traits:
+              light: 'steady'
+              colour: 'amber'
+              frame: 'bamboo'
+          moon-lantern:
+            label: 'Moon Lantern'
+            blurb: 'Waxing lyrical is permitted. Waxing the paper is discouraged.'
+            traits:
+              light: 'flickering'
+              colour: 'silver'
+              frame: 'wire'
+          owl-lantern:
+            label: 'Owl Lantern'
+            blurb: 'Looks wise enough to have read the fire regulations.'
+            traits:
+              light: 'steady'
+              colour: 'indigo'
+              frame: 'bamboo'
+          fox-lantern:
+            label: 'Fox Lantern'
+            blurb: 'Its expression suggests it knows where the spare candles went.'
+            traits:
+              light: 'flickering'
+              colour: 'amber'
+              frame: 'wire'
+          hare-lantern:
+            label: 'Hare Lantern'
+            blurb: 'The ears arrived before the rest of the procession.'
+            traits:
+              light: 'steady'
+              colour: 'silver'
+              frame: 'bamboo'
+          cat-lantern:
+            label: 'Cat Lantern'
+            blurb: 'Judges the entire celebration from a slightly elevated position.'
+            traits:
+              light: 'flickering'
+              colour: 'indigo'
+              frame: 'wire'
+          dragon-lantern:
+            label: 'Dragon Lantern'
+            blurb: 'A flame-free dragon, following a vigorous insurance discussion.'
+            traits:
+              light: 'steady'
+              colour: 'crimson'
+              frame: 'bamboo'
+          moth-lantern:
+            label: 'Moth Lantern'
+            blurb: 'Attracted to itself. The designer calls this a feature.'
+            traits:
+              light: 'flickering'
+              colour: 'silver'
+              frame: 'wire'
+          rocket-lantern:
+            label: 'Rocket Lantern'
+            blurb: 'Strictly decorative, a detail repeated to the launch team.'
+            traits:
+              light: 'steady'
+              colour: 'crimson'
+              frame: 'wire'
+          apple-lantern:
+            label: 'Apple Lantern'
+            blurb: 'Provides a warm glow and no part of the recommended daily fruit intake.'
+            traits:
+              light: 'flickering'
+              colour: 'amber'
+              frame: 'bamboo'
+          pear-lantern:
+            label: 'Pear Lantern'
+            blurb: 'The artist insists the lopsidedness is seasonal character.'
+            traits:
+              light: 'steady'
+              colour: 'crimson'
+              frame: 'bamboo'
+          cloud-lantern:
+            label: 'Cloud Lantern'
+            blurb: 'Promises a dry evening with no meteorological authority.'
+            traits:
+              light: 'flickering'
+              colour: 'silver'
+              frame: 'wire'
+          kite-lantern:
+            label: 'Kite Lantern'
+            blurb: 'Kept firmly on a hook after an ambitious outdoor rehearsal.'
+            traits:
+              light: 'steady'
+              colour: 'indigo'
+              frame: 'bamboo'
+          pinwheel-lantern:
+            label: 'Pinwheel Lantern'
+            blurb: 'Turns heads while remaining sensibly stationary itself.'
+            traits:
+              light: 'flickering'
+              colour: 'amber'
+              frame: 'wire'
+      instrument:
+        name: 'Instrument'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'instrument'
+        traits:
+          family:
+            label: 'Family'
+            pattern: '{noun} in the {} family'
+          volume:
+            label: 'Volume'
+            pattern: '{} {noun}'
+          position:
+            label: 'Position'
+            pattern: '{noun} played {}'
+        items:
+          brass-trumpet:
+            label: 'Brass Trumpet'
+            blurb: 'Makes sure the neighbouring street knows the rehearsal has begun.'
+            traits:
+              family: 'wind'
+              volume: 'loud'
+              position: 'standing'
+          celtic-harp:
+            label: 'Celtic Harp'
+            blurb: 'Requires careful tuning and a less ambitious doorway.'
+            traits:
+              family: 'strings'
+              volume: 'soft'
+              position: 'seated'
+          marching-drum:
+            label: 'Marching Drum'
+            blurb: 'Keeps the beat while the rest of the parade negotiates it.'
+            traits:
+              family: 'percussion'
+              volume: 'loud'
+              position: 'standing'
+          round-lute:
+            label: 'Round Lute'
+            blurb: 'The romantic option, provided the peg stays where it was put.'
+            traits:
+              family: 'strings'
+              volume: 'soft'
+              position: 'seated'
+          silver-flute:
+            label: 'Silver Flute'
+            blurb: 'A small tube with a surprisingly large repertoire of complaints.'
+            traits:
+              family: 'wind'
+              volume: 'soft'
+              position: 'standing'
+          hand-cymbals:
+            label: 'Hand Cymbals'
+            blurb: 'The ending is always clear, even if it arrives unexpectedly.'
+            traits:
+              family: 'percussion'
+              volume: 'loud'
+              position: 'standing'
+          box-accordion:
+            label: 'Box Accordion'
+            blurb: 'Breathes more dramatically than the performer carrying it.'
+            traits:
+              family: 'wind'
+              volume: 'loud'
+              position: 'seated'
+          town-bell:
+            label: 'Town Bell'
+            blurb: 'One note, delivered with absolute conviction.'
+            traits:
+              family: 'percussion'
+              volume: 'loud'
+              position: 'standing'
+          tambourine:
+            label: 'Tambourine'
+            blurb: 'Adds sparkle and a persistent suspicion that someone is ahead of the beat.'
+            traits:
+              family: 'percussion'
+              volume: 'soft'
+              position: 'standing'
+          parade-pipes:
+            label: 'Parade Pipes'
+            blurb: 'Can be heard from wherever you were hoping to stand.'
+            traits:
+              family: 'wind'
+              volume: 'loud'
+              position: 'standing'
+          wood-xylophone:
+            label: 'Wood Xylophone'
+            blurb: 'Fourteen bars of confidence, assuming they are struck in the right order.'
+            traits:
+              family: 'percussion'
+              volume: 'soft'
+              position: 'seated'
+          reed-panpipes:
+            label: 'Reed Panpipes'
+            blurb: 'Several small pipes united by a common refusal to stay in tune outdoors.'
+            traits:
+              family: 'wind'
+              volume: 'soft'
+              position: 'standing'
+          festival-fiddle:
+            label: 'Festival Fiddle'
+            blurb: 'Plays the fast bit faster when the audience starts clapping.'
+            traits:
+              family: 'strings'
+              volume: 'loud'
+              position: 'seated'
+          bronze-gong:
+            label: 'Bronze Gong'
+            blurb: 'The final note has booked the square for another three minutes.'
+            traits:
+              family: 'percussion'
+              volume: 'loud'
+              position: 'standing'
+      stall:
+        name: 'Stall'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'stall'
+        traits:
+          offering:
+            label: 'Offering'
+            pattern: '{noun} selling {}'
+          location:
+            label: 'Location'
+            pattern: '{noun} in the {} row'
+          cover:
+            label: 'Cover'
+            pattern: '{} {noun}'
+        items:
+          tea-pavilion:
+            label: 'Tea Pavilion'
+            blurb: 'The queue forms with the solemn purpose usually reserved for civic ceremonies.'
+            traits:
+              offering: 'drinks'
+              location: 'east'
+              cover: 'covered'
+          coffee-cart:
+            label: 'Coffee Cart'
+            blurb: 'Keeps the volunteers upright long after their optimism has sat down.'
+            traits:
+              offering: 'drinks'
+              location: 'west'
+              cover: 'open-air'
+          pastry-tent:
+            label: 'Pastry Tent'
+            blurb: 'A convincing argument for arriving before the official opening.'
+            traits:
+              offering: 'food'
+              location: 'east'
+              cover: 'covered'
+          picnic-counter:
+            label: 'Picnic Counter'
+            blurb: 'Serves portable meals to people who immediately stop walking.'
+            traits:
+              offering: 'food'
+              location: 'west'
+              cover: 'covered'
+          orchard-stand:
+            label: 'Orchard Stand'
+            blurb: 'The display is so polished that several apples look overqualified.'
+            traits:
+              offering: 'food'
+              location: 'east'
+              cover: 'open-air'
+          pear-preserve-booth:
+            label: 'Pear Preserve Booth'
+            blurb: 'A remarkably specialised business with very firm opinions about jam.'
+            traits:
+              offering: 'food'
+              location: 'west'
+              cover: 'covered'
+          cake-table:
+            label: 'Cake Table'
+            blurb: 'The judging began informally and has become difficult to stop.'
+            traits:
+              offering: 'food'
+              location: 'east'
+              cover: 'open-air'
+          biscuit-bar:
+            label: 'Biscuit Bar'
+            blurb: 'Small purchases encouraged. Repeat small purchases enthusiastically supported.'
+            traits:
+              offering: 'food'
+              location: 'west'
+              cover: 'covered'
+          lemonade-stand:
+            label: 'Lemonade Stand'
+            blurb: 'The secret ingredient is an optimistic estimate of the evening temperature.'
+            traits:
+              offering: 'drinks'
+              location: 'east'
+              cover: 'open-air'
+          soup-kitchen:
+            label: 'Soup Kitchen'
+            blurb: 'Offers a warm welcome in a bowl with a negotiable lid.'
+            traits:
+              offering: 'food'
+              location: 'west'
+              cover: 'covered'
+          ribbon-stall:
+            label: 'Ribbon Stall'
+            blurb: 'Can improve almost anything except the knot already tied in it.'
+            traits:
+              offering: 'crafts'
+              location: 'east'
+              cover: 'covered'
+          mask-maker:
+            label: 'Mask Maker'
+            blurb: 'Provides a new face for anyone regretting their volunteer commitments.'
+            traits:
+              offering: 'crafts'
+              location: 'west'
+              cover: 'open-air'
+          kite-seller:
+            label: 'Kite Seller'
+            blurb: "Sells excellent flying prospects, subject to the sky's approval."
+            traits:
+              offering: 'crafts'
+              location: 'east'
+              cover: 'open-air'
+          pinwheel-cart:
+            label: 'Pinwheel Cart'
+            blurb: 'Business picks up whenever the weather does.'
+            traits:
+              offering: 'crafts'
+              location: 'west'
+              cover: 'open-air'
+      showtime:
+        name: 'Showtime'
+        pattern: 'the {} performance'
+        describes: 'the {}'
+        noun: 'performance'
+        ordered:
+          noun: 'performance'
+          unit: 'minutes'
+          greater: 'later'
+          lesser: 'earlier'
+        traits:
+          period:
+            label: 'Period'
+            pattern: '{noun} in the {} period'
+          programme:
+            label: 'Programme'
+            pattern: '{noun} in the {} programme'
+        items:
+          18-00:
+            label: '18:00'
+            blurb: 'The first slot. The evening is still full of untested optimism.'
+            traits:
+              period: 'opening'
+              programme: 'first'
+          18-15:
+            label: '18:15'
+            blurb: 'Enough time for a flourish and a very efficient change of costume.'
+            traits:
+              period: 'opening'
+              programme: 'first'
+          18-30:
+            label: '18:30'
+            blurb: 'The audience has settled, apart from someone searching for a better view.'
+            traits:
+              period: 'opening'
+              programme: 'first'
+          18-45:
+            label: '18:45'
+            blurb: 'The rehearsal notes describe this as the sensible part of the evening.'
+            traits:
+              period: 'opening'
+              programme: 'first'
+          19-00:
+            label: '19:00'
+            blurb: 'A promising moment for anyone whose entrance depends on being noticed.'
+            traits:
+              period: 'opening'
+              programme: 'first'
+          19-15:
+            label: '19:15'
+            blurb: 'The organisers briefly consider themselves ahead of schedule.'
+            traits:
+              period: 'central'
+              programme: 'first'
+          19-30:
+            label: '19:30'
+            blurb: 'The square is glowing and the running order is beginning to curl.'
+            traits:
+              period: 'central'
+              programme: 'first'
+          19-45:
+            label: '19:45'
+            blurb: 'The evening has reached the point where every pause attracts applause.'
+            traits:
+              period: 'central'
+              programme: 'second'
+          20-00:
+            label: '20:00'
+            blurb: 'The volunteers have developed a refined appreciation of comfortable shoes.'
+            traits:
+              period: 'central'
+              programme: 'second'
+          20-15:
+            label: '20:15'
+            blurb: 'An excellent slot for pretending the slight delay was atmospheric.'
+            traits:
+              period: 'central'
+              programme: 'second'
+          20-30:
+            label: '20:30'
+            blurb: 'The sky has darkened and the audience has become harder to count.'
+            traits:
+              period: 'closing'
+              programme: 'second'
+          20-45:
+            label: '20:45'
+            blurb: 'Late enough for a grand gesture, early enough for one more.'
+            traits:
+              period: 'closing'
+              programme: 'second'
+          21-00:
+            label: '21:00'
+            blurb: 'The organisers start smiling with a new and slightly urgent determination.'
+            traits:
+              period: 'closing'
+              programme: 'second'
+          21-15:
+            label: '21:15'
+            blurb: 'The final listed slot. The closing speech is waiting with visible ambition.'
+            traits:
+              period: 'closing'
+              programme: 'second'
+
+briefings:
+  themes:
+    lantern-festival:
+      - title: The Unplanned Breeze
+        body: A breeze has swept through the organising desk and given every loose page a brief public appearance. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Committee Folder
+        body: The committee's master folder contains several master copies, each quietly disagreeing with the others. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: A Helpful Volunteer
+        body: A volunteer has sorted the artists' records by handwriting style, producing a handsome but impractical display. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Mayor's Question
+        body: The mayor has asked whether the paperwork is ready, using the voice reserved for expecting a reassuring answer. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Ribbon Knot
+        body: The organisers have tied the records together securely without first checking the sequence of the pages. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: A Splash of Colour
+        body: Decorative paint has reached the desk, improving its appearance while complicating several important headings. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Rehearsed Welcome
+        body: The welcome speech is perfectly rehearsed, but the clerk is still improvising an explanation for the ledger. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Spare Clipboard
+        body: The spare clipboard has been found underneath the missing clipboard, and neither contains a trustworthy arrangement. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Neat Hand
+        body: An artist has rewritten the muddled notes in beautiful lettering without making them any less muddled. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: A Civic Smile
+        body: The organisers are smiling for the official photograph while quietly passing the confused records behind their backs. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Folded List
+        body: The master list has been folded so often that its creases now look more authoritative than its headings. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Helpful Arrow
+        body: Someone has added arrows to clarify the paperwork, and several arrows now point confidently towards one another. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Volunteer Desk
+        body: The volunteer desk has enough enthusiasm for three celebrations and one unresolved pile of record slips. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: An Extra Copy
+        body: The photocopier has supplied another version with excellent contrast and a newly confusing arrangement. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Almost Finished File
+        body: The file marked nearly finished turns out to describe the organiser's hopes rather than its contents. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Lost Corner
+        body: The corner of the register has torn away precisely where the clerk had written the useful explanation. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: A Matter of Presentation
+        body: The committee has chosen an elegant cover for the records and would now appreciate some dependable contents. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Noticeboard Shuffle
+        body: The noticeboard has been refreshed by someone who assumed all the pinned slips were interchangeable. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Overfull Envelope
+        body: Every necessary note is in the envelope, along with enough unrelated reminders to make finding it an achievement. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Ink Runs
+        body: A damp sleeve has turned the clerk's careful headings into a small abstract landscape. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Smiling Artists
+        body: The artists have agreed that the confusion is easily fixed, although none has volunteered to explain how. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Official Stamp
+        body: The official stamp has been applied before the official checking, creating a strong incentive to finish the latter. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Confident Delegate
+        body: A committee delegate has announced that the records are complete and is now looking for evidence. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: A Short Interruption
+        body: A brief interruption has become a long conversation, during which the paperwork has lost its original order. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Neighbourly Advice
+        body: Several neighbours have offered helpful suggestions, leaving the clerk with more annotations than records. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Second Draft
+        body: The second draft corrects the first draft in ways that the third draft appears to dispute. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Borrowed Desk
+        body: The borrowed desk is smaller than expected, so the records have been stacked according to gravitational necessity. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Wrong Drawer
+        body: The missing paperwork has emerged from a drawer labelled decorations, where it was doing neither job well. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Final Flourish
+        body: The organisers have added a decorative flourish to every page except the one explaining their order. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: A Quiet Request
+        body: The clerk has quietly requested help before the committee turns the mix-up into a formal discussion. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Proud Parent
+        body: A visiting parent has praised the organisation, producing a sudden and collective interest in accurate records. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Paper Trail
+        body: The loose slips form an impressive trail across the desk but stop short of forming a usable account. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.
+      - title: The Closing Folder
+        body: The organisers want to close the folder with confidence instead of simply closing it firmly. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.

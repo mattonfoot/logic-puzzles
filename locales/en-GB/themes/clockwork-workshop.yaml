@@ -1,0 +1,646 @@
+# Clockwork Workshop — en-GB
+#
+# Everything this theme says: its sets and their items, in the order puzzles
+# draw them, the sentences its clues are written in, and the briefings a puzzle
+# opens on. How these are written: locales/README.md.
+
+themes:
+  clockwork-workshop:
+    name: 'Clockwork Workshop'
+    blurb: 'Precision engineering. Approximate supervision.'
+    clues:
+      link: '{a} shares a workshop job with {b}.'
+      notLink: '{a} does not share a workshop job with {b}.'
+      groupNot: 'No {a} shares a workshop job with {b}.'
+      either: '{a} shares a workshop job with either {b} or {c}, but not both.'
+      compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
+      compareGap: 'The build linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+    categories:
+      maker:
+        name: 'Maker'
+        pattern: '{}'
+        describes: 'the {}'
+        noun: 'maker'
+        traits:
+          experience:
+            label: 'Experience'
+            pattern: '{noun} with {} experience'
+          shift:
+            label: 'Shift'
+            pattern: '{noun} on the {} shift'
+          manner:
+            label: 'Manner'
+            pattern: '{} {noun}'
+        items:
+          master-rivet:
+            label: 'Master Rivet'
+            blurb: 'Measures twice, cuts once, then measures the offcut accusingly.'
+            traits:
+              experience: 'limited'
+              shift: 'early'
+              manner: 'patient'
+          mrs-bobbin:
+            label: 'Mrs Bobbin'
+            blurb: "Repairs anything except a colleague's insistence that it was already like that."
+            traits:
+              experience: 'considerable'
+              shift: 'late'
+              manner: 'patient'
+          dr-ratchet:
+            label: 'Dr Ratchet'
+            blurb: 'Has invented a quieter alarm. Nobody has heard whether it works.'
+            traits:
+              experience: 'extensive'
+              shift: 'early'
+              manner: 'brisk'
+          ms-sprocket:
+            label: 'Ms Sprocket'
+            blurb: 'Labels every drawer. The drawers regard this as an opening proposal.'
+            traits:
+              experience: 'limited'
+              shift: 'late'
+              manner: 'brisk'
+          sir-flywheel:
+            label: 'Sir Flywheel'
+            blurb: 'Treats a minor adjustment as a suitable occasion for formal dress.'
+            traits:
+              experience: 'considerable'
+              shift: 'early'
+              manner: 'dramatic'
+          dame-copper:
+            label: 'Dame Copper'
+            blurb: 'Can hear a loose screw from three rooms and one argument away.'
+            traits:
+              experience: 'extensive'
+              shift: 'late'
+              manner: 'dramatic'
+          mr-sawdust:
+            label: 'Mr Sawdust'
+            blurb: 'Calls the pile on his bench a highly localised filing system.'
+            traits:
+              experience: 'limited'
+              shift: 'early'
+              manner: 'patient'
+          mx-ticker:
+            label: 'Mx Ticker'
+            blurb: 'Keeps impeccable time, mostly in small tins.'
+            traits:
+              experience: 'considerable'
+              shift: 'late'
+              manner: 'patient'
+          professor-piston:
+            label: 'Professor Piston'
+            blurb: 'Explains the fault so thoroughly that lunchtime becomes hypothetical.'
+            traits:
+              experience: 'extensive'
+              shift: 'early'
+              manner: 'brisk'
+          miss-emery:
+            label: 'Miss Emery'
+            blurb: 'Smooths rough edges. Colleagues remain outside the warranty.'
+            traits:
+              experience: 'limited'
+              shift: 'late'
+              manner: 'brisk'
+          mr-spanner:
+            label: 'Mr Spanner'
+            blurb: 'Has one tool for every job and a speech about each of them.'
+            traits:
+              experience: 'considerable'
+              shift: 'early'
+              manner: 'dramatic'
+          captain-crank:
+            label: 'Captain Crank'
+            blurb: 'Supervises the test bench as if it might attempt a mutiny.'
+            traits:
+              experience: 'extensive'
+              shift: 'late'
+              manner: 'dramatic'
+          aunt-toggle:
+            label: 'Aunt Toggle'
+            blurb: "Adds a safety switch to everything, including the kettle's safety switch."
+            traits:
+              experience: 'limited'
+              shift: 'early'
+              manner: 'patient'
+          dr-fuse:
+            label: 'Dr Fuse'
+            blurb: 'Describes the smoke as an encouraging sign of activity.'
+            traits:
+              experience: 'considerable'
+              shift: 'late'
+              manner: 'patient'
+      invention:
+        name: 'Invention'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'invention'
+        traits:
+          power:
+            label: 'Power'
+            pattern: '{} {noun}'
+          purpose:
+            label: 'Purpose'
+            pattern: '{noun} for {}'
+          scale:
+            label: 'Scale'
+            pattern: '{} {noun}'
+        items:
+          polite-automaton:
+            label: 'Polite Automaton'
+            blurb: 'Apologises before malfunctioning, which the customers find considerate.'
+            traits:
+              power: 'spring-powered'
+              purpose: 'assistance'
+              scale: 'large'
+          self-pouring-pot:
+            label: 'Self-Pouring Pot'
+            blurb: 'Pours with confidence. Cup placement remains a human weakness.'
+            traits:
+              power: 'steam-powered'
+              purpose: 'assistance'
+              scale: 'small'
+          clockwork-wren:
+            label: 'Clockwork Wren'
+            blurb: 'Sings at dawn, provided someone has wound dawn correctly.'
+            traits:
+              power: 'spring-powered'
+              purpose: 'entertainment'
+              scale: 'small'
+          pocket-submarine:
+            label: 'Pocket Submarine'
+            blurb: 'For explorers whose ambitions are larger than their garden pond.'
+            traits:
+              power: 'battery-powered'
+              purpose: 'transport'
+              scale: 'small'
+          parlour-airship:
+            label: 'Parlour Airship'
+            blurb: 'Carries one biscuit over difficult living-room terrain.'
+            traits:
+              power: 'battery-powered'
+              purpose: 'transport'
+              scale: 'large'
+          helping-hand:
+            label: 'Helping Hand'
+            blurb: 'Volunteers for every task and then asks which finger to use.'
+            traits:
+              power: 'battery-powered'
+              purpose: 'assistance'
+              scale: 'small'
+          waltzing-box:
+            label: 'Waltzing Box'
+            blurb: 'Plays one tune until the room learns to appreciate silence.'
+            traits:
+              power: 'spring-powered'
+              purpose: 'entertainment'
+              scale: 'small'
+          walking-clock:
+            label: 'Walking Clock'
+            blurb: 'Time flies, but this model prefers a brisk constitutional.'
+            traits:
+              power: 'spring-powered'
+              purpose: 'assistance'
+              scale: 'large'
+          sun-powered-fan:
+            label: 'Sun-Powered Fan'
+            blurb: 'Offers a breeze whenever the weather is already doing enough.'
+            traits:
+              power: 'solar-powered'
+              purpose: 'assistance'
+              scale: 'large'
+          perpetual-cog:
+            label: 'Perpetual Cog'
+            blurb: 'Almost runs forever. The remaining part is described as administrative.'
+            traits:
+              power: 'spring-powered'
+              purpose: 'research'
+              scale: 'small'
+          dictation-machine:
+            label: 'Dictation Machine'
+            blurb: 'Records every word, including the ones addressed to the machine.'
+            traits:
+              power: 'battery-powered'
+              purpose: 'assistance'
+              scale: 'large'
+          garden-rocket:
+            label: 'Garden Rocket'
+            blurb: 'Designed to reach the far flowerbed without consulting the fence.'
+            traits:
+              power: 'steam-powered'
+              purpose: 'transport'
+              scale: 'large'
+          whisper-horn:
+            label: 'Whisper Horn'
+            blurb: 'Makes a secret audible to a much more satisfying number of people.'
+            traits:
+              power: 'spring-powered'
+              purpose: 'entertainment'
+              scale: 'large'
+          mechanical-carp:
+            label: 'Mechanical Carp'
+            blurb: 'Swims in circles while the team debates whether this is navigation.'
+            traits:
+              power: 'solar-powered'
+              purpose: 'research'
+              scale: 'small'
+      material:
+        name: 'Material'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'material'
+        traits:
+          origin:
+            label: 'Origin'
+            pattern: '{} {noun}'
+          texture:
+            label: 'Texture'
+            pattern: '{}-textured {noun}'
+          supply:
+            label: 'Supply'
+            pattern: '{noun} from {} stock'
+        items:
+          oak-offcut:
+            label: 'Oak Offcut'
+            blurb: 'Too short for the planned job, too promising to throw away.'
+            traits:
+              origin: 'natural'
+              texture: 'rough'
+              supply: 'standard'
+          brass-ingot:
+            label: 'Brass Ingot'
+            blurb: 'Shines convincingly enough to be mistaken for progress.'
+            traits:
+              origin: 'processed'
+              texture: 'smooth'
+              supply: 'standard'
+          glass-flask:
+            label: 'Glass Flask'
+            blurb: 'Transparent about everything except how much it cost.'
+            traits:
+              origin: 'processed'
+              texture: 'smooth'
+              supply: 'special'
+          copper-coil:
+            label: 'Copper Coil'
+            blurb: 'The wire has developed a detailed interest in becoming a knot.'
+            traits:
+              origin: 'processed'
+              texture: 'smooth'
+              supply: 'standard'
+          leather-hide:
+            label: 'Leather Hide'
+            blurb: 'Reserved for grips, straps and improvements described as traditional.'
+            traits:
+              origin: 'natural'
+              texture: 'rough'
+              supply: 'special'
+          canvas-sheet:
+            label: 'Canvas Sheet'
+            blurb: 'Covers unfinished work with an air of professional discretion.'
+            traits:
+              origin: 'processed'
+              texture: 'rough'
+              supply: 'standard'
+          cork-block:
+            label: 'Cork Block'
+            blurb: 'Floats above most workshop disagreements.'
+            traits:
+              origin: 'natural'
+              texture: 'rough'
+              supply: 'standard'
+          hemp-rope:
+            label: 'Hemp Rope'
+            blurb: 'Sold by length, stored by tangle.'
+            traits:
+              origin: 'natural'
+              texture: 'rough'
+              supply: 'standard'
+          rubber-ring:
+            label: 'Rubber Ring'
+            blurb: 'Absorbs vibrations and a surprising amount of blame.'
+            traits:
+              origin: 'processed'
+              texture: 'smooth'
+              supply: 'standard'
+          porcelain-jar:
+            label: 'Porcelain Jar'
+            blurb: 'The material request said delicate. The handling instructions said very delicate.'
+            traits:
+              origin: 'processed'
+              texture: 'smooth'
+              supply: 'special'
+          paper-stack:
+            label: 'Paper Stack'
+            blurb: 'The prototype will be finished just after the paperwork prototype.'
+            traits:
+              origin: 'processed'
+              texture: 'smooth'
+              supply: 'standard'
+          granite-lump:
+            label: 'Granite Lump'
+            blurb: 'Offers excellent stability and no help carrying it.'
+            traits:
+              origin: 'natural'
+              texture: 'rough'
+              supply: 'special'
+          wool-felt:
+            label: 'Wool Felt'
+            blurb: 'Softens machinery that has become too pleased with its own noise.'
+            traits:
+              origin: 'natural'
+              texture: 'rough'
+              supply: 'special'
+          steel-spring:
+            label: 'Steel Spring'
+            blurb: 'Stores energy and occasionally releases a strongly worded opinion.'
+            traits:
+              origin: 'processed'
+              texture: 'smooth'
+              supply: 'special'
+      tool:
+        name: 'Tool'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'tool'
+        traits:
+          operation:
+            label: 'Operation'
+            pattern: '{} {noun}'
+          purpose:
+            label: 'Purpose'
+            pattern: '{noun} for {}'
+          storage:
+            label: 'Storage'
+            pattern: '{noun} stored on the {}'
+        items:
+          claw-hammer:
+            label: 'Claw Hammer'
+            blurb: 'Persuasion, with a withdrawal procedure at the other end.'
+            traits:
+              operation: 'manual'
+              purpose: 'assembly'
+              storage: 'pegboard'
+          open-spanner:
+            label: 'Open Spanner'
+            blurb: 'Fits the bolt that nobody has dropped behind the bench yet.'
+            traits:
+              operation: 'manual'
+              purpose: 'assembly'
+              storage: 'pegboard'
+          panel-saw:
+            label: 'Panel Saw'
+            blurb: 'Converts one expensive mistake into two more manageable pieces.'
+            traits:
+              operation: 'manual'
+              purpose: 'cutting'
+              storage: 'pegboard'
+          long-pliers:
+            label: 'Long Pliers'
+            blurb: 'Reaches the places fingers have sensibly declined to visit.'
+            traits:
+              operation: 'manual'
+              purpose: 'assembly'
+              storage: 'pegboard'
+          slot-driver:
+            label: 'Slot Driver'
+            blurb: 'Also used for pointing at the person who over-tightened the screw.'
+            traits:
+              operation: 'manual'
+              purpose: 'assembly'
+              storage: 'pegboard'
+          bench-drill:
+            label: 'Bench Drill'
+            blurb: 'Makes the hole exactly where the clamping allows it.'
+            traits:
+              operation: 'powered'
+              purpose: 'cutting'
+              storage: 'bench'
+          small-anvil:
+            label: 'Small Anvil'
+            blurb: 'The only colleague who never objects to being hit with a hammer.'
+            traits:
+              operation: 'manual'
+              purpose: 'shaping'
+              storage: 'bench'
+          bench-vice:
+            label: 'Bench Vice'
+            blurb: 'Holds the work firmly while everyone changes their mind.'
+            traits:
+              operation: 'manual'
+              purpose: 'assembly'
+              storage: 'bench'
+          dividers:
+            label: 'Dividers'
+            blurb: 'Measures the gap between nearly right and starting again.'
+            traits:
+              operation: 'manual'
+              purpose: 'measuring'
+              storage: 'drawer'
+          flat-file:
+            label: 'Flat File'
+            blurb: 'Removes tiny amounts until patience becomes the limiting material.'
+            traits:
+              operation: 'manual'
+              purpose: 'shaping'
+              storage: 'drawer'
+          soldering-iron:
+            label: 'Soldering Iron'
+            blurb: 'Joins components and introduces a new respect for where hands are placed.'
+            traits:
+              operation: 'powered'
+              purpose: 'assembly'
+              storage: 'bench'
+          g-clamp:
+            label: 'G-Clamp'
+            blurb: 'Temporary assistance that usually remains in place for a week.'
+            traits:
+              operation: 'manual'
+              purpose: 'assembly'
+              storage: 'pegboard'
+          steel-rule:
+            label: 'Steel Rule'
+            blurb: 'The straightest answer available in the building.'
+            traits:
+              operation: 'manual'
+              purpose: 'measuring'
+              storage: 'drawer'
+          forge-bellows:
+            label: 'Forge Bellows'
+            blurb: 'Encourages the fire without contributing a single useful suggestion.'
+            traits:
+              operation: 'manual'
+              purpose: 'shaping'
+              storage: 'bench'
+      build-year:
+        name: 'Build Year'
+        pattern: 'the {} build'
+        describes: 'the {}'
+        noun: 'build'
+        ordered:
+          noun: 'build'
+          unit: 'years'
+          greater: 'later'
+          lesser: 'earlier'
+        traits:
+          era:
+            label: 'Era'
+            pattern: '{noun} from the {} era'
+          register:
+            label: 'Register'
+            pattern: '{noun} in the {} register'
+        items:
+          1900:
+            label: '1900'
+            blurb: 'The first build. Confidence was high and the filing system was a shoebox.'
+            traits:
+              era: 'founding'
+              register: 'handwritten'
+          1905:
+            label: '1905'
+            blurb: 'Made when the workshop still called every setback a promising curiosity.'
+            traits:
+              era: 'founding'
+              register: 'handwritten'
+          1910:
+            label: '1910'
+            blurb: 'The safety notice acquired its first underlined word.'
+            traits:
+              era: 'founding'
+              register: 'handwritten'
+          1915:
+            label: '1915'
+            blurb: 'The year someone suggested keeping the useful offcuts. All of them.'
+            traits:
+              era: 'founding'
+              register: 'handwritten'
+          1920:
+            label: '1920'
+            blurb: 'A build from the brief period when every drawer had an accurate label.'
+            traits:
+              era: 'founding'
+              register: 'handwritten'
+          1925:
+            label: '1925'
+            blurb: 'The workshop expanded. So did the distance to the missing spanner.'
+            traits:
+              era: 'expansion'
+              register: 'handwritten'
+          1930:
+            label: '1930'
+            blurb: 'The instructions began to include a section entitled Before You Start.'
+            traits:
+              era: 'expansion'
+              register: 'handwritten'
+          1935:
+            label: '1935'
+            blurb: 'A confident design from the year the test bench received wheels.'
+            traits:
+              era: 'expansion'
+              register: 'typed'
+          1940:
+            label: '1940'
+            blurb: 'The records became neater while the workbench pursued the opposite policy.'
+            traits:
+              era: 'expansion'
+              register: 'typed'
+          1945:
+            label: '1945'
+            blurb: 'Made after the committee approved a more encouraging shade of paint.'
+            traits:
+              era: 'expansion'
+              register: 'typed'
+          1950:
+            label: '1950'
+            blurb: 'The year the spare-parts cupboard was promoted to a department.'
+            traits:
+              era: 'modern'
+              register: 'typed'
+          1955:
+            label: '1955'
+            blurb: 'A modern build, according to a sign nobody has revisited.'
+            traits:
+              era: 'modern'
+              register: 'typed'
+          1960:
+            label: '1960'
+            blurb: 'The design includes several improvements explained only by their inventor.'
+            traits:
+              era: 'modern'
+              register: 'typed'
+          1965:
+            label: '1965'
+            blurb: 'The newest build. Already attracting suggestions for the next version.'
+            traits:
+              era: 'modern'
+              register: 'typed'
+
+briefings:
+  themes:
+    clockwork-workshop:
+      - title: Inspection Pending
+        body: The workshop inspector has polished a clipboard, leaving the makers little doubt about the seriousness of the visit. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Helpful Magnet
+        body: A large magnet has gathered every metal clip from the paperwork and left the pages pursuing separate careers. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: Under the Bench
+        body: The missing job cards have been recovered from beneath a bench, alongside several explanations nobody finds convincing. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: A New Filing System
+        body: The makers have adopted a colour-coded system without recording what any of the colours mean. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Apprentice's Sort
+        body: An apprentice has arranged the records by how impressive the handwriting looked, with predictably artistic results. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: A Gust of Progress
+        body: The ventilation test has succeeded beyond expectations and redistributed the paperwork throughout the workshop. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Quiet Morning
+        body: The makers planned a calm administrative session before discovering that the folder marked current contains three different versions. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Ink Test
+        body: A demonstration of indelible ink has left the record headings impressively permanent and largely unreadable. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Committee Copy
+        body: A committee has approved the ledger in principle, provided someone can explain which entries belong together. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Bench Shuffle
+        body: Clearing a space for inspection has moved every loose note into a single impressively unhelpful stack. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Rubber Stamp
+        body: The new approval stamp has been tested enthusiastically on paperwork that had not reached the approval stage. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: An Elegant Abbreviation
+        body: The makers' shorthand saves an extraordinary amount of space by omitting most of the information needed to read it. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Wrong Envelope
+        body: The correct notes have arrived in an envelope marked obsolete, triggering a small but passionate debate. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Filing Demonstration
+        body: A demonstration of efficiency has finished with the ledger upside down and the audience waiting politely. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Duplicate Ledger
+        body: Two identical-looking books contain different arrangements, and both have been signed with considerable confidence. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: A Clean Desk
+        body: The desk is spotless because every working note has been swept into the same drawer. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Supervisor's Pencil
+        body: The supervisor has corrected several records, but the pencil marks stop just before the useful part. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: A Minor Vibration
+        body: A routine test has shaken the page dividers loose without disturbing the makers' belief that everything is under control. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Long Explanation
+        body: The makers have explained the mix-up so thoroughly that the clerk now understands less than at the start. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: A Fresh Cover
+        body: The ledger has a handsome new cover and the same unresolved contents that made the old cover look tired. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Last Binder
+        body: The remaining binder contains all the right paperwork, held together by determination rather than any clear sequence. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: A Very Good Question
+        body: A visiting apprentice has asked how the records are organised, and the room has become unusually quiet. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Noticeboard
+        body: The relevant slips are pinned to the noticeboard among reminders to organise the relevant slips. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Spare Register
+        body: The backup register appears to have backed up the confusion with remarkable accuracy. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Afternoon Tidy
+        body: The makers' collective tidying effort has removed every obvious sign of the filing system. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Demonstration Day
+        body: Visitors are expected to admire the workshop shortly, making a coherent administrative story suddenly desirable. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Smudged Initials
+        body: The entries survived a damp cloth, but the identifying initials did not share their resilience. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: A Matter of Sequence
+        body: The pages have been numbered beautifully in an order that nobody can justify. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Overeager Copyist
+        body: The copyist has filled every blank with information from the nearest available line. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Box of Certainty
+        body: A box labelled definitely correct contains notes that disagree with one another in several decisive ways. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Return of Order
+        body: The makers have promised the manager that the confusion is nearly resolved, generously leaving the final part to you. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: The Desk Bell
+        body: The manager has rung for the records and now appears to be practising patient silence. Use the clues to restore the makers' records before the inspection turns into a discussion.
+      - title: Ready for Review
+        body: The workshop can demonstrate plenty of activity, but the clerk still needs a dependable account of what was recorded. Use the clues to restore the makers' records before the inspection turns into a discussion.

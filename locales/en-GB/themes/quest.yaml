@@ -1,0 +1,680 @@
+# Mythic Quest — en-GB
+#
+# Everything this theme says: its sets and their items, in the order puzzles
+# draw them, the sentences its clues are written in, and the briefings a puzzle
+# opens on. How these are written: locales/README.md.
+
+themes:
+  quest:
+    name: 'Mythic Quest'
+    blurb: 'Heroes, beasts and hard-won gold'
+    clues:
+      link: '{a} is none other than {b}.'
+      notLink: '{a} is not {b}.'
+      groupNot: 'No {a} is {b}.'
+      either: '{a} is either {b} or {c}.'
+      compare: '{greater} claimed a {comparative} {noun} than {lesser}.'
+      compareGap: '{greater} claimed exactly {gap} {unit} more than {lesser}.'
+    categories:
+      hero:
+        name: 'Hero'
+        pattern: '{}'
+        describes: 'the {}'
+        noun: 'hero'
+        traits:
+          hair:
+            label: 'Hair'
+            pattern: '{noun} with {}'
+          feature:
+            label: 'Feature'
+            pattern: '{noun} with {}'
+          eyes:
+            label: 'Eyes'
+            pattern: '{noun} with {} eyes'
+          calling:
+            label: 'Calling'
+            pattern: '{noun} sworn as {}'
+          age:
+            label: 'Age'
+            pattern: '{noun} aged {}'
+        items:
+          brannoch:
+            label: 'Sir Brannoch'
+            blurb: 'Sworn to slay one beast. Has done so. The remaining quest is to hear the end of it.'
+            traits:
+              hair: 'a shaved head'
+              feature: 'a beard'
+              eyes: 'blue'
+              calling: 'a knight'
+              age: '44'
+          sorrel:
+            label: 'Dame Sorrel'
+            blurb: 'Never misses. Has been asked not to demonstrate indoors again.'
+            traits:
+              hair: 'a ponytail'
+              feature: 'an eye patch'
+              eyes: 'green'
+              calling: 'an archer'
+              age: '31'
+          ivo:
+            label: 'Squire Ivo'
+            blurb: 'Carries everything, including several opinions nobody has asked for.'
+            traits:
+              hair: 'a crop'
+              feature: 'a chinstrap'
+              eyes: 'brown'
+              calling: 'a squire'
+              age: '17'
+          wren:
+            label: 'Hedge-Witch Wren'
+            blurb: 'Cures warts, curdles milk, and is vague about which is which.'
+            traits:
+              hair: 'curls'
+              feature: 'a moustache'
+              eyes: 'hazel'
+              calling: 'a witch'
+              age: '68'
+          tamsin:
+            label: 'Warden Tamsin'
+            blurb: 'Knows every path in the wood and admits to roughly half.'
+            traits:
+              hair: 'braids'
+              feature: 'mutton chops'
+              eyes: 'grey'
+              calling: 'a ranger'
+              age: '39'
+          kell:
+            label: 'Archmage Kell'
+            blurb: 'Can turn lead to gold. The reverse process has received rather more field testing.'
+            traits:
+              hair: 'long hair'
+              feature: 'a beard'
+              eyes: 'grey'
+              calling: 'a mage'
+              age: '77'
+          rowan:
+            label: 'Brother Rowan'
+            blurb: 'Sworn to silence. Communicates entirely through pointed sighing.'
+            traits:
+              hair: 'a shaved head'
+              feature: 'spectacles'
+              eyes: 'brown'
+              calling: 'a monk'
+              age: '54'
+          fenn:
+            label: 'Bard Fenn'
+            blurb: 'Writes the ballad first. The quest is then expected to meet its contractual obligations.'
+            traits:
+              hair: 'a topknot'
+              feature: 'hoop earrings'
+              eyes: 'green'
+              calling: 'a bard'
+              age: '26'
+          maeve:
+            label: 'Baroness Maeve'
+            blurb: 'Funds every expedition and turns up uninvited to all of them.'
+            traits:
+              hair: 'a bun'
+              feature: 'hoop earrings'
+              eyes: 'blue'
+              calling: 'a noble'
+              age: '49'
+          osric:
+            label: 'Reeve Osric'
+            blurb: 'Counts the takings twice. The second count is the one he reports.'
+            traits:
+              hair: 'short hair'
+              feature: 'a moustache'
+              eyes: 'brown'
+              calling: 'a reeve'
+              age: '58'
+          perrin:
+            label: 'Apprentice Perrin'
+            blurb: 'Learning spellcraft by trial. Mostly trial.'
+            traits:
+              hair: 'a mohawk'
+              feature: 'a headset'
+              eyes: 'hazel'
+              calling: 'a mage'
+              age: '19'
+          isolde:
+            label: 'Herald Isolde'
+            blurb: 'Announces arrivals. Two delegations are still trying to live up to the introduction.'
+            traits:
+              hair: 'a bob'
+              feature: 'a chinstrap'
+              eyes: 'blue'
+              calling: 'a herald'
+              age: '35'
+          garrick:
+            label: 'Sellsword Garrick'
+            blurb: 'Loyal for the length of the contract, and courteous after it.'
+            traits:
+              hair: 'an afro'
+              feature: 'mutton chops'
+              eyes: 'brown'
+              calling: 'a sellsword'
+              age: '41'
+          nyla:
+            label: 'Captain Nyla'
+            blurb: 'Leads from the front, which is how she keeps losing the map.'
+            traits:
+              hair: 'a crop'
+              feature: 'an eye patch'
+              eyes: 'green'
+              calling: 'a soldier'
+              age: '33'
+      weapon:
+        name: 'Weapon'
+        pattern: 'the {} wielder'
+        describes: 'the wielder of the {}'
+        noun: 'weapon'
+        traits:
+          material:
+            label: 'Made of'
+            pattern: '{noun} made of {}'
+          reach:
+            label: 'Reach'
+            pattern: '{} {noun}'
+          weight:
+            label: 'Weight'
+            pattern: '{} {noun}'
+        items:
+          ash-bow:
+            label: 'Ash Bow'
+            blurb: 'Draws as smoothly as a promise. Comes with much the same guarantee.'
+            traits:
+              material: 'wood'
+              reach: 'long'
+              weight: 'light'
+          rune-axe:
+            label: 'Rune Axe'
+            blurb: 'The inscription is ancient. The blacksmith is fairly sure it says “no refunds”.'
+            traits:
+              material: 'iron'
+              reach: 'short'
+              weight: 'heavy'
+          gale-spear:
+            label: 'Gale Spear'
+            blurb: 'Whistles in flight. The ambush is now more of an appointment.'
+            traits:
+              material: 'wood'
+              reach: 'long'
+              weight: 'light'
+          ember-blade:
+            label: 'Ember Blade'
+            blurb: 'Never needs polishing. Occasionally needs apologising for the curtains.'
+            traits:
+              material: 'iron'
+              reach: 'short'
+              weight: 'light'
+          frost-flail:
+            label: 'Frost Flail'
+            blurb: 'Freezes whatever it hits. The owner’s fingers have lodged the first complaint.'
+            traits:
+              material: 'iron'
+              reach: 'short'
+              weight: 'heavy'
+          thorn-whip:
+            label: 'Thorn Whip'
+            blurb: 'Beautifully made. Has spent most of its career teaching its owner to respect craftsmanship.'
+            traits:
+              material: 'leather'
+              reach: 'long'
+              weight: 'light'
+          storm-mace:
+            label: 'Storm Mace'
+            blurb: 'Attracts lightning. The party has unanimously elected someone else to carry it.'
+            traits:
+              material: 'iron'
+              reach: 'short'
+              weight: 'heavy'
+          moon-dagger:
+            label: 'Moon Dagger'
+            blurb: 'Sharp only after dark. By daylight it is a very expensive letter opener.'
+            traits:
+              material: 'silver'
+              reach: 'short'
+              weight: 'light'
+          oak-staff:
+            label: 'Oak Staff'
+            blurb: 'A walking stick that has started introducing itself as a senior adviser.'
+            traits:
+              material: 'wood'
+              reach: 'long'
+              weight: 'heavy'
+          bone-sling:
+            label: 'Bone Sling'
+            blurb: 'Costs next to nothing. Giants find the value proposition particularly upsetting.'
+            traits:
+              material: 'bone'
+              reach: 'short'
+              weight: 'light'
+          star-lance:
+            label: 'Star Lance'
+            blurb: 'Fell from the sky. The armourer insists delivery was not included.'
+            traits:
+              material: 'silver'
+              reach: 'long'
+              weight: 'heavy'
+          wind-sabre:
+            label: 'Wind Sabre'
+            blurb: 'Cuts on the backswing. The demonstration is always shorter than the explanation.'
+            traits:
+              material: 'silver'
+              reach: 'long'
+              weight: 'light'
+          shadow-pike:
+            label: 'Shadow Pike'
+            blurb: 'Casts no shadow. Everyone else’s weapon is finding this rather affected.'
+            traits:
+              material: 'bone'
+              reach: 'long'
+              weight: 'heavy'
+          iron-halberd:
+            label: 'Iron Halberd'
+            blurb: 'Needs two hands, a wide room and a landlord who has already kept the deposit.'
+            traits:
+              material: 'iron'
+              reach: 'long'
+              weight: 'heavy'
+      beast:
+        name: 'Beast'
+        pattern: 'the {} slayer'
+        describes: 'the slayer of the {}'
+        noun: 'beast'
+        traits:
+          size:
+            label: 'Size'
+            pattern: '{} {noun}'
+          home:
+            label: 'Lairs in the'
+            pattern: '{noun} from the {}'
+          temper:
+            label: 'Temper'
+            pattern: '{} {noun}'
+        items:
+          griffin:
+            label: 'Griffin'
+            blurb: 'Half eagle, half lion. Both halves expect you to bow.'
+            traits:
+              size: 'huge'
+              home: 'mountains'
+              temper: 'proud'
+          wyvern:
+            label: 'Wyvern'
+            blurb: 'Two legs, one temper, and a very short section on negotiation.'
+            traits:
+              size: 'huge'
+              home: 'mountains'
+              temper: 'fierce'
+          basilisk:
+            label: 'Basilisk'
+            blurb: 'Do not meet its eye. It takes eye contact very literally.'
+            traits:
+              size: 'small'
+              home: 'caves'
+              temper: 'sly'
+          kraken:
+            label: 'Kraken'
+            blurb: 'The harbour calls it a seasonal difficulty. The ships call it something shorter.'
+            traits:
+              size: 'huge'
+              home: 'sea'
+              temper: 'fierce'
+          chimera:
+            label: 'Chimera'
+            blurb: 'Three heads, three dietary requirements, one increasingly tired innkeeper.'
+            traits:
+              size: 'huge'
+              home: 'mountains'
+              temper: 'fierce'
+          sphinx:
+            label: 'Sphinx'
+            blurb: 'Knows the answer to every riddle. Is waiting for someone to ask a better one.'
+            traits:
+              size: 'huge'
+              home: 'desert'
+              temper: 'sly'
+          manticore:
+            label: 'Manticore'
+            blurb: 'Has a lion’s body and a tail full of missiles. Apparently the lion was not enough.'
+            traits:
+              size: 'huge'
+              home: 'desert'
+              temper: 'fierce'
+          hydra:
+            label: 'Hydra'
+            blurb: 'Cut off one head and the meeting gains two more attendees.'
+            traits:
+              size: 'huge'
+              home: 'marshes'
+              temper: 'fierce'
+          cyclops:
+            label: 'Cyclops'
+            blurb: 'Remembers every slight. Occasionally misjudges how far away the culprit is.'
+            traits:
+              size: 'huge'
+              home: 'caves'
+              temper: 'proud'
+          banshee:
+            label: 'Banshee'
+            blurb: 'Announces deaths. Receives consistently poor feedback on her bedside manner.'
+            traits:
+              size: 'small'
+              home: 'marshes'
+              temper: 'sly'
+          golem:
+            label: 'Golem'
+            blurb: 'Obeys instructions exactly. This has become the main problem with the instructions.'
+            traits:
+              size: 'huge'
+              home: 'caves'
+              temper: 'calm'
+          harpy:
+            label: 'Harpy'
+            blurb: 'Steals lunch, reviews it loudly, and leaves the cook a feather instead of a tip.'
+            traits:
+              size: 'small'
+              home: 'mountains'
+              temper: 'sly'
+          minotaur:
+            label: 'Minotaur'
+            blurb: 'Knows the way out. Prefers the current arrangement.'
+            traits:
+              size: 'huge'
+              home: 'caves'
+              temper: 'fierce'
+          direwolf:
+            label: 'Direwolf'
+            blurb: 'Runs with six others. Describes them as support staff.'
+            traits:
+              size: 'small'
+              home: 'forest'
+              temper: 'proud'
+      realm:
+        name: 'Realm'
+        pattern: 'the champion of {}'
+        describes: 'the champion of the {}'
+        noun: 'realm'
+        traits:
+          land:
+            label: 'Land'
+            pattern: '{noun} of {}'
+          weather:
+            label: 'Weather'
+            pattern: '{noun} with {} weather'
+          size:
+            label: 'Size'
+            pattern: '{} {noun}'
+        items:
+          ashfell:
+            label: 'Ashfell'
+            blurb: 'Everything is grey. The tourist board has settled on “a restrained palette”.'
+            traits:
+              land: 'mountains'
+              weather: 'dry'
+              size: 'small'
+          duskmoor:
+            label: 'Duskmoor'
+            blurb: 'The sun leaves at three. The inhabitants admire its work-life balance.'
+            traits:
+              land: 'marshes'
+              weather: 'wet'
+              size: 'great'
+          highmere:
+            label: 'Highmere'
+            blurb: 'Thin air, thick accents and cheese that counts as emergency equipment.'
+            traits:
+              land: 'mountains'
+              weather: 'cold'
+              size: 'great'
+          ironvale:
+            label: 'Ironvale'
+            blurb: 'Forges half the world’s swords. Would appreciate a little peace and quiet.'
+            traits:
+              land: 'mountains'
+              weather: 'dry'
+              size: 'great'
+          sablewood:
+            label: 'Sablewood'
+            blurb: 'Dark by noon. The trees are believed to keep minutes.'
+            traits:
+              land: 'forest'
+              weather: 'wet'
+              size: 'great'
+          windreach:
+            label: 'Windreach'
+            blurb: 'Hats are worn briefly, then become a matter for the next village.'
+            traits:
+              land: 'coast'
+              weather: 'cold'
+              size: 'small'
+          thornhold:
+            label: 'Thornhold'
+            blurb: 'The walls are impressive. The hedge regards them as a junior partner.'
+            traits:
+              land: 'forest'
+              weather: 'dry'
+              size: 'small'
+          greymarch:
+            label: 'Greymarch'
+            blurb: 'Mostly fog. The flag is useful for establishing which fog you are in.'
+            traits:
+              land: 'marshes'
+              weather: 'wet'
+              size: 'great'
+          frostgate:
+            label: 'Frostgate'
+            blurb: 'Six months of winter, followed by an autumn with disciplinary responsibilities.'
+            traits:
+              land: 'mountains'
+              weather: 'cold'
+              size: 'small'
+          emberholt:
+            label: 'Emberholt'
+            blurb: 'Warm all year. The council prefers not to discuss where the heating comes from.'
+            traits:
+              land: 'forest'
+              weather: 'dry'
+              size: 'small'
+          larkspur:
+            label: 'Larkspur'
+            blurb: 'Blossom everywhere. Outsiders keep checking whether a war has been cancelled.'
+            traits:
+              land: 'coast'
+              weather: 'mild'
+              size: 'small'
+          mistvale:
+            label: 'Mistvale'
+            blurb: 'Visitors get lost. The welcome committee considers this an extended stay.'
+            traits:
+              land: 'marshes'
+              weather: 'wet'
+              size: 'small'
+          stonebrook:
+            label: 'Stonebrook'
+            blurb: 'Built entirely of grey stone and stories that should have ended ten minutes ago.'
+            traits:
+              land: 'coast'
+              weather: 'mild'
+              size: 'great'
+          ravenfen:
+            label: 'Ravenfen'
+            blurb: 'The ravens outnumber the people. They have begun to take votes.'
+            traits:
+              land: 'marshes'
+              weather: 'cold'
+              size: 'small'
+      reward:
+        name: 'Reward'
+        pattern: 'the {} reward'
+        describes: 'the {}'
+        noun: 'reward'
+        ordered:
+          noun: 'reward'
+          unit: 'gold'
+          greater: 'larger'
+          lesser: 'smaller'
+        traits:
+          band:
+            label: 'Purse'
+            pattern: '{} {noun}'
+          parity:
+            label: 'Number'
+            pattern: '{noun} with an {} number'
+        items:
+          30g:
+            label: '30g'
+            blurb: 'A 30g purse. Barely covers the horse feed. The horse is proposing a separate contract.'
+            traits:
+              band: 'small'
+              parity: 'even'
+          45g:
+            label: '45g'
+            blurb: 'A 45g purse. Paid in copper. The counting is now a second quest.'
+            traits:
+              band: 'small'
+              parity: 'odd'
+          60g:
+            label: '60g'
+            blurb: 'A 60g purse. The village emptied its jar. Several of the coins are buttons.'
+            traits:
+              band: 'small'
+              parity: 'even'
+          75g:
+            label: '75g'
+            blurb: 'A 75g purse. Half now, half later. “Later” has not been defined.'
+            traits:
+              band: 'small'
+              parity: 'odd'
+          90g:
+            label: '90g'
+            blurb: 'A 90g purse. A decent inn, a good supper and one poorly researched decision.'
+            traits:
+              band: 'small'
+              parity: 'even'
+          105g:
+            label: '105g'
+            blurb: 'A 105g purse. Includes a goat. The goat appears to have seniority.'
+            traits:
+              band: 'fair'
+              parity: 'odd'
+          120g:
+            label: '120g'
+            blurb: 'A 120g purse. The bard has already invoiced for morale.'
+            traits:
+              band: 'fair'
+              parity: 'even'
+          135g:
+            label: '135g'
+            blurb: 'A 135g purse. Presented with a speech whose length suggests a larger purse.'
+            traits:
+              band: 'fair'
+              parity: 'odd'
+          150g:
+            label: '150g'
+            blurb: 'A 150g purse. The chest costs extra. So does the person carrying it.'
+            traits:
+              band: 'fair'
+              parity: 'even'
+          165g:
+            label: '165g'
+            blurb: 'A 165g purse. Enough to retire on, provided retirement ends on Tuesday.'
+            traits:
+              band: 'fair'
+              parity: 'odd'
+          180g:
+            label: '180g'
+            blurb: 'A 180g purse. Bears the face of a king nobody remembers. The tax office remembers him.'
+            traits:
+              band: 'princely'
+              parity: 'even'
+          195g:
+            label: '195g'
+            blurb: 'A 195g purse. Enough to attract a better class of bandit.'
+            traits:
+              band: 'princely'
+              parity: 'odd'
+          210g:
+            label: '210g'
+            blurb: 'A 210g purse. Sung about in three counties. The bard retains the royalties.'
+            traits:
+              band: 'princely'
+              parity: 'even'
+          225g:
+            label: '225g'
+            blurb: 'A 225g purse. The largest since the dragon business. The dragon is appealing.'
+            traits:
+              band: 'princely'
+              parity: 'odd'
+
+briefings:
+  themes:
+    quest:
+      - title: The bard has been embellishing
+        body: The only account of the campaign is a ballad, and the ballad rhymes rather than reports. Every verse is true in some order, but the order is whichever one scanned. The guild will not pay out on a song, so somebody has to work out who actually did what.
+      - title: The ledger was eaten
+        body: The quest ledger was kept in a locked chest, guarded by something that was later persuaded the chest was food. What survives is the memory of a tavern full of witnesses, none of whom were sober and all of whom were there. Nothing gets paid out until the claims agree with each other.
+      - title: Everyone tells it differently
+        body: Everyone came back at once, everyone had done something worth telling, and every account begins with the word "obviously". They cannot all be right and none of them will go first. The guildmaster wants it settled before the drinks do it for him.
+      - title: The scribe had a cold
+        body: The guild scribe worked through the whole week with a streaming cold and a shaking hand, and the roll shows it. Half the entries are illegible and the other half may be misspelled names. Nobody wants to be the one who asks them to do it again.
+      - title: The chest was locked properly
+        body: The guild chest was shut with the good lock, which nobody has opened since, because the key was locked inside it as well. A smith has been sent for. The guild is not minded to wait for a smith.
+      - title: A fire in the records tower
+        body: It was put out quickly and thoroughly, with water, which is the part nobody thinks about until afterwards. The pages did not burn. They ran instead.
+      - title: The bard sang it from memory
+        body: The only account of the season is a ballad the bard composed on the road and never wrote down, and the bard is now three towns away. Everyone who heard it remembers different verses. The guild will not pay out on a recollection of a song.
+      - title: Everyone signed with a mark
+        body: Half the roll is signed with crosses and thumbprints, which worked perfectly while the clerk who knew whose was whose was still here. That clerk has retired to the coast. The marks are all identical crosses.
+      - title: The courier took the wrong bag
+        body: Two bags left the guildhall that morning and only one of them was meant to. The roll is somewhere on the north road in a saddlebag full of turnips. The turnips arrived safely and on time.
+      - title: A wizard was consulted
+        body: A wizard was asked to preserve the ledger against damp and did so, permanently, inside a block of something clear and extremely hard. The pages are perfectly visible. Two of them are face down.
+      - title: The cellar flooded to the knee
+        body: The cellar took the worst of the water, and the cellar is where the guild keeps the year's paperwork, on the floor, for reasons nobody now defends. What came out is pulp with the odd word in it. The odd word is not enough.
+      - title: Three clerks, three hands
+        body: The roll was kept by whoever happened to be free, which came to three people with three systems and no agreement between them. Each column makes sense on its own. Together they make none at all.
+      - title: The seal was applied to everything
+        body: The guild seal went onto every page at the end of the season, in hot wax, pressed firmly, through the whole stack at once. The top page is impeccable. The eleven underneath have a crest driven through the middle of them.
+      - title: It was written in the good ink
+        body: The expensive ink was used for the entire roll, and the expensive ink is the one that fades in sunlight, which is why it is cheap now. The roll spent a fortnight on a windowsill. It is a blank scroll with a faint memory on it.
+      - title: The guildmaster's own copy
+        body: The guildmaster keeps a private copy, which everybody knew about and nobody had seen, and which turns out to be a list of names with no other columns at all. It confirms who was involved. It settles precisely nothing else.
+      - title: A dispute about the order
+        body: Everyone agrees on what was done and nobody agrees on what was done first, which matters, because the claims are paid out in order. Every account begins with the word obviously. They cannot all have been first.
+      - title: The dog of the guildhall
+        body: The guildhall keeps a dog to discourage rats, and the dog has now discouraged a considerable quantity of parchment. The rats were never the problem. About a third of the season is inside a very pleased animal.
+      - title: Filed by a helpful apprentice
+        body: The apprentice sorted the year alphabetically, which took two days and was done beautifully, working from the first word of each entry. Almost every entry begins with the word the. It is now one enormous heap under T.
+      - title: The contract ate itself
+        body: A clause nobody had read says the paperwork is destroyed at the turn of the season unless it is renewed, and nobody renewed it. The clause was honoured exactly. Whoever drafted it has not been seen since.
+      - title: A very selective burglary
+        body: Nothing of value was taken, which the guild has chosen to find insulting, and the ledger went instead. It is not clear what anybody would want with it. It is extremely clear that it has gone.
+      - title: The roll went out as kindling
+        body: There are two stacks by the hearth, one for burning and one for keeping, and they are the same height and the same colour. The fire was excellent all evening. The keeping stack is ash.
+      - title: Sworn statements, all of them
+        body: Every claimant has sworn an oath that their account is true, in front of witnesses, at considerable length. The accounts still contradict each other in six places. Oaths, it turns out, are not evidence.
+      - title: Copied out twice for safety
+        body: Two fair copies were made so that one could always be kept somewhere safe, and the two differ in eleven places. Neither copyist will accept that the error is theirs. The original went on the fire once the copies were finished.
+      - title: A season of shorthand
+        body: The clerk invented a shorthand halfway through the season on the grounds that it would be quicker, and it was. Nobody else can read a line of it. The clerk has gone travelling for a year.
+      - title: The raven arrived wet
+        body: The message came through weather no bird should have flown in, and arrived as a bird and a small grey pellet. The bird is fine and pleased with itself. The pellet was the season's account.
+      - title: Everyone came back at once
+        body: The whole company arrived within an hour of each other, all of them talking, and the clerk had one pen and two hands. What got written down is the loudest quarter of it. The rest went past at speed.
+      - title: The wax melted in the cart
+        body: The sealed case travelled two days in high summer on the sunny side of an open cart. The seals are now a single pool. Which document was which has become a matter of opinion.
+      - title: A helpful correction
+        body: Somebody went through the roll correcting the spelling of names, which was thoughtful, and corrected two of them to the same name. There were two people. There is now one line.
+      - title: The strongroom was too strong
+        body: The roll was put in the strongroom for safekeeping, and the strongroom was then mortared shut as part of the building work. It is entirely safe in there. It will be safe until the spring.
+      - title: Written on the back of a map
+        body: The only tally of the season was jotted on the reverse of a map, which was then given away to somebody heading north. They needed the map badly. Nobody thought to turn it over first.
+      - title: The moths had a good year
+        body: The cloth wrapping did its job for eleven months and then stopped doing it, and moths are not at all selective about which pages they begin with. What survives is the margins. The margins carry the least.
+      - title: Nobody wrote the day down
+        body: Every entry in the roll is complete apart from the day it happened, which the clerk left until later, every time, for an entire season. The order was obvious at the time. It is not obvious now.
+      - title: The guild moved buildings
+        body: Everything was carried across the square in one afternoon by whoever was standing nearby, in whatever came to hand. It all arrived. Not one box arrived with its lid still on, and the square was windy.

@@ -1,0 +1,681 @@
+# Blue Ribbon Garden — en-GB
+#
+# Everything this theme says: its sets and their items, in the order puzzles
+# draw them, the sentences its clues are written in, and the briefings a puzzle
+# opens on. How these are written: locales/README.md.
+
+themes:
+  garden:
+    name: 'Blue Ribbon Garden'
+    blurb: 'Growers, blooms and show-day heights'
+    clues:
+      link: '{a} and {b} are the same entry.'
+      notLink: '{a} and {b} are different entries.'
+      groupNot: 'No {a} is the same entry as {b}.'
+      either: '{a} is the same entry as either {b} or {c}.'
+      compare: '{greater} stands {comparative} than {lesser}.'
+      compareGap: '{greater} stands exactly {gap} {unit} {comparative} than {lesser}.'
+    categories:
+      gardener:
+        name: 'Gardener'
+        pattern: '{}'
+        describes: 'the {}'
+        noun: 'gardener'
+        traits:
+          hair:
+            label: 'Hair'
+            pattern: '{noun} with {}'
+          feature:
+            label: 'Feature'
+            pattern: '{noun} with {}'
+          eyes:
+            label: 'Eyes'
+            pattern: '{noun} with {} eyes'
+          age:
+            label: 'Age'
+            pattern: '{noun} aged {}'
+          prize:
+            label: 'Best prize'
+            pattern: '{noun} who has won {}'
+        items:
+          rose:
+            label: 'Ms Rose'
+            blurb: 'Grows the finest blooms in the village. Her fertiliser recipe is classified above parish accounts.'
+            traits:
+              hair: 'a bun'
+              feature: 'hoop earrings'
+              eyes: 'green'
+              age: '62'
+              prize: 'Best in Show'
+          parsley:
+            label: 'Vicar Parsley'
+            blurb: 'Blesses the marrows. The marrows have not disappointed him yet.'
+            traits:
+              hair: 'short hair'
+              feature: 'a beard'
+              eyes: 'brown'
+              age: '55'
+              prize: 'a Highly Commended'
+          mint:
+            label: 'Master Mint'
+            blurb: 'Eleven years old and already undercutting everyone at the stall.'
+            traits:
+              hair: 'a crop'
+              feature: 'a headset'
+              eyes: 'hazel'
+              age: '11'
+              prize: 'nothing at all'
+          petunia:
+            label: 'Mrs Petunia'
+            blurb: 'Has judged the show for thirty years and entered it for thirty-one.'
+            traits:
+              hair: 'a bob'
+              feature: 'a chinstrap'
+              eyes: 'blue'
+              age: '71'
+              prize: 'the Marrow Cup'
+          peapod:
+            label: 'PC Peapod'
+            blurb: 'Investigating the great shed break-in of last Thursday.'
+            traits:
+              hair: 'a mohawk'
+              feature: 'a headset'
+              eyes: 'brown'
+              age: '28'
+              prize: 'nothing at all'
+          mud:
+            label: 'Grounds Keeper Mud'
+            blurb: 'Speaks to the lawn. The lawn, in fairness, looks magnificent.'
+            traits:
+              hair: 'a shaved head'
+              feature: 'mutton chops'
+              eyes: 'grey'
+              age: '58'
+              prize: 'three rosettes'
+          thistle:
+            label: 'Miss Thistle'
+            blurb: 'Grows only what stings. Considers this a public service.'
+            traits:
+              hair: 'braids'
+              feature: 'a moustache'
+              eyes: 'green'
+              age: '37'
+              prize: 'nothing at all'
+          compost:
+            label: 'Dr Compost'
+            blurb: 'Wrote the definitive book on rot. Sales have been slow, which he considers thematically appropriate.'
+            traits:
+              hair: 'a ponytail'
+              feature: 'spectacles'
+              eyes: 'brown'
+              age: '49'
+              prize: 'a Highly Commended'
+          bramble:
+            label: 'Reverend Bramble'
+            blurb: 'Prunes with enormous force, then asks forgiveness on behalf of the secateurs.'
+            traits:
+              hair: 'long hair'
+              feature: 'a beard'
+              eyes: 'grey'
+              age: '66'
+              prize: 'the Marrow Cup'
+          nettle:
+            label: 'Widow Nettle'
+            blurb: 'Been on plot four since 1971. Will outlast plot four.'
+            traits:
+              hair: 'curls'
+              feature: 'a moustache'
+              eyes: 'blue'
+              age: '84'
+              prize: 'three rosettes'
+          turnip:
+            label: 'Squire Turnip'
+            blurb: 'Owns the land, tends none of it, wins the raffle. An impressive yield for so little cultivation.'
+            traits:
+              hair: 'a topknot'
+              feature: 'mutton chops'
+              eyes: 'hazel'
+              age: '52'
+              prize: 'Best in Show'
+          fennel:
+            label: 'Nurse Fennel'
+            blurb: 'Off shift and elbow-deep in soil by nine minutes past.'
+            traits:
+              hair: 'an afro'
+              feature: 'hoop earrings'
+              eyes: 'brown'
+              age: '31'
+              prize: 'a Highly Commended'
+          spade:
+            label: 'Old Tom Spade'
+            blurb: 'Has one trowel, bought in 1968, and no interest in another.'
+            traits:
+              hair: 'a shaved head'
+              feature: 'a beard'
+              eyes: 'grey'
+              age: '79'
+              prize: 'three rosettes'
+          marrow:
+            label: 'Major Marrow'
+            blurb: 'Runs the allotment like a campaign. The slugs have declined formal surrender.'
+            traits:
+              hair: 'a crop'
+              feature: 'an eye patch'
+              eyes: 'blue'
+              age: '68'
+              prize: 'Best in Show'
+      flower:
+        name: 'Flower'
+        pattern: 'the {} grower'
+        describes: 'the grower of the {}'
+        noun: 'bloom'
+        traits:
+          colour:
+            label: 'Colour'
+            pattern: '{} {noun}'
+          scent:
+            label: 'Scent'
+            pattern: '{noun} that smells {}'
+          petals:
+            label: 'Petals'
+            pattern: '{noun} with {} petals'
+        items:
+          dahlia:
+            label: 'Dahlia'
+            blurb: 'A firework that has agreed to hold still for the judging.'
+            traits:
+              colour: 'red'
+              scent: 'faint'
+              petals: 'many'
+          peony:
+            label: 'Peony'
+            blurb: 'Blooms for a fortnight. Spends the remaining fifty weeks preparing its entrance.'
+            traits:
+              colour: 'pink'
+              scent: 'sweet'
+              petals: 'many'
+          iris:
+            label: 'Iris'
+            blurb: 'Named after a rainbow and behaves accordingly.'
+            traits:
+              colour: 'purple'
+              scent: 'faint'
+              petals: 'few'
+          tulip:
+            label: 'Tulip'
+            blurb: 'Once worth a house. Now worth a polite nod.'
+            traits:
+              colour: 'red'
+              scent: 'faint'
+              petals: 'few'
+          aster:
+            label: 'Aster'
+            blurb: 'Still flowering after everyone else has packed up. The committee suspects a separate calendar.'
+            traits:
+              colour: 'purple'
+              scent: 'faint'
+              petals: 'many'
+          zinnia:
+            label: 'Zinnia'
+            blurb: 'Cut it and it grows back twice, out of spite.'
+            traits:
+              colour: 'orange'
+              scent: 'faint'
+              petals: 'many'
+          lupin:
+            label: 'Lupin'
+            blurb: 'A spire of flowers with a fully booked aphid hotel.'
+            traits:
+              colour: 'purple'
+              scent: 'peppery'
+              petals: 'many'
+          freesia:
+            label: 'Freesia'
+            blurb: 'Smells better than anything else in the tent and knows it.'
+            traits:
+              colour: 'white'
+              scent: 'sweet'
+              petals: 'few'
+          marigold:
+            label: 'Marigold'
+            blurb: 'Planted to protect the vegetables. Steals the show instead.'
+            traits:
+              colour: 'orange'
+              scent: 'peppery'
+              petals: 'many'
+          foxglove:
+            label: 'Foxglove'
+            blurb: 'Beautiful, statuesque, and not to be eaten under any circumstances.'
+            traits:
+              colour: 'pink'
+              scent: 'faint'
+              petals: 'many'
+          camellia:
+            label: 'Camellia'
+            blurb: 'Drops every petal the night before judging. Has excellent timing and no team spirit.'
+            traits:
+              colour: 'pink'
+              scent: 'faint'
+              petals: 'many'
+          sweet-pea:
+            label: 'Sweet Pea'
+            blurb: 'The more you pick it the harder it works. A rare arrangement.'
+            traits:
+              colour: 'white'
+              scent: 'sweet'
+              petals: 'few'
+          snapdragon:
+            label: 'Snapdragon'
+            blurb: 'Squeeze the flower and it talks. Children are delighted; judges are not.'
+            traits:
+              colour: 'orange'
+              scent: 'faint'
+              petals: 'few'
+          cosmos:
+            label: 'Cosmos'
+            blurb: 'Grows six feet tall in poor soil and looks delicate doing it.'
+            traits:
+              colour: 'white'
+              scent: 'faint'
+              petals: 'few'
+      pot:
+        name: 'Pot'
+        pattern: 'the {} pot'
+        describes: 'the {}'
+        noun: 'pot'
+        traits:
+          material:
+            label: 'Made of'
+            pattern: '{noun} made of {}'
+          size:
+            label: 'Size'
+            pattern: '{} {noun}'
+          finish:
+            label: 'Finish'
+            pattern: '{noun} with a {} finish'
+        items:
+          terracotta:
+            label: 'Terracotta'
+            blurb: 'Chipped on one side. Turned towards the judges, this becomes provenance.'
+            traits:
+              material: 'clay'
+              size: 'big'
+              finish: 'matt'
+          cobalt:
+            label: 'Cobalt'
+            blurb: 'Visible from the gate. Subtlety was apparently sold separately.'
+            traits:
+              material: 'glazed clay'
+              size: 'big'
+              finish: 'glossy'
+          ivory:
+            label: 'Ivory'
+            blurb: 'Shows every speck of soil. An ambitious career choice for a plant pot.'
+            traits:
+              material: 'glazed clay'
+              size: 'small'
+              finish: 'glossy'
+          copper:
+            label: 'Copper'
+            blurb: 'Went green in a fortnight. The owner now calls it an investment in patina.'
+            traits:
+              material: 'metal'
+              size: 'small'
+              finish: 'glossy'
+          slate:
+            label: 'Slate'
+            blurb: 'The plant can be moved. The pot requires a working party and a biscuit budget.'
+            traits:
+              material: 'stone'
+              size: 'big'
+              finish: 'matt'
+          mint:
+            label: 'Mint'
+            blurb: 'Bought in a sale. The saving has been mentioned more often than the plant.'
+            traits:
+              material: 'glazed clay'
+              size: 'small'
+              finish: 'glossy'
+          rust:
+            label: 'Rust'
+            blurb: 'Drainage has improved every year. Structural integrity has not.'
+            traits:
+              material: 'metal'
+              size: 'big'
+              finish: 'matt'
+          cream:
+            label: 'Cream'
+            blurb: 'Plain, sensible, dependable. Nobody can remember which neighbour lent it.'
+            traits:
+              material: 'clay'
+              size: 'small'
+              finish: 'matt'
+          indigo:
+            label: 'Indigo'
+            blurb: 'Survived two frosts and a repair described as “temporary” in 2018.'
+            traits:
+              material: 'glazed clay'
+              size: 'big'
+              finish: 'glossy'
+          charcoal:
+            label: 'Charcoal'
+            blurb: 'Stores the afternoon sun. By August the roots have asked for a fan.'
+            traits:
+              material: 'stone'
+              size: 'small'
+              finish: 'matt'
+          blush:
+            label: 'Blush'
+            blurb: 'A gift, displayed out of politeness. Now defended with surprising force.'
+            traits:
+              material: 'glazed clay'
+              size: 'small'
+              finish: 'glossy'
+          amber:
+            label: 'Amber'
+            blurb: 'Photographed at sunset. The plant is learning to accept a supporting role.'
+            traits:
+              material: 'clay'
+              size: 'big'
+              finish: 'matt'
+          olive:
+            label: 'Olive'
+            blurb: 'Bought at a farm sale. The dents were included; the explanation cost extra.'
+            traits:
+              material: 'metal'
+              size: 'small'
+              finish: 'matt'
+          plum:
+            label: 'Plum'
+            blurb: 'Its position became permanent shortly after somebody said “we can always move it”.'
+            traits:
+              material: 'stone'
+              size: 'big'
+              finish: 'glossy'
+      tool:
+        name: 'Tool'
+        pattern: 'the {} owner'
+        describes: 'the owner of the {}'
+        noun: 'tool'
+        traits:
+          material:
+            label: 'Made of'
+            pattern: '{noun} made of {}'
+          use:
+            label: 'For'
+            pattern: '{noun} for {}'
+          size:
+            label: 'Size'
+            pattern: '{} {noun}'
+        items:
+          trowel:
+            label: 'Trowel'
+            blurb: 'Lost twice a season and found each time in the compost.'
+            traits:
+              material: 'steel'
+              use: 'digging'
+              size: 'small'
+          shears:
+            label: 'Shears'
+            blurb: 'Sharpened every spring by a man who charges too much.'
+            traits:
+              material: 'steel'
+              use: 'cutting'
+              size: 'big'
+          dibber:
+            label: 'Dibber'
+            blurb: 'A stick with a job title and very reasonable pension expectations.'
+            traits:
+              material: 'wood'
+              use: 'digging'
+              size: 'small'
+          rake:
+            label: 'Rake'
+            blurb: 'Stood on once a year, to everyone else’s delight.'
+            traits:
+              material: 'steel'
+              use: 'sorting'
+              size: 'big'
+          sprayer:
+            label: 'Sprayer'
+            blurb: 'Half water, half seaweed feed, entirely mysterious to visitors.'
+            traits:
+              material: 'plastic'
+              use: 'watering'
+              size: 'small'
+          gloves:
+            label: 'Gloves'
+            blurb: 'One is missing. It has been missing since the spring.'
+            traits:
+              material: 'leather'
+              use: 'digging'
+              size: 'small'
+          hoe:
+            label: 'Hoe'
+            blurb: 'Removes weeds and, occasionally, an entire row of seedlings.'
+            traits:
+              material: 'steel'
+              use: 'digging'
+              size: 'big'
+          twine:
+            label: 'Twine'
+            blurb: 'Has secured every plant on the plot and, briefly, the grounds keeper.'
+            traits:
+              material: 'jute'
+              use: 'sorting'
+              size: 'small'
+          secateurs:
+            label: 'Secateurs'
+            blurb: 'The only tool nobody is allowed to borrow.'
+            traits:
+              material: 'steel'
+              use: 'cutting'
+              size: 'small'
+          kneeler:
+            label: 'Kneeler'
+            blurb: 'The single most sensible purchase on the entire allotment.'
+            traits:
+              material: 'plastic'
+              use: 'sorting'
+              size: 'big'
+          sieve:
+            label: 'Sieve'
+            blurb: 'Turns lumpy compost into something worth putting seeds in.'
+            traits:
+              material: 'steel'
+              use: 'sorting'
+              size: 'big'
+          hand-fork:
+            label: 'Hand Fork'
+            blurb: 'Bent on a stone in 2019 and never quite the same.'
+            traits:
+              material: 'steel'
+              use: 'digging'
+              size: 'small'
+          watering-can:
+            label: 'Watering Can'
+            blurb: 'Nine litres, one dodgy handle, and a rose that has never come off.'
+            traits:
+              material: 'metal'
+              use: 'watering'
+              size: 'big'
+          plant-labels:
+            label: 'Plant Labels'
+            blurb: 'Written in pencil, faded by June, argued about in July.'
+            traits:
+              material: 'plastic'
+              use: 'sorting'
+              size: 'small'
+      height:
+        name: 'Height'
+        pattern: 'the {} plant'
+        describes: 'the {}'
+        noun: 'plant'
+        ordered:
+          noun: 'plant height'
+          unit: 'centimetres'
+          greater: 'taller'
+          lesser: 'shorter'
+        traits:
+          band:
+            label: 'Stature'
+            pattern: '{} {noun}'
+          parity:
+            label: 'Number'
+            pattern: '{noun} at an {} height'
+        items:
+          20cm:
+            label: '20cm'
+            blurb: 'A 20cm entry. Judged from a crouch, which nobody enjoys.'
+            traits:
+              band: 'low'
+              parity: 'even'
+          35cm:
+            label: '35cm'
+            blurb: 'A 35cm entry. Small, tidy, and quietly perfect.'
+            traits:
+              band: 'low'
+              parity: 'odd'
+          50cm:
+            label: '50cm'
+            blurb: 'A 50cm entry. Grown in a windowsill pot and dared to enter.'
+            traits:
+              band: 'low'
+              parity: 'even'
+          65cm:
+            label: '65cm'
+            blurb: 'A 65cm entry. Exactly the height the schedule recommends.'
+            traits:
+              band: 'low'
+              parity: 'odd'
+          80cm:
+            label: '80cm'
+            blurb: 'An 80cm entry. Staked once, as a precaution, and never needed it.'
+            traits:
+              band: 'low'
+              parity: 'even'
+          95cm:
+            label: '95cm'
+            blurb: 'A 95cm entry. Stood in the front row and looked entirely at home.'
+            traits:
+              band: 'middling'
+              parity: 'odd'
+          110cm:
+            label: '110cm'
+            blurb: 'A 110cm entry. Fed weekly with something the owner will not name.'
+            traits:
+              band: 'middling'
+              parity: 'even'
+          125cm:
+            label: '125cm'
+            blurb: 'A 125cm entry. Blocked the view of three other entries.'
+            traits:
+              band: 'middling'
+              parity: 'odd'
+          140cm:
+            label: '140cm'
+            blurb: 'A 140cm entry. Carried in by two people and a wheelbarrow.'
+            traits:
+              band: 'middling'
+              parity: 'even'
+          155cm:
+            label: '155cm'
+            blurb: 'A 155cm entry. Needed a cane, then a second cane, then a rethink.'
+            traits:
+              band: 'middling'
+              parity: 'odd'
+          170cm:
+            label: '170cm'
+            blurb: 'A 170cm entry. Grew through the greenhouse roof in early July.'
+            traits:
+              band: 'towering'
+              parity: 'even'
+          185cm:
+            label: '185cm'
+            blurb: 'A 185cm entry. Measured twice because the first time was disputed.'
+            traits:
+              band: 'towering'
+              parity: 'odd'
+          200cm:
+            label: '200cm'
+            blurb: 'A 200cm entry. Visible from the car park, which is the real prize.'
+            traits:
+              band: 'towering'
+              parity: 'even'
+          215cm:
+            label: '215cm'
+            blurb: 'A 215cm entry. The tallest since the famous sunflower business.'
+            traits:
+              band: 'towering'
+              parity: 'odd'
+
+briefings:
+  themes:
+    garden:
+      - title: The entry cards blew away
+        body: The show marquee was open at both ends when the wind found it, and the entry cards left in a hurry. The entries are still on their benches, magnificent and entirely anonymous. Judging starts at two and the rosettes have to go to the right benches.
+      - title: A very thorough watering
+        body: The sprinkler was set on a timer by somebody who does not trust timers, and so was also set off by hand. The paperwork was under the sprinkler. Every {noun} knows exactly what they grew and has firm opinions about everyone else’s.
+      - title: The judge is new
+        body: This year’s judge reorganised the benches for a better light, which was thoughtful, and did it before the cards were checked, which was not. Nobody doubts the measurements; nobody can say whose they are. The blue ribbon is not going anywhere until this is straightened out.
+
+      - title: The entry cards went in the barrow
+        body: Somebody cleared the trestle into the barrow to make room, and the barrow went where barrows go, which is the compost heap. The heap was turned that afternoon. The cards are in there somewhere and are no longer cards.
+      - title: The secretary's beautiful ledger
+        body: The show secretary keeps everything in one book in copperplate, has done for thirty years, and has never once mislaid it. It was in the car on Friday. The car went to be valeted on Saturday.
+      - title: The marquee took off
+        body: One corner came loose at about four in the morning and the wind did the rest, thoroughly, across two fields. The exhibits are fine, being heavy. The paperwork was not heavy.
+      - title: Rain on an open trestle
+        body: The forecast promised a dry afternoon and was wrong by roughly three hours. Everything laid out on the trestle took the lot. What is left of the list is a sheet of even grey.
+      - title: The hose was left running
+        body: It ran all night into the corner of the shed where the box of paperwork sits on the floor, as it has sat for years without incident. There were consequences this time. The box is now a solid cube of papier mache.
+      - title: Two shows on one weekend
+        body: The committee runs two events and keeps one set of forms, and this year the weekends overlapped by a day. Both sets of entries went onto the same sheets. Neither sheet says which show it was.
+      - title: The pen ran out at number six
+        body: It ran out cleanly and quietly, and the scoring carried on for another twenty minutes with nothing coming out at all. The impressions are still in the paper. Reading them wants a raking light and a great deal of patience.
+      - title: A dog in the marquee
+        body: It was in there for perhaps ten minutes, which is ample for a dog with an interest in paper and a low trestle to work from. The exhibits were untouched. The lists were not.
+      - title: Filed on the burning heap
+        body: There is a heap for burning and a heap for keeping, at opposite ends of the shed, and both of them are cardboard boxes. The fire was lit at six. It was an excellent fire.
+      - title: The judge wrote on their hand
+        body: Notes taken on a palm do not survive a watering can, and there was a watering can. Four marks remain and one of them is probably a number. It is being treated as a starting point.
+      - title: A very windy Saturday
+        body: The show is held outdoors, the show was well attended, and the wind was by common agreement a disgrace. Everything unweighted left at speed. The cards were unweighted.
+      - title: The committee minuted nothing
+        body: The judging was settled at a meeting everybody attended and nobody wrote up, because it was all perfectly obvious at the time. It is Monday now. Not one of them can put it back together.
+      - title: Two hands, one list
+        body: The list was kept by two people taking turns, in two hands, using two different abbreviations for the same thing. It reads as twice as many entries as there were. Untangling that is the morning's work.
+      - title: The greenhouse in August
+        body: The folder was left on the bench in the greenhouse over a hot weekend, which is a thing you only do once. The pages have gone the colour of weak tea and curled into tubes. Flattening them lifts the ink off.
+      - title: Somebody tidied the shed
+        body: The shed was cleared, swept and made beautiful by a volunteer who did not know what any of it was for. Everything went into black bags. The bags went out on Tuesday morning.
+      - title: The rosettes were pinned early
+        body: They went on ahead of time to save a job later, and then the order changed, which nobody minded until it emerged that the cards had already gone. The rosettes are on. Whether they are on the right benches is the question.
+      - title: Something got into the box
+        body: Whatever it was worked through a damp fortnight and a cardboard box in a more or less straight line. The trail is very clear. So are the holes it left behind.
+      - title: The clipboard on the roof of the car
+        body: It was put up there while the boot was opened and stayed put for the length of the village. It came off at the junction. Somebody is walking back along the verge with a carrier bag.
+      - title: Written on the back of the schedule
+        body: The tally went onto the reverse of the printed schedule, of which two hundred were made, all identical, all now stacked in the hall. Somewhere in that stack is the one with writing on it. Nobody has volunteered to go through them.
+      - title: The tea urn went over
+        body: It went over on the trestle at the back, which is exactly where the day's papers were, and it had been on since eight. What the water did not take, the tea did. The stain is even and complete.
+      - title: Everyone remembers their own
+        body: Every {noun} can tell you precisely what they entered and precisely nothing about anybody else's, which is natural and entirely useless. The answer lives in the overlap. There is not a great deal of overlap.
+      - title: A gap in the numbering
+        body: The entry numbers run from one to twenty-nine with no seventeen anywhere, and nobody will own up to seventeen. It is not blank, it is absent. Whoever took it out did it neatly.
+      - title: Last year's cards, turned over
+        body: The old cards were reused, which is thrifty and admirable, and now every card carries two sets of writing. Both are in the same hand. Neither is dated.
+      - title: The lock on the hall
+        body: Everything was shut in the hall for safekeeping on Saturday night, and the key holder went to visit family on Sunday morning. The hall is secure. It is secure until Thursday.
+      - title: Somebody's shopping list
+        body: The sheet on the trestle turned out to be a shopping list, and the real list turned out to be on something that has gone home in a coat pocket. The coat belongs to a visitor. Nobody caught a name.
+      - title: The sprinkler is on a timer
+        body: The timer works perfectly, which is the trouble, because nobody told it the marquee would be standing there this week. It came on at four in the morning. It ran for its usual twenty minutes.
+      - title: Two people called Margaret
+        body: There are two Margarets on the entry list and only one of them is written down with a surname. Half the entries are ambiguous on that basis alone. Both Margarets are being very good about it.
+      - title: The frost got in
+        body: The cold frame was left open, and the box of forms was in the cold frame, which is not where it lives and nobody has explained why it was. Paper, frost and then sun do a particular thing between them. The pages have gone to lace.
+      - title: The photograph of the benches
+        body: Somebody photographed the whole row rather than copying the cards out, which was clever, and the sun was behind the benches, which was not. The picture is a beautiful silhouette. Not one card can be read.
+      - title: The show ran late
+        body: Everything overran by two hours and the recording was the thing that got dropped, because it is always the thing that gets dropped. Every result was announced out loud to a field full of people. None of it was written down.

@@ -8,10 +8,6 @@
  * there (or the other way round) fails loudly rather than quietly leaving a
  * blank square on the board.
  */
-import { readFileSync } from 'node:fs';
-
-import { parse } from 'yaml';
-
 import { DRINKS, PASTRIES, SEATS, THEME_MARK as CAFE_MARK } from './cafe.mjs';
 import { CARGO, DESTINATIONS, SHIPS, THEME_MARK as COSMIC_MARK } from './cosmic.mjs';
 import { FLOWERS, POTS, THEME_MARK as GARDEN_MARK, TOOLS } from './garden.mjs';
@@ -19,9 +15,10 @@ import { person } from './people.mjs';
 import { BEASTS, REALMS, THEME_MARK as QUEST_MARK, WEAPONS } from './quest.mjs';
 import { GEAR, SITES, SPECIES, THEME_MARK as REEF_MARK } from './reef.mjs';
 import { BILLS, DEPTHS, HEIGHTS, LAUNCHES, MARKS, REWARDS, UI } from './scales.mjs';
+import { readLocale } from '../locale.mjs';
 
 /** The words the app ships with, which the people are drawn from. */
-const LOCALE = parse(readFileSync(new URL('../../locales/en-GB.yaml', import.meta.url), 'utf8'));
+const LOCALE = await readLocale();
 
 /**
  * Everybody in one theme's anchor set, drawn from what the reference locale

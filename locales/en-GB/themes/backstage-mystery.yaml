@@ -1,0 +1,646 @@
+# Backstage Mystery — en-GB
+#
+# Everything this theme says: its sets and their items, in the order puzzles
+# draw them, the sentences its clues are written in, and the briefings a puzzle
+# opens on. How these are written: locales/README.md.
+
+themes:
+  backstage-mystery:
+    name: 'Backstage Mystery'
+    blurb: 'A flawless production, pending several small explanations.'
+    clues:
+      link: '{a} appears in the same act as {b}.'
+      notLink: '{a} does not appear in the same act as {b}.'
+      groupNot: 'No {a} appears in the same act as {b}.'
+      either: '{a} appears in the same act as either {b} or {c}, but not both.'
+      compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.'
+      compareGap: 'The appearance linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+    categories:
+      performer:
+        name: 'Performer'
+        pattern: '{}'
+        describes: 'the {}'
+        noun: 'performer'
+        traits:
+          standing:
+            label: 'Standing'
+            pattern: '{noun} with {} standing'
+          shift:
+            label: 'Shift'
+            pattern: '{noun} on the {} shift'
+          manner:
+            label: 'Manner'
+            pattern: '{noun} with a {} manner'
+        items:
+          felix-flourish:
+            label: 'Felix Flourish'
+            blurb: 'Can turn an entrance into an event and an exit into a scheduling concern.'
+            traits:
+              standing: 'junior'
+              shift: 'early'
+              manner: 'measured'
+          vera-velvet:
+            label: 'Vera Velvet'
+            blurb: 'Remembers every line, especially the ones somebody else has forgotten.'
+            traits:
+              standing: 'established'
+              shift: 'late'
+              manner: 'measured'
+          percy-plume:
+            label: 'Percy Plume'
+            blurb: 'Projects to the back row even when asking where the biscuits are.'
+            traits:
+              standing: 'veteran'
+              shift: 'early'
+              manner: 'brisk'
+          mabel-moon:
+            label: 'Mabel Moon'
+            blurb: 'Describes every missed rehearsal as valuable private preparation.'
+            traits:
+              standing: 'junior'
+              shift: 'late'
+              manner: 'brisk'
+          lord-limelight:
+            label: 'Lord Limelight'
+            blurb: 'Bows as though the applause has been waiting its entire life for him.'
+            traits:
+              standing: 'established'
+              shift: 'early'
+              manner: 'theatrical'
+          tilly-twirl:
+            label: 'Tilly Twirl'
+            blurb: 'Can improvise a recovery faster than anyone can identify the original mistake.'
+            traits:
+              standing: 'veteran'
+              shift: 'late'
+              manner: 'theatrical'
+          dr-diction:
+            label: 'Dr Diction'
+            blurb: 'Pronounces every syllable, including several the author may not have intended.'
+            traits:
+              standing: 'junior'
+              shift: 'early'
+              manner: 'measured'
+          bertie-bravo:
+            label: 'Bertie Bravo'
+            blurb: 'Believes enthusiasm can fill any gap, including the gap before his next line.'
+            traits:
+              standing: 'established'
+              shift: 'late'
+              manner: 'measured'
+          august-vale:
+            label: 'August Vale'
+            blurb: 'A specialist in grave expressions and unexpectedly cheerful lunch breaks.'
+            traits:
+              standing: 'veteran'
+              shift: 'early'
+              manner: 'brisk'
+          pippa-pirouette:
+            label: 'Pippa Pirouette'
+            blurb: 'Counts every movement and disputes any arithmetic offered by the director.'
+            traits:
+              standing: 'junior'
+              shift: 'late'
+              manner: 'brisk'
+          silas-sigh:
+            label: 'Silas Sigh'
+            blurb: 'Has perfected a pause that makes the audience question its own intentions.'
+            traits:
+              standing: 'established'
+              shift: 'early'
+              manner: 'theatrical'
+          dame-encore:
+            label: 'Dame Encore'
+            blurb: 'Treats the first ovation as a promising rehearsal for the next one.'
+            traits:
+              standing: 'veteran'
+              shift: 'late'
+              manner: 'theatrical'
+          cecil-cue:
+            label: 'Cecil Cue'
+            blurb: "Knows everyone's lines and occasionally offers them before they are requested."
+            traits:
+              standing: 'junior'
+              shift: 'early'
+              manner: 'measured'
+          ruby-reverie:
+            label: 'Ruby Reverie'
+            blurb: 'Remains mysterious even when giving perfectly ordinary directions.'
+            traits:
+              standing: 'established'
+              shift: 'late'
+              manner: 'measured'
+      prop:
+        name: 'Prop'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'prop'
+        traits:
+          handling:
+            label: 'Handling'
+            pattern: '{noun} requiring {} handling'
+          storage:
+            label: 'Storage'
+            pattern: '{noun} stored in the {} area'
+          finish:
+            label: 'Finish'
+            pattern: '{noun} with a {} finish'
+        items:
+          folding-fan:
+            label: 'Folding Fan'
+            blurb: 'Signals disdain with impressive efficiency and very little rehearsal.'
+            traits:
+              handling: 'one-handed'
+              storage: 'left'
+              finish: 'matte'
+          sealed-letter:
+            label: 'Sealed Letter'
+            blurb: 'Contains news too important to survive being read aloud accurately.'
+            traits:
+              handling: 'one-handed'
+              storage: 'right'
+              finish: 'matte'
+          golden-goblet:
+            label: 'Golden Goblet'
+            blurb: 'Looks expensive enough to justify the remarkably ordinary water inside.'
+            traits:
+              handling: 'one-handed'
+              storage: 'left'
+              finish: 'shiny'
+          hand-mirror:
+            label: 'Hand Mirror'
+            blurb: "Reflects magnificence, subject to lighting and the performer's own expectations."
+            traits:
+              handling: 'one-handed'
+              storage: 'right'
+              finish: 'shiny'
+          storm-lantern:
+            label: 'Storm Lantern'
+            blurb: 'Creates atmosphere without being permitted to create actual fire.'
+            traits:
+              handling: 'one-handed'
+              storage: 'left'
+              finish: 'matte'
+          royal-sceptre:
+            label: 'Royal Sceptre'
+            blurb: 'Confers authority for the duration of the speech and no longer.'
+            traits:
+              handling: 'one-handed'
+              storage: 'right'
+              finish: 'shiny'
+          map-scroll:
+            label: 'Map Scroll'
+            blurb: 'The kingdom is detailed beautifully, apart from the bit needed in this scene.'
+            traits:
+              handling: 'two-handed'
+              storage: 'left'
+              finish: 'matte'
+          throne-chair:
+            label: 'Throne Chair'
+            blurb: 'Reserved for royalty, except when somebody needs to reach the top shelf.'
+            traits:
+              handling: 'two-handed'
+              storage: 'central'
+              finish: 'shiny'
+          feather-quill:
+            label: 'Feather Quill'
+            blurb: 'Writes convincing declarations until the nib encounters paper.'
+            traits:
+              handling: 'one-handed'
+              storage: 'right'
+              finish: 'matte'
+          blunt-dagger:
+            label: 'Blunt Dagger'
+            blurb: 'Threatening from the audience, reassuringly unambitious at close range.'
+            traits:
+              handling: 'one-handed'
+              storage: 'left'
+              finish: 'shiny'
+          silk-bouquet:
+            label: 'Silk Bouquet'
+            blurb: 'Remains fresh through every love scene and several storage winters.'
+            traits:
+              handling: 'two-handed'
+              storage: 'right'
+              finish: 'matte'
+          alarm-clock:
+            label: 'Alarm Clock'
+            blurb: 'Its ringing has better timing than several members of the company.'
+            traits:
+              handling: 'two-handed'
+              storage: 'central'
+              finish: 'shiny'
+          walking-cane:
+            label: 'Walking Cane'
+            blurb: 'Adds dignity to an entrance and complexity to a narrow doorway.'
+            traits:
+              handling: 'one-handed'
+              storage: 'left'
+              finish: 'shiny'
+          treasure-coffer:
+            label: 'Treasure Coffer'
+            blurb: 'The treasure is imaginary, but the lifting instructions are very real.'
+            traits:
+              handling: 'two-handed'
+              storage: 'central'
+              finish: 'matte'
+      costume:
+        name: 'Costume'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'costume'
+        traits:
+          fastening:
+            label: 'Fastening'
+            pattern: '{noun} secured with {}'
+          weight:
+            label: 'Weight'
+            pattern: '{noun} of {} weight'
+          rack:
+            label: 'Rack'
+            pattern: '{noun} on the {} rack'
+        items:
+          knight-s-armour:
+            label: "Knight's Armour"
+            blurb: 'Clanks heroically while the wearer searches for a dignified way to sit down.'
+            traits:
+              fastening: 'straps'
+              weight: 'heavy'
+              rack: 'north'
+          court-gown:
+            label: 'Court Gown'
+            blurb: 'Requires one performer and a supportive relationship with every doorway.'
+            traits:
+              fastening: 'laces'
+              weight: 'heavy'
+              rack: 'south'
+          jester-s-motley:
+            label: "Jester's Motley"
+            blurb: 'The pattern makes it difficult to tell whether the wearer is moving.'
+            traits:
+              fastening: 'buttons'
+              weight: 'light'
+              rack: 'east'
+          sailor-s-blouse:
+            label: "Sailor's Blouse"
+            blurb: "Has spent less time at sea than the wardrobe supervisor's favourite mug."
+            traits:
+              fastening: 'buttons'
+              weight: 'light'
+              rack: 'north'
+          wizard-s-robe:
+            label: "Wizard's Robe"
+            blurb: "The sleeves conceal many secrets, including the wearer's actual hands."
+            traits:
+              fastening: 'ties'
+              weight: 'medium'
+              rack: 'south'
+          ballet-tutu:
+            label: 'Ballet Tutu'
+            blurb: 'Occupies a surprising amount of space for something described as delicate.'
+            traits:
+              fastening: 'hooks'
+              weight: 'light'
+              rack: 'east'
+          footman-s-livery:
+            label: "Footman's Livery"
+            blurb: 'The buttons are decorative until someone has to fasten all of them.'
+            traits:
+              fastening: 'buttons'
+              weight: 'medium'
+              rack: 'north'
+          pirate-coat:
+            label: 'Pirate Coat'
+            blurb: 'Looks convincingly weathered after a thoroughly supervised afternoon indoors.'
+            traits:
+              fastening: 'buttons'
+              weight: 'heavy'
+              rack: 'south'
+          ghost-sheet:
+            label: 'Ghost Sheet'
+            blurb: 'The simplest design still requires a detailed discussion about eye placement.'
+            traits:
+              fastening: 'ties'
+              weight: 'light'
+              rack: 'east'
+          moth-cape:
+            label: 'Moth Cape'
+            blurb: 'The wings are majestic until the wearer attempts the narrow corridor.'
+            traits:
+              fastening: 'hooks'
+              weight: 'medium'
+              rack: 'south'
+          cook-s-apron:
+            label: "Cook's Apron"
+            blurb: 'Has never met a real kitchen but carries several persuasive stains.'
+            traits:
+              fastening: 'ties'
+              weight: 'light'
+              rack: 'north'
+          winter-furs:
+            label: 'Winter Furs'
+            blurb: 'Suggests a frozen wilderness while quietly overheating the performer.'
+            traits:
+              fastening: 'hooks'
+              weight: 'heavy'
+              rack: 'east'
+          ringmaster-tails:
+            label: 'Ringmaster Tails'
+            blurb: 'Every turn offers the coat another opportunity to introduce itself.'
+            traits:
+              fastening: 'buttons'
+              weight: 'medium'
+              rack: 'north'
+          royal-mantle:
+            label: 'Royal Mantle'
+            blurb: 'Projects authority from the shoulders and inconvenience from the hem.'
+            traits:
+              fastening: 'hooks'
+              weight: 'heavy'
+              rack: 'south'
+      scenery:
+        name: 'Scenery'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'scene'
+        traits:
+          setting:
+            label: 'Setting'
+            pattern: '{noun} with an {} setting'
+          light:
+            label: 'Lighting'
+            pattern: '{noun} under {} lighting'
+          construction:
+            label: 'Construction'
+            pattern: '{noun} of {} construction'
+        items:
+          painted-forest:
+            label: 'Painted Forest'
+            blurb: 'The trees are convincing until someone leans on the horizon.'
+            traits:
+              setting: 'outdoor'
+              light: 'bright'
+              construction: 'flat'
+          castle-gate:
+            label: 'Castle Gate'
+            blurb: 'A formidable entrance with a surprisingly cooperative rear support.'
+            traits:
+              setting: 'outdoor'
+              light: 'dim'
+              construction: 'built'
+          moonlit-balcony:
+            label: 'Moonlit Balcony'
+            blurb: 'Romance flourishes within the marked load-bearing area.'
+            traits:
+              setting: 'outdoor'
+              light: 'dim'
+              construction: 'built'
+          desert-dunes:
+            label: 'Desert Dunes'
+            blurb: 'The heat is imaginary. The dust in the storage room is more committed.'
+            traits:
+              setting: 'outdoor'
+              light: 'bright'
+              construction: 'flat'
+          snowy-peak:
+            label: 'Snowy Peak'
+            blurb: 'The expedition reaches the summit shortly before the interval.'
+            traits:
+              setting: 'outdoor'
+              light: 'bright'
+              construction: 'flat'
+          village-well:
+            label: 'Village Well'
+            blurb: 'Deep enough for dramatic symbolism, much less suitable for fetching water.'
+            traits:
+              setting: 'outdoor'
+              light: 'bright'
+              construction: 'built'
+          garden-arch:
+            label: 'Garden Arch'
+            blurb: 'The climbing plants have been trained to remain within the transport dimensions.'
+            traits:
+              setting: 'outdoor'
+              light: 'bright'
+              construction: 'built'
+          ship-s-deck:
+            label: "Ship's Deck"
+            blurb: 'The ocean moves on cue while the floor is strongly encouraged not to.'
+            traits:
+              setting: 'outdoor'
+              light: 'dim'
+              construction: 'built'
+          palace-stair:
+            label: 'Palace Stair'
+            blurb: 'A grand approach to a platform only slightly above everyone else.'
+            traits:
+              setting: 'indoor'
+              light: 'bright'
+              construction: 'built'
+          prison-cell:
+            label: 'Prison Cell'
+            blurb: 'The bars suggest despair while the exit latch suggests a tea break.'
+            traits:
+              setting: 'indoor'
+              light: 'dim'
+              construction: 'built'
+          ruined-temple:
+            label: 'Ruined Temple'
+            blurb: 'Painstakingly constructed to look as though the builders gave up centuries ago.'
+            traits:
+              setting: 'outdoor'
+              light: 'dim'
+              construction: 'flat'
+          city-rooftops:
+            label: 'City Rooftops'
+            blurb: 'An impressive skyline with a modest requirement for actual buildings.'
+            traits:
+              setting: 'outdoor'
+              light: 'dim'
+              construction: 'flat'
+          cave-mouth:
+            label: 'Cave Mouth'
+            blurb: 'The entrance to darkness is stored beside the spare extension leads.'
+            traits:
+              setting: 'outdoor'
+              light: 'dim'
+              construction: 'flat'
+          village-watermill:
+            label: 'Village Watermill'
+            blurb: 'Turns steadily, provided the person behind it has not been called elsewhere.'
+            traits:
+              setting: 'outdoor'
+              light: 'bright'
+              construction: 'built'
+      stage-time:
+        name: 'Stage Time'
+        pattern: 'the {}-minute appearance'
+        describes: 'the {}'
+        noun: 'appearance'
+        ordered:
+          noun: 'appearance'
+          unit: 'minutes'
+          greater: 'longer'
+          lesser: 'shorter'
+        traits:
+          band:
+            label: 'Band'
+            pattern: '{noun} in the {} band'
+          review:
+            label: 'Review'
+            pattern: '{noun} requiring {} review'
+        items:
+          5:
+            label: '5'
+            blurb: 'A brief appearance with just enough time to establish unreasonable confidence.'
+            traits:
+              band: 'brief'
+              review: 'routine'
+          10:
+            label: '10'
+            blurb: 'Long enough for an entrance, a complication and a meaningful look.'
+            traits:
+              band: 'brief'
+              review: 'routine'
+          15:
+            label: '15'
+            blurb: 'The performer calls this a compact opportunity for dramatic development.'
+            traits:
+              band: 'brief'
+              review: 'routine'
+          20:
+            label: '20'
+            blurb: 'Allows one carefully measured pause and several that happen by themselves.'
+            traits:
+              band: 'brief'
+              review: 'routine'
+          25:
+            label: '25'
+            blurb: 'A comfortable interval for making the audience wonder what comes next.'
+            traits:
+              band: 'standard'
+              review: 'routine'
+          30:
+            label: '30'
+            blurb: 'The director requests energy throughout and specificity about the ending.'
+            traits:
+              band: 'standard'
+              review: 'routine'
+          35:
+            label: '35'
+            blurb: 'Enough time for a character to change their mind with suitable ceremony.'
+            traits:
+              band: 'standard'
+              review: 'routine'
+          40:
+            label: '40'
+            blurb: 'A substantial appearance with room for a particularly expressive silence.'
+            traits:
+              band: 'standard'
+              review: 'detailed'
+          45:
+            label: '45'
+            blurb: 'The audience has become familiar with the performer and the nearby scenery.'
+            traits:
+              band: 'standard'
+              review: 'detailed'
+          50:
+            label: '50'
+            blurb: 'The notes request variety without explaining where the variety should begin.'
+            traits:
+              band: 'extended'
+              review: 'detailed'
+          55:
+            label: '55'
+            blurb: 'A lengthy contribution that the performer describes as almost understated.'
+            traits:
+              band: 'extended'
+              review: 'detailed'
+          60:
+            label: '60'
+            blurb: 'An hour of commitment, measured by a clock with no artistic opinions.'
+            traits:
+              band: 'extended'
+              review: 'detailed'
+          65:
+            label: '65'
+            blurb: 'The director suggests that every minute should justify its continued existence.'
+            traits:
+              band: 'extended'
+              review: 'detailed'
+          70:
+            label: '70'
+            blurb: 'The longest listed appearance. The understudy has packed a second sandwich.'
+            traits:
+              band: 'extended'
+              review: 'detailed'
+
+briefings:
+  themes:
+    backstage-mystery:
+      - title: The Director's Pencil
+        body: The director has corrected the production ledger so enthusiastically that the original headings are now difficult to identify. Use the clues to restore the performers' records before the director requests the ledger.
+      - title: The Dress Rehearsal
+        body: The rehearsal went remarkably well, leaving the company free to notice how thoroughly the paperwork disagrees with itself. Reconstruct the records from the clues so the company can rely on its paperwork again.
+      - title: A Helpful Understudy
+        body: An understudy has reorganised the notes by dramatic importance, a system that places nearly everything first. Put the performers' records back in order using the surviving clues.
+      - title: The Unplanned Draught
+        body: A draught has swept across the director's desk and given the record slips a brief touring engagement. Use the clues to restore the performers' records before the director requests the ledger.
+      - title: The Duplicate Ledger
+        body: Two ledgers are labelled final, and both have acquired annotations insisting that the other should be ignored. Reconstruct the records from the clues so the company can rely on its paperwork again.
+      - title: The Interval Tea
+        body: A cup of tea has spread across the notes with the leisurely confidence of someone who knows the interval will be extended. Put the performers' records back in order using the surviving clues.
+      - title: A Convincing Account
+        body: Every performer has supplied a convincing explanation, but the explanations have declined to agree with one another. Use the clues to restore the performers' records before the director requests the ledger.
+      - title: The Gold Pen
+        body: The director's gold pen makes the corrections look authoritative without making their meaning any clearer. Reconstruct the records from the clues so the company can rely on its paperwork again.
+      - title: The Prompt Desk
+        body: The desk is ready for a difficult evening, except for the untidy collection of records occupying its useful surface. Put the performers' records back in order using the surviving clues.
+      - title: The Neat Copy
+        body: A performer has produced a beautiful copy of the ledger, including faithful reproductions of its contradictions. Use the clues to restore the performers' records before the director requests the ledger.
+      - title: The Binding Gives Way
+        body: The ledger's binding has retired from service, leaving a company of loose pages awaiting direction. Reconstruct the records from the clues so the company can rely on its paperwork again.
+      - title: An Eager Assistant
+        body: An assistant has arranged the records according to the length of each paragraph, with pleasing visual results. Put the performers' records back in order using the surviving clues.
+      - title: The Last Annotation
+        body: The final annotation refers to an earlier annotation that appears to have been crossed out with conviction. Use the clues to restore the performers' records before the director requests the ledger.
+      - title: A Public Assurance
+        body: The director has announced that the company is ready and is now quietly seeking supporting evidence. Reconstruct the records from the clues so the company can rely on its paperwork again.
+      - title: The Missing Tab
+        body: The index tabs have detached themselves, leaving the folder with excellent contents and very little guidance. Put the performers' records back in order using the surviving clues.
+      - title: The Applause Test
+        body: A loud rehearsal of applause has briefly distracted the clerk from a task that required rather more concentration. Use the clues to restore the performers' records before the director requests the ledger.
+      - title: The Wrong Notebook
+        body: The director's working notes were copied into a notebook already full of unrelated but equally dramatic comments. Reconstruct the records from the clues so the company can rely on its paperwork again.
+      - title: A Particularly Good Question
+        body: A visiting producer has asked how the records are organised, prompting an unexpectedly long pause. Put the performers' records back in order using the surviving clues.
+      - title: The Evening Bulletin
+        body: The bulletin is ready to print once the clerk can replace the confident placeholders with dependable information. Use the clues to restore the performers' records before the director requests the ledger.
+      - title: The Second Draft
+        body: The second draft corrects the first in ways that the third draft regards as a serious misunderstanding. Reconstruct the records from the clues so the company can rely on its paperwork again.
+      - title: The Polite Disagreement
+        body: The performers are disagreeing so politely that the director suspects everyone has been rehearsing it. Put the performers' records back in order using the surviving clues.
+      - title: A Fresh Folder
+        body: The new folder has solved the problem of torn corners while leaving the problem of muddled records fully intact. Use the clues to restore the performers' records before the director requests the ledger.
+      - title: The Overeager Copier
+        body: The copying machine has supplied enough duplicates to give every uncertainty its own personal audience. Reconstruct the records from the clues so the company can rely on its paperwork again.
+      - title: The Narrow Desk
+        body: The desk is too narrow for the paperwork, encouraging the clerk to stack things before reading their headings. Put the performers' records back in order using the surviving clues.
+      - title: The Manager's Visit
+        body: The manager has arrived carrying an empty file and an expression that suggests it should soon contain answers. Use the clues to restore the performers' records before the director requests the ledger.
+      - title: A Well-Meant Correction
+        body: A performer has corrected a record using a recollection that another performer remembers correcting yesterday. Reconstruct the records from the clues so the company can rely on its paperwork again.
+      - title: The Smudged Initials
+        body: The initials identifying several entries have been smudged into something that might generously be called decorative. Put the performers' records back in order using the surviving clues.
+      - title: The Rehearsal Notes
+        body: The rehearsal notes contain every useful detail, surrounded by enough encouragement to conceal it effectively. Use the clues to restore the performers' records before the director requests the ledger.
+      - title: An Elegant Abbreviation
+        body: The director's shorthand saves paper by omitting nearly everything a reader might reasonably need. Reconstruct the records from the clues so the company can rely on its paperwork again.
+      - title: The Helpful Ribbon
+        body: A ribbon marks the important pages, although somebody has extended that distinction to the entire ledger. Put the performers' records back in order using the surviving clues.
+      - title: The Unexpected Audience
+        body: Several visitors have gathered at the office door just as the clerk begins to appreciate the scale of the mix-up. Use the clues to restore the performers' records before the director requests the ledger.
+      - title: The Company Promise
+        body: The company has promised a tidy account before the next meeting, generously leaving the practical arrangements unresolved. Reconstruct the records from the clues so the company can rely on its paperwork again.
+      - title: The Final Bow
+        body: The director would like to close the ledger with the same confidence the performers bring to closing a rehearsal. Put the performers' records back in order using the surviving clues.

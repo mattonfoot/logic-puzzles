@@ -1,0 +1,680 @@
+# Reef Dive — en-GB
+#
+# Everything this theme says: its sets and their items, in the order puzzles
+# draw them, the sentences its clues are written in, and the briefings a puzzle
+# opens on. How these are written: locales/README.md.
+
+themes:
+  reef:
+    name: 'Reef Dive'
+    blurb: 'Divers, sightings and depth logs'
+    clues:
+      link: '{a} and {b} were on the same dive.'
+      notLink: '{a} and {b} were not on the same dive.'
+      groupNot: 'No {a} was on the same dive as {b}.'
+      either: '{a} was on the same dive as either {b} or {c}.'
+      compare: '{greater} went {comparative} than {lesser}.'
+      compareGap: '{greater} went exactly {gap} {unit} {comparative} than {lesser}.'
+    categories:
+      diver:
+        name: 'Diver'
+        pattern: '{}'
+        describes: 'the {}'
+        noun: 'diver'
+        traits:
+          hair:
+            label: 'Hair'
+            pattern: '{noun} with {}'
+          feature:
+            label: 'Feature'
+            pattern: '{noun} with {}'
+          eyes:
+            label: 'Eyes'
+            pattern: '{noun} with {} eyes'
+          known:
+            label: 'Known for'
+            pattern: '{noun} known for {}'
+          height:
+            label: 'Height'
+            pattern: '{noun} standing {}'
+        items:
+          shoal:
+            label: 'Skipper Shoal'
+            blurb: 'Names every boat after the last one that sank. The insurer has noticed.'
+            traits:
+              hair: 'a shaved head'
+              feature: 'a beard'
+              eyes: 'grey'
+              known: 'wreck work'
+              height: '1.8m'
+          pike:
+            label: 'Bosun Pike'
+            blurb: 'Ties knots in his sleep. The crew check their bootlaces each morning.'
+            traits:
+              hair: 'a crop'
+              feature: 'mutton chops'
+              eyes: 'brown'
+              known: 'rope work'
+              height: '1.7m'
+          ferrand:
+            label: 'Dr Ferrand'
+            blurb: 'Has counted four hundred thousand urchins. One moved; she is checking.'
+            traits:
+              hair: 'a ponytail'
+              feature: 'spectacles'
+              eyes: 'green'
+              known: 'marine science'
+              height: '1.6m'
+          tobin:
+            label: 'Divemaster Tobin'
+            blurb: 'Briefs for forty minutes on a dive that lasts twenty.'
+            traits:
+              hair: 'short hair'
+              feature: 'a moustache'
+              eyes: 'blue'
+              known: 'teaching'
+              height: '1.8m'
+          adaeze:
+            label: 'Ranger Adaeze'
+            blurb: 'Guards the reef. Has memorised every fine in the by-laws.'
+            traits:
+              hair: 'braids'
+              feature: 'hoop earrings'
+              eyes: 'brown'
+              known: 'patrolling'
+              height: '1.7m'
+          nico:
+            label: 'Cadet Nico'
+            blurb: 'Checks the tank gauge every nine seconds. It has asked for some space.'
+            traits:
+              hair: 'a mohawk'
+              feature: 'a headset'
+              eyes: 'hazel'
+              known: 'nothing yet'
+              height: '1.5m'
+          marlow:
+            label: 'First Mate Marlow'
+            blurb: 'Second in command and first into the water, every time.'
+            traits:
+              hair: 'a shaved head'
+              feature: 'an eye patch'
+              eyes: 'grey'
+              known: 'deep dives'
+              height: '1.9m'
+          indra:
+            label: 'Chief Indra'
+            blurb: 'Runs the compressor, the roster and, quietly, the whole island.'
+            traits:
+              hair: 'a bun'
+              feature: 'a chinstrap'
+              eyes: 'brown'
+              known: 'logistics'
+              height: '1.6m'
+          cleo:
+            label: 'Prof Cleo'
+            blurb: 'Studies octopus behaviour. Reports being studied back.'
+            traits:
+              hair: 'a crop'
+              feature: 'spectacles'
+              eyes: 'green'
+              known: 'octopus work'
+              height: '1.7m'
+          bo:
+            label: 'Instructor Bo'
+            blurb: 'Teaches beginners with enormous patience and no volume control.'
+            traits:
+              hair: 'an afro'
+              feature: 'a moustache'
+              eyes: 'blue'
+              known: 'teaching'
+              height: '1.8m'
+          yara:
+            label: 'Ms Yara'
+            blurb: 'Photographs everything. Has nine thousand pictures of the same eel.'
+            traits:
+              hair: 'long hair'
+              feature: 'hoop earrings'
+              eyes: 'brown'
+              known: 'photography'
+              height: '1.6m'
+          elias:
+            label: 'Reverend Elias'
+            blurb: 'Blesses each boat before it leaves. The boats keep coming back.'
+            traits:
+              hair: 'curls'
+              feature: 'a beard'
+              eyes: 'grey'
+              known: 'night dives'
+              height: '1.9m'
+          suki:
+            label: 'Medic Suki'
+            blurb: 'Carries a kit for every disaster. Has used the plasters.'
+            traits:
+              hair: 'a topknot'
+              feature: 'a chinstrap'
+              eyes: 'hazel'
+              known: 'first aid'
+              height: '1.5m'
+          rafa:
+            label: 'Old Rafa'
+            blurb: 'Dived here before the reef had a name. Still refuses to use it.'
+            traits:
+              hair: 'a bob'
+              feature: 'mutton chops'
+              eyes: 'blue'
+              known: 'record depths'
+              height: '1.7m'
+      species:
+        name: 'Sighting'
+        pattern: 'the {} spotter'
+        describes: 'the spotter of the {}'
+        noun: 'creature'
+        traits:
+          size:
+            label: 'Size'
+            pattern: '{} {noun}'
+          danger:
+            label: 'Danger'
+            pattern: '{} {noun}'
+          body:
+            label: 'Body'
+            pattern: '{noun} with {}'
+        items:
+          octopus:
+            label: 'Octopus'
+            blurb: 'Solves the puzzle, takes the treat, then checks the scientist’s working.'
+            traits:
+              size: 'big'
+              danger: 'harmless'
+              body: 'no bones'
+          manta:
+            label: 'Manta'
+            blurb: 'Five metres wide. Still manages to make the diver look in the way.'
+            traits:
+              size: 'big'
+              danger: 'harmless'
+              body: 'smooth skin'
+          turtle:
+            label: 'Turtle'
+            blurb: 'Older than the boat. Better maintained. Has never once read the briefing.'
+            traits:
+              size: 'big'
+              danger: 'harmless'
+              body: 'a shell'
+          seahorse:
+            label: 'Seahorse'
+            blurb: 'Wraps its tail round one twig and treats the rest of the ocean as a delivery service.'
+            traits:
+              size: 'tiny'
+              danger: 'harmless'
+              body: 'armour'
+          moray:
+            label: 'Moray'
+            blurb: 'Lives in a hole. Opens its mouth whenever you pass, like a neighbour with a complaint.'
+            traits:
+              size: 'big'
+              danger: 'venomous'
+              body: 'smooth skin'
+          clownfish:
+            label: 'Clownfish'
+            blurb: 'Owns one anemone. Has made this very clear to the entire ocean.'
+            traits:
+              size: 'tiny'
+              danger: 'harmless'
+              body: 'smooth skin'
+          barracuda:
+            label: 'Barracuda'
+            blurb: 'All teeth and no small talk. A considerable saving on the briefing.'
+            traits:
+              size: 'big'
+              danger: 'venomous'
+              body: 'smooth skin'
+          stingray:
+            label: 'Stingray'
+            blurb: 'Sleeps under the sand. Gives the accommodation a poor review whenever someone steps on it.'
+            traits:
+              size: 'big'
+              danger: 'venomous'
+              body: 'smooth skin'
+          lionfish:
+            label: 'Lionfish'
+            blurb: 'Dressed for a ball. Armed for a disagreement about the seating plan.'
+            traits:
+              size: 'tiny'
+              danger: 'venomous'
+              body: 'spines'
+          grouper:
+            label: 'Grouper'
+            blurb: 'Follows the divers in case one turns out to be lunch service.'
+            traits:
+              size: 'big'
+              danger: 'harmless'
+              body: 'smooth skin'
+          pipefish:
+            label: 'Pipefish'
+            blurb: 'A seahorse redesigned by someone who only had a ruler.'
+            traits:
+              size: 'tiny'
+              danger: 'harmless'
+              body: 'armour'
+          reef-shark:
+            label: 'Reef Shark'
+            blurb: 'Circles once, decides you look expensive to digest, and leaves.'
+            traits:
+              size: 'big'
+              danger: 'venomous'
+              body: 'smooth skin'
+          cuttlefish:
+            label: 'Cuttlefish'
+            blurb: 'Changes colour halfway through an argument, then denies having said anything.'
+            traits:
+              size: 'tiny'
+              danger: 'harmless'
+              body: 'no bones'
+          sea-urchin:
+            label: 'Sea Urchin'
+            blurb: 'Does nothing all day. Somehow makes this everyone else’s problem.'
+            traits:
+              size: 'tiny'
+              danger: 'venomous'
+              body: 'spines'
+      gear:
+        name: 'Gear'
+        pattern: 'the diver with the {}'
+        describes: 'the diver with the {}'
+        noun: 'kit'
+        traits:
+          material:
+            label: 'Made of'
+            pattern: '{noun} made of {}'
+          use:
+            label: 'For'
+            pattern: '{noun} for {}'
+          size:
+            label: 'Size'
+            pattern: '{} {noun}'
+        items:
+          red-fins:
+            label: 'Red Fins'
+            blurb: 'Bought a size too large. The socks now have their own packing list.'
+            traits:
+              material: 'rubber'
+              use: 'swimming'
+              size: 'big'
+          blue-mask:
+            label: 'Blue Mask'
+            blurb: 'Perfectly clear until there is something worth looking at.'
+            traits:
+              material: 'glass'
+              use: 'seeing'
+              size: 'small'
+          green-tank:
+            label: 'Green Tank'
+            blurb: 'Light as a feather underwater. Remembers its responsibilities on the ladder.'
+            traits:
+              material: 'steel'
+              use: 'breathing'
+              size: 'big'
+          yellow-torch:
+            label: 'Yellow Torch'
+            blurb: 'Bright enough to find the eel. The eel would prefer you hadn’t.'
+            traits:
+              material: 'steel'
+              use: 'seeing'
+              size: 'small'
+          black-camera:
+            label: 'Black Camera'
+            blurb: 'Insured for more than the boat. Gets the better seat on the way home.'
+            traits:
+              material: 'glass'
+              use: 'recording'
+              size: 'big'
+          white-slate:
+            label: 'White Slate'
+            blurb: 'For urgent messages such as “SHARK”, “AIR” and “whose sandwich was that?”'
+            traits:
+              material: 'plastic'
+              use: 'recording'
+              size: 'small'
+          orange-reel:
+            label: 'Orange Reel'
+            blurb: 'Two hundred metres of line, all personally committed to becoming one knot.'
+            traits:
+              material: 'plastic'
+              use: 'safety'
+              size: 'small'
+          pink-buoy:
+            label: 'Pink Buoy'
+            blurb: 'Announces your position to the boat. The boat is looking somewhere else.'
+            traits:
+              material: 'rubber'
+              use: 'safety'
+              size: 'big'
+          silver-knife:
+            label: 'Silver Knife'
+            blurb: 'Bought for tangled nets. So far, its toughest rescue involved a baguette.'
+            traits:
+              material: 'steel'
+              use: 'safety'
+              size: 'small'
+          teal-compass:
+            label: 'Teal Compass'
+            blurb: 'Always knows where north is. Declines to explain where you are.'
+            traits:
+              material: 'glass'
+              use: 'finding the way'
+              size: 'small'
+          grey-gloves:
+            label: 'Grey Gloves'
+            blurb: 'Thick enough to protect your hands from everything except finding your keys.'
+            traits:
+              material: 'rubber'
+              use: 'safety'
+              size: 'small'
+          amber-lamp:
+            label: 'Amber Lamp'
+            blurb: 'Brings a warm glow to a place that has made its feelings about warmth quite clear.'
+            traits:
+              material: 'glass'
+              use: 'seeing'
+              size: 'big'
+          coral-flag:
+            label: 'Coral Flag'
+            blurb: 'Clearly says “divers below”. Several boats remain committed to a different interpretation.'
+            traits:
+              material: 'plastic'
+              use: 'safety'
+              size: 'big'
+          navy-hood:
+            label: 'Navy Hood'
+            blurb: 'Keeps the head warm and turns every instruction into “mmph”.'
+            traits:
+              material: 'rubber'
+              use: 'warmth'
+              size: 'small'
+      site:
+        name: 'Site'
+        pattern: 'the {} site'
+        describes: 'the {}'
+        noun: 'site'
+        traits:
+          terrain:
+            label: 'Terrain'
+            pattern: '{noun} of {}'
+          current:
+            label: 'Current'
+            pattern: '{noun} with a {} current'
+          light:
+            label: 'Light'
+            pattern: '{} {noun}'
+        items:
+          blue-hole:
+            label: 'Blue Hole'
+            blurb: 'Goes deeper than the guidebook admits. The next edition uses a smaller font.'
+            traits:
+              terrain: 'caves'
+              current: 'calm'
+              light: 'dark'
+          lace-wall:
+            label: 'Lace Wall'
+            blurb: 'A hundred metres of fan coral. Even the guide briefly runs out of things to say.'
+            traits:
+              terrain: 'walls'
+              current: 'strong'
+              light: 'bright'
+          shipwreck:
+            label: 'Shipwreck'
+            blurb: 'Sank with a cargo of teapots. Service has been slow ever since.'
+            traits:
+              terrain: 'wreckage'
+              current: 'calm'
+              light: 'dark'
+          kelp-maze:
+            label: 'Kelp Maze'
+            blurb: 'Easy to enter. Every frond has a different opinion about the way out.'
+            traits:
+              terrain: 'weed'
+              current: 'calm'
+              light: 'dark'
+          coral-arch:
+            label: 'Coral Arch'
+            blurb: 'Swim through for luck. The guide says this is optional, while already swimming through.'
+            traits:
+              terrain: 'walls'
+              current: 'strong'
+              light: 'bright'
+          night-cove:
+            label: 'Night Cove'
+            blurb: 'Lovely after dark. During the day it is mainly somewhere you were told to come back to.'
+            traits:
+              terrain: 'sand'
+              current: 'calm'
+              light: 'dark'
+          tide-pools:
+            label: 'Tide Pools'
+            blurb: 'Waist deep. Everything that looks like a rock is waiting for you to say so.'
+            traits:
+              terrain: 'sand'
+              current: 'strong'
+              light: 'bright'
+          anchor-bay:
+            label: 'Anchor Bay'
+            blurb: 'Two centuries of lost anchors. Apparently nobody thought to tie a rope to the first one.'
+            traits:
+              terrain: 'sand'
+              current: 'calm'
+              light: 'bright'
+          sea-fan-bay:
+            label: 'Sea Fan Bay'
+            blurb: 'Purple, enormous, and still unable to get everyone into the same photograph.'
+            traits:
+              terrain: 'walls'
+              current: 'calm'
+              light: 'bright'
+          lantern-reef:
+            label: 'Lantern Reef'
+            blurb: 'Glows at dusk. The scientists disagree; the photographers have already booked.'
+            traits:
+              terrain: 'walls'
+              current: 'calm'
+              light: 'bright'
+          sunken-pier:
+            label: 'Sunken Pier'
+            blurb: 'The town moved inland. The pier is still waiting for written confirmation.'
+            traits:
+              terrain: 'wreckage'
+              current: 'strong'
+              light: 'dark'
+          green-lagoon:
+            label: 'Green Lagoon'
+            blurb: 'Warm, shallow and green. The brochure has chosen to call this “emerald”.'
+            traits:
+              terrain: 'weed'
+              current: 'calm'
+              light: 'bright'
+          cavern-ridge:
+            label: 'Cavern Ridge'
+            blurb: 'A magnificent entrance. The torch beam is less enthusiastic about what comes next.'
+            traits:
+              terrain: 'caves'
+              current: 'strong'
+              light: 'dark'
+          turtle-point:
+            label: 'Turtle Point'
+            blurb: 'Named after a turtle seen in 1987. The marketing department remains confident.'
+            traits:
+              terrain: 'sand'
+              current: 'calm'
+              light: 'bright'
+      depth:
+        name: 'Depth'
+        pattern: 'the diver at {}'
+        describes: 'the diver at a {}'
+        noun: 'depth'
+        ordered:
+          noun: 'depth'
+          unit: 'metres'
+          greater: 'deeper'
+          lesser: 'shallower'
+        traits:
+          band:
+            label: 'Range'
+            pattern: '{} {noun}'
+          parity:
+            label: 'Number'
+            pattern: '{noun} with an {} number'
+        items:
+          10m:
+            label: '10m'
+            blurb: 'A 10m dive. Snorkellers keep asking what all the equipment is for.'
+            traits:
+              band: 'shallow'
+              parity: 'even'
+          15m:
+            label: '15m'
+            blurb: 'A 15m dive. Still close enough to the boat to remember what you left on it.'
+            traits:
+              band: 'shallow'
+              parity: 'odd'
+          20m:
+            label: '20m'
+            blurb: 'A 20m dive. The reds have left. Nobody has told the camera.'
+            traits:
+              band: 'shallow'
+              parity: 'even'
+          25m:
+            label: '25m'
+            blurb: 'A 25m dive. The fish look relaxed. They have not paid for a return trip.'
+            traits:
+              band: 'shallow'
+              parity: 'odd'
+          30m:
+            label: '30m'
+            blurb: 'A 30m dive. The guide points down. You had rather hoped this was the destination.'
+            traits:
+              band: 'shallow'
+              parity: 'even'
+          35m:
+            label: '35m'
+            blurb: 'A 35m dive. The interesting fish finally appear, having waited for the tourists to leave.'
+            traits:
+              band: 'middling'
+              parity: 'odd'
+          40m:
+            label: '40m'
+            blurb: 'A 40m dive. The surface is beginning to sound like an excellent idea.'
+            traits:
+              band: 'middling'
+              parity: 'even'
+          45m:
+            label: '45m'
+            blurb: 'A 45m dive. The hood wins its long-running argument with your hairstyle.'
+            traits:
+              band: 'middling'
+              parity: 'odd'
+          50m:
+            label: '50m'
+            blurb: 'A 50m dive. The torch is now the most optimistic member of the party.'
+            traits:
+              band: 'middling'
+              parity: 'even'
+          55m:
+            label: '55m'
+            blurb: 'A 55m dive. The boat above has been downgraded from transport to rumour.'
+            traits:
+              band: 'middling'
+              parity: 'odd'
+          60m:
+            label: '60m'
+            blurb: 'A 60m dive. Even the bubbles seem to have somewhere more sensible to be.'
+            traits:
+              band: 'deep'
+              parity: 'even'
+          65m:
+            label: '65m'
+            blurb: 'A 65m dive. The logbook will require a second adjective.'
+            traits:
+              band: 'deep'
+              parity: 'odd'
+          70m:
+            label: '70m'
+            blurb: 'A 70m dive. Mentioned casually at dinner. Repeated less casually at breakfast.'
+            traits:
+              band: 'deep'
+              parity: 'even'
+          75m:
+            label: '75m'
+            blurb: 'A 75m dive. Rafa describes it as “a look round”. Nobody else does.'
+            traits:
+              band: 'deep'
+              parity: 'odd'
+
+briefings:
+  themes:
+    reef:
+      - title: The dive log went for a dive
+        body: The log was on the transom, and then the swell was on the transom, and now the log is somewhere between the boat and the sea floor. Everyone surfaced happy and nobody wrote anything down. The permit needs the day’s numbers filed by Friday or the whole trip goes unrecorded.
+      - title: Everything came off one line
+        body: Somebody rinsed everything at once, hung it on one line, and left it to the wind to decide whose was whose. Every {noun} is certain what they saw and vague about what they wore. The insurance form asks for both.
+      - title: The tender was rewriting history
+        body: The boat tender kept the day’s notes on their hand, which then met a wave, sun cream and a towel in that order. What is left is four smudges and one word that might be "eel". The dive centre would like a version to pin on the board.
+      - title: The slate went over the side
+        body: The day was written up on the slate on the way back in, and the slate was set down on the gunwale while somebody coiled a line. The sea took it cleanly. Nobody saw it go.
+      - title: The compressor room flooded
+        body: A hose let go overnight in the room where the day's paperwork is pinned to a board at knee level. The board is fine. The paper on it has become one grey sheet.
+      - title: Everything went in the rinse tank
+        body: The tank takes everything at the end of a day, on the sound principle that fresh water fixes most things. It does not fix a notebook. The notebook was in a pocket of the first thing in.
+      - title: The skipper's excellent memory
+        body: The skipper writes nothing down until the evening and has never once been wrong, which is why nobody insists on it. This evening the skipper was called to the harbour office. They came back at midnight with an apology.
+      - title: Two boats, one logbook
+        body: The centre runs two boats and keeps one book, which works beautifully until both boats are out on the same morning. Both crews wrote in it. Neither crew wrote down which boat they were on.
+      - title: The sun took the ink
+        body: The book spent an afternoon face up on the wheelhouse roof in flat calm and full sun. It is a lovely colour now. The pages are exactly the same lovely colour as the writing.
+      - title: Salt, and then time
+        body: The book lives in a bag inside a locker, and the locker has been letting in a fine mist of salt for longer than anybody noticed. The pages are stiff and pale. They crack rather than turn.
+      - title: The permit office wants it Friday
+        body: They are not unreasonable people and they have been extremely clear about the date. What they want is the day's numbers, in order, signed. What there is instead is eight people and a lot of good will.
+      - title: A pen that does not like water
+        body: Somebody brought the wrong pen aboard, and it wrote beautifully all morning and dissolved in the afternoon. The morning half is perfect. The afternoon half is a blue cloud.
+      - title: The clipboard blew off the flybridge
+        body: It went over on the run home in a following wind, spun once, and landed somewhere in the wake. Two pages were still attached when it went. The rest had left earlier and separately.
+      - title: The phone that had the whole week
+        body: One phone held everything, in a case rated to ten metres, which is a number that quietly assumes the case is shut. It was not shut. It is now an expensive paperweight.
+      - title: A very thorough tidy
+        body: Somebody cleared the wheelhouse before the inspection, which was the right instinct, into a bin bag, which was not. The bag went to the skip that evening. The skip was emptied at six.
+      - title: The briefing was given out loud
+        body: The morning run-through was delivered clearly, to everybody, and written down by nobody, because it has never once needed writing down. Today it needed writing down. Eight people heard eight slightly different mornings.
+      - title: The book was lent out
+        body: Another boat borrowed it to copy a page and has not brought it back, being two days up the coast and in no particular hurry. They are perfectly reliable people. They are also out of range.
+      - title: A squall on the way in
+        body: It came through fast and everybody did the sensible thing, which meant securing anything loose without stopping to ask what was paper. Two things went over the side. One of them mattered.
+      - title: The new system is better
+        body: The centre has moved to filling in a form on a laptop, which is better in every way, and the laptop stayed ashore this morning. The paper book was retired last week. Nothing at all was written down.
+      - title: Filed under the coffee cup
+        body: The page spent an afternoon under a cup on the galley counter, in a boat that moves. The ring is perfect. What was inside the ring is not.
+      - title: Everybody checked everybody
+        body: The buddy system means every pair signed for each other, which is excellent practice and produces a page of pairs with nothing else on it. Who went with whom is beyond doubt. Nothing else is.
+      - title: The pencil was the only casualty
+        body: The board survived and the clip survived, and the pencil went in the water first thing and was not missed until the end of the day. Nobody wanted to be the one to mention it. Everything since breakfast is memory.
+      - title: Two people, one first name
+        body: Half the entries use first names and two of the eight aboard share one, which was funny in the morning. It stopped being funny at the desk. Four entries could belong to either of them.
+      - title: The pages stuck together
+        body: A wet thumb, a warm locker and three days will laminate a notebook as well as any machine. The block is intact and will not open. Prising it apart takes the pages with it.
+      - title: The harbour master borrowed it
+        body: He wanted to check one number and took the whole book to his office so he could do it properly. The office was locked at four. He is away until the middle of next week.
+      - title: A gull took the corner of it
+        body: It came down on the transom for something else entirely and left with a corner of the day, which is the corner the times were written in. The gull is fine. The book is missing a triangle.
+      - title: Written on the back of a form
+        body: The day went onto the reverse of a form that gets handed in, signed and filed at the end of every trip. It was handed in, signed and filed. It is now three boxes deep in a cupboard ashore.
+      - title: The boat was hosed down
+        body: End of the season, everything out, everything hosed, which is exactly the procedure. The procedure assumes the paperwork has already been taken off. It had not been taken off.
+      - title: Nobody was aboard
+        body: Everyone was in the water at the same time, which is not supposed to happen and did, and the boat sat quietly with the book open on the bench. It was a breezy afternoon. Several pages are somewhere in the bay.
+      - title: The order of the morning
+        body: Everybody agrees on who went in and nobody agrees on the order, and the order is the one thing the form actually asks for. Each {noun} is certain they were after somebody else. They cannot all have been last.
+      - title: Two versions in one book
+        body: Somebody started writing the day up from the back of the book, which is a perfectly good system as long as everybody knows about it. Nobody else knew about it. The two halves meet in the middle and disagree.
+      - title: The centre keeps a large dog
+        body: It was left aboard for an hour, and there was a bag on the bench that smelled extremely interesting to a large dog. The bag is in pieces. So is the afternoon.
+      - title: Left on the roof of the van
+        body: The book was put on the roof while the doors were unlocked and stayed up there for about a mile of coast road. It came off on the first proper bend. Somebody has gone back to walk the verge.

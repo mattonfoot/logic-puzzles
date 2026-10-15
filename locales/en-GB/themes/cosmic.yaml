@@ -1,0 +1,680 @@
+# Cosmic Voyage — en-GB
+#
+# Everything this theme says: its sets and their items, in the order puzzles
+# draw them, the sentences its clues are written in, and the briefings a puzzle
+# opens on. How these are written: locales/README.md.
+
+themes:
+  cosmic:
+    name: 'Cosmic Voyage'
+    blurb: 'Crews, ships and launch windows'
+    clues:
+      link: '{a} shares a mission with {b}.'
+      notLink: '{a} does not share a mission with {b}.'
+      groupNot: 'No {a} shares a mission with {b}.'
+      either: '{a} shares a mission with either {b} or {c}.'
+      compare: '{greater} launches {comparative} than {lesser}.'
+      compareGap: '{greater} launches exactly {gap} {unit} {comparative} than {lesser}.'
+    categories:
+      astronaut:
+        name: 'Astronaut'
+        pattern: '{}'
+        describes: 'the {}'
+        noun: 'astronaut'
+        traits:
+          hair:
+            label: 'Hair'
+            pattern: '{noun} with {}'
+          feature:
+            label: 'Feature'
+            pattern: '{noun} with {}'
+          eyes:
+            label: 'Eyes'
+            pattern: '{noun} with {} eyes'
+          homeworld:
+            label: 'Born on'
+            pattern: '{noun} born on {}'
+          height:
+            label: 'Height'
+            pattern: '{noun} standing {}'
+        items:
+          zarg:
+            label: 'Rear-Admiral Zarg'
+            blurb: 'Has commanded eleven ships. Refers to each, with confidence, as “the other one”.'
+            traits:
+              hair: 'a crop'
+              feature: 'a beard'
+              eyes: 'green'
+              homeworld: 'Mars'
+              height: '1.9m'
+          vilenkov:
+            label: 'Cosmonaut Vilenkov'
+            blurb: 'Broadcasts a weather report every morning. There is no weather.'
+            traits:
+              hair: 'short hair'
+              feature: 'a headset'
+              eyes: 'grey'
+              homeworld: 'Luna'
+              height: '1.7m'
+          rodgers:
+            label: 'Space Captain Rodgers'
+            blurb: 'Insists on a hat with a brim. In a vacuum. For the authority.'
+            traits:
+              hair: 'a shaved head'
+              feature: 'a moustache'
+              eyes: 'blue'
+              homeworld: 'Earth'
+              height: '1.8m'
+          halloway:
+            label: 'Dr Halloway'
+            blurb: 'Prescribes a brisk walk, aboard a vessel forty paces long.'
+            traits:
+              hair: 'a ponytail'
+              feature: 'spectacles'
+              eyes: 'brown'
+              homeworld: 'Earth'
+              height: '1.6m'
+          okonkwo:
+            label: 'Navigator Okonkwo'
+            blurb: 'Can find anywhere without the charts, and does, to general alarm.'
+            traits:
+              hair: 'braids'
+              feature: 'hoop earrings'
+              eyes: 'brown'
+              homeworld: 'Ceres'
+              height: '1.7m'
+          bolt:
+            label: 'Chief Engineer Bolt'
+            blurb: 'Fixed the reactor with a spoon. Will not say which spoon.'
+            traits:
+              hair: 'a mohawk'
+              feature: 'an eye patch'
+              eyes: 'grey'
+              homeworld: 'Titan'
+              height: '1.8m'
+          vex:
+            label: 'Lieutenant Vex'
+            blurb: 'Volunteers for everything, especially what nobody volunteered for.'
+            traits:
+              hair: 'a topknot'
+              feature: 'mutton chops'
+              eyes: 'hazel'
+              homeworld: 'Europa'
+              height: '1.7m'
+          quill:
+            label: 'Professor Quill'
+            blurb: 'Studying deep-space silence. His nine-hundred-page report has rather undermined the subject.'
+            traits:
+              hair: 'long hair'
+              feature: 'a beard'
+              eyes: 'green'
+              homeworld: 'Earth'
+              height: '1.6m'
+          tumble:
+            label: 'Ensign Tumble'
+            blurb: 'Newest aboard. Has met the same bulkhead on all six decks.'
+            traits:
+              hair: 'a crop'
+              feature: 'a headset'
+              eyes: 'blue'
+              homeworld: 'Luna'
+              height: '1.5m'
+          strand:
+            label: 'Commodore Strand'
+            blurb: 'Retired twice. The fleet keeps mislaying the paperwork.'
+            traits:
+              hair: 'curls'
+              feature: 'a beard'
+              eyes: 'grey'
+              homeworld: 'Mars'
+              height: '1.9m'
+          ondra:
+            label: 'Medic Ondra'
+            blurb: 'Cheerful in a crisis, which unsettles the crew more than the crisis.'
+            traits:
+              hair: 'a bun'
+              feature: 'a moustache'
+              eyes: 'brown'
+              homeworld: 'Ganymede'
+              height: '1.7m'
+          fizz:
+            label: 'Cadet Fizz'
+            blurb: 'Sixteen, brilliant, and barred from the helm for enthusiasm.'
+            traits:
+              hair: 'an afro'
+              feature: 'a chinstrap'
+              eyes: 'hazel'
+              homeworld: 'Ceres'
+              height: '1.6m'
+          bex:
+            label: 'Quartermaster Bex'
+            blurb: 'Knows where everything is. Access to this knowledge is a separate budget line.'
+            traits:
+              hair: 'a shaved head'
+              feature: 'hoop earrings'
+              eyes: 'brown'
+              homeworld: 'Titan'
+              height: '1.8m'
+          mo:
+            label: 'Flight Sergeant Mo'
+            blurb: 'Drills the crew at dawn. There is no dawn. The drill stands.'
+            traits:
+              hair: 'a bob'
+              feature: 'mutton chops'
+              eyes: 'blue'
+              homeworld: 'Europa'
+              height: '1.9m'
+      destination:
+        name: 'Destination'
+        pattern: 'the crew bound for {}'
+        describes: 'the crew bound for the {}'
+        noun: 'world'
+        traits:
+          kind:
+            label: 'Kind'
+            pattern: '{noun} that is a {}'
+          surface:
+            label: 'Surface'
+            pattern: '{noun} with a {} surface'
+          gravity:
+            label: 'Gravity'
+            pattern: '{noun} with {} gravity'
+        items:
+          mars:
+            label: 'Mars'
+            blurb: 'Red, windy, and entirely without a gift shop.'
+            traits:
+              kind: 'planet'
+              surface: 'dusty'
+              gravity: 'middling'
+          venus:
+            label: 'Venus'
+            blurb: 'The probe lasted minutes. The brochure continues to describe it as a warm welcome.'
+            traits:
+              kind: 'planet'
+              surface: 'volcanic'
+              gravity: 'heavy'
+          titan:
+            label: 'Titan'
+            blurb: 'Has lakes. None of them are water. None of them are for swimming.'
+            traits:
+              kind: 'moon'
+              surface: 'frozen'
+              gravity: 'feeble'
+          europa:
+            label: 'Europa'
+            blurb: 'Ice on top, ocean beneath, and something nobody wants to meet.'
+            traits:
+              kind: 'moon'
+              surface: 'frozen'
+              gravity: 'feeble'
+          ceres:
+            label: 'Ceres'
+            blurb: 'The largest thing in the asteroid belt, which is faint praise.'
+            traits:
+              kind: 'dwarf planet'
+              surface: 'rocky'
+              gravity: 'feeble'
+          io:
+            label: 'Io'
+            blurb: 'Four hundred volcanoes and not one fire escape.'
+            traits:
+              kind: 'moon'
+              surface: 'volcanic'
+              gravity: 'feeble'
+          luna:
+            label: 'Luna'
+            blurb: "Close, grey, and covered in other people's footprints."
+            traits:
+              kind: 'moon'
+              surface: 'dusty'
+              gravity: 'light'
+          vesta:
+            label: 'Vesta'
+            blurb: 'A lump with a mountain on it twice the height of Everest.'
+            traits:
+              kind: 'asteroid'
+              surface: 'rocky'
+              gravity: 'feeble'
+          callisto:
+            label: 'Callisto'
+            blurb: 'The most cratered thing in the system, and quietly proud of it.'
+            traits:
+              kind: 'moon'
+              surface: 'rocky'
+              gravity: 'light'
+          ganymede:
+            label: 'Ganymede'
+            blurb: 'Bigger than Mercury. Still waiting for its job title to be reviewed.'
+            traits:
+              kind: 'moon'
+              surface: 'frozen'
+              gravity: 'light'
+          enceladus:
+            label: 'Enceladus'
+            blurb: 'Sprays water into space. The maintenance ticket has been open for several million years.'
+            traits:
+              kind: 'moon'
+              surface: 'frozen'
+              gravity: 'feeble'
+          triton:
+            label: 'Triton'
+            blurb: 'Orbits backwards. Has seen the standard procedure and filed an objection.'
+            traits:
+              kind: 'moon'
+              surface: 'frozen'
+              gravity: 'feeble'
+          phobos:
+            label: 'Phobos'
+            blurb: 'Potato-shaped and slowly falling. There is no particular rush.'
+            traits:
+              kind: 'moon'
+              surface: 'rocky'
+              gravity: 'feeble'
+          deimos:
+            label: 'Deimos'
+            blurb: 'The smaller, quieter one. It prefers things that way.'
+            traits:
+              kind: 'moon'
+              surface: 'dusty'
+              gravity: 'feeble'
+      ship:
+        name: 'Ship'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'ship'
+        traits:
+          hull:
+            label: 'Hull'
+            pattern: '{noun} made of {}'
+          size:
+            label: 'Size'
+            pattern: '{} {noun}'
+          engine:
+            label: 'Engine'
+            pattern: '{noun} with {} engines'
+        items:
+          kestrel:
+            label: 'Kestrel'
+            blurb: 'Fast, loud, and fond of announcing both.'
+            traits:
+              hull: 'steel'
+              size: 'small'
+              engine: 'nuclear'
+          corvus:
+            label: 'Corvus'
+            blurb: 'Black as a pocket. Impossible to find in the dark.'
+            traits:
+              hull: 'carbon'
+              size: 'small'
+              engine: 'ion'
+          lyra:
+            label: 'Lyra'
+            blurb: 'Sings on re-entry. The engineers have given up explaining it.'
+            traits:
+              hull: 'carbon'
+              size: 'mid-sized'
+              engine: 'solar'
+          orion:
+            label: 'Orion'
+            blurb: 'Turns like a cathedral. The helmsman starts corners during the previous shift.'
+            traits:
+              hull: 'steel'
+              size: 'huge'
+              engine: 'nuclear'
+          pallas:
+            label: 'Pallas'
+            blurb: 'Carries everything. The inventory is aboard somewhere.'
+            traits:
+              hull: 'titanium'
+              size: 'huge'
+              engine: 'solar'
+          sable:
+            label: 'Sable'
+            blurb: 'Silent running as standard, chiefly to unnerve visitors.'
+            traits:
+              hull: 'carbon'
+              size: 'small'
+              engine: 'ion'
+          merlin:
+            label: 'Merlin'
+            blurb: 'Completely reliable, apart from a hatch that contributes to every briefing.'
+            traits:
+              hull: 'steel'
+              size: 'mid-sized'
+              engine: 'nuclear'
+          halcyon:
+            label: 'Halcyon'
+            blurb: 'The calmest ship in the fleet. Nothing has gone wrong yet.'
+            traits:
+              hull: 'titanium'
+              size: 'mid-sized'
+              engine: 'solar'
+          vesper:
+            label: 'Vesper'
+            blurb: 'Only truly happy after sundown, whatever that means out here.'
+            traits:
+              hull: 'copper'
+              size: 'small'
+              engine: 'ion'
+          nimbus:
+            label: 'Nimbus'
+            blurb: 'Leaves a cloud behind it. Engineering has marked the investigation “atmospheric”.'
+            traits:
+              hull: 'carbon'
+              size: 'huge'
+              engine: 'solar'
+          aurora:
+            label: 'Aurora'
+            blurb: 'Glows faintly. The crew have stopped mentioning it.'
+            traits:
+              hull: 'copper'
+              size: 'mid-sized'
+              engine: 'ion'
+          cygnus:
+            label: 'Cygnus'
+            blurb: 'Long-necked, long-winded, and long overdue a refit.'
+            traits:
+              hull: 'steel'
+              size: 'huge'
+              engine: 'nuclear'
+          perseus:
+            label: 'Perseus'
+            blurb: 'Named for a hero. Handles like his filing cabinet.'
+            traits:
+              hull: 'titanium'
+              size: 'mid-sized'
+              engine: 'solar'
+          zephyr:
+            label: 'Zephyr'
+            blurb: 'Light enough to be pushed by sunlight and vain about it.'
+            traits:
+              hull: 'copper'
+              size: 'small'
+              engine: 'ion'
+      cargo:
+        name: 'Cargo'
+        pattern: 'the {} payload'
+        describes: 'the {}'
+        noun: 'payload'
+        traits:
+          weight:
+            label: 'Weight'
+            pattern: '{} {noun}'
+          material:
+            label: 'Made of'
+            pattern: '{noun} made of {}'
+          care:
+            label: 'Handling'
+            pattern: '{} {noun}'
+        items:
+          seed-vault:
+            label: 'Seed Vault'
+            blurb: 'Every crop humanity has, in a box the size of a fridge.'
+            traits:
+              weight: 'middling'
+              material: 'metal'
+              care: 'fragile'
+          ice-core:
+            label: 'Ice Core'
+            blurb: 'A very old winter, kept in a tube and thoroughly resented.'
+            traits:
+              weight: 'heavy'
+              material: 'glass'
+              care: 'fragile'
+          solar-sail:
+            label: 'Solar Sail'
+            blurb: 'Acres of mirror, folded like a napkin, opened once.'
+            traits:
+              weight: 'light'
+              material: 'fabric'
+              care: 'fragile'
+          rover-kit:
+            label: 'Rover Kit'
+            blurb: 'Some assembly required. The missing page appears to have covered wheels.'
+            traits:
+              weight: 'heavy'
+              material: 'metal'
+              care: 'rugged'
+          med-pods:
+            label: 'Med Pods'
+            blurb: 'Six beds and a cheerful voice that will not be turned off.'
+            traits:
+              weight: 'middling'
+              material: 'plastic'
+              care: 'fragile'
+          star-maps:
+            label: 'Star Maps'
+            blurb: 'Printed, because screens have opinions about radiation.'
+            traits:
+              weight: 'light'
+              material: 'paper'
+              care: 'fragile'
+          water-tank:
+            label: 'Water Tank'
+            blurb: 'Two tonnes of drinking water and one very serious lid.'
+            traits:
+              weight: 'heavy'
+              material: 'metal'
+              care: 'rugged'
+          drone-bay:
+            label: 'Drone Bay'
+            blurb: 'Eight little scouts, all of which return in a mood.'
+            traits:
+              weight: 'heavy'
+              material: 'metal'
+              care: 'rugged'
+          soil-lab:
+            label: 'Soil Lab'
+            blurb: 'Asks dirt whether anything lived in it. Gets through a remarkable number of consent forms.'
+            traits:
+              weight: 'middling'
+              material: 'glass'
+              care: 'fragile'
+          fuel-cells:
+            label: 'Fuel Cells'
+            blurb: 'Enough power for the trip home, assuming nobody charges a kettle.'
+            traits:
+              weight: 'heavy'
+              material: 'metal'
+              care: 'rugged'
+          greenhouse:
+            label: 'Greenhouse'
+            blurb: 'Tomatoes in orbit. They taste of homesickness.'
+            traits:
+              weight: 'middling'
+              material: 'glass'
+              care: 'fragile'
+          repair-kit:
+            label: 'Repair Kit'
+            blurb: 'Tape, wire and hope, in roughly that proportion.'
+            traits:
+              weight: 'middling'
+              material: 'metal'
+              care: 'rugged'
+          comms-mast:
+            label: 'Comms Mast'
+            blurb: 'Points at home. Still gets asked whether it has tried pointing somewhere else.'
+            traits:
+              weight: 'light'
+              material: 'metal'
+              care: 'fragile'
+          sample-case:
+            label: 'Sample Case'
+            blurb: 'Empty on the way out. Nobody agrees on what fills it.'
+            traits:
+              weight: 'light'
+              material: 'plastic'
+              care: 'rugged'
+      launch:
+        name: 'Launch'
+        pattern: 'the {} launch'
+        describes: 'the {}'
+        noun: 'launch'
+        ordered:
+          noun: 'launch year'
+          unit: 'years'
+          greater: 'later'
+          lesser: 'earlier'
+        traits:
+          band:
+            label: 'Window'
+            pattern: '{} {noun}'
+          parity:
+            label: 'Number'
+            pattern: '{noun} in an {} year'
+        items:
+          2031:
+            label: '2031'
+            blurb: 'The 2031 window. Everything still smells of new upholstery.'
+            traits:
+              band: 'early'
+              parity: 'odd'
+          2032:
+            label: '2032'
+            blurb: 'The 2032 window. Booked out by a school trip and rebooked in a hurry.'
+            traits:
+              band: 'early'
+              parity: 'even'
+          2033:
+            label: '2033'
+            blurb: 'The 2033 window. Delayed twice for weather on a world with no weather.'
+            traits:
+              band: 'early'
+              parity: 'odd'
+          2034:
+            label: '2034'
+            blurb: 'The 2034 window. The one with the famous countdown mishap.'
+            traits:
+              band: 'early'
+              parity: 'even'
+          2035:
+            label: '2035'
+            blurb: 'The 2035 window. Sponsored, briefly, by a soft drink.'
+            traits:
+              band: 'early'
+              parity: 'odd'
+          2036:
+            label: '2036'
+            blurb: 'The 2036 window. The crew insisted on real coffee and got it.'
+            traits:
+              band: 'middling'
+              parity: 'even'
+          2037:
+            label: '2037'
+            blurb: 'The 2037 window. Launched an hour early because nobody objected.'
+            traits:
+              band: 'middling'
+              parity: 'odd'
+          2038:
+            label: '2038'
+            blurb: 'The 2038 window. Rained off, then launched through the rain anyway.'
+            traits:
+              band: 'middling'
+              parity: 'even'
+          2039:
+            label: '2039'
+            blurb: 'The 2039 window. Best sandwiches of any mission, by common consent.'
+            traits:
+              band: 'middling'
+              parity: 'odd'
+          2040:
+            label: '2040'
+            blurb: 'The 2040 window. Someone left a cat toy aboard. It is still up there.'
+            traits:
+              band: 'middling'
+              parity: 'even'
+          2041:
+            label: '2041'
+            blurb: 'The 2041 window. The last launch before the pad was repainted.'
+            traits:
+              band: 'late'
+              parity: 'odd'
+          2042:
+            label: '2042'
+            blurb: 'The 2042 window. Held for a passing satellite that was in no hurry.'
+            traits:
+              band: 'late'
+              parity: 'even'
+          2043:
+            label: '2043'
+            blurb: 'The 2043 window. Watched by more people than the moon landings.'
+            traits:
+              band: 'late'
+              parity: 'odd'
+          2044:
+            label: '2044'
+            blurb: 'The 2044 window. The one they will be talking about in the canteen.'
+            traits:
+              band: 'late'
+              parity: 'even'
+
+briefings:
+  themes:
+    cosmic:
+      - title: The manifest took a walk
+        body: The only printed copy of the flight paperwork was being read on the observation deck when somebody demonstrated the airlock. It is now in a slow orbit of its own, along with the pen. Nothing leaves the pad until every line of it has been put back, and the window closes on Thursday.
+      - title: Filed by committee
+        body: Three departments each kept their own records so that nothing could possibly go missing, and each department has since misplaced a different half of theirs. Between them they are certain of everything except which {noun} is on which flight. The rockets are fuelled and the crews are being polite about it.
+      - title: The computer was very confident
+        body: The scheduling system reconciled the roster overnight, congratulated itself, and assigned every {noun} to the same berth on the same flight. It cannot be persuaded to explain how. The engineers are working from the crew room whiteboard and whatever anyone can swear to.
+      - title: The tidy cycle ran early
+        body: The housekeeping routine came round a day ahead of itself and treated everything pinned to the crew room board as debris. It was extremely efficient about it. What is left is a wall of drawing pins and five people who were each looking at a different part of it.
+      - title: One magnet, one afternoon
+        body: The backup drive spent an afternoon resting against the ring magnet in the machine shop, which is the one place it was never meant to be. It now reads as a very confident field of zeroes. The paper copy went out with the recycling the same day, because of course it did.
+      - title: Three clocks, three answers
+        body: The pad keeps local time, the control room keeps mission time, and somebody has been filing in whichever came to hand. Every entry is true at some hour of some day. Working out which is the difference between a roster and a list of guesses.
+      - title: The pen that was not a pen
+        body: Somebody borrowed what they took for a permanent marker, wrote up the whole board in it, and found out at the end of the shift that it had been the wipe-clean one all along. A sleeve went past. The board is spotless and the shift is not.
+      - title: Approved by everyone, read by nobody
+        body: The paperwork went round for five signatures and came back with five, which everyone agrees is excellent. Nobody can now find the version that was signed. Each {noun} remembers signing something slightly different.
+      - title: The upgrade was seamless
+        body: The records system was migrated overnight to something faster, cleaner and entirely empty. The old one has been decommissioned with an enthusiasm nobody asked for. Support say the data is definitely somewhere.
+      - title: A very long weekend
+        body: Nobody logged anything from Friday afternoon until Monday, on the reasonable grounds that nothing was meant to happen. Several things happened. They are now a matter of recollection rather than record.
+      - title: The coffee reached the folder
+        body: A full cup went over on the desk where the only complete copy was lying face up. Half the entries survived, and half of anything is worth nothing here. The pad wants the whole thing by the end of the week.
+      - title: Filed correctly, somewhere
+        body: The archive was reorganised by a system nobody wrote down, by somebody who has since gone on leave for a month. Everything is in it. Nothing is findable in it.
+      - title: The radiation alarm was right
+        body: A solar event went through the storage bay and left every drive in it with an opinion rather than a record. The shielded copy was in the unshielded rack, which is a sentence somebody is going to have to explain. What is left is people.
+      - title: Two departments, one truth
+        body: Scheduling and operations each keep their own list so that nothing can possibly be lost, and each has now lost a different half. Between them they are sure of everything except who is where. Neither will take the other's word for it.
+      - title: The whiteboard was needed
+        body: Somebody wanted a whiteboard for a meeting and found one already full, which they solved in the obvious way. The meeting went very well. The board had the only copy of the week on it.
+      - title: Everything in the wrong hand
+        body: The duty officer took notes on their left palm, which then opened a hatch, closed a hatch, and got washed. Four smudges remain and one of them may be a name. It is being treated as a starting point.
+      - title: The label maker got ahead of itself
+        body: Every folder in the bay was relabelled on Tuesday by somebody working from the wrong list. The contents did not move. The labels are now confidently wrong and the contents are anonymous.
+      - title: Signed out and not back
+        body: The master copy was signed out for a quiet read-through and has not been seen since, along with the person who signed for it. They are on the far side of a comms blackout until Thursday. The schedule waits for neither of them.
+      - title: The backup backed up the backup
+        body: Three copies were kept, on the sound principle that three is safe. All three turned out to point at the same file, which is now a single item of zero length. The principle is under review.
+      - title: Handover by shrug
+        body: The outgoing shift explained everything clearly to the incoming shift, who were mostly listening. The written version was going to be done afterwards. It was not done afterwards.
+      - title: The director brought the dog in
+        body: It was a small dog, it was a long afternoon, and the only bound copy was on the low shelf at exactly the right level. Everyone enjoyed the visit enormously. What survives is the cover and part of an index.
+      - title: Two people, one name
+        body: Half the entries use first names and half use call signs, and two of those turn out to belong to the same person. Untangling that took a morning and lost the rest of the day with it. Every {noun} is now being asked to state plainly who they are.
+      - title: The room was clear of people
+        body: Somebody vented the crew room to test a seal, having been told it was empty, which it was of anybody who could object. The paperwork could not object. It is a very tidy room now.
+      - title: A generous reading of the word draft
+        body: Someone found a folder marked draft and cleared it out, which is exactly what you are supposed to do with a folder marked draft. It was the only folder anybody had ever used. The naming convention is being looked at.
+      - title: The scanner was on the wrong setting
+        body: Every page went through at a quality suitable for a thumbnail, and the originals went into the bin standing behind the scanner. What came out is grey, confident and unreadable. Nobody checked the first page.
+      - title: The meeting that settled it
+        body: A meeting was called to sort out the record and sorted it out completely, in a conversation nobody minuted. Everybody left satisfied and went to lunch. Two days later not one of them can reproduce the argument.
+      - title: Written on the back of something important
+        body: The only version of the week was jotted on the reverse of a document that then did what documents do and went where it was meant to go. It is now correctly filed under something else entirely. Getting it back takes longer than starting again.
+      - title: It did ask if I was sure
+        body: It asked twice, which should have been a hint, and then did exactly what it was told with admirable speed. The undo button is decorative. Everything before Tuesday is a memory.
+      - title: A gap in the numbering
+        body: The entries jump from eleven to fourteen with no explanation, and nobody will admit to twelve or thirteen. The missing two are not blank, they are absent. Whoever removed them tidied up properly afterwards.
+      - title: The rehearsal notes were the real notes
+        body: The dry run was written up beautifully and the real thing was not, on the grounds that the real thing would obviously go the same way. It did not go the same way. The rehearsal is no help at all.
+      - title: Everyone was somewhere else
+        body: The one afternoon that needed writing up was the one afternoon the recording officer was called away, twice. Their notes stop mid-sentence. Everyone else was busy being the thing that needed recording.
+      - title: The heater was under the shelf
+        body: A heater was left running under the low shelf for a fortnight, and the low shelf is where the ring binders live. The pages are intact, brown, and stuck together in one solid block. Steaming them apart is going slowly.
+      - title: Nobody is in trouble
+        body: That is what the notice on the door says, which everybody agrees is a strange thing for a notice to say. Behind the door is the store cupboard that used to be the records room. How it became a store cupboard has several versions.

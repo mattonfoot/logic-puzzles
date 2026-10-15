@@ -3,7 +3,7 @@
  *
  * **Almost nothing is here.** Which sets a theme plays with, which items are in
  * them and in what order, and every name, description, blurb and trait value,
- * are in `locales/en-GB.yaml` under `themes.<theme>.categories.<set>`. This file
+ * are in `locales/en-GB/themes/<theme>.yaml`, under `themes.<theme>`. This file
  * is the list of themes and the arithmetic: the numbers an ordered set's items
  * compare by. An item is known by its id — `nova`, `seed-vault` — which is what
  * the file name of its drawing is built from, so translating an item's label

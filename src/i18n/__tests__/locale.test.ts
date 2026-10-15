@@ -1,9 +1,16 @@
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { fill, LOCALE, plural, STRINGS, t } from '..';
 
-const LOCALE_FILE = join(__dirname, '..', '..', '..', 'locales', 'en-GB.yaml');
+const LOCALE_DIR = join(__dirname, '..', '..', '..', 'locales', 'en-GB');
+
+/** Every language file of the locale, as one text. */
+const localeText = () =>
+  readdirSync(LOCALE_DIR, { recursive: true, encoding: 'utf8' })
+    .filter((file) => file.endsWith('.yaml'))
+    .map((file) => readFileSync(join(LOCALE_DIR, file), 'utf8'))
+    .join('\n');
 
 /** Every line of the language file, wherever it sits in the tree. */
 function everyLine(node: unknown, path = ''): { path: string; text: string }[] {
@@ -16,13 +23,13 @@ function everyLine(node: unknown, path = ''): { path: string; text: string }[] {
 
 describe('the generated strings', () => {
   it('are still the ones written in the language file', () => {
-    // The YAML is the source and the module is the build of it, so a wording
-    // change without `npm run locale` would ship the old words. A YAML parser
-    // cannot be imported here — the package resolves to its ESM build under the
-    // React Native preset — so this reads the file as text and holds every
-    // string the app would say to appearing in it. That catches the direction
+    // The YAML files are the source and the module is the build of them, so a
+    // wording change without `npm run locale` would ship the old words. A YAML
+    // parser cannot be imported here — the package resolves to its ESM build
+    // under the React Native preset — so this reads the files as text and holds
+    // every string the app would say to appearing in them. That catches the direction
     // that matters: a line edited or removed in the YAML and left stale here.
-    const source = readFileSync(LOCALE_FILE, 'utf8');
+    const source = localeText();
     // A single quote inside a single-quoted YAML scalar is written twice, which
     // is the file's spelling of the word rather than a different word.
     const written = (text: string) =>
@@ -35,7 +42,7 @@ describe('the generated strings', () => {
 
   it('are the locale they claim to be', () => {
     expect(LOCALE).toBe('en-GB');
-    expect(readFileSync(LOCALE_FILE, 'utf8')).toContain('app:');
+    expect(readFileSync(join(LOCALE_DIR, 'ui.yaml'), 'utf8')).toContain('app:');
   });
 });
 

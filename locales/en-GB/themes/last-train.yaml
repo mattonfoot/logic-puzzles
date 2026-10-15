@@ -1,0 +1,646 @@
+# Last Train — en-GB
+#
+# Everything this theme says: its sets and their items, in the order puzzles
+# draw them, the sentences its clues are written in, and the briefings a puzzle
+# opens on. How these are written: locales/README.md.
+
+themes:
+  last-train:
+    name: 'Last Train'
+    blurb: 'Everyone is certain they are on the right train.'
+    clues:
+      link: '{a} travels on the same booking as {b}.'
+      notLink: '{a} does not travel on the same booking as {b}.'
+      groupNot: 'No {a} travels on the same booking as {b}.'
+      either: '{a} travels on the same booking as either {b} or {c}, but not both.'
+      compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
+      compareGap: 'The departure linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+    categories:
+      passenger:
+        name: 'Passenger'
+        pattern: '{}'
+        describes: 'the {}'
+        noun: 'passenger'
+        traits:
+          experience:
+            label: 'Experience'
+            pattern: '{noun} with {} experience'
+          shift:
+            label: 'Shift'
+            pattern: '{noun} on the {} shift'
+          manner:
+            label: 'Manner'
+            pattern: '{} {noun}'
+        items:
+          captain-plover:
+            label: 'Captain Plover'
+            blurb: 'Retired from the sea. Still asks which side of the train is starboard.'
+            traits:
+              experience: 'limited'
+              shift: 'early'
+              manner: 'patient'
+          madam-thimble:
+            label: 'Madam Thimble'
+            blurb: 'Travels light, provided nobody counts the emergency curtain fabric.'
+            traits:
+              experience: 'considerable'
+              shift: 'late'
+              manner: 'patient'
+          dr-turnpike:
+            label: 'Dr Turnpike'
+            blurb: 'Studies delays. Describes this journey as an unusually generous sample.'
+            traits:
+              experience: 'extensive'
+              shift: 'early'
+              manner: 'brisk'
+          miss-tansy:
+            label: 'Miss Tansy'
+            blurb: 'Packed for every climate except the one inside this compartment.'
+            traits:
+              experience: 'limited'
+              shift: 'late'
+              manner: 'brisk'
+          lord-ticket:
+            label: 'Lord Ticket'
+            blurb: 'Believes a reserved seat should come with a small hereditary title.'
+            traits:
+              experience: 'considerable'
+              shift: 'early'
+              manner: 'dramatic'
+          aunt-marigold:
+            label: 'Aunt Marigold'
+            blurb: 'Has brought enough advice for everyone, including the locomotive.'
+            traits:
+              experience: 'extensive'
+              shift: 'late'
+              manner: 'dramatic'
+          mr-buffer:
+            label: 'Mr Buffer'
+            blurb: 'Enjoys a quiet journey. Has submitted the request in triplicate.'
+            traits:
+              experience: 'limited'
+              shift: 'early'
+              manner: 'patient'
+          mx-whistle:
+            label: 'Mx Whistle'
+            blurb: 'Knows every announcement by heart and corrects the pauses.'
+            traits:
+              experience: 'considerable'
+              shift: 'late'
+              manner: 'patient'
+          professor-cinder:
+            label: 'Professor Cinder'
+            blurb: 'Calls missing a train an experiment in alternative arrival.'
+            traits:
+              experience: 'extensive'
+              shift: 'early'
+              manner: 'brisk'
+          mrs-bunbury:
+            label: 'Mrs Bunbury'
+            blurb: 'Offers sweets to strangers. Maintains very detailed acceptance records.'
+            traits:
+              experience: 'limited'
+              shift: 'late'
+              manner: 'brisk'
+          sir-sidings:
+            label: 'Sir Sidings'
+            blurb: 'Insists he knows a shortcut. The rails remain unconvinced.'
+            traits:
+              experience: 'considerable'
+              shift: 'early'
+              manner: 'dramatic'
+          ms-velvet:
+            label: 'Ms Velvet'
+            blurb: 'Sleeps through everything except someone touching the window latch.'
+            traits:
+              experience: 'extensive'
+              shift: 'late'
+              manner: 'dramatic'
+          mr-crump:
+            label: 'Mr Crump'
+            blurb: 'Has an opinion on the timetable and a separate opinion on its font.'
+            traits:
+              experience: 'limited'
+              shift: 'early'
+              manner: 'patient'
+          dame-semaphore:
+            label: 'Dame Semaphore'
+            blurb: 'Can stop a conversation with the efficiency of a red signal.'
+            traits:
+              experience: 'considerable'
+              shift: 'late'
+              manner: 'patient'
+      luggage:
+        name: 'Luggage'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'bag'
+        traits:
+          size:
+            label: 'Size'
+            pattern: '{} {noun}'
+          closure:
+            label: 'Closure'
+            pattern: '{noun} with a {} closure'
+          handling:
+            label: 'Handling'
+            pattern: '{noun} carried by its {}'
+        items:
+          steamer-trunk:
+            label: 'Steamer Trunk'
+            blurb: 'Packed for a weekend that may turn into a minor expedition.'
+            traits:
+              size: 'large'
+              closure: 'latch'
+              handling: 'handles'
+          leather-satchel:
+            label: 'Leather Satchel'
+            blurb: 'Contains a notebook for recording where the other notebook went.'
+            traits:
+              size: 'small'
+              closure: 'buckle'
+              handling: 'strap'
+          round-hatbox:
+            label: 'Round Hatbox'
+            blurb: 'The hat has more personal space than its owner.'
+            traits:
+              size: 'medium'
+              closure: 'latch'
+              handling: 'handle'
+          canvas-rucksack:
+            label: 'Canvas Rucksack'
+            blurb: 'Every pocket contains a smaller emergency.'
+            traits:
+              size: 'large'
+              closure: 'buckle'
+              handling: 'straps'
+          violin-case:
+            label: 'Violin Case'
+            blurb: 'Travels in dignified silence, to the relief of the entire train.'
+            traits:
+              size: 'medium'
+              closure: 'latch'
+              handling: 'handle'
+          folded-umbrella:
+            label: 'Folded Umbrella'
+            blurb: 'Displayed open here. On board, it waits for an indoor weather event.'
+            traits:
+              size: 'small'
+              closure: 'tie'
+              handling: 'handle'
+          striped-duffel:
+            label: 'Striped Duffel'
+            blurb: 'Its owner calls this packing. The zip calls it a negotiation.'
+            traits:
+              size: 'large'
+              closure: 'zip'
+              handling: 'handles'
+          songbird-carrier:
+            label: 'Songbird Carrier'
+            blurb: "The occupant has already reviewed the conductor's whistle."
+            traits:
+              size: 'medium'
+              closure: 'latch'
+              handling: 'handle'
+          rolled-bedding:
+            label: 'Rolled Bedding'
+            blurb: 'Optimistically assumes that lying down will become an option.'
+            traits:
+              size: 'large'
+              closure: 'tie'
+              handling: 'straps'
+          business-case:
+            label: 'Business Case'
+            blurb: 'Important papers, arranged in descending order of unnecessary urgency.'
+            traits:
+              size: 'small'
+              closure: 'latch'
+              handling: 'handle'
+          hanging-suit-bag:
+            label: 'Hanging Suit Bag'
+            blurb: 'Keeps the jacket presentable while its owner gradually unfolds.'
+            traits:
+              size: 'large'
+              closure: 'zip'
+              handling: 'hook'
+          wicker-hamper:
+            label: 'Wicker Hamper'
+            blurb: 'The picnic has been scheduled independently of the journey.'
+            traits:
+              size: 'medium'
+              closure: 'latch'
+              handling: 'handle'
+          ribbon-parcel:
+            label: 'Ribbon Parcel'
+            blurb: 'Wrapped beautifully. Nobody can remember whether it belongs on this train.'
+            traits:
+              size: 'small'
+              closure: 'tie'
+              handling: 'ribbon'
+          oak-chest:
+            label: 'Oak Chest'
+            blurb: "The contents are private. The weight is everybody's business."
+            traits:
+              size: 'large'
+              closure: 'latch'
+              handling: 'handles'
+      destination:
+        name: 'Destination'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'destination'
+        traits:
+          region:
+            label: 'Region'
+            pattern: '{noun} in the {} region'
+          terrain:
+            label: 'Terrain'
+            pattern: '{} {noun}'
+          service:
+            label: 'Service'
+            pattern: '{noun} on the {} service'
+        items:
+          beacon-point:
+            label: 'Beacon Point'
+            blurb: 'The lighthouse flashes a welcome. It has not read the arrival board.'
+            traits:
+              region: 'coastal'
+              terrain: 'level'
+              service: 'local'
+          high-crag:
+            label: 'High Crag'
+            blurb: 'A destination with an impressive elevation and a modest luggage lift.'
+            traits:
+              region: 'upland'
+              terrain: 'steep'
+              service: 'express'
+          miller-s-halt:
+            label: "Miller's Halt"
+            blurb: 'The windmill turns more reliably than the station clock.'
+            traits:
+              region: 'inland'
+              terrain: 'level'
+              service: 'local'
+          port-brindle:
+            label: 'Port Brindle'
+            blurb: 'The harbour smells of adventure and several unfinished sandwiches.'
+            traits:
+              region: 'coastal'
+              terrain: 'level'
+              service: 'express'
+          pine-hollow:
+            label: 'Pine Hollow'
+            blurb: 'A quiet woodland stop, unless the trees have news.'
+            traits:
+              region: 'inland'
+              terrain: 'level'
+              service: 'local'
+          seven-arches:
+            label: 'Seven Arches'
+            blurb: 'Named by someone who counted the bridge rather than the platforms.'
+            traits:
+              region: 'inland'
+              terrain: 'level'
+              service: 'express'
+          castle-rook:
+            label: 'Castle Rook'
+            blurb: 'The drawbridge has been replaced by a less romantic ticket barrier.'
+            traits:
+              region: 'upland'
+              terrain: 'steep'
+              service: 'local'
+          applewick:
+            label: 'Applewick'
+            blurb: 'The orchard offers seasonal fruit and permanent opinions about cider.'
+            traits:
+              region: 'inland'
+              terrain: 'level'
+              service: 'local'
+          star-ridge:
+            label: 'Star Ridge'
+            blurb: 'The observatory can locate distant planets but not the replacement bus.'
+            traits:
+              region: 'upland'
+              terrain: 'steep'
+              service: 'express'
+          silver-falls:
+            label: 'Silver Falls'
+            blurb: 'The waterfall drowns out complaints with admirable consistency.'
+            traits:
+              region: 'upland'
+              terrain: 'steep'
+              service: 'local'
+          seabell-pier:
+            label: 'Seabell Pier'
+            blurb: 'The sea air is bracing. The pier would prefer a gentler description.'
+            traits:
+              region: 'coastal'
+              terrain: 'level'
+              service: 'express'
+          slate-cut:
+            label: 'Slate Cut'
+            blurb: 'The quarry supplies stone and a remarkable quantity of echo.'
+            traits:
+              region: 'upland'
+              terrain: 'steep'
+              service: 'local'
+          steamwell:
+            label: 'Steamwell'
+            blurb: 'The baths promise relaxation, subject to towel availability.'
+            traits:
+              region: 'inland'
+              terrain: 'level'
+              service: 'express'
+          clockhaven:
+            label: 'Clockhaven'
+            blurb: 'The clock tower insists the train is late. The train blames the tower.'
+            traits:
+              region: 'inland'
+              terrain: 'level'
+              service: 'express'
+      refreshment:
+        name: 'Refreshment'
+        pattern: 'the {}'
+        describes: 'the {}'
+        noun: 'refreshment'
+        traits:
+          course:
+            label: 'Course'
+            pattern: '{} {noun}'
+          temperature:
+            label: 'Temperature'
+            pattern: '{noun} served {}'
+          portion:
+            label: 'Portion'
+            pattern: '{}-portion {noun}'
+        items:
+          breakfast-tea:
+            label: 'Breakfast Tea'
+            blurb: 'Strong enough to encourage the timetable to take itself seriously.'
+            traits:
+              course: 'drink'
+              temperature: 'hot'
+              portion: 'single'
+          platform-coffee:
+            label: 'Platform Coffee'
+            blurb: 'Tastes faintly of urgency, with a persistent note of queue.'
+            traits:
+              course: 'drink'
+              temperature: 'hot'
+              portion: 'single'
+          butter-croissant:
+            label: 'Butter Croissant'
+            blurb: 'Distributes evidence of consumption across the whole seat.'
+            traits:
+              course: 'snack'
+              temperature: 'ambient'
+              portion: 'single'
+          cheese-sandwich:
+            label: 'Cheese Sandwich'
+            blurb: 'The filling has settled into the corner nearest the window.'
+            traits:
+              course: 'snack'
+              temperature: 'cold'
+              portion: 'single'
+          polished-apple:
+            label: 'Polished Apple'
+            blurb: 'The healthiest item on the trolley. It seems rather pleased.'
+            traits:
+              course: 'snack'
+              temperature: 'ambient'
+              portion: 'single'
+          conference-pear:
+            label: 'Conference Pear'
+            blurb: 'Ripens during the exact moment nobody is looking.'
+            traits:
+              course: 'snack'
+              temperature: 'ambient'
+              portion: 'single'
+          layer-cake:
+            label: 'Layer Cake'
+            blurb: 'Two layers of sponge and one layer of travel optimism.'
+            traits:
+              course: 'dessert'
+              temperature: 'ambient'
+              portion: 'sharing'
+          ginger-biscuit:
+            label: 'Ginger Biscuit'
+            blurb: 'Designed for dunking. Recovery from the cup is not guaranteed.'
+            traits:
+              course: 'snack'
+              temperature: 'ambient'
+              portion: 'sharing'
+          cloudy-lemonade:
+            label: 'Cloudy Lemonade'
+            blurb: 'The weather forecast in a glass is refreshingly inaccurate.'
+            traits:
+              course: 'drink'
+              temperature: 'cold'
+              portion: 'single'
+          tomato-soup:
+            label: 'Tomato Soup'
+            blurb: 'A bold choice on a moving train with an expressive suspension.'
+            traits:
+              course: 'snack'
+              temperature: 'hot'
+              portion: 'single'
+          salted-pretzel:
+            label: 'Salted Pretzel'
+            blurb: 'A knot that the catering staff insist is intentional.'
+            traits:
+              course: 'snack'
+              temperature: 'ambient'
+              portion: 'sharing'
+          cheese-wedge:
+            label: 'Cheese Wedge'
+            blurb: 'Develops character faster than the conversation across the aisle.'
+            traits:
+              course: 'snack'
+              temperature: 'cold'
+              portion: 'sharing'
+          dark-chocolate:
+            label: 'Dark Chocolate'
+            blurb: 'Reserved for emergencies, a category the owner interprets generously.'
+            traits:
+              course: 'dessert'
+              temperature: 'ambient'
+              portion: 'sharing'
+          vanilla-cone:
+            label: 'Vanilla Cone'
+            blurb: 'An ambitious purchase with a very short planning horizon.'
+            traits:
+              course: 'dessert'
+              temperature: 'cold'
+              portion: 'single'
+      departure:
+        name: 'Departure'
+        pattern: 'the {} departure'
+        describes: 'the {}'
+        noun: 'departure'
+        ordered:
+          noun: 'departure'
+          unit: 'minutes'
+          greater: 'later'
+          lesser: 'earlier'
+        traits:
+          period:
+            label: 'Period'
+            pattern: '{noun} in the {} period'
+          window:
+            label: 'Window'
+            pattern: '{noun} in the {} window'
+        items:
+          06-00:
+            label: '06:00'
+            blurb: 'An early start for anyone who thinks sleep is a negotiable extra.'
+            traits:
+              period: 'early'
+              window: 'first-half'
+          06-30:
+            label: '06:30'
+            blurb: 'Enough time for tea, if the tea is prepared to cooperate.'
+            traits:
+              period: 'early'
+              window: 'first-half'
+          07-00:
+            label: '07:00'
+            blurb: 'The platform is awake. Several passengers are still considering it.'
+            traits:
+              period: 'early'
+              window: 'first-half'
+          07-30:
+            label: '07:30'
+            blurb: 'A civilised departure, according to the uncivilised alarm that preceded it.'
+            traits:
+              period: 'early'
+              window: 'first-half'
+          08-00:
+            label: '08:00'
+            blurb: 'The breakfast queue has begun to develop its own timetable.'
+            traits:
+              period: 'early'
+              window: 'first-half'
+          08-30:
+            label: '08:30'
+            blurb: 'Morning is progressing more reliably than the station announcements.'
+            traits:
+              period: 'early'
+              window: 'first-half'
+          09-00:
+            label: '09:00'
+            blurb: 'A plausible hour for making confident statements about arrival.'
+            traits:
+              period: 'mid-morning'
+              window: 'first-half'
+          09-30:
+            label: '09:30'
+            blurb: 'Late enough to be hungry again, early enough to deny it.'
+            traits:
+              period: 'mid-morning'
+              window: 'second-half'
+          10-00:
+            label: '10:00'
+            blurb: 'The clock suggests progress. The queue offers a different interpretation.'
+            traits:
+              period: 'mid-morning'
+              window: 'second-half'
+          10-30:
+            label: '10:30'
+            blurb: 'A departure with just enough time left for one unnecessary errand.'
+            traits:
+              period: 'mid-morning'
+              window: 'second-half'
+          11-00:
+            label: '11:00'
+            blurb: 'Lunch approaches with considerably more certainty than the train.'
+            traits:
+              period: 'late'
+              window: 'second-half'
+          11-30:
+            label: '11:30'
+            blurb: 'The conductor has begun to recognise repeat questions by their opening breath.'
+            traits:
+              period: 'late'
+              window: 'second-half'
+          12-00:
+            label: '12:00'
+            blurb: 'A respectable hour to admit that the extra sandwich was sensible.'
+            traits:
+              period: 'late'
+              window: 'second-half'
+          12-30:
+            label: '12:30'
+            blurb: 'The last listed departure. The clock seems pleased to have finished.'
+            traits:
+              period: 'late'
+              window: 'second-half'
+
+briefings:
+  themes:
+    last-train:
+      - title: The Unhelpful Breeze
+        body: A draught has rearranged the conductor's notes into a system admired only by the open window. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: Carbon Copy
+        body: The duplicate ledger is perfectly readable, but every passenger's entry has acquired somebody else's heading. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Ink Incident
+        body: A clerk has discovered that shaking a pen above the register is an excellent way to change its contents. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: Platform Diplomacy
+        body: Several passengers have offered to explain the confusion, producing several incompatible and unusually confident explanations. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Great Stapling
+        body: A well-meaning assistant has fastened the loose records together according to paper size rather than meaning. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: An Orderly Queue
+        body: The queue is immaculate, which makes the disorganised paperwork on the conductor's desk feel particularly personal. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Reversed Register
+        body: Someone has copied the ledger from the last page backwards and called the result a fresh perspective. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: A Very Helpful Child
+        body: A young volunteer has sorted the paperwork into piles labelled interesting, boring and probably important. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Wrong Clipboard
+        body: The conductor has retrieved the missing clipboard, unfortunately from someone who had already started improving it. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: A Quiet Carriage
+        body: The passengers have agreed to keep quiet while the clerk works, except when offering essential corrections. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Duplicate Stamp
+        body: Every entry has been stamped checked, including several entries that the clerk is certain have not been checked. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: A Matter of Handwriting
+        body: The clerk's elegant loops have been interpreted as letters, numbers and one small drawing of a duck. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Folding Method
+        body: The register was folded for safekeeping and now presents its information in a particularly unhelpful sequence. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: Lost in Translation
+        body: A passenger has translated the clerk's abbreviations into longer phrases that remain just as mysterious. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Helpful Announcement
+        body: An announcement has reassured everyone that the records are in order, creating immediate demand for that to become true. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: Loose Leaves
+        body: The binding has given up before the staff, leaving a fan of pages with excellent freedom of movement. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Blue Pencil
+        body: The conductor's corrections are clear, but nobody remembers which of two blue pencils marked the final version. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Inspection Smile
+        body: An inspector has arrived smiling, a development the clerk considers more alarming than open criticism. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: A Fresh Start
+        body: The replacement ledger is beautifully clean because the information is still on an untidy collection of slips. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Polite Dispute
+        body: Two clerks are disagreeing with such courtesy that the passengers have mistaken it for a welcoming ceremony. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Desk Drawer
+        body: The missing notes have been found in the drawer marked completed, where they had no business being. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: A Promising Index
+        body: The index points to pages that point to other pages, showing admirable initiative but little practical value. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Almost Final Draft
+        body: The conductor has discovered another version labelled final, with handwriting that suggests considerable optimism. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Clipping Problem
+        body: Paper clips have preserved every scrap while quietly obscuring several headings needed to understand them. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Red Carpet
+        body: A ceremonial welcome is ready outside, while inside the office the paperwork remains stubbornly informal. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Familiar Face
+        body: Every passenger seems familiar to the clerk, which is comforting until accurate records are required. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Restored Folder
+        body: The rescued folder is dry again, but its contents have settled into an arrangement of their own choosing. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Neat Rewrite
+        body: A passenger has rewritten the notes neatly, preserving every uncertainty with exceptional penmanship. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Supervisor's Visit
+        body: The supervisor has asked one simple question about the ledger and is now waiting for a simple answer. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: An Excess of Labels
+        body: The filing system has more labels than files, and several labels appear to be giving conflicting instructions. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Missing Margin
+        body: A copying error has removed the margins containing the clerk's most useful clarifications. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: A Seat at the Desk
+        body: A passenger has kindly offered to take over the records, inspiring the staff to solve the problem promptly. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+      - title: The Final Check
+        body: The conductor wants one dependable account before putting the folder away with an expression of professional certainty. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.

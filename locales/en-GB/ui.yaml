@@ -1,0 +1,443 @@
+# Deduction — en-GB: the interface
+#
+# Every word the app's screens say. The rest of the locale is beside this file:
+# the lessons, the achievements, and one file per theme under themes/ — see
+# locales/README.md. Change the wording in any of them and run
+# `npm run locale`; that rewrites src/i18n/strings.generated.ts, which is what
+# the app actually imports, and a test fails if the two are ever out of step.
+#
+# Placeholders are {braced} and are filled in by the code that reads the string,
+# so the words either side of one can be reordered freely — which is the point
+# of them, and the first thing another language will want to do.
+#
+# Anything ending in `.one` / `.other` is a count: `.one` is used when the number
+# is exactly one and `.other` for everything else, including zero.
+#
+# What is not in the locale at all: the numbers an ordered set compares by,
+# which are arithmetic and live in src/data/themes.ts.
+
+app:
+  # The name is the last line of the sentence above it, so the two are written
+  # as a pair: "One solution, never guessed, pure…" then "…Deduction".
+  name: '…Deduction'
+  tagline: One solution, never guessed, pure…
+
+common:
+  back: Back
+  close: Close
+  next: Next
+  previous: Previous
+  # Under a window, saying how to be rid of it.
+  tapOutside: Tap outside to close
+  # "3 of 8" — a position in a run, used by the item card and the clue window.
+  position: '{at} of {total}'
+  building: Building your puzzle…
+  keepIt: Keep it
+
+# The page the app falls back to when a screen throws while drawing. Two ways
+# on: back to the front door with everything kept, or the same with the saved
+# game thrown away - the escape hatch for a save that breaks the board every
+# time it is opened.
+crash:
+  title: Something went wrong
+  body: The screen could not be drawn. Nothing you have finished is lost. If this keeps happening when a puzzle opens, the saved game may be the cause, and throwing it away will clear it.
+  home: Back to the start
+  discard: Discard the saved game
+  # Printed small under the buttons, for a bug report.
+  detail: 'The error was: {message}'
+
+# The screen the app opens on, before there is anything to press.
+splash:
+  # The name on its own, without the ellipsis that joins it to the tagline on
+  # the front door — nothing here is completing a sentence.
+  name: Deduction
+  byline: one solution, never guessed
+
+start:
+  daily: Daily
+  play: Play
+  # Under Play, for somebody who has never met a logic grid.
+  howToPlay: How to play
+  settings: Settings
+  statistics: Statistics
+
+# The two ways to play a numbered game, chosen on the way in rather than set in
+# the settings: a choice that holds for a whole game, and rides in its seed.
+modes:
+  title: Play
+  back: Back
+  pure:
+    name: Pure Deduction
+    hint: The board keeps the bookkeeping
+    # The same choice where the full name would crowd the line or repeat the
+    # app's own: a shared result, and a column in the statistics.
+    short: Pure
+  classic:
+    name: Classic logic
+    hint: Every mark on the board is yours
+    short: Classic
+  # The daily is not one of the two and never was: it is not chosen, it is
+  # handed out, and it is played once. It has a name here because the statistics
+  # file a finished game under one of these three, and it is the short one for
+  # the same reason the other two are: three of these label one row of tabs.
+  daily: Daily
+  # What a game is called wherever the app titles one: the way it is played,
+  # then how hard it is — "Pure beginner", "Daily advanced", "Classic legend".
+  # A difficulty on its own is only half the name now that the same number is a
+  # different puzzle on each side of the mode menu, and a daily is a third thing
+  # again. The difficulty follows the type here rather than leading, so it is
+  # written in lower case; a language that capitalises its nouns should write
+  # this template to suit.
+  game: '{type} {difficulty}'
+  # On the puzzle menu, under switches that are shown as they stand and cannot
+  # be moved, so the reason is the row rather than a dead control.
+  locked: Classic logic works nothing out for you. Start a Pure Deduction game to have the board keep up.
+
+setup:
+  title: Play
+  continue: Continue
+  # Read out for Continue: what is waiting behind it.
+  continueHint: '{theme}, {size}, {percent}% filled in, {clock} on the clock'
+  # In Continue's place, when there is a saved game the app cannot read.
+  unreadable: A saved game was found but could not be read. Choosing a difficulty replaces it.
+  # Read out for a difficulty: the shape it stands for.
+  difficultyHint: '{items} items in each of {sets} sets'
+  back: Back
+
+numbers:
+  # The heading over the numbered list: "Play Pure expert".
+  title: Play {game}
+  # Every row of it.
+  puzzle: Puzzle {number}
+  finishedHint: Finished in {clock}
+  # The button between Previous and Next: out to the pages of pages.
+  zoomOut: Zoom out
+  # A row when zoomed out: the run of puzzles it stands for.
+  group: Puzzles {first}–{last}
+  groupDone: '{done} of {total} finished'
+  groupHint: Opens the pages in this group
+  back: Back to the difficulties
+
+daily:
+  title: Daily challenges
+  doneHint: Done in {clock} — opens the result
+  # Under the heading, only once there is one to speak of.
+  streak:
+    one: 1 day running
+    other: '{count} days running'
+  back: Back
+
+game:
+  # Offered on every square in the rotor, since a long press is a gesture a
+  # screen reader has no way of making.
+  settle: Tick it
+  menu: Menu
+  undo: Undo
+  clue: Clue
+  info: Info
+  highlight: Highlight
+  zoomIn: Zoom in
+  zoomOut: Zoom out
+  back: Back to setup
+  # The seed, under the puzzle's name.
+  seed: '#{seed}'
+  # A square, by the two things it names: "Ms Barley and the Mocha". Said by
+  # the lessons and by the clue window's hint, so it lives with the board.
+  square: '{row} and {column}'
+  # Added to a square's own label when the board is pointing at it. The shading
+  # says this to everybody else; without the word, a screen reader is the one
+  # reader the flagging never reaches.
+  flagged: '{square}, flagged'
+  # What a screen reader says for each square on the board: the square, then
+  # what is on it. The screenshot walkthrough finds squares by these words.
+  squareSaid: '{square}: {state}'
+  squareState:
+    'yes': matched
+    'no': ruled out
+    blank: unknown
+  # Offered in the clue window once every square carries a mark and the clue on
+  # the table still disagrees with one of them. A full board has no blank left
+  # to work at, so a player whose answer is wrong but holds together has only
+  # the clue to go on - this says which mark it is arguing with. Nothing here
+  # reads the answer: the clue has been read and the mark is on the screen.
+  hint:
+    ask: Hint
+    # A mark the player made themselves, the wrong way round.
+    ticked: '{square} is ticked, and this clue rules those two out. Tap it twice to bring the tick round to a cross.'
+    crossed: '{square} is crossed, and this clue makes those two a pair. Tap it once more, or hold the square down, to bring the cross round to a tick.'
+    # A mark the board worked out for itself, which means the square to touch is
+    # the tick it came from rather than the one the clue is about.
+    tickedFrom: '{square} is ticked because of your tick on {cause}, and this clue rules those two out. It is that earlier tick that has to come off.'
+    crossedFrom: '{square} is crossed because of your tick on {cause}, and this clue makes those two a pair. It is that earlier tick that has to come off.'
+  status:
+    nothingToUndo: Nothing to undo.
+    # A tap on a square before the first clue is read. The board takes no marks
+    # yet, and saying why is cheaper than leaving the buzz to be read as a bug.
+    nothingToGoOn: Nothing to go on yet — tap Clue for the first one.
+    finished: This puzzle is finished — Restart to play it again.
+    restarted: Restarted — same puzzle, fresh board and clock.
+    # Said once, the first time a save fails: the game plays on, but will not
+    # be waiting behind Continue.
+    notSaving: Progress is not being saved — the device may be out of space.
+    clearedMistakes: Took off the marks that were disagreeing.
+    rewound:
+      one: Rewound {steps} move to a board that holds together.
+      other: Rewound {steps} moves to a board that holds together.
+  # The window that opens when the board has been marked into a contradiction.
+  # It never says which mark is the wrong one, because the game does not know
+  # and would be giving the answer away if it did.
+  stuck:
+    title: A clue cannot help
+    body:
+      one: 1 mark on the board disagrees with the others, so no answer fits what is on it and there is nothing left for a clue to lead to. Rewinding takes moves back to the last board that held together. Close this and the marks that disagree stay lit on the grids, to sort out by hand.
+      other: '{count} marks on the board disagree with each other, so no answer fits what is on it and there is nothing left for a clue to lead to. Rewinding takes moves back to the last board that held together. Close this and the marks that disagree stay lit on the grids, to sort out by hand.'
+    rewind: Rewind
+    leaveIt: Leave it to me
+
+clue:
+  # The sentences a clue is written in, for a theme that does not word its own.
+  # A theme's `clues` block overrides any of these.
+  templates:
+    link: '{a} is paired with {b}.'
+    notLink: '{a} is not paired with {b}.'
+    groupNot: 'No {a} is paired with {b}.'
+    either: '{a} is paired with either {b} or {c}.'
+    compare: 'The {noun} for {greater} is {comparative} than for {lesser}.'
+    compareGap: 'The {noun} for {greater} is exactly {gap} {unit} {comparative} than for {lesser}.'
+  # Read out for the clue itself, so a screen reader can find it.
+  inPlay: Clue in play
+  noneYet: Nobody has said anything yet…
+  noneYetBody: Tap Next for the first clue.
+  # Who is supposed to have said a clue. One is drawn from the puzzle's seed and
+  # the clue's own number, so a clue keeps its line. {noun} is the theme's word
+  # for one of its cast — diver, gardener, astronaut — and the lines that use it
+  # sound like the puzzle rather than like a bystander.
+  openers:
+    - Someone commented that
+    - An observer mentioned that
+    - One {noun} remembered that
+    - Another {noun} was sure that
+    - Word went round that
+    - It was noted at the time that
+    - Somebody swore blind that
+    - One {noun} let slip that
+    - The record shows that
+    - A bystander insisted that
+    - Nobody disputes that
+    - One {noun} recalled that
+    - It is generally agreed that
+    - Another {noun} put it that
+
+item:
+  # The heading over an item's traits on its card is the trait's own label, which
+  # lives with the theme. Nothing else on the card is fixed wording.
+  #
+  # What a screen reader says for an item's heading on the board, which opens
+  # its card.
+  aboutHint: About {label}
+
+briefings:
+  # What went wrong, and why anybody wants it sorted out. Thirty-three per theme,
+  # each written into its theme's own file under themes/; the puzzle's seed
+  # picks one and keeps it. The one here is for a theme with none.
+  #
+  # They are all the same story told differently — a record existed, something
+  # ordinary happened to it, and what is left is what people remember — because
+  # that is the story a logic grid actually is. The variety is in the mishap, not
+  # in the shape.
+  #
+  # A briefing must name no set except the anchor — which sets a puzzle plays
+  # with is sampled from its theme, so a briefing promising a cargo manifest
+  # would sometimes describe a puzzle with no cargo in it. A test holds every
+  # briefing to that. {noun} is the anchor's own word and is always safe.
+  fallback:
+    title: Nobody wrote it down
+    body: Everything about this was recorded carefully, and then it was not. What is left is what people remember, said one piece at a time — and between them, if you are careful, it comes to exactly one answer.
+
+menu:
+  title: Puzzle settings
+  thisPuzzle: This puzzle
+  automaticCrosses: Automatic crosses
+  autoAddFacts: Auto add facts
+  # Shades a mark that argues with a clue already read. Not a hint - the clue is
+  # on the screen - but having to re-read it is the game, so it can be turned off.
+  checkAgainstClues: Check against clues
+  matchDevice: Match the device
+  nightColours: Night colours
+  colour: Colour
+  restart: Restart puzzle
+  back: Back to the board
+  confirm:
+    title: Restart this puzzle?
+    body: The same puzzle comes back with an empty board and the clock at zero.
+    confirmLabel: Restart it
+
+settings:
+  title: Settings
+  automaticCrosses: Automatic crosses
+  autoAddFacts: Auto add facts
+  checkAgainstClues: Check against clues
+  matchDevice: Match the device
+  nightColours: Night colours
+  colour: Colour
+  volume: Volume
+  vibration: Vibration
+  # Said after a setting that steps through named values, such as the colour.
+  cycleHint: Changes to the next one
+  back: Back
+
+solved:
+  title: Solved!
+  # "Pure advanced · Puzzle 7", or "Daily beginner · 2 September 2026".
+  #
+  # The theme and the grid size stood here, and neither says which game this
+  # was: the theme's own drawing is right above the line and its cast is in the
+  # answer table under it, and the shape is that table's shape. What the game
+  # was called and which one of them it was is what somebody comparing two
+  # finishes needs, and the name is the one the board carried.
+  subtitle: '{game} · {which}'
+  # Which one off the list. The name beside it already says how it was played,
+  # so this is only the number. A daily names its date instead — there is one a
+  # day at each difficulty, and no choice to name.
+  numbered: 'Puzzle {number}'
+  time: Time
+  cluesRead: Clues read
+  # Beside the clues, and only on a game that counted them: how many times the
+  # player asked a clue what was wrong with the board. A clue read is a puzzle
+  # met halfway; a hint asked for is the app doing a step of it.
+  hintsAsked: Hints asked
+  answer: The answer
+  swipe: Swipe the table for the other sets
+  share: Share
+  # Beside Share: the same puzzle again, from a blank board and a zeroed clock.
+  playAgain: Play again
+  # Under the result, when the history could not be written.
+  notRecorded: This game could not be recorded — the device may be out of space.
+
+# A finished game as a few lines to send somebody. No spoilers: the third line
+# is the clues read as squares, which the app writes for itself.
+share:
+  # "Deduction · Daily beginner · 2 September 2026". The game is named the way
+  # the board that was played is titled, so a time sent to somebody and the
+  # screen it was set on agree about what the game was called.
+  daily: 'Deduction · {game} · {date}'
+  # "Deduction · Pure advanced #7". The name carries which of the three ways it
+  # was played as well as how hard it was: the same number is a different puzzle
+  # on each side, so a time without it is a time nobody can answer.
+  numbered: 'Deduction · {game} #{number}'
+  # The second line is the clock and what it cost, joined by the middot the app
+  # punctuates with everywhere. Hints are left off a game that used none: a
+  # nought on every share says nothing, and their absence is the good news.
+  clues:
+    one: 1 clue
+    other: '{count} clues'
+  hints:
+    one: 1 hint
+    other: '{count} hints'
+
+# The note under a finish. Every one of these measures the game against the
+# player's earlier games at the same difficulty *and* played the same way, so
+# each names the game the way the board did — "First Pure advanced in the
+# books". A difficulty on its own would claim a best across two different jobs.
+improvement:
+  revealed:
+    headline: Solution revealed
+    detail: Revealed puzzles are kept out of your times.
+  first:
+    headline: First {game} in the books
+    detail: 'Time to beat next round: {clock}{clues}.'
+  best:
+    headline: New {game} best!
+    detail: '{gap} faster than your old best of {best}{clues}.'
+  faster:
+    headline: '{percent}% faster than your {game} average'
+    detail: '#{rank} of {total} · best is {best}{clues}.'
+  steady:
+    headline: '{game} complete'
+    detail: '{gap} off your best of {best}{clues}.'
+  # Tacked onto the end of a detail line above.
+  clues:
+    one: ' · 1 clue read'
+    other: ' · {count} clues read'
+
+stats:
+  title: Statistics
+  # Under the heading, when there is a history on the device the app cannot read.
+  unreadable: The finished games on this device could not be read, so nothing from before today is counted.
+  solved: Solved
+  timePlayed: Time played
+  streak: Streak
+  bestStreak: best {days}d
+  cluesRead: Clues read
+  # Under the clues, where it used to be a tile of its own. It is a reading of
+  # that number rather than a number beside it, and folding it in left room for
+  # the hints without a row holding one tile.
+  perPuzzle: '{count} per puzzle'
+  hintsAsked: Hints asked
+  themes: Themes
+  byDifficulty: By difficulty
+  difficulty: Difficulty
+  best: Best
+  average: Average
+  gettingFaster: Are you getting faster?
+  # Over the chart: which games these times are, named as the board named them.
+  chartCaption: '{game}: recent solve times, one column per puzzle'
+  fasterLately: '{percent}% faster lately'
+  slowerLately: '{percent}% slower lately'
+  holdingSteady: Holding steady
+  empty: No finished puzzles yet
+  emptyBody: Solve one and your time lands here. After a few, you will see whether you are getting quicker.
+  clearStatistics: Clear statistics
+  # Where the chart would be, with only one time to draw.
+  trendEmpty: One more {game} solve and the trend shows up here.
+  trendPending: '{solved} solved · best {best}. A few more and the trend below fills in.'
+  trendDetail: Last {count} average {recent} vs {earlier} before that.
+  # Under the chart: the column picked out, and what the columns are.
+  chartPoint: Solve {at} of {total}, {time}
+  chartBest: ' · best'
+  chartFooter: last {count} solves · shorter is faster
+  # Time played, all told.
+  span:
+    hours: '{hours}h {minutes}m'
+    minutes: '{minutes}m'
+    seconds: '{seconds}s'
+  confirm:
+    title: Clear statistics?
+    body: This deletes every finished game and all your times. It cannot be undone.
+    confirmLabel: Clear statistics
+    cancelLabel: Keep them
+  back: Back
+
+# The five boards, smallest first. The label is the shape as the grid reads it:
+# how many of each set, then how many sets.
+sizes:
+  xs:
+    difficulty: Beginner
+    label: 3 × 3
+  sm:
+    difficulty: Advanced
+    label: 4 × 3
+  md:
+    difficulty: Expert
+    label: 4 × 4
+  lg:
+    difficulty: Pro
+    label: 5 × 4
+  xl:
+    difficulty: Legend
+    label: 6 × 4
+
+# The colours the app can be drawn in.
+accents:
+  blue: Blue
+  violet: Violet
+  teal: Teal
+  green: Green
+  rust: Rust
+
+# The four steps of the volume slider.
+volumes:
+  off: 'Off'
+  quiet: Quiet
+  medium: Medium
+  loud: Loud
