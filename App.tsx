@@ -209,25 +209,34 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
     [persistence, puzzle],
   );
 
-  return (
-    <>
-      {/* Every screen before a board runs a coloured panel up behind the status
-          bar, so the clock has to lift off that rather than off the page — and
-          which way round depends on the colour, the same way the words on the
-          panel do. */}
-      <StatusBar
-        style={
-          PANELLED.has(screen)
-            ? inkOn(palette.accentGround, '#FFFFFF', palette.ink) === '#FFFFFF'
-              ? 'light'
-              : 'dark'
-            : palette.scheme === 'night'
-              ? 'light'
-              : 'dark'
-        }
-      />
-      <View style={styles.root}>
-        {screen === 'game' && puzzle ? (
+  /** A lesson menu's entries: one per lesson, each opening its board. */
+  const lessonEntries = (ids: LessonId[]) =>
+    ids.map((id) => {
+      const card = lessonCard(id);
+      return {
+        key: id,
+        label: card.title,
+        hint: card.blurb,
+        onPress: () => {
+          setLesson(id);
+          setScreen('tutorial');
+        },
+      };
+    });
+
+  /** Turns one of the board settings over. */
+  const toggle = (key: 'autoEliminate' | 'autoFacts' | 'checkClues') => () =>
+    settings.update({ [key]: !settings.settings[key] });
+
+  /**
+   * What is on the screen. A screen whose state is missing — a board with no
+   * puzzle, a list with no difficulty — falls through to the start.
+   */
+  const current = (): React.ReactNode => {
+    switch (screen) {
+      case 'game':
+        if (!puzzle) break;
+        return (
           <GameScreen
             key={puzzle.seed}
             puzzle={puzzle}
@@ -240,13 +249,9 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             checkClues={settings.settings.checkClues}
             colours={settings.settings.colours}
             accent={settings.settings.accent}
-            onToggleAutoEliminate={() =>
-              settings.update({ autoEliminate: !settings.settings.autoEliminate })
-            }
-            onToggleAutoFacts={() => settings.update({ autoFacts: !settings.settings.autoFacts })}
-            onToggleCheckClues={() =>
-              settings.update({ checkClues: !settings.settings.checkClues })
-            }
+            onToggleAutoEliminate={toggle('autoEliminate')}
+            onToggleAutoFacts={toggle('autoFacts')}
+            onToggleCheckClues={toggle('checkClues')}
             onChangeAccent={(accent) => settings.update({ accent })}
             onChangeColours={(colours) => settings.update({ colours })}
             restore={restore ?? persistence.savedGame}
@@ -258,7 +263,9 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             onDiscardProgress={persistence.discardSavedGame}
             onCompleted={recordCompletion}
           />
-        ) : screen === 'mode' ? (
+        );
+      case 'mode':
+        return (
           <MenuScreen
             title={t('modes.title')}
             backLabel={t('modes.back')}
@@ -273,7 +280,9 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             }))}
             onBack={() => setScreen('start')}
           />
-        ) : screen === 'setup' ? (
+        );
+      case 'setup':
+        return (
           <SetupScreen
             busy={busy}
             // Continue belongs to the mode it was started in: the saved game's
@@ -293,7 +302,10 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             onResume={resume}
             onBack={() => setScreen('mode')}
           />
-        ) : screen === 'numbers' && chosen ? (
+        );
+      case 'numbers':
+        if (!chosen) break;
+        return (
           <NumbersScreen
             size={chosen}
             mode={mode}
@@ -302,7 +314,9 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             onPlay={(number) => build(chosen, numberedSeed(number, chosen.id, mode), 'numbers')}
             onBack={() => setScreen('setup')}
           />
-        ) : screen === 'daily' ? (
+        );
+      case 'daily':
+        return (
           <DailyScreen
             busy={busy}
             history={persistence.history}
@@ -313,22 +327,17 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             }}
             onBack={() => setScreen('start')}
           />
-        ) : screen === 'result' && result ? (
-          <ResultScreen game={result} onBack={() => setScreen('daily')} />
-        ) : screen === 'lessons' ? (
+        );
+      case 'result':
+        if (!result) break;
+        return <ResultScreen game={result} onBack={() => setScreen('daily')} />;
+      case 'lessons':
+        return (
           <MenuScreen
             title={t('lessons.title')}
             backLabel={t('lessons.back')}
             entries={[
-              ...FIRST_LESSONS.map((id) => ({
-                key: id,
-                label: lessonCard(id).title,
-                hint: lessonCard(id).blurb,
-                onPress: () => {
-                  setLesson(id);
-                  setScreen('tutorial');
-                },
-              })),
+              ...lessonEntries(FIRST_LESSONS),
               {
                 key: 'clues',
                 label: t('lessons.clues.title'),
@@ -338,52 +347,74 @@ function Shell({ settings }: { settings: ReturnType<typeof useSettings> }) {
             ]}
             onBack={() => setScreen('start')}
           />
-        ) : screen === 'clueLessons' ? (
+        );
+      case 'clueLessons':
+        return (
           <MenuScreen
             title={t('lessons.clues.title')}
             backLabel={t('lessons.clues.back')}
-            entries={CLUE_LESSONS.map((id) => ({
-              key: id,
-              label: lessonCard(id).title,
-              hint: lessonCard(id).blurb,
-              onPress: () => {
-                setLesson(id);
-                setScreen('tutorial');
-              },
-            }))}
+            entries={lessonEntries(CLUE_LESSONS)}
             onBack={() => setScreen('lessons')}
           />
-        ) : screen === 'tutorial' ? (
+        );
+      case 'tutorial':
+        return (
           <TutorialScreen
             lesson={lesson}
             onWalked={persistence.recordLessonWalked}
             onBack={() => setScreen(menuOf(lesson))}
           />
-        ) : screen === 'settings' ? (
+        );
+      // Both open from the start screen, which is where nothing is in play.
+      case 'settings':
+        return (
           <SettingsScreen
             settings={settings.settings}
             onChange={settings.update}
-            onBack={() => setScreen(puzzle ? 'game' : 'start')}
+            onBack={() => setScreen('start')}
           />
-        ) : screen === 'stats' ? (
+        );
+      case 'stats':
+        return (
           <StatsScreen
             stats={persistence.stats}
             history={persistence.history}
             lessonsWalked={persistence.lessonsWalked}
             historyDamaged={persistence.historyDamaged}
-            onBack={() => setScreen(puzzle ? 'game' : 'start')}
+            onBack={() => setScreen('start')}
             onClearHistory={persistence.clearHistory}
           />
-        ) : (
-          <StartScreen
-            onDaily={() => setScreen('daily')}
-            onPlay={() => setScreen('mode')}
-            onHowToPlay={() => setScreen('lessons')}
-            onOpenSettings={() => setScreen('settings')}
-            onOpenStats={() => setScreen('stats')}
-          />
-        )}
-      </View>
+        );
+    }
+    return (
+      <StartScreen
+        onDaily={() => setScreen('daily')}
+        onPlay={() => setScreen('mode')}
+        onHowToPlay={() => setScreen('lessons')}
+        onOpenSettings={() => setScreen('settings')}
+        onOpenStats={() => setScreen('stats')}
+      />
+    );
+  };
+
+  return (
+    <>
+      {/* Every screen before a board runs a coloured panel up behind the status
+          bar, so the clock has to lift off that rather than off the page — and
+          which way round depends on the colour, the same way the words on the
+          panel do. */}
+      <StatusBar
+        style={
+          PANELLED.has(screen)
+            ? inkOn(palette.accentGround, '#FFFFFF', palette.ink) === '#FFFFFF'
+              ? 'light'
+              : 'dark'
+            : palette.scheme === 'night'
+              ? 'light'
+              : 'dark'
+        }
+      />
+      <View style={styles.root}>{current()}</View>
     </>
   );
 }
