@@ -242,7 +242,7 @@ export function completedOnPage(
  * Months count from one here, the way a calendar says them rather than the way
  * `Date` stores them.
  */
-export function dayNumber(date: Date = new Date()): number {
+export function dateNumber(date: Date = new Date()): number {
   return date.getFullYear() * 10000 + (date.getMonth() + 1) * 100 + date.getDate();
 }
 
@@ -264,7 +264,7 @@ export function dayNumber(date: Date = new Date()): number {
  * nothing collides and nothing is lost.
  */
 export function dailySeed(date: Date, sizeId: string): number {
-  return dayNumber(date) * DIFFICULTY_STEP + columnOf(sizeId);
+  return dateNumber(date) * DIFFICULTY_STEP + columnOf(sizeId);
 }
 
 /** The date a day number stands for, read back out of its columns. */
@@ -279,7 +279,7 @@ function dateOf(day: number): Date {
 function isDay(day: number): boolean {
   if (day < 2025_01_01 || day > 2100_12_31) return false;
   const date = dateOf(day);
-  return Number.isFinite(date.getTime()) && dayNumber(date) === day;
+  return Number.isFinite(date.getTime()) && dateNumber(date) === day;
 }
 
 /**
@@ -345,7 +345,7 @@ export function dailyDone(
   // Today's, played this morning on a build from before the difficulties had
   // seeds of their own. The shape is matched either way, so the old seed cannot
   // answer for a difficulty other than the one it was played at.
-  const before = dayNumber(now);
+  const before = dateNumber(now);
   const today = dayKey(now);
   return (
     history.find(
@@ -375,7 +375,7 @@ export function dailyStreak(history: CompletedGame[], now: Date = new Date()): n
     const finished = new Date(game.finishedAt);
     // Any of the four counts, so the seed is asked which day it is for rather
     // than matched against one difficulty's.
-    if (dayOf(game.seed) === dayNumber(finished)) done.add(dayKey(finished));
+    if (dayOf(game.seed) === dateNumber(finished)) done.add(dayKey(finished));
   }
   const day = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   if (!done.has(dayKey(day))) day.setDate(day.getDate() - 1);
