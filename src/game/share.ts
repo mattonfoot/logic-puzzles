@@ -1,6 +1,6 @@
 import { Share } from 'react-native';
 
-import { plural, t } from '../i18n';
+import { LOCALE, plural, t } from '../i18n';
 import type { Puzzle } from '../puzzle/types';
 import { formatDuration } from './time';
 import { dailyDate, modeOf, numberFor } from './library';
@@ -40,7 +40,7 @@ export function clueSquares(cluesUsed: number, total: number): string {
 
 /** "2 September 2026", the way the date is said rather than written. */
 export function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  return date.toLocaleDateString(LOCALE, { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
 export function resultText({ puzzle, seconds, cluesUsed, hintsAsked, daily }: Result): string {

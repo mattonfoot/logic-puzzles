@@ -313,6 +313,13 @@ game:
   # says this to everybody else; without the word, a screen reader is the one
   # reader the flagging never reaches.
   flagged: '{square}, flagged'
+  # What a screen reader says for each square on the board: the square, then
+  # what is on it. The screenshot walkthrough finds squares by these words.
+  squareSaid: '{square}: {state}'
+  squareState:
+    'yes': matched
+    'no': ruled out
+    blank: unknown
   # Offered in the clue window once every square carries a mark and the clue on
   # the table still disagrees with one of them. A full board has no blank left
   # to work at, so a player whose answer is wrong but holds together has only
@@ -353,6 +360,15 @@ game:
     leaveIt: Leave it to me
 
 clue:
+  # The sentences a clue is written in, for a theme that does not word its own.
+  # A theme's `clues` block overrides any of these.
+  templates:
+    link: '{a} is paired with {b}.'
+    notLink: '{a} is not paired with {b}.'
+    groupNot: 'No {a} is paired with {b}.'
+    either: '{a} is paired with either {b} or {c}.'
+    compare: 'The {noun} for {greater} is {comparative} than for {lesser}.'
+    compareGap: 'The {noun} for {greater} is exactly {gap} {unit} {comparative} than for {lesser}.'
   # Read out for the clue itself, so a screen reader can find it.
   inPlay: Clue in play
   noneYet: Nobody has said anything yet…
@@ -1235,6 +1251,8 @@ settings:
   colour: Colour
   volume: Volume
   vibration: Vibration
+  # Said after a setting that steps through named values, such as the colour.
+  cycleHint: Changes to the next one
   back: Back
 
 solved:
@@ -1343,6 +1361,15 @@ stats:
   trendEmpty: One more {game} solve and the trend shows up here.
   trendPending: '{solved} solved · best {best}. A few more and the trend below fills in.'
   trendDetail: Last {count} average {recent} vs {earlier} before that.
+  # Under the chart: the column picked out, and what the columns are.
+  chartPoint: Solve {at} of {total}, {time}
+  chartBest: ' · best'
+  chartFooter: last {count} solves · shorter is faster
+  # Time played, all told.
+  span:
+    hours: '{hours}h {minutes}m'
+    minutes: '{minutes}m'
+    seconds: '{seconds}s'
   confirm:
     title: Clear statistics?
     body: This deletes every finished game and all your times. It cannot be undone.
@@ -1358,6 +1385,8 @@ stats:
 # card each. Nothing is listed until it has been earned — a page of locked rows
 # is a chore list, and the app counts nothing at anybody.
 achievements:
+  # What a screen reader says for a card: its name, what it took, and when.
+  spoken: '{title}. {body} {when}.'
   title: Achievements
   # The count is the card's own title, so the four tiers are one line apiece
   # with the thing being counted dropped in: "First classic game", "Ten dailies".

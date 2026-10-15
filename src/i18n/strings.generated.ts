@@ -11067,6 +11067,12 @@ export const STRINGS = {
     seed: '#{seed}',
     square: '{row} and {column}',
     flagged: '{square}, flagged',
+    squareSaid: '{square}: {state}',
+    squareState: {
+      yes: 'matched',
+      no: 'ruled out',
+      blank: 'unknown',
+    },
     hint: {
       ask: 'Hint',
       ticked:
@@ -11102,6 +11108,15 @@ export const STRINGS = {
     },
   },
   clue: {
+    templates: {
+      link: '{a} is paired with {b}.',
+      notLink: '{a} is not paired with {b}.',
+      groupNot: 'No {a} is paired with {b}.',
+      either: '{a} is paired with either {b} or {c}.',
+      compare: 'The {noun} for {greater} is {comparative} than for {lesser}.',
+      compareGap:
+        'The {noun} for {greater} is exactly {gap} {unit} {comparative} than for {lesser}.',
+    },
     inPlay: 'Clue in play',
     noneYet: 'Nobody has said anything yet…',
     noneYetBody: 'Tap Next for the first clue.',
@@ -11153,6 +11168,7 @@ export const STRINGS = {
     colour: 'Colour',
     volume: 'Volume',
     vibration: 'Vibration',
+    cycleHint: 'Changes to the next one',
     back: 'Back',
   },
   solved: {
@@ -11234,6 +11250,14 @@ export const STRINGS = {
     trendEmpty: 'One more {game} solve and the trend shows up here.',
     trendPending: '{solved} solved · best {best}. A few more and the trend below fills in.',
     trendDetail: 'Last {count} average {recent} vs {earlier} before that.',
+    chartPoint: 'Solve {at} of {total}, {time}',
+    chartBest: ' · best',
+    chartFooter: 'last {count} solves · shorter is faster',
+    span: {
+      hours: '{hours}h {minutes}m',
+      minutes: '{minutes}m',
+      seconds: '{seconds}s',
+    },
     confirm: {
       title: 'Clear statistics?',
       body: 'This deletes every finished game and all your times. It cannot be undone.',
@@ -11243,6 +11267,7 @@ export const STRINGS = {
     back: 'Back',
   },
   achievements: {
+    spoken: '{title}. {body} {when}.',
     title: 'Achievements',
     count: {
       one: 'First {one}',
@@ -11600,6 +11625,7 @@ export type StringKey =
   | 'achievements.speed.pure.xl.title'
   | 'achievements.speed.pure.xs.body'
   | 'achievements.speed.pure.xs.title'
+  | 'achievements.spoken'
   | 'achievements.streak.hundred.body'
   | 'achievements.streak.hundred.title'
   | 'achievements.streak.month.body'
@@ -11630,6 +11656,12 @@ export type StringKey =
   | 'clue.inPlay'
   | 'clue.noneYet'
   | 'clue.noneYetBody'
+  | 'clue.templates.compare'
+  | 'clue.templates.compareGap'
+  | 'clue.templates.either'
+  | 'clue.templates.groupNot'
+  | 'clue.templates.link'
+  | 'clue.templates.notLink'
   | 'common.back'
   | 'common.building'
   | 'common.close'
@@ -11662,6 +11694,10 @@ export type StringKey =
   | 'game.seed'
   | 'game.settle'
   | 'game.square'
+  | 'game.squareSaid'
+  | 'game.squareState.blank'
+  | 'game.squareState.no'
+  | 'game.squareState.yes'
   | 'game.status.clearedMistakes'
   | 'game.status.finished'
   | 'game.status.notSaving'
@@ -11850,6 +11886,7 @@ export type StringKey =
   | 'settings.back'
   | 'settings.checkAgainstClues'
   | 'settings.colour'
+  | 'settings.cycleHint'
   | 'settings.matchDevice'
   | 'settings.nightColours'
   | 'settings.title'
@@ -11900,7 +11937,10 @@ export type StringKey =
   | 'stats.best'
   | 'stats.bestStreak'
   | 'stats.byDifficulty'
+  | 'stats.chartBest'
   | 'stats.chartCaption'
+  | 'stats.chartFooter'
+  | 'stats.chartPoint'
   | 'stats.clearStatistics'
   | 'stats.cluesRead'
   | 'stats.confirm.body'
@@ -11917,6 +11957,9 @@ export type StringKey =
   | 'stats.perPuzzle'
   | 'stats.slowerLately'
   | 'stats.solved'
+  | 'stats.span.hours'
+  | 'stats.span.minutes'
+  | 'stats.span.seconds'
   | 'stats.streak'
   | 'stats.themes'
   | 'stats.timePlayed'

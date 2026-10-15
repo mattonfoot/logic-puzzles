@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 
-export { formatDuration, formatGap, formatSpan } from './time';
+export { formatDuration, formatSpan } from './time';
 
 export interface Timer {
   /**

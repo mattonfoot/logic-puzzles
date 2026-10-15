@@ -297,7 +297,11 @@ function AchievementCard({ achievement }: { achievement: Achievement }) {
       style={[styles.card, shadow.card, styles.achievement]}
       accessible
       accessibilityRole="text"
-      accessibilityLabel={`${achievement.title}. ${achievement.description} ${when}.`}
+      accessibilityLabel={t('achievements.spoken', {
+        title: achievement.title,
+        body: achievement.description,
+        when,
+      })}
     >
       <View style={styles.achievementMark}>
         <Icon name={achievement.icon} size={26} color={palette.accent} />

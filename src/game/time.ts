@@ -1,3 +1,5 @@
+import { t } from '../i18n';
+
 /** Times and dates, shared by the timer, the stats screen, the achievements and the clue list. */
 
 /** The local calendar day a moment falls on, as a number, so "the day after" is a subtraction. */
@@ -24,13 +26,7 @@ export function formatSpan(seconds: number): string {
   const safe = Math.max(0, Math.round(seconds));
   const hours = Math.floor(safe / 3600);
   const minutes = Math.floor((safe % 3600) / 60);
-  if (hours > 0) return `${hours}h ${minutes}m`;
-  if (minutes > 0) return `${minutes}m`;
-  return `${safe}s`;
-}
-
-/** Signed gap between two times: -18 → "18s faster". */
-export function formatGap(deltaSeconds: number): string {
-  const size = formatDuration(Math.abs(deltaSeconds));
-  return deltaSeconds < 0 ? `${size} faster` : `${size} slower`;
+  if (hours > 0) return t('stats.span.hours', { hours, minutes });
+  if (minutes > 0) return t('stats.span.minutes', { minutes });
+  return t('stats.span.seconds', { seconds: safe });
 }

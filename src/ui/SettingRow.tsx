@@ -5,6 +5,7 @@ import { feedback } from './feedback';
 import { Text } from './Text';
 import { useStyles, useTheme } from './ThemeProvider';
 import { space, type Palette } from './theme';
+import { t } from '../i18n';
 
 /** The knob's diameter, which a slider's track is sized around. */
 const KNOB = 16;
@@ -150,7 +151,7 @@ export function CycleRow({
       accessibilityRole="button"
       accessibilityLabel={label}
       accessibilityValue={{ text: value }}
-      accessibilityHint="Changes to the next one"
+      accessibilityHint={t('settings.cycleHint')}
       onPress={() => {
         feedback.tap();
         onPress();

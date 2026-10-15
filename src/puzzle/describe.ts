@@ -3,7 +3,7 @@
  *
  * The wording lives with the themes: each supplies whichever templates it wants
  * to phrase in its own voice, and anything it leaves out falls back to the
- * neutral defaults here. The templates are resolved when a puzzle is generated
+ * neutral defaults under `clue.templates` in the language file. The templates are resolved when a puzzle is generated
  * and stored on it, so a saved game keeps the wording it was played with.
  */
 import type {
@@ -15,15 +15,10 @@ import type {
   ThemeDef,
   TraitGroup,
 } from './types';
+import { STRINGS } from '../i18n';
 
-export const DEFAULT_CLUE_TEMPLATES: ClueTemplates = {
-  link: '{a} is paired with {b}.',
-  notLink: '{a} is not paired with {b}.',
-  groupNot: 'No {a} is paired with {b}.',
-  either: '{a} is paired with either {b} or {c}.',
-  compare: 'The {noun} for {greater} is {comparative} than for {lesser}.',
-  compareGap: 'The {noun} for {greater} is exactly {gap} {unit} {comparative} than for {lesser}.',
-};
+/** The neutral wording, from the language file, for whatever a theme leaves out. */
+export const DEFAULT_CLUE_TEMPLATES: ClueTemplates = { ...STRINGS.clue.templates };
 
 /**
  * How often a clue describes something instead of naming it: one slot in

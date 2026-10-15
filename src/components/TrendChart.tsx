@@ -5,6 +5,7 @@ import { formatDuration } from '../game/time';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
 import { radius, space, type Palette } from '../ui/theme';
+import { LOCALE, t } from '../i18n';
 
 interface Props {
   /** Solve times in seconds, oldest → newest. */
@@ -53,7 +54,11 @@ export function TrendChart({ times, finishedAt, limit = 10 }: Props) {
               <Pressable
                 key={`${dates[index]}-${index}`}
                 accessibilityRole="button"
-                accessibilityLabel={`Solve ${index + 1} of ${shown.length}, ${formatDuration(value)}`}
+                accessibilityLabel={t('stats.chartPoint', {
+                  at: index + 1,
+                  total: shown.length,
+                  time: formatDuration(value),
+                })}
                 onPress={() => setSelected(index)}
                 style={styles.column}
               >
@@ -77,14 +82,14 @@ export function TrendChart({ times, finishedAt, limit = 10 }: Props) {
 
       <View style={styles.captionRow}>
         <Text style={styles.caption}>
-          {new Date(dates[active]).toLocaleDateString(undefined, {
+          {new Date(dates[active]).toLocaleDateString(LOCALE, {
             day: 'numeric',
             month: 'short',
           })}{' '}
           · {formatDuration(shown[active])}
-          {shown[active] === fastest ? ' · best' : ''}
+          {shown[active] === fastest ? t('stats.chartBest') : ''}
         </Text>
-        <Text style={styles.captionMuted}>last {shown.length} solves · shorter is faster</Text>
+        <Text style={styles.captionMuted}>{t('stats.chartFooter', { count: shown.length })}</Text>
       </View>
     </View>
   );

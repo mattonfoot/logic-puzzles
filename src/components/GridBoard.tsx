@@ -507,13 +507,13 @@ export const GridBoard = memo(function GridBoard({
                                   // says, and shading is the one thing a screen
                                   // reader cannot see — so it is said here too.
                                   label={labelFor(
-                                    `${puzzle.categories[rowCategory].items[rowItem].label} and ${puzzle.categories[colCategory].items[colItem].label}: ${
-                                      mark === 'yes'
-                                        ? 'matched'
-                                        : mark === 'no'
-                                          ? 'ruled out'
-                                          : 'unknown'
-                                    }`,
+                                    t('game.squareSaid', {
+                                      square: t('game.square', {
+                                        row: puzzle.categories[rowCategory].items[rowItem].label,
+                                        column: puzzle.categories[colCategory].items[colItem].label,
+                                      }),
+                                      state: t(`game.squareState.${mark ?? 'blank'}`),
+                                    }),
                                     wrong,
                                   )}
                                   mark={mark}
