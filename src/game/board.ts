@@ -145,6 +145,58 @@ const cellBetween = (a: Node, b: Node): Cell => {
   return { c1, i1, c2, i2 };
 };
 
+/** One tick, read from one of its two ends. */
+interface Edge {
+  to: Node;
+  /** The tick's own mark key. */
+  key: string;
+}
+
+/**
+ * Every tick as an edge between two attributes. A tick is a claim that the two
+ * belong to the same entity, so the ticks are a graph and each connected piece
+ * of it is one entity as far as the board has been told.
+ */
+function tickGraph(marks: Marks): Map<Node, Edge[]> {
+  const graph = new Map<Node, Edge[]>();
+  const join = (from: Node, to: Node, key: string) => {
+    const found = graph.get(from);
+    if (found) found.push({ to, key });
+    else graph.set(from, [{ to, key }]);
+  };
+  for (const [key, entry] of Object.entries(marks)) {
+    if (entry.mark !== 'yes') continue;
+    const cell = cellFromKey(key);
+    if (!cell) continue;
+    join(nodeOf(cell.c1, cell.i1), nodeOf(cell.c2, cell.i2), key);
+    join(nodeOf(cell.c2, cell.i2), nodeOf(cell.c1, cell.i1), key);
+  }
+  return graph;
+}
+
+/**
+ * The connected pieces of the tick graph, each member with the tick that
+ * reached it — empty for the one each walk starts from.
+ */
+function groupsOf(graph: Map<Node, Edge[]>): { node: Node; via: string }[][] {
+  const seen = new Set<Node>();
+  const groups: { node: Node; via: string }[][] = [];
+  for (const start of graph.keys()) {
+    if (seen.has(start)) continue;
+    const group = [{ node: start, via: '' }];
+    seen.add(start);
+    for (let index = 0; index < group.length; index++) {
+      for (const edge of graph.get(group[index].node) ?? []) {
+        if (seen.has(edge.to)) continue;
+        seen.add(edge.to);
+        group.push({ node: edge.to, via: edge.key });
+      }
+    }
+    groups.push(group);
+  }
+  return groups;
+}
+
 /**
  * Fills in the ticks that follow from the ticks already on the board.
  *
@@ -159,36 +211,7 @@ const cellBetween = (a: Node, b: Node): Cell => {
  * pairing that cannot exist.
  */
 function addImpliedTicks(marks: Marks): void {
-  const edges = new Map<Node, { to: Node; via: string }[]>();
-  const link = (from: Node, to: Node, via: string) => {
-    const list = edges.get(from);
-    if (list) list.push({ to, via });
-    else edges.set(from, [{ to, via }]);
-  };
-
-  for (const [key, entry] of Object.entries(marks)) {
-    if (entry.mark !== 'yes') continue;
-    const cell = cellFromKey(key);
-    if (!cell) continue;
-    link(nodeOf(cell.c1, cell.i1), nodeOf(cell.c2, cell.i2), key);
-    link(nodeOf(cell.c2, cell.i2), nodeOf(cell.c1, cell.i1), key);
-  }
-
-  const seen = new Set<Node>();
-  for (const start of edges.keys()) {
-    if (seen.has(start)) continue;
-
-    // The whole group, each member with the tick that reached it.
-    const group: { node: Node; via: string }[] = [{ node: start, via: '' }];
-    seen.add(start);
-    for (let index = 0; index < group.length; index++) {
-      for (const edge of edges.get(group[index].node) ?? []) {
-        if (seen.has(edge.to)) continue;
-        seen.add(edge.to);
-        group.push({ node: edge.to, via: edge.via });
-      }
-    }
-
+  for (const group of groupsOf(tickGraph(marks))) {
     for (let a = 0; a < group.length; a++) {
       for (let b = a + 1; b < group.length; b++) {
         const cell = cellBetween(group[a].node, group[b].node);
@@ -197,6 +220,15 @@ function addImpliedTicks(marks: Marks): void {
         if (marks[key]) continue;
         marks[key] = { mark: 'yes', source: 'auto', from: group[b].via || group[a].via };
       }
+    }
+  }
+}
+
+/** Every square on the board, grid by grid, row by row. */
+export function* squaresOf(puzzle: Puzzle): Generator<Cell> {
+  for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
+    for (let i1 = 0; i1 < puzzle.size.items; i1++) {
+      for (let i2 = 0; i2 < puzzle.size.items; i2++) yield { c1, i1, c2, i2 };
     }
   }
 }
@@ -229,16 +261,11 @@ export function isCorrectPair(puzzle: Puzzle, cell: Cell): boolean {
  */
 export function findMistakes(marks: Marks, puzzle: Puzzle): string[] {
   const mistakes: string[] = [];
-  for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
-    for (let i1 = 0; i1 < puzzle.size.items; i1++) {
-      for (let i2 = 0; i2 < puzzle.size.items; i2++) {
-        const cell = { c1, i1, c2, i2 };
-        const mark = getMark(marks, cell);
-        if (!mark) continue;
-        const truth = isCorrectPair(puzzle, cell) ? 'yes' : 'no';
-        if (mark !== truth) mistakes.push(markKey(cell));
-      }
-    }
+  for (const cell of squaresOf(puzzle)) {
+    const mark = getMark(marks, cell);
+    if (!mark) continue;
+    const truth = isCorrectPair(puzzle, cell) ? 'yes' : 'no';
+    if (mark !== truth) mistakes.push(markKey(cell));
   }
   return mistakes;
 }
@@ -278,22 +305,7 @@ export function findConflicts(marks: Marks, puzzle: Puzzle): string[] {
   const count = puzzle.categories.length;
   const flagged = new Set<string>();
 
-  // Every tick as an edge between two attributes. A tick is a claim that the
-  // two belong to the same entity, so the ticks are a graph and each connected
-  // piece of it is one entity as far as the board has been told.
-  const links = new Map<Node, { to: Node; key: string }[]>();
-  const join = (from: Node, to: Node, key: string) => {
-    const found = links.get(from);
-    if (found) found.push({ to, key });
-    else links.set(from, [{ to, key }]);
-  };
-  for (const [key, entry] of Object.entries(marks)) {
-    if (entry.mark !== 'yes') continue;
-    const cell = cellFromKey(key);
-    if (!cell) continue;
-    join(nodeOf(cell.c1, cell.i1), nodeOf(cell.c2, cell.i2), key);
-    join(nodeOf(cell.c2, cell.i2), nodeOf(cell.c1, cell.i1), key);
-  }
+  const links = tickGraph(marks);
 
   /** The ticks between two attributes, or null when nothing joins them. */
   const pathBetween = (from: Node, to: Node): string[] | null => {
@@ -324,20 +336,9 @@ export function findConflicts(marks: Marks, puzzle: Puzzle): string[] {
 
   // 1. A chain that reaches two items of the same set has paired one thing
   //    with two of something, which is the one thing a grid cannot hold.
-  const walked = new Set<Node>();
-  for (const start of links.keys()) {
-    if (walked.has(start)) continue;
-    const group: Node[] = [start];
-    walked.add(start);
-    for (let at = 0; at < group.length; at++) {
-      for (const edge of links.get(group[at]) ?? []) {
-        if (walked.has(edge.to)) continue;
-        walked.add(edge.to);
-        group.push(edge.to);
-      }
-    }
+  for (const group of groupsOf(links)) {
     const byCategory = new Map<number, Node>();
-    for (const node of group) {
+    for (const { node } of group) {
       const category = Number(node.split('.')[0]);
       const already = byCategory.get(category);
       if (already === undefined) {
@@ -440,30 +441,17 @@ export function squareName(puzzle: Puzzle, cell: Cell): string {
  * is allowed to offer a hint on.
  */
 export function isFull(marks: Marks, puzzle: Puzzle): boolean {
-  for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
-    for (let i1 = 0; i1 < puzzle.size.items; i1++) {
-      for (let i2 = 0; i2 < puzzle.size.items; i2++) {
-        if (getMark(marks, { c1, i1, c2, i2 }) === undefined) return false;
-      }
-    }
+  for (const cell of squaresOf(puzzle)) {
+    if (getMark(marks, cell) === undefined) return false;
   }
   return true;
 }
 
 /** Every true pairing is ticked and nothing false is. */
 export function isSolved(marks: Marks, puzzle: Puzzle): boolean {
-  for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
-    for (let i1 = 0; i1 < puzzle.size.items; i1++) {
-      for (let i2 = 0; i2 < puzzle.size.items; i2++) {
-        const cell = { c1, i1, c2, i2 };
-        const mark = getMark(marks, cell);
-        if (isCorrectPair(puzzle, cell)) {
-          if (mark !== 'yes') return false;
-        } else if (mark === 'yes') {
-          return false;
-        }
-      }
-    }
+  for (const cell of squaresOf(puzzle)) {
+    const mark = getMark(marks, cell);
+    if (isCorrectPair(puzzle, cell) ? mark !== 'yes' : mark === 'yes') return false;
   }
   return true;
 }
@@ -485,14 +473,8 @@ export function progress(marks: Marks, puzzle: Puzzle): number {
 /** The finished board, as though the player had marked every square. */
 export function solvedMarks(puzzle: Puzzle): Marks {
   const marks: Marks = {};
-  for (const [c1, c2] of categoryPairs(puzzle.categories.length)) {
-    for (let i1 = 0; i1 < puzzle.size.items; i1++) {
-      for (let i2 = 0; i2 < puzzle.size.items; i2++) {
-        marks[markKey({ c1, i1, c2, i2 })] = byHand(
-          isCorrectPair(puzzle, { c1, i1, c2, i2 }) ? 'yes' : 'no',
-        );
-      }
-    }
+  for (const cell of squaresOf(puzzle)) {
+    marks[markKey(cell)] = byHand(isCorrectPair(puzzle, cell) ? 'yes' : 'no');
   }
   return marks;
 }
