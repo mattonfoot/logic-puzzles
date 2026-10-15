@@ -50,7 +50,7 @@ export function StatsScreen({
   // is only on the screen once more than one has been played: a player who has
   // only ever played Pure Deduction is not asked which of three tables they
   // want.
-  const kindsPlayed = stats.played.filter((kind) => kind.solved > 0);
+  const kindsPlayed = useMemo(() => stats.played.filter((kind) => kind.solved > 0), [stats.played]);
   const kind = useMemo<PlayStats>(() => {
     const chosen = kindsPlayed.find((candidate) => candidate.playedAs === kindId);
     if (chosen) return chosen;
@@ -60,7 +60,7 @@ export function StatsScreen({
     );
   }, [kindsPlayed, kindId, stats.played]);
 
-  const played = kind.sizes.filter((size) => size.solved > 0);
+  const played = useMemo(() => kind.sizes.filter((size) => size.solved > 0), [kind]);
 
   const selected = useMemo<SizeStats | null>(() => {
     if (played.length === 0) return null;
@@ -389,10 +389,7 @@ function TrendBanner({ size }: { size: SizeStats }) {
       style={[
         styles.trendBanner,
         {
-          backgroundColor: tint(
-            steady ? palette.ink : faster ? palette.success : palette.ink,
-            0.08,
-          ),
+          backgroundColor: tint(!steady && faster ? palette.success : palette.ink, 0.08),
         },
       ]}
     >
