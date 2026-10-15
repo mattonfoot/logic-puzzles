@@ -442,11 +442,11 @@ captures are for.
    the same terms, so a second go at a time already set is not a second go at
    the same thing. `◀ Back` still leads to the setup screen, where a
    *different* puzzle is chosen.
-9. **Puzzle settings**, behind the burger at the top left, holds everything that acts
+9. **Settings**, behind the burger at the top left, holds everything that acts
    on the game rather than on a square: the two board settings and the colour,
    boxed and named exactly as the settings screen has them (they are the
    player's, not the puzzle's, which is why they are worth reaching mid-game),
-   then **Restart puzzle** (same puzzle, fresh board and clock), which throws
+   then **Restart** (same puzzle, fresh board and clock), which throws
    away a filled-in board and so asks first. A restarted puzzle is one nobody
    has begun — no clue read, nothing marked, the clock at zero — and a puzzle
    left in that state leaves nothing behind: there is no **Continue** for a

@@ -57,12 +57,33 @@ import { NOON, game, puzzleOne, savedGame, stage, statsOf } from './stage';
  * that carries the name.
  */
 function only(role: string, name: string) {
-  const found = screen.getAllByRole(role, { name });
-  const own = found.filter((el) => !found.some((other) => other !== el && within(el, other)));
+  const own = innermost(role, name);
   if (own.length !== 1) {
     throw new Error(`Expected one ${role} called "${name}", found ${own.length}`);
   }
   return own[0];
+}
+
+/** Every element with this role that is itself called this. */
+function innermost(role: string, name: string) {
+  const found = screen.getAllByRole(role, { name });
+  return found.filter((el) => !found.some((other) => other !== el && within(el, other)));
+}
+
+/**
+ * The button called this in the window that asks `question`.
+ *
+ * A window asking whether to restart has a Restart button, and so does the
+ * screen behind it that opened the window. Climbing from the question until
+ * something holds exactly one of the buttons finds the window's own.
+ */
+function answer(question: string, name: string) {
+  const buttons = innermost('button', name);
+  for (let at: Element | null = screen.getByText(question).parent; at; at = at.parent) {
+    const held = buttons.filter((el) => within(at as Element, el));
+    if (held.length === 1) return held[0];
+  }
+  throw new Error(`No button called "${name}" in the window asking "${question}"`);
 }
 
 type Element = ReturnType<typeof screen.getAllByRole>[number];
@@ -700,7 +721,7 @@ describe('the numbered puzzles', () => {
     expect(screen.queryByRole('button', { name: 'Puzzle 6' })).toBeNull();
     expect(button('Previous')).toBeDisabled();
     expect(button('Next')).toBeEnabled();
-    expect(button('Back to the difficulties')).toBeEnabled();
+    expect(button('Back')).toBeEnabled();
   });
 
   it('ticks a finished puzzle and reads out its time', () => {
@@ -1565,8 +1586,8 @@ describe('the board', () => {
     onSaveProgress.mockClear();
 
     fireEvent.press(button('Menu'));
-    fireEvent.press(button('Restart puzzle'));
-    fireEvent.press(button('Restart it'));
+    fireEvent.press(button('Restart'));
+    fireEvent.press(answer('Restart this puzzle?', 'Restart'));
     expect(onDiscardProgress).toHaveBeenCalled();
 
     // And leaving does not write the empty board back.
@@ -1615,10 +1636,10 @@ describe('the board', () => {
     fireEvent.press(button('Close'));
 
     fireEvent.press(button('Menu'));
-    expect(header('Puzzle settings')).toBeOnTheScreen();
+    expect(header('Settings')).toBeOnTheScreen();
     expect(screen.queryByRole('button', { name: 'Clue' })).toBeNull();
 
-    fireEvent.press(button('Back to the board'));
+    fireEvent.press(button('Back'));
     expect(button('Clue')).toBeEnabled();
   });
 
@@ -1850,7 +1871,7 @@ describe('the puzzle settings', () => {
       />,
     );
 
-    expect(header('Puzzle settings')).toBeOnTheScreen();
+    expect(header('Settings')).toBeOnTheScreen();
     expect(header('This puzzle')).toBeOnTheScreen();
     // The number off the list, said the same way the board's header says it —
     // they are one tap apart, and were printing different things.
@@ -1976,11 +1997,11 @@ describe('the puzzle settings', () => {
     );
 
     expect(screen.queryByText('Restart this puzzle?')).toBeNull();
-    fireEvent.press(button('Restart puzzle'));
+    fireEvent.press(button('Restart'));
     expect(onRestart).not.toHaveBeenCalled();
     expect(screen.getByText('Restart this puzzle?')).toBeOnTheScreen();
 
-    fireEvent.press(button('Restart it'));
+    fireEvent.press(answer('Restart this puzzle?', 'Restart'));
     expect(onRestart).toHaveBeenCalledTimes(1);
   });
 });

@@ -10852,7 +10852,7 @@ export const STRINGS = {
     continue: 'Continue',
     continueHint: '{theme}, {size}, {percent}% filled in, {clock} on the clock',
     unreadable: 'A saved game was found but could not be read. Choosing a difficulty replaces it.',
-    difficultyHint: '{items} items in each of {sets} sets',
+    difficultyHint: '{sets} sets of {items} items',
     back: 'Back',
   },
   numbers: {
@@ -10863,7 +10863,7 @@ export const STRINGS = {
     group: 'Puzzles {first}–{last}',
     groupDone: '{done} of {total} finished',
     groupHint: 'Opens the pages in this group',
-    back: 'Back to the difficulties',
+    back: 'Back',
   },
   daily: {
     title: 'Daily challenges',
@@ -10955,6 +10955,11 @@ export const STRINGS = {
       'One {noun} recalled that',
       'It is generally agreed that',
       'Another {noun} put it that',
+      'Most people agreed that',
+      'The local psychic predicted that',
+      'There were a few people who thought that',
+      'The writing on the wall said that',
+      'History will record that',
     ],
   },
   item: {
@@ -10962,7 +10967,7 @@ export const STRINGS = {
   },
   briefings: BRIEFING_WORDS,
   menu: {
-    title: 'Puzzle settings',
+    title: 'Settings',
     thisPuzzle: 'This puzzle',
     automaticCrosses: 'Automatic crosses',
     autoAddFacts: 'Auto add facts',
@@ -10970,12 +10975,12 @@ export const STRINGS = {
     matchDevice: 'Match the device',
     nightColours: 'Night colours',
     colour: 'Colour',
-    restart: 'Restart puzzle',
-    back: 'Back to the board',
+    restart: 'Restart',
+    back: 'Back',
     confirm: {
       title: 'Restart this puzzle?',
       body: 'The same puzzle comes back with an empty board and the clock at zero.',
-      confirmLabel: 'Restart it',
+      confirmLabel: 'Restart',
     },
   },
   settings: {

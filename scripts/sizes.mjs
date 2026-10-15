@@ -243,7 +243,7 @@ async function main() {
       return { count: rows.length, bottom: Math.round(bottom) };
     });
     const pager = await box(page, 'Previous');
-    const back = await box(page, 'Back to the difficulties');
+    const back = await box(page, 'Back');
     if (!last || !pager || !back) {
       complain('the numbered list is missing a row, its pager or its way back');
     } else {
@@ -264,7 +264,7 @@ async function main() {
     // The board, zoomed until it is larger than the screen: the row and column
     // headings have to stay put while the grids slide under them, or the
     // player is left reading ticks with nothing to say what they are about.
-    await page.getByLabel('Back to the difficulties').click();
+    await page.getByLabel('Back').click();
     await wait(page, 400);
     await page.getByLabel('Pro', { exact: true }).click();
     await wait(page, 600);

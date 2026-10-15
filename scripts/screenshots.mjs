@@ -380,7 +380,7 @@ async function main() {
   await page.getByLabel('Advanced', { exact: true }).click();
   await wait(page, 600);
   await shot('04-numbers');
-  await page.getByLabel('Back to the difficulties').click();
+  await page.getByLabel('Back').click();
   await wait(page, 400);
   await page.getByLabel('Back').click();
   await wait(page, 400);
@@ -416,7 +416,7 @@ async function main() {
   await page.getByLabel('Menu').click();
   await wait(page, 500);
   await shot('09-menu');
-  await page.getByLabel('Back to the board').click();
+  await page.getByLabel('Back').click();
   await wait(page, 400);
 
   // 10. The clue, in the window the Clue button opens, with the pair that moves
@@ -570,7 +570,7 @@ async function main() {
   // where the game it left waits, is one step further back.
   await page.getByLabel('Back to setup').click();
   await wait(page, 600);
-  await page.getByLabel('Back to the difficulties').click();
+  await page.getByLabel('Back').click();
   await wait(page, 900);
   await shot('18-night');
 
