@@ -229,6 +229,14 @@ export function isHistory(value: unknown): value is History {
   return Array.isArray(value.games) && value.games.every(isCompletedGame);
 }
 
+/** What a stored field says, when it says it in the expected type; the fallback when not. */
+const numberOr = <F>(value: unknown, fallback: F): number | F =>
+  typeof value === 'number' ? value : fallback;
+const booleanOr = <F>(value: unknown, fallback: F): boolean | F =>
+  typeof value === 'boolean' ? value : fallback;
+const stringOr = <F>(value: unknown, fallback: F): string | F =>
+  typeof value === 'string' ? value : fallback;
+
 /**
  * Reads the finished games back.
  *
@@ -245,19 +253,19 @@ export function reviveHistory(value: unknown): History | null {
     version: value.version,
     games: value.games.map((game) => ({
       ...game,
-      cluesUsed: typeof game.cluesUsed === 'number' ? game.cluesUsed : null,
-      hintsAsked: typeof game.hintsAsked === 'number' ? game.hintsAsked : null,
-      difficulty: typeof game.difficulty === 'string' ? game.difficulty : game.sizeLabel,
+      cluesUsed: numberOr(game.cluesUsed, null),
+      hintsAsked: numberOr(game.hintsAsked, null),
+      difficulty: stringOr(game.difficulty, game.sizeLabel),
       // Measured or not measured; never guessed. A game from before any of
       // these existed reads as null rather than as a nought it never earned.
-      undos: typeof game.undos === 'number' ? game.undos : null,
-      rewinds: typeof game.rewinds === 'number' ? game.rewinds : null,
-      conflicted: typeof game.conflicted === 'boolean' ? game.conflicted : null,
-      startedAt: typeof game.startedAt === 'number' ? game.startedAt : null,
-      resumed: typeof game.resumed === 'boolean' ? game.resumed : null,
+      undos: numberOr(game.undos, null),
+      rewinds: numberOr(game.rewinds, null),
+      conflicted: booleanOr(game.conflicted, null),
+      startedAt: numberOr(game.startedAt, null),
+      resumed: booleanOr(game.resumed, null),
       // Games from when themes were an emoji have no drawing to show; the row
       // reads perfectly well without one.
-      themeIcon: typeof game.themeIcon === 'string' ? game.themeIcon : '',
+      themeIcon: stringOr(game.themeIcon, ''),
     })),
   };
 }
@@ -306,29 +314,26 @@ export function reviveSavedGame(value: unknown): SavedGame | null {
     version: CARRIED_FORWARD.includes(value.version as number) ? SAVE_VERSION : value.version,
     marks,
     cluesSeen: seen.filter((index: unknown) => typeof index === 'number'),
-    clueIndex: typeof value.clueIndex === 'number' ? value.clueIndex : null,
+    clueIndex: numberOr(value.clueIndex, null),
     history: history.slice(-SAVED_UNDO),
-    hintsAsked: typeof value.hintsAsked === 'number' ? value.hintsAsked : 0,
-    undos: typeof value.undos === 'number' ? value.undos : 0,
-    rewinds: typeof value.rewinds === 'number' ? value.rewinds : 0,
-    conflicted: typeof value.conflicted === 'boolean' ? value.conflicted : false,
+    hintsAsked: numberOr(value.hintsAsked, 0),
+    undos: numberOr(value.undos, 0),
+    rewinds: numberOr(value.rewinds, 0),
+    conflicted: booleanOr(value.conflicted, false),
     // A save from before the board knew when it was opened is dated backwards
     // from the clock: the game has had at least this long on it. That is later
     // than the truth rather than earlier, which is the safe way round — it can
     // only under-report how long a puzzle has been sat on, never invent time.
-    startedAt:
-      typeof value.startedAt === 'number'
-        ? value.startedAt
-        : startedFrom(value.updatedAt, value.seconds),
-    resumed: typeof value.resumed === 'boolean' ? value.resumed : false,
+    startedAt: numberOr(value.startedAt, startedFrom(value.updatedAt, value.seconds)),
+    resumed: booleanOr(value.resumed, false),
   };
   return isSavedGame(migrated) ? migrated : null;
 }
 
 /** Where a save with no start time is taken to have begun. */
 function startedFrom(updatedAt: unknown, seconds: unknown): number {
-  const written = typeof updatedAt === 'number' ? updatedAt : Date.now();
-  const played = typeof seconds === 'number' ? seconds : 0;
+  const written = numberOr(updatedAt, Date.now());
+  const played = numberOr(seconds, 0);
   return written - Math.max(0, played) * 1000;
 }
 
