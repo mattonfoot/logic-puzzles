@@ -46,7 +46,7 @@ import type {
   SizeOption,
   ThemeDef,
 } from '../puzzle/types';
-import { plural, t } from '../i18n';
+import { plural, t, type StringKey } from '../i18n';
 
 /** Three of each, which is the smallest board that can be reasoned about. */
 const CAST = 3;
@@ -146,28 +146,6 @@ function setOf(
   };
 }
 
-/** A lesson's board, with the theme's own wording resolved onto it. */
-function board(
-  theme: ThemeDef,
-  id: LessonId,
-  categories: PuzzleCategory[],
-  solution: number[][],
-  clues: Clue[],
-  title: string,
-): Puzzle {
-  return {
-    seed: 0,
-    clueTemplates: resolveClueTemplates(theme),
-    themeId: theme.id,
-    themeName: theme.name,
-    themeIcon: theme.icon,
-    size: shapeFor(id, categories.length, title),
-    categories,
-    solution,
-    clues,
-  };
-}
-
 /** Shorthand for a square: category `c1` item `i1` against category `c2` item `i2`. */
 const at = (c1: number, i1: number, c2: number, i2: number): Cell => ({ c1, i1, c2, i2 });
 
@@ -183,545 +161,313 @@ const BILLS = ['4', '5', '6'];
 const GAPPED_BILLS = ['4', '5', '7'];
 
 /**
- * Two clues, two pairs, and the third pair left where the player can see it.
- *
- * The first lesson anybody takes, and the smallest true thing the game has to
- * say: a tick is not one square, it is a row and a column settled. Both clues
- * are the plainest kind there is, so nothing on the screen is competing with
- * the rule being taught.
+ * The steps a lesson has words for: every `lessons.<id>.steps.<name>` that has
+ * a `<name>Done` beside it, which is what is said once the mark is down.
  */
-function usingDeduction(): Lesson {
-  const title = t('lessons.deduction.title');
-  const theme = themeById('cafe');
-  const puzzle = board(
-    theme,
-    'deduction',
-    [setOf(theme, 'customer', CUSTOMERS), setOf(theme, 'drink', DRINKS)],
-    // Barley has the mocha, Crumb the chai, Marzipan the latte.
-    [
-      [0, 1, 2],
-      [1, 2, 0],
-    ],
-    [
-      { kind: 'link', positive: true, a: of(0, 0), b: of(1, 1) },
-      { kind: 'link', positive: true, a: of(0, 1), b: of(1, 2) },
-    ],
-    title,
-  );
-  return {
-    id: 'deduction',
-    title,
-    blurb: t('lessons.deduction.blurb'),
-    opening: t('lessons.deduction.opening'),
-    puzzle,
-    steps: [
-      {
-        line: t('lessons.deduction.steps.one'),
-        clue: 0,
-        cell: at(0, 0, 1, 1),
-        want: 'yes',
-        after: t('lessons.deduction.steps.oneDone'),
-      },
-      {
-        line: t('lessons.deduction.steps.two'),
-        clue: 1,
-        cell: at(0, 1, 1, 2),
-        want: 'yes',
-        after: t('lessons.deduction.steps.twoDone'),
-      },
-    ],
-    finish: t('lessons.deduction.finish'),
-    cards: false,
-  };
+type StepName<Id extends LessonId> = StringKey extends infer K
+  ? K extends `lessons.${Id}.steps.${infer Name}Done`
+    ? Name
+    : never
+  : never;
+
+/**
+ * One step: the name its words are under, the square, the mark it wants, and
+ * the clue it follows from, when there is one.
+ */
+type StepSpec<Id extends LessonId> = [
+  name: StepName<Id>,
+  cell: Cell,
+  want: 'yes' | 'no',
+  clue?: number,
+];
+
+interface LessonSpec<Id extends LessonId> {
+  /** The café's sets, cut down to three each; see `setOf`. */
+  sets: [id: string, items: string[], options?: { traits?: boolean }][];
+  solution: number[][];
+  clues: Clue[];
+  steps: StepSpec<Id>[];
+  /** See `Lesson.cards`. */
+  cards?: boolean;
 }
 
 /**
- * A third set, and the pair that appears on a grid no clue mentions.
- *
- * Every clue here is the same plain link the first lesson used, which is the
- * point: nothing new is being read, and the new thing is entirely in what
- * follows from it. Two ticks about the same customer settle a square on a grid
- * she does not appear on, and that step — the one this board exists for — is
- * walked third, before the board has filled up enough to hide it.
+ * A lesson from what is particular to it: its board and the marks it walks.
+ * Everything it says is under `lessons.<id>` in the language file.
  */
-function furtherDeduction(): Lesson {
-  const title = t('lessons.further.title');
+function lesson<Id extends LessonId>(id: Id, spec: LessonSpec<Id>): Lesson {
+  const words = (key: string) => t(`lessons.${id}.${key}` as StringKey);
+  const title = words('title');
   const theme = themeById('cafe');
-  const puzzle = board(
-    theme,
-    'further',
-    [
-      setOf(theme, 'customer', CUSTOMERS),
-      setOf(theme, 'drink', DRINKS),
-      setOf(theme, 'pastry', PASTRIES),
-    ],
-    // Barley: mocha, croissant. Crumb: chai, cannelé. Marzipan: latte, scone.
-    [
-      [0, 1, 2],
-      [1, 2, 0],
-      [0, 1, 2],
-    ],
-    [
-      { kind: 'link', positive: true, a: of(0, 0), b: of(1, 1) },
-      { kind: 'link', positive: true, a: of(0, 0), b: of(2, 0) },
-      { kind: 'link', positive: true, a: of(0, 1), b: of(1, 2) },
-      { kind: 'link', positive: true, a: of(0, 1), b: of(2, 1) },
-    ],
-    title,
-  );
   return {
-    id: 'further',
+    id,
     title,
-    blurb: t('lessons.further.blurb'),
-    opening: t('lessons.further.opening'),
-    puzzle,
-    steps: [
-      {
-        line: t('lessons.further.steps.drink'),
-        clue: 0,
-        cell: at(0, 0, 1, 1),
-        want: 'yes',
-        after: t('lessons.further.steps.drinkDone'),
-      },
-      {
-        line: t('lessons.further.steps.pastry'),
-        clue: 1,
-        cell: at(0, 0, 2, 0),
-        want: 'yes',
-        after: t('lessons.further.steps.pastryDone'),
-      },
-      {
-        // The whole reason this board has three sets on it.
-        line: t('lessons.further.steps.carry'),
-        cell: at(1, 1, 2, 0),
-        want: 'yes',
-        after: t('lessons.further.steps.carryDone'),
-      },
-      {
-        line: t('lessons.further.steps.crumbDrink'),
-        clue: 2,
-        cell: at(0, 1, 1, 2),
-        want: 'yes',
-        after: t('lessons.further.steps.crumbDrinkDone'),
-      },
-      {
-        line: t('lessons.further.steps.crumbPastry'),
-        clue: 3,
-        cell: at(0, 1, 2, 1),
-        want: 'yes',
-        after: t('lessons.further.steps.crumbPastryDone'),
-      },
-      {
-        line: t('lessons.further.steps.crumbCarry'),
-        cell: at(1, 2, 2, 1),
-        want: 'yes',
-        after: t('lessons.further.steps.crumbCarryDone'),
-      },
-      {
-        line: t('lessons.further.steps.lastDrink'),
-        cell: at(0, 2, 1, 0),
-        want: 'yes',
-        after: t('lessons.further.steps.lastDrinkDone'),
-      },
-      {
-        line: t('lessons.further.steps.lastPastry'),
-        cell: at(0, 2, 2, 2),
-        want: 'yes',
-        after: t('lessons.further.steps.lastPastryDone'),
-      },
-    ],
-    finish: t('lessons.further.finish'),
-    cards: false,
-  };
-}
-
-/**
- * Nothing but crosses, and the yes that two of them add up to.
- *
- * A first-timer reads "is not paired with" as a clue that did not tell them
- * anything. Three drinks and two of them ruled out is the shortest possible
- * demonstration that it did.
- */
-function negativeClues(): Lesson {
-  const title = t('lessons.negative.title');
-  const theme = themeById('cafe');
-  const puzzle = board(
-    theme,
-    'negative',
-    [setOf(theme, 'customer', CUSTOMERS), setOf(theme, 'drink', DRINKS)],
-    [
-      [0, 1, 2],
-      [1, 2, 0],
-    ],
-    [
-      { kind: 'link', positive: false, a: of(0, 0), b: of(1, 0) },
-      { kind: 'link', positive: false, a: of(0, 0), b: of(1, 2) },
-      { kind: 'link', positive: false, a: of(0, 1), b: of(1, 0) },
-    ],
-    title,
-  );
-  return {
-    id: 'negative',
-    title,
-    blurb: t('lessons.negative.blurb'),
-    opening: t('lessons.negative.opening'),
-    puzzle,
-    steps: [
-      {
-        line: t('lessons.negative.steps.one'),
-        clue: 0,
-        cell: at(0, 0, 1, 0),
-        want: 'no',
-        after: t('lessons.negative.steps.oneDone'),
-      },
-      {
-        line: t('lessons.negative.steps.two'),
-        clue: 1,
-        cell: at(0, 0, 1, 2),
-        want: 'no',
-        after: t('lessons.negative.steps.twoDone'),
-      },
-      {
-        line: t('lessons.negative.steps.three'),
-        cell: at(0, 0, 1, 1),
-        want: 'yes',
-        after: t('lessons.negative.steps.threeDone'),
-      },
-      {
-        line: t('lessons.negative.steps.four'),
-        clue: 2,
-        cell: at(0, 1, 1, 0),
-        want: 'no',
-        after: t('lessons.negative.steps.fourDone'),
-      },
-      {
-        line: t('lessons.negative.steps.five'),
-        cell: at(0, 1, 1, 2),
-        want: 'yes',
-        after: t('lessons.negative.steps.fiveDone'),
-      },
-    ],
-    finish: t('lessons.negative.finish'),
-    cards: false,
-  };
-}
-
-/**
- * Higher and lower, on a set of bills.
- *
- * A comparison names no number at all, which is what makes it hard to read the
- * first time. What it settles is the ends: whoever is above somebody is not the
- * lowest, and whoever is below somebody is not the highest. Two clues, six
- * crossings-out, and the board falls out.
- */
-function comparisonClues(): Lesson {
-  const title = t('lessons.comparison.title');
-  const theme = themeById('cafe');
-  const puzzle = board(
-    theme,
-    'comparison',
-    [setOf(theme, 'customer', CUSTOMERS), setOf(theme, 'bill', BILLS)],
-    // Barley £5, Crumb £4, Marzipan £6.
-    [
-      [0, 1, 2],
-      [1, 0, 2],
-    ],
-    [
-      { kind: 'compare', order: 1, greater: of(0, 0), lesser: of(0, 1) },
-      { kind: 'compare', order: 1, greater: of(0, 2), lesser: of(0, 0) },
-    ],
-    title,
-  );
-  return {
-    id: 'comparison',
-    title,
-    blurb: t('lessons.comparison.blurb'),
-    opening: t('lessons.comparison.opening'),
-    puzzle,
-    steps: [
-      {
-        line: t('lessons.comparison.steps.one'),
-        clue: 0,
-        cell: at(0, 0, 1, 0),
-        want: 'no',
-        after: t('lessons.comparison.steps.oneDone'),
-      },
-      {
-        line: t('lessons.comparison.steps.two'),
-        clue: 0,
-        cell: at(0, 1, 1, 2),
-        want: 'no',
-        after: t('lessons.comparison.steps.twoDone'),
-      },
-      {
-        line: t('lessons.comparison.steps.three'),
-        clue: 1,
-        cell: at(0, 2, 1, 0),
-        want: 'no',
-        after: t('lessons.comparison.steps.threeDone'),
-      },
-      {
-        line: t('lessons.comparison.steps.four'),
-        cell: at(0, 1, 1, 0),
-        want: 'yes',
-        after: t('lessons.comparison.steps.fourDone'),
-      },
-      {
-        line: t('lessons.comparison.steps.five'),
-        clue: 1,
-        cell: at(0, 0, 1, 2),
-        want: 'no',
-        after: t('lessons.comparison.steps.fiveDone'),
-      },
-      {
-        line: t('lessons.comparison.steps.six'),
-        cell: at(0, 0, 1, 1),
-        want: 'yes',
-        after: t('lessons.comparison.steps.sixDone'),
-      },
-    ],
-    finish: t('lessons.comparison.finish'),
-    cards: false,
-  };
-}
-
-/**
- * A clue about everybody a description fits.
- *
- * The only lesson whose cast keeps its traits, and the only one that needs
- * them: two of these three customers wear spectacles and two of them have green
- * eyes, which is what lets one sentence cross off two squares. It is also the
- * only one where the item card is worth opening, since the descriptions the
- * clues use are written on it and nowhere else.
- */
-function groupedClues(): Lesson {
-  const title = t('lessons.grouped.title');
-  const theme = themeById('cafe');
-  const puzzle = board(
-    theme,
-    'grouped',
-    [
-      // Barley and Frangipane wear spectacles; Barley and Custard have green
-      // eyes. Two overlapping pairs out of three people, which is what the two
-      // clues need.
-      setOf(theme, 'customer', ['barley', 'frangi', 'custard'], { traits: true }),
-      setOf(theme, 'drink', DRINKS),
-    ],
-    // Barley the chai, Frangipane the mocha, Custard the latte.
-    [
-      [0, 1, 2],
-      [2, 1, 0],
-    ],
-    [
-      {
-        kind: 'groupNot',
-        group: { category: 0, trait: 'feature', value: 'spectacles', items: [0, 1] },
-        b: of(1, 0),
-      },
-      {
-        kind: 'groupNot',
-        group: { category: 0, trait: 'eyes', value: 'green', items: [0, 2] },
-        b: of(1, 1),
-      },
-    ],
-    title,
-  );
-  return {
-    id: 'grouped',
-    title,
-    blurb: t('lessons.grouped.blurb'),
-    opening: t('lessons.grouped.opening'),
-    puzzle,
-    steps: [
-      {
-        line: t('lessons.grouped.steps.one'),
-        clue: 0,
-        cell: at(0, 0, 1, 0),
-        want: 'no',
-        after: t('lessons.grouped.steps.oneDone'),
-      },
-      {
-        line: t('lessons.grouped.steps.two'),
-        clue: 0,
-        cell: at(0, 1, 1, 0),
-        want: 'no',
-        after: t('lessons.grouped.steps.twoDone'),
-      },
-      {
-        line: t('lessons.grouped.steps.three'),
-        cell: at(0, 2, 1, 0),
-        want: 'yes',
-        after: t('lessons.grouped.steps.threeDone'),
-      },
-      {
-        line: t('lessons.grouped.steps.four'),
-        clue: 1,
-        cell: at(0, 0, 1, 1),
-        want: 'no',
-        after: t('lessons.grouped.steps.fourDone'),
-      },
-      {
-        line: t('lessons.grouped.steps.five'),
-        cell: at(0, 0, 1, 2),
-        want: 'yes',
-        after: t('lessons.grouped.steps.fiveDone'),
-      },
-    ],
-    finish: t('lessons.grouped.finish'),
-    cards: true,
-  };
-}
-
-/**
- * A comparison that says exactly how far apart.
- *
- * One clue settles this whole board, which is the honest lesson: an exact gap
- * is the strongest sentence the game writes. Reading it means reading the
- * numbers on the set first and asking which two of them are that far apart —
- * £4, £5 and £7 leave exactly one pair a pound apart, and the odd bill out is
- * ruled out of both ends of the clue.
- */
-function gapClues(): Lesson {
-  const title = t('lessons.gap.title');
-  const theme = themeById('cafe');
-  const puzzle = board(
-    theme,
-    'gap',
-    [setOf(theme, 'customer', CUSTOMERS), setOf(theme, 'bill', GAPPED_BILLS)],
-    // Barley £5, Crumb £4, Marzipan £7.
-    [
-      [0, 1, 2],
-      [1, 0, 2],
-    ],
-    [{ kind: 'compare', order: 1, greater: of(0, 0), lesser: of(0, 1), gap: 1 }],
-    title,
-  );
-  return {
-    id: 'gap',
-    title,
-    blurb: t('lessons.gap.blurb'),
-    opening: t('lessons.gap.opening'),
-    puzzle,
-    steps: [
-      {
-        line: t('lessons.gap.steps.one'),
-        clue: 0,
-        cell: at(0, 0, 1, 0),
-        want: 'no',
-        after: t('lessons.gap.steps.oneDone'),
-      },
-      {
-        line: t('lessons.gap.steps.two'),
-        clue: 0,
-        cell: at(0, 0, 1, 2),
-        want: 'no',
-        after: t('lessons.gap.steps.twoDone'),
-      },
-      {
-        line: t('lessons.gap.steps.three'),
-        cell: at(0, 0, 1, 1),
-        want: 'yes',
-        after: t('lessons.gap.steps.threeDone'),
-      },
-      {
-        line: t('lessons.gap.steps.four'),
-        clue: 0,
-        cell: at(0, 1, 1, 2),
-        want: 'no',
-        after: t('lessons.gap.steps.fourDone'),
-      },
-      {
-        line: t('lessons.gap.steps.five'),
-        cell: at(0, 1, 1, 0),
-        want: 'yes',
-        after: t('lessons.gap.steps.fiveDone'),
-      },
-    ],
-    finish: t('lessons.gap.finish'),
-    cards: false,
-  };
-}
-
-/**
- * Two options offered, and the one that was not.
- *
- * The clue that looks like it says nothing. It says exactly one thing — that
- * the option it left out is out — and two of them about the same person say
- * something stronger than either did, which is the second half of the lesson.
- */
-function vagueClues(): Lesson {
-  const title = t('lessons.vague.title');
-  const theme = themeById('cafe');
-  const puzzle = board(
-    theme,
-    'vague',
-    [setOf(theme, 'customer', CUSTOMERS), setOf(theme, 'drink', DRINKS)],
-    // Barley the mocha, Crumb the latte, Marzipan the chai.
-    [
-      [0, 1, 2],
-      [1, 0, 2],
-    ],
-    [
-      { kind: 'either', a: of(0, 0), options: [of(1, 0), of(1, 1)] },
-      { kind: 'either', a: of(0, 0), options: [of(1, 1), of(1, 2)] },
-      { kind: 'either', a: of(0, 1), options: [of(1, 0), of(1, 1)] },
-    ],
-    title,
-  );
-  return {
-    id: 'vague',
-    title,
-    blurb: t('lessons.vague.blurb'),
-    opening: t('lessons.vague.opening'),
-    puzzle,
-    steps: [
-      {
-        line: t('lessons.vague.steps.one'),
-        clue: 0,
-        cell: at(0, 0, 1, 2),
-        want: 'no',
-        after: t('lessons.vague.steps.oneDone'),
-      },
-      {
-        line: t('lessons.vague.steps.two'),
-        clue: 1,
-        cell: at(0, 0, 1, 0),
-        want: 'no',
-        after: t('lessons.vague.steps.twoDone'),
-      },
-      {
-        line: t('lessons.vague.steps.three'),
-        cell: at(0, 0, 1, 1),
-        want: 'yes',
-        after: t('lessons.vague.steps.threeDone'),
-      },
-      {
-        line: t('lessons.vague.steps.four'),
-        clue: 2,
-        cell: at(0, 1, 1, 2),
-        want: 'no',
-        after: t('lessons.vague.steps.fourDone'),
-      },
-      {
-        line: t('lessons.vague.steps.five'),
-        cell: at(0, 1, 1, 0),
-        want: 'yes',
-        after: t('lessons.vague.steps.fiveDone'),
-      },
-    ],
-    finish: t('lessons.vague.finish'),
-    cards: false,
+    blurb: words('blurb'),
+    opening: words('opening'),
+    puzzle: {
+      seed: 0,
+      clueTemplates: resolveClueTemplates(theme),
+      themeId: theme.id,
+      themeName: theme.name,
+      themeIcon: theme.icon,
+      size: shapeFor(id, spec.sets.length, title),
+      categories: spec.sets.map(([set, items, options]) => setOf(theme, set, items, options)),
+      solution: spec.solution,
+      clues: spec.clues,
+    },
+    steps: spec.steps.map(([name, cell, want, clue]) => ({
+      line: words(`steps.${name}`),
+      ...(clue === undefined ? null : { clue }),
+      cell,
+      want,
+      after: words(`steps.${name}Done`),
+    })),
+    finish: words('finish'),
+    cards: spec.cards ?? false,
   };
 }
 
 const BUILDERS: Record<LessonId, () => Lesson> = {
-  deduction: usingDeduction,
-  further: furtherDeduction,
-  negative: negativeClues,
-  comparison: comparisonClues,
-  grouped: groupedClues,
-  gap: gapClues,
-  vague: vagueClues,
+  /**
+   * Two clues, two pairs, and the third pair left where the player can see it.
+   *
+   * The first lesson anybody takes, and the smallest true thing the game has to
+   * say: a tick is not one square, it is a row and a column settled. Both clues
+   * are the plainest kind there is, so nothing on the screen is competing with
+   * the rule being taught.
+   */
+  deduction: () =>
+    lesson('deduction', {
+      sets: [
+        ['customer', CUSTOMERS],
+        ['drink', DRINKS],
+      ],
+      // Barley has the mocha, Crumb the chai, Marzipan the latte.
+      solution: [
+        [0, 1, 2],
+        [1, 2, 0],
+      ],
+      clues: [
+        { kind: 'link', positive: true, a: of(0, 0), b: of(1, 1) },
+        { kind: 'link', positive: true, a: of(0, 1), b: of(1, 2) },
+      ],
+      steps: [
+        ['one', at(0, 0, 1, 1), 'yes', 0],
+        ['two', at(0, 1, 1, 2), 'yes', 1],
+      ],
+    }),
+
+  /**
+   * A third set, and the pair that appears on a grid no clue mentions.
+   *
+   * Every clue here is the same plain link the first lesson used, which is the
+   * point: nothing new is being read, and the new thing is entirely in what
+   * follows from it. Two ticks about the same customer settle a square on a grid
+   * she does not appear on, and that step — the one this board exists for — is
+   * walked third, before the board has filled up enough to hide it.
+   */
+  further: () =>
+    lesson('further', {
+      sets: [
+        ['customer', CUSTOMERS],
+        ['drink', DRINKS],
+        ['pastry', PASTRIES],
+      ],
+      // Barley: mocha, croissant. Crumb: chai, cannelé. Marzipan: latte, scone.
+      solution: [
+        [0, 1, 2],
+        [1, 2, 0],
+        [0, 1, 2],
+      ],
+      clues: [
+        { kind: 'link', positive: true, a: of(0, 0), b: of(1, 1) },
+        { kind: 'link', positive: true, a: of(0, 0), b: of(2, 0) },
+        { kind: 'link', positive: true, a: of(0, 1), b: of(1, 2) },
+        { kind: 'link', positive: true, a: of(0, 1), b: of(2, 1) },
+      ],
+      steps: [
+        ['drink', at(0, 0, 1, 1), 'yes', 0],
+        ['pastry', at(0, 0, 2, 0), 'yes', 1],
+        // The whole reason this board has three sets on it.
+        ['carry', at(1, 1, 2, 0), 'yes'],
+        ['crumbDrink', at(0, 1, 1, 2), 'yes', 2],
+        ['crumbPastry', at(0, 1, 2, 1), 'yes', 3],
+        ['crumbCarry', at(1, 2, 2, 1), 'yes'],
+        ['lastDrink', at(0, 2, 1, 0), 'yes'],
+        ['lastPastry', at(0, 2, 2, 2), 'yes'],
+      ],
+    }),
+
+  /**
+   * Nothing but crosses, and the yes that two of them add up to.
+   *
+   * A first-timer reads "is not paired with" as a clue that did not tell them
+   * anything. Three drinks and two of them ruled out is the shortest possible
+   * demonstration that it did.
+   */
+  negative: () =>
+    lesson('negative', {
+      sets: [
+        ['customer', CUSTOMERS],
+        ['drink', DRINKS],
+      ],
+      solution: [
+        [0, 1, 2],
+        [1, 2, 0],
+      ],
+      clues: [
+        { kind: 'link', positive: false, a: of(0, 0), b: of(1, 0) },
+        { kind: 'link', positive: false, a: of(0, 0), b: of(1, 2) },
+        { kind: 'link', positive: false, a: of(0, 1), b: of(1, 0) },
+      ],
+      steps: [
+        ['one', at(0, 0, 1, 0), 'no', 0],
+        ['two', at(0, 0, 1, 2), 'no', 1],
+        ['three', at(0, 0, 1, 1), 'yes'],
+        ['four', at(0, 1, 1, 0), 'no', 2],
+        ['five', at(0, 1, 1, 2), 'yes'],
+      ],
+    }),
+
+  /**
+   * Higher and lower, on a set of bills.
+   *
+   * A comparison names no number at all, which is what makes it hard to read the
+   * first time. What it settles is the ends: whoever is above somebody is not the
+   * lowest, and whoever is below somebody is not the highest. Two clues, six
+   * crossings-out, and the board falls out.
+   */
+  comparison: () =>
+    lesson('comparison', {
+      sets: [
+        ['customer', CUSTOMERS],
+        ['bill', BILLS],
+      ],
+      // Barley £5, Crumb £4, Marzipan £6.
+      solution: [
+        [0, 1, 2],
+        [1, 0, 2],
+      ],
+      clues: [
+        { kind: 'compare', order: 1, greater: of(0, 0), lesser: of(0, 1) },
+        { kind: 'compare', order: 1, greater: of(0, 2), lesser: of(0, 0) },
+      ],
+      steps: [
+        ['one', at(0, 0, 1, 0), 'no', 0],
+        ['two', at(0, 1, 1, 2), 'no', 0],
+        ['three', at(0, 2, 1, 0), 'no', 1],
+        ['four', at(0, 1, 1, 0), 'yes'],
+        ['five', at(0, 0, 1, 2), 'no', 1],
+        ['six', at(0, 0, 1, 1), 'yes'],
+      ],
+    }),
+
+  /**
+   * A clue about everybody a description fits.
+   *
+   * The only lesson whose cast keeps its traits, and the only one that needs
+   * them: two of these three customers wear spectacles and two of them have green
+   * eyes, which is what lets one sentence cross off two squares. It is also the
+   * only one where the item card is worth opening, since the descriptions the
+   * clues use are written on it and nowhere else.
+   */
+  grouped: () =>
+    lesson('grouped', {
+      sets: [
+        // Barley and Frangipane wear spectacles; Barley and Custard have green
+        // eyes. Two overlapping pairs out of three people, which is what the two
+        // clues need.
+        ['customer', ['barley', 'frangi', 'custard'], { traits: true }],
+        ['drink', DRINKS],
+      ],
+      // Barley the chai, Frangipane the mocha, Custard the latte.
+      solution: [
+        [0, 1, 2],
+        [2, 1, 0],
+      ],
+      clues: [
+        {
+          kind: 'groupNot',
+          group: { category: 0, trait: 'feature', value: 'spectacles', items: [0, 1] },
+          b: of(1, 0),
+        },
+        {
+          kind: 'groupNot',
+          group: { category: 0, trait: 'eyes', value: 'green', items: [0, 2] },
+          b: of(1, 1),
+        },
+      ],
+      steps: [
+        ['one', at(0, 0, 1, 0), 'no', 0],
+        ['two', at(0, 1, 1, 0), 'no', 0],
+        ['three', at(0, 2, 1, 0), 'yes'],
+        ['four', at(0, 0, 1, 1), 'no', 1],
+        ['five', at(0, 0, 1, 2), 'yes'],
+      ],
+      cards: true,
+    }),
+
+  /**
+   * A comparison that says exactly how far apart.
+   *
+   * One clue settles this whole board, which is the honest lesson: an exact gap
+   * is the strongest sentence the game writes. Reading it means reading the
+   * numbers on the set first and asking which two of them are that far apart —
+   * £4, £5 and £7 leave exactly one pair a pound apart, and the odd bill out is
+   * ruled out of both ends of the clue.
+   */
+  gap: () =>
+    lesson('gap', {
+      sets: [
+        ['customer', CUSTOMERS],
+        ['bill', GAPPED_BILLS],
+      ],
+      // Barley £5, Crumb £4, Marzipan £7.
+      solution: [
+        [0, 1, 2],
+        [1, 0, 2],
+      ],
+      clues: [{ kind: 'compare', order: 1, greater: of(0, 0), lesser: of(0, 1), gap: 1 }],
+      steps: [
+        ['one', at(0, 0, 1, 0), 'no', 0],
+        ['two', at(0, 0, 1, 2), 'no', 0],
+        ['three', at(0, 0, 1, 1), 'yes'],
+        ['four', at(0, 1, 1, 2), 'no', 0],
+        ['five', at(0, 1, 1, 0), 'yes'],
+      ],
+    }),
+
+  /**
+   * Two options offered, and the one that was not.
+   *
+   * The clue that looks like it says nothing. It says exactly one thing — that
+   * the option it left out is out — and two of them about the same person say
+   * something stronger than either did, which is the second half of the lesson.
+   */
+  vague: () =>
+    lesson('vague', {
+      sets: [
+        ['customer', CUSTOMERS],
+        ['drink', DRINKS],
+      ],
+      // Barley the mocha, Crumb the latte, Marzipan the chai.
+      solution: [
+        [0, 1, 2],
+        [1, 0, 2],
+      ],
+      clues: [
+        { kind: 'either', a: of(0, 0), options: [of(1, 0), of(1, 1)] },
+        { kind: 'either', a: of(0, 0), options: [of(1, 1), of(1, 2)] },
+        { kind: 'either', a: of(0, 1), options: [of(1, 0), of(1, 1)] },
+      ],
+      steps: [
+        ['one', at(0, 0, 1, 2), 'no', 0],
+        ['two', at(0, 0, 1, 0), 'no', 1],
+        ['three', at(0, 0, 1, 1), 'yes'],
+        ['four', at(0, 1, 1, 2), 'no', 2],
+        ['five', at(0, 1, 1, 0), 'yes'],
+      ],
+    }),
 };
 
 /**
@@ -752,8 +498,7 @@ export function lessonById(id: LessonId): Lesson {
 
 /** Its name and what it teaches, for the menu, without building its board. */
 export function lessonCard(id: LessonId): { id: LessonId; title: string; blurb: string } {
-  const lesson = lessonById(id);
-  return { id, title: lesson.title, blurb: lesson.blurb };
+  return { id, title: t(`lessons.${id}.title`), blurb: t(`lessons.${id}.blurb`) };
 }
 
 /** Which menu a lesson was opened from, so the way back goes where it came from. */
