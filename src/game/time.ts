@@ -1,4 +1,12 @@
-/** Duration formatting shared by the timer, the stats screen and the clue list. */
+/** Times and dates, shared by the timer, the stats screen, the achievements and the clue list. */
+
+/** The local calendar day a moment falls on, as a number, so "the day after" is a subtraction. */
+export function localDay(at: number): number {
+  const date = new Date(at);
+  return Math.floor(
+    new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime() / 86_400_000,
+  );
+}
 
 /** 92 → "1:32", 3671 → "1:01:11". */
 export function formatDuration(seconds: number): string {

@@ -7,7 +7,7 @@
 import { looksDaily, modeOf } from '../game/library';
 import { DAILY, DEFAULT_MODE, gameTitle, PLAYED_AS, type PlayedAs } from '../game/modes';
 import type { CompletedGame } from '../game/persistence';
-import { formatDuration } from '../game/time';
+import { formatDuration, localDay } from '../game/time';
 import { plural, t } from '../i18n';
 import type { SizeOption } from '../puzzle/types';
 
@@ -109,18 +109,10 @@ const clueCounts = (games: CompletedGame[]): number[] =>
 const hintCounts = (games: CompletedGame[]): number[] =>
   games.map((game) => game.hintsAsked).filter((asked): asked is number => asked !== null);
 
-/** Local calendar day, so streaks line up with the player's own days. */
-function dayNumber(timestamp: number): number {
-  const date = new Date(timestamp);
-  return Math.floor(
-    new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime() / 86_400_000,
-  );
-}
-
 function streaks(games: CompletedGame[], now: number): { current: number; longest: number } {
   if (games.length === 0) return { current: 0, longest: 0 };
 
-  const days = [...new Set(games.map((game) => dayNumber(game.finishedAt)))].sort((a, b) => b - a);
+  const days = [...new Set(games.map((game) => localDay(game.finishedAt)))].sort((a, b) => b - a);
   let longest = 1;
   let run = 1;
   for (let index = 1; index < days.length; index++) {
@@ -128,7 +120,7 @@ function streaks(games: CompletedGame[], now: number): { current: number; longes
     longest = Math.max(longest, run);
   }
 
-  const today = dayNumber(now);
+  const today = localDay(now);
   // A streak survives until the end of the following day, so finishing
   // yesterday still counts while today is in progress.
   let current = 0;

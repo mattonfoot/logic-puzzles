@@ -2,6 +2,7 @@ import { achievementsFor, ACHIEVEMENT_ICONS } from '../achievements';
 import { dailySeed, numberedSeed } from '../library';
 import type { ModeId } from '../modes';
 import type { CompletedGame } from '../persistence';
+import { t } from '../../i18n';
 
 const DAY = 86_400_000;
 /** Noon, so a day either side of a game is still the day either side. */
@@ -124,6 +125,23 @@ describe('what has been earned', () => {
     expect(
       ids(newestFirst(game({ finishedAt: NOON }), game({ finishedAt: NOON + 8 * DAY }))),
     ).toEqual(expect.arrayContaining(['back']));
+  });
+
+  it('counts dailies done on the day they were set, and only those', () => {
+    const daily = (day: number, setOn = day) =>
+      game({ seed: dailySeed(new Date(NOON + setOn * DAY), 'sm'), finishedAt: NOON + day * DAY });
+    const week = [0, 1, 2, 3, 4, 5, 6];
+    const streak = achievementsFor(newestFirst(...week.map((day) => daily(day)))).find(
+      (earned) => earned.id === 'daily.streak.7',
+    );
+    expect(streak).toMatchObject({
+      title: t('achievements.dailyStreak.week.title'),
+      description: t('achievements.dailyStreak.week.body'),
+      earnedAt: NOON + 6 * DAY,
+    });
+    // The last of them a day late: played every day, but not every day's.
+    const late = week.map((day) => (day === 6 ? daily(6, 5) : daily(day)));
+    expect(ids(newestFirst(...late))).not.toEqual(expect.arrayContaining(['daily.streak.7']));
   });
 
   it('sweeps a day when all five of its challenges are done', () => {
