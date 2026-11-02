@@ -14,7 +14,7 @@ themes:
       groupNot: 'No {a} shares an assessment with {b}.'
       either: '{a} shares an assessment with either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
-      compareGap: 'The score linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+      compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     categories:
       pupil:
         name: 'Pupil'

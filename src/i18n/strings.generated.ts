@@ -17,7 +17,7 @@ const THEME_WORDS = {
       either: '{a} appears in the same act as either {b} or {c}, but not both.',
       compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.',
       compareGap:
-        'The appearance linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
+        'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
     },
     categories: {
       performer: {
@@ -1906,7 +1906,7 @@ const THEME_WORDS = {
       either: '{a} shares a workshop job with either {b} or {c}, but not both.',
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
       compareGap:
-        'The build linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
+        'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
     },
     categories: {
       maker: {
@@ -2849,7 +2849,7 @@ const THEME_WORDS = {
       either: '{a} shares an assessment with either {b} or {c}, but not both.',
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
       compareGap:
-        'The score linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
+        'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
     },
     categories: {
       pupil: {
@@ -5685,7 +5685,7 @@ const THEME_WORDS = {
       either: '{a} shares a port call with either {b} or {c}, but not both.',
       compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.',
       compareGap:
-        'The arrival linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
+        'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
     },
     categories: {
       skipper: {
@@ -6632,7 +6632,7 @@ const THEME_WORDS = {
       either: '{a} joins the same festival act as either {b} or {c}, but not both.',
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
       compareGap:
-        'The performance linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
+        'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
     },
     categories: {
       artist: {
@@ -7573,7 +7573,7 @@ const THEME_WORDS = {
       either: '{a} travels on the same booking as either {b} or {c}, but not both.',
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
       compareGap:
-        'The departure linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
+        'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
     },
     categories: {
       passenger: {
@@ -8514,7 +8514,7 @@ const THEME_WORDS = {
       either: '{a} is recorded with either {b} or {c}, but not both.',
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
       compareGap:
-        'The acquisition linked to {greater} is exactly {gap} {unit} later than the one linked to {lesser}.',
+        'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
     },
     categories: {
       curator: {

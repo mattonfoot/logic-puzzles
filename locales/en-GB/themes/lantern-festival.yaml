@@ -14,7 +14,7 @@ themes:
       groupNot: 'No {a} joins the same festival act as {b}.'
       either: '{a} joins the same festival act as either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
-      compareGap: 'The performance linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+      compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     categories:
       artist:
         name: 'Artist'

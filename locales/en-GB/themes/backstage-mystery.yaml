@@ -14,7 +14,7 @@ themes:
       groupNot: 'No {a} appears in the same act as {b}.'
       either: '{a} appears in the same act as either {b} or {c}, but not both.'
       compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.'
-      compareGap: 'The appearance linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+      compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     categories:
       performer:
         name: 'Performer'

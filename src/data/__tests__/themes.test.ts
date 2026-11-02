@@ -181,6 +181,26 @@ describe('themes', () => {
         }
       });
 
+      it('leaves the scale to the slots rather than writing it out', () => {
+        // `{noun}`, `{comparative}` and `{unit}` are filled from the ordered
+        // set's own words. A template that spells one of them out instead goes
+        // stale the moment that set is reworded — or translated.
+        const templates = resolveClueTemplates(theme);
+        for (const category of theme.categories) {
+          const scale = category.ordered;
+          if (!scale) continue;
+
+          for (const kind of ['compare', 'compareGap'] as const) {
+            const template = templates[kind];
+            for (const written of [scale.noun, scale.greater, scale.lesser, scale.unit]) {
+              const spelled = new RegExp(`\\b${written}\\b`, 'i').test(template);
+              const left = `${kind} leaves "${written}" to its slot`;
+              expect(spelled ? `${kind} writes out "${written}": ${template}` : left).toBe(left);
+            }
+          }
+        }
+      });
+
       it('has an ordered category with distinct, increasing values', () => {
         const ordered = theme.categories.filter((category) => category.ordered);
         expect(ordered.length).toBeGreaterThanOrEqual(1);
