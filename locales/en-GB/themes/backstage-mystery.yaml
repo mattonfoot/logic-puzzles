@@ -9,10 +9,10 @@ themes:
     name: 'Backstage Mystery'
     blurb: 'A flawless production, pending several small explanations.'
     clues:
-      link: '{a} appears in the same act as {b}.'
-      notLink: '{a} does not appear in the same act as {b}.'
-      groupNot: 'No {a} appears in the same act as {b}.'
-      either: '{a} appears in the same act as either {b} or {c}, but not both.'
+      link: '{a} is on stage with {b}.'
+      notLink: '{a} is not on stage with {b}.'
+      groupNot: 'No {a} is on stage with {b}.'
+      either: '{a} is on stage with either {b} or {c}, but not both.'
       compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     categories:
