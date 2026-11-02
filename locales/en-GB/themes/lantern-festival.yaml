@@ -31,6 +31,12 @@ themes:
           manner:
             label: 'Manner'
             pattern: '{} {noun}'
+          guild:
+            label: 'Guild'
+            pattern: '{noun} of the {} guild'
+          pitch:
+            label: 'Workshop'
+            pattern: '{noun} working from the {} workshop'
         items:
           mr-glow:
             label: 'Mr Glow'
@@ -39,6 +45,8 @@ themes:
               experience: 'limited'
               shift: 'early'
               manner: 'patient'
+              guild: 'paper'
+              pitch: 'riverside'
           madam-ribbon:
             label: 'Madam Ribbon'
             blurb: 'Considers every breeze an unsolicited contribution to the choreography.'
@@ -46,6 +54,8 @@ themes:
               experience: 'considerable'
               shift: 'late'
               manner: 'patient'
+              guild: 'light'
+              pitch: 'town'
           dr-dazzle:
             label: 'Dr Dazzle'
             blurb: 'Tests each flourish scientifically, then adds one for luck.'
@@ -53,6 +63,8 @@ themes:
               experience: 'extensive'
               shift: 'early'
               manner: 'brisk'
+              guild: 'music'
+              pitch: 'hill'
           miss-wisp:
             label: 'Miss Wisp'
             blurb: 'Can make an awkward silence feel like a deliberate artistic choice.'
@@ -60,6 +72,8 @@ themes:
               experience: 'limited'
               shift: 'late'
               manner: 'brisk'
+              guild: 'paper'
+              pitch: 'town'
           lord-confetti:
             label: 'Lord Confetti'
             blurb: 'Arrives formally and leaves several small pieces of himself behind.'
@@ -67,6 +81,8 @@ themes:
               experience: 'considerable'
               shift: 'early'
               manner: 'dramatic'
+              guild: 'light'
+              pitch: 'riverside'
           dame-firefly:
             label: 'Dame Firefly'
             blurb: 'Has mastered the expression that makes volunteers stand in straighter rows.'
@@ -74,6 +90,8 @@ themes:
               experience: 'extensive'
               shift: 'late'
               manner: 'dramatic'
+              guild: 'light'
+              pitch: 'hill'
           mr-flutter:
             label: 'Mr Flutter'
             blurb: 'Rehearses bows more carefully than the performance before them.'
@@ -81,6 +99,8 @@ themes:
               experience: 'limited'
               shift: 'early'
               manner: 'patient'
+              guild: 'paper'
+              pitch: 'town'
           mx-chorus:
             label: 'Mx Chorus'
             blurb: 'Provides backing vocals even when the conversation has not requested any.'
@@ -88,6 +108,8 @@ themes:
               experience: 'considerable'
               shift: 'late'
               manner: 'patient'
+              guild: 'music'
+              pitch: 'riverside'
           professor-glimmer:
             label: 'Professor Glimmer'
             blurb: 'Lectures on spectacle. Occasionally remembers to supply some.'
@@ -95,6 +117,8 @@ themes:
               experience: 'extensive'
               shift: 'early'
               manner: 'brisk'
+              guild: 'light'
+              pitch: 'hill'
           mrs-twinkle:
             label: 'Mrs Twinkle'
             blurb: 'Smiles through every rehearsal and keeps a private list of improvements.'
@@ -102,6 +126,8 @@ themes:
               experience: 'limited'
               shift: 'late'
               manner: 'brisk'
+              guild: 'paper'
+              pitch: 'town'
           sir-rattle:
             label: 'Sir Rattle'
             blurb: 'Believes enthusiasm is an acceptable substitute for a sound check.'
@@ -109,6 +135,8 @@ themes:
               experience: 'considerable'
               shift: 'early'
               manner: 'dramatic'
+              guild: 'music'
+              pitch: 'riverside'
           captain-spark:
             label: 'Captain Spark'
             blurb: 'Runs the rehearsal with naval discipline and decorative bunting.'
@@ -116,6 +144,8 @@ themes:
               experience: 'extensive'
               shift: 'late'
               manner: 'dramatic'
+              guild: 'light'
+              pitch: 'hill'
           aunt-echo:
             label: 'Aunt Echo'
             blurb: 'Can project to the back row, the next street and several neighbouring years.'
@@ -123,6 +153,8 @@ themes:
               experience: 'limited'
               shift: 'early'
               manner: 'patient'
+              guild: 'music'
+              pitch: 'town'
           ms-shimmer:
             label: 'Ms Shimmer'
             blurb: 'Calls every costume emergency an opportunity for movement.'
@@ -130,6 +162,8 @@ themes:
               experience: 'considerable'
               shift: 'late'
               manner: 'patient'
+              guild: 'paper'
+              pitch: 'riverside'
       lantern:
         name: 'Lantern'
         pattern: 'the {}'
@@ -145,6 +179,12 @@ themes:
           frame:
             label: 'Frame'
             pattern: '{}-framed {noun}'
+          hung:
+            label: 'Hung'
+            pattern: '{noun} hung {}'
+          made:
+            label: 'Made'
+            pattern: '{noun} made {}'
         items:
           star-lantern:
             label: 'Star Lantern'
@@ -153,6 +193,8 @@ themes:
               light: 'steady'
               colour: 'amber'
               frame: 'bamboo'
+              hung: 'high'
+              made: 'this year'
           moon-lantern:
             label: 'Moon Lantern'
             blurb: 'Waxing lyrical is permitted. Waxing the paper is discouraged.'
@@ -160,6 +202,8 @@ themes:
               light: 'flickering'
               colour: 'silver'
               frame: 'wire'
+              hung: 'high'
+              made: 'last year'
           owl-lantern:
             label: 'Owl Lantern'
             blurb: 'Looks wise enough to have read the fire regulations.'
@@ -167,6 +211,8 @@ themes:
               light: 'steady'
               colour: 'indigo'
               frame: 'bamboo'
+              hung: 'at eye level'
+              made: 'this year'
           fox-lantern:
             label: 'Fox Lantern'
             blurb: 'Its expression suggests it knows where the spare candles went.'
@@ -174,6 +220,8 @@ themes:
               light: 'flickering'
               colour: 'amber'
               frame: 'wire'
+              hung: 'low'
+              made: 'years ago'
           hare-lantern:
             label: 'Hare Lantern'
             blurb: 'The ears arrived before the rest of the procession.'
@@ -181,6 +229,8 @@ themes:
               light: 'steady'
               colour: 'silver'
               frame: 'bamboo'
+              hung: 'low'
+              made: 'last year'
           cat-lantern:
             label: 'Cat Lantern'
             blurb: 'Judges the entire celebration from a slightly elevated position.'
@@ -188,6 +238,8 @@ themes:
               light: 'flickering'
               colour: 'indigo'
               frame: 'wire'
+              hung: 'at eye level'
+              made: 'this year'
           dragon-lantern:
             label: 'Dragon Lantern'
             blurb: 'A flame-free dragon, following a vigorous insurance discussion.'
@@ -195,6 +247,8 @@ themes:
               light: 'steady'
               colour: 'crimson'
               frame: 'bamboo'
+              hung: 'high'
+              made: 'last year'
           moth-lantern:
             label: 'Moth Lantern'
             blurb: 'Attracted to itself. The designer calls this a feature.'
@@ -202,6 +256,8 @@ themes:
               light: 'flickering'
               colour: 'silver'
               frame: 'wire'
+              hung: 'at eye level'
+              made: 'years ago'
           rocket-lantern:
             label: 'Rocket Lantern'
             blurb: 'Strictly decorative, a detail repeated to the launch team.'
@@ -209,6 +265,8 @@ themes:
               light: 'steady'
               colour: 'crimson'
               frame: 'wire'
+              hung: 'high'
+              made: 'this year'
           apple-lantern:
             label: 'Apple Lantern'
             blurb: 'Provides a warm glow and no part of the recommended daily fruit intake.'
@@ -216,6 +274,8 @@ themes:
               light: 'flickering'
               colour: 'amber'
               frame: 'bamboo'
+              hung: 'low'
+              made: 'last year'
           pear-lantern:
             label: 'Pear Lantern'
             blurb: 'The artist insists the lopsidedness is seasonal character.'
@@ -223,6 +283,8 @@ themes:
               light: 'steady'
               colour: 'crimson'
               frame: 'bamboo'
+              hung: 'low'
+              made: 'last year'
           cloud-lantern:
             label: 'Cloud Lantern'
             blurb: 'Promises a dry evening with no meteorological authority.'
@@ -230,6 +292,8 @@ themes:
               light: 'flickering'
               colour: 'silver'
               frame: 'wire'
+              hung: 'high'
+              made: 'years ago'
           kite-lantern:
             label: 'Kite Lantern'
             blurb: 'Kept firmly on a hook after an ambitious outdoor rehearsal.'
@@ -237,6 +301,8 @@ themes:
               light: 'steady'
               colour: 'indigo'
               frame: 'bamboo'
+              hung: 'high'
+              made: 'this year'
           pinwheel-lantern:
             label: 'Pinwheel Lantern'
             blurb: 'Turns heads while remaining sensibly stationary itself.'
@@ -244,6 +310,8 @@ themes:
               light: 'flickering'
               colour: 'amber'
               frame: 'wire'
+              hung: 'at eye level'
+              made: 'last year'
       instrument:
         name: 'Instrument'
         pattern: 'the {}'
@@ -259,6 +327,12 @@ themes:
           position:
             label: 'Position'
             pattern: '{noun} played {}'
+          owned:
+            label: 'Belongs to'
+            pattern: '{noun} that is {}'
+          tuned:
+            label: 'Tuned'
+            pattern: '{noun} tuned {}'
         items:
           brass-trumpet:
             label: 'Brass Trumpet'
@@ -267,6 +341,8 @@ themes:
               family: 'wind'
               volume: 'loud'
               position: 'standing'
+              owned: "the player's own"
+              tuned: 'before the parade'
           celtic-harp:
             label: 'Celtic Harp'
             blurb: 'Requires careful tuning and a less ambitious doorway.'
@@ -274,6 +350,8 @@ themes:
               family: 'strings'
               volume: 'soft'
               position: 'seated'
+              owned: 'borrowed'
+              tuned: 'on the night'
           marching-drum:
             label: 'Marching Drum'
             blurb: 'Keeps the beat while the rest of the parade negotiates it.'
@@ -281,6 +359,8 @@ themes:
               family: 'percussion'
               volume: 'loud'
               position: 'standing'
+              owned: 'hired'
+              tuned: 'never'
           round-lute:
             label: 'Round Lute'
             blurb: 'The romantic option, provided the peg stays where it was put.'
@@ -288,6 +368,8 @@ themes:
               family: 'strings'
               volume: 'soft'
               position: 'seated'
+              owned: 'borrowed'
+              tuned: 'before the parade'
           silver-flute:
             label: 'Silver Flute'
             blurb: 'A small tube with a surprisingly large repertoire of complaints.'
@@ -295,6 +377,8 @@ themes:
               family: 'wind'
               volume: 'soft'
               position: 'standing'
+              owned: "the player's own"
+              tuned: 'on the night'
           hand-cymbals:
             label: 'Hand Cymbals'
             blurb: 'The ending is always clear, even if it arrives unexpectedly.'
@@ -302,6 +386,8 @@ themes:
               family: 'percussion'
               volume: 'loud'
               position: 'standing'
+              owned: 'hired'
+              tuned: 'never'
           box-accordion:
             label: 'Box Accordion'
             blurb: 'Breathes more dramatically than the performer carrying it.'
@@ -309,6 +395,8 @@ themes:
               family: 'wind'
               volume: 'loud'
               position: 'seated'
+              owned: 'borrowed'
+              tuned: 'before the parade'
           town-bell:
             label: 'Town Bell'
             blurb: 'One note, delivered with absolute conviction.'
@@ -316,6 +404,8 @@ themes:
               family: 'percussion'
               volume: 'loud'
               position: 'standing'
+              owned: 'hired'
+              tuned: 'never'
           tambourine:
             label: 'Tambourine'
             blurb: 'Adds sparkle and a persistent suspicion that someone is ahead of the beat.'
@@ -323,6 +413,8 @@ themes:
               family: 'percussion'
               volume: 'soft'
               position: 'standing'
+              owned: "the player's own"
+              tuned: 'on the night'
           parade-pipes:
             label: 'Parade Pipes'
             blurb: 'Can be heard from wherever you were hoping to stand.'
@@ -330,6 +422,8 @@ themes:
               family: 'wind'
               volume: 'loud'
               position: 'standing'
+              owned: 'borrowed'
+              tuned: 'before the parade'
           wood-xylophone:
             label: 'Wood Xylophone'
             blurb: 'Fourteen bars of confidence, assuming they are struck in the right order.'
@@ -337,6 +431,8 @@ themes:
               family: 'percussion'
               volume: 'soft'
               position: 'seated'
+              owned: 'hired'
+              tuned: 'on the night'
           reed-panpipes:
             label: 'Reed Panpipes'
             blurb: 'Several small pipes united by a common refusal to stay in tune outdoors.'
@@ -344,6 +440,8 @@ themes:
               family: 'wind'
               volume: 'soft'
               position: 'standing'
+              owned: 'borrowed'
+              tuned: 'before the parade'
           festival-fiddle:
             label: 'Festival Fiddle'
             blurb: 'Plays the fast bit faster when the audience starts clapping.'
@@ -351,6 +449,8 @@ themes:
               family: 'strings'
               volume: 'loud'
               position: 'seated'
+              owned: "the player's own"
+              tuned: 'on the night'
           bronze-gong:
             label: 'Bronze Gong'
             blurb: 'The final note has booked the square for another three minutes.'
@@ -358,6 +458,8 @@ themes:
               family: 'percussion'
               volume: 'loud'
               position: 'standing'
+              owned: 'hired'
+              tuned: 'never'
       stall:
         name: 'Stall'
         pattern: 'the {}'
@@ -373,6 +475,12 @@ themes:
           cover:
             label: 'Cover'
             pattern: '{} {noun}'
+          fee:
+            label: 'Pitch fee'
+            pattern: '{noun} that pays {} pitch fee'
+          takings:
+            label: 'Takings'
+            pattern: '{noun} with {} takings'
         items:
           tea-pavilion:
             label: 'Tea Pavilion'
@@ -381,6 +489,8 @@ themes:
               offering: 'drinks'
               location: 'east'
               cover: 'covered'
+              fee: 'a full'
+              takings: 'brisk'
           coffee-cart:
             label: 'Coffee Cart'
             blurb: 'Keeps the volunteers upright long after their optimism has sat down.'
@@ -388,6 +498,8 @@ themes:
               offering: 'drinks'
               location: 'west'
               cover: 'open-air'
+              fee: 'a full'
+              takings: 'brisk'
           pastry-tent:
             label: 'Pastry Tent'
             blurb: 'A convincing argument for arriving before the official opening.'
@@ -395,6 +507,8 @@ themes:
               offering: 'food'
               location: 'east'
               cover: 'covered'
+              fee: 'a reduced'
+              takings: 'steady'
           picnic-counter:
             label: 'Picnic Counter'
             blurb: 'Serves portable meals to people who immediately stop walking.'
@@ -402,6 +516,8 @@ themes:
               offering: 'food'
               location: 'west'
               cover: 'covered'
+              fee: 'no'
+              takings: 'slow'
           orchard-stand:
             label: 'Orchard Stand'
             blurb: 'The display is so polished that several apples look overqualified.'
@@ -409,6 +525,8 @@ themes:
               offering: 'food'
               location: 'east'
               cover: 'open-air'
+              fee: 'a reduced'
+              takings: 'steady'
           pear-preserve-booth:
             label: 'Pear Preserve Booth'
             blurb: 'A remarkably specialised business with very firm opinions about jam.'
@@ -416,6 +534,8 @@ themes:
               offering: 'food'
               location: 'west'
               cover: 'covered'
+              fee: 'a full'
+              takings: 'slow'
           cake-table:
             label: 'Cake Table'
             blurb: 'The judging began informally and has become difficult to stop.'
@@ -423,6 +543,8 @@ themes:
               offering: 'food'
               location: 'east'
               cover: 'open-air'
+              fee: 'a full'
+              takings: 'brisk'
           biscuit-bar:
             label: 'Biscuit Bar'
             blurb: 'Small purchases encouraged. Repeat small purchases enthusiastically supported.'
@@ -430,6 +552,8 @@ themes:
               offering: 'food'
               location: 'west'
               cover: 'covered'
+              fee: 'a reduced'
+              takings: 'steady'
           lemonade-stand:
             label: 'Lemonade Stand'
             blurb: 'The secret ingredient is an optimistic estimate of the evening temperature.'
@@ -437,6 +561,8 @@ themes:
               offering: 'drinks'
               location: 'east'
               cover: 'open-air'
+              fee: 'no'
+              takings: 'brisk'
           soup-kitchen:
             label: 'Soup Kitchen'
             blurb: 'Offers a warm welcome in a bowl with a negotiable lid.'
@@ -444,6 +570,8 @@ themes:
               offering: 'food'
               location: 'west'
               cover: 'covered'
+              fee: 'no'
+              takings: 'steady'
           ribbon-stall:
             label: 'Ribbon Stall'
             blurb: 'Can improve almost anything except the knot already tied in it.'
@@ -451,6 +579,8 @@ themes:
               offering: 'crafts'
               location: 'east'
               cover: 'covered'
+              fee: 'a reduced'
+              takings: 'slow'
           mask-maker:
             label: 'Mask Maker'
             blurb: 'Provides a new face for anyone regretting their volunteer commitments.'
@@ -458,6 +588,8 @@ themes:
               offering: 'crafts'
               location: 'west'
               cover: 'open-air'
+              fee: 'a full'
+              takings: 'steady'
           kite-seller:
             label: 'Kite Seller'
             blurb: "Sells excellent flying prospects, subject to the sky's approval."
@@ -465,6 +597,8 @@ themes:
               offering: 'crafts'
               location: 'east'
               cover: 'open-air'
+              fee: 'a full'
+              takings: 'brisk'
           pinwheel-cart:
             label: 'Pinwheel Cart'
             blurb: 'Business picks up whenever the weather does.'
@@ -472,6 +606,8 @@ themes:
               offering: 'crafts'
               location: 'west'
               cover: 'open-air'
+              fee: 'a reduced'
+              takings: 'slow'
       showtime:
         name: 'Showtime'
         pattern: 'the {} performance'
@@ -489,6 +625,15 @@ themes:
           programme:
             label: 'Programme'
             pattern: '{noun} in the {} programme'
+          stage:
+            label: 'Stage'
+            pattern: '{noun} on the {} stage'
+          encore:
+            label: 'Encore'
+            pattern: '{noun} that {} an encore'
+          tickets:
+            label: 'Tickets'
+            pattern: '{noun} that was {}'
         items:
           18-00:
             label: '18:00'
@@ -496,78 +641,117 @@ themes:
             traits:
               period: 'opening'
               programme: 'first'
+              stage: 'main'
+              encore: 'skipped'
+              tickets: 'half full'
           18-15:
             label: '18:15'
             blurb: 'Enough time for a flourish and a very efficient change of costume.'
             traits:
               period: 'opening'
               programme: 'first'
+              stage: 'water'
+              encore: 'skipped'
+              tickets: 'ticketed on the door'
           18-30:
             label: '18:30'
             blurb: 'The audience has settled, apart from someone searching for a better view.'
             traits:
               period: 'opening'
               programme: 'first'
+              stage: 'lantern'
+              encore: 'took'
+              tickets: 'sold out'
           18-45:
             label: '18:45'
             blurb: 'The rehearsal notes describe this as the sensible part of the evening.'
             traits:
               period: 'opening'
               programme: 'first'
+              stage: 'main'
+              encore: 'skipped'
+              tickets: 'half full'
           19-00:
             label: '19:00'
             blurb: 'A promising moment for anyone whose entrance depends on being noticed.'
             traits:
               period: 'opening'
               programme: 'first'
+              stage: 'water'
+              encore: 'took'
+              tickets: 'sold out'
           19-15:
             label: '19:15'
             blurb: 'The organisers briefly consider themselves ahead of schedule.'
             traits:
               period: 'central'
               programme: 'first'
+              stage: 'main'
+              encore: 'took'
+              tickets: 'ticketed on the door'
           19-30:
             label: '19:30'
             blurb: 'The square is glowing and the running order is beginning to curl.'
             traits:
               period: 'central'
               programme: 'first'
+              stage: 'lantern'
+              encore: 'skipped'
+              tickets: 'half full'
           19-45:
             label: '19:45'
             blurb: 'The evening has reached the point where every pause attracts applause.'
             traits:
               period: 'central'
               programme: 'second'
+              stage: 'main'
+              encore: 'took'
+              tickets: 'sold out'
           20-00:
             label: '20:00'
             blurb: 'The volunteers have developed a refined appreciation of comfortable shoes.'
             traits:
               period: 'central'
               programme: 'second'
+              stage: 'water'
+              encore: 'skipped'
+              tickets: 'sold out'
           20-15:
             label: '20:15'
             blurb: 'An excellent slot for pretending the slight delay was atmospheric.'
             traits:
               period: 'central'
               programme: 'second'
+              stage: 'lantern'
+              encore: 'took'
+              tickets: 'ticketed on the door'
           20-30:
             label: '20:30'
             blurb: 'The sky has darkened and the audience has become harder to count.'
             traits:
               period: 'closing'
               programme: 'second'
+              stage: 'main'
+              encore: 'skipped'
+              tickets: 'half full'
           20-45:
             label: '20:45'
             blurb: 'Late enough for a grand gesture, early enough for one more.'
             traits:
               period: 'closing'
               programme: 'second'
+              stage: 'water'
+              encore: 'took'
+              tickets: 'sold out'
           21-00:
             label: '21:00'
             blurb: 'The organisers start smiling with a new and slightly urgent determination.'
             traits:
               period: 'closing'
               programme: 'second'
+              stage: 'main'
+              encore: 'took'
+              tickets: 'sold out'
           21-15:
             label: '21:15'
             blurb: 'The final listed slot. The closing speech is waiting with visible ambition.'
@@ -575,6 +759,9 @@ themes:
               period: 'closing'
               programme: 'second'
 
+              stage: 'lantern'
+              encore: 'skipped'
+              tickets: 'half full'
 briefings:
   themes:
     lantern-festival:

@@ -31,6 +31,12 @@ themes:
           manner:
             label: 'Manner'
             pattern: '{noun} with a {} manner'
+          billing:
+            label: 'Billing'
+            pattern: '{noun} billed as {}'
+          dressing:
+            label: 'Dressing room'
+            pattern: '{noun} in the {} dressing room'
         items:
           felix-flourish:
             label: 'Felix Flourish'
@@ -39,6 +45,8 @@ themes:
               standing: 'junior'
               shift: 'early'
               manner: 'measured'
+              billing: 'support'
+              dressing: 'upstairs'
           vera-velvet:
             label: 'Vera Velvet'
             blurb: 'Remembers every line, especially the ones somebody else has forgotten.'
@@ -46,6 +54,8 @@ themes:
               standing: 'established'
               shift: 'late'
               manner: 'measured'
+              billing: 'the lead'
+              dressing: 'downstairs'
           percy-plume:
             label: 'Percy Plume'
             blurb: 'Projects to the back row even when asking where the biscuits are.'
@@ -53,6 +63,8 @@ themes:
               standing: 'veteran'
               shift: 'early'
               manner: 'brisk'
+              billing: 'support'
+              dressing: 'shared'
           mabel-moon:
             label: 'Mabel Moon'
             blurb: 'Describes every missed rehearsal as valuable private preparation.'
@@ -60,6 +72,8 @@ themes:
               standing: 'junior'
               shift: 'late'
               manner: 'brisk'
+              billing: 'support'
+              dressing: 'shared'
           lord-limelight:
             label: 'Lord Limelight'
             blurb: 'Bows as though the applause has been waiting its entire life for him.'
@@ -67,6 +81,8 @@ themes:
               standing: 'established'
               shift: 'early'
               manner: 'theatrical'
+              billing: 'the lead'
+              dressing: 'downstairs'
           tilly-twirl:
             label: 'Tilly Twirl'
             blurb: 'Can improvise a recovery faster than anyone can identify the original mistake.'
@@ -74,6 +90,8 @@ themes:
               standing: 'veteran'
               shift: 'late'
               manner: 'theatrical'
+              billing: 'an ensemble name'
+              dressing: 'upstairs'
           dr-diction:
             label: 'Dr Diction'
             blurb: 'Pronounces every syllable, including several the author may not have intended.'
@@ -81,6 +99,8 @@ themes:
               standing: 'junior'
               shift: 'early'
               manner: 'measured'
+              billing: 'support'
+              dressing: 'shared'
           bertie-bravo:
             label: 'Bertie Bravo'
             blurb: 'Believes enthusiasm can fill any gap, including the gap before his next line.'
@@ -88,6 +108,8 @@ themes:
               standing: 'established'
               shift: 'late'
               manner: 'measured'
+              billing: 'an ensemble name'
+              dressing: 'upstairs'
           august-vale:
             label: 'August Vale'
             blurb: 'A specialist in grave expressions and unexpectedly cheerful lunch breaks.'
@@ -95,6 +117,8 @@ themes:
               standing: 'veteran'
               shift: 'early'
               manner: 'brisk'
+              billing: 'support'
+              dressing: 'shared'
           pippa-pirouette:
             label: 'Pippa Pirouette'
             blurb: 'Counts every movement and disputes any arithmetic offered by the director.'
@@ -102,6 +126,8 @@ themes:
               standing: 'junior'
               shift: 'late'
               manner: 'brisk'
+              billing: 'an ensemble name'
+              dressing: 'shared'
           silas-sigh:
             label: 'Silas Sigh'
             blurb: 'Has perfected a pause that makes the audience question its own intentions.'
@@ -109,6 +135,8 @@ themes:
               standing: 'established'
               shift: 'early'
               manner: 'theatrical'
+              billing: 'an ensemble name'
+              dressing: 'upstairs'
           dame-encore:
             label: 'Dame Encore'
             blurb: 'Treats the first ovation as a promising rehearsal for the next one.'
@@ -116,6 +144,8 @@ themes:
               standing: 'veteran'
               shift: 'late'
               manner: 'theatrical'
+              billing: 'the lead'
+              dressing: 'downstairs'
           cecil-cue:
             label: 'Cecil Cue'
             blurb: "Knows everyone's lines and occasionally offers them before they are requested."
@@ -123,6 +153,8 @@ themes:
               standing: 'junior'
               shift: 'early'
               manner: 'measured'
+              billing: 'support'
+              dressing: 'shared'
           ruby-reverie:
             label: 'Ruby Reverie'
             blurb: 'Remains mysterious even when giving perfectly ordinary directions.'
@@ -130,6 +162,8 @@ themes:
               standing: 'established'
               shift: 'late'
               manner: 'measured'
+              billing: 'the lead'
+              dressing: 'downstairs'
       prop:
         name: 'Prop'
         pattern: 'the {}'
@@ -145,6 +179,12 @@ themes:
           finish:
             label: 'Finish'
             pattern: '{noun} with a {} finish'
+          act:
+            label: 'Used in'
+            pattern: '{noun} used in the {} act'
+          logged:
+            label: 'Prop list'
+            pattern: '{noun} that is {} on the prop list'
         items:
           folding-fan:
             label: 'Folding Fan'
@@ -153,6 +193,8 @@ themes:
               handling: 'one-handed'
               storage: 'left'
               finish: 'matte'
+              act: 'first'
+              logged: 'ticked'
           sealed-letter:
             label: 'Sealed Letter'
             blurb: 'Contains news too important to survive being read aloud accurately.'
@@ -160,6 +202,8 @@ themes:
               handling: 'one-handed'
               storage: 'right'
               finish: 'matte'
+              act: 'second'
+              logged: 'ticked'
           golden-goblet:
             label: 'Golden Goblet'
             blurb: 'Looks expensive enough to justify the remarkably ordinary water inside.'
@@ -167,6 +211,8 @@ themes:
               handling: 'one-handed'
               storage: 'left'
               finish: 'shiny'
+              act: 'both'
+              logged: 'queried'
           hand-mirror:
             label: 'Hand Mirror'
             blurb: "Reflects magnificence, subject to lighting and the performer's own expectations."
@@ -174,6 +220,8 @@ themes:
               handling: 'one-handed'
               storage: 'right'
               finish: 'shiny'
+              act: 'first'
+              logged: 'ticked'
           storm-lantern:
             label: 'Storm Lantern'
             blurb: 'Creates atmosphere without being permitted to create actual fire.'
@@ -181,6 +229,8 @@ themes:
               handling: 'one-handed'
               storage: 'left'
               finish: 'matte'
+              act: 'both'
+              logged: 'ticked'
           royal-sceptre:
             label: 'Royal Sceptre'
             blurb: 'Confers authority for the duration of the speech and no longer.'
@@ -188,6 +238,8 @@ themes:
               handling: 'one-handed'
               storage: 'right'
               finish: 'shiny'
+              act: 'second'
+              logged: 'queried'
           map-scroll:
             label: 'Map Scroll'
             blurb: 'The kingdom is detailed beautifully, apart from the bit needed in this scene.'
@@ -195,6 +247,8 @@ themes:
               handling: 'two-handed'
               storage: 'left'
               finish: 'matte'
+              act: 'first'
+              logged: 'ticked'
           throne-chair:
             label: 'Throne Chair'
             blurb: 'Reserved for royalty, except when somebody needs to reach the top shelf.'
@@ -202,6 +256,8 @@ themes:
               handling: 'two-handed'
               storage: 'central'
               finish: 'shiny'
+              act: 'both'
+              logged: 'ticked'
           feather-quill:
             label: 'Feather Quill'
             blurb: 'Writes convincing declarations until the nib encounters paper.'
@@ -209,6 +265,8 @@ themes:
               handling: 'one-handed'
               storage: 'right'
               finish: 'matte'
+              act: 'second'
+              logged: 'missing'
           blunt-dagger:
             label: 'Blunt Dagger'
             blurb: 'Threatening from the audience, reassuringly unambitious at close range.'
@@ -216,6 +274,8 @@ themes:
               handling: 'one-handed'
               storage: 'left'
               finish: 'shiny'
+              act: 'second'
+              logged: 'queried'
           silk-bouquet:
             label: 'Silk Bouquet'
             blurb: 'Remains fresh through every love scene and several storage winters.'
@@ -223,6 +283,8 @@ themes:
               handling: 'two-handed'
               storage: 'right'
               finish: 'matte'
+              act: 'first'
+              logged: 'ticked'
           alarm-clock:
             label: 'Alarm Clock'
             blurb: 'Its ringing has better timing than several members of the company.'
@@ -230,6 +292,8 @@ themes:
               handling: 'two-handed'
               storage: 'central'
               finish: 'shiny'
+              act: 'first'
+              logged: 'missing'
           walking-cane:
             label: 'Walking Cane'
             blurb: 'Adds dignity to an entrance and complexity to a narrow doorway.'
@@ -237,6 +301,8 @@ themes:
               handling: 'one-handed'
               storage: 'left'
               finish: 'shiny'
+              act: 'both'
+              logged: 'ticked'
           treasure-coffer:
             label: 'Treasure Coffer'
             blurb: 'The treasure is imaginary, but the lifting instructions are very real.'
@@ -244,6 +310,8 @@ themes:
               handling: 'two-handed'
               storage: 'central'
               finish: 'matte'
+              act: 'second'
+              logged: 'queried'
       costume:
         name: 'Costume'
         pattern: 'the {}'
@@ -259,6 +327,12 @@ themes:
           rack:
             label: 'Rack'
             pattern: '{noun} on the {} rack'
+          care:
+            label: 'Cleaning'
+            pattern: '{noun} that is {}'
+          fitting:
+            label: 'Fitting'
+            pattern: '{noun} that was {}'
         items:
           knight-s-armour:
             label: "Knight's Armour"
@@ -267,6 +341,8 @@ themes:
               fastening: 'straps'
               weight: 'heavy'
               rack: 'north'
+              care: 'never cleaned'
+              fitting: 'hired in'
           court-gown:
             label: 'Court Gown'
             blurb: 'Requires one performer and a supportive relationship with every doorway.'
@@ -274,6 +350,8 @@ themes:
               fastening: 'laces'
               weight: 'heavy'
               rack: 'south'
+              care: 'dry-clean only'
+              fitting: 'made to measure'
           jester-s-motley:
             label: "Jester's Motley"
             blurb: 'The pattern makes it difficult to tell whether the wearer is moving.'
@@ -281,6 +359,8 @@ themes:
               fastening: 'buttons'
               weight: 'light'
               rack: 'east'
+              care: 'washable'
+              fitting: 'altered'
           sailor-s-blouse:
             label: "Sailor's Blouse"
             blurb: "Has spent less time at sea than the wardrobe supervisor's favourite mug."
@@ -288,6 +368,8 @@ themes:
               fastening: 'buttons'
               weight: 'light'
               rack: 'north'
+              care: 'washable'
+              fitting: 'altered'
           wizard-s-robe:
             label: "Wizard's Robe"
             blurb: "The sleeves conceal many secrets, including the wearer's actual hands."
@@ -295,6 +377,8 @@ themes:
               fastening: 'ties'
               weight: 'medium'
               rack: 'south'
+              care: 'dry-clean only'
+              fitting: 'hired in'
           ballet-tutu:
             label: 'Ballet Tutu'
             blurb: 'Occupies a surprising amount of space for something described as delicate.'
@@ -302,6 +386,8 @@ themes:
               fastening: 'hooks'
               weight: 'light'
               rack: 'east'
+              care: 'dry-clean only'
+              fitting: 'made to measure'
           footman-s-livery:
             label: "Footman's Livery"
             blurb: 'The buttons are decorative until someone has to fasten all of them.'
@@ -309,6 +395,8 @@ themes:
               fastening: 'buttons'
               weight: 'medium'
               rack: 'north'
+              care: 'washable'
+              fitting: 'altered'
           pirate-coat:
             label: 'Pirate Coat'
             blurb: 'Looks convincingly weathered after a thoroughly supervised afternoon indoors.'
@@ -316,6 +404,8 @@ themes:
               fastening: 'buttons'
               weight: 'heavy'
               rack: 'south'
+              care: 'dry-clean only'
+              fitting: 'hired in'
           ghost-sheet:
             label: 'Ghost Sheet'
             blurb: 'The simplest design still requires a detailed discussion about eye placement.'
@@ -323,6 +413,8 @@ themes:
               fastening: 'ties'
               weight: 'light'
               rack: 'east'
+              care: 'washable'
+              fitting: 'altered'
           moth-cape:
             label: 'Moth Cape'
             blurb: 'The wings are majestic until the wearer attempts the narrow corridor.'
@@ -330,6 +422,8 @@ themes:
               fastening: 'hooks'
               weight: 'medium'
               rack: 'south'
+              care: 'dry-clean only'
+              fitting: 'made to measure'
           cook-s-apron:
             label: "Cook's Apron"
             blurb: 'Has never met a real kitchen but carries several persuasive stains.'
@@ -337,6 +431,8 @@ themes:
               fastening: 'ties'
               weight: 'light'
               rack: 'north'
+              care: 'washable'
+              fitting: 'altered'
           winter-furs:
             label: 'Winter Furs'
             blurb: 'Suggests a frozen wilderness while quietly overheating the performer.'
@@ -344,6 +440,8 @@ themes:
               fastening: 'hooks'
               weight: 'heavy'
               rack: 'east'
+              care: 'never cleaned'
+              fitting: 'hired in'
           ringmaster-tails:
             label: 'Ringmaster Tails'
             blurb: 'Every turn offers the coat another opportunity to introduce itself.'
@@ -351,6 +449,8 @@ themes:
               fastening: 'buttons'
               weight: 'medium'
               rack: 'north'
+              care: 'dry-clean only'
+              fitting: 'made to measure'
           royal-mantle:
             label: 'Royal Mantle'
             blurb: 'Projects authority from the shoulders and inconvenience from the hem.'
@@ -358,6 +458,8 @@ themes:
               fastening: 'hooks'
               weight: 'heavy'
               rack: 'south'
+              care: 'never cleaned'
+              fitting: 'made to measure'
       scenery:
         name: 'Scenery'
         pattern: 'the {}'
@@ -373,6 +475,12 @@ themes:
           construction:
             label: 'Construction'
             pattern: '{noun} of {} construction'
+          crew:
+            label: 'Change'
+            pattern: '{noun} changed by {}'
+          reuse:
+            label: 'Reuse'
+            pattern: '{noun} that is {}'
         items:
           painted-forest:
             label: 'Painted Forest'
@@ -381,6 +489,8 @@ themes:
               setting: 'outdoor'
               light: 'bright'
               construction: 'flat'
+              crew: 'two hands'
+              reuse: 'from the store'
           castle-gate:
             label: 'Castle Gate'
             blurb: 'A formidable entrance with a surprisingly cooperative rear support.'
@@ -388,6 +498,8 @@ themes:
               setting: 'outdoor'
               light: 'dim'
               construction: 'built'
+              crew: 'the whole crew'
+              reuse: 'new this run'
           moonlit-balcony:
             label: 'Moonlit Balcony'
             blurb: 'Romance flourishes within the marked load-bearing area.'
@@ -395,6 +507,8 @@ themes:
               setting: 'outdoor'
               light: 'dim'
               construction: 'built'
+              crew: 'two hands'
+              reuse: 'borrowed'
           desert-dunes:
             label: 'Desert Dunes'
             blurb: 'The heat is imaginary. The dust in the storage room is more committed.'
@@ -402,6 +516,8 @@ themes:
               setting: 'outdoor'
               light: 'bright'
               construction: 'flat'
+              crew: 'two hands'
+              reuse: 'from the store'
           snowy-peak:
             label: 'Snowy Peak'
             blurb: 'The expedition reaches the summit shortly before the interval.'
@@ -409,6 +525,8 @@ themes:
               setting: 'outdoor'
               light: 'bright'
               construction: 'flat'
+              crew: 'the whole crew'
+              reuse: 'new this run'
           village-well:
             label: 'Village Well'
             blurb: 'Deep enough for dramatic symbolism, much less suitable for fetching water.'
@@ -416,6 +534,8 @@ themes:
               setting: 'outdoor'
               light: 'bright'
               construction: 'built'
+              crew: 'one hand'
+              reuse: 'from the store'
           garden-arch:
             label: 'Garden Arch'
             blurb: 'The climbing plants have been trained to remain within the transport dimensions.'
@@ -423,6 +543,8 @@ themes:
               setting: 'outdoor'
               light: 'bright'
               construction: 'built'
+              crew: 'one hand'
+              reuse: 'borrowed'
           ship-s-deck:
             label: "Ship's Deck"
             blurb: 'The ocean moves on cue while the floor is strongly encouraged not to.'
@@ -430,6 +552,8 @@ themes:
               setting: 'outdoor'
               light: 'dim'
               construction: 'built'
+              crew: 'the whole crew'
+              reuse: 'new this run'
           palace-stair:
             label: 'Palace Stair'
             blurb: 'A grand approach to a platform only slightly above everyone else.'
@@ -437,6 +561,8 @@ themes:
               setting: 'indoor'
               light: 'bright'
               construction: 'built'
+              crew: 'the whole crew'
+              reuse: 'from the store'
           prison-cell:
             label: 'Prison Cell'
             blurb: 'The bars suggest despair while the exit latch suggests a tea break.'
@@ -444,6 +570,8 @@ themes:
               setting: 'indoor'
               light: 'dim'
               construction: 'built'
+              crew: 'two hands'
+              reuse: 'from the store'
           ruined-temple:
             label: 'Ruined Temple'
             blurb: 'Painstakingly constructed to look as though the builders gave up centuries ago.'
@@ -451,6 +579,8 @@ themes:
               setting: 'outdoor'
               light: 'dim'
               construction: 'flat'
+              crew: 'the whole crew'
+              reuse: 'new this run'
           city-rooftops:
             label: 'City Rooftops'
             blurb: 'An impressive skyline with a modest requirement for actual buildings.'
@@ -458,6 +588,8 @@ themes:
               setting: 'outdoor'
               light: 'dim'
               construction: 'flat'
+              crew: 'two hands'
+              reuse: 'borrowed'
           cave-mouth:
             label: 'Cave Mouth'
             blurb: 'The entrance to darkness is stored beside the spare extension leads.'
@@ -465,6 +597,8 @@ themes:
               setting: 'outdoor'
               light: 'dim'
               construction: 'flat'
+              crew: 'one hand'
+              reuse: 'from the store'
           village-watermill:
             label: 'Village Watermill'
             blurb: 'Turns steadily, provided the person behind it has not been called elsewhere.'
@@ -472,6 +606,8 @@ themes:
               setting: 'outdoor'
               light: 'bright'
               construction: 'built'
+              crew: 'the whole crew'
+              reuse: 'borrowed'
       stage-time:
         name: 'Stage Time'
         pattern: 'the {}-minute appearance'
@@ -489,6 +625,15 @@ themes:
           review:
             label: 'Review'
             pattern: '{noun} requiring {} review'
+          interval:
+            label: 'Interval'
+            pattern: '{noun} {} the interval'
+          cue:
+            label: 'Cue'
+            pattern: '{noun} called by {}'
+          notes:
+            label: 'Notes'
+            pattern: '{noun} with {} in the notes'
         items:
           5:
             label: '5'
@@ -496,78 +641,117 @@ themes:
             traits:
               band: 'brief'
               review: 'routine'
+              interval: 'before'
+              cue: 'the book'
+              notes: 'no remarks'
           10:
             label: '10'
             blurb: 'Long enough for an entrance, a complication and a meaningful look.'
             traits:
               band: 'brief'
               review: 'routine'
+              interval: 'before'
+              cue: 'a light'
+              notes: 'a remark'
           15:
             label: '15'
             blurb: 'The performer calls this a compact opportunity for dramatic development.'
             traits:
               band: 'brief'
               review: 'routine'
+              interval: 'before'
+              cue: 'a bell'
+              notes: 'no remarks'
           20:
             label: '20'
             blurb: 'Allows one carefully measured pause and several that happen by themselves.'
             traits:
               band: 'brief'
               review: 'routine'
+              interval: 'before'
+              cue: 'the book'
+              notes: 'several remarks'
           25:
             label: '25'
             blurb: 'A comfortable interval for making the audience wonder what comes next.'
             traits:
               band: 'standard'
               review: 'routine'
+              interval: 'before'
+              cue: 'a light'
+              notes: 'a remark'
           30:
             label: '30'
             blurb: 'The director requests energy throughout and specificity about the ending.'
             traits:
               band: 'standard'
               review: 'routine'
+              interval: 'before'
+              cue: 'the book'
+              notes: 'no remarks'
           35:
             label: '35'
             blurb: 'Enough time for a character to change their mind with suitable ceremony.'
             traits:
               band: 'standard'
               review: 'routine'
+              interval: 'before'
+              cue: 'a bell'
+              notes: 'a remark'
           40:
             label: '40'
             blurb: 'A substantial appearance with room for a particularly expressive silence.'
             traits:
               band: 'standard'
               review: 'detailed'
+              interval: 'before'
+              cue: 'the book'
+              notes: 'several remarks'
           45:
             label: '45'
             blurb: 'The audience has become familiar with the performer and the nearby scenery.'
             traits:
               band: 'standard'
               review: 'detailed'
+              interval: 'after'
+              cue: 'a light'
+              notes: 'no remarks'
           50:
             label: '50'
             blurb: 'The notes request variety without explaining where the variety should begin.'
             traits:
               band: 'extended'
               review: 'detailed'
+              interval: 'after'
+              cue: 'the book'
+              notes: 'a remark'
           55:
             label: '55'
             blurb: 'A lengthy contribution that the performer describes as almost understated.'
             traits:
               band: 'extended'
               review: 'detailed'
+              interval: 'after'
+              cue: 'a bell'
+              notes: 'a remark'
           60:
             label: '60'
             blurb: 'An hour of commitment, measured by a clock with no artistic opinions.'
             traits:
               band: 'extended'
               review: 'detailed'
+              interval: 'after'
+              cue: 'a light'
+              notes: 'several remarks'
           65:
             label: '65'
             blurb: 'The director suggests that every minute should justify its continued existence.'
             traits:
               band: 'extended'
               review: 'detailed'
+              interval: 'after'
+              cue: 'the book'
+              notes: 'no remarks'
           70:
             label: '70'
             blurb: 'The longest listed appearance. The understudy has packed a second sandwich.'
@@ -575,6 +759,9 @@ themes:
               band: 'extended'
               review: 'detailed'
 
+              interval: 'after'
+              cue: 'a light'
+              notes: 'a remark'
 briefings:
   themes:
     backstage-mystery:

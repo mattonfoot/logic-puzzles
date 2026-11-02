@@ -21,10 +21,12 @@ import type {
   CategoryDef,
   Clue,
   ClueKind,
+  ItemDef,
   Puzzle,
   PuzzleCategory,
   SizeOption,
   ThemeDef,
+  TraitDef,
 } from './types';
 
 export interface GenerateOptions {
@@ -82,6 +84,16 @@ function pickCategories(theme: ThemeDef, size: SizeOption, rng: Rng): PuzzleCate
   );
 }
 
+/**
+ * How many of a set's traits one puzzle plays with.
+ *
+ * A set carries more than this so that two puzzles on the same theme are
+ * described differently — one asks you about a curator's shift, the next about
+ * their tenure — and four is what an item's card has room to say without
+ * becoming a dossier.
+ */
+export const TRAITS_PER_PUZZLE = 4;
+
 /** Draws `size` items at random from the category's pool. */
 function sampleCategory(category: CategoryDef, size: number, rng: Rng): PuzzleCategory {
   let items = rng.shuffle(category.items).slice(0, size);
@@ -95,16 +107,29 @@ function sampleCategory(category: CategoryDef, size: number, rng: Rng): PuzzleCa
     pattern: category.pattern,
     describes: category.describes,
     noun: category.noun,
-    // Only the traits the sampled cast actually varies by are worth keeping:
-    // one every item shares describes nothing, and one nobody has is noise.
-    traits: category.traits.filter((trait) => {
-      const values = new Set(items.map((item) => item.traits[trait.id]));
-      values.delete(undefined as unknown as string);
-      return values.size > 1;
-    }),
+    traits: pickTraits(category, items, rng),
     items,
     ordered: category.ordered,
   };
+}
+
+/**
+ * The traits this puzzle describes a set by.
+ *
+ * Only the ones the sampled cast actually varies by are worth having: one every
+ * item answers the same way describes nothing, and one nobody has is noise.
+ * Four of whatever is left, drawn by the seed, and put back in the order the
+ * set lists them so a card reads the same way every time.
+ */
+function pickTraits(category: CategoryDef, items: ItemDef[], rng: Rng): TraitDef[] {
+  const useful = category.traits.filter((trait) => {
+    const values = new Set(items.map((item) => item.traits[trait.id]));
+    values.delete(undefined as unknown as string);
+    return values.size > 1;
+  });
+  if (useful.length <= TRAITS_PER_PUZZLE) return useful;
+  const drawn = new Set(rng.shuffle(useful).slice(0, TRAITS_PER_PUZZLE));
+  return useful.filter((trait) => drawn.has(trait));
 }
 
 /** solution[category][entity]; category 0 is pinned to the identity. */

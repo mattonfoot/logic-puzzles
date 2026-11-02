@@ -1,7 +1,7 @@
 import { SIZES, sizeById } from '../../data/sizes';
 import { THEMES } from '../../data/themes';
 import { describeClue } from '../describe';
-import { CLUE_KINDS, cluesAllowed, generatePuzzle } from '../generator';
+import { CLUE_KINDS, TRAITS_PER_PUZZLE, cluesAllowed, generatePuzzle } from '../generator';
 import { contextFor, hasUniqueSolution, satisfiesAll, solve, solveByDeduction } from '../solver';
 import type { Clue, ClueKind, SizeOption } from '../types';
 
@@ -50,6 +50,57 @@ describe('generatePuzzle', () => {
         expect(solveByDeduction(without, ctx)).toBeNull();
       }
     }
+  });
+
+  describe('the traits a board describes a set by', () => {
+    it('plays with four of them at most, in the order the set lists them', () => {
+      for (const theme of THEMES) {
+        for (const size of SIZES) {
+          const puzzle = generatePuzzle({ theme, size, seed: 5150 });
+          for (const category of puzzle.categories) {
+            const written = theme.categories.find((other) => other.id === category.id)!;
+            expect(written.traits.length).toBeGreaterThan(TRAITS_PER_PUZZLE);
+
+            expect(category.traits.length).toBeGreaterThan(0);
+            expect(category.traits.length).toBeLessThanOrEqual(TRAITS_PER_PUZZLE);
+
+            const ids = category.traits.map((trait) => trait.id);
+            const asWritten = written.traits
+              .filter((trait) => ids.includes(trait.id))
+              .map((trait) => trait.id);
+            expect(ids).toEqual(asWritten);
+          }
+        }
+      }
+    });
+
+    it('describes the same theme differently from one puzzle to the next', () => {
+      // Otherwise the extra traits are written and never read.
+      for (const theme of THEMES) {
+        const sets = new Set<string>();
+        for (let n = 1; n <= 20; n++) {
+          const puzzle = generatePuzzle({ theme, size: sizeById('xl'), seed: n * 100 + 3 });
+          sets.add(puzzle.categories.map((c) => c.traits.map((t) => t.id).join('+')).join('|'));
+        }
+        expect(`${theme.id}: ${sets.size}`).not.toBe(`${theme.id}: 1`);
+      }
+    });
+
+    it('never describes a set by something its cast all answer the same way', () => {
+      for (const theme of THEMES) {
+        for (let n = 1; n <= 10; n++) {
+          const puzzle = generatePuzzle({ theme, size: sizeById('md'), seed: n * 100 + 9 });
+          for (const category of puzzle.categories) {
+            for (const trait of category.traits) {
+              const values = new Set(category.items.map((item) => item.traits[trait.id]));
+              expect(`${theme.id}/${category.id}/${trait.id}: ${values.size}`).not.toBe(
+                `${theme.id}/${category.id}/${trait.id}: 1`,
+              );
+            }
+          }
+        }
+      }
+    });
   });
 
   describe('the kinds a board is allowed', () => {

@@ -179,6 +179,12 @@ themes:
           body:
             label: 'Body'
             pattern: '{noun} with {}'
+          sightings:
+            label: 'Sightings'
+            pattern: '{noun} that is {} here'
+          active:
+            label: 'Active'
+            pattern: '{noun} active by {}'
         items:
           octopus:
             label: 'Octopus'
@@ -187,6 +193,8 @@ themes:
               size: 'big'
               danger: 'harmless'
               body: 'no bones'
+              sightings: 'uncommon'
+              active: 'night'
           manta:
             label: 'Manta'
             blurb: 'Five metres wide. Still manages to make the diver look in the way.'
@@ -194,6 +202,8 @@ themes:
               size: 'big'
               danger: 'harmless'
               body: 'smooth skin'
+              sightings: 'rare'
+              active: 'day'
           turtle:
             label: 'Turtle'
             blurb: 'Older than the boat. Better maintained. Has never once read the briefing.'
@@ -201,6 +211,8 @@ themes:
               size: 'big'
               danger: 'harmless'
               body: 'a shell'
+              sightings: 'common'
+              active: 'day'
           seahorse:
             label: 'Seahorse'
             blurb: 'Wraps its tail round one twig and treats the rest of the ocean as a delivery service.'
@@ -208,6 +220,8 @@ themes:
               size: 'tiny'
               danger: 'harmless'
               body: 'armour'
+              sightings: 'rare'
+              active: 'day'
           moray:
             label: 'Moray'
             blurb: 'Lives in a hole. Opens its mouth whenever you pass, like a neighbour with a complaint.'
@@ -215,6 +229,8 @@ themes:
               size: 'big'
               danger: 'venomous'
               body: 'smooth skin'
+              sightings: 'common'
+              active: 'night'
           clownfish:
             label: 'Clownfish'
             blurb: 'Owns one anemone. Has made this very clear to the entire ocean.'
@@ -222,6 +238,8 @@ themes:
               size: 'tiny'
               danger: 'harmless'
               body: 'smooth skin'
+              sightings: 'common'
+              active: 'day'
           barracuda:
             label: 'Barracuda'
             blurb: 'All teeth and no small talk. A considerable saving on the briefing.'
@@ -229,6 +247,8 @@ themes:
               size: 'big'
               danger: 'venomous'
               body: 'smooth skin'
+              sightings: 'uncommon'
+              active: 'day'
           stingray:
             label: 'Stingray'
             blurb: 'Sleeps under the sand. Gives the accommodation a poor review whenever someone steps on it.'
@@ -236,6 +256,8 @@ themes:
               size: 'big'
               danger: 'venomous'
               body: 'smooth skin'
+              sightings: 'common'
+              active: 'day'
           lionfish:
             label: 'Lionfish'
             blurb: 'Dressed for a ball. Armed for a disagreement about the seating plan.'
@@ -243,6 +265,8 @@ themes:
               size: 'tiny'
               danger: 'venomous'
               body: 'spines'
+              sightings: 'uncommon'
+              active: 'night'
           grouper:
             label: 'Grouper'
             blurb: 'Follows the divers in case one turns out to be lunch service.'
@@ -250,6 +274,8 @@ themes:
               size: 'big'
               danger: 'harmless'
               body: 'smooth skin'
+              sightings: 'common'
+              active: 'day'
           pipefish:
             label: 'Pipefish'
             blurb: 'A seahorse redesigned by someone who only had a ruler.'
@@ -257,6 +283,8 @@ themes:
               size: 'tiny'
               danger: 'harmless'
               body: 'armour'
+              sightings: 'rare'
+              active: 'day'
           reef-shark:
             label: 'Reef Shark'
             blurb: 'Circles once, decides you look expensive to digest, and leaves.'
@@ -264,6 +292,8 @@ themes:
               size: 'big'
               danger: 'venomous'
               body: 'smooth skin'
+              sightings: 'uncommon'
+              active: 'night'
           cuttlefish:
             label: 'Cuttlefish'
             blurb: 'Changes colour halfway through an argument, then denies having said anything.'
@@ -271,6 +301,8 @@ themes:
               size: 'tiny'
               danger: 'harmless'
               body: 'no bones'
+              sightings: 'uncommon'
+              active: 'night'
           sea-urchin:
             label: 'Sea Urchin'
             blurb: 'Does nothing all day. Somehow makes this everyone else’s problem.'
@@ -278,6 +310,8 @@ themes:
               size: 'tiny'
               danger: 'venomous'
               body: 'spines'
+              sightings: 'common'
+              active: 'night'
       gear:
         name: 'Gear'
         pattern: 'the diver with the {}'
@@ -293,6 +327,12 @@ themes:
           size:
             label: 'Size'
             pattern: '{} {noun}'
+          serviced:
+            label: 'Serviced'
+            pattern: '{noun} serviced {}'
+          owner:
+            label: 'Belongs to'
+            pattern: '{noun} that belongs to {}'
         items:
           red-fins:
             label: 'Red Fins'
@@ -301,6 +341,8 @@ themes:
               material: 'rubber'
               use: 'swimming'
               size: 'big'
+              serviced: 'when it fails'
+              owner: 'a diver'
           blue-mask:
             label: 'Blue Mask'
             blurb: 'Perfectly clear until there is something worth looking at.'
@@ -308,6 +350,8 @@ themes:
               material: 'glass'
               use: 'seeing'
               size: 'small'
+              serviced: 'every trip'
+              owner: 'a diver'
           green-tank:
             label: 'Green Tank'
             blurb: 'Light as a feather underwater. Remembers its responsibilities on the ladder.'
@@ -315,6 +359,8 @@ themes:
               material: 'steel'
               use: 'breathing'
               size: 'big'
+              serviced: 'every trip'
+              owner: 'the centre'
           yellow-torch:
             label: 'Yellow Torch'
             blurb: 'Bright enough to find the eel. The eel would prefer you hadn’t.'
@@ -322,6 +368,8 @@ themes:
               material: 'steel'
               use: 'seeing'
               size: 'small'
+              serviced: 'every season'
+              owner: 'the centre'
           black-camera:
             label: 'Black Camera'
             blurb: 'Insured for more than the boat. Gets the better seat on the way home.'
@@ -329,6 +377,8 @@ themes:
               material: 'glass'
               use: 'recording'
               size: 'big'
+              serviced: 'every trip'
+              owner: 'a diver'
           white-slate:
             label: 'White Slate'
             blurb: 'For urgent messages such as “SHARK”, “AIR” and “whose sandwich was that?”'
@@ -336,6 +386,8 @@ themes:
               material: 'plastic'
               use: 'recording'
               size: 'small'
+              serviced: 'when it fails'
+              owner: 'the boat'
           orange-reel:
             label: 'Orange Reel'
             blurb: 'Two hundred metres of line, all personally committed to becoming one knot.'
@@ -343,6 +395,8 @@ themes:
               material: 'plastic'
               use: 'safety'
               size: 'small'
+              serviced: 'every season'
+              owner: 'the centre'
           pink-buoy:
             label: 'Pink Buoy'
             blurb: 'Announces your position to the boat. The boat is looking somewhere else.'
@@ -350,6 +404,8 @@ themes:
               material: 'rubber'
               use: 'safety'
               size: 'big'
+              serviced: 'every season'
+              owner: 'the boat'
           silver-knife:
             label: 'Silver Knife'
             blurb: 'Bought for tangled nets. So far, its toughest rescue involved a baguette.'
@@ -357,6 +413,8 @@ themes:
               material: 'steel'
               use: 'safety'
               size: 'small'
+              serviced: 'when it fails'
+              owner: 'a diver'
           teal-compass:
             label: 'Teal Compass'
             blurb: 'Always knows where north is. Declines to explain where you are.'
@@ -364,6 +422,8 @@ themes:
               material: 'glass'
               use: 'finding the way'
               size: 'small'
+              serviced: 'every season'
+              owner: 'the centre'
           grey-gloves:
             label: 'Grey Gloves'
             blurb: 'Thick enough to protect your hands from everything except finding your keys.'
@@ -371,6 +431,8 @@ themes:
               material: 'rubber'
               use: 'safety'
               size: 'small'
+              serviced: 'when it fails'
+              owner: 'a diver'
           amber-lamp:
             label: 'Amber Lamp'
             blurb: 'Brings a warm glow to a place that has made its feelings about warmth quite clear.'
@@ -378,6 +440,8 @@ themes:
               material: 'glass'
               use: 'seeing'
               size: 'big'
+              serviced: 'every season'
+              owner: 'the centre'
           coral-flag:
             label: 'Coral Flag'
             blurb: 'Clearly says “divers below”. Several boats remain committed to a different interpretation.'
@@ -385,6 +449,8 @@ themes:
               material: 'plastic'
               use: 'safety'
               size: 'big'
+              serviced: 'every trip'
+              owner: 'the boat'
           navy-hood:
             label: 'Navy Hood'
             blurb: 'Keeps the head warm and turns every instruction into “mmph”.'
@@ -392,6 +458,8 @@ themes:
               material: 'rubber'
               use: 'warmth'
               size: 'small'
+              serviced: 'when it fails'
+              owner: 'a diver'
       site:
         name: 'Site'
         pattern: 'the {} site'
@@ -407,6 +475,12 @@ themes:
           light:
             label: 'Light'
             pattern: '{} {noun}'
+          permit:
+            label: 'Permit'
+            pattern: '{noun} that is {}'
+          reached:
+            label: 'Reached by'
+            pattern: '{noun} reached by {}'
         items:
           blue-hole:
             label: 'Blue Hole'
@@ -415,6 +489,8 @@ themes:
               terrain: 'caves'
               current: 'calm'
               light: 'dark'
+              permit: 'permit-only'
+              reached: 'boat'
           lace-wall:
             label: 'Lace Wall'
             blurb: 'A hundred metres of fan coral. Even the guide briefly runs out of things to say.'
@@ -422,6 +498,8 @@ themes:
               terrain: 'walls'
               current: 'strong'
               light: 'bright'
+              permit: 'permit-only'
+              reached: 'boat'
           shipwreck:
             label: 'Shipwreck'
             blurb: 'Sank with a cargo of teapots. Service has been slow ever since.'
@@ -429,6 +507,8 @@ themes:
               terrain: 'wreckage'
               current: 'calm'
               light: 'dark'
+              permit: 'permit-only'
+              reached: 'boat'
           kelp-maze:
             label: 'Kelp Maze'
             blurb: 'Easy to enter. Every frond has a different opinion about the way out.'
@@ -436,6 +516,8 @@ themes:
               terrain: 'weed'
               current: 'calm'
               light: 'dark'
+              permit: 'open to all'
+              reached: 'the shore'
           coral-arch:
             label: 'Coral Arch'
             blurb: 'Swim through for luck. The guide says this is optional, while already swimming through.'
@@ -443,6 +525,8 @@ themes:
               terrain: 'walls'
               current: 'strong'
               light: 'bright'
+              permit: 'open to all'
+              reached: 'boat'
           night-cove:
             label: 'Night Cove'
             blurb: 'Lovely after dark. During the day it is mainly somewhere you were told to come back to.'
@@ -450,6 +534,8 @@ themes:
               terrain: 'sand'
               current: 'calm'
               light: 'dark'
+              permit: 'permit-only'
+              reached: 'the shore'
           tide-pools:
             label: 'Tide Pools'
             blurb: 'Waist deep. Everything that looks like a rock is waiting for you to say so.'
@@ -457,6 +543,8 @@ themes:
               terrain: 'sand'
               current: 'strong'
               light: 'bright'
+              permit: 'open to all'
+              reached: 'the shore'
           anchor-bay:
             label: 'Anchor Bay'
             blurb: 'Two centuries of lost anchors. Apparently nobody thought to tie a rope to the first one.'
@@ -464,6 +552,8 @@ themes:
               terrain: 'sand'
               current: 'calm'
               light: 'bright'
+              permit: 'open to all'
+              reached: 'a long swim'
           sea-fan-bay:
             label: 'Sea Fan Bay'
             blurb: 'Purple, enormous, and still unable to get everyone into the same photograph.'
@@ -471,6 +561,8 @@ themes:
               terrain: 'walls'
               current: 'calm'
               light: 'bright'
+              permit: 'open to all'
+              reached: 'boat'
           lantern-reef:
             label: 'Lantern Reef'
             blurb: 'Glows at dusk. The scientists disagree; the photographers have already booked.'
@@ -478,6 +570,8 @@ themes:
               terrain: 'walls'
               current: 'calm'
               light: 'bright'
+              permit: 'permit-only'
+              reached: 'a long swim'
           sunken-pier:
             label: 'Sunken Pier'
             blurb: 'The town moved inland. The pier is still waiting for written confirmation.'
@@ -485,6 +579,8 @@ themes:
               terrain: 'wreckage'
               current: 'strong'
               light: 'dark'
+              permit: 'permit-only'
+              reached: 'the shore'
           green-lagoon:
             label: 'Green Lagoon'
             blurb: 'Warm, shallow and green. The brochure has chosen to call this “emerald”.'
@@ -492,6 +588,8 @@ themes:
               terrain: 'weed'
               current: 'calm'
               light: 'bright'
+              permit: 'open to all'
+              reached: 'the shore'
           cavern-ridge:
             label: 'Cavern Ridge'
             blurb: 'A magnificent entrance. The torch beam is less enthusiastic about what comes next.'
@@ -499,6 +597,8 @@ themes:
               terrain: 'caves'
               current: 'strong'
               light: 'dark'
+              permit: 'permit-only'
+              reached: 'boat'
           turtle-point:
             label: 'Turtle Point'
             blurb: 'Named after a turtle seen in 1987. The marketing department remains confident.'
@@ -506,6 +606,8 @@ themes:
               terrain: 'sand'
               current: 'calm'
               light: 'bright'
+              permit: 'open to all'
+              reached: 'a long swim'
       depth:
         name: 'Depth'
         pattern: 'the diver at {}'
@@ -523,6 +625,15 @@ themes:
           parity:
             label: 'Number'
             pattern: '{noun} with an {} number'
+          half:
+            label: 'Half'
+            pattern: '{noun} in the {} half of the range'
+          air:
+            label: 'Breathing'
+            pattern: '{noun} dived on {}'
+          training:
+            label: 'Open to'
+            pattern: '{noun} open to {} divers'
         items:
           10m:
             label: '10m'
@@ -530,78 +641,117 @@ themes:
             traits:
               band: 'shallow'
               parity: 'even'
+              half: 'first'
+              air: 'air'
+              training: 'all'
           15m:
             label: '15m'
             blurb: 'A 15m dive. Still close enough to the boat to remember what you left on it.'
             traits:
               band: 'shallow'
               parity: 'odd'
+              half: 'first'
+              air: 'air'
+              training: 'all'
           20m:
             label: '20m'
             blurb: 'A 20m dive. The reds have left. Nobody has told the camera.'
             traits:
               band: 'shallow'
               parity: 'even'
+              half: 'first'
+              air: 'nitrox'
+              training: 'all'
           25m:
             label: '25m'
             blurb: 'A 25m dive. The fish look relaxed. They have not paid for a return trip.'
             traits:
               band: 'shallow'
               parity: 'odd'
+              half: 'first'
+              air: 'nitrox'
+              training: 'qualified'
           30m:
             label: '30m'
             blurb: 'A 30m dive. The guide points down. You had rather hoped this was the destination.'
             traits:
               band: 'shallow'
               parity: 'even'
+              half: 'first'
+              air: 'nitrox'
+              training: 'qualified'
           35m:
             label: '35m'
             blurb: 'A 35m dive. The interesting fish finally appear, having waited for the tourists to leave.'
             traits:
               band: 'middling'
               parity: 'odd'
+              half: 'first'
+              air: 'nitrox'
+              training: 'qualified'
           40m:
             label: '40m'
             blurb: 'A 40m dive. The surface is beginning to sound like an excellent idea.'
             traits:
               band: 'middling'
               parity: 'even'
+              half: 'first'
+              air: 'nitrox'
+              training: 'qualified'
           45m:
             label: '45m'
             blurb: 'A 45m dive. The hood wins its long-running argument with your hairstyle.'
             traits:
               band: 'middling'
               parity: 'odd'
+              half: 'second'
+              air: 'nitrox'
+              training: 'technical'
           50m:
             label: '50m'
             blurb: 'A 50m dive. The torch is now the most optimistic member of the party.'
             traits:
               band: 'middling'
               parity: 'even'
+              half: 'second'
+              air: 'nitrox'
+              training: 'technical'
           55m:
             label: '55m'
             blurb: 'A 55m dive. The boat above has been downgraded from transport to rumour.'
             traits:
               band: 'middling'
               parity: 'odd'
+              half: 'second'
+              air: 'nitrox'
+              training: 'technical'
           60m:
             label: '60m'
             blurb: 'A 60m dive. Even the bubbles seem to have somewhere more sensible to be.'
             traits:
               band: 'deep'
               parity: 'even'
+              half: 'second'
+              air: 'nitrox'
+              training: 'technical'
           65m:
             label: '65m'
             blurb: 'A 65m dive. The logbook will require a second adjective.'
             traits:
               band: 'deep'
               parity: 'odd'
+              half: 'second'
+              air: 'nitrox'
+              training: 'technical'
           70m:
             label: '70m'
             blurb: 'A 70m dive. Mentioned casually at dinner. Repeated less casually at breakfast.'
             traits:
               band: 'deep'
               parity: 'even'
+              half: 'second'
+              air: 'nitrox'
+              training: 'technical'
           75m:
             label: '75m'
             blurb: 'A 75m dive. Rafa describes it as “a look round”. Nobody else does.'
@@ -609,6 +759,9 @@ themes:
               band: 'deep'
               parity: 'odd'
 
+              half: 'second'
+              air: 'nitrox'
+              training: 'technical'
 briefings:
   themes:
     reef:

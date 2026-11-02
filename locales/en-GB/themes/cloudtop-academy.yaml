@@ -31,6 +31,12 @@ themes:
           manner:
             label: 'Manner'
             pattern: '{} {noun}'
+          house:
+            label: 'House'
+            pattern: '{noun} of {} house'
+          boarding:
+            label: 'Boarding'
+            pattern: '{noun} who is a {}'
         items:
           finch-featherby:
             label: 'Finch Featherby'
@@ -39,6 +45,8 @@ themes:
               experience: 'limited'
               shift: 'early'
               manner: 'patient'
+              house: 'Cirrus'
+              boarding: 'boarder'
           pippa-puddle:
             label: 'Pippa Puddle'
             blurb: 'Has never met a practical lesson that could not become more practical.'
@@ -46,6 +54,8 @@ themes:
               experience: 'considerable'
               shift: 'late'
               manner: 'patient'
+              house: 'Aurora'
+              boarding: 'day pupil'
           theo-thistle:
             label: 'Theo Thistle'
             blurb: 'Annotates the textbook until the margins request their own textbook.'
@@ -53,6 +63,8 @@ themes:
               experience: 'extensive'
               shift: 'early'
               manner: 'brisk'
+              house: 'Zephyr'
+              boarding: 'boarder'
           mina-moonlet:
             label: 'Mina Moonlet'
             blurb: 'Maintains that staring out of the window counts as sky research.'
@@ -60,6 +72,8 @@ themes:
               experience: 'limited'
               shift: 'late'
               manner: 'brisk'
+              house: 'Aurora'
+              boarding: 'boarder'
           basil-brim:
             label: 'Basil Brim'
             blurb: 'Dresses for graduation several academic years ahead of schedule.'
@@ -67,6 +81,8 @@ themes:
               experience: 'considerable'
               shift: 'early'
               manner: 'dramatic'
+              house: 'Cirrus'
+              boarding: 'day pupil'
           cora-cloud:
             label: 'Cora Cloud'
             blurb: 'Volunteers first and reads the instructions with mounting interest afterwards.'
@@ -74,6 +90,8 @@ themes:
               experience: 'extensive'
               shift: 'late'
               manner: 'dramatic'
+              house: 'Zephyr'
+              boarding: 'boarder'
           ned-nimbus:
             label: 'Ned Nimbus'
             blurb: 'Brings emergency snacks for himself and hypothetical future versions of himself.'
@@ -81,6 +99,8 @@ themes:
               experience: 'limited'
               shift: 'early'
               manner: 'patient'
+              house: 'Cirrus'
+              boarding: 'day pupil'
           ari-aster:
             label: 'Ari Aster'
             blurb: 'Hears every announcement, except the one about listening carefully.'
@@ -88,6 +108,8 @@ themes:
               experience: 'considerable'
               shift: 'late'
               manner: 'patient'
+              house: 'Aurora'
+              boarding: 'boarder'
           kit-kestrel:
             label: 'Kit Kestrel'
             blurb: 'Describes an unexpected explosion as an unusually visible answer.'
@@ -95,6 +117,8 @@ themes:
               experience: 'extensive'
               shift: 'early'
               manner: 'brisk'
+              house: 'Zephyr'
+              boarding: 'day pupil'
           lottie-lark:
             label: 'Lottie Lark'
             blurb: 'Smiles at difficult questions until they begin to feel unreasonable.'
@@ -102,6 +126,8 @@ themes:
               experience: 'limited'
               shift: 'late'
               manner: 'brisk'
+              house: 'Cirrus'
+              boarding: 'boarder'
           peregrine-plum:
             label: 'Peregrine Plum'
             blurb: 'Keeps a list of achievements with several spaces reserved for imminent ones.'
@@ -109,6 +135,8 @@ themes:
               experience: 'considerable'
               shift: 'early'
               manner: 'dramatic'
+              house: 'Aurora'
+              boarding: 'boarder'
           rowan-rook:
             label: 'Rowan Rook'
             blurb: 'Regards detention as an opportunity to inspect the furniture.'
@@ -116,6 +144,8 @@ themes:
               experience: 'extensive'
               shift: 'late'
               manner: 'dramatic'
+              house: 'Zephyr'
+              boarding: 'day pupil'
           wren-willow:
             label: 'Wren Willow'
             blurb: 'Remembers every exception and regards the rules as useful background reading.'
@@ -123,6 +153,8 @@ themes:
               experience: 'limited'
               shift: 'early'
               manner: 'patient'
+              house: 'Aurora'
+              boarding: 'boarder'
           sylvie-sleet:
             label: 'Sylvie Sleet'
             blurb: 'Has perfected the expression of someone whose homework is technically elsewhere.'
@@ -130,6 +162,8 @@ themes:
               experience: 'considerable'
               shift: 'late'
               manner: 'patient'
+              house: 'Cirrus'
+              boarding: 'day pupil'
       familiar:
         name: 'Familiar'
         pattern: 'the {}'
@@ -145,6 +179,12 @@ themes:
           size:
             label: 'Size'
             pattern: '{} {noun}'
+          bond:
+            label: 'Bonded'
+            pattern: '{noun} bonded {}'
+          feeding:
+            label: 'Eats'
+            pattern: '{noun} that eats {}'
         items:
           barn-owl:
             label: 'Barn Owl'
@@ -153,6 +193,8 @@ themes:
               temper: 'watchful'
               habit: 'night'
               size: 'medium'
+              bond: 'last year'
+              feeding: 'insects'
           ember-fox:
             label: 'Ember Fox'
             blurb: 'Returns borrowed things in a way that raises additional questions.'
@@ -160,6 +202,8 @@ themes:
               temper: 'mischievous'
               habit: 'dusk'
               size: 'medium'
+              bond: 'this term'
+              feeding: 'anything offered'
           moon-hare:
             label: 'Moon Hare'
             blurb: 'Has completed the escape exercise before it is announced.'
@@ -167,6 +211,8 @@ themes:
               temper: 'timid'
               habit: 'dusk'
               size: 'small'
+              bond: 'since first year'
+              feeding: 'seed'
           velvet-cat:
             label: 'Velvet Cat'
             blurb: 'Considers the pupil a promising but undertrained assistant.'
@@ -174,6 +220,8 @@ themes:
               temper: 'aloof'
               habit: 'night'
               size: 'small'
+              bond: 'this term'
+              feeding: 'anything offered'
           pocket-bat:
             label: 'Pocket Bat'
             blurb: 'Mistakes every coat cupboard for an excellent dormitory.'
@@ -181,6 +229,8 @@ themes:
               temper: 'timid'
               habit: 'night'
               size: 'small'
+              bond: 'last year'
+              feeding: 'insects'
           teacup-dragon:
             label: 'Teacup Dragon'
             blurb: 'Breathes just enough fire to create a highly personal toast preference.'
@@ -188,6 +238,8 @@ themes:
               temper: 'mischievous'
               habit: 'dawn'
               size: 'small'
+              bond: 'this term'
+              feeding: 'anything offered'
           marble-tortoise:
             label: 'Marble Tortoise'
             blurb: 'Approaches every emergency as an opportunity for measured reflection.'
@@ -195,6 +247,8 @@ themes:
               temper: 'aloof'
               habit: 'dawn'
               size: 'medium'
+              bond: 'since first year'
+              feeding: 'seed'
           puddle-frog:
             label: 'Puddle Frog'
             blurb: 'Contributes enthusiastic punctuation to otherwise serious discussions.'
@@ -202,6 +256,8 @@ themes:
               temper: 'mischievous'
               habit: 'dusk'
               size: 'small'
+              bond: 'last year'
+              feeding: 'insects'
           velvet-moth:
             label: 'Velvet Moth'
             blurb: 'Assists with illumination by standing directly in front of it.'
@@ -209,6 +265,8 @@ themes:
               temper: 'timid'
               habit: 'night'
               size: 'small'
+              bond: 'this term'
+              feeding: 'insects'
           clock-mouse:
             label: 'Clock Mouse'
             blurb: 'Can hear the lunch bell several promising minutes in advance.'
@@ -216,6 +274,8 @@ themes:
               temper: 'watchful'
               habit: 'dawn'
               size: 'small'
+              bond: 'since first year'
+              feeding: 'seed'
           ribbon-snake:
             label: 'Ribbon Snake'
             blurb: 'Ties itself into a helpful diagram whenever nobody needs one.'
@@ -223,6 +283,8 @@ themes:
               temper: 'aloof'
               habit: 'dusk'
               size: 'medium'
+              bond: 'last year'
+              feeding: 'anything offered'
           ink-raven:
             label: 'Ink Raven'
             blurb: 'Collects shiny objects and damaging quotations.'
@@ -230,6 +292,8 @@ themes:
               temper: 'watchful'
               habit: 'dawn'
               size: 'medium'
+              bond: 'since first year'
+              feeding: 'anything offered'
           thimble-hedgehog:
             label: 'Thimble Hedgehog'
             blurb: 'A reliable companion with a limited interest in being hugged.'
@@ -237,6 +301,8 @@ themes:
               temper: 'timid'
               habit: 'dusk'
               size: 'small'
+              bond: 'this term'
+              feeding: 'insects'
           copper-salamander:
             label: 'Copper Salamander'
             blurb: 'Enjoys warm pockets and the occasional unauthorised practical lesson.'
@@ -244,6 +310,8 @@ themes:
               temper: 'mischievous'
               habit: 'night'
               size: 'small'
+              bond: 'last year'
+              feeding: 'insects'
       spell:
         name: 'Spell'
         pattern: 'the {}'
@@ -259,6 +327,12 @@ themes:
           duration:
             label: 'Duration'
             pattern: '{} {noun}'
+          year:
+            label: 'Taught in'
+            pattern: '{noun} taught in the {} year'
+          permission:
+            label: 'Permission'
+            pattern: '{noun} that is {}'
         items:
           hearthspark:
             label: 'Hearthspark'
@@ -267,6 +341,8 @@ themes:
               school: 'elemental'
               delivery: 'spoken'
               duration: 'brief'
+              year: 'first'
+              permission: 'unrestricted'
           frostlace:
             label: 'Frostlace'
             blurb: 'Produces decorative ice where a less ambitious spell would use a coaster.'
@@ -274,6 +350,8 @@ themes:
               school: 'elemental'
               delivery: 'gestured'
               duration: 'lingering'
+              year: 'third'
+              permission: 'unrestricted'
           thunderblink:
             label: 'Thunderblink'
             blurb: 'A flash of inspiration with a small accompanying maintenance request.'
@@ -281,6 +359,8 @@ themes:
               school: 'elemental'
               delivery: 'spoken'
               duration: 'brief'
+              year: 'final'
+              permission: 'restricted'
           tidal-turn:
             label: 'Tidal Turn'
             blurb: 'Moves water politely until someone loses concentration.'
@@ -288,6 +368,8 @@ themes:
               school: 'elemental'
               delivery: 'gestured'
               duration: 'lingering'
+              year: 'third'
+              permission: 'restricted'
           leafwake:
             label: 'Leafwake'
             blurb: 'Encourages plants to participate, sometimes beyond the planned lesson.'
@@ -295,6 +377,8 @@ themes:
               school: 'growth'
               delivery: 'spoken'
               duration: 'lingering'
+              year: 'first'
+              permission: 'unrestricted'
           moonveil:
             label: 'Moonveil'
             blurb: 'Makes the room mysterious without explaining where the homework went.'
@@ -302,6 +386,8 @@ themes:
               school: 'illusion'
               delivery: 'whispered'
               duration: 'lingering'
+              year: 'third'
+              permission: 'restricted'
           stargleam:
             label: 'Stargleam'
             blurb: 'Adds sparkle to answers that still require proper working.'
@@ -309,6 +395,8 @@ themes:
               school: 'illusion'
               delivery: 'gestured'
               duration: 'brief'
+              year: 'final'
+              permission: 'unrestricted'
           aegis-arc:
             label: 'Aegis Arc'
             blurb: 'Protects the caster from most impacts and none of the subsequent questions.'
@@ -316,6 +404,8 @@ themes:
               school: 'protection'
               delivery: 'spoken'
               duration: 'lingering'
+              year: 'third'
+              permission: 'restricted'
           lockwhisper:
             label: 'Lockwhisper'
             blurb: 'Opens a lock after a short conversation about trust.'
@@ -323,6 +413,8 @@ themes:
               school: 'alteration'
               delivery: 'whispered'
               duration: 'brief'
+              year: 'final'
+              permission: 'restricted'
           minute-mend:
             label: 'Minute Mend'
             blurb: 'Buys a little time. The timetable will invoice for it later.'
@@ -330,6 +422,8 @@ themes:
               school: 'alteration'
               delivery: 'whispered'
               duration: 'brief'
+              year: 'first'
+              permission: 'unrestricted'
           farseeing:
             label: 'Farseeing'
             blurb: 'Reveals distant details, excluding the obvious answer on the board.'
@@ -337,6 +431,8 @@ themes:
               school: 'illusion'
               delivery: 'gestured'
               duration: 'brief'
+              year: 'final'
+              permission: 'restricted'
           featherfloat:
             label: 'Featherfloat'
             blurb: 'Lifts a small object and an entirely disproportionate amount of expectation.'
@@ -344,6 +440,8 @@ themes:
               school: 'alteration'
               delivery: 'spoken'
               duration: 'lingering'
+              year: 'first'
+              permission: 'unrestricted'
           whirlward:
             label: 'Whirlward'
             blurb: 'Redirects a draught that had become too involved in the lesson.'
@@ -351,6 +449,8 @@ themes:
               school: 'protection'
               delivery: 'gestured'
               duration: 'lingering'
+              year: 'third'
+              permission: 'restricted'
           tanglebind:
             label: 'Tanglebind'
             blurb: 'Secures loose ends, including a few that were behaving perfectly well.'
@@ -358,6 +458,8 @@ themes:
               school: 'protection'
               delivery: 'whispered'
               duration: 'brief'
+              year: 'final'
+              permission: 'restricted'
       classroom:
         name: 'Classroom'
         pattern: 'the {}'
@@ -373,6 +475,12 @@ themes:
           access:
             label: 'Access'
             pattern: '{noun} with {} access'
+          booked:
+            label: 'Booking'
+            pattern: '{noun} booked {}'
+          warded:
+            label: 'Wards'
+            pattern: '{noun} that is {}'
         items:
           scriptorium:
             label: 'Scriptorium'
@@ -381,6 +489,8 @@ themes:
               level: 'lower'
               light: 'bright'
               access: 'step-free'
+              booked: 'a week ahead'
+              warded: 'unwarded'
           potion-kitchen:
             label: 'Potion Kitchen'
             blurb: 'The recipe ends with a phrase equivalent to hope for the best.'
@@ -388,6 +498,8 @@ themes:
               level: 'lower'
               light: 'dim'
               access: 'step-free'
+              booked: 'a term ahead'
+              warded: 'warded'
           star-laboratory:
             label: 'Star Laboratory'
             blurb: 'The lesson plan is subject to cloud cover and celestial enthusiasm.'
@@ -395,6 +507,8 @@ themes:
               level: 'upper'
               light: 'dim'
               access: 'stairs-only'
+              booked: 'a term ahead'
+              warded: 'warded'
           moving-stair-hall:
             label: 'Moving Stair Hall'
             blurb: 'Arriving on time requires a persuasive relationship with architecture.'
@@ -402,6 +516,8 @@ themes:
               level: 'middle'
               light: 'bright'
               access: 'stairs-only'
+              booked: 'on the day'
+              warded: 'warded'
           door-studies:
             label: 'Door Studies'
             blurb: 'Entry is the first exercise. Leaving is reserved for advanced pupils.'
@@ -409,6 +525,8 @@ themes:
               level: 'middle'
               light: 'dim'
               access: 'step-free'
+              booked: 'a week ahead'
+              warded: 'unwarded'
           glasshouse:
             label: 'Glasshouse'
             blurb: 'The vines attend every lesson and occasionally take attendance.'
@@ -416,6 +534,8 @@ themes:
               level: 'lower'
               light: 'bright'
               access: 'step-free'
+              booked: 'on the day'
+              warded: 'unwarded'
           illusion-theatre:
             label: 'Illusion Theatre'
             blurb: 'The applause may be imaginary, but the stage fright is fully accredited.'
@@ -423,6 +543,8 @@ themes:
               level: 'middle'
               light: 'dim'
               access: 'step-free'
+              booked: 'a term ahead'
+              warded: 'warded'
           strategy-room:
             label: 'Strategy Room'
             blurb: 'The pieces argue about the lesson more vigorously than the pupils.'
@@ -430,6 +552,8 @@ themes:
               level: 'middle'
               light: 'bright'
               access: 'step-free'
+              booked: 'a week ahead'
+              warded: 'warded'
           broom-loft:
             label: 'Broom Loft'
             blurb: 'The ceiling is high for reasons the incident book makes clear.'
@@ -437,6 +561,8 @@ themes:
               level: 'upper'
               light: 'bright'
               access: 'stairs-only'
+              booked: 'on the day'
+              warded: 'unwarded'
           cloud-balcony:
             label: 'Cloud Balcony'
             blurb: 'The view is excellent whenever the floor agrees to remain visible.'
@@ -444,6 +570,8 @@ themes:
               level: 'upper'
               light: 'bright'
               access: 'stairs-only'
+              booked: 'on the day'
+              warded: 'unwarded'
           bell-chamber:
             label: 'Bell Chamber'
             blurb: 'A room where every answer can become the final answer very loudly.'
@@ -451,6 +579,8 @@ themes:
               level: 'upper'
               light: 'dim'
               access: 'stairs-only'
+              booked: 'a week ahead'
+              warded: 'warded'
           time-study:
             label: 'Time Study'
             blurb: 'Extra homework appears to take exactly as long as expected.'
@@ -458,6 +588,8 @@ themes:
               level: 'middle'
               light: 'dim'
               access: 'step-free'
+              booked: 'a term ahead'
+              warded: 'warded'
           map-turret:
             label: 'Map Turret'
             blurb: 'Contains detailed routes to places that have since changed their minds.'
@@ -465,6 +597,8 @@ themes:
               level: 'upper'
               light: 'bright'
               access: 'stairs-only'
+              booked: 'a week ahead'
+              warded: 'unwarded'
           garden-classroom:
             label: 'Garden Classroom'
             blurb: 'Outdoor learning with an unusually vocal hedge.'
@@ -472,6 +606,8 @@ themes:
               level: 'lower'
               light: 'bright'
               access: 'step-free'
+              booked: 'on the day'
+              warded: 'unwarded'
       score:
         name: 'Score'
         pattern: 'the score of {}'
@@ -489,6 +625,15 @@ themes:
           review:
             label: 'Review'
             pattern: '{noun} with {} review'
+          marker:
+            label: 'Marked by'
+            pattern: '{noun} marked by {}'
+          moderated:
+            label: 'Moderation'
+            pattern: '{noun} that was {}'
+          resit:
+            label: 'Resit'
+            pattern: '{noun} that is {}'
         items:
           35:
             label: '35'
@@ -496,78 +641,117 @@ themes:
             traits:
               band: 'developing'
               review: 'routine'
+              marker: 'the tutor'
+              moderated: 'unmoderated'
+              resit: 'open to a resit'
           40:
             label: '40'
             blurb: 'The assessor has detected potential beneath the annotations.'
             traits:
               band: 'developing'
               review: 'routine'
+              marker: 'the tutor'
+              moderated: 'moderated'
+              resit: 'open to a resit'
           45:
             label: '45'
             blurb: 'Shows progress, although the progress has chosen a scenic route.'
             traits:
               band: 'developing'
               review: 'routine'
+              marker: 'two markers'
+              moderated: 'unmoderated'
+              resit: 'open to a resit'
           50:
             label: '50'
             blurb: 'A respectable attempt with one conspicuously imaginative interpretation.'
             traits:
               band: 'developing'
               review: 'routine'
+              marker: 'the head'
+              moderated: 'moderated'
+              resit: 'open to a resit'
           55:
             label: '55'
             blurb: 'The answer is improving. The handwriting is pursuing independent interests.'
             traits:
               band: 'developing'
               review: 'routine'
+              marker: 'the tutor'
+              moderated: 'moderated'
+              resit: 'open to a resit'
           60:
             label: '60'
             blurb: 'The assessor begins using the word promising without a long pause.'
             traits:
               band: 'secure'
               review: 'routine'
+              marker: 'two markers'
+              moderated: 'unmoderated'
+              resit: 'final'
           65:
             label: '65'
             blurb: 'A solid result with room left for an encouraging paragraph.'
             traits:
               band: 'secure'
               review: 'routine'
+              marker: 'the tutor'
+              moderated: 'moderated'
+              resit: 'open to a resit'
           70:
             label: '70'
             blurb: 'The work has crossed into territory described as quite impressive.'
             traits:
               band: 'secure'
               review: 'extended'
+              marker: 'the head'
+              moderated: 'moderated'
+              resit: 'final'
           75:
             label: '75'
             blurb: 'An achievement that will be mentioned at dinner at least twice.'
             traits:
               band: 'secure'
               review: 'extended'
+              marker: 'two markers'
+              moderated: 'unmoderated'
+              resit: 'final'
           80:
             label: '80'
             blurb: 'The assessor has run out of minor corrections and moved on to punctuation.'
             traits:
               band: 'secure'
               review: 'extended'
+              marker: 'the tutor'
+              moderated: 'moderated'
+              resit: 'final'
           85:
             label: '85'
             blurb: 'Strong work, despite a flourish that was not strictly necessary.'
             traits:
               band: 'excellent'
               review: 'extended'
+              marker: 'the head'
+              moderated: 'moderated'
+              resit: 'final'
           90:
             label: '90'
             blurb: 'A result that makes the next assignment feel slightly more demanding.'
             traits:
               band: 'excellent'
               review: 'extended'
+              marker: 'two markers'
+              moderated: 'unmoderated'
+              resit: 'final'
           95:
             label: '95'
             blurb: 'Almost immaculate. The remaining comment has been written very small.'
             traits:
               band: 'excellent'
               review: 'extended'
+              marker: 'the tutor'
+              moderated: 'moderated'
+              resit: 'final'
           100:
             label: '100'
             blurb: 'The top listed mark. Modesty is recommended as an optional extension.'
@@ -575,6 +759,9 @@ themes:
               band: 'excellent'
               review: 'extended'
 
+              marker: 'the head'
+              moderated: 'moderated'
+              resit: 'final'
 briefings:
   themes:
     cloudtop-academy:

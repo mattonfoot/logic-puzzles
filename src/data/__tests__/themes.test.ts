@@ -31,14 +31,19 @@ const MAX_LABEL = 22;
 /** The card has room for a line, and the player has patience for one. */
 const MAX_BLURB = 100;
 /**
- * Five things worth knowing about an item; more is a biography.
+ * Five or six things worth knowing about an item; more is a biography.
  *
  * It was four while every set of people was described the same three ways —
  * hair colour, eye colour, star sign — none of which a silhouette can show. The
  * people now carry two the drawing does show and three it does not, which is
  * what a card is for.
+ *
+ * A puzzle only ever uses `TRAITS_PER_PUZZLE` of them, drawn fresh per seed, so
+ * the floor is what makes that draw worth making: five written means the same
+ * theme describes its cast differently from one puzzle to the next.
  */
-const MAX_TRAITS = 5;
+const MIN_TRAITS = 5;
+const MAX_TRAITS = 6;
 const BIGGEST_PUZZLE = Math.max(...SIZES.map((size) => size.items));
 
 describe('themes', () => {
@@ -87,7 +92,7 @@ describe('themes', () => {
           // either-or clues, which only works if the articles are written in.
           expect(category.describes.startsWith('the ')).toBe(true);
 
-          expect(category.traits.length).toBeGreaterThan(0);
+          expect(category.traits.length).toBeGreaterThanOrEqual(MIN_TRAITS);
           expect(category.traits.length).toBeLessThanOrEqual(MAX_TRAITS);
           expect(new Set(category.traits.map((trait) => trait.id)).size).toBe(
             category.traits.length,

@@ -42,6 +42,13 @@ member of the set is called and `{}` for the value, so "astronaut with red
 hair" is one template and one word. `clues` gives a theme its own sentences;
 anything it leaves out falls back to `clue.templates` in `ui.yaml`.
 
+Write every set **five or six traits**, and every item a value for each. A
+puzzle plays with four of them, drawn by its seed, so the ones beyond four are
+what make two puzzles on the same theme describe the same cast differently.
+Traits past the first few should be things the drawing does not show — a
+provenance, a shift, a paperwork state — since the icon is fixed and a trait it
+contradicts reads as a mistake.
+
 How a briefing is written — and the one rule a test holds them to, that a
 briefing names no set but the anchor — is beside the fallback briefing in
 `ui.yaml`.

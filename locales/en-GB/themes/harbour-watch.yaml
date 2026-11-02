@@ -31,6 +31,12 @@ themes:
           manner:
             label: 'Manner'
             pattern: '{noun} with a {} manner'
+          ticket:
+            label: 'Ticket'
+            pattern: '{noun} holding a {} ticket'
+          logbook:
+            label: 'Logbook'
+            pattern: '{noun} whose log is {}'
         items:
           captain-brine:
             label: 'Captain Brine'
@@ -39,6 +45,8 @@ themes:
               standing: 'junior'
               shift: 'early'
               manner: 'measured'
+              ticket: 'deep-sea'
+              logbook: 'up to date'
           ada-reef:
             label: 'Ada Reef'
             blurb: 'Can untie any knot, provided nobody explains how they tied it.'
@@ -46,6 +54,8 @@ themes:
               standing: 'established'
               shift: 'late'
               manner: 'measured'
+              ticket: 'coastal'
+              logbook: 'immaculate'
           dr-compass:
             label: 'Dr Compass'
             blurb: 'Knows exactly where north is and approximately where the receipt went.'
@@ -53,6 +63,8 @@ themes:
               standing: 'veteran'
               shift: 'early'
               manner: 'brisk'
+              ticket: 'coastal'
+              logbook: 'immaculate'
           nell-nor-east:
             label: "Nell Nor'east"
             blurb: 'Regards a headwind as the weather offering unsolicited advice.'
@@ -60,6 +72,8 @@ themes:
               standing: 'junior'
               shift: 'late'
               manner: 'brisk'
+              ticket: 'deep-sea'
+              logbook: 'up to date'
           bosun-gull:
             label: 'Bosun Gull'
             blurb: "Polishes the brass until it reflects badly on everyone else's brass."
@@ -67,6 +81,8 @@ themes:
               standing: 'established'
               shift: 'early'
               manner: 'theatrical'
+              ticket: 'harbour'
+              logbook: 'behind'
           marina-mallow:
             label: 'Marina Mallow'
             blurb: 'Remembers every face and the exact favour it still owes her.'
@@ -74,6 +90,8 @@ themes:
               standing: 'veteran'
               shift: 'late'
               manner: 'theatrical'
+              ticket: 'coastal'
+              logbook: 'up to date'
           mx-sounding:
             label: 'Mx Sounding'
             blurb: 'Listens carefully to the radio, then asks it to be more specific.'
@@ -81,6 +99,8 @@ themes:
               standing: 'junior'
               shift: 'early'
               manner: 'measured'
+              ticket: 'coastal'
+              logbook: 'immaculate'
           old-tom-tiller:
             label: 'Old Tom Tiller'
             blurb: 'Has a story for every occasion and very few short versions.'
@@ -88,6 +108,8 @@ themes:
               standing: 'established'
               shift: 'late'
               manner: 'measured'
+              ticket: 'deep-sea'
+              logbook: 'behind'
           sir-keel:
             label: 'Sir Keel'
             blurb: 'Considers a smart appearance an essential aid to navigation.'
@@ -95,6 +117,8 @@ themes:
               standing: 'veteran'
               shift: 'early'
               manner: 'brisk'
+              ticket: 'deep-sea'
+              logbook: 'up to date'
           penny-shoal:
             label: 'Penny Shoal'
             blurb: 'Can spot a sandbank at a distance and an excuse considerably further away.'
@@ -102,6 +126,8 @@ themes:
               standing: 'junior'
               shift: 'late'
               manner: 'brisk'
+              ticket: 'harbour'
+              logbook: 'behind'
           finn-breaker:
             label: 'Finn Breaker'
             blurb: 'Describes every rough crossing as character development for the passengers.'
@@ -109,6 +135,8 @@ themes:
               standing: 'established'
               shift: 'early'
               manner: 'theatrical'
+              ticket: 'coastal'
+              logbook: 'up to date'
           captain-capstan:
             label: 'Captain Capstan'
             blurb: 'Believes a firm voice can influence the tide. Results remain inconclusive.'
@@ -116,6 +144,8 @@ themes:
               standing: 'veteran'
               shift: 'late'
               manner: 'theatrical'
+              ticket: 'harbour'
+              logbook: 'immaculate'
           professor-fathom:
             label: 'Professor Fathom'
             blurb: 'Measures everything except the length of the explanation afterwards.'
@@ -123,6 +153,8 @@ themes:
               standing: 'junior'
               shift: 'early'
               manner: 'measured'
+              ticket: 'coastal'
+              logbook: 'immaculate'
           dame-drift:
             label: 'Dame Drift'
             blurb: 'Has perfected the look that makes a whole crew remember something urgent.'
@@ -130,6 +162,8 @@ themes:
               standing: 'established'
               shift: 'late'
               manner: 'measured'
+              ticket: 'deep-sea'
+              logbook: 'up to date'
       vessel:
         name: 'Vessel'
         pattern: 'the {}'
@@ -145,6 +179,12 @@ themes:
           duty:
             label: 'Duty'
             pattern: '{noun} assigned to {}'
+          survey:
+            label: 'Survey'
+            pattern: '{noun} that is {}'
+          crewing:
+            label: 'Crewed by'
+            pattern: '{noun} crewed by {}'
         items:
           brassbound-tug:
             label: 'Brassbound Tug'
@@ -153,6 +193,8 @@ themes:
               drive: 'diesel'
               hull: 'steel'
               duty: 'service'
+              survey: 'newly surveyed'
+              crewing: 'two hands'
           whisper-cutter:
             label: 'Whisper Cutter'
             blurb: 'Sails quietly, leaving its skipper to provide the commentary.'
@@ -160,6 +202,8 @@ themes:
               drive: 'sail'
               hull: 'wood'
               duty: 'transport'
+              survey: 'newly surveyed'
+              crewing: 'two hands'
           twinmast-schooner:
             label: 'Twinmast Schooner'
             blurb: 'Two masts offer twice the opportunity to blame the wind.'
@@ -167,6 +211,8 @@ themes:
               drive: 'sail'
               hull: 'wood'
               duty: 'transport'
+              survey: 'overdue'
+              crewing: 'a full crew'
           proud-paddleboat:
             label: 'Proud Paddleboat'
             blurb: 'Makes substantial progress in converting water into a public spectacle.'
@@ -174,6 +220,8 @@ themes:
               drive: 'steam'
               hull: 'steel'
               duty: 'transport'
+              survey: 'overdue'
+              crewing: 'a full crew'
           pocket-submersible:
             label: 'Pocket Submersible'
             blurb: 'The inspection form asks whether it is supposed to be below the surface.'
@@ -181,6 +229,8 @@ themes:
               drive: 'battery'
               hull: 'steel'
               duty: 'survey'
+              survey: 'newly surveyed'
+              crewing: 'one hand'
           willow-canoe:
             label: 'Willow Canoe'
             blurb: 'A quiet crossing depends on a very civil discussion between the paddlers.'
@@ -188,6 +238,8 @@ themes:
               drive: 'oars'
               hull: 'wood'
               duty: 'survey'
+              survey: 'exempt'
+              crewing: 'one hand'
           twinfin-catamaran:
             label: 'Twinfin Catamaran'
             blurb: 'Two hulls, one destination and several opinions about the route.'
@@ -195,6 +247,8 @@ themes:
               drive: 'diesel'
               hull: 'composite'
               duty: 'transport'
+              survey: 'newly surveyed'
+              crewing: 'two hands'
           netmender-trawler:
             label: 'Netmender Trawler'
             blurb: 'The nets are neatly stowed, a condition the crew hopes to repeat someday.'
@@ -202,6 +256,8 @@ themes:
               drive: 'diesel'
               hull: 'steel'
               duty: 'fishing'
+              survey: 'overdue'
+              crewing: 'a full crew'
           harbour-ferry:
             label: 'Harbour Ferry'
             blurb: 'Crosses the same stretch of water while passengers explain better ways to do it.'
@@ -209,6 +265,8 @@ themes:
               drive: 'diesel'
               hull: 'steel'
               duty: 'transport'
+              survey: 'newly surveyed'
+              crewing: 'a full crew'
           cushion-hovercraft:
             label: 'Cushion Hovercraft'
             blurb: "Arrives on a cushion of air and a generous cloud of everyone's belongings."
@@ -216,6 +274,8 @@ themes:
               drive: 'diesel'
               hull: 'composite'
               duty: 'service'
+              survey: 'newly surveyed'
+              crewing: 'two hands'
           scarlet-fireboat:
             label: 'Scarlet Fireboat'
             blurb: 'Has the most enthusiastic water supply of any department in town.'
@@ -223,6 +283,8 @@ themes:
               drive: 'diesel'
               hull: 'steel'
               duty: 'service'
+              survey: 'newly surveyed'
+              crewing: 'a full crew'
           mudlark-dredger:
             label: 'Mudlark Dredger'
             blurb: 'Finds the bottom of every problem and relocates it somewhere inconvenient.'
@@ -230,6 +292,8 @@ themes:
               drive: 'diesel'
               hull: 'steel'
               duty: 'service'
+              survey: 'overdue'
+              crewing: 'a full crew'
           lantern-lightship:
             label: 'Lantern Lightship'
             blurb: 'Stays conspicuously useful without going very far at all.'
@@ -237,6 +301,8 @@ themes:
               drive: 'diesel'
               hull: 'steel'
               duty: 'service'
+              survey: 'exempt'
+              crewing: 'two hands'
           oak-longboat:
             label: 'Oak Longboat'
             blurb: 'Every rower has been asked to agree on the meaning of forwards.'
@@ -244,6 +310,8 @@ themes:
               drive: 'oars'
               hull: 'wood'
               duty: 'transport'
+              survey: 'exempt'
+              crewing: 'a full crew'
       cargo:
         name: 'Cargo'
         pattern: 'the {}'
@@ -259,6 +327,12 @@ themes:
           cover:
             label: 'Cover'
             pattern: '{noun} under {} cover'
+          duty:
+            label: 'Duty'
+            pattern: '{noun} that is {}'
+          insured:
+            label: 'Insurance'
+            pattern: '{noun} listed as {}'
         items:
           tea-leaves:
             label: 'Tea Leaves'
@@ -267,6 +341,8 @@ themes:
               handling: 'dry'
               origin: 'eastern'
               cover: 'sealed'
+              duty: 'duty paid'
+              insured: 'insured'
           lamp-oil:
             label: 'Lamp Oil'
             blurb: 'The drum is upright, which everyone agrees is the most encouraging orientation.'
@@ -274,6 +350,8 @@ themes:
               handling: 'careful'
               origin: 'western'
               cover: 'sealed'
+              duty: 'duty owing'
+              insured: 'under review'
           wool-bale:
             label: 'Wool Bale'
             blurb: 'Excellent insulation for the shipment and several small administrative mysteries.'
@@ -281,6 +359,8 @@ themes:
               handling: 'dry'
               origin: 'northern'
               cover: 'wrapped'
+              duty: 'duty paid'
+              insured: 'insured'
           sawn-timber:
             label: 'Sawn Timber'
             blurb: 'Counted twice because the first total was described as roughly a tree.'
@@ -288,6 +368,8 @@ themes:
               handling: 'standard'
               origin: 'northern'
               cover: 'open'
+              duty: 'duty free'
+              insured: 'insured'
           copper-ingots:
             label: 'Copper Ingots'
             blurb: 'The shipment has considerable value and no interest in being carried upstairs.'
@@ -295,6 +377,8 @@ themes:
               handling: 'standard'
               origin: 'eastern'
               cover: 'open'
+              duty: 'duty paid'
+              insured: 'insured'
           marble-blocks:
             label: 'Marble Blocks'
             blurb: 'Arrives already looking permanent, to the concern of the unloading crew.'
@@ -302,6 +386,8 @@ themes:
               handling: 'careful'
               origin: 'western'
               cover: 'open'
+              duty: 'duty free'
+              insured: 'under review'
           grain-sacks:
             label: 'Grain Sacks'
             blurb: 'The manifest says every grain is accounted for, a bold administrative position.'
@@ -309,6 +395,8 @@ themes:
               handling: 'dry'
               origin: 'eastern'
               cover: 'sealed'
+              duty: 'duty paid'
+              insured: 'uninsured'
           silk-rolls:
             label: 'Silk Rolls'
             blurb: 'The softest shipment has the least forgiving inspection instructions.'
@@ -316,6 +404,8 @@ themes:
               handling: 'dry'
               origin: 'western'
               cover: 'wrapped'
+              duty: 'duty owing'
+              insured: 'insured'
           spice-jars:
             label: 'Spice Jars'
             blurb: 'The paperwork is bland enough to qualify as suitable packaging.'
@@ -323,6 +413,8 @@ themes:
               handling: 'careful'
               origin: 'eastern'
               cover: 'sealed'
+              duty: 'duty owing'
+              insured: 'insured'
           citrus-basket:
             label: 'Citrus Basket'
             blurb: 'Fresh fruit with a sunny disposition and a rather urgent delivery note.'
@@ -330,6 +422,8 @@ themes:
               handling: 'careful'
               origin: 'southern'
               cover: 'open'
+              duty: 'duty paid'
+              insured: 'uninsured'
           clay-pots:
             label: 'Clay Pots'
             blurb: 'The packing list contains a reassuring number of repetitions of fragile.'
@@ -337,6 +431,8 @@ themes:
               handling: 'careful'
               origin: 'southern'
               cover: 'wrapped'
+              duty: 'duty free'
+              insured: 'uninsured'
           glass-bottles:
             label: 'Glass Bottles'
             blurb: 'Counted by the bottle, preferably before anyone counts by the shard.'
@@ -344,6 +440,8 @@ themes:
               handling: 'careful'
               origin: 'western'
               cover: 'wrapped'
+              duty: 'duty paid'
+              insured: 'under review'
           machine-parts:
             label: 'Machine Parts'
             blurb: 'All the important pieces are present, according to the pieces that were counted.'
@@ -351,6 +449,8 @@ themes:
               handling: 'standard'
               origin: 'northern'
               cover: 'wrapped'
+              duty: 'duty owing'
+              insured: 'insured'
           ice-blocks:
             label: 'Ice Blocks'
             blurb: 'The only shipment actively trying to simplify its own inventory.'
@@ -358,6 +458,8 @@ themes:
               handling: 'chilled'
               origin: 'northern'
               cover: 'sealed'
+              duty: 'duty free'
+              insured: 'uninsured'
       berth:
         name: 'Berth'
         pattern: 'the {}'
@@ -373,6 +475,12 @@ themes:
           access:
             label: 'Access'
             pattern: '{noun} with {} access'
+          fee:
+            label: 'Fee'
+            pattern: '{noun} charged by the {}'
+          booking:
+            label: 'Booking'
+            pattern: '{noun} that is {}'
         items:
           lighthouse-quay:
             label: 'Lighthouse Quay'
@@ -381,6 +489,8 @@ themes:
               basin: 'outer'
               shelter: 'limited'
               access: 'road'
+              fee: 'day'
+              booking: 'booked ahead'
           gantry-pier:
             label: 'Gantry Pier'
             blurb: 'The crane can lift almost anything except the tone of the safety meeting.'
@@ -388,6 +498,8 @@ themes:
               basin: 'inner'
               shelter: 'full'
               access: 'road'
+              fee: 'hour'
+              booking: 'booked ahead'
           old-graving-dock:
             label: 'Old Graving Dock'
             blurb: 'A dry place to discuss why everything else is wet.'
@@ -395,6 +507,8 @@ themes:
               basin: 'inner'
               shelter: 'full'
               access: 'road'
+              fee: 'week'
+              booking: 'first come'
           customs-steps:
             label: 'Customs Steps'
             blurb: 'A fine welcome, followed by several forms in increasingly narrow boxes.'
@@ -402,6 +516,8 @@ themes:
               basin: 'inner'
               shelter: 'full'
               access: 'footpath'
+              fee: 'hour'
+              booking: 'first come'
           ropewalk-landing:
             label: 'Ropewalk Landing'
             blurb: 'The ropes are long. The explanation of their storage is longer.'
@@ -409,6 +525,8 @@ themes:
               basin: 'middle'
               shelter: 'partial'
               access: 'footpath'
+              fee: 'day'
+              booking: 'booked ahead'
           coal-wharf:
             label: 'Coal Wharf'
             blurb: 'Visitors tend to leave with a much clearer understanding of the dust.'
@@ -416,6 +534,8 @@ themes:
               basin: 'outer'
               shelter: 'limited'
               access: 'road'
+              fee: 'day'
+              booking: 'first come'
           beacon-jetty:
             label: 'Beacon Jetty'
             blurb: 'The marker flashes confidently through weather nobody else finds reassuring.'
@@ -423,6 +543,8 @@ themes:
               basin: 'outer'
               shelter: 'limited'
               access: 'footpath'
+              fee: 'hour'
+              booking: 'first come'
           mill-basin:
             label: 'Mill Basin'
             blurb: 'The windmill has been turning the same argument over for generations.'
@@ -430,6 +552,8 @@ themes:
               basin: 'middle'
               shelter: 'partial'
               access: 'road'
+              fee: 'week'
+              booking: 'booked ahead'
           east-lock:
             label: 'East Lock'
             blurb: 'Progress depends on opening the correct thing after closing the other thing.'
@@ -437,6 +561,8 @@ themes:
               basin: 'inner'
               shelter: 'full'
               access: 'road'
+              fee: 'day'
+              booking: 'booked ahead'
           bell-buoy:
             label: 'Bell Buoy'
             blurb: 'Provides directions with one note and absolutely no follow-up questions.'
@@ -444,6 +570,8 @@ themes:
               basin: 'outer'
               shelter: 'limited'
               access: 'launch'
+              fee: 'hour'
+              booking: 'first come'
           salt-house:
             label: 'Salt House'
             blurb: 'Everything stored here develops a strong opinion about moisture.'
@@ -451,6 +579,8 @@ themes:
               basin: 'middle'
               shelter: 'partial'
               access: 'road'
+              fee: 'week'
+              booking: 'booked ahead'
           anchor-point:
             label: 'Anchor Point'
             blurb: 'The name suggests certainty that the harbourmaster would like extended to the forms.'
@@ -458,6 +588,8 @@ themes:
               basin: 'outer'
               shelter: 'partial'
               access: 'launch'
+              fee: 'day'
+              booking: 'first come'
           stone-arch:
             label: 'Stone Arch'
             blurb: 'Built to last, unlike the notice explaining which side to approach.'
@@ -465,6 +597,8 @@ themes:
               basin: 'middle'
               shelter: 'full'
               access: 'footpath'
+              fee: 'hour'
+              booking: 'first come'
           net-loft:
             label: 'Net Loft'
             blurb: 'The loft contains enough nets to make a filing system seem almost plausible.'
@@ -472,6 +606,8 @@ themes:
               basin: 'inner'
               shelter: 'partial'
               access: 'footpath'
+              fee: 'week'
+              booking: 'booked ahead'
       arrival:
         name: 'Arrival Time'
         pattern: 'the {} arrival'
@@ -489,6 +625,15 @@ themes:
           window:
             label: 'Window'
             pattern: '{noun} in the {} window'
+          tide:
+            label: 'Tide'
+            pattern: '{noun} on the {} tide'
+          pilot:
+            label: 'Pilot'
+            pattern: '{noun} that takes {} pilot'
+          called:
+            label: 'Called in by'
+            pattern: '{noun} called in by {}'
         items:
           04-00:
             label: '04:00'
@@ -496,78 +641,117 @@ themes:
             traits:
               watch: 'first'
               window: 'early'
+              tide: 'rising'
+              pilot: 'a'
+              called: 'radio'
           04-30:
             label: '04:30'
             blurb: 'Early enough for the gulls to consider themselves the senior shift.'
             traits:
               watch: 'first'
               window: 'early'
+              tide: 'rising'
+              pilot: 'a'
+              called: 'radio'
           05-00:
             label: '05:00'
             blurb: 'The horizon is becoming clearer than the handwriting in the log.'
             traits:
               watch: 'first'
               window: 'early'
+              tide: 'high'
+              pilot: 'no'
+              called: 'flag'
           05-30:
             label: '05:30'
             blurb: 'A sensible hour to admit that another cup of tea is operationally necessary.'
             traits:
               watch: 'first'
               window: 'early'
+              tide: 'high'
+              pilot: 'a'
+              called: 'radio'
           06-00:
             label: '06:00'
             blurb: 'The harbour begins to sound as though everyone has found their whistle.'
             traits:
               watch: 'first'
               window: 'early'
+              tide: 'falling'
+              pilot: 'no'
+              called: 'the bell'
           06-30:
             label: '06:30'
             blurb: 'Morning has arrived with the confidence missing from several signatures.'
             traits:
               watch: 'middle'
               window: 'early'
+              tide: 'falling'
+              pilot: 'no'
+              called: 'radio'
           07-00:
             label: '07:00'
             blurb: 'The clerk is now awake enough to notice the earlier clerk was not.'
             traits:
               watch: 'middle'
               window: 'early'
+              tide: 'rising'
+              pilot: 'a'
+              called: 'flag'
           07-30:
             label: '07:30'
             blurb: 'A respectable time to insist that everything is proceeding normally.'
             traits:
               watch: 'middle'
               window: 'late'
+              tide: 'rising'
+              pilot: 'a'
+              called: 'radio'
           08-00:
             label: '08:00'
             blurb: 'The office has developed a queue with a strong sense of maritime purpose.'
             traits:
               watch: 'middle'
               window: 'late'
+              tide: 'high'
+              pilot: 'no'
+              called: 'radio'
           08-30:
             label: '08:30'
             blurb: 'A brief period of calm, according to a note written before it ended.'
             traits:
               watch: 'middle'
               window: 'late'
+              tide: 'high'
+              pilot: 'a'
+              called: 'the bell'
           09-00:
             label: '09:00'
             blurb: 'The morning report is growing faster than the morning certainty.'
             traits:
               watch: 'final'
               window: 'late'
+              tide: 'falling'
+              pilot: 'no'
+              called: 'flag'
           09-30:
             label: '09:30'
             blurb: 'The tea has gone cold while the discussion remains remarkably warm.'
             traits:
               watch: 'final'
               window: 'late'
+              tide: 'falling'
+              pilot: 'no'
+              called: 'radio'
           10-00:
             label: '10:00'
             blurb: 'Late enough for the first explanation to have acquired several corrections.'
             traits:
               watch: 'final'
               window: 'late'
+              tide: 'rising'
+              pilot: 'a'
+              called: 'radio'
           10-30:
             label: '10:30'
             blurb: 'The last listed slot. The harbourmaster would appreciate a tidy conclusion.'
@@ -575,6 +759,9 @@ themes:
               watch: 'final'
               window: 'late'
 
+              tide: 'high'
+              pilot: 'no'
+              called: 'flag'
 briefings:
   themes:
     harbour-watch:

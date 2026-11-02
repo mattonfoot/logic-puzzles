@@ -38,6 +38,14 @@ const THEME_WORDS = {
             label: 'Manner',
             pattern: '{noun} with a {} manner',
           },
+          billing: {
+            label: 'Billing',
+            pattern: '{noun} billed as {}',
+          },
+          dressing: {
+            label: 'Dressing room',
+            pattern: '{noun} in the {} dressing room',
+          },
         },
         items: {
           'felix-flourish': {
@@ -47,6 +55,8 @@ const THEME_WORDS = {
               standing: 'junior',
               shift: 'early',
               manner: 'measured',
+              billing: 'support',
+              dressing: 'upstairs',
             },
           },
           'vera-velvet': {
@@ -56,6 +66,8 @@ const THEME_WORDS = {
               standing: 'established',
               shift: 'late',
               manner: 'measured',
+              billing: 'the lead',
+              dressing: 'downstairs',
             },
           },
           'percy-plume': {
@@ -65,6 +77,8 @@ const THEME_WORDS = {
               standing: 'veteran',
               shift: 'early',
               manner: 'brisk',
+              billing: 'support',
+              dressing: 'shared',
             },
           },
           'mabel-moon': {
@@ -74,6 +88,8 @@ const THEME_WORDS = {
               standing: 'junior',
               shift: 'late',
               manner: 'brisk',
+              billing: 'support',
+              dressing: 'shared',
             },
           },
           'lord-limelight': {
@@ -83,6 +99,8 @@ const THEME_WORDS = {
               standing: 'established',
               shift: 'early',
               manner: 'theatrical',
+              billing: 'the lead',
+              dressing: 'downstairs',
             },
           },
           'tilly-twirl': {
@@ -92,6 +110,8 @@ const THEME_WORDS = {
               standing: 'veteran',
               shift: 'late',
               manner: 'theatrical',
+              billing: 'an ensemble name',
+              dressing: 'upstairs',
             },
           },
           'dr-diction': {
@@ -101,6 +121,8 @@ const THEME_WORDS = {
               standing: 'junior',
               shift: 'early',
               manner: 'measured',
+              billing: 'support',
+              dressing: 'shared',
             },
           },
           'bertie-bravo': {
@@ -110,6 +132,8 @@ const THEME_WORDS = {
               standing: 'established',
               shift: 'late',
               manner: 'measured',
+              billing: 'an ensemble name',
+              dressing: 'upstairs',
             },
           },
           'august-vale': {
@@ -119,6 +143,8 @@ const THEME_WORDS = {
               standing: 'veteran',
               shift: 'early',
               manner: 'brisk',
+              billing: 'support',
+              dressing: 'shared',
             },
           },
           'pippa-pirouette': {
@@ -128,6 +154,8 @@ const THEME_WORDS = {
               standing: 'junior',
               shift: 'late',
               manner: 'brisk',
+              billing: 'an ensemble name',
+              dressing: 'shared',
             },
           },
           'silas-sigh': {
@@ -137,6 +165,8 @@ const THEME_WORDS = {
               standing: 'established',
               shift: 'early',
               manner: 'theatrical',
+              billing: 'an ensemble name',
+              dressing: 'upstairs',
             },
           },
           'dame-encore': {
@@ -146,6 +176,8 @@ const THEME_WORDS = {
               standing: 'veteran',
               shift: 'late',
               manner: 'theatrical',
+              billing: 'the lead',
+              dressing: 'downstairs',
             },
           },
           'cecil-cue': {
@@ -155,6 +187,8 @@ const THEME_WORDS = {
               standing: 'junior',
               shift: 'early',
               manner: 'measured',
+              billing: 'support',
+              dressing: 'shared',
             },
           },
           'ruby-reverie': {
@@ -164,6 +198,8 @@ const THEME_WORDS = {
               standing: 'established',
               shift: 'late',
               manner: 'measured',
+              billing: 'the lead',
+              dressing: 'downstairs',
             },
           },
         },
@@ -186,6 +222,14 @@ const THEME_WORDS = {
             label: 'Finish',
             pattern: '{noun} with a {} finish',
           },
+          act: {
+            label: 'Used in',
+            pattern: '{noun} used in the {} act',
+          },
+          logged: {
+            label: 'Prop list',
+            pattern: '{noun} that is {} on the prop list',
+          },
         },
         items: {
           'folding-fan': {
@@ -195,6 +239,8 @@ const THEME_WORDS = {
               handling: 'one-handed',
               storage: 'left',
               finish: 'matte',
+              act: 'first',
+              logged: 'ticked',
             },
           },
           'sealed-letter': {
@@ -204,6 +250,8 @@ const THEME_WORDS = {
               handling: 'one-handed',
               storage: 'right',
               finish: 'matte',
+              act: 'second',
+              logged: 'ticked',
             },
           },
           'golden-goblet': {
@@ -213,6 +261,8 @@ const THEME_WORDS = {
               handling: 'one-handed',
               storage: 'left',
               finish: 'shiny',
+              act: 'both',
+              logged: 'queried',
             },
           },
           'hand-mirror': {
@@ -223,6 +273,8 @@ const THEME_WORDS = {
               handling: 'one-handed',
               storage: 'right',
               finish: 'shiny',
+              act: 'first',
+              logged: 'ticked',
             },
           },
           'storm-lantern': {
@@ -232,6 +284,8 @@ const THEME_WORDS = {
               handling: 'one-handed',
               storage: 'left',
               finish: 'matte',
+              act: 'both',
+              logged: 'ticked',
             },
           },
           'royal-sceptre': {
@@ -241,6 +295,8 @@ const THEME_WORDS = {
               handling: 'one-handed',
               storage: 'right',
               finish: 'shiny',
+              act: 'second',
+              logged: 'queried',
             },
           },
           'map-scroll': {
@@ -250,6 +306,8 @@ const THEME_WORDS = {
               handling: 'two-handed',
               storage: 'left',
               finish: 'matte',
+              act: 'first',
+              logged: 'ticked',
             },
           },
           'throne-chair': {
@@ -259,6 +317,8 @@ const THEME_WORDS = {
               handling: 'two-handed',
               storage: 'central',
               finish: 'shiny',
+              act: 'both',
+              logged: 'ticked',
             },
           },
           'feather-quill': {
@@ -268,6 +328,8 @@ const THEME_WORDS = {
               handling: 'one-handed',
               storage: 'right',
               finish: 'matte',
+              act: 'second',
+              logged: 'missing',
             },
           },
           'blunt-dagger': {
@@ -277,6 +339,8 @@ const THEME_WORDS = {
               handling: 'one-handed',
               storage: 'left',
               finish: 'shiny',
+              act: 'second',
+              logged: 'queried',
             },
           },
           'silk-bouquet': {
@@ -286,6 +350,8 @@ const THEME_WORDS = {
               handling: 'two-handed',
               storage: 'right',
               finish: 'matte',
+              act: 'first',
+              logged: 'ticked',
             },
           },
           'alarm-clock': {
@@ -295,6 +361,8 @@ const THEME_WORDS = {
               handling: 'two-handed',
               storage: 'central',
               finish: 'shiny',
+              act: 'first',
+              logged: 'missing',
             },
           },
           'walking-cane': {
@@ -304,6 +372,8 @@ const THEME_WORDS = {
               handling: 'one-handed',
               storage: 'left',
               finish: 'shiny',
+              act: 'both',
+              logged: 'ticked',
             },
           },
           'treasure-coffer': {
@@ -313,6 +383,8 @@ const THEME_WORDS = {
               handling: 'two-handed',
               storage: 'central',
               finish: 'matte',
+              act: 'second',
+              logged: 'queried',
             },
           },
         },
@@ -335,6 +407,14 @@ const THEME_WORDS = {
             label: 'Rack',
             pattern: '{noun} on the {} rack',
           },
+          care: {
+            label: 'Cleaning',
+            pattern: '{noun} that is {}',
+          },
+          fitting: {
+            label: 'Fitting',
+            pattern: '{noun} that was {}',
+          },
         },
         items: {
           'knight-s-armour': {
@@ -344,6 +424,8 @@ const THEME_WORDS = {
               fastening: 'straps',
               weight: 'heavy',
               rack: 'north',
+              care: 'never cleaned',
+              fitting: 'hired in',
             },
           },
           'court-gown': {
@@ -353,6 +435,8 @@ const THEME_WORDS = {
               fastening: 'laces',
               weight: 'heavy',
               rack: 'south',
+              care: 'dry-clean only',
+              fitting: 'made to measure',
             },
           },
           'jester-s-motley': {
@@ -362,6 +446,8 @@ const THEME_WORDS = {
               fastening: 'buttons',
               weight: 'light',
               rack: 'east',
+              care: 'washable',
+              fitting: 'altered',
             },
           },
           'sailor-s-blouse': {
@@ -371,6 +457,8 @@ const THEME_WORDS = {
               fastening: 'buttons',
               weight: 'light',
               rack: 'north',
+              care: 'washable',
+              fitting: 'altered',
             },
           },
           'wizard-s-robe': {
@@ -380,6 +468,8 @@ const THEME_WORDS = {
               fastening: 'ties',
               weight: 'medium',
               rack: 'south',
+              care: 'dry-clean only',
+              fitting: 'hired in',
             },
           },
           'ballet-tutu': {
@@ -389,6 +479,8 @@ const THEME_WORDS = {
               fastening: 'hooks',
               weight: 'light',
               rack: 'east',
+              care: 'dry-clean only',
+              fitting: 'made to measure',
             },
           },
           'footman-s-livery': {
@@ -398,6 +490,8 @@ const THEME_WORDS = {
               fastening: 'buttons',
               weight: 'medium',
               rack: 'north',
+              care: 'washable',
+              fitting: 'altered',
             },
           },
           'pirate-coat': {
@@ -407,6 +501,8 @@ const THEME_WORDS = {
               fastening: 'buttons',
               weight: 'heavy',
               rack: 'south',
+              care: 'dry-clean only',
+              fitting: 'hired in',
             },
           },
           'ghost-sheet': {
@@ -416,6 +512,8 @@ const THEME_WORDS = {
               fastening: 'ties',
               weight: 'light',
               rack: 'east',
+              care: 'washable',
+              fitting: 'altered',
             },
           },
           'moth-cape': {
@@ -425,6 +523,8 @@ const THEME_WORDS = {
               fastening: 'hooks',
               weight: 'medium',
               rack: 'south',
+              care: 'dry-clean only',
+              fitting: 'made to measure',
             },
           },
           'cook-s-apron': {
@@ -434,6 +534,8 @@ const THEME_WORDS = {
               fastening: 'ties',
               weight: 'light',
               rack: 'north',
+              care: 'washable',
+              fitting: 'altered',
             },
           },
           'winter-furs': {
@@ -443,6 +545,8 @@ const THEME_WORDS = {
               fastening: 'hooks',
               weight: 'heavy',
               rack: 'east',
+              care: 'never cleaned',
+              fitting: 'hired in',
             },
           },
           'ringmaster-tails': {
@@ -452,6 +556,8 @@ const THEME_WORDS = {
               fastening: 'buttons',
               weight: 'medium',
               rack: 'north',
+              care: 'dry-clean only',
+              fitting: 'made to measure',
             },
           },
           'royal-mantle': {
@@ -461,6 +567,8 @@ const THEME_WORDS = {
               fastening: 'hooks',
               weight: 'heavy',
               rack: 'south',
+              care: 'never cleaned',
+              fitting: 'made to measure',
             },
           },
         },
@@ -483,6 +591,14 @@ const THEME_WORDS = {
             label: 'Construction',
             pattern: '{noun} of {} construction',
           },
+          crew: {
+            label: 'Change',
+            pattern: '{noun} changed by {}',
+          },
+          reuse: {
+            label: 'Reuse',
+            pattern: '{noun} that is {}',
+          },
         },
         items: {
           'painted-forest': {
@@ -492,6 +608,8 @@ const THEME_WORDS = {
               setting: 'outdoor',
               light: 'bright',
               construction: 'flat',
+              crew: 'two hands',
+              reuse: 'from the store',
             },
           },
           'castle-gate': {
@@ -501,6 +619,8 @@ const THEME_WORDS = {
               setting: 'outdoor',
               light: 'dim',
               construction: 'built',
+              crew: 'the whole crew',
+              reuse: 'new this run',
             },
           },
           'moonlit-balcony': {
@@ -510,6 +630,8 @@ const THEME_WORDS = {
               setting: 'outdoor',
               light: 'dim',
               construction: 'built',
+              crew: 'two hands',
+              reuse: 'borrowed',
             },
           },
           'desert-dunes': {
@@ -519,6 +641,8 @@ const THEME_WORDS = {
               setting: 'outdoor',
               light: 'bright',
               construction: 'flat',
+              crew: 'two hands',
+              reuse: 'from the store',
             },
           },
           'snowy-peak': {
@@ -528,6 +652,8 @@ const THEME_WORDS = {
               setting: 'outdoor',
               light: 'bright',
               construction: 'flat',
+              crew: 'the whole crew',
+              reuse: 'new this run',
             },
           },
           'village-well': {
@@ -537,6 +663,8 @@ const THEME_WORDS = {
               setting: 'outdoor',
               light: 'bright',
               construction: 'built',
+              crew: 'one hand',
+              reuse: 'from the store',
             },
           },
           'garden-arch': {
@@ -547,6 +675,8 @@ const THEME_WORDS = {
               setting: 'outdoor',
               light: 'bright',
               construction: 'built',
+              crew: 'one hand',
+              reuse: 'borrowed',
             },
           },
           'ship-s-deck': {
@@ -556,6 +686,8 @@ const THEME_WORDS = {
               setting: 'outdoor',
               light: 'dim',
               construction: 'built',
+              crew: 'the whole crew',
+              reuse: 'new this run',
             },
           },
           'palace-stair': {
@@ -565,6 +697,8 @@ const THEME_WORDS = {
               setting: 'indoor',
               light: 'bright',
               construction: 'built',
+              crew: 'the whole crew',
+              reuse: 'from the store',
             },
           },
           'prison-cell': {
@@ -574,6 +708,8 @@ const THEME_WORDS = {
               setting: 'indoor',
               light: 'dim',
               construction: 'built',
+              crew: 'two hands',
+              reuse: 'from the store',
             },
           },
           'ruined-temple': {
@@ -584,6 +720,8 @@ const THEME_WORDS = {
               setting: 'outdoor',
               light: 'dim',
               construction: 'flat',
+              crew: 'the whole crew',
+              reuse: 'new this run',
             },
           },
           'city-rooftops': {
@@ -593,6 +731,8 @@ const THEME_WORDS = {
               setting: 'outdoor',
               light: 'dim',
               construction: 'flat',
+              crew: 'two hands',
+              reuse: 'borrowed',
             },
           },
           'cave-mouth': {
@@ -602,6 +742,8 @@ const THEME_WORDS = {
               setting: 'outdoor',
               light: 'dim',
               construction: 'flat',
+              crew: 'one hand',
+              reuse: 'from the store',
             },
           },
           'village-watermill': {
@@ -611,6 +753,8 @@ const THEME_WORDS = {
               setting: 'outdoor',
               light: 'bright',
               construction: 'built',
+              crew: 'the whole crew',
+              reuse: 'borrowed',
             },
           },
         },
@@ -635,6 +779,18 @@ const THEME_WORDS = {
             label: 'Review',
             pattern: '{noun} requiring {} review',
           },
+          interval: {
+            label: 'Interval',
+            pattern: '{noun} {} the interval',
+          },
+          cue: {
+            label: 'Cue',
+            pattern: '{noun} called by {}',
+          },
+          notes: {
+            label: 'Notes',
+            pattern: '{noun} with {} in the notes',
+          },
         },
         items: {
           '5': {
@@ -643,6 +799,9 @@ const THEME_WORDS = {
             traits: {
               band: 'brief',
               review: 'routine',
+              interval: 'before',
+              cue: 'the book',
+              notes: 'no remarks',
             },
           },
           '10': {
@@ -651,6 +810,9 @@ const THEME_WORDS = {
             traits: {
               band: 'brief',
               review: 'routine',
+              interval: 'before',
+              cue: 'a light',
+              notes: 'a remark',
             },
           },
           '15': {
@@ -659,6 +821,9 @@ const THEME_WORDS = {
             traits: {
               band: 'brief',
               review: 'routine',
+              interval: 'before',
+              cue: 'a bell',
+              notes: 'no remarks',
             },
           },
           '20': {
@@ -667,6 +832,9 @@ const THEME_WORDS = {
             traits: {
               band: 'brief',
               review: 'routine',
+              interval: 'before',
+              cue: 'the book',
+              notes: 'several remarks',
             },
           },
           '25': {
@@ -675,6 +843,9 @@ const THEME_WORDS = {
             traits: {
               band: 'standard',
               review: 'routine',
+              interval: 'before',
+              cue: 'a light',
+              notes: 'a remark',
             },
           },
           '30': {
@@ -683,6 +854,9 @@ const THEME_WORDS = {
             traits: {
               band: 'standard',
               review: 'routine',
+              interval: 'before',
+              cue: 'the book',
+              notes: 'no remarks',
             },
           },
           '35': {
@@ -691,6 +865,9 @@ const THEME_WORDS = {
             traits: {
               band: 'standard',
               review: 'routine',
+              interval: 'before',
+              cue: 'a bell',
+              notes: 'a remark',
             },
           },
           '40': {
@@ -699,6 +876,9 @@ const THEME_WORDS = {
             traits: {
               band: 'standard',
               review: 'detailed',
+              interval: 'before',
+              cue: 'the book',
+              notes: 'several remarks',
             },
           },
           '45': {
@@ -707,6 +887,9 @@ const THEME_WORDS = {
             traits: {
               band: 'standard',
               review: 'detailed',
+              interval: 'after',
+              cue: 'a light',
+              notes: 'no remarks',
             },
           },
           '50': {
@@ -715,6 +898,9 @@ const THEME_WORDS = {
             traits: {
               band: 'extended',
               review: 'detailed',
+              interval: 'after',
+              cue: 'the book',
+              notes: 'a remark',
             },
           },
           '55': {
@@ -723,6 +909,9 @@ const THEME_WORDS = {
             traits: {
               band: 'extended',
               review: 'detailed',
+              interval: 'after',
+              cue: 'a bell',
+              notes: 'a remark',
             },
           },
           '60': {
@@ -731,6 +920,9 @@ const THEME_WORDS = {
             traits: {
               band: 'extended',
               review: 'detailed',
+              interval: 'after',
+              cue: 'a light',
+              notes: 'several remarks',
             },
           },
           '65': {
@@ -740,6 +932,9 @@ const THEME_WORDS = {
             traits: {
               band: 'extended',
               review: 'detailed',
+              interval: 'after',
+              cue: 'the book',
+              notes: 'no remarks',
             },
           },
           '70': {
@@ -748,6 +943,9 @@ const THEME_WORDS = {
             traits: {
               band: 'extended',
               review: 'detailed',
+              interval: 'after',
+              cue: 'a light',
+              notes: 'a remark',
             },
           },
         },
@@ -970,6 +1168,14 @@ const THEME_WORDS = {
             label: 'Milk',
             pattern: '{noun} {}',
           },
+          made: {
+            label: 'Made by',
+            pattern: '{noun} made by {}',
+          },
+          ordered: {
+            label: 'Ordered by',
+            pattern: '{noun} ordered mostly by {}',
+          },
         },
         items: {
           latte: {
@@ -979,6 +1185,8 @@ const THEME_WORDS = {
               served: 'hot',
               strength: 'gentle',
               milk: 'with milk',
+              made: 'the machine',
+              ordered: 'regulars',
             },
           },
           mocha: {
@@ -988,6 +1196,8 @@ const THEME_WORDS = {
               served: 'hot',
               strength: 'gentle',
               milk: 'with milk',
+              made: 'hand',
+              ordered: 'newcomers',
             },
           },
           chai: {
@@ -997,6 +1207,8 @@ const THEME_WORDS = {
               served: 'hot',
               strength: 'gentle',
               milk: 'with milk',
+              made: 'the kettle',
+              ordered: 'nobody in particular',
             },
           },
           cortado: {
@@ -1006,6 +1218,8 @@ const THEME_WORDS = {
               served: 'hot',
               strength: 'strong',
               milk: 'with milk',
+              made: 'the machine',
+              ordered: 'regulars',
             },
           },
           matcha: {
@@ -1015,6 +1229,8 @@ const THEME_WORDS = {
               served: 'hot',
               strength: 'gentle',
               milk: 'with milk',
+              made: 'hand',
+              ordered: 'newcomers',
             },
           },
           espresso: {
@@ -1024,6 +1240,8 @@ const THEME_WORDS = {
               served: 'hot',
               strength: 'strong',
               milk: 'without milk',
+              made: 'the machine',
+              ordered: 'regulars',
             },
           },
           'flat-white': {
@@ -1033,6 +1251,8 @@ const THEME_WORDS = {
               served: 'hot',
               strength: 'strong',
               milk: 'with milk',
+              made: 'the machine',
+              ordered: 'regulars',
             },
           },
           americano: {
@@ -1042,6 +1262,8 @@ const THEME_WORDS = {
               served: 'hot',
               strength: 'strong',
               milk: 'without milk',
+              made: 'the machine',
+              ordered: 'nobody in particular',
             },
           },
           cappuccino: {
@@ -1051,6 +1273,8 @@ const THEME_WORDS = {
               served: 'hot',
               strength: 'strong',
               milk: 'with milk',
+              made: 'the machine',
+              ordered: 'newcomers',
             },
           },
           macchiato: {
@@ -1060,6 +1284,8 @@ const THEME_WORDS = {
               served: 'hot',
               strength: 'strong',
               milk: 'with milk',
+              made: 'the machine',
+              ordered: 'nobody in particular',
             },
           },
           'cold-brew': {
@@ -1069,6 +1295,8 @@ const THEME_WORDS = {
               served: 'iced',
               strength: 'strong',
               milk: 'without milk',
+              made: 'hand',
+              ordered: 'newcomers',
             },
           },
           'oat-latte': {
@@ -1078,6 +1306,8 @@ const THEME_WORDS = {
               served: 'hot',
               strength: 'gentle',
               milk: 'with milk',
+              made: 'the machine',
+              ordered: 'regulars',
             },
           },
           'mint-tea': {
@@ -1087,6 +1317,8 @@ const THEME_WORDS = {
               served: 'hot',
               strength: 'gentle',
               milk: 'without milk',
+              made: 'the kettle',
+              ordered: 'nobody in particular',
             },
           },
           'hot-choc': {
@@ -1096,6 +1328,8 @@ const THEME_WORDS = {
               served: 'hot',
               strength: 'gentle',
               milk: 'with milk',
+              made: 'hand',
+              ordered: 'newcomers',
             },
           },
         },
@@ -1118,6 +1352,14 @@ const THEME_WORDS = {
             label: 'Size',
             pattern: '{} {noun}',
           },
+          baked: {
+            label: 'Baked',
+            pattern: '{noun} baked {}',
+          },
+          pairs: {
+            label: 'Goes with',
+            pattern: '{noun} that goes with {}',
+          },
         },
         items: {
           croissant: {
@@ -1127,6 +1369,8 @@ const THEME_WORDS = {
               texture: 'flaky',
               filling: 'nothing',
               size: 'big',
+              baked: 'overnight',
+              pairs: 'coffee',
             },
           },
           cannel: {
@@ -1136,6 +1380,8 @@ const THEME_WORDS = {
               texture: 'crisp',
               filling: 'custard',
               size: 'small',
+              baked: 'on site',
+              pairs: 'coffee',
             },
           },
           scone: {
@@ -1145,6 +1391,8 @@ const THEME_WORDS = {
               texture: 'crumbly',
               filling: 'nothing',
               size: 'big',
+              baked: 'on site',
+              pairs: 'tea',
             },
           },
           clair: {
@@ -1154,6 +1402,8 @@ const THEME_WORDS = {
               texture: 'soft',
               filling: 'cream',
               size: 'big',
+              baked: 'on site',
+              pairs: 'coffee',
             },
           },
           brioche: {
@@ -1163,6 +1413,8 @@ const THEME_WORDS = {
               texture: 'soft',
               filling: 'nothing',
               size: 'big',
+              baked: 'overnight',
+              pairs: 'tea',
             },
           },
           tartlet: {
@@ -1172,6 +1424,8 @@ const THEME_WORDS = {
               texture: 'crisp',
               filling: 'fruit',
               size: 'small',
+              baked: 'on site',
+              pairs: 'tea',
             },
           },
           danish: {
@@ -1181,6 +1435,8 @@ const THEME_WORDS = {
               texture: 'flaky',
               filling: 'fruit',
               size: 'big',
+              baked: 'elsewhere',
+              pairs: 'coffee',
             },
           },
           madeleine: {
@@ -1190,6 +1446,8 @@ const THEME_WORDS = {
               texture: 'soft',
               filling: 'nothing',
               size: 'small',
+              baked: 'on site',
+              pairs: 'tea',
             },
           },
           palmier: {
@@ -1199,6 +1457,8 @@ const THEME_WORDS = {
               texture: 'crisp',
               filling: 'nothing',
               size: 'small',
+              baked: 'elsewhere',
+              pairs: 'anything',
             },
           },
           doughnut: {
@@ -1208,6 +1468,8 @@ const THEME_WORDS = {
               texture: 'soft',
               filling: 'jam',
               size: 'big',
+              baked: 'elsewhere',
+              pairs: 'anything',
             },
           },
           muffin: {
@@ -1217,6 +1479,8 @@ const THEME_WORDS = {
               texture: 'crumbly',
               filling: 'fruit',
               size: 'big',
+              baked: 'on site',
+              pairs: 'anything',
             },
           },
           baklava: {
@@ -1226,6 +1490,8 @@ const THEME_WORDS = {
               texture: 'flaky',
               filling: 'nuts',
               size: 'small',
+              baked: 'elsewhere',
+              pairs: 'tea',
             },
           },
           cruffin: {
@@ -1235,6 +1501,8 @@ const THEME_WORDS = {
               texture: 'flaky',
               filling: 'cream',
               size: 'big',
+              baked: 'overnight',
+              pairs: 'coffee',
             },
           },
           turnover: {
@@ -1244,6 +1512,8 @@ const THEME_WORDS = {
               texture: 'flaky',
               filling: 'fruit',
               size: 'big',
+              baked: 'overnight',
+              pairs: 'anything',
             },
           },
         },
@@ -1266,6 +1536,14 @@ const THEME_WORDS = {
             label: 'Light',
             pattern: '{noun} in the {}',
           },
+          noise: {
+            label: 'Noise',
+            pattern: '{noun} that is {}',
+          },
+          booking: {
+            label: 'Taken',
+            pattern: '{noun} usually {}',
+          },
         },
         items: {
           window: {
@@ -1275,6 +1553,8 @@ const THEME_WORDS = {
               where: 'indoors',
               size: 'roomy',
               light: 'sun',
+              noise: 'lively',
+              booking: 'fought over',
             },
           },
           corner: {
@@ -1285,6 +1565,8 @@ const THEME_WORDS = {
               where: 'indoors',
               size: 'snug',
               light: 'shade',
+              noise: 'quiet',
+              booking: 'claimed on arrival',
             },
           },
           patio: {
@@ -1294,6 +1576,8 @@ const THEME_WORDS = {
               where: 'outdoors',
               size: 'roomy',
               light: 'sun',
+              noise: 'lively',
+              booking: 'fought over',
             },
           },
           counter: {
@@ -1303,6 +1587,8 @@ const THEME_WORDS = {
               where: 'indoors',
               size: 'snug',
               light: 'shade',
+              noise: 'loud',
+              booking: 'claimed on arrival',
             },
           },
           loft: {
@@ -1312,6 +1598,8 @@ const THEME_WORDS = {
               where: 'indoors',
               size: 'roomy',
               light: 'shade',
+              noise: 'quiet',
+              booking: 'booked ahead',
             },
           },
           fireside: {
@@ -1321,6 +1609,8 @@ const THEME_WORDS = {
               where: 'indoors',
               size: 'snug',
               light: 'shade',
+              noise: 'quiet',
+              booking: 'fought over',
             },
           },
           balcony: {
@@ -1330,6 +1620,8 @@ const THEME_WORDS = {
               where: 'outdoors',
               size: 'snug',
               light: 'sun',
+              noise: 'lively',
+              booking: 'booked ahead',
             },
           },
           alcove: {
@@ -1339,6 +1631,8 @@ const THEME_WORDS = {
               where: 'indoors',
               size: 'snug',
               light: 'shade',
+              noise: 'quiet',
+              booking: 'claimed on arrival',
             },
           },
           'bar-stool': {
@@ -1348,6 +1642,8 @@ const THEME_WORDS = {
               where: 'indoors',
               size: 'snug',
               light: 'sun',
+              noise: 'loud',
+              booking: 'claimed on arrival',
             },
           },
           booth: {
@@ -1357,6 +1653,8 @@ const THEME_WORDS = {
               where: 'indoors',
               size: 'roomy',
               light: 'shade',
+              noise: 'lively',
+              booking: 'booked ahead',
             },
           },
           terrace: {
@@ -1366,6 +1664,8 @@ const THEME_WORDS = {
               where: 'outdoors',
               size: 'roomy',
               light: 'sun',
+              noise: 'lively',
+              booking: 'booked ahead',
             },
           },
           garden: {
@@ -1375,6 +1675,8 @@ const THEME_WORDS = {
               where: 'outdoors',
               size: 'roomy',
               light: 'shade',
+              noise: 'quiet',
+              booking: 'claimed on arrival',
             },
           },
           nook: {
@@ -1385,6 +1687,8 @@ const THEME_WORDS = {
               where: 'indoors',
               size: 'snug',
               light: 'shade',
+              noise: 'quiet',
+              booking: 'claimed on arrival',
             },
           },
           bench: {
@@ -1394,6 +1698,8 @@ const THEME_WORDS = {
               where: 'outdoors',
               size: 'roomy',
               light: 'sun',
+              noise: 'lively',
+              booking: 'claimed on arrival',
             },
           },
         },
@@ -1418,6 +1724,18 @@ const THEME_WORDS = {
             label: 'Number',
             pattern: '{noun} with an {} number',
           },
+          half: {
+            label: 'Half of the run',
+            pattern: '{noun} from the {} half of the run',
+          },
+          settled: {
+            label: 'Settled by',
+            pattern: '{noun} settled by {}',
+          },
+          tip: {
+            label: 'Tip',
+            pattern: '{noun} that left {} tip',
+          },
         },
         items: {
           '4': {
@@ -1426,6 +1744,9 @@ const THEME_WORDS = {
             traits: {
               band: 'modest',
               parity: 'even',
+              half: 'first',
+              settled: 'cash',
+              tip: 'no',
             },
           },
           '5': {
@@ -1434,6 +1755,9 @@ const THEME_WORDS = {
             traits: {
               band: 'modest',
               parity: 'odd',
+              half: 'first',
+              settled: 'cash',
+              tip: 'a modest',
             },
           },
           '6': {
@@ -1442,6 +1766,9 @@ const THEME_WORDS = {
             traits: {
               band: 'modest',
               parity: 'even',
+              half: 'first',
+              settled: 'cash',
+              tip: 'a generous',
             },
           },
           '7': {
@@ -1450,6 +1777,9 @@ const THEME_WORDS = {
             traits: {
               band: 'modest',
               parity: 'odd',
+              half: 'first',
+              settled: 'an argument',
+              tip: 'no',
             },
           },
           '8': {
@@ -1458,6 +1788,9 @@ const THEME_WORDS = {
             traits: {
               band: 'modest',
               parity: 'even',
+              half: 'first',
+              settled: 'card',
+              tip: 'a modest',
             },
           },
           '9': {
@@ -1466,6 +1799,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'odd',
+              half: 'first',
+              settled: 'card',
+              tip: 'a modest',
             },
           },
           '10': {
@@ -1474,6 +1810,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'even',
+              half: 'first',
+              settled: 'card',
+              tip: 'a generous',
             },
           },
           '11': {
@@ -1482,6 +1821,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'odd',
+              half: 'second',
+              settled: 'an argument',
+              tip: 'a modest',
             },
           },
           '12': {
@@ -1490,6 +1832,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'even',
+              half: 'second',
+              settled: 'card',
+              tip: 'no',
             },
           },
           '13': {
@@ -1498,6 +1843,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'odd',
+              half: 'second',
+              settled: 'card',
+              tip: 'a modest',
             },
           },
           '14': {
@@ -1506,6 +1854,9 @@ const THEME_WORDS = {
             traits: {
               band: 'steep',
               parity: 'even',
+              half: 'second',
+              settled: 'an argument',
+              tip: 'a generous',
             },
           },
           '15': {
@@ -1514,6 +1865,9 @@ const THEME_WORDS = {
             traits: {
               band: 'steep',
               parity: 'odd',
+              half: 'second',
+              settled: 'card',
+              tip: 'a modest',
             },
           },
           '16': {
@@ -1522,6 +1876,9 @@ const THEME_WORDS = {
             traits: {
               band: 'steep',
               parity: 'even',
+              half: 'second',
+              settled: 'card',
+              tip: 'no',
             },
           },
           '17': {
@@ -1530,6 +1887,9 @@ const THEME_WORDS = {
             traits: {
               band: 'steep',
               parity: 'odd',
+              half: 'second',
+              settled: 'card',
+              tip: 'a generous',
             },
           },
         },
@@ -1567,6 +1927,14 @@ const THEME_WORDS = {
             label: 'Manner',
             pattern: '{} {noun}',
           },
+          bench: {
+            label: 'Bench',
+            pattern: '{noun} at the {} bench',
+          },
+          notes: {
+            label: 'Notes',
+            pattern: '{noun} whose notes are {}',
+          },
         },
         items: {
           'master-rivet': {
@@ -1576,6 +1944,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'early',
               manner: 'patient',
+              bench: 'window',
+              notes: 'scribbled',
             },
           },
           'mrs-bobbin': {
@@ -1586,6 +1956,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'late',
               manner: 'patient',
+              bench: 'corner',
+              notes: 'immaculate',
             },
           },
           'dr-ratchet': {
@@ -1595,6 +1967,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'early',
               manner: 'brisk',
+              bench: 'long',
+              notes: 'immaculate',
             },
           },
           'ms-sprocket': {
@@ -1604,6 +1978,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'late',
               manner: 'brisk',
+              bench: 'long',
+              notes: 'scribbled',
             },
           },
           'sir-flywheel': {
@@ -1613,6 +1989,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'early',
               manner: 'dramatic',
+              bench: 'window',
+              notes: 'missing',
             },
           },
           'dame-copper': {
@@ -1622,6 +2000,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'late',
               manner: 'dramatic',
+              bench: 'corner',
+              notes: 'immaculate',
             },
           },
           'mr-sawdust': {
@@ -1631,6 +2011,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'early',
               manner: 'patient',
+              bench: 'long',
+              notes: 'scribbled',
             },
           },
           'mx-ticker': {
@@ -1640,6 +2022,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'late',
               manner: 'patient',
+              bench: 'window',
+              notes: 'immaculate',
             },
           },
           'professor-piston': {
@@ -1649,6 +2033,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'early',
               manner: 'brisk',
+              bench: 'corner',
+              notes: 'immaculate',
             },
           },
           'miss-emery': {
@@ -1658,6 +2044,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'late',
               manner: 'brisk',
+              bench: 'long',
+              notes: 'scribbled',
             },
           },
           'mr-spanner': {
@@ -1667,6 +2055,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'early',
               manner: 'dramatic',
+              bench: 'window',
+              notes: 'scribbled',
             },
           },
           'captain-crank': {
@@ -1676,6 +2066,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'late',
               manner: 'dramatic',
+              bench: 'corner',
+              notes: 'missing',
             },
           },
           'aunt-toggle': {
@@ -1685,6 +2077,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'early',
               manner: 'patient',
+              bench: 'long',
+              notes: 'immaculate',
             },
           },
           'dr-fuse': {
@@ -1694,6 +2088,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'late',
               manner: 'patient',
+              bench: 'window',
+              notes: 'scribbled',
             },
           },
         },
@@ -1716,6 +2112,14 @@ const THEME_WORDS = {
             label: 'Scale',
             pattern: '{} {noun}',
           },
+          stage: {
+            label: 'Stage',
+            pattern: '{noun} that is {}',
+          },
+          patent: {
+            label: 'Patent',
+            pattern: '{noun} filed as {}',
+          },
         },
         items: {
           'polite-automaton': {
@@ -1725,6 +2129,8 @@ const THEME_WORDS = {
               power: 'spring-powered',
               purpose: 'assistance',
               scale: 'large',
+              stage: 'finished',
+              patent: 'patented',
             },
           },
           'self-pouring-pot': {
@@ -1734,6 +2140,8 @@ const THEME_WORDS = {
               power: 'steam-powered',
               purpose: 'assistance',
               scale: 'small',
+              stage: 'finished',
+              patent: 'patented',
             },
           },
           'clockwork-wren': {
@@ -1743,6 +2151,8 @@ const THEME_WORDS = {
               power: 'spring-powered',
               purpose: 'entertainment',
               scale: 'small',
+              stage: 'on trial',
+              patent: 'still pending',
             },
           },
           'pocket-submarine': {
@@ -1752,6 +2162,8 @@ const THEME_WORDS = {
               power: 'battery-powered',
               purpose: 'transport',
               scale: 'small',
+              stage: 'in pieces',
+              patent: 'unpatented',
             },
           },
           'parlour-airship': {
@@ -1761,6 +2173,8 @@ const THEME_WORDS = {
               power: 'battery-powered',
               purpose: 'transport',
               scale: 'large',
+              stage: 'in pieces',
+              patent: 'unpatented',
             },
           },
           'helping-hand': {
@@ -1770,6 +2184,8 @@ const THEME_WORDS = {
               power: 'battery-powered',
               purpose: 'assistance',
               scale: 'small',
+              stage: 'finished',
+              patent: 'patented',
             },
           },
           'waltzing-box': {
@@ -1779,6 +2195,8 @@ const THEME_WORDS = {
               power: 'spring-powered',
               purpose: 'entertainment',
               scale: 'small',
+              stage: 'finished',
+              patent: 'still pending',
             },
           },
           'walking-clock': {
@@ -1788,6 +2206,8 @@ const THEME_WORDS = {
               power: 'spring-powered',
               purpose: 'assistance',
               scale: 'large',
+              stage: 'on trial',
+              patent: 'unpatented',
             },
           },
           'sun-powered-fan': {
@@ -1797,6 +2217,8 @@ const THEME_WORDS = {
               power: 'solar-powered',
               purpose: 'assistance',
               scale: 'large',
+              stage: 'finished',
+              patent: 'patented',
             },
           },
           'perpetual-cog': {
@@ -1806,6 +2228,8 @@ const THEME_WORDS = {
               power: 'spring-powered',
               purpose: 'research',
               scale: 'small',
+              stage: 'in pieces',
+              patent: 'unpatented',
             },
           },
           'dictation-machine': {
@@ -1815,6 +2239,8 @@ const THEME_WORDS = {
               power: 'battery-powered',
               purpose: 'assistance',
               scale: 'large',
+              stage: 'on trial',
+              patent: 'still pending',
             },
           },
           'garden-rocket': {
@@ -1824,6 +2250,8 @@ const THEME_WORDS = {
               power: 'steam-powered',
               purpose: 'transport',
               scale: 'large',
+              stage: 'in pieces',
+              patent: 'unpatented',
             },
           },
           'whisper-horn': {
@@ -1833,6 +2261,8 @@ const THEME_WORDS = {
               power: 'spring-powered',
               purpose: 'entertainment',
               scale: 'large',
+              stage: 'finished',
+              patent: 'patented',
             },
           },
           'mechanical-carp': {
@@ -1842,6 +2272,8 @@ const THEME_WORDS = {
               power: 'solar-powered',
               purpose: 'research',
               scale: 'small',
+              stage: 'on trial',
+              patent: 'still pending',
             },
           },
         },
@@ -1864,6 +2296,14 @@ const THEME_WORDS = {
             label: 'Supply',
             pattern: '{noun} from {} stock',
           },
+          store: {
+            label: 'Stored in',
+            pattern: '{noun} stored in {}',
+          },
+          cost: {
+            label: 'Cost',
+            pattern: '{noun} that is {}',
+          },
         },
         items: {
           'oak-offcut': {
@@ -1873,6 +2313,8 @@ const THEME_WORDS = {
               origin: 'natural',
               texture: 'rough',
               supply: 'standard',
+              store: 'the yard',
+              cost: 'cheap',
             },
           },
           'brass-ingot': {
@@ -1882,6 +2324,8 @@ const THEME_WORDS = {
               origin: 'processed',
               texture: 'smooth',
               supply: 'standard',
+              store: 'the cellar',
+              cost: 'dear',
             },
           },
           'glass-flask': {
@@ -1891,6 +2335,8 @@ const THEME_WORDS = {
               origin: 'processed',
               texture: 'smooth',
               supply: 'special',
+              store: 'the loft',
+              cost: 'dear',
             },
           },
           'copper-coil': {
@@ -1900,6 +2346,8 @@ const THEME_WORDS = {
               origin: 'processed',
               texture: 'smooth',
               supply: 'standard',
+              store: 'the cellar',
+              cost: 'dear',
             },
           },
           'leather-hide': {
@@ -1909,6 +2357,8 @@ const THEME_WORDS = {
               origin: 'natural',
               texture: 'rough',
               supply: 'special',
+              store: 'the loft',
+              cost: 'dear',
             },
           },
           'canvas-sheet': {
@@ -1918,6 +2368,8 @@ const THEME_WORDS = {
               origin: 'processed',
               texture: 'rough',
               supply: 'standard',
+              store: 'the loft',
+              cost: 'cheap',
             },
           },
           'cork-block': {
@@ -1927,6 +2379,8 @@ const THEME_WORDS = {
               origin: 'natural',
               texture: 'rough',
               supply: 'standard',
+              store: 'the yard',
+              cost: 'cheap',
             },
           },
           'hemp-rope': {
@@ -1936,6 +2390,8 @@ const THEME_WORDS = {
               origin: 'natural',
               texture: 'rough',
               supply: 'standard',
+              store: 'the yard',
+              cost: 'cheap',
             },
           },
           'rubber-ring': {
@@ -1945,6 +2401,8 @@ const THEME_WORDS = {
               origin: 'processed',
               texture: 'smooth',
               supply: 'standard',
+              store: 'the cellar',
+              cost: 'cheap',
             },
           },
           'porcelain-jar': {
@@ -1955,6 +2413,8 @@ const THEME_WORDS = {
               origin: 'processed',
               texture: 'smooth',
               supply: 'special',
+              store: 'the loft',
+              cost: 'dear',
             },
           },
           'paper-stack': {
@@ -1964,6 +2424,8 @@ const THEME_WORDS = {
               origin: 'processed',
               texture: 'smooth',
               supply: 'standard',
+              store: 'the loft',
+              cost: 'cheap',
             },
           },
           'granite-lump': {
@@ -1973,6 +2435,8 @@ const THEME_WORDS = {
               origin: 'natural',
               texture: 'rough',
               supply: 'special',
+              store: 'the yard',
+              cost: 'hard to price',
             },
           },
           'wool-felt': {
@@ -1982,6 +2446,8 @@ const THEME_WORDS = {
               origin: 'natural',
               texture: 'rough',
               supply: 'special',
+              store: 'the loft',
+              cost: 'cheap',
             },
           },
           'steel-spring': {
@@ -1991,6 +2457,8 @@ const THEME_WORDS = {
               origin: 'processed',
               texture: 'smooth',
               supply: 'special',
+              store: 'the cellar',
+              cost: 'dear',
             },
           },
         },
@@ -2013,6 +2481,14 @@ const THEME_WORDS = {
             label: 'Storage',
             pattern: '{noun} stored on the {}',
           },
+          age: {
+            label: 'Came',
+            pattern: '{noun} that came {}',
+          },
+          lent: {
+            label: 'Lending',
+            pattern: '{noun} that is {}',
+          },
         },
         items: {
           'claw-hammer': {
@@ -2022,6 +2498,8 @@ const THEME_WORDS = {
               operation: 'manual',
               purpose: 'assembly',
               storage: 'pegboard',
+              age: 'second-hand',
+              lent: 'lent freely',
             },
           },
           'open-spanner': {
@@ -2031,6 +2509,8 @@ const THEME_WORDS = {
               operation: 'manual',
               purpose: 'assembly',
               storage: 'pegboard',
+              age: 'new',
+              lent: 'lent freely',
             },
           },
           'panel-saw': {
@@ -2040,6 +2520,8 @@ const THEME_WORDS = {
               operation: 'manual',
               purpose: 'cutting',
               storage: 'pegboard',
+              age: 'from a grandparent',
+              lent: 'never lent',
             },
           },
           'long-pliers': {
@@ -2049,6 +2531,8 @@ const THEME_WORDS = {
               operation: 'manual',
               purpose: 'assembly',
               storage: 'pegboard',
+              age: 'new',
+              lent: 'lent freely',
             },
           },
           'slot-driver': {
@@ -2058,6 +2542,8 @@ const THEME_WORDS = {
               operation: 'manual',
               purpose: 'assembly',
               storage: 'pegboard',
+              age: 'new',
+              lent: 'lent freely',
             },
           },
           'bench-drill': {
@@ -2067,6 +2553,8 @@ const THEME_WORDS = {
               operation: 'powered',
               purpose: 'cutting',
               storage: 'bench',
+              age: 'second-hand',
+              lent: 'never lent',
             },
           },
           'small-anvil': {
@@ -2076,6 +2564,8 @@ const THEME_WORDS = {
               operation: 'manual',
               purpose: 'shaping',
               storage: 'bench',
+              age: 'from a grandparent',
+              lent: 'never lent',
             },
           },
           'bench-vice': {
@@ -2085,6 +2575,8 @@ const THEME_WORDS = {
               operation: 'manual',
               purpose: 'assembly',
               storage: 'bench',
+              age: 'second-hand',
+              lent: 'never lent',
             },
           },
           dividers: {
@@ -2094,6 +2586,8 @@ const THEME_WORDS = {
               operation: 'manual',
               purpose: 'measuring',
               storage: 'drawer',
+              age: 'from a grandparent',
+              lent: 'never lent',
             },
           },
           'flat-file': {
@@ -2103,6 +2597,8 @@ const THEME_WORDS = {
               operation: 'manual',
               purpose: 'shaping',
               storage: 'drawer',
+              age: 'new',
+              lent: 'lent freely',
             },
           },
           'soldering-iron': {
@@ -2112,6 +2608,8 @@ const THEME_WORDS = {
               operation: 'powered',
               purpose: 'assembly',
               storage: 'bench',
+              age: 'new',
+              lent: 'never lent',
             },
           },
           'g-clamp': {
@@ -2121,6 +2619,8 @@ const THEME_WORDS = {
               operation: 'manual',
               purpose: 'assembly',
               storage: 'pegboard',
+              age: 'second-hand',
+              lent: 'lent freely',
             },
           },
           'steel-rule': {
@@ -2130,6 +2630,8 @@ const THEME_WORDS = {
               operation: 'manual',
               purpose: 'measuring',
               storage: 'drawer',
+              age: 'new',
+              lent: 'lent freely',
             },
           },
           'forge-bellows': {
@@ -2139,6 +2641,8 @@ const THEME_WORDS = {
               operation: 'manual',
               purpose: 'shaping',
               storage: 'bench',
+              age: 'from a grandparent',
+              lent: 'never lent',
             },
           },
         },
@@ -2163,6 +2667,18 @@ const THEME_WORDS = {
             label: 'Register',
             pattern: '{noun} in the {} register',
           },
+          entry: {
+            label: 'Entry',
+            pattern: '{noun} whose entry is {}',
+          },
+          photo: {
+            label: 'On file',
+            pattern: '{noun} with {} on file',
+          },
+          display: {
+            label: 'Display',
+            pattern: '{noun} that is {}',
+          },
         },
         items: {
           '1900': {
@@ -2171,6 +2687,9 @@ const THEME_WORDS = {
             traits: {
               era: 'founding',
               register: 'handwritten',
+              entry: 'unsigned',
+              photo: 'no photograph',
+              display: 'in storage',
             },
           },
           '1905': {
@@ -2179,6 +2698,9 @@ const THEME_WORDS = {
             traits: {
               era: 'founding',
               register: 'handwritten',
+              entry: 'signed',
+              photo: 'a sketch',
+              display: 'on display',
             },
           },
           '1910': {
@@ -2187,6 +2709,9 @@ const THEME_WORDS = {
             traits: {
               era: 'founding',
               register: 'handwritten',
+              entry: 'signed',
+              photo: 'a photograph',
+              display: 'on display',
             },
           },
           '1915': {
@@ -2195,6 +2720,9 @@ const THEME_WORDS = {
             traits: {
               era: 'founding',
               register: 'handwritten',
+              entry: 'unsigned',
+              photo: 'a sketch',
+              display: 'in storage',
             },
           },
           '1920': {
@@ -2203,6 +2731,9 @@ const THEME_WORDS = {
             traits: {
               era: 'founding',
               register: 'handwritten',
+              entry: 'signed',
+              photo: 'no photograph',
+              display: 'on loan',
             },
           },
           '1925': {
@@ -2211,6 +2742,9 @@ const THEME_WORDS = {
             traits: {
               era: 'expansion',
               register: 'handwritten',
+              entry: 'signed',
+              photo: 'a photograph',
+              display: 'on display',
             },
           },
           '1930': {
@@ -2219,6 +2753,9 @@ const THEME_WORDS = {
             traits: {
               era: 'expansion',
               register: 'handwritten',
+              entry: 'signed',
+              photo: 'a photograph',
+              display: 'in storage',
             },
           },
           '1935': {
@@ -2227,6 +2764,9 @@ const THEME_WORDS = {
             traits: {
               era: 'expansion',
               register: 'typed',
+              entry: 'unsigned',
+              photo: 'a sketch',
+              display: 'on display',
             },
           },
           '1940': {
@@ -2235,6 +2775,9 @@ const THEME_WORDS = {
             traits: {
               era: 'expansion',
               register: 'typed',
+              entry: 'signed',
+              photo: 'a photograph',
+              display: 'on loan',
             },
           },
           '1945': {
@@ -2243,6 +2786,9 @@ const THEME_WORDS = {
             traits: {
               era: 'expansion',
               register: 'typed',
+              entry: 'signed',
+              photo: 'no photograph',
+              display: 'on display',
             },
           },
           '1950': {
@@ -2251,6 +2797,9 @@ const THEME_WORDS = {
             traits: {
               era: 'modern',
               register: 'typed',
+              entry: 'unsigned',
+              photo: 'a photograph',
+              display: 'in storage',
             },
           },
           '1955': {
@@ -2259,6 +2808,9 @@ const THEME_WORDS = {
             traits: {
               era: 'modern',
               register: 'typed',
+              entry: 'signed',
+              photo: 'a sketch',
+              display: 'on display',
             },
           },
           '1960': {
@@ -2267,6 +2819,9 @@ const THEME_WORDS = {
             traits: {
               era: 'modern',
               register: 'typed',
+              entry: 'signed',
+              photo: 'a photograph',
+              display: 'on loan',
             },
           },
           '1965': {
@@ -2275,6 +2830,9 @@ const THEME_WORDS = {
             traits: {
               era: 'modern',
               register: 'typed',
+              entry: 'signed',
+              photo: 'a photograph',
+              display: 'on display',
             },
           },
         },
@@ -2312,6 +2870,14 @@ const THEME_WORDS = {
             label: 'Manner',
             pattern: '{} {noun}',
           },
+          house: {
+            label: 'House',
+            pattern: '{noun} of {} house',
+          },
+          boarding: {
+            label: 'Boarding',
+            pattern: '{noun} who is a {}',
+          },
         },
         items: {
           'finch-featherby': {
@@ -2321,6 +2887,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'early',
               manner: 'patient',
+              house: 'Cirrus',
+              boarding: 'boarder',
             },
           },
           'pippa-puddle': {
@@ -2330,6 +2898,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'late',
               manner: 'patient',
+              house: 'Aurora',
+              boarding: 'day pupil',
             },
           },
           'theo-thistle': {
@@ -2339,6 +2909,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'early',
               manner: 'brisk',
+              house: 'Zephyr',
+              boarding: 'boarder',
             },
           },
           'mina-moonlet': {
@@ -2348,6 +2920,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'late',
               manner: 'brisk',
+              house: 'Aurora',
+              boarding: 'boarder',
             },
           },
           'basil-brim': {
@@ -2357,6 +2931,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'early',
               manner: 'dramatic',
+              house: 'Cirrus',
+              boarding: 'day pupil',
             },
           },
           'cora-cloud': {
@@ -2366,6 +2942,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'late',
               manner: 'dramatic',
+              house: 'Zephyr',
+              boarding: 'boarder',
             },
           },
           'ned-nimbus': {
@@ -2376,6 +2954,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'early',
               manner: 'patient',
+              house: 'Cirrus',
+              boarding: 'day pupil',
             },
           },
           'ari-aster': {
@@ -2385,6 +2965,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'late',
               manner: 'patient',
+              house: 'Aurora',
+              boarding: 'boarder',
             },
           },
           'kit-kestrel': {
@@ -2394,6 +2976,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'early',
               manner: 'brisk',
+              house: 'Zephyr',
+              boarding: 'day pupil',
             },
           },
           'lottie-lark': {
@@ -2403,6 +2987,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'late',
               manner: 'brisk',
+              house: 'Cirrus',
+              boarding: 'boarder',
             },
           },
           'peregrine-plum': {
@@ -2412,6 +2998,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'early',
               manner: 'dramatic',
+              house: 'Aurora',
+              boarding: 'boarder',
             },
           },
           'rowan-rook': {
@@ -2421,6 +3009,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'late',
               manner: 'dramatic',
+              house: 'Zephyr',
+              boarding: 'day pupil',
             },
           },
           'wren-willow': {
@@ -2430,6 +3020,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'early',
               manner: 'patient',
+              house: 'Aurora',
+              boarding: 'boarder',
             },
           },
           'sylvie-sleet': {
@@ -2440,6 +3032,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'late',
               manner: 'patient',
+              house: 'Cirrus',
+              boarding: 'day pupil',
             },
           },
         },
@@ -2462,6 +3056,14 @@ const THEME_WORDS = {
             label: 'Size',
             pattern: '{} {noun}',
           },
+          bond: {
+            label: 'Bonded',
+            pattern: '{noun} bonded {}',
+          },
+          feeding: {
+            label: 'Eats',
+            pattern: '{noun} that eats {}',
+          },
         },
         items: {
           'barn-owl': {
@@ -2471,6 +3073,8 @@ const THEME_WORDS = {
               temper: 'watchful',
               habit: 'night',
               size: 'medium',
+              bond: 'last year',
+              feeding: 'insects',
             },
           },
           'ember-fox': {
@@ -2480,6 +3084,8 @@ const THEME_WORDS = {
               temper: 'mischievous',
               habit: 'dusk',
               size: 'medium',
+              bond: 'this term',
+              feeding: 'anything offered',
             },
           },
           'moon-hare': {
@@ -2489,6 +3095,8 @@ const THEME_WORDS = {
               temper: 'timid',
               habit: 'dusk',
               size: 'small',
+              bond: 'since first year',
+              feeding: 'seed',
             },
           },
           'velvet-cat': {
@@ -2498,6 +3106,8 @@ const THEME_WORDS = {
               temper: 'aloof',
               habit: 'night',
               size: 'small',
+              bond: 'this term',
+              feeding: 'anything offered',
             },
           },
           'pocket-bat': {
@@ -2507,6 +3117,8 @@ const THEME_WORDS = {
               temper: 'timid',
               habit: 'night',
               size: 'small',
+              bond: 'last year',
+              feeding: 'insects',
             },
           },
           'teacup-dragon': {
@@ -2516,6 +3128,8 @@ const THEME_WORDS = {
               temper: 'mischievous',
               habit: 'dawn',
               size: 'small',
+              bond: 'this term',
+              feeding: 'anything offered',
             },
           },
           'marble-tortoise': {
@@ -2525,6 +3139,8 @@ const THEME_WORDS = {
               temper: 'aloof',
               habit: 'dawn',
               size: 'medium',
+              bond: 'since first year',
+              feeding: 'seed',
             },
           },
           'puddle-frog': {
@@ -2534,6 +3150,8 @@ const THEME_WORDS = {
               temper: 'mischievous',
               habit: 'dusk',
               size: 'small',
+              bond: 'last year',
+              feeding: 'insects',
             },
           },
           'velvet-moth': {
@@ -2543,6 +3161,8 @@ const THEME_WORDS = {
               temper: 'timid',
               habit: 'night',
               size: 'small',
+              bond: 'this term',
+              feeding: 'insects',
             },
           },
           'clock-mouse': {
@@ -2552,6 +3172,8 @@ const THEME_WORDS = {
               temper: 'watchful',
               habit: 'dawn',
               size: 'small',
+              bond: 'since first year',
+              feeding: 'seed',
             },
           },
           'ribbon-snake': {
@@ -2561,6 +3183,8 @@ const THEME_WORDS = {
               temper: 'aloof',
               habit: 'dusk',
               size: 'medium',
+              bond: 'last year',
+              feeding: 'anything offered',
             },
           },
           'ink-raven': {
@@ -2570,6 +3194,8 @@ const THEME_WORDS = {
               temper: 'watchful',
               habit: 'dawn',
               size: 'medium',
+              bond: 'since first year',
+              feeding: 'anything offered',
             },
           },
           'thimble-hedgehog': {
@@ -2579,6 +3205,8 @@ const THEME_WORDS = {
               temper: 'timid',
               habit: 'dusk',
               size: 'small',
+              bond: 'this term',
+              feeding: 'insects',
             },
           },
           'copper-salamander': {
@@ -2588,6 +3216,8 @@ const THEME_WORDS = {
               temper: 'mischievous',
               habit: 'night',
               size: 'small',
+              bond: 'last year',
+              feeding: 'insects',
             },
           },
         },
@@ -2610,6 +3240,14 @@ const THEME_WORDS = {
             label: 'Duration',
             pattern: '{} {noun}',
           },
+          year: {
+            label: 'Taught in',
+            pattern: '{noun} taught in the {} year',
+          },
+          permission: {
+            label: 'Permission',
+            pattern: '{noun} that is {}',
+          },
         },
         items: {
           hearthspark: {
@@ -2619,6 +3257,8 @@ const THEME_WORDS = {
               school: 'elemental',
               delivery: 'spoken',
               duration: 'brief',
+              year: 'first',
+              permission: 'unrestricted',
             },
           },
           frostlace: {
@@ -2628,6 +3268,8 @@ const THEME_WORDS = {
               school: 'elemental',
               delivery: 'gestured',
               duration: 'lingering',
+              year: 'third',
+              permission: 'unrestricted',
             },
           },
           thunderblink: {
@@ -2637,6 +3279,8 @@ const THEME_WORDS = {
               school: 'elemental',
               delivery: 'spoken',
               duration: 'brief',
+              year: 'final',
+              permission: 'restricted',
             },
           },
           'tidal-turn': {
@@ -2646,6 +3290,8 @@ const THEME_WORDS = {
               school: 'elemental',
               delivery: 'gestured',
               duration: 'lingering',
+              year: 'third',
+              permission: 'restricted',
             },
           },
           leafwake: {
@@ -2655,6 +3301,8 @@ const THEME_WORDS = {
               school: 'growth',
               delivery: 'spoken',
               duration: 'lingering',
+              year: 'first',
+              permission: 'unrestricted',
             },
           },
           moonveil: {
@@ -2664,6 +3312,8 @@ const THEME_WORDS = {
               school: 'illusion',
               delivery: 'whispered',
               duration: 'lingering',
+              year: 'third',
+              permission: 'restricted',
             },
           },
           stargleam: {
@@ -2673,6 +3323,8 @@ const THEME_WORDS = {
               school: 'illusion',
               delivery: 'gestured',
               duration: 'brief',
+              year: 'final',
+              permission: 'unrestricted',
             },
           },
           'aegis-arc': {
@@ -2682,6 +3334,8 @@ const THEME_WORDS = {
               school: 'protection',
               delivery: 'spoken',
               duration: 'lingering',
+              year: 'third',
+              permission: 'restricted',
             },
           },
           lockwhisper: {
@@ -2691,6 +3345,8 @@ const THEME_WORDS = {
               school: 'alteration',
               delivery: 'whispered',
               duration: 'brief',
+              year: 'final',
+              permission: 'restricted',
             },
           },
           'minute-mend': {
@@ -2700,6 +3356,8 @@ const THEME_WORDS = {
               school: 'alteration',
               delivery: 'whispered',
               duration: 'brief',
+              year: 'first',
+              permission: 'unrestricted',
             },
           },
           farseeing: {
@@ -2709,6 +3367,8 @@ const THEME_WORDS = {
               school: 'illusion',
               delivery: 'gestured',
               duration: 'brief',
+              year: 'final',
+              permission: 'restricted',
             },
           },
           featherfloat: {
@@ -2718,6 +3378,8 @@ const THEME_WORDS = {
               school: 'alteration',
               delivery: 'spoken',
               duration: 'lingering',
+              year: 'first',
+              permission: 'unrestricted',
             },
           },
           whirlward: {
@@ -2727,6 +3389,8 @@ const THEME_WORDS = {
               school: 'protection',
               delivery: 'gestured',
               duration: 'lingering',
+              year: 'third',
+              permission: 'restricted',
             },
           },
           tanglebind: {
@@ -2736,6 +3400,8 @@ const THEME_WORDS = {
               school: 'protection',
               delivery: 'whispered',
               duration: 'brief',
+              year: 'final',
+              permission: 'restricted',
             },
           },
         },
@@ -2758,6 +3424,14 @@ const THEME_WORDS = {
             label: 'Access',
             pattern: '{noun} with {} access',
           },
+          booked: {
+            label: 'Booking',
+            pattern: '{noun} booked {}',
+          },
+          warded: {
+            label: 'Wards',
+            pattern: '{noun} that is {}',
+          },
         },
         items: {
           scriptorium: {
@@ -2767,6 +3441,8 @@ const THEME_WORDS = {
               level: 'lower',
               light: 'bright',
               access: 'step-free',
+              booked: 'a week ahead',
+              warded: 'unwarded',
             },
           },
           'potion-kitchen': {
@@ -2776,6 +3452,8 @@ const THEME_WORDS = {
               level: 'lower',
               light: 'dim',
               access: 'step-free',
+              booked: 'a term ahead',
+              warded: 'warded',
             },
           },
           'star-laboratory': {
@@ -2785,6 +3463,8 @@ const THEME_WORDS = {
               level: 'upper',
               light: 'dim',
               access: 'stairs-only',
+              booked: 'a term ahead',
+              warded: 'warded',
             },
           },
           'moving-stair-hall': {
@@ -2794,6 +3474,8 @@ const THEME_WORDS = {
               level: 'middle',
               light: 'bright',
               access: 'stairs-only',
+              booked: 'on the day',
+              warded: 'warded',
             },
           },
           'door-studies': {
@@ -2803,6 +3485,8 @@ const THEME_WORDS = {
               level: 'middle',
               light: 'dim',
               access: 'step-free',
+              booked: 'a week ahead',
+              warded: 'unwarded',
             },
           },
           glasshouse: {
@@ -2812,6 +3496,8 @@ const THEME_WORDS = {
               level: 'lower',
               light: 'bright',
               access: 'step-free',
+              booked: 'on the day',
+              warded: 'unwarded',
             },
           },
           'illusion-theatre': {
@@ -2821,6 +3507,8 @@ const THEME_WORDS = {
               level: 'middle',
               light: 'dim',
               access: 'step-free',
+              booked: 'a term ahead',
+              warded: 'warded',
             },
           },
           'strategy-room': {
@@ -2830,6 +3518,8 @@ const THEME_WORDS = {
               level: 'middle',
               light: 'bright',
               access: 'step-free',
+              booked: 'a week ahead',
+              warded: 'warded',
             },
           },
           'broom-loft': {
@@ -2839,6 +3529,8 @@ const THEME_WORDS = {
               level: 'upper',
               light: 'bright',
               access: 'stairs-only',
+              booked: 'on the day',
+              warded: 'unwarded',
             },
           },
           'cloud-balcony': {
@@ -2848,6 +3540,8 @@ const THEME_WORDS = {
               level: 'upper',
               light: 'bright',
               access: 'stairs-only',
+              booked: 'on the day',
+              warded: 'unwarded',
             },
           },
           'bell-chamber': {
@@ -2857,6 +3551,8 @@ const THEME_WORDS = {
               level: 'upper',
               light: 'dim',
               access: 'stairs-only',
+              booked: 'a week ahead',
+              warded: 'warded',
             },
           },
           'time-study': {
@@ -2866,6 +3562,8 @@ const THEME_WORDS = {
               level: 'middle',
               light: 'dim',
               access: 'step-free',
+              booked: 'a term ahead',
+              warded: 'warded',
             },
           },
           'map-turret': {
@@ -2875,6 +3573,8 @@ const THEME_WORDS = {
               level: 'upper',
               light: 'bright',
               access: 'stairs-only',
+              booked: 'a week ahead',
+              warded: 'unwarded',
             },
           },
           'garden-classroom': {
@@ -2884,6 +3584,8 @@ const THEME_WORDS = {
               level: 'lower',
               light: 'bright',
               access: 'step-free',
+              booked: 'on the day',
+              warded: 'unwarded',
             },
           },
         },
@@ -2908,6 +3610,18 @@ const THEME_WORDS = {
             label: 'Review',
             pattern: '{noun} with {} review',
           },
+          marker: {
+            label: 'Marked by',
+            pattern: '{noun} marked by {}',
+          },
+          moderated: {
+            label: 'Moderation',
+            pattern: '{noun} that was {}',
+          },
+          resit: {
+            label: 'Resit',
+            pattern: '{noun} that is {}',
+          },
         },
         items: {
           '35': {
@@ -2916,6 +3630,9 @@ const THEME_WORDS = {
             traits: {
               band: 'developing',
               review: 'routine',
+              marker: 'the tutor',
+              moderated: 'unmoderated',
+              resit: 'open to a resit',
             },
           },
           '40': {
@@ -2924,6 +3641,9 @@ const THEME_WORDS = {
             traits: {
               band: 'developing',
               review: 'routine',
+              marker: 'the tutor',
+              moderated: 'moderated',
+              resit: 'open to a resit',
             },
           },
           '45': {
@@ -2932,6 +3652,9 @@ const THEME_WORDS = {
             traits: {
               band: 'developing',
               review: 'routine',
+              marker: 'two markers',
+              moderated: 'unmoderated',
+              resit: 'open to a resit',
             },
           },
           '50': {
@@ -2940,6 +3663,9 @@ const THEME_WORDS = {
             traits: {
               band: 'developing',
               review: 'routine',
+              marker: 'the head',
+              moderated: 'moderated',
+              resit: 'open to a resit',
             },
           },
           '55': {
@@ -2948,6 +3674,9 @@ const THEME_WORDS = {
             traits: {
               band: 'developing',
               review: 'routine',
+              marker: 'the tutor',
+              moderated: 'moderated',
+              resit: 'open to a resit',
             },
           },
           '60': {
@@ -2956,6 +3685,9 @@ const THEME_WORDS = {
             traits: {
               band: 'secure',
               review: 'routine',
+              marker: 'two markers',
+              moderated: 'unmoderated',
+              resit: 'final',
             },
           },
           '65': {
@@ -2964,6 +3696,9 @@ const THEME_WORDS = {
             traits: {
               band: 'secure',
               review: 'routine',
+              marker: 'the tutor',
+              moderated: 'moderated',
+              resit: 'open to a resit',
             },
           },
           '70': {
@@ -2972,6 +3707,9 @@ const THEME_WORDS = {
             traits: {
               band: 'secure',
               review: 'extended',
+              marker: 'the head',
+              moderated: 'moderated',
+              resit: 'final',
             },
           },
           '75': {
@@ -2980,6 +3718,9 @@ const THEME_WORDS = {
             traits: {
               band: 'secure',
               review: 'extended',
+              marker: 'two markers',
+              moderated: 'unmoderated',
+              resit: 'final',
             },
           },
           '80': {
@@ -2988,6 +3729,9 @@ const THEME_WORDS = {
             traits: {
               band: 'secure',
               review: 'extended',
+              marker: 'the tutor',
+              moderated: 'moderated',
+              resit: 'final',
             },
           },
           '85': {
@@ -2996,6 +3740,9 @@ const THEME_WORDS = {
             traits: {
               band: 'excellent',
               review: 'extended',
+              marker: 'the head',
+              moderated: 'moderated',
+              resit: 'final',
             },
           },
           '90': {
@@ -3004,6 +3751,9 @@ const THEME_WORDS = {
             traits: {
               band: 'excellent',
               review: 'extended',
+              marker: 'two markers',
+              moderated: 'unmoderated',
+              resit: 'final',
             },
           },
           '95': {
@@ -3012,6 +3762,9 @@ const THEME_WORDS = {
             traits: {
               band: 'excellent',
               review: 'extended',
+              marker: 'the tutor',
+              moderated: 'moderated',
+              resit: 'final',
             },
           },
           '100': {
@@ -3020,6 +3773,9 @@ const THEME_WORDS = {
             traits: {
               band: 'excellent',
               review: 'extended',
+              marker: 'the head',
+              moderated: 'moderated',
+              resit: 'final',
             },
           },
         },
@@ -3242,6 +3998,14 @@ const THEME_WORDS = {
             label: 'Gravity',
             pattern: '{noun} with {} gravity',
           },
+          charted: {
+            label: 'Charted',
+            pattern: '{noun} {} charted',
+          },
+          relay: {
+            label: 'Relay',
+            pattern: '{noun} with a relay {}',
+          },
         },
         items: {
           mars: {
@@ -3251,6 +4015,8 @@ const THEME_WORDS = {
               kind: 'planet',
               surface: 'dusty',
               gravity: 'middling',
+              charted: 'fully',
+              relay: 'in place',
             },
           },
           venus: {
@@ -3261,6 +4027,8 @@ const THEME_WORDS = {
               kind: 'planet',
               surface: 'volcanic',
               gravity: 'heavy',
+              charted: 'partly',
+              relay: 'planned',
             },
           },
           titan: {
@@ -3270,6 +4038,8 @@ const THEME_WORDS = {
               kind: 'moon',
               surface: 'frozen',
               gravity: 'feeble',
+              charted: 'partly',
+              relay: 'planned',
             },
           },
           europa: {
@@ -3279,6 +4049,8 @@ const THEME_WORDS = {
               kind: 'moon',
               surface: 'frozen',
               gravity: 'feeble',
+              charted: 'partly',
+              relay: 'planned',
             },
           },
           ceres: {
@@ -3288,6 +4060,8 @@ const THEME_WORDS = {
               kind: 'dwarf planet',
               surface: 'rocky',
               gravity: 'feeble',
+              charted: 'barely',
+              relay: 'nowhere near',
             },
           },
           io: {
@@ -3297,6 +4071,8 @@ const THEME_WORDS = {
               kind: 'moon',
               surface: 'volcanic',
               gravity: 'feeble',
+              charted: 'partly',
+              relay: 'nowhere near',
             },
           },
           luna: {
@@ -3306,6 +4082,8 @@ const THEME_WORDS = {
               kind: 'moon',
               surface: 'dusty',
               gravity: 'light',
+              charted: 'fully',
+              relay: 'in place',
             },
           },
           vesta: {
@@ -3315,6 +4093,8 @@ const THEME_WORDS = {
               kind: 'asteroid',
               surface: 'rocky',
               gravity: 'feeble',
+              charted: 'barely',
+              relay: 'nowhere near',
             },
           },
           callisto: {
@@ -3324,6 +4104,8 @@ const THEME_WORDS = {
               kind: 'moon',
               surface: 'rocky',
               gravity: 'light',
+              charted: 'partly',
+              relay: 'planned',
             },
           },
           ganymede: {
@@ -3333,6 +4115,8 @@ const THEME_WORDS = {
               kind: 'moon',
               surface: 'frozen',
               gravity: 'light',
+              charted: 'partly',
+              relay: 'planned',
             },
           },
           enceladus: {
@@ -3343,6 +4127,8 @@ const THEME_WORDS = {
               kind: 'moon',
               surface: 'frozen',
               gravity: 'feeble',
+              charted: 'barely',
+              relay: 'nowhere near',
             },
           },
           triton: {
@@ -3352,6 +4138,8 @@ const THEME_WORDS = {
               kind: 'moon',
               surface: 'frozen',
               gravity: 'feeble',
+              charted: 'barely',
+              relay: 'nowhere near',
             },
           },
           phobos: {
@@ -3361,6 +4149,8 @@ const THEME_WORDS = {
               kind: 'moon',
               surface: 'rocky',
               gravity: 'feeble',
+              charted: 'fully',
+              relay: 'in place',
             },
           },
           deimos: {
@@ -3370,6 +4160,8 @@ const THEME_WORDS = {
               kind: 'moon',
               surface: 'dusty',
               gravity: 'feeble',
+              charted: 'barely',
+              relay: 'planned',
             },
           },
         },
@@ -3392,6 +4184,14 @@ const THEME_WORDS = {
             label: 'Engine',
             pattern: '{noun} with {} engines',
           },
+          crewing: {
+            label: 'Crewing',
+            pattern: '{noun} that flies with a {} crew',
+          },
+          refit: {
+            label: 'Refit',
+            pattern: '{noun} {} a refit',
+          },
         },
         items: {
           kestrel: {
@@ -3401,6 +4201,8 @@ const THEME_WORDS = {
               hull: 'steel',
               size: 'small',
               engine: 'nuclear',
+              crewing: 'skeleton',
+              refit: 'due',
             },
           },
           corvus: {
@@ -3410,6 +4212,8 @@ const THEME_WORDS = {
               hull: 'carbon',
               size: 'small',
               engine: 'ion',
+              crewing: 'skeleton',
+              refit: 'fresh from',
             },
           },
           lyra: {
@@ -3419,6 +4223,8 @@ const THEME_WORDS = {
               hull: 'carbon',
               size: 'mid-sized',
               engine: 'solar',
+              crewing: 'full',
+              refit: 'due',
             },
           },
           orion: {
@@ -3428,6 +4234,8 @@ const THEME_WORDS = {
               hull: 'steel',
               size: 'huge',
               engine: 'nuclear',
+              crewing: 'double',
+              refit: 'long overdue',
             },
           },
           pallas: {
@@ -3437,6 +4245,8 @@ const THEME_WORDS = {
               hull: 'titanium',
               size: 'huge',
               engine: 'solar',
+              crewing: 'double',
+              refit: 'long overdue',
             },
           },
           sable: {
@@ -3446,6 +4256,8 @@ const THEME_WORDS = {
               hull: 'carbon',
               size: 'small',
               engine: 'ion',
+              crewing: 'skeleton',
+              refit: 'fresh from',
             },
           },
           merlin: {
@@ -3455,6 +4267,8 @@ const THEME_WORDS = {
               hull: 'steel',
               size: 'mid-sized',
               engine: 'nuclear',
+              crewing: 'full',
+              refit: 'long overdue',
             },
           },
           halcyon: {
@@ -3464,6 +4278,8 @@ const THEME_WORDS = {
               hull: 'titanium',
               size: 'mid-sized',
               engine: 'solar',
+              crewing: 'full',
+              refit: 'fresh from',
             },
           },
           vesper: {
@@ -3473,6 +4289,8 @@ const THEME_WORDS = {
               hull: 'copper',
               size: 'small',
               engine: 'ion',
+              crewing: 'skeleton',
+              refit: 'due',
             },
           },
           nimbus: {
@@ -3483,6 +4301,8 @@ const THEME_WORDS = {
               hull: 'carbon',
               size: 'huge',
               engine: 'solar',
+              crewing: 'double',
+              refit: 'due',
             },
           },
           aurora: {
@@ -3492,6 +4312,8 @@ const THEME_WORDS = {
               hull: 'copper',
               size: 'mid-sized',
               engine: 'ion',
+              crewing: 'full',
+              refit: 'fresh from',
             },
           },
           cygnus: {
@@ -3501,6 +4323,8 @@ const THEME_WORDS = {
               hull: 'steel',
               size: 'huge',
               engine: 'nuclear',
+              crewing: 'double',
+              refit: 'long overdue',
             },
           },
           perseus: {
@@ -3510,6 +4334,8 @@ const THEME_WORDS = {
               hull: 'titanium',
               size: 'mid-sized',
               engine: 'solar',
+              crewing: 'full',
+              refit: 'due',
             },
           },
           zephyr: {
@@ -3519,6 +4345,8 @@ const THEME_WORDS = {
               hull: 'copper',
               size: 'small',
               engine: 'ion',
+              crewing: 'skeleton',
+              refit: 'fresh from',
             },
           },
         },
@@ -3541,6 +4369,14 @@ const THEME_WORDS = {
             label: 'Handling',
             pattern: '{} {noun}',
           },
+          priority: {
+            label: 'Priority',
+            pattern: '{noun} marked {} priority',
+          },
+          stowage: {
+            label: 'Stowage',
+            pattern: '{noun} stowed in the {}',
+          },
         },
         items: {
           'seed-vault': {
@@ -3550,6 +4386,8 @@ const THEME_WORDS = {
               weight: 'middling',
               material: 'metal',
               care: 'fragile',
+              priority: 'top',
+              stowage: 'hold',
             },
           },
           'ice-core': {
@@ -3559,6 +4397,8 @@ const THEME_WORDS = {
               weight: 'heavy',
               material: 'glass',
               care: 'fragile',
+              priority: 'standard',
+              stowage: 'hold',
             },
           },
           'solar-sail': {
@@ -3568,6 +4408,8 @@ const THEME_WORDS = {
               weight: 'light',
               material: 'fabric',
               care: 'fragile',
+              priority: 'standard',
+              stowage: 'outer rack',
             },
           },
           'rover-kit': {
@@ -3577,6 +4419,8 @@ const THEME_WORDS = {
               weight: 'heavy',
               material: 'metal',
               care: 'rugged',
+              priority: 'standard',
+              stowage: 'hold',
             },
           },
           'med-pods': {
@@ -3586,6 +4430,8 @@ const THEME_WORDS = {
               weight: 'middling',
               material: 'plastic',
               care: 'fragile',
+              priority: 'top',
+              stowage: 'cabin',
             },
           },
           'star-maps': {
@@ -3595,6 +4441,8 @@ const THEME_WORDS = {
               weight: 'light',
               material: 'paper',
               care: 'fragile',
+              priority: 'whenever',
+              stowage: 'cabin',
             },
           },
           'water-tank': {
@@ -3604,6 +4452,8 @@ const THEME_WORDS = {
               weight: 'heavy',
               material: 'metal',
               care: 'rugged',
+              priority: 'top',
+              stowage: 'hold',
             },
           },
           'drone-bay': {
@@ -3613,6 +4463,8 @@ const THEME_WORDS = {
               weight: 'heavy',
               material: 'metal',
               care: 'rugged',
+              priority: 'standard',
+              stowage: 'outer rack',
             },
           },
           'soil-lab': {
@@ -3623,6 +4475,8 @@ const THEME_WORDS = {
               weight: 'middling',
               material: 'glass',
               care: 'fragile',
+              priority: 'whenever',
+              stowage: 'cabin',
             },
           },
           'fuel-cells': {
@@ -3632,6 +4486,8 @@ const THEME_WORDS = {
               weight: 'heavy',
               material: 'metal',
               care: 'rugged',
+              priority: 'top',
+              stowage: 'outer rack',
             },
           },
           greenhouse: {
@@ -3641,6 +4497,8 @@ const THEME_WORDS = {
               weight: 'middling',
               material: 'glass',
               care: 'fragile',
+              priority: 'standard',
+              stowage: 'hold',
             },
           },
           'repair-kit': {
@@ -3650,6 +4508,8 @@ const THEME_WORDS = {
               weight: 'middling',
               material: 'metal',
               care: 'rugged',
+              priority: 'top',
+              stowage: 'cabin',
             },
           },
           'comms-mast': {
@@ -3659,6 +4519,8 @@ const THEME_WORDS = {
               weight: 'light',
               material: 'metal',
               care: 'fragile',
+              priority: 'top',
+              stowage: 'outer rack',
             },
           },
           'sample-case': {
@@ -3668,6 +4530,8 @@ const THEME_WORDS = {
               weight: 'light',
               material: 'plastic',
               care: 'rugged',
+              priority: 'whenever',
+              stowage: 'cabin',
             },
           },
         },
@@ -3692,6 +4556,18 @@ const THEME_WORDS = {
             label: 'Number',
             pattern: '{noun} in an {} year',
           },
+          half: {
+            label: 'Half of the run',
+            pattern: '{noun} from the {} half of the run',
+          },
+          weather: {
+            label: 'Weather',
+            pattern: '{noun} with {}',
+          },
+          press: {
+            label: 'Press',
+            pattern: '{noun} watched by {} press',
+          },
         },
         items: {
           '2031': {
@@ -3700,6 +4576,9 @@ const THEME_WORDS = {
             traits: {
               band: 'early',
               parity: 'odd',
+              half: 'first',
+              weather: 'clear skies',
+              press: 'some',
             },
           },
           '2032': {
@@ -3708,6 +4587,9 @@ const THEME_WORDS = {
             traits: {
               band: 'early',
               parity: 'even',
+              half: 'first',
+              weather: 'cloud',
+              press: 'almost no',
             },
           },
           '2033': {
@@ -3716,6 +4598,9 @@ const THEME_WORDS = {
             traits: {
               band: 'early',
               parity: 'odd',
+              half: 'first',
+              weather: 'a weather hold',
+              press: 'almost no',
             },
           },
           '2034': {
@@ -3724,6 +4609,9 @@ const THEME_WORDS = {
             traits: {
               band: 'early',
               parity: 'even',
+              half: 'first',
+              weather: 'clear skies',
+              press: 'heavy',
             },
           },
           '2035': {
@@ -3732,6 +4620,9 @@ const THEME_WORDS = {
             traits: {
               band: 'early',
               parity: 'odd',
+              half: 'first',
+              weather: 'cloud',
+              press: 'some',
             },
           },
           '2036': {
@@ -3740,6 +4631,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'even',
+              half: 'first',
+              weather: 'clear skies',
+              press: 'some',
             },
           },
           '2037': {
@@ -3748,6 +4642,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'odd',
+              half: 'first',
+              weather: 'cloud',
+              press: 'almost no',
             },
           },
           '2038': {
@@ -3756,6 +4653,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'even',
+              half: 'second',
+              weather: 'a weather hold',
+              press: 'some',
             },
           },
           '2039': {
@@ -3764,6 +4664,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'odd',
+              half: 'second',
+              weather: 'clear skies',
+              press: 'almost no',
             },
           },
           '2040': {
@@ -3772,6 +4675,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'even',
+              half: 'second',
+              weather: 'cloud',
+              press: 'some',
             },
           },
           '2041': {
@@ -3780,6 +4686,9 @@ const THEME_WORDS = {
             traits: {
               band: 'late',
               parity: 'odd',
+              half: 'second',
+              weather: 'clear skies',
+              press: 'heavy',
             },
           },
           '2042': {
@@ -3788,6 +4697,9 @@ const THEME_WORDS = {
             traits: {
               band: 'late',
               parity: 'even',
+              half: 'second',
+              weather: 'a weather hold',
+              press: 'some',
             },
           },
           '2043': {
@@ -3796,6 +4708,9 @@ const THEME_WORDS = {
             traits: {
               band: 'late',
               parity: 'odd',
+              half: 'second',
+              weather: 'clear skies',
+              press: 'heavy',
             },
           },
           '2044': {
@@ -3804,6 +4719,9 @@ const THEME_WORDS = {
             traits: {
               band: 'late',
               parity: 'even',
+              half: 'second',
+              weather: 'cloud',
+              press: 'heavy',
             },
           },
         },
@@ -4027,6 +4945,14 @@ const THEME_WORDS = {
             label: 'Petals',
             pattern: '{noun} with {} petals',
           },
+          season: {
+            label: 'Flowers in',
+            pattern: '{noun} that flowers in {}',
+          },
+          care: {
+            label: 'Care',
+            pattern: '{noun} that is {} to grow',
+          },
         },
         items: {
           dahlia: {
@@ -4036,6 +4962,8 @@ const THEME_WORDS = {
               colour: 'red',
               scent: 'faint',
               petals: 'many',
+              season: 'summer',
+              care: 'fussy',
             },
           },
           peony: {
@@ -4046,6 +4974,8 @@ const THEME_WORDS = {
               colour: 'pink',
               scent: 'sweet',
               petals: 'many',
+              season: 'spring',
+              care: 'fussy',
             },
           },
           iris: {
@@ -4055,6 +4985,8 @@ const THEME_WORDS = {
               colour: 'purple',
               scent: 'faint',
               petals: 'few',
+              season: 'spring',
+              care: 'easy',
             },
           },
           tulip: {
@@ -4064,6 +4996,8 @@ const THEME_WORDS = {
               colour: 'red',
               scent: 'faint',
               petals: 'few',
+              season: 'spring',
+              care: 'easy',
             },
           },
           aster: {
@@ -4074,6 +5008,8 @@ const THEME_WORDS = {
               colour: 'purple',
               scent: 'faint',
               petals: 'many',
+              season: 'autumn',
+              care: 'easy',
             },
           },
           zinnia: {
@@ -4083,6 +5019,8 @@ const THEME_WORDS = {
               colour: 'orange',
               scent: 'faint',
               petals: 'many',
+              season: 'summer',
+              care: 'easy',
             },
           },
           lupin: {
@@ -4092,6 +5030,8 @@ const THEME_WORDS = {
               colour: 'purple',
               scent: 'peppery',
               petals: 'many',
+              season: 'summer',
+              care: 'easy',
             },
           },
           freesia: {
@@ -4101,6 +5041,8 @@ const THEME_WORDS = {
               colour: 'white',
               scent: 'sweet',
               petals: 'few',
+              season: 'spring',
+              care: 'fussy',
             },
           },
           marigold: {
@@ -4110,6 +5052,8 @@ const THEME_WORDS = {
               colour: 'orange',
               scent: 'peppery',
               petals: 'many',
+              season: 'summer',
+              care: 'easy',
             },
           },
           foxglove: {
@@ -4119,6 +5063,8 @@ const THEME_WORDS = {
               colour: 'pink',
               scent: 'faint',
               petals: 'many',
+              season: 'summer',
+              care: 'easy',
             },
           },
           camellia: {
@@ -4129,6 +5075,8 @@ const THEME_WORDS = {
               colour: 'pink',
               scent: 'faint',
               petals: 'many',
+              season: 'spring',
+              care: 'fussy',
             },
           },
           'sweet-pea': {
@@ -4138,6 +5086,8 @@ const THEME_WORDS = {
               colour: 'white',
               scent: 'sweet',
               petals: 'few',
+              season: 'summer',
+              care: 'fussy',
             },
           },
           snapdragon: {
@@ -4147,6 +5097,8 @@ const THEME_WORDS = {
               colour: 'orange',
               scent: 'faint',
               petals: 'few',
+              season: 'summer',
+              care: 'easy',
             },
           },
           cosmos: {
@@ -4156,6 +5108,8 @@ const THEME_WORDS = {
               colour: 'white',
               scent: 'faint',
               petals: 'few',
+              season: 'autumn',
+              care: 'easy',
             },
           },
         },
@@ -4178,6 +5132,14 @@ const THEME_WORDS = {
             label: 'Finish',
             pattern: '{noun} with a {} finish',
           },
+          drainage: {
+            label: 'Drainage',
+            pattern: '{noun} with {} drainage',
+          },
+          price: {
+            label: 'Price',
+            pattern: '{noun} that was {}',
+          },
         },
         items: {
           terracotta: {
@@ -4187,6 +5149,8 @@ const THEME_WORDS = {
               material: 'clay',
               size: 'big',
               finish: 'matt',
+              drainage: 'several holes',
+              price: 'a bargain',
             },
           },
           cobalt: {
@@ -4196,6 +5160,8 @@ const THEME_WORDS = {
               material: 'glazed clay',
               size: 'big',
               finish: 'glossy',
+              drainage: 'one hole',
+              price: 'full price',
             },
           },
           ivory: {
@@ -4205,6 +5171,8 @@ const THEME_WORDS = {
               material: 'glazed clay',
               size: 'small',
               finish: 'glossy',
+              drainage: 'one hole',
+              price: 'a gift',
             },
           },
           copper: {
@@ -4214,6 +5182,8 @@ const THEME_WORDS = {
               material: 'metal',
               size: 'small',
               finish: 'glossy',
+              drainage: 'no holes',
+              price: 'full price',
             },
           },
           slate: {
@@ -4223,6 +5193,8 @@ const THEME_WORDS = {
               material: 'stone',
               size: 'big',
               finish: 'matt',
+              drainage: 'several holes',
+              price: 'a bargain',
             },
           },
           mint: {
@@ -4232,6 +5204,8 @@ const THEME_WORDS = {
               material: 'glazed clay',
               size: 'small',
               finish: 'glossy',
+              drainage: 'one hole',
+              price: 'a gift',
             },
           },
           rust: {
@@ -4241,6 +5215,8 @@ const THEME_WORDS = {
               material: 'metal',
               size: 'big',
               finish: 'matt',
+              drainage: 'several holes',
+              price: 'a bargain',
             },
           },
           cream: {
@@ -4250,6 +5226,8 @@ const THEME_WORDS = {
               material: 'clay',
               size: 'small',
               finish: 'matt',
+              drainage: 'one hole',
+              price: 'full price',
             },
           },
           indigo: {
@@ -4259,6 +5237,8 @@ const THEME_WORDS = {
               material: 'glazed clay',
               size: 'big',
               finish: 'glossy',
+              drainage: 'no holes',
+              price: 'a gift',
             },
           },
           charcoal: {
@@ -4268,6 +5248,8 @@ const THEME_WORDS = {
               material: 'stone',
               size: 'small',
               finish: 'matt',
+              drainage: 'several holes',
+              price: 'full price',
             },
           },
           blush: {
@@ -4277,6 +5259,8 @@ const THEME_WORDS = {
               material: 'glazed clay',
               size: 'small',
               finish: 'glossy',
+              drainage: 'one hole',
+              price: 'a bargain',
             },
           },
           amber: {
@@ -4286,6 +5270,8 @@ const THEME_WORDS = {
               material: 'clay',
               size: 'big',
               finish: 'matt',
+              drainage: 'no holes',
+              price: 'a gift',
             },
           },
           olive: {
@@ -4295,6 +5281,8 @@ const THEME_WORDS = {
               material: 'metal',
               size: 'small',
               finish: 'matt',
+              drainage: 'several holes',
+              price: 'full price',
             },
           },
           plum: {
@@ -4305,6 +5293,8 @@ const THEME_WORDS = {
               material: 'stone',
               size: 'big',
               finish: 'glossy',
+              drainage: 'one hole',
+              price: 'a bargain',
             },
           },
         },
@@ -4327,6 +5317,14 @@ const THEME_WORDS = {
             label: 'Size',
             pattern: '{} {noun}',
           },
+          storage: {
+            label: 'Kept in',
+            pattern: '{noun} kept in {}',
+          },
+          shared: {
+            label: 'Shared',
+            pattern: '{noun} that is {}',
+          },
         },
         items: {
           trowel: {
@@ -4336,6 +5334,8 @@ const THEME_WORDS = {
               material: 'steel',
               use: 'digging',
               size: 'small',
+              storage: 'the shed',
+              shared: 'shared',
             },
           },
           shears: {
@@ -4345,6 +5345,8 @@ const THEME_WORDS = {
               material: 'steel',
               use: 'cutting',
               size: 'big',
+              storage: 'the shed',
+              shared: 'strictly personal',
             },
           },
           dibber: {
@@ -4354,6 +5356,8 @@ const THEME_WORDS = {
               material: 'wood',
               use: 'digging',
               size: 'small',
+              storage: 'a coat pocket',
+              shared: 'shared',
             },
           },
           rake: {
@@ -4363,6 +5367,8 @@ const THEME_WORDS = {
               material: 'steel',
               use: 'sorting',
               size: 'big',
+              storage: 'the shed',
+              shared: 'shared',
             },
           },
           sprayer: {
@@ -4372,6 +5378,8 @@ const THEME_WORDS = {
               material: 'plastic',
               use: 'watering',
               size: 'small',
+              storage: 'the greenhouse',
+              shared: 'shared',
             },
           },
           gloves: {
@@ -4381,6 +5389,8 @@ const THEME_WORDS = {
               material: 'leather',
               use: 'digging',
               size: 'small',
+              storage: 'a coat pocket',
+              shared: 'strictly personal',
             },
           },
           hoe: {
@@ -4390,6 +5400,8 @@ const THEME_WORDS = {
               material: 'steel',
               use: 'digging',
               size: 'big',
+              storage: 'the shed',
+              shared: 'shared',
             },
           },
           twine: {
@@ -4399,6 +5411,8 @@ const THEME_WORDS = {
               material: 'jute',
               use: 'sorting',
               size: 'small',
+              storage: 'a coat pocket',
+              shared: 'shared',
             },
           },
           secateurs: {
@@ -4408,6 +5422,8 @@ const THEME_WORDS = {
               material: 'steel',
               use: 'cutting',
               size: 'small',
+              storage: 'a coat pocket',
+              shared: 'strictly personal',
             },
           },
           kneeler: {
@@ -4417,6 +5433,8 @@ const THEME_WORDS = {
               material: 'plastic',
               use: 'sorting',
               size: 'big',
+              storage: 'the shed',
+              shared: 'shared',
             },
           },
           sieve: {
@@ -4426,6 +5444,8 @@ const THEME_WORDS = {
               material: 'steel',
               use: 'sorting',
               size: 'big',
+              storage: 'the greenhouse',
+              shared: 'shared',
             },
           },
           'hand-fork': {
@@ -4435,6 +5455,8 @@ const THEME_WORDS = {
               material: 'steel',
               use: 'digging',
               size: 'small',
+              storage: 'the shed',
+              shared: 'strictly personal',
             },
           },
           'watering-can': {
@@ -4444,6 +5466,8 @@ const THEME_WORDS = {
               material: 'metal',
               use: 'watering',
               size: 'big',
+              storage: 'the greenhouse',
+              shared: 'shared',
             },
           },
           'plant-labels': {
@@ -4453,6 +5477,8 @@ const THEME_WORDS = {
               material: 'plastic',
               use: 'sorting',
               size: 'small',
+              storage: 'the greenhouse',
+              shared: 'shared',
             },
           },
         },
@@ -4477,6 +5503,18 @@ const THEME_WORDS = {
             label: 'Number',
             pattern: '{noun} at an {} height',
           },
+          half: {
+            label: 'Half',
+            pattern: '{noun} in the {} half of the range',
+          },
+          support: {
+            label: 'Support',
+            pattern: '{noun} that is {}',
+          },
+          entered: {
+            label: 'Entered',
+            pattern: '{noun} entered in the {} class',
+          },
         },
         items: {
           '20cm': {
@@ -4485,6 +5523,9 @@ const THEME_WORDS = {
             traits: {
               band: 'low',
               parity: 'even',
+              half: 'first',
+              support: 'unstaked',
+              entered: 'novice',
             },
           },
           '35cm': {
@@ -4493,6 +5534,9 @@ const THEME_WORDS = {
             traits: {
               band: 'low',
               parity: 'odd',
+              half: 'first',
+              support: 'unstaked',
+              entered: 'novice',
             },
           },
           '50cm': {
@@ -4501,6 +5545,9 @@ const THEME_WORDS = {
             traits: {
               band: 'low',
               parity: 'even',
+              half: 'first',
+              support: 'unstaked',
+              entered: 'novice',
             },
           },
           '65cm': {
@@ -4509,6 +5556,9 @@ const THEME_WORDS = {
             traits: {
               band: 'low',
               parity: 'odd',
+              half: 'first',
+              support: 'unstaked',
+              entered: 'novice',
             },
           },
           '80cm': {
@@ -4517,6 +5567,9 @@ const THEME_WORDS = {
             traits: {
               band: 'low',
               parity: 'even',
+              half: 'first',
+              support: 'unstaked',
+              entered: 'open',
             },
           },
           '95cm': {
@@ -4525,6 +5578,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'odd',
+              half: 'first',
+              support: 'unstaked',
+              entered: 'open',
             },
           },
           '110cm': {
@@ -4533,6 +5589,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'even',
+              half: 'first',
+              support: 'staked',
+              entered: 'open',
             },
           },
           '125cm': {
@@ -4541,6 +5600,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'odd',
+              half: 'second',
+              support: 'staked',
+              entered: 'open',
             },
           },
           '140cm': {
@@ -4549,6 +5611,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'even',
+              half: 'second',
+              support: 'staked',
+              entered: 'open',
             },
           },
           '155cm': {
@@ -4557,6 +5622,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'odd',
+              half: 'second',
+              support: 'staked',
+              entered: 'open',
             },
           },
           '170cm': {
@@ -4565,6 +5633,9 @@ const THEME_WORDS = {
             traits: {
               band: 'towering',
               parity: 'even',
+              half: 'second',
+              support: 'staked',
+              entered: 'champion',
             },
           },
           '185cm': {
@@ -4573,6 +5644,9 @@ const THEME_WORDS = {
             traits: {
               band: 'towering',
               parity: 'odd',
+              half: 'second',
+              support: 'staked',
+              entered: 'champion',
             },
           },
           '200cm': {
@@ -4581,6 +5655,9 @@ const THEME_WORDS = {
             traits: {
               band: 'towering',
               parity: 'even',
+              half: 'second',
+              support: 'staked',
+              entered: 'champion',
             },
           },
           '215cm': {
@@ -4589,6 +5666,9 @@ const THEME_WORDS = {
             traits: {
               band: 'towering',
               parity: 'odd',
+              half: 'second',
+              support: 'staked',
+              entered: 'champion',
             },
           },
         },
@@ -4626,6 +5706,14 @@ const THEME_WORDS = {
             label: 'Manner',
             pattern: '{noun} with a {} manner',
           },
+          ticket: {
+            label: 'Ticket',
+            pattern: '{noun} holding a {} ticket',
+          },
+          logbook: {
+            label: 'Logbook',
+            pattern: '{noun} whose log is {}',
+          },
         },
         items: {
           'captain-brine': {
@@ -4635,6 +5723,8 @@ const THEME_WORDS = {
               standing: 'junior',
               shift: 'early',
               manner: 'measured',
+              ticket: 'deep-sea',
+              logbook: 'up to date',
             },
           },
           'ada-reef': {
@@ -4644,6 +5734,8 @@ const THEME_WORDS = {
               standing: 'established',
               shift: 'late',
               manner: 'measured',
+              ticket: 'coastal',
+              logbook: 'immaculate',
             },
           },
           'dr-compass': {
@@ -4653,6 +5745,8 @@ const THEME_WORDS = {
               standing: 'veteran',
               shift: 'early',
               manner: 'brisk',
+              ticket: 'coastal',
+              logbook: 'immaculate',
             },
           },
           'nell-nor-east': {
@@ -4662,6 +5756,8 @@ const THEME_WORDS = {
               standing: 'junior',
               shift: 'late',
               manner: 'brisk',
+              ticket: 'deep-sea',
+              logbook: 'up to date',
             },
           },
           'bosun-gull': {
@@ -4671,6 +5767,8 @@ const THEME_WORDS = {
               standing: 'established',
               shift: 'early',
               manner: 'theatrical',
+              ticket: 'harbour',
+              logbook: 'behind',
             },
           },
           'marina-mallow': {
@@ -4680,6 +5778,8 @@ const THEME_WORDS = {
               standing: 'veteran',
               shift: 'late',
               manner: 'theatrical',
+              ticket: 'coastal',
+              logbook: 'up to date',
             },
           },
           'mx-sounding': {
@@ -4689,6 +5789,8 @@ const THEME_WORDS = {
               standing: 'junior',
               shift: 'early',
               manner: 'measured',
+              ticket: 'coastal',
+              logbook: 'immaculate',
             },
           },
           'old-tom-tiller': {
@@ -4698,6 +5800,8 @@ const THEME_WORDS = {
               standing: 'established',
               shift: 'late',
               manner: 'measured',
+              ticket: 'deep-sea',
+              logbook: 'behind',
             },
           },
           'sir-keel': {
@@ -4707,6 +5811,8 @@ const THEME_WORDS = {
               standing: 'veteran',
               shift: 'early',
               manner: 'brisk',
+              ticket: 'deep-sea',
+              logbook: 'up to date',
             },
           },
           'penny-shoal': {
@@ -4716,6 +5822,8 @@ const THEME_WORDS = {
               standing: 'junior',
               shift: 'late',
               manner: 'brisk',
+              ticket: 'harbour',
+              logbook: 'behind',
             },
           },
           'finn-breaker': {
@@ -4725,6 +5833,8 @@ const THEME_WORDS = {
               standing: 'established',
               shift: 'early',
               manner: 'theatrical',
+              ticket: 'coastal',
+              logbook: 'up to date',
             },
           },
           'captain-capstan': {
@@ -4734,6 +5844,8 @@ const THEME_WORDS = {
               standing: 'veteran',
               shift: 'late',
               manner: 'theatrical',
+              ticket: 'harbour',
+              logbook: 'immaculate',
             },
           },
           'professor-fathom': {
@@ -4743,6 +5855,8 @@ const THEME_WORDS = {
               standing: 'junior',
               shift: 'early',
               manner: 'measured',
+              ticket: 'coastal',
+              logbook: 'immaculate',
             },
           },
           'dame-drift': {
@@ -4752,6 +5866,8 @@ const THEME_WORDS = {
               standing: 'established',
               shift: 'late',
               manner: 'measured',
+              ticket: 'deep-sea',
+              logbook: 'up to date',
             },
           },
         },
@@ -4774,6 +5890,14 @@ const THEME_WORDS = {
             label: 'Duty',
             pattern: '{noun} assigned to {}',
           },
+          survey: {
+            label: 'Survey',
+            pattern: '{noun} that is {}',
+          },
+          crewing: {
+            label: 'Crewed by',
+            pattern: '{noun} crewed by {}',
+          },
         },
         items: {
           'brassbound-tug': {
@@ -4783,6 +5907,8 @@ const THEME_WORDS = {
               drive: 'diesel',
               hull: 'steel',
               duty: 'service',
+              survey: 'newly surveyed',
+              crewing: 'two hands',
             },
           },
           'whisper-cutter': {
@@ -4792,6 +5918,8 @@ const THEME_WORDS = {
               drive: 'sail',
               hull: 'wood',
               duty: 'transport',
+              survey: 'newly surveyed',
+              crewing: 'two hands',
             },
           },
           'twinmast-schooner': {
@@ -4801,6 +5929,8 @@ const THEME_WORDS = {
               drive: 'sail',
               hull: 'wood',
               duty: 'transport',
+              survey: 'overdue',
+              crewing: 'a full crew',
             },
           },
           'proud-paddleboat': {
@@ -4810,6 +5940,8 @@ const THEME_WORDS = {
               drive: 'steam',
               hull: 'steel',
               duty: 'transport',
+              survey: 'overdue',
+              crewing: 'a full crew',
             },
           },
           'pocket-submersible': {
@@ -4819,6 +5951,8 @@ const THEME_WORDS = {
               drive: 'battery',
               hull: 'steel',
               duty: 'survey',
+              survey: 'newly surveyed',
+              crewing: 'one hand',
             },
           },
           'willow-canoe': {
@@ -4828,6 +5962,8 @@ const THEME_WORDS = {
               drive: 'oars',
               hull: 'wood',
               duty: 'survey',
+              survey: 'exempt',
+              crewing: 'one hand',
             },
           },
           'twinfin-catamaran': {
@@ -4837,6 +5973,8 @@ const THEME_WORDS = {
               drive: 'diesel',
               hull: 'composite',
               duty: 'transport',
+              survey: 'newly surveyed',
+              crewing: 'two hands',
             },
           },
           'netmender-trawler': {
@@ -4846,6 +5984,8 @@ const THEME_WORDS = {
               drive: 'diesel',
               hull: 'steel',
               duty: 'fishing',
+              survey: 'overdue',
+              crewing: 'a full crew',
             },
           },
           'harbour-ferry': {
@@ -4856,6 +5996,8 @@ const THEME_WORDS = {
               drive: 'diesel',
               hull: 'steel',
               duty: 'transport',
+              survey: 'newly surveyed',
+              crewing: 'a full crew',
             },
           },
           'cushion-hovercraft': {
@@ -4865,6 +6007,8 @@ const THEME_WORDS = {
               drive: 'diesel',
               hull: 'composite',
               duty: 'service',
+              survey: 'newly surveyed',
+              crewing: 'two hands',
             },
           },
           'scarlet-fireboat': {
@@ -4874,6 +6018,8 @@ const THEME_WORDS = {
               drive: 'diesel',
               hull: 'steel',
               duty: 'service',
+              survey: 'newly surveyed',
+              crewing: 'a full crew',
             },
           },
           'mudlark-dredger': {
@@ -4883,6 +6029,8 @@ const THEME_WORDS = {
               drive: 'diesel',
               hull: 'steel',
               duty: 'service',
+              survey: 'overdue',
+              crewing: 'a full crew',
             },
           },
           'lantern-lightship': {
@@ -4892,6 +6040,8 @@ const THEME_WORDS = {
               drive: 'diesel',
               hull: 'steel',
               duty: 'service',
+              survey: 'exempt',
+              crewing: 'two hands',
             },
           },
           'oak-longboat': {
@@ -4901,6 +6051,8 @@ const THEME_WORDS = {
               drive: 'oars',
               hull: 'wood',
               duty: 'transport',
+              survey: 'exempt',
+              crewing: 'a full crew',
             },
           },
         },
@@ -4923,6 +6075,14 @@ const THEME_WORDS = {
             label: 'Cover',
             pattern: '{noun} under {} cover',
           },
+          duty: {
+            label: 'Duty',
+            pattern: '{noun} that is {}',
+          },
+          insured: {
+            label: 'Insurance',
+            pattern: '{noun} listed as {}',
+          },
         },
         items: {
           'tea-leaves': {
@@ -4932,6 +6092,8 @@ const THEME_WORDS = {
               handling: 'dry',
               origin: 'eastern',
               cover: 'sealed',
+              duty: 'duty paid',
+              insured: 'insured',
             },
           },
           'lamp-oil': {
@@ -4942,6 +6104,8 @@ const THEME_WORDS = {
               handling: 'careful',
               origin: 'western',
               cover: 'sealed',
+              duty: 'duty owing',
+              insured: 'under review',
             },
           },
           'wool-bale': {
@@ -4952,6 +6116,8 @@ const THEME_WORDS = {
               handling: 'dry',
               origin: 'northern',
               cover: 'wrapped',
+              duty: 'duty paid',
+              insured: 'insured',
             },
           },
           'sawn-timber': {
@@ -4961,6 +6127,8 @@ const THEME_WORDS = {
               handling: 'standard',
               origin: 'northern',
               cover: 'open',
+              duty: 'duty free',
+              insured: 'insured',
             },
           },
           'copper-ingots': {
@@ -4970,6 +6138,8 @@ const THEME_WORDS = {
               handling: 'standard',
               origin: 'eastern',
               cover: 'open',
+              duty: 'duty paid',
+              insured: 'insured',
             },
           },
           'marble-blocks': {
@@ -4979,6 +6149,8 @@ const THEME_WORDS = {
               handling: 'careful',
               origin: 'western',
               cover: 'open',
+              duty: 'duty free',
+              insured: 'under review',
             },
           },
           'grain-sacks': {
@@ -4989,6 +6161,8 @@ const THEME_WORDS = {
               handling: 'dry',
               origin: 'eastern',
               cover: 'sealed',
+              duty: 'duty paid',
+              insured: 'uninsured',
             },
           },
           'silk-rolls': {
@@ -4998,6 +6172,8 @@ const THEME_WORDS = {
               handling: 'dry',
               origin: 'western',
               cover: 'wrapped',
+              duty: 'duty owing',
+              insured: 'insured',
             },
           },
           'spice-jars': {
@@ -5007,6 +6183,8 @@ const THEME_WORDS = {
               handling: 'careful',
               origin: 'eastern',
               cover: 'sealed',
+              duty: 'duty owing',
+              insured: 'insured',
             },
           },
           'citrus-basket': {
@@ -5016,6 +6194,8 @@ const THEME_WORDS = {
               handling: 'careful',
               origin: 'southern',
               cover: 'open',
+              duty: 'duty paid',
+              insured: 'uninsured',
             },
           },
           'clay-pots': {
@@ -5025,6 +6205,8 @@ const THEME_WORDS = {
               handling: 'careful',
               origin: 'southern',
               cover: 'wrapped',
+              duty: 'duty free',
+              insured: 'uninsured',
             },
           },
           'glass-bottles': {
@@ -5034,6 +6216,8 @@ const THEME_WORDS = {
               handling: 'careful',
               origin: 'western',
               cover: 'wrapped',
+              duty: 'duty paid',
+              insured: 'under review',
             },
           },
           'machine-parts': {
@@ -5044,6 +6228,8 @@ const THEME_WORDS = {
               handling: 'standard',
               origin: 'northern',
               cover: 'wrapped',
+              duty: 'duty owing',
+              insured: 'insured',
             },
           },
           'ice-blocks': {
@@ -5053,6 +6239,8 @@ const THEME_WORDS = {
               handling: 'chilled',
               origin: 'northern',
               cover: 'sealed',
+              duty: 'duty free',
+              insured: 'uninsured',
             },
           },
         },
@@ -5075,6 +6263,14 @@ const THEME_WORDS = {
             label: 'Access',
             pattern: '{noun} with {} access',
           },
+          fee: {
+            label: 'Fee',
+            pattern: '{noun} charged by the {}',
+          },
+          booking: {
+            label: 'Booking',
+            pattern: '{noun} that is {}',
+          },
         },
         items: {
           'lighthouse-quay': {
@@ -5084,6 +6280,8 @@ const THEME_WORDS = {
               basin: 'outer',
               shelter: 'limited',
               access: 'road',
+              fee: 'day',
+              booking: 'booked ahead',
             },
           },
           'gantry-pier': {
@@ -5093,6 +6291,8 @@ const THEME_WORDS = {
               basin: 'inner',
               shelter: 'full',
               access: 'road',
+              fee: 'hour',
+              booking: 'booked ahead',
             },
           },
           'old-graving-dock': {
@@ -5102,6 +6302,8 @@ const THEME_WORDS = {
               basin: 'inner',
               shelter: 'full',
               access: 'road',
+              fee: 'week',
+              booking: 'first come',
             },
           },
           'customs-steps': {
@@ -5111,6 +6313,8 @@ const THEME_WORDS = {
               basin: 'inner',
               shelter: 'full',
               access: 'footpath',
+              fee: 'hour',
+              booking: 'first come',
             },
           },
           'ropewalk-landing': {
@@ -5120,6 +6324,8 @@ const THEME_WORDS = {
               basin: 'middle',
               shelter: 'partial',
               access: 'footpath',
+              fee: 'day',
+              booking: 'booked ahead',
             },
           },
           'coal-wharf': {
@@ -5129,6 +6335,8 @@ const THEME_WORDS = {
               basin: 'outer',
               shelter: 'limited',
               access: 'road',
+              fee: 'day',
+              booking: 'first come',
             },
           },
           'beacon-jetty': {
@@ -5138,6 +6346,8 @@ const THEME_WORDS = {
               basin: 'outer',
               shelter: 'limited',
               access: 'footpath',
+              fee: 'hour',
+              booking: 'first come',
             },
           },
           'mill-basin': {
@@ -5147,6 +6357,8 @@ const THEME_WORDS = {
               basin: 'middle',
               shelter: 'partial',
               access: 'road',
+              fee: 'week',
+              booking: 'booked ahead',
             },
           },
           'east-lock': {
@@ -5156,6 +6368,8 @@ const THEME_WORDS = {
               basin: 'inner',
               shelter: 'full',
               access: 'road',
+              fee: 'day',
+              booking: 'booked ahead',
             },
           },
           'bell-buoy': {
@@ -5165,6 +6379,8 @@ const THEME_WORDS = {
               basin: 'outer',
               shelter: 'limited',
               access: 'launch',
+              fee: 'hour',
+              booking: 'first come',
             },
           },
           'salt-house': {
@@ -5174,6 +6390,8 @@ const THEME_WORDS = {
               basin: 'middle',
               shelter: 'partial',
               access: 'road',
+              fee: 'week',
+              booking: 'booked ahead',
             },
           },
           'anchor-point': {
@@ -5184,6 +6402,8 @@ const THEME_WORDS = {
               basin: 'outer',
               shelter: 'partial',
               access: 'launch',
+              fee: 'day',
+              booking: 'first come',
             },
           },
           'stone-arch': {
@@ -5193,6 +6413,8 @@ const THEME_WORDS = {
               basin: 'middle',
               shelter: 'full',
               access: 'footpath',
+              fee: 'hour',
+              booking: 'first come',
             },
           },
           'net-loft': {
@@ -5202,6 +6424,8 @@ const THEME_WORDS = {
               basin: 'inner',
               shelter: 'partial',
               access: 'footpath',
+              fee: 'week',
+              booking: 'booked ahead',
             },
           },
         },
@@ -5226,6 +6450,18 @@ const THEME_WORDS = {
             label: 'Window',
             pattern: '{noun} in the {} window',
           },
+          tide: {
+            label: 'Tide',
+            pattern: '{noun} on the {} tide',
+          },
+          pilot: {
+            label: 'Pilot',
+            pattern: '{noun} that takes {} pilot',
+          },
+          called: {
+            label: 'Called in by',
+            pattern: '{noun} called in by {}',
+          },
         },
         items: {
           '04-00': {
@@ -5234,6 +6470,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'first',
               window: 'early',
+              tide: 'rising',
+              pilot: 'a',
+              called: 'radio',
             },
           },
           '04-30': {
@@ -5242,6 +6481,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'first',
               window: 'early',
+              tide: 'rising',
+              pilot: 'a',
+              called: 'radio',
             },
           },
           '05-00': {
@@ -5250,6 +6492,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'first',
               window: 'early',
+              tide: 'high',
+              pilot: 'no',
+              called: 'flag',
             },
           },
           '05-30': {
@@ -5258,6 +6503,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'first',
               window: 'early',
+              tide: 'high',
+              pilot: 'a',
+              called: 'radio',
             },
           },
           '06-00': {
@@ -5266,6 +6514,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'first',
               window: 'early',
+              tide: 'falling',
+              pilot: 'no',
+              called: 'the bell',
             },
           },
           '06-30': {
@@ -5274,6 +6525,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'middle',
               window: 'early',
+              tide: 'falling',
+              pilot: 'no',
+              called: 'radio',
             },
           },
           '07-00': {
@@ -5282,6 +6536,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'middle',
               window: 'early',
+              tide: 'rising',
+              pilot: 'a',
+              called: 'flag',
             },
           },
           '07-30': {
@@ -5290,6 +6547,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'middle',
               window: 'late',
+              tide: 'rising',
+              pilot: 'a',
+              called: 'radio',
             },
           },
           '08-00': {
@@ -5298,6 +6558,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'middle',
               window: 'late',
+              tide: 'high',
+              pilot: 'no',
+              called: 'radio',
             },
           },
           '08-30': {
@@ -5306,6 +6569,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'middle',
               window: 'late',
+              tide: 'high',
+              pilot: 'a',
+              called: 'the bell',
             },
           },
           '09-00': {
@@ -5314,6 +6580,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'final',
               window: 'late',
+              tide: 'falling',
+              pilot: 'no',
+              called: 'flag',
             },
           },
           '09-30': {
@@ -5322,6 +6591,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'final',
               window: 'late',
+              tide: 'falling',
+              pilot: 'no',
+              called: 'radio',
             },
           },
           '10-00': {
@@ -5330,6 +6602,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'final',
               window: 'late',
+              tide: 'rising',
+              pilot: 'a',
+              called: 'radio',
             },
           },
           '10-30': {
@@ -5338,6 +6613,9 @@ const THEME_WORDS = {
             traits: {
               watch: 'final',
               window: 'late',
+              tide: 'high',
+              pilot: 'no',
+              called: 'flag',
             },
           },
         },
@@ -5375,6 +6653,14 @@ const THEME_WORDS = {
             label: 'Manner',
             pattern: '{} {noun}',
           },
+          guild: {
+            label: 'Guild',
+            pattern: '{noun} of the {} guild',
+          },
+          pitch: {
+            label: 'Workshop',
+            pattern: '{noun} working from the {} workshop',
+          },
         },
         items: {
           'mr-glow': {
@@ -5384,6 +6670,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'early',
               manner: 'patient',
+              guild: 'paper',
+              pitch: 'riverside',
             },
           },
           'madam-ribbon': {
@@ -5393,6 +6681,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'late',
               manner: 'patient',
+              guild: 'light',
+              pitch: 'town',
             },
           },
           'dr-dazzle': {
@@ -5402,6 +6692,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'early',
               manner: 'brisk',
+              guild: 'music',
+              pitch: 'hill',
             },
           },
           'miss-wisp': {
@@ -5411,6 +6703,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'late',
               manner: 'brisk',
+              guild: 'paper',
+              pitch: 'town',
             },
           },
           'lord-confetti': {
@@ -5420,6 +6714,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'early',
               manner: 'dramatic',
+              guild: 'light',
+              pitch: 'riverside',
             },
           },
           'dame-firefly': {
@@ -5429,6 +6725,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'late',
               manner: 'dramatic',
+              guild: 'light',
+              pitch: 'hill',
             },
           },
           'mr-flutter': {
@@ -5438,6 +6736,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'early',
               manner: 'patient',
+              guild: 'paper',
+              pitch: 'town',
             },
           },
           'mx-chorus': {
@@ -5447,6 +6747,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'late',
               manner: 'patient',
+              guild: 'music',
+              pitch: 'riverside',
             },
           },
           'professor-glimmer': {
@@ -5456,6 +6758,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'early',
               manner: 'brisk',
+              guild: 'light',
+              pitch: 'hill',
             },
           },
           'mrs-twinkle': {
@@ -5465,6 +6769,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'late',
               manner: 'brisk',
+              guild: 'paper',
+              pitch: 'town',
             },
           },
           'sir-rattle': {
@@ -5474,6 +6780,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'early',
               manner: 'dramatic',
+              guild: 'music',
+              pitch: 'riverside',
             },
           },
           'captain-spark': {
@@ -5483,6 +6791,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'late',
               manner: 'dramatic',
+              guild: 'light',
+              pitch: 'hill',
             },
           },
           'aunt-echo': {
@@ -5492,6 +6802,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'early',
               manner: 'patient',
+              guild: 'music',
+              pitch: 'town',
             },
           },
           'ms-shimmer': {
@@ -5501,6 +6813,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'late',
               manner: 'patient',
+              guild: 'paper',
+              pitch: 'riverside',
             },
           },
         },
@@ -5523,6 +6837,14 @@ const THEME_WORDS = {
             label: 'Frame',
             pattern: '{}-framed {noun}',
           },
+          hung: {
+            label: 'Hung',
+            pattern: '{noun} hung {}',
+          },
+          made: {
+            label: 'Made',
+            pattern: '{noun} made {}',
+          },
         },
         items: {
           'star-lantern': {
@@ -5532,6 +6854,8 @@ const THEME_WORDS = {
               light: 'steady',
               colour: 'amber',
               frame: 'bamboo',
+              hung: 'high',
+              made: 'this year',
             },
           },
           'moon-lantern': {
@@ -5541,6 +6865,8 @@ const THEME_WORDS = {
               light: 'flickering',
               colour: 'silver',
               frame: 'wire',
+              hung: 'high',
+              made: 'last year',
             },
           },
           'owl-lantern': {
@@ -5550,6 +6876,8 @@ const THEME_WORDS = {
               light: 'steady',
               colour: 'indigo',
               frame: 'bamboo',
+              hung: 'at eye level',
+              made: 'this year',
             },
           },
           'fox-lantern': {
@@ -5559,6 +6887,8 @@ const THEME_WORDS = {
               light: 'flickering',
               colour: 'amber',
               frame: 'wire',
+              hung: 'low',
+              made: 'years ago',
             },
           },
           'hare-lantern': {
@@ -5568,6 +6898,8 @@ const THEME_WORDS = {
               light: 'steady',
               colour: 'silver',
               frame: 'bamboo',
+              hung: 'low',
+              made: 'last year',
             },
           },
           'cat-lantern': {
@@ -5577,6 +6909,8 @@ const THEME_WORDS = {
               light: 'flickering',
               colour: 'indigo',
               frame: 'wire',
+              hung: 'at eye level',
+              made: 'this year',
             },
           },
           'dragon-lantern': {
@@ -5586,6 +6920,8 @@ const THEME_WORDS = {
               light: 'steady',
               colour: 'crimson',
               frame: 'bamboo',
+              hung: 'high',
+              made: 'last year',
             },
           },
           'moth-lantern': {
@@ -5595,6 +6931,8 @@ const THEME_WORDS = {
               light: 'flickering',
               colour: 'silver',
               frame: 'wire',
+              hung: 'at eye level',
+              made: 'years ago',
             },
           },
           'rocket-lantern': {
@@ -5604,6 +6942,8 @@ const THEME_WORDS = {
               light: 'steady',
               colour: 'crimson',
               frame: 'wire',
+              hung: 'high',
+              made: 'this year',
             },
           },
           'apple-lantern': {
@@ -5613,6 +6953,8 @@ const THEME_WORDS = {
               light: 'flickering',
               colour: 'amber',
               frame: 'bamboo',
+              hung: 'low',
+              made: 'last year',
             },
           },
           'pear-lantern': {
@@ -5622,6 +6964,8 @@ const THEME_WORDS = {
               light: 'steady',
               colour: 'crimson',
               frame: 'bamboo',
+              hung: 'low',
+              made: 'last year',
             },
           },
           'cloud-lantern': {
@@ -5631,6 +6975,8 @@ const THEME_WORDS = {
               light: 'flickering',
               colour: 'silver',
               frame: 'wire',
+              hung: 'high',
+              made: 'years ago',
             },
           },
           'kite-lantern': {
@@ -5640,6 +6986,8 @@ const THEME_WORDS = {
               light: 'steady',
               colour: 'indigo',
               frame: 'bamboo',
+              hung: 'high',
+              made: 'this year',
             },
           },
           'pinwheel-lantern': {
@@ -5649,6 +6997,8 @@ const THEME_WORDS = {
               light: 'flickering',
               colour: 'amber',
               frame: 'wire',
+              hung: 'at eye level',
+              made: 'last year',
             },
           },
         },
@@ -5671,6 +7021,14 @@ const THEME_WORDS = {
             label: 'Position',
             pattern: '{noun} played {}',
           },
+          owned: {
+            label: 'Belongs to',
+            pattern: '{noun} that is {}',
+          },
+          tuned: {
+            label: 'Tuned',
+            pattern: '{noun} tuned {}',
+          },
         },
         items: {
           'brass-trumpet': {
@@ -5680,6 +7038,8 @@ const THEME_WORDS = {
               family: 'wind',
               volume: 'loud',
               position: 'standing',
+              owned: "the player's own",
+              tuned: 'before the parade',
             },
           },
           'celtic-harp': {
@@ -5689,6 +7049,8 @@ const THEME_WORDS = {
               family: 'strings',
               volume: 'soft',
               position: 'seated',
+              owned: 'borrowed',
+              tuned: 'on the night',
             },
           },
           'marching-drum': {
@@ -5698,6 +7060,8 @@ const THEME_WORDS = {
               family: 'percussion',
               volume: 'loud',
               position: 'standing',
+              owned: 'hired',
+              tuned: 'never',
             },
           },
           'round-lute': {
@@ -5707,6 +7071,8 @@ const THEME_WORDS = {
               family: 'strings',
               volume: 'soft',
               position: 'seated',
+              owned: 'borrowed',
+              tuned: 'before the parade',
             },
           },
           'silver-flute': {
@@ -5716,6 +7082,8 @@ const THEME_WORDS = {
               family: 'wind',
               volume: 'soft',
               position: 'standing',
+              owned: "the player's own",
+              tuned: 'on the night',
             },
           },
           'hand-cymbals': {
@@ -5725,6 +7093,8 @@ const THEME_WORDS = {
               family: 'percussion',
               volume: 'loud',
               position: 'standing',
+              owned: 'hired',
+              tuned: 'never',
             },
           },
           'box-accordion': {
@@ -5734,6 +7104,8 @@ const THEME_WORDS = {
               family: 'wind',
               volume: 'loud',
               position: 'seated',
+              owned: 'borrowed',
+              tuned: 'before the parade',
             },
           },
           'town-bell': {
@@ -5743,6 +7115,8 @@ const THEME_WORDS = {
               family: 'percussion',
               volume: 'loud',
               position: 'standing',
+              owned: 'hired',
+              tuned: 'never',
             },
           },
           tambourine: {
@@ -5752,6 +7126,8 @@ const THEME_WORDS = {
               family: 'percussion',
               volume: 'soft',
               position: 'standing',
+              owned: "the player's own",
+              tuned: 'on the night',
             },
           },
           'parade-pipes': {
@@ -5761,6 +7137,8 @@ const THEME_WORDS = {
               family: 'wind',
               volume: 'loud',
               position: 'standing',
+              owned: 'borrowed',
+              tuned: 'before the parade',
             },
           },
           'wood-xylophone': {
@@ -5770,6 +7148,8 @@ const THEME_WORDS = {
               family: 'percussion',
               volume: 'soft',
               position: 'seated',
+              owned: 'hired',
+              tuned: 'on the night',
             },
           },
           'reed-panpipes': {
@@ -5779,6 +7159,8 @@ const THEME_WORDS = {
               family: 'wind',
               volume: 'soft',
               position: 'standing',
+              owned: 'borrowed',
+              tuned: 'before the parade',
             },
           },
           'festival-fiddle': {
@@ -5788,6 +7170,8 @@ const THEME_WORDS = {
               family: 'strings',
               volume: 'loud',
               position: 'seated',
+              owned: "the player's own",
+              tuned: 'on the night',
             },
           },
           'bronze-gong': {
@@ -5797,6 +7181,8 @@ const THEME_WORDS = {
               family: 'percussion',
               volume: 'loud',
               position: 'standing',
+              owned: 'hired',
+              tuned: 'never',
             },
           },
         },
@@ -5819,6 +7205,14 @@ const THEME_WORDS = {
             label: 'Cover',
             pattern: '{} {noun}',
           },
+          fee: {
+            label: 'Pitch fee',
+            pattern: '{noun} that pays {} pitch fee',
+          },
+          takings: {
+            label: 'Takings',
+            pattern: '{noun} with {} takings',
+          },
         },
         items: {
           'tea-pavilion': {
@@ -5828,6 +7222,8 @@ const THEME_WORDS = {
               offering: 'drinks',
               location: 'east',
               cover: 'covered',
+              fee: 'a full',
+              takings: 'brisk',
             },
           },
           'coffee-cart': {
@@ -5837,6 +7233,8 @@ const THEME_WORDS = {
               offering: 'drinks',
               location: 'west',
               cover: 'open-air',
+              fee: 'a full',
+              takings: 'brisk',
             },
           },
           'pastry-tent': {
@@ -5846,6 +7244,8 @@ const THEME_WORDS = {
               offering: 'food',
               location: 'east',
               cover: 'covered',
+              fee: 'a reduced',
+              takings: 'steady',
             },
           },
           'picnic-counter': {
@@ -5855,6 +7255,8 @@ const THEME_WORDS = {
               offering: 'food',
               location: 'west',
               cover: 'covered',
+              fee: 'no',
+              takings: 'slow',
             },
           },
           'orchard-stand': {
@@ -5864,6 +7266,8 @@ const THEME_WORDS = {
               offering: 'food',
               location: 'east',
               cover: 'open-air',
+              fee: 'a reduced',
+              takings: 'steady',
             },
           },
           'pear-preserve-booth': {
@@ -5873,6 +7277,8 @@ const THEME_WORDS = {
               offering: 'food',
               location: 'west',
               cover: 'covered',
+              fee: 'a full',
+              takings: 'slow',
             },
           },
           'cake-table': {
@@ -5882,6 +7288,8 @@ const THEME_WORDS = {
               offering: 'food',
               location: 'east',
               cover: 'open-air',
+              fee: 'a full',
+              takings: 'brisk',
             },
           },
           'biscuit-bar': {
@@ -5891,6 +7299,8 @@ const THEME_WORDS = {
               offering: 'food',
               location: 'west',
               cover: 'covered',
+              fee: 'a reduced',
+              takings: 'steady',
             },
           },
           'lemonade-stand': {
@@ -5900,6 +7310,8 @@ const THEME_WORDS = {
               offering: 'drinks',
               location: 'east',
               cover: 'open-air',
+              fee: 'no',
+              takings: 'brisk',
             },
           },
           'soup-kitchen': {
@@ -5909,6 +7321,8 @@ const THEME_WORDS = {
               offering: 'food',
               location: 'west',
               cover: 'covered',
+              fee: 'no',
+              takings: 'steady',
             },
           },
           'ribbon-stall': {
@@ -5918,6 +7332,8 @@ const THEME_WORDS = {
               offering: 'crafts',
               location: 'east',
               cover: 'covered',
+              fee: 'a reduced',
+              takings: 'slow',
             },
           },
           'mask-maker': {
@@ -5927,6 +7343,8 @@ const THEME_WORDS = {
               offering: 'crafts',
               location: 'west',
               cover: 'open-air',
+              fee: 'a full',
+              takings: 'steady',
             },
           },
           'kite-seller': {
@@ -5936,6 +7354,8 @@ const THEME_WORDS = {
               offering: 'crafts',
               location: 'east',
               cover: 'open-air',
+              fee: 'a full',
+              takings: 'brisk',
             },
           },
           'pinwheel-cart': {
@@ -5945,6 +7365,8 @@ const THEME_WORDS = {
               offering: 'crafts',
               location: 'west',
               cover: 'open-air',
+              fee: 'a reduced',
+              takings: 'slow',
             },
           },
         },
@@ -5969,6 +7391,18 @@ const THEME_WORDS = {
             label: 'Programme',
             pattern: '{noun} in the {} programme',
           },
+          stage: {
+            label: 'Stage',
+            pattern: '{noun} on the {} stage',
+          },
+          encore: {
+            label: 'Encore',
+            pattern: '{noun} that {} an encore',
+          },
+          tickets: {
+            label: 'Tickets',
+            pattern: '{noun} that was {}',
+          },
         },
         items: {
           '18-00': {
@@ -5977,6 +7411,9 @@ const THEME_WORDS = {
             traits: {
               period: 'opening',
               programme: 'first',
+              stage: 'main',
+              encore: 'skipped',
+              tickets: 'half full',
             },
           },
           '18-15': {
@@ -5985,6 +7422,9 @@ const THEME_WORDS = {
             traits: {
               period: 'opening',
               programme: 'first',
+              stage: 'water',
+              encore: 'skipped',
+              tickets: 'ticketed on the door',
             },
           },
           '18-30': {
@@ -5993,6 +7433,9 @@ const THEME_WORDS = {
             traits: {
               period: 'opening',
               programme: 'first',
+              stage: 'lantern',
+              encore: 'took',
+              tickets: 'sold out',
             },
           },
           '18-45': {
@@ -6001,6 +7444,9 @@ const THEME_WORDS = {
             traits: {
               period: 'opening',
               programme: 'first',
+              stage: 'main',
+              encore: 'skipped',
+              tickets: 'half full',
             },
           },
           '19-00': {
@@ -6009,6 +7455,9 @@ const THEME_WORDS = {
             traits: {
               period: 'opening',
               programme: 'first',
+              stage: 'water',
+              encore: 'took',
+              tickets: 'sold out',
             },
           },
           '19-15': {
@@ -6017,6 +7466,9 @@ const THEME_WORDS = {
             traits: {
               period: 'central',
               programme: 'first',
+              stage: 'main',
+              encore: 'took',
+              tickets: 'ticketed on the door',
             },
           },
           '19-30': {
@@ -6025,6 +7477,9 @@ const THEME_WORDS = {
             traits: {
               period: 'central',
               programme: 'first',
+              stage: 'lantern',
+              encore: 'skipped',
+              tickets: 'half full',
             },
           },
           '19-45': {
@@ -6033,6 +7488,9 @@ const THEME_WORDS = {
             traits: {
               period: 'central',
               programme: 'second',
+              stage: 'main',
+              encore: 'took',
+              tickets: 'sold out',
             },
           },
           '20-00': {
@@ -6041,6 +7499,9 @@ const THEME_WORDS = {
             traits: {
               period: 'central',
               programme: 'second',
+              stage: 'water',
+              encore: 'skipped',
+              tickets: 'sold out',
             },
           },
           '20-15': {
@@ -6049,6 +7510,9 @@ const THEME_WORDS = {
             traits: {
               period: 'central',
               programme: 'second',
+              stage: 'lantern',
+              encore: 'took',
+              tickets: 'ticketed on the door',
             },
           },
           '20-30': {
@@ -6057,6 +7521,9 @@ const THEME_WORDS = {
             traits: {
               period: 'closing',
               programme: 'second',
+              stage: 'main',
+              encore: 'skipped',
+              tickets: 'half full',
             },
           },
           '20-45': {
@@ -6065,6 +7532,9 @@ const THEME_WORDS = {
             traits: {
               period: 'closing',
               programme: 'second',
+              stage: 'water',
+              encore: 'took',
+              tickets: 'sold out',
             },
           },
           '21-00': {
@@ -6073,6 +7543,9 @@ const THEME_WORDS = {
             traits: {
               period: 'closing',
               programme: 'second',
+              stage: 'main',
+              encore: 'took',
+              tickets: 'sold out',
             },
           },
           '21-15': {
@@ -6081,6 +7554,9 @@ const THEME_WORDS = {
             traits: {
               period: 'closing',
               programme: 'second',
+              stage: 'lantern',
+              encore: 'skipped',
+              tickets: 'half full',
             },
           },
         },
@@ -6118,6 +7594,14 @@ const THEME_WORDS = {
             label: 'Manner',
             pattern: '{} {noun}',
           },
+          ticket: {
+            label: 'Ticket',
+            pattern: '{noun} holding a {} ticket',
+          },
+          reason: {
+            label: 'Travelling for',
+            pattern: '{noun} travelling for {}',
+          },
         },
         items: {
           'captain-plover': {
@@ -6127,6 +7611,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'early',
               manner: 'patient',
+              ticket: 'single',
+              reason: 'work',
             },
           },
           'madam-thimble': {
@@ -6136,6 +7622,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'late',
               manner: 'patient',
+              ticket: 'return',
+              reason: 'family',
             },
           },
           'dr-turnpike': {
@@ -6145,6 +7633,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'early',
               manner: 'brisk',
+              ticket: 'season',
+              reason: 'pleasure',
             },
           },
           'miss-tansy': {
@@ -6154,6 +7644,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'late',
               manner: 'brisk',
+              ticket: 'return',
+              reason: 'family',
             },
           },
           'lord-ticket': {
@@ -6163,6 +7655,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'early',
               manner: 'dramatic',
+              ticket: 'season',
+              reason: 'work',
             },
           },
           'aunt-marigold': {
@@ -6172,6 +7666,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'late',
               manner: 'dramatic',
+              ticket: 'single',
+              reason: 'family',
             },
           },
           'mr-buffer': {
@@ -6181,6 +7677,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'early',
               manner: 'patient',
+              ticket: 'return',
+              reason: 'work',
             },
           },
           'mx-whistle': {
@@ -6190,6 +7688,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'late',
               manner: 'patient',
+              ticket: 'single',
+              reason: 'pleasure',
             },
           },
           'professor-cinder': {
@@ -6199,6 +7699,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'early',
               manner: 'brisk',
+              ticket: 'season',
+              reason: 'work',
             },
           },
           'mrs-bunbury': {
@@ -6208,6 +7710,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'late',
               manner: 'brisk',
+              ticket: 'return',
+              reason: 'family',
             },
           },
           'sir-sidings': {
@@ -6217,6 +7721,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'early',
               manner: 'dramatic',
+              ticket: 'season',
+              reason: 'work',
             },
           },
           'ms-velvet': {
@@ -6226,6 +7732,8 @@ const THEME_WORDS = {
               experience: 'extensive',
               shift: 'late',
               manner: 'dramatic',
+              ticket: 'single',
+              reason: 'pleasure',
             },
           },
           'mr-crump': {
@@ -6235,6 +7743,8 @@ const THEME_WORDS = {
               experience: 'limited',
               shift: 'early',
               manner: 'patient',
+              ticket: 'return',
+              reason: 'work',
             },
           },
           'dame-semaphore': {
@@ -6244,6 +7754,8 @@ const THEME_WORDS = {
               experience: 'considerable',
               shift: 'late',
               manner: 'patient',
+              ticket: 'single',
+              reason: 'family',
             },
           },
         },
@@ -6266,6 +7778,14 @@ const THEME_WORDS = {
             label: 'Handling',
             pattern: '{noun} carried by its {}',
           },
+          stowed: {
+            label: 'Stowed',
+            pattern: '{noun} stowed {}',
+          },
+          labelled: {
+            label: 'Label',
+            pattern: '{noun} that is {}',
+          },
         },
         items: {
           'steamer-trunk': {
@@ -6275,6 +7795,8 @@ const THEME_WORDS = {
               size: 'large',
               closure: 'latch',
               handling: 'handles',
+              stowed: 'in the van',
+              labelled: 'labelled',
             },
           },
           'leather-satchel': {
@@ -6284,6 +7806,8 @@ const THEME_WORDS = {
               size: 'small',
               closure: 'buckle',
               handling: 'strap',
+              stowed: 'overhead',
+              labelled: 'unlabelled',
             },
           },
           'round-hatbox': {
@@ -6293,6 +7817,8 @@ const THEME_WORDS = {
               size: 'medium',
               closure: 'latch',
               handling: 'handle',
+              stowed: 'overhead',
+              labelled: 'labelled',
             },
           },
           'canvas-rucksack': {
@@ -6302,6 +7828,8 @@ const THEME_WORDS = {
               size: 'large',
               closure: 'buckle',
               handling: 'straps',
+              stowed: 'underfoot',
+              labelled: 'unlabelled',
             },
           },
           'violin-case': {
@@ -6311,6 +7839,8 @@ const THEME_WORDS = {
               size: 'medium',
               closure: 'latch',
               handling: 'handle',
+              stowed: 'overhead',
+              labelled: 'labelled twice',
             },
           },
           'folded-umbrella': {
@@ -6320,6 +7850,8 @@ const THEME_WORDS = {
               size: 'small',
               closure: 'tie',
               handling: 'handle',
+              stowed: 'underfoot',
+              labelled: 'unlabelled',
             },
           },
           'striped-duffel': {
@@ -6329,6 +7861,8 @@ const THEME_WORDS = {
               size: 'large',
               closure: 'zip',
               handling: 'handles',
+              stowed: 'in the van',
+              labelled: 'labelled',
             },
           },
           'songbird-carrier': {
@@ -6338,6 +7872,8 @@ const THEME_WORDS = {
               size: 'medium',
               closure: 'latch',
               handling: 'handle',
+              stowed: 'underfoot',
+              labelled: 'labelled twice',
             },
           },
           'rolled-bedding': {
@@ -6347,6 +7883,8 @@ const THEME_WORDS = {
               size: 'large',
               closure: 'tie',
               handling: 'straps',
+              stowed: 'in the van',
+              labelled: 'unlabelled',
             },
           },
           'business-case': {
@@ -6356,6 +7894,8 @@ const THEME_WORDS = {
               size: 'small',
               closure: 'latch',
               handling: 'handle',
+              stowed: 'underfoot',
+              labelled: 'labelled',
             },
           },
           'hanging-suit-bag': {
@@ -6365,6 +7905,8 @@ const THEME_WORDS = {
               size: 'large',
               closure: 'zip',
               handling: 'hook',
+              stowed: 'overhead',
+              labelled: 'labelled',
             },
           },
           'wicker-hamper': {
@@ -6374,6 +7916,8 @@ const THEME_WORDS = {
               size: 'medium',
               closure: 'latch',
               handling: 'handle',
+              stowed: 'in the van',
+              labelled: 'unlabelled',
             },
           },
           'ribbon-parcel': {
@@ -6383,6 +7927,8 @@ const THEME_WORDS = {
               size: 'small',
               closure: 'tie',
               handling: 'ribbon',
+              stowed: 'overhead',
+              labelled: 'labelled twice',
             },
           },
           'oak-chest': {
@@ -6392,6 +7938,8 @@ const THEME_WORDS = {
               size: 'large',
               closure: 'latch',
               handling: 'handles',
+              stowed: 'in the van',
+              labelled: 'labelled',
             },
           },
         },
@@ -6414,6 +7962,14 @@ const THEME_WORDS = {
             label: 'Service',
             pattern: '{noun} on the {} service',
           },
+          fare: {
+            label: 'Fare',
+            pattern: '{noun} with a {} fare',
+          },
+          staffed: {
+            label: 'Station',
+            pattern: '{noun} whose station is {}',
+          },
         },
         items: {
           'beacon-point': {
@@ -6423,6 +7979,8 @@ const THEME_WORDS = {
               region: 'coastal',
               terrain: 'level',
               service: 'local',
+              fare: 'dear',
+              staffed: 'staffed',
             },
           },
           'high-crag': {
@@ -6432,6 +7990,8 @@ const THEME_WORDS = {
               region: 'upland',
               terrain: 'steep',
               service: 'express',
+              fare: 'dear',
+              staffed: 'unstaffed',
             },
           },
           'miller-s-halt': {
@@ -6441,6 +8001,8 @@ const THEME_WORDS = {
               region: 'inland',
               terrain: 'level',
               service: 'local',
+              fare: 'cheap',
+              staffed: 'unstaffed',
             },
           },
           'port-brindle': {
@@ -6450,6 +8012,8 @@ const THEME_WORDS = {
               region: 'coastal',
               terrain: 'level',
               service: 'express',
+              fare: 'standard',
+              staffed: 'staffed',
             },
           },
           'pine-hollow': {
@@ -6459,6 +8023,8 @@ const THEME_WORDS = {
               region: 'inland',
               terrain: 'level',
               service: 'local',
+              fare: 'cheap',
+              staffed: 'staffed by one porter',
             },
           },
           'seven-arches': {
@@ -6468,6 +8034,8 @@ const THEME_WORDS = {
               region: 'inland',
               terrain: 'level',
               service: 'express',
+              fare: 'standard',
+              staffed: 'staffed',
             },
           },
           'castle-rook': {
@@ -6477,6 +8045,8 @@ const THEME_WORDS = {
               region: 'upland',
               terrain: 'steep',
               service: 'local',
+              fare: 'dear',
+              staffed: 'unstaffed',
             },
           },
           applewick: {
@@ -6486,6 +8056,8 @@ const THEME_WORDS = {
               region: 'inland',
               terrain: 'level',
               service: 'local',
+              fare: 'cheap',
+              staffed: 'staffed by one porter',
             },
           },
           'star-ridge': {
@@ -6495,6 +8067,8 @@ const THEME_WORDS = {
               region: 'upland',
               terrain: 'steep',
               service: 'express',
+              fare: 'dear',
+              staffed: 'unstaffed',
             },
           },
           'silver-falls': {
@@ -6504,6 +8078,8 @@ const THEME_WORDS = {
               region: 'upland',
               terrain: 'steep',
               service: 'local',
+              fare: 'standard',
+              staffed: 'staffed',
             },
           },
           'seabell-pier': {
@@ -6513,6 +8089,8 @@ const THEME_WORDS = {
               region: 'coastal',
               terrain: 'level',
               service: 'express',
+              fare: 'standard',
+              staffed: 'staffed',
             },
           },
           'slate-cut': {
@@ -6522,6 +8100,8 @@ const THEME_WORDS = {
               region: 'upland',
               terrain: 'steep',
               service: 'local',
+              fare: 'cheap',
+              staffed: 'unstaffed',
             },
           },
           steamwell: {
@@ -6531,6 +8111,8 @@ const THEME_WORDS = {
               region: 'inland',
               terrain: 'level',
               service: 'express',
+              fare: 'standard',
+              staffed: 'staffed by one porter',
             },
           },
           clockhaven: {
@@ -6540,6 +8122,8 @@ const THEME_WORDS = {
               region: 'inland',
               terrain: 'level',
               service: 'express',
+              fare: 'dear',
+              staffed: 'staffed',
             },
           },
         },
@@ -6562,6 +8146,14 @@ const THEME_WORDS = {
             label: 'Portion',
             pattern: '{}-portion {noun}',
           },
+          sold: {
+            label: 'Sold',
+            pattern: '{noun} sold {}',
+          },
+          keeps: {
+            label: 'Keeping',
+            pattern: '{noun} that is {}',
+          },
         },
         items: {
           'breakfast-tea': {
@@ -6571,6 +8163,8 @@ const THEME_WORDS = {
               course: 'drink',
               temperature: 'hot',
               portion: 'single',
+              sold: 'from the trolley',
+              keeps: 'perishable',
             },
           },
           'platform-coffee': {
@@ -6580,6 +8174,8 @@ const THEME_WORDS = {
               course: 'drink',
               temperature: 'hot',
               portion: 'single',
+              sold: 'at the kiosk',
+              keeps: 'perishable',
             },
           },
           'butter-croissant': {
@@ -6589,6 +8185,8 @@ const THEME_WORDS = {
               course: 'snack',
               temperature: 'ambient',
               portion: 'single',
+              sold: 'at the kiosk',
+              keeps: 'perishable',
             },
           },
           'cheese-sandwich': {
@@ -6598,6 +8196,8 @@ const THEME_WORDS = {
               course: 'snack',
               temperature: 'cold',
               portion: 'single',
+              sold: 'from the trolley',
+              keeps: 'perishable',
             },
           },
           'polished-apple': {
@@ -6607,6 +8207,8 @@ const THEME_WORDS = {
               course: 'snack',
               temperature: 'ambient',
               portion: 'single',
+              sold: 'on the platform',
+              keeps: 'long-keeping',
             },
           },
           'conference-pear': {
@@ -6616,6 +8218,8 @@ const THEME_WORDS = {
               course: 'snack',
               temperature: 'ambient',
               portion: 'single',
+              sold: 'on the platform',
+              keeps: 'long-keeping',
             },
           },
           'layer-cake': {
@@ -6625,6 +8229,8 @@ const THEME_WORDS = {
               course: 'dessert',
               temperature: 'ambient',
               portion: 'sharing',
+              sold: 'at the kiosk',
+              keeps: 'perishable',
             },
           },
           'ginger-biscuit': {
@@ -6634,6 +8240,8 @@ const THEME_WORDS = {
               course: 'snack',
               temperature: 'ambient',
               portion: 'sharing',
+              sold: 'from the trolley',
+              keeps: 'long-keeping',
             },
           },
           'cloudy-lemonade': {
@@ -6643,6 +8251,8 @@ const THEME_WORDS = {
               course: 'drink',
               temperature: 'cold',
               portion: 'single',
+              sold: 'at the kiosk',
+              keeps: 'perishable',
             },
           },
           'tomato-soup': {
@@ -6652,6 +8262,8 @@ const THEME_WORDS = {
               course: 'snack',
               temperature: 'hot',
               portion: 'single',
+              sold: 'at the kiosk',
+              keeps: 'perishable',
             },
           },
           'salted-pretzel': {
@@ -6661,6 +8273,8 @@ const THEME_WORDS = {
               course: 'snack',
               temperature: 'ambient',
               portion: 'sharing',
+              sold: 'on the platform',
+              keeps: 'long-keeping',
             },
           },
           'cheese-wedge': {
@@ -6670,6 +8284,8 @@ const THEME_WORDS = {
               course: 'snack',
               temperature: 'cold',
               portion: 'sharing',
+              sold: 'from the trolley',
+              keeps: 'long-keeping',
             },
           },
           'dark-chocolate': {
@@ -6679,6 +8295,8 @@ const THEME_WORDS = {
               course: 'dessert',
               temperature: 'ambient',
               portion: 'sharing',
+              sold: 'from the trolley',
+              keeps: 'long-keeping',
             },
           },
           'vanilla-cone': {
@@ -6688,6 +8306,8 @@ const THEME_WORDS = {
               course: 'dessert',
               temperature: 'cold',
               portion: 'single',
+              sold: 'on the platform',
+              keeps: 'perishable',
             },
           },
         },
@@ -6712,6 +8332,18 @@ const THEME_WORDS = {
             label: 'Window',
             pattern: '{noun} in the {} window',
           },
+          platform: {
+            label: 'Platform',
+            pattern: '{noun} from the {} platform',
+          },
+          calls: {
+            label: 'Calls',
+            pattern: '{noun} that is {}',
+          },
+          announced: {
+            label: 'Announcement',
+            pattern: '{noun} that was {}',
+          },
         },
         items: {
           '06-00': {
@@ -6720,6 +8352,9 @@ const THEME_WORDS = {
             traits: {
               period: 'early',
               window: 'first-half',
+              platform: 'north',
+              calls: 'all-stations',
+              announced: 'announced',
             },
           },
           '06-30': {
@@ -6728,6 +8363,9 @@ const THEME_WORDS = {
             traits: {
               period: 'early',
               window: 'first-half',
+              platform: 'south',
+              calls: 'semi-fast',
+              announced: 'announced',
             },
           },
           '07-00': {
@@ -6736,6 +8374,9 @@ const THEME_WORDS = {
             traits: {
               period: 'early',
               window: 'first-half',
+              platform: 'bay',
+              calls: 'all-stations',
+              announced: 'announced twice',
             },
           },
           '07-30': {
@@ -6744,6 +8385,9 @@ const THEME_WORDS = {
             traits: {
               period: 'early',
               window: 'first-half',
+              platform: 'north',
+              calls: 'semi-fast',
+              announced: 'announced',
             },
           },
           '08-00': {
@@ -6752,6 +8396,9 @@ const THEME_WORDS = {
             traits: {
               period: 'early',
               window: 'first-half',
+              platform: 'south',
+              calls: 'all-stations',
+              announced: 'not announced',
             },
           },
           '08-30': {
@@ -6760,6 +8407,9 @@ const THEME_WORDS = {
             traits: {
               period: 'early',
               window: 'first-half',
+              platform: 'north',
+              calls: 'semi-fast',
+              announced: 'announced',
             },
           },
           '09-00': {
@@ -6768,6 +8418,9 @@ const THEME_WORDS = {
             traits: {
               period: 'mid-morning',
               window: 'first-half',
+              platform: 'bay',
+              calls: 'all-stations',
+              announced: 'announced twice',
             },
           },
           '09-30': {
@@ -6776,6 +8429,9 @@ const THEME_WORDS = {
             traits: {
               period: 'mid-morning',
               window: 'second-half',
+              platform: 'south',
+              calls: 'all-stations',
+              announced: 'announced',
             },
           },
           '10-00': {
@@ -6784,6 +8440,9 @@ const THEME_WORDS = {
             traits: {
               period: 'mid-morning',
               window: 'second-half',
+              platform: 'north',
+              calls: 'semi-fast',
+              announced: 'not announced',
             },
           },
           '10-30': {
@@ -6792,6 +8451,9 @@ const THEME_WORDS = {
             traits: {
               period: 'mid-morning',
               window: 'second-half',
+              platform: 'bay',
+              calls: 'all-stations',
+              announced: 'announced twice',
             },
           },
           '11-00': {
@@ -6800,6 +8462,9 @@ const THEME_WORDS = {
             traits: {
               period: 'late',
               window: 'second-half',
+              platform: 'south',
+              calls: 'semi-fast',
+              announced: 'announced',
             },
           },
           '11-30': {
@@ -6808,6 +8473,9 @@ const THEME_WORDS = {
             traits: {
               period: 'late',
               window: 'second-half',
+              platform: 'north',
+              calls: 'all-stations',
+              announced: 'announced',
             },
           },
           '12-00': {
@@ -6816,6 +8484,9 @@ const THEME_WORDS = {
             traits: {
               period: 'late',
               window: 'second-half',
+              platform: 'south',
+              calls: 'semi-fast',
+              announced: 'not announced',
             },
           },
           '12-30': {
@@ -6824,6 +8495,9 @@ const THEME_WORDS = {
             traits: {
               period: 'late',
               window: 'second-half',
+              platform: 'bay',
+              calls: 'all-stations',
+              announced: 'announced twice',
             },
           },
         },
@@ -6861,6 +8535,14 @@ const THEME_WORDS = {
             label: 'Manner',
             pattern: '{noun} with a {} manner',
           },
+          paperwork: {
+            label: 'Paperwork',
+            pattern: '{noun} whose paperwork is {}',
+          },
+          committee: {
+            label: 'Committee',
+            pattern: '{noun} who {} the committee',
+          },
         },
         items: {
           moth: {
@@ -6871,6 +8553,8 @@ const THEME_WORDS = {
               tenure: 'veteran',
               shift: 'late',
               manner: 'calm',
+              paperwork: 'improvised',
+              committee: 'avoids',
             },
           },
           fable: {
@@ -6880,6 +8564,8 @@ const THEME_WORDS = {
               tenure: 'veteran',
               shift: 'early',
               manner: 'theatrical',
+              paperwork: 'improvised',
+              committee: 'attends',
             },
           },
           vellum: {
@@ -6889,6 +8575,8 @@ const THEME_WORDS = {
               tenure: 'senior',
               shift: 'late',
               manner: 'brisk',
+              paperwork: 'immaculate',
+              committee: 'attends',
             },
           },
           brass: {
@@ -6898,6 +8586,8 @@ const THEME_WORDS = {
               tenure: 'senior',
               shift: 'early',
               manner: 'brisk',
+              paperwork: 'immaculate',
+              committee: 'avoids',
             },
           },
           sable: {
@@ -6908,6 +8598,8 @@ const THEME_WORDS = {
               tenure: 'junior',
               shift: 'late',
               manner: 'calm',
+              paperwork: 'overdue',
+              committee: 'avoids',
             },
           },
           flint: {
@@ -6917,6 +8609,8 @@ const THEME_WORDS = {
               tenure: 'veteran',
               shift: 'early',
               manner: 'brisk',
+              paperwork: 'immaculate',
+              committee: 'chairs',
             },
           },
           quince: {
@@ -6926,6 +8620,8 @@ const THEME_WORDS = {
               tenure: 'veteran',
               shift: 'late',
               manner: 'theatrical',
+              paperwork: 'improvised',
+              committee: 'attends',
             },
           },
           lark: {
@@ -6936,6 +8632,8 @@ const THEME_WORDS = {
               tenure: 'junior',
               shift: 'early',
               manner: 'theatrical',
+              paperwork: 'overdue',
+              committee: 'attends',
             },
           },
           wick: {
@@ -6945,6 +8643,8 @@ const THEME_WORDS = {
               tenure: 'veteran',
               shift: 'early',
               manner: 'theatrical',
+              paperwork: 'overdue',
+              committee: 'chairs',
             },
           },
           spindle: {
@@ -6954,6 +8654,8 @@ const THEME_WORDS = {
               tenure: 'senior',
               shift: 'late',
               manner: 'calm',
+              paperwork: 'immaculate',
+              committee: 'avoids',
             },
           },
           mosaic: {
@@ -6963,6 +8665,8 @@ const THEME_WORDS = {
               tenure: 'senior',
               shift: 'early',
               manner: 'calm',
+              paperwork: 'immaculate',
+              committee: 'attends',
             },
           },
           tallow: {
@@ -6972,6 +8676,8 @@ const THEME_WORDS = {
               tenure: 'senior',
               shift: 'late',
               manner: 'brisk',
+              paperwork: 'immaculate',
+              committee: 'chairs',
             },
           },
           pollen: {
@@ -6981,6 +8687,8 @@ const THEME_WORDS = {
               tenure: 'junior',
               shift: 'early',
               manner: 'calm',
+              paperwork: 'improvised',
+              committee: 'avoids',
             },
           },
           echo: {
@@ -6990,6 +8698,8 @@ const THEME_WORDS = {
               tenure: 'junior',
               shift: 'late',
               manner: 'theatrical',
+              paperwork: 'overdue',
+              committee: 'attends',
             },
           },
         },
@@ -7012,6 +8722,14 @@ const THEME_WORDS = {
             label: 'Handling',
             pattern: '{noun} classified as {}',
           },
+          provenance: {
+            label: 'Provenance',
+            pattern: '{noun} that was {}',
+          },
+          insurance: {
+            label: 'Insurance',
+            pattern: '{noun} listed as {}',
+          },
         },
         items: {
           moonstone: {
@@ -7022,6 +8740,8 @@ const THEME_WORDS = {
               material: 'mineral',
               size: 'small',
               handling: 'robust',
+              provenance: 'never explained',
+              insurance: 'under review',
             },
           },
           orrery: {
@@ -7032,6 +8752,8 @@ const THEME_WORDS = {
               material: 'metal',
               size: 'large',
               handling: 'delicate',
+              provenance: 'bought at auction',
+              insurance: 'insured',
             },
           },
           owl: {
@@ -7041,6 +8763,8 @@ const THEME_WORDS = {
               material: 'metal',
               size: 'medium',
               handling: 'robust',
+              provenance: 'left in a will',
+              insurance: 'insured',
             },
           },
           slipper: {
@@ -7050,6 +8774,8 @@ const THEME_WORDS = {
               material: 'glass',
               size: 'small',
               handling: 'delicate',
+              provenance: 'never explained',
+              insurance: 'uninsurable',
             },
           },
           'storm-bottle': {
@@ -7060,6 +8786,8 @@ const THEME_WORDS = {
               material: 'glass',
               size: 'medium',
               handling: 'delicate',
+              provenance: 'never explained',
+              insurance: 'uninsurable',
             },
           },
           'silk-dragon': {
@@ -7069,6 +8797,8 @@ const THEME_WORDS = {
               material: 'textile',
               size: 'large',
               handling: 'delicate',
+              provenance: 'left in a will',
+              insurance: 'insured',
             },
           },
           'fossil-fern': {
@@ -7078,6 +8808,8 @@ const THEME_WORDS = {
               material: 'stone',
               size: 'medium',
               handling: 'robust',
+              provenance: 'bought at auction',
+              insurance: 'insured',
             },
           },
           'key-crown': {
@@ -7087,6 +8819,8 @@ const THEME_WORDS = {
               material: 'metal',
               size: 'small',
               handling: 'robust',
+              provenance: 'left in a will',
+              insurance: 'under review',
             },
           },
           'bronze-hand': {
@@ -7096,6 +8830,8 @@ const THEME_WORDS = {
               material: 'metal',
               size: 'medium',
               handling: 'robust',
+              provenance: 'bought at auction',
+              insurance: 'insured',
             },
           },
           'laughing-mask': {
@@ -7105,6 +8841,8 @@ const THEME_WORDS = {
               material: 'wood',
               size: 'small',
               handling: 'delicate',
+              provenance: 'never explained',
+              insurance: 'under review',
             },
           },
           pyramid: {
@@ -7114,6 +8852,8 @@ const THEME_WORDS = {
               material: 'stone',
               size: 'large',
               handling: 'robust',
+              provenance: 'bought at auction',
+              insurance: 'insured',
             },
           },
           meteorite: {
@@ -7123,6 +8863,8 @@ const THEME_WORDS = {
               material: 'mineral',
               size: 'medium',
               handling: 'robust',
+              provenance: 'never explained',
+              insurance: 'uninsurable',
             },
           },
           hare: {
@@ -7133,6 +8875,8 @@ const THEME_WORDS = {
               material: 'ceramic',
               size: 'medium',
               handling: 'delicate',
+              provenance: 'left in a will',
+              insurance: 'insured',
             },
           },
           galleon: {
@@ -7142,6 +8886,8 @@ const THEME_WORDS = {
               material: 'paper',
               size: 'large',
               handling: 'delicate',
+              provenance: 'never explained',
+              insurance: 'uninsurable',
             },
           },
         },
@@ -7164,6 +8910,14 @@ const THEME_WORDS = {
             label: 'Access',
             pattern: '{noun} with {} access',
           },
+          footfall: {
+            label: 'Footfall',
+            pattern: '{noun} with {} footfall',
+          },
+          climate: {
+            label: 'Kept',
+            pattern: '{noun} kept {}',
+          },
         },
         items: {
           rotunda: {
@@ -7173,6 +8927,8 @@ const THEME_WORDS = {
               floor: 'ground',
               lighting: 'bright',
               access: 'public',
+              footfall: 'heavy',
+              climate: 'warm',
             },
           },
           crypt: {
@@ -7182,6 +8938,8 @@ const THEME_WORDS = {
               floor: 'lower',
               lighting: 'dim',
               access: 'staff',
+              footfall: 'light',
+              climate: 'cool',
             },
           },
           'clock-tower': {
@@ -7191,6 +8949,8 @@ const THEME_WORDS = {
               floor: 'upper',
               lighting: 'bright',
               access: 'staff',
+              footfall: 'light',
+              climate: 'cool',
             },
           },
           glasshouse: {
@@ -7200,6 +8960,8 @@ const THEME_WORDS = {
               floor: 'ground',
               lighting: 'bright',
               access: 'public',
+              footfall: 'heavy',
+              climate: 'warm',
             },
           },
           observatory: {
@@ -7209,6 +8971,8 @@ const THEME_WORDS = {
               floor: 'upper',
               lighting: 'dim',
               access: 'staff',
+              footfall: 'light',
+              climate: 'cool',
             },
           },
           'map-room': {
@@ -7218,6 +8982,8 @@ const THEME_WORDS = {
               floor: 'ground',
               lighting: 'bright',
               access: 'public',
+              footfall: 'steady',
+              climate: 'as found',
             },
           },
           'sculpture-court': {
@@ -7228,6 +8994,8 @@ const THEME_WORDS = {
               floor: 'ground',
               lighting: 'bright',
               access: 'public',
+              footfall: 'heavy',
+              climate: 'as found',
             },
           },
           'lantern-walk': {
@@ -7237,6 +9005,8 @@ const THEME_WORDS = {
               floor: 'ground',
               lighting: 'dim',
               access: 'public',
+              footfall: 'steady',
+              climate: 'warm',
             },
           },
           'mosaic-hall': {
@@ -7247,6 +9017,8 @@ const THEME_WORDS = {
               floor: 'ground',
               lighting: 'bright',
               access: 'public',
+              footfall: 'heavy',
+              climate: 'as found',
             },
           },
           'water-gallery': {
@@ -7256,6 +9028,8 @@ const THEME_WORDS = {
               floor: 'lower',
               lighting: 'dim',
               access: 'public',
+              footfall: 'steady',
+              climate: 'cool',
             },
           },
           attic: {
@@ -7265,6 +9039,8 @@ const THEME_WORDS = {
               floor: 'upper',
               lighting: 'dim',
               access: 'staff',
+              footfall: 'light',
+              climate: 'as found',
             },
           },
           'reading-room': {
@@ -7274,6 +9050,8 @@ const THEME_WORDS = {
               floor: 'upper',
               lighting: 'bright',
               access: 'public',
+              footfall: 'steady',
+              climate: 'warm',
             },
           },
           'red-salon': {
@@ -7283,6 +9061,8 @@ const THEME_WORDS = {
               floor: 'ground',
               lighting: 'dim',
               access: 'public',
+              footfall: 'steady',
+              climate: 'warm',
             },
           },
           'grand-stair': {
@@ -7292,6 +9072,8 @@ const THEME_WORDS = {
               floor: 'upper',
               lighting: 'bright',
               access: 'public',
+              footfall: 'heavy',
+              climate: 'as found',
             },
           },
         },
@@ -7314,6 +9096,14 @@ const THEME_WORDS = {
             label: 'Scale',
             pattern: '{noun} classed as {}',
           },
+          upkeep: {
+            label: 'Serviced',
+            pattern: '{noun} serviced {}',
+          },
+          checkout: {
+            label: 'Signed out',
+            pattern: '{noun} signed out by the {}',
+          },
         },
         items: {
           'soft-brush': {
@@ -7323,6 +9113,8 @@ const THEME_WORDS = {
               purpose: 'cleaning',
               operation: 'manual',
               scale: 'compact',
+              upkeep: 'never',
+              checkout: 'day',
             },
           },
           'cotton-gloves': {
@@ -7332,6 +9124,8 @@ const THEME_WORDS = {
               purpose: 'handling',
               operation: 'manual',
               scale: 'compact',
+              upkeep: 'never',
+              checkout: 'hour',
             },
           },
           magnifier: {
@@ -7341,6 +9135,8 @@ const THEME_WORDS = {
               purpose: 'inspection',
               operation: 'manual',
               scale: 'compact',
+              upkeep: 'yearly',
+              checkout: 'day',
             },
           },
           calipers: {
@@ -7350,6 +9146,8 @@ const THEME_WORDS = {
               purpose: 'inspection',
               operation: 'manual',
               scale: 'compact',
+              upkeep: 'yearly',
+              checkout: 'week',
             },
           },
           tweezers: {
@@ -7360,6 +9158,8 @@ const THEME_WORDS = {
               purpose: 'handling',
               operation: 'manual',
               scale: 'compact',
+              upkeep: 'never',
+              checkout: 'hour',
             },
           },
           torch: {
@@ -7369,6 +9169,8 @@ const THEME_WORDS = {
               purpose: 'inspection',
               operation: 'powered',
               scale: 'compact',
+              upkeep: 'monthly',
+              checkout: 'day',
             },
           },
           'dust-blower': {
@@ -7378,6 +9180,8 @@ const THEME_WORDS = {
               purpose: 'cleaning',
               operation: 'manual',
               scale: 'compact',
+              upkeep: 'yearly',
+              checkout: 'day',
             },
           },
           'label-maker': {
@@ -7387,6 +9191,8 @@ const THEME_WORDS = {
               purpose: 'recording',
               operation: 'powered',
               scale: 'bulky',
+              upkeep: 'monthly',
+              checkout: 'week',
             },
           },
           'padded-tray': {
@@ -7396,6 +9202,8 @@ const THEME_WORDS = {
               purpose: 'handling',
               operation: 'manual',
               scale: 'bulky',
+              upkeep: 'yearly',
+              checkout: 'day',
             },
           },
           'wax-seal': {
@@ -7406,6 +9214,8 @@ const THEME_WORDS = {
               purpose: 'recording',
               operation: 'manual',
               scale: 'compact',
+              upkeep: 'never',
+              checkout: 'hour',
             },
           },
           'humidity-gauge': {
@@ -7415,6 +9225,8 @@ const THEME_WORDS = {
               purpose: 'inspection',
               operation: 'powered',
               scale: 'bulky',
+              upkeep: 'monthly',
+              checkout: 'week',
             },
           },
           camera: {
@@ -7425,6 +9237,8 @@ const THEME_WORDS = {
               purpose: 'recording',
               operation: 'powered',
               scale: 'bulky',
+              upkeep: 'monthly',
+              checkout: 'week',
             },
           },
           'packing-foam': {
@@ -7435,6 +9249,8 @@ const THEME_WORDS = {
               purpose: 'handling',
               operation: 'manual',
               scale: 'bulky',
+              upkeep: 'never',
+              checkout: 'week',
             },
           },
           'lifting-sling': {
@@ -7444,6 +9260,8 @@ const THEME_WORDS = {
               purpose: 'handling',
               operation: 'manual',
               scale: 'bulky',
+              upkeep: 'yearly',
+              checkout: 'day',
             },
           },
         },
@@ -7468,6 +9286,18 @@ const THEME_WORDS = {
             label: 'Register',
             pattern: '{noun} in the {} register',
           },
+          half: {
+            label: 'Half of the run',
+            pattern: '{noun} from the {} half of the run',
+          },
+          donor: {
+            label: 'Donor',
+            pattern: '{noun} given by {}',
+          },
+          file: {
+            label: 'File',
+            pattern: '{noun} whose file is {}',
+          },
         },
         items: {
           '1880': {
@@ -7476,6 +9306,9 @@ const THEME_WORDS = {
             traits: {
               era: 'founding',
               register: 'handwritten',
+              half: 'first',
+              donor: 'the founding family',
+              file: 'complete',
             },
           },
           '1890': {
@@ -7484,6 +9317,9 @@ const THEME_WORDS = {
             traits: {
               era: 'founding',
               register: 'handwritten',
+              half: 'first',
+              donor: 'a named donor',
+              file: 'complete',
             },
           },
           '1900': {
@@ -7492,6 +9328,9 @@ const THEME_WORDS = {
             traits: {
               era: 'founding',
               register: 'handwritten',
+              half: 'first',
+              donor: 'an anonymous donor',
+              file: 'partial',
             },
           },
           '1910': {
@@ -7500,6 +9339,9 @@ const THEME_WORDS = {
             traits: {
               era: 'founding',
               register: 'handwritten',
+              half: 'first',
+              donor: 'a named donor',
+              file: 'missing',
             },
           },
           '1920': {
@@ -7509,6 +9351,9 @@ const THEME_WORDS = {
             traits: {
               era: 'expansion',
               register: 'handwritten',
+              half: 'first',
+              donor: 'the founding family',
+              file: 'partial',
             },
           },
           '1930': {
@@ -7518,6 +9363,9 @@ const THEME_WORDS = {
             traits: {
               era: 'expansion',
               register: 'typed',
+              half: 'first',
+              donor: 'an anonymous donor',
+              file: 'complete',
             },
           },
           '1940': {
@@ -7526,6 +9374,9 @@ const THEME_WORDS = {
             traits: {
               era: 'expansion',
               register: 'typed',
+              half: 'first',
+              donor: 'a named donor',
+              file: 'complete',
             },
           },
           '1950': {
@@ -7535,6 +9386,9 @@ const THEME_WORDS = {
             traits: {
               era: 'expansion',
               register: 'typed',
+              half: 'second',
+              donor: 'an anonymous donor',
+              file: 'partial',
             },
           },
           '1960': {
@@ -7543,6 +9397,9 @@ const THEME_WORDS = {
             traits: {
               era: 'expansion',
               register: 'typed',
+              half: 'second',
+              donor: 'a named donor',
+              file: 'complete',
             },
           },
           '1970': {
@@ -7551,6 +9408,9 @@ const THEME_WORDS = {
             traits: {
               era: 'renewal',
               register: 'typed',
+              half: 'second',
+              donor: 'the founding family',
+              file: 'complete',
             },
           },
           '1980': {
@@ -7559,6 +9419,9 @@ const THEME_WORDS = {
             traits: {
               era: 'renewal',
               register: 'typed',
+              half: 'second',
+              donor: 'an anonymous donor',
+              file: 'missing',
             },
           },
           '1990': {
@@ -7567,6 +9430,9 @@ const THEME_WORDS = {
             traits: {
               era: 'renewal',
               register: 'digital',
+              half: 'second',
+              donor: 'a named donor',
+              file: 'complete',
             },
           },
           '2000': {
@@ -7576,6 +9442,9 @@ const THEME_WORDS = {
             traits: {
               era: 'renewal',
               register: 'digital',
+              half: 'second',
+              donor: 'an anonymous donor',
+              file: 'partial',
             },
           },
           '2010': {
@@ -7585,6 +9454,9 @@ const THEME_WORDS = {
             traits: {
               era: 'renewal',
               register: 'digital',
+              half: 'second',
+              donor: 'a named donor',
+              file: 'complete',
             },
           },
         },
@@ -7809,6 +9681,14 @@ const THEME_WORDS = {
             label: 'Weight',
             pattern: '{} {noun}',
           },
+          enchantment: {
+            label: 'Enchantment',
+            pattern: '{noun} that is {}',
+          },
+          upkeep: {
+            label: 'Upkeep',
+            pattern: '{noun} needing {} upkeep',
+          },
         },
         items: {
           'ash-bow': {
@@ -7818,6 +9698,8 @@ const THEME_WORDS = {
               material: 'wood',
               reach: 'long',
               weight: 'light',
+              enchantment: 'plain',
+              upkeep: 'little',
             },
           },
           'rune-axe': {
@@ -7828,6 +9710,8 @@ const THEME_WORDS = {
               material: 'iron',
               reach: 'short',
               weight: 'heavy',
+              enchantment: 'enchanted',
+              upkeep: 'little',
             },
           },
           'gale-spear': {
@@ -7837,6 +9721,8 @@ const THEME_WORDS = {
               material: 'wood',
               reach: 'long',
               weight: 'light',
+              enchantment: 'enchanted',
+              upkeep: 'little',
             },
           },
           'ember-blade': {
@@ -7846,6 +9732,8 @@ const THEME_WORDS = {
               material: 'iron',
               reach: 'short',
               weight: 'light',
+              enchantment: 'enchanted',
+              upkeep: 'no',
             },
           },
           'frost-flail': {
@@ -7855,6 +9743,8 @@ const THEME_WORDS = {
               material: 'iron',
               reach: 'short',
               weight: 'heavy',
+              enchantment: 'cursed',
+              upkeep: 'constant',
             },
           },
           'thorn-whip': {
@@ -7865,6 +9755,8 @@ const THEME_WORDS = {
               material: 'leather',
               reach: 'long',
               weight: 'light',
+              enchantment: 'plain',
+              upkeep: 'constant',
             },
           },
           'storm-mace': {
@@ -7875,6 +9767,8 @@ const THEME_WORDS = {
               material: 'iron',
               reach: 'short',
               weight: 'heavy',
+              enchantment: 'cursed',
+              upkeep: 'constant',
             },
           },
           'moon-dagger': {
@@ -7884,6 +9778,8 @@ const THEME_WORDS = {
               material: 'silver',
               reach: 'short',
               weight: 'light',
+              enchantment: 'enchanted',
+              upkeep: 'little',
             },
           },
           'oak-staff': {
@@ -7893,6 +9789,8 @@ const THEME_WORDS = {
               material: 'wood',
               reach: 'long',
               weight: 'heavy',
+              enchantment: 'plain',
+              upkeep: 'no',
             },
           },
           'bone-sling': {
@@ -7903,6 +9801,8 @@ const THEME_WORDS = {
               material: 'bone',
               reach: 'short',
               weight: 'light',
+              enchantment: 'plain',
+              upkeep: 'no',
             },
           },
           'star-lance': {
@@ -7912,6 +9812,8 @@ const THEME_WORDS = {
               material: 'silver',
               reach: 'long',
               weight: 'heavy',
+              enchantment: 'enchanted',
+              upkeep: 'constant',
             },
           },
           'wind-sabre': {
@@ -7922,6 +9824,8 @@ const THEME_WORDS = {
               material: 'silver',
               reach: 'long',
               weight: 'light',
+              enchantment: 'enchanted',
+              upkeep: 'little',
             },
           },
           'shadow-pike': {
@@ -7931,6 +9835,8 @@ const THEME_WORDS = {
               material: 'bone',
               reach: 'long',
               weight: 'heavy',
+              enchantment: 'cursed',
+              upkeep: 'constant',
             },
           },
           'iron-halberd': {
@@ -7940,6 +9846,8 @@ const THEME_WORDS = {
               material: 'iron',
               reach: 'long',
               weight: 'heavy',
+              enchantment: 'plain',
+              upkeep: 'little',
             },
           },
         },
@@ -7962,6 +9870,14 @@ const THEME_WORDS = {
             label: 'Temper',
             pattern: '{} {noun}',
           },
+          appetite: {
+            label: 'Appetite',
+            pattern: '{noun} with a {} appetite',
+          },
+          bounty: {
+            label: 'Bounty',
+            pattern: '{noun} with a {} bounty',
+          },
         },
         items: {
           griffin: {
@@ -7971,6 +9887,8 @@ const THEME_WORDS = {
               size: 'huge',
               home: 'mountains',
               temper: 'proud',
+              appetite: 'particular',
+              bounty: 'royal',
             },
           },
           wyvern: {
@@ -7980,6 +9898,8 @@ const THEME_WORDS = {
               size: 'huge',
               home: 'mountains',
               temper: 'fierce',
+              appetite: 'enormous',
+              bounty: 'royal',
             },
           },
           basilisk: {
@@ -7989,6 +9909,8 @@ const THEME_WORDS = {
               size: 'small',
               home: 'caves',
               temper: 'sly',
+              appetite: 'particular',
+              bounty: 'local',
             },
           },
           kraken: {
@@ -7999,6 +9921,8 @@ const THEME_WORDS = {
               size: 'huge',
               home: 'sea',
               temper: 'fierce',
+              appetite: 'enormous',
+              bounty: 'royal',
             },
           },
           chimera: {
@@ -8008,6 +9932,8 @@ const THEME_WORDS = {
               size: 'huge',
               home: 'mountains',
               temper: 'fierce',
+              appetite: 'enormous',
+              bounty: 'royal',
             },
           },
           sphinx: {
@@ -8017,6 +9943,8 @@ const THEME_WORDS = {
               size: 'huge',
               home: 'desert',
               temper: 'sly',
+              appetite: 'particular',
+              bounty: 'forgotten',
             },
           },
           manticore: {
@@ -8027,6 +9955,8 @@ const THEME_WORDS = {
               size: 'huge',
               home: 'desert',
               temper: 'fierce',
+              appetite: 'enormous',
+              bounty: 'royal',
             },
           },
           hydra: {
@@ -8036,6 +9966,8 @@ const THEME_WORDS = {
               size: 'huge',
               home: 'marshes',
               temper: 'fierce',
+              appetite: 'enormous',
+              bounty: 'royal',
             },
           },
           cyclops: {
@@ -8045,6 +9977,8 @@ const THEME_WORDS = {
               size: 'huge',
               home: 'caves',
               temper: 'proud',
+              appetite: 'enormous',
+              bounty: 'local',
             },
           },
           banshee: {
@@ -8054,6 +9988,8 @@ const THEME_WORDS = {
               size: 'small',
               home: 'marshes',
               temper: 'sly',
+              appetite: 'modest',
+              bounty: 'forgotten',
             },
           },
           golem: {
@@ -8064,6 +10000,8 @@ const THEME_WORDS = {
               size: 'huge',
               home: 'caves',
               temper: 'calm',
+              appetite: 'modest',
+              bounty: 'forgotten',
             },
           },
           harpy: {
@@ -8074,6 +10012,8 @@ const THEME_WORDS = {
               size: 'small',
               home: 'mountains',
               temper: 'sly',
+              appetite: 'modest',
+              bounty: 'local',
             },
           },
           minotaur: {
@@ -8083,6 +10023,8 @@ const THEME_WORDS = {
               size: 'huge',
               home: 'caves',
               temper: 'fierce',
+              appetite: 'enormous',
+              bounty: 'royal',
             },
           },
           direwolf: {
@@ -8092,6 +10034,8 @@ const THEME_WORDS = {
               size: 'small',
               home: 'forest',
               temper: 'proud',
+              appetite: 'modest',
+              bounty: 'local',
             },
           },
         },
@@ -8114,6 +10058,14 @@ const THEME_WORDS = {
             label: 'Size',
             pattern: '{} {noun}',
           },
+          allegiance: {
+            label: 'Allegiance',
+            pattern: '{noun} that is {}',
+          },
+          roads: {
+            label: 'Roads',
+            pattern: '{noun} with {} roads',
+          },
         },
         items: {
           ashfell: {
@@ -8123,6 +10075,8 @@ const THEME_WORDS = {
               land: 'mountains',
               weather: 'dry',
               size: 'small',
+              allegiance: 'neutral',
+              roads: 'poor',
             },
           },
           duskmoor: {
@@ -8132,6 +10086,8 @@ const THEME_WORDS = {
               land: 'marshes',
               weather: 'wet',
               size: 'great',
+              allegiance: 'hostile',
+              roads: 'no',
             },
           },
           highmere: {
@@ -8141,6 +10097,8 @@ const THEME_WORDS = {
               land: 'mountains',
               weather: 'cold',
               size: 'great',
+              allegiance: 'loyal',
+              roads: 'poor',
             },
           },
           ironvale: {
@@ -8150,6 +10108,8 @@ const THEME_WORDS = {
               land: 'mountains',
               weather: 'dry',
               size: 'great',
+              allegiance: 'loyal',
+              roads: 'good',
             },
           },
           sablewood: {
@@ -8159,6 +10119,8 @@ const THEME_WORDS = {
               land: 'forest',
               weather: 'wet',
               size: 'great',
+              allegiance: 'neutral',
+              roads: 'poor',
             },
           },
           windreach: {
@@ -8168,6 +10130,8 @@ const THEME_WORDS = {
               land: 'coast',
               weather: 'cold',
               size: 'small',
+              allegiance: 'loyal',
+              roads: 'poor',
             },
           },
           thornhold: {
@@ -8177,6 +10141,8 @@ const THEME_WORDS = {
               land: 'forest',
               weather: 'dry',
               size: 'small',
+              allegiance: 'loyal',
+              roads: 'good',
             },
           },
           greymarch: {
@@ -8186,6 +10152,8 @@ const THEME_WORDS = {
               land: 'marshes',
               weather: 'wet',
               size: 'great',
+              allegiance: 'neutral',
+              roads: 'no',
             },
           },
           frostgate: {
@@ -8196,6 +10164,8 @@ const THEME_WORDS = {
               land: 'mountains',
               weather: 'cold',
               size: 'small',
+              allegiance: 'hostile',
+              roads: 'poor',
             },
           },
           emberholt: {
@@ -8206,6 +10176,8 @@ const THEME_WORDS = {
               land: 'forest',
               weather: 'dry',
               size: 'small',
+              allegiance: 'neutral',
+              roads: 'good',
             },
           },
           larkspur: {
@@ -8215,6 +10187,8 @@ const THEME_WORDS = {
               land: 'coast',
               weather: 'mild',
               size: 'small',
+              allegiance: 'loyal',
+              roads: 'good',
             },
           },
           mistvale: {
@@ -8224,6 +10198,8 @@ const THEME_WORDS = {
               land: 'marshes',
               weather: 'wet',
               size: 'small',
+              allegiance: 'neutral',
+              roads: 'no',
             },
           },
           stonebrook: {
@@ -8234,6 +10210,8 @@ const THEME_WORDS = {
               land: 'coast',
               weather: 'mild',
               size: 'great',
+              allegiance: 'loyal',
+              roads: 'good',
             },
           },
           ravenfen: {
@@ -8243,6 +10221,8 @@ const THEME_WORDS = {
               land: 'marshes',
               weather: 'cold',
               size: 'small',
+              allegiance: 'hostile',
+              roads: 'no',
             },
           },
         },
@@ -8267,6 +10247,18 @@ const THEME_WORDS = {
             label: 'Number',
             pattern: '{noun} with an {} number',
           },
+          half: {
+            label: 'Half of the run',
+            pattern: '{noun} from the {} half of the run',
+          },
+          paid: {
+            label: 'Paid in',
+            pattern: '{noun} paid in {}',
+          },
+          promised: {
+            label: 'Promised',
+            pattern: '{noun} promised {}',
+          },
         },
         items: {
           '30g': {
@@ -8276,6 +10268,9 @@ const THEME_WORDS = {
             traits: {
               band: 'small',
               parity: 'even',
+              half: 'first',
+              paid: 'coin',
+              promised: 'over a handshake',
             },
           },
           '45g': {
@@ -8284,6 +10279,9 @@ const THEME_WORDS = {
             traits: {
               band: 'small',
               parity: 'odd',
+              half: 'first',
+              paid: 'coin',
+              promised: 'over a handshake',
             },
           },
           '60g': {
@@ -8292,6 +10290,9 @@ const THEME_WORDS = {
             traits: {
               band: 'small',
               parity: 'even',
+              half: 'first',
+              paid: 'goods',
+              promised: 'before witnesses',
             },
           },
           '75g': {
@@ -8300,6 +10301,9 @@ const THEME_WORDS = {
             traits: {
               band: 'small',
               parity: 'odd',
+              half: 'first',
+              paid: 'promises',
+              promised: 'over a handshake',
             },
           },
           '90g': {
@@ -8308,6 +10312,9 @@ const THEME_WORDS = {
             traits: {
               band: 'small',
               parity: 'even',
+              half: 'first',
+              paid: 'coin',
+              promised: 'before witnesses',
             },
           },
           '105g': {
@@ -8316,6 +10323,9 @@ const THEME_WORDS = {
             traits: {
               band: 'fair',
               parity: 'odd',
+              half: 'first',
+              paid: 'goods',
+              promised: 'in writing',
             },
           },
           '120g': {
@@ -8324,6 +10334,9 @@ const THEME_WORDS = {
             traits: {
               band: 'fair',
               parity: 'even',
+              half: 'first',
+              paid: 'coin',
+              promised: 'before witnesses',
             },
           },
           '135g': {
@@ -8332,6 +10345,9 @@ const THEME_WORDS = {
             traits: {
               band: 'fair',
               parity: 'odd',
+              half: 'second',
+              paid: 'promises',
+              promised: 'in writing',
             },
           },
           '150g': {
@@ -8340,6 +10356,9 @@ const THEME_WORDS = {
             traits: {
               band: 'fair',
               parity: 'even',
+              half: 'second',
+              paid: 'coin',
+              promised: 'in writing',
             },
           },
           '165g': {
@@ -8348,6 +10367,9 @@ const THEME_WORDS = {
             traits: {
               band: 'fair',
               parity: 'odd',
+              half: 'second',
+              paid: 'goods',
+              promised: 'before witnesses',
             },
           },
           '180g': {
@@ -8357,6 +10379,9 @@ const THEME_WORDS = {
             traits: {
               band: 'princely',
               parity: 'even',
+              half: 'second',
+              paid: 'coin',
+              promised: 'in writing',
             },
           },
           '195g': {
@@ -8365,6 +10390,9 @@ const THEME_WORDS = {
             traits: {
               band: 'princely',
               parity: 'odd',
+              half: 'second',
+              paid: 'coin',
+              promised: 'in writing',
             },
           },
           '210g': {
@@ -8373,6 +10401,9 @@ const THEME_WORDS = {
             traits: {
               band: 'princely',
               parity: 'even',
+              half: 'second',
+              paid: 'goods',
+              promised: 'in writing',
             },
           },
           '225g': {
@@ -8381,6 +10412,9 @@ const THEME_WORDS = {
             traits: {
               band: 'princely',
               parity: 'odd',
+              half: 'second',
+              paid: 'coin',
+              promised: 'in writing',
             },
           },
         },
@@ -8601,6 +10635,14 @@ const THEME_WORDS = {
             label: 'Body',
             pattern: '{noun} with {}',
           },
+          sightings: {
+            label: 'Sightings',
+            pattern: '{noun} that is {} here',
+          },
+          active: {
+            label: 'Active',
+            pattern: '{noun} active by {}',
+          },
         },
         items: {
           octopus: {
@@ -8610,6 +10652,8 @@ const THEME_WORDS = {
               size: 'big',
               danger: 'harmless',
               body: 'no bones',
+              sightings: 'uncommon',
+              active: 'night',
             },
           },
           manta: {
@@ -8619,6 +10663,8 @@ const THEME_WORDS = {
               size: 'big',
               danger: 'harmless',
               body: 'smooth skin',
+              sightings: 'rare',
+              active: 'day',
             },
           },
           turtle: {
@@ -8628,6 +10674,8 @@ const THEME_WORDS = {
               size: 'big',
               danger: 'harmless',
               body: 'a shell',
+              sightings: 'common',
+              active: 'day',
             },
           },
           seahorse: {
@@ -8638,6 +10686,8 @@ const THEME_WORDS = {
               size: 'tiny',
               danger: 'harmless',
               body: 'armour',
+              sightings: 'rare',
+              active: 'day',
             },
           },
           moray: {
@@ -8648,6 +10698,8 @@ const THEME_WORDS = {
               size: 'big',
               danger: 'venomous',
               body: 'smooth skin',
+              sightings: 'common',
+              active: 'night',
             },
           },
           clownfish: {
@@ -8657,6 +10709,8 @@ const THEME_WORDS = {
               size: 'tiny',
               danger: 'harmless',
               body: 'smooth skin',
+              sightings: 'common',
+              active: 'day',
             },
           },
           barracuda: {
@@ -8666,6 +10720,8 @@ const THEME_WORDS = {
               size: 'big',
               danger: 'venomous',
               body: 'smooth skin',
+              sightings: 'uncommon',
+              active: 'day',
             },
           },
           stingray: {
@@ -8676,6 +10732,8 @@ const THEME_WORDS = {
               size: 'big',
               danger: 'venomous',
               body: 'smooth skin',
+              sightings: 'common',
+              active: 'day',
             },
           },
           lionfish: {
@@ -8685,6 +10743,8 @@ const THEME_WORDS = {
               size: 'tiny',
               danger: 'venomous',
               body: 'spines',
+              sightings: 'uncommon',
+              active: 'night',
             },
           },
           grouper: {
@@ -8694,6 +10754,8 @@ const THEME_WORDS = {
               size: 'big',
               danger: 'harmless',
               body: 'smooth skin',
+              sightings: 'common',
+              active: 'day',
             },
           },
           pipefish: {
@@ -8703,6 +10765,8 @@ const THEME_WORDS = {
               size: 'tiny',
               danger: 'harmless',
               body: 'armour',
+              sightings: 'rare',
+              active: 'day',
             },
           },
           'reef-shark': {
@@ -8712,6 +10776,8 @@ const THEME_WORDS = {
               size: 'big',
               danger: 'venomous',
               body: 'smooth skin',
+              sightings: 'uncommon',
+              active: 'night',
             },
           },
           cuttlefish: {
@@ -8721,6 +10787,8 @@ const THEME_WORDS = {
               size: 'tiny',
               danger: 'harmless',
               body: 'no bones',
+              sightings: 'uncommon',
+              active: 'night',
             },
           },
           'sea-urchin': {
@@ -8730,6 +10798,8 @@ const THEME_WORDS = {
               size: 'tiny',
               danger: 'venomous',
               body: 'spines',
+              sightings: 'common',
+              active: 'night',
             },
           },
         },
@@ -8752,6 +10822,14 @@ const THEME_WORDS = {
             label: 'Size',
             pattern: '{} {noun}',
           },
+          serviced: {
+            label: 'Serviced',
+            pattern: '{noun} serviced {}',
+          },
+          owner: {
+            label: 'Belongs to',
+            pattern: '{noun} that belongs to {}',
+          },
         },
         items: {
           'red-fins': {
@@ -8761,6 +10839,8 @@ const THEME_WORDS = {
               material: 'rubber',
               use: 'swimming',
               size: 'big',
+              serviced: 'when it fails',
+              owner: 'a diver',
             },
           },
           'blue-mask': {
@@ -8770,6 +10850,8 @@ const THEME_WORDS = {
               material: 'glass',
               use: 'seeing',
               size: 'small',
+              serviced: 'every trip',
+              owner: 'a diver',
             },
           },
           'green-tank': {
@@ -8779,6 +10861,8 @@ const THEME_WORDS = {
               material: 'steel',
               use: 'breathing',
               size: 'big',
+              serviced: 'every trip',
+              owner: 'the centre',
             },
           },
           'yellow-torch': {
@@ -8788,6 +10872,8 @@ const THEME_WORDS = {
               material: 'steel',
               use: 'seeing',
               size: 'small',
+              serviced: 'every season',
+              owner: 'the centre',
             },
           },
           'black-camera': {
@@ -8797,6 +10883,8 @@ const THEME_WORDS = {
               material: 'glass',
               use: 'recording',
               size: 'big',
+              serviced: 'every trip',
+              owner: 'a diver',
             },
           },
           'white-slate': {
@@ -8806,6 +10894,8 @@ const THEME_WORDS = {
               material: 'plastic',
               use: 'recording',
               size: 'small',
+              serviced: 'when it fails',
+              owner: 'the boat',
             },
           },
           'orange-reel': {
@@ -8815,6 +10905,8 @@ const THEME_WORDS = {
               material: 'plastic',
               use: 'safety',
               size: 'small',
+              serviced: 'every season',
+              owner: 'the centre',
             },
           },
           'pink-buoy': {
@@ -8824,6 +10916,8 @@ const THEME_WORDS = {
               material: 'rubber',
               use: 'safety',
               size: 'big',
+              serviced: 'every season',
+              owner: 'the boat',
             },
           },
           'silver-knife': {
@@ -8833,6 +10927,8 @@ const THEME_WORDS = {
               material: 'steel',
               use: 'safety',
               size: 'small',
+              serviced: 'when it fails',
+              owner: 'a diver',
             },
           },
           'teal-compass': {
@@ -8842,6 +10938,8 @@ const THEME_WORDS = {
               material: 'glass',
               use: 'finding the way',
               size: 'small',
+              serviced: 'every season',
+              owner: 'the centre',
             },
           },
           'grey-gloves': {
@@ -8851,6 +10949,8 @@ const THEME_WORDS = {
               material: 'rubber',
               use: 'safety',
               size: 'small',
+              serviced: 'when it fails',
+              owner: 'a diver',
             },
           },
           'amber-lamp': {
@@ -8861,6 +10961,8 @@ const THEME_WORDS = {
               material: 'glass',
               use: 'seeing',
               size: 'big',
+              serviced: 'every season',
+              owner: 'the centre',
             },
           },
           'coral-flag': {
@@ -8871,6 +10973,8 @@ const THEME_WORDS = {
               material: 'plastic',
               use: 'safety',
               size: 'big',
+              serviced: 'every trip',
+              owner: 'the boat',
             },
           },
           'navy-hood': {
@@ -8880,6 +10984,8 @@ const THEME_WORDS = {
               material: 'rubber',
               use: 'warmth',
               size: 'small',
+              serviced: 'when it fails',
+              owner: 'a diver',
             },
           },
         },
@@ -8902,6 +11008,14 @@ const THEME_WORDS = {
             label: 'Light',
             pattern: '{} {noun}',
           },
+          permit: {
+            label: 'Permit',
+            pattern: '{noun} that is {}',
+          },
+          reached: {
+            label: 'Reached by',
+            pattern: '{noun} reached by {}',
+          },
         },
         items: {
           'blue-hole': {
@@ -8911,6 +11025,8 @@ const THEME_WORDS = {
               terrain: 'caves',
               current: 'calm',
               light: 'dark',
+              permit: 'permit-only',
+              reached: 'boat',
             },
           },
           'lace-wall': {
@@ -8921,6 +11037,8 @@ const THEME_WORDS = {
               terrain: 'walls',
               current: 'strong',
               light: 'bright',
+              permit: 'permit-only',
+              reached: 'boat',
             },
           },
           shipwreck: {
@@ -8930,6 +11048,8 @@ const THEME_WORDS = {
               terrain: 'wreckage',
               current: 'calm',
               light: 'dark',
+              permit: 'permit-only',
+              reached: 'boat',
             },
           },
           'kelp-maze': {
@@ -8939,6 +11059,8 @@ const THEME_WORDS = {
               terrain: 'weed',
               current: 'calm',
               light: 'dark',
+              permit: 'open to all',
+              reached: 'the shore',
             },
           },
           'coral-arch': {
@@ -8949,6 +11071,8 @@ const THEME_WORDS = {
               terrain: 'walls',
               current: 'strong',
               light: 'bright',
+              permit: 'open to all',
+              reached: 'boat',
             },
           },
           'night-cove': {
@@ -8959,6 +11083,8 @@ const THEME_WORDS = {
               terrain: 'sand',
               current: 'calm',
               light: 'dark',
+              permit: 'permit-only',
+              reached: 'the shore',
             },
           },
           'tide-pools': {
@@ -8968,6 +11094,8 @@ const THEME_WORDS = {
               terrain: 'sand',
               current: 'strong',
               light: 'bright',
+              permit: 'open to all',
+              reached: 'the shore',
             },
           },
           'anchor-bay': {
@@ -8978,6 +11106,8 @@ const THEME_WORDS = {
               terrain: 'sand',
               current: 'calm',
               light: 'bright',
+              permit: 'open to all',
+              reached: 'a long swim',
             },
           },
           'sea-fan-bay': {
@@ -8987,6 +11117,8 @@ const THEME_WORDS = {
               terrain: 'walls',
               current: 'calm',
               light: 'bright',
+              permit: 'open to all',
+              reached: 'boat',
             },
           },
           'lantern-reef': {
@@ -8996,6 +11128,8 @@ const THEME_WORDS = {
               terrain: 'walls',
               current: 'calm',
               light: 'bright',
+              permit: 'permit-only',
+              reached: 'a long swim',
             },
           },
           'sunken-pier': {
@@ -9005,6 +11139,8 @@ const THEME_WORDS = {
               terrain: 'wreckage',
               current: 'strong',
               light: 'dark',
+              permit: 'permit-only',
+              reached: 'the shore',
             },
           },
           'green-lagoon': {
@@ -9014,6 +11150,8 @@ const THEME_WORDS = {
               terrain: 'weed',
               current: 'calm',
               light: 'bright',
+              permit: 'open to all',
+              reached: 'the shore',
             },
           },
           'cavern-ridge': {
@@ -9024,6 +11162,8 @@ const THEME_WORDS = {
               terrain: 'caves',
               current: 'strong',
               light: 'dark',
+              permit: 'permit-only',
+              reached: 'boat',
             },
           },
           'turtle-point': {
@@ -9033,6 +11173,8 @@ const THEME_WORDS = {
               terrain: 'sand',
               current: 'calm',
               light: 'bright',
+              permit: 'open to all',
+              reached: 'a long swim',
             },
           },
         },
@@ -9057,6 +11199,18 @@ const THEME_WORDS = {
             label: 'Number',
             pattern: '{noun} with an {} number',
           },
+          half: {
+            label: 'Half',
+            pattern: '{noun} in the {} half of the range',
+          },
+          air: {
+            label: 'Breathing',
+            pattern: '{noun} dived on {}',
+          },
+          training: {
+            label: 'Open to',
+            pattern: '{noun} open to {} divers',
+          },
         },
         items: {
           '10m': {
@@ -9065,6 +11219,9 @@ const THEME_WORDS = {
             traits: {
               band: 'shallow',
               parity: 'even',
+              half: 'first',
+              air: 'air',
+              training: 'all',
             },
           },
           '15m': {
@@ -9073,6 +11230,9 @@ const THEME_WORDS = {
             traits: {
               band: 'shallow',
               parity: 'odd',
+              half: 'first',
+              air: 'air',
+              training: 'all',
             },
           },
           '20m': {
@@ -9081,6 +11241,9 @@ const THEME_WORDS = {
             traits: {
               band: 'shallow',
               parity: 'even',
+              half: 'first',
+              air: 'nitrox',
+              training: 'all',
             },
           },
           '25m': {
@@ -9089,6 +11252,9 @@ const THEME_WORDS = {
             traits: {
               band: 'shallow',
               parity: 'odd',
+              half: 'first',
+              air: 'nitrox',
+              training: 'qualified',
             },
           },
           '30m': {
@@ -9098,6 +11264,9 @@ const THEME_WORDS = {
             traits: {
               band: 'shallow',
               parity: 'even',
+              half: 'first',
+              air: 'nitrox',
+              training: 'qualified',
             },
           },
           '35m': {
@@ -9107,6 +11276,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'odd',
+              half: 'first',
+              air: 'nitrox',
+              training: 'qualified',
             },
           },
           '40m': {
@@ -9115,6 +11287,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'even',
+              half: 'first',
+              air: 'nitrox',
+              training: 'qualified',
             },
           },
           '45m': {
@@ -9123,6 +11298,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'odd',
+              half: 'second',
+              air: 'nitrox',
+              training: 'technical',
             },
           },
           '50m': {
@@ -9131,6 +11309,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'even',
+              half: 'second',
+              air: 'nitrox',
+              training: 'technical',
             },
           },
           '55m': {
@@ -9139,6 +11320,9 @@ const THEME_WORDS = {
             traits: {
               band: 'middling',
               parity: 'odd',
+              half: 'second',
+              air: 'nitrox',
+              training: 'technical',
             },
           },
           '60m': {
@@ -9147,6 +11331,9 @@ const THEME_WORDS = {
             traits: {
               band: 'deep',
               parity: 'even',
+              half: 'second',
+              air: 'nitrox',
+              training: 'technical',
             },
           },
           '65m': {
@@ -9155,6 +11342,9 @@ const THEME_WORDS = {
             traits: {
               band: 'deep',
               parity: 'odd',
+              half: 'second',
+              air: 'nitrox',
+              training: 'technical',
             },
           },
           '70m': {
@@ -9163,6 +11353,9 @@ const THEME_WORDS = {
             traits: {
               band: 'deep',
               parity: 'even',
+              half: 'second',
+              air: 'nitrox',
+              training: 'technical',
             },
           },
           '75m': {
@@ -9171,6 +11364,9 @@ const THEME_WORDS = {
             traits: {
               band: 'deep',
               parity: 'odd',
+              half: 'second',
+              air: 'nitrox',
+              training: 'technical',
             },
           },
         },

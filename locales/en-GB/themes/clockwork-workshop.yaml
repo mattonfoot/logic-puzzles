@@ -31,6 +31,12 @@ themes:
           manner:
             label: 'Manner'
             pattern: '{} {noun}'
+          bench:
+            label: 'Bench'
+            pattern: '{noun} at the {} bench'
+          notes:
+            label: 'Notes'
+            pattern: '{noun} whose notes are {}'
         items:
           master-rivet:
             label: 'Master Rivet'
@@ -39,6 +45,8 @@ themes:
               experience: 'limited'
               shift: 'early'
               manner: 'patient'
+              bench: 'window'
+              notes: 'scribbled'
           mrs-bobbin:
             label: 'Mrs Bobbin'
             blurb: "Repairs anything except a colleague's insistence that it was already like that."
@@ -46,6 +54,8 @@ themes:
               experience: 'considerable'
               shift: 'late'
               manner: 'patient'
+              bench: 'corner'
+              notes: 'immaculate'
           dr-ratchet:
             label: 'Dr Ratchet'
             blurb: 'Has invented a quieter alarm. Nobody has heard whether it works.'
@@ -53,6 +63,8 @@ themes:
               experience: 'extensive'
               shift: 'early'
               manner: 'brisk'
+              bench: 'long'
+              notes: 'immaculate'
           ms-sprocket:
             label: 'Ms Sprocket'
             blurb: 'Labels every drawer. The drawers regard this as an opening proposal.'
@@ -60,6 +72,8 @@ themes:
               experience: 'limited'
               shift: 'late'
               manner: 'brisk'
+              bench: 'long'
+              notes: 'scribbled'
           sir-flywheel:
             label: 'Sir Flywheel'
             blurb: 'Treats a minor adjustment as a suitable occasion for formal dress.'
@@ -67,6 +81,8 @@ themes:
               experience: 'considerable'
               shift: 'early'
               manner: 'dramatic'
+              bench: 'window'
+              notes: 'missing'
           dame-copper:
             label: 'Dame Copper'
             blurb: 'Can hear a loose screw from three rooms and one argument away.'
@@ -74,6 +90,8 @@ themes:
               experience: 'extensive'
               shift: 'late'
               manner: 'dramatic'
+              bench: 'corner'
+              notes: 'immaculate'
           mr-sawdust:
             label: 'Mr Sawdust'
             blurb: 'Calls the pile on his bench a highly localised filing system.'
@@ -81,6 +99,8 @@ themes:
               experience: 'limited'
               shift: 'early'
               manner: 'patient'
+              bench: 'long'
+              notes: 'scribbled'
           mx-ticker:
             label: 'Mx Ticker'
             blurb: 'Keeps impeccable time, mostly in small tins.'
@@ -88,6 +108,8 @@ themes:
               experience: 'considerable'
               shift: 'late'
               manner: 'patient'
+              bench: 'window'
+              notes: 'immaculate'
           professor-piston:
             label: 'Professor Piston'
             blurb: 'Explains the fault so thoroughly that lunchtime becomes hypothetical.'
@@ -95,6 +117,8 @@ themes:
               experience: 'extensive'
               shift: 'early'
               manner: 'brisk'
+              bench: 'corner'
+              notes: 'immaculate'
           miss-emery:
             label: 'Miss Emery'
             blurb: 'Smooths rough edges. Colleagues remain outside the warranty.'
@@ -102,6 +126,8 @@ themes:
               experience: 'limited'
               shift: 'late'
               manner: 'brisk'
+              bench: 'long'
+              notes: 'scribbled'
           mr-spanner:
             label: 'Mr Spanner'
             blurb: 'Has one tool for every job and a speech about each of them.'
@@ -109,6 +135,8 @@ themes:
               experience: 'considerable'
               shift: 'early'
               manner: 'dramatic'
+              bench: 'window'
+              notes: 'scribbled'
           captain-crank:
             label: 'Captain Crank'
             blurb: 'Supervises the test bench as if it might attempt a mutiny.'
@@ -116,6 +144,8 @@ themes:
               experience: 'extensive'
               shift: 'late'
               manner: 'dramatic'
+              bench: 'corner'
+              notes: 'missing'
           aunt-toggle:
             label: 'Aunt Toggle'
             blurb: "Adds a safety switch to everything, including the kettle's safety switch."
@@ -123,6 +153,8 @@ themes:
               experience: 'limited'
               shift: 'early'
               manner: 'patient'
+              bench: 'long'
+              notes: 'immaculate'
           dr-fuse:
             label: 'Dr Fuse'
             blurb: 'Describes the smoke as an encouraging sign of activity.'
@@ -130,6 +162,8 @@ themes:
               experience: 'considerable'
               shift: 'late'
               manner: 'patient'
+              bench: 'window'
+              notes: 'scribbled'
       invention:
         name: 'Invention'
         pattern: 'the {}'
@@ -145,6 +179,12 @@ themes:
           scale:
             label: 'Scale'
             pattern: '{} {noun}'
+          stage:
+            label: 'Stage'
+            pattern: '{noun} that is {}'
+          patent:
+            label: 'Patent'
+            pattern: '{noun} filed as {}'
         items:
           polite-automaton:
             label: 'Polite Automaton'
@@ -153,6 +193,8 @@ themes:
               power: 'spring-powered'
               purpose: 'assistance'
               scale: 'large'
+              stage: 'finished'
+              patent: 'patented'
           self-pouring-pot:
             label: 'Self-Pouring Pot'
             blurb: 'Pours with confidence. Cup placement remains a human weakness.'
@@ -160,6 +202,8 @@ themes:
               power: 'steam-powered'
               purpose: 'assistance'
               scale: 'small'
+              stage: 'finished'
+              patent: 'patented'
           clockwork-wren:
             label: 'Clockwork Wren'
             blurb: 'Sings at dawn, provided someone has wound dawn correctly.'
@@ -167,6 +211,8 @@ themes:
               power: 'spring-powered'
               purpose: 'entertainment'
               scale: 'small'
+              stage: 'on trial'
+              patent: 'still pending'
           pocket-submarine:
             label: 'Pocket Submarine'
             blurb: 'For explorers whose ambitions are larger than their garden pond.'
@@ -174,6 +220,8 @@ themes:
               power: 'battery-powered'
               purpose: 'transport'
               scale: 'small'
+              stage: 'in pieces'
+              patent: 'unpatented'
           parlour-airship:
             label: 'Parlour Airship'
             blurb: 'Carries one biscuit over difficult living-room terrain.'
@@ -181,6 +229,8 @@ themes:
               power: 'battery-powered'
               purpose: 'transport'
               scale: 'large'
+              stage: 'in pieces'
+              patent: 'unpatented'
           helping-hand:
             label: 'Helping Hand'
             blurb: 'Volunteers for every task and then asks which finger to use.'
@@ -188,6 +238,8 @@ themes:
               power: 'battery-powered'
               purpose: 'assistance'
               scale: 'small'
+              stage: 'finished'
+              patent: 'patented'
           waltzing-box:
             label: 'Waltzing Box'
             blurb: 'Plays one tune until the room learns to appreciate silence.'
@@ -195,6 +247,8 @@ themes:
               power: 'spring-powered'
               purpose: 'entertainment'
               scale: 'small'
+              stage: 'finished'
+              patent: 'still pending'
           walking-clock:
             label: 'Walking Clock'
             blurb: 'Time flies, but this model prefers a brisk constitutional.'
@@ -202,6 +256,8 @@ themes:
               power: 'spring-powered'
               purpose: 'assistance'
               scale: 'large'
+              stage: 'on trial'
+              patent: 'unpatented'
           sun-powered-fan:
             label: 'Sun-Powered Fan'
             blurb: 'Offers a breeze whenever the weather is already doing enough.'
@@ -209,6 +265,8 @@ themes:
               power: 'solar-powered'
               purpose: 'assistance'
               scale: 'large'
+              stage: 'finished'
+              patent: 'patented'
           perpetual-cog:
             label: 'Perpetual Cog'
             blurb: 'Almost runs forever. The remaining part is described as administrative.'
@@ -216,6 +274,8 @@ themes:
               power: 'spring-powered'
               purpose: 'research'
               scale: 'small'
+              stage: 'in pieces'
+              patent: 'unpatented'
           dictation-machine:
             label: 'Dictation Machine'
             blurb: 'Records every word, including the ones addressed to the machine.'
@@ -223,6 +283,8 @@ themes:
               power: 'battery-powered'
               purpose: 'assistance'
               scale: 'large'
+              stage: 'on trial'
+              patent: 'still pending'
           garden-rocket:
             label: 'Garden Rocket'
             blurb: 'Designed to reach the far flowerbed without consulting the fence.'
@@ -230,6 +292,8 @@ themes:
               power: 'steam-powered'
               purpose: 'transport'
               scale: 'large'
+              stage: 'in pieces'
+              patent: 'unpatented'
           whisper-horn:
             label: 'Whisper Horn'
             blurb: 'Makes a secret audible to a much more satisfying number of people.'
@@ -237,6 +301,8 @@ themes:
               power: 'spring-powered'
               purpose: 'entertainment'
               scale: 'large'
+              stage: 'finished'
+              patent: 'patented'
           mechanical-carp:
             label: 'Mechanical Carp'
             blurb: 'Swims in circles while the team debates whether this is navigation.'
@@ -244,6 +310,8 @@ themes:
               power: 'solar-powered'
               purpose: 'research'
               scale: 'small'
+              stage: 'on trial'
+              patent: 'still pending'
       material:
         name: 'Material'
         pattern: 'the {}'
@@ -259,6 +327,12 @@ themes:
           supply:
             label: 'Supply'
             pattern: '{noun} from {} stock'
+          store:
+            label: 'Stored in'
+            pattern: '{noun} stored in {}'
+          cost:
+            label: 'Cost'
+            pattern: '{noun} that is {}'
         items:
           oak-offcut:
             label: 'Oak Offcut'
@@ -267,6 +341,8 @@ themes:
               origin: 'natural'
               texture: 'rough'
               supply: 'standard'
+              store: 'the yard'
+              cost: 'cheap'
           brass-ingot:
             label: 'Brass Ingot'
             blurb: 'Shines convincingly enough to be mistaken for progress.'
@@ -274,6 +350,8 @@ themes:
               origin: 'processed'
               texture: 'smooth'
               supply: 'standard'
+              store: 'the cellar'
+              cost: 'dear'
           glass-flask:
             label: 'Glass Flask'
             blurb: 'Transparent about everything except how much it cost.'
@@ -281,6 +359,8 @@ themes:
               origin: 'processed'
               texture: 'smooth'
               supply: 'special'
+              store: 'the loft'
+              cost: 'dear'
           copper-coil:
             label: 'Copper Coil'
             blurb: 'The wire has developed a detailed interest in becoming a knot.'
@@ -288,6 +368,8 @@ themes:
               origin: 'processed'
               texture: 'smooth'
               supply: 'standard'
+              store: 'the cellar'
+              cost: 'dear'
           leather-hide:
             label: 'Leather Hide'
             blurb: 'Reserved for grips, straps and improvements described as traditional.'
@@ -295,6 +377,8 @@ themes:
               origin: 'natural'
               texture: 'rough'
               supply: 'special'
+              store: 'the loft'
+              cost: 'dear'
           canvas-sheet:
             label: 'Canvas Sheet'
             blurb: 'Covers unfinished work with an air of professional discretion.'
@@ -302,6 +386,8 @@ themes:
               origin: 'processed'
               texture: 'rough'
               supply: 'standard'
+              store: 'the loft'
+              cost: 'cheap'
           cork-block:
             label: 'Cork Block'
             blurb: 'Floats above most workshop disagreements.'
@@ -309,6 +395,8 @@ themes:
               origin: 'natural'
               texture: 'rough'
               supply: 'standard'
+              store: 'the yard'
+              cost: 'cheap'
           hemp-rope:
             label: 'Hemp Rope'
             blurb: 'Sold by length, stored by tangle.'
@@ -316,6 +404,8 @@ themes:
               origin: 'natural'
               texture: 'rough'
               supply: 'standard'
+              store: 'the yard'
+              cost: 'cheap'
           rubber-ring:
             label: 'Rubber Ring'
             blurb: 'Absorbs vibrations and a surprising amount of blame.'
@@ -323,6 +413,8 @@ themes:
               origin: 'processed'
               texture: 'smooth'
               supply: 'standard'
+              store: 'the cellar'
+              cost: 'cheap'
           porcelain-jar:
             label: 'Porcelain Jar'
             blurb: 'The material request said delicate. The handling instructions said very delicate.'
@@ -330,6 +422,8 @@ themes:
               origin: 'processed'
               texture: 'smooth'
               supply: 'special'
+              store: 'the loft'
+              cost: 'dear'
           paper-stack:
             label: 'Paper Stack'
             blurb: 'The prototype will be finished just after the paperwork prototype.'
@@ -337,6 +431,8 @@ themes:
               origin: 'processed'
               texture: 'smooth'
               supply: 'standard'
+              store: 'the loft'
+              cost: 'cheap'
           granite-lump:
             label: 'Granite Lump'
             blurb: 'Offers excellent stability and no help carrying it.'
@@ -344,6 +440,8 @@ themes:
               origin: 'natural'
               texture: 'rough'
               supply: 'special'
+              store: 'the yard'
+              cost: 'hard to price'
           wool-felt:
             label: 'Wool Felt'
             blurb: 'Softens machinery that has become too pleased with its own noise.'
@@ -351,6 +449,8 @@ themes:
               origin: 'natural'
               texture: 'rough'
               supply: 'special'
+              store: 'the loft'
+              cost: 'cheap'
           steel-spring:
             label: 'Steel Spring'
             blurb: 'Stores energy and occasionally releases a strongly worded opinion.'
@@ -358,6 +458,8 @@ themes:
               origin: 'processed'
               texture: 'smooth'
               supply: 'special'
+              store: 'the cellar'
+              cost: 'dear'
       tool:
         name: 'Tool'
         pattern: 'the {}'
@@ -373,6 +475,12 @@ themes:
           storage:
             label: 'Storage'
             pattern: '{noun} stored on the {}'
+          age:
+            label: 'Came'
+            pattern: '{noun} that came {}'
+          lent:
+            label: 'Lending'
+            pattern: '{noun} that is {}'
         items:
           claw-hammer:
             label: 'Claw Hammer'
@@ -381,6 +489,8 @@ themes:
               operation: 'manual'
               purpose: 'assembly'
               storage: 'pegboard'
+              age: 'second-hand'
+              lent: 'lent freely'
           open-spanner:
             label: 'Open Spanner'
             blurb: 'Fits the bolt that nobody has dropped behind the bench yet.'
@@ -388,6 +498,8 @@ themes:
               operation: 'manual'
               purpose: 'assembly'
               storage: 'pegboard'
+              age: 'new'
+              lent: 'lent freely'
           panel-saw:
             label: 'Panel Saw'
             blurb: 'Converts one expensive mistake into two more manageable pieces.'
@@ -395,6 +507,8 @@ themes:
               operation: 'manual'
               purpose: 'cutting'
               storage: 'pegboard'
+              age: 'from a grandparent'
+              lent: 'never lent'
           long-pliers:
             label: 'Long Pliers'
             blurb: 'Reaches the places fingers have sensibly declined to visit.'
@@ -402,6 +516,8 @@ themes:
               operation: 'manual'
               purpose: 'assembly'
               storage: 'pegboard'
+              age: 'new'
+              lent: 'lent freely'
           slot-driver:
             label: 'Slot Driver'
             blurb: 'Also used for pointing at the person who over-tightened the screw.'
@@ -409,6 +525,8 @@ themes:
               operation: 'manual'
               purpose: 'assembly'
               storage: 'pegboard'
+              age: 'new'
+              lent: 'lent freely'
           bench-drill:
             label: 'Bench Drill'
             blurb: 'Makes the hole exactly where the clamping allows it.'
@@ -416,6 +534,8 @@ themes:
               operation: 'powered'
               purpose: 'cutting'
               storage: 'bench'
+              age: 'second-hand'
+              lent: 'never lent'
           small-anvil:
             label: 'Small Anvil'
             blurb: 'The only colleague who never objects to being hit with a hammer.'
@@ -423,6 +543,8 @@ themes:
               operation: 'manual'
               purpose: 'shaping'
               storage: 'bench'
+              age: 'from a grandparent'
+              lent: 'never lent'
           bench-vice:
             label: 'Bench Vice'
             blurb: 'Holds the work firmly while everyone changes their mind.'
@@ -430,6 +552,8 @@ themes:
               operation: 'manual'
               purpose: 'assembly'
               storage: 'bench'
+              age: 'second-hand'
+              lent: 'never lent'
           dividers:
             label: 'Dividers'
             blurb: 'Measures the gap between nearly right and starting again.'
@@ -437,6 +561,8 @@ themes:
               operation: 'manual'
               purpose: 'measuring'
               storage: 'drawer'
+              age: 'from a grandparent'
+              lent: 'never lent'
           flat-file:
             label: 'Flat File'
             blurb: 'Removes tiny amounts until patience becomes the limiting material.'
@@ -444,6 +570,8 @@ themes:
               operation: 'manual'
               purpose: 'shaping'
               storage: 'drawer'
+              age: 'new'
+              lent: 'lent freely'
           soldering-iron:
             label: 'Soldering Iron'
             blurb: 'Joins components and introduces a new respect for where hands are placed.'
@@ -451,6 +579,8 @@ themes:
               operation: 'powered'
               purpose: 'assembly'
               storage: 'bench'
+              age: 'new'
+              lent: 'never lent'
           g-clamp:
             label: 'G-Clamp'
             blurb: 'Temporary assistance that usually remains in place for a week.'
@@ -458,6 +588,8 @@ themes:
               operation: 'manual'
               purpose: 'assembly'
               storage: 'pegboard'
+              age: 'second-hand'
+              lent: 'lent freely'
           steel-rule:
             label: 'Steel Rule'
             blurb: 'The straightest answer available in the building.'
@@ -465,6 +597,8 @@ themes:
               operation: 'manual'
               purpose: 'measuring'
               storage: 'drawer'
+              age: 'new'
+              lent: 'lent freely'
           forge-bellows:
             label: 'Forge Bellows'
             blurb: 'Encourages the fire without contributing a single useful suggestion.'
@@ -472,6 +606,8 @@ themes:
               operation: 'manual'
               purpose: 'shaping'
               storage: 'bench'
+              age: 'from a grandparent'
+              lent: 'never lent'
       build-year:
         name: 'Build Year'
         pattern: 'the {} build'
@@ -489,6 +625,15 @@ themes:
           register:
             label: 'Register'
             pattern: '{noun} in the {} register'
+          entry:
+            label: 'Entry'
+            pattern: '{noun} whose entry is {}'
+          photo:
+            label: 'On file'
+            pattern: '{noun} with {} on file'
+          display:
+            label: 'Display'
+            pattern: '{noun} that is {}'
         items:
           1900:
             label: '1900'
@@ -496,78 +641,117 @@ themes:
             traits:
               era: 'founding'
               register: 'handwritten'
+              entry: 'unsigned'
+              photo: 'no photograph'
+              display: 'in storage'
           1905:
             label: '1905'
             blurb: 'Made when the workshop still called every setback a promising curiosity.'
             traits:
               era: 'founding'
               register: 'handwritten'
+              entry: 'signed'
+              photo: 'a sketch'
+              display: 'on display'
           1910:
             label: '1910'
             blurb: 'The safety notice acquired its first underlined word.'
             traits:
               era: 'founding'
               register: 'handwritten'
+              entry: 'signed'
+              photo: 'a photograph'
+              display: 'on display'
           1915:
             label: '1915'
             blurb: 'The year someone suggested keeping the useful offcuts. All of them.'
             traits:
               era: 'founding'
               register: 'handwritten'
+              entry: 'unsigned'
+              photo: 'a sketch'
+              display: 'in storage'
           1920:
             label: '1920'
             blurb: 'A build from the brief period when every drawer had an accurate label.'
             traits:
               era: 'founding'
               register: 'handwritten'
+              entry: 'signed'
+              photo: 'no photograph'
+              display: 'on loan'
           1925:
             label: '1925'
             blurb: 'The workshop expanded. So did the distance to the missing spanner.'
             traits:
               era: 'expansion'
               register: 'handwritten'
+              entry: 'signed'
+              photo: 'a photograph'
+              display: 'on display'
           1930:
             label: '1930'
             blurb: 'The instructions began to include a section entitled Before You Start.'
             traits:
               era: 'expansion'
               register: 'handwritten'
+              entry: 'signed'
+              photo: 'a photograph'
+              display: 'in storage'
           1935:
             label: '1935'
             blurb: 'A confident design from the year the test bench received wheels.'
             traits:
               era: 'expansion'
               register: 'typed'
+              entry: 'unsigned'
+              photo: 'a sketch'
+              display: 'on display'
           1940:
             label: '1940'
             blurb: 'The records became neater while the workbench pursued the opposite policy.'
             traits:
               era: 'expansion'
               register: 'typed'
+              entry: 'signed'
+              photo: 'a photograph'
+              display: 'on loan'
           1945:
             label: '1945'
             blurb: 'Made after the committee approved a more encouraging shade of paint.'
             traits:
               era: 'expansion'
               register: 'typed'
+              entry: 'signed'
+              photo: 'no photograph'
+              display: 'on display'
           1950:
             label: '1950'
             blurb: 'The year the spare-parts cupboard was promoted to a department.'
             traits:
               era: 'modern'
               register: 'typed'
+              entry: 'unsigned'
+              photo: 'a photograph'
+              display: 'in storage'
           1955:
             label: '1955'
             blurb: 'A modern build, according to a sign nobody has revisited.'
             traits:
               era: 'modern'
               register: 'typed'
+              entry: 'signed'
+              photo: 'a sketch'
+              display: 'on display'
           1960:
             label: '1960'
             blurb: 'The design includes several improvements explained only by their inventor.'
             traits:
               era: 'modern'
               register: 'typed'
+              entry: 'signed'
+              photo: 'a photograph'
+              display: 'on loan'
           1965:
             label: '1965'
             blurb: 'The newest build. Already attracting suggestions for the next version.'
@@ -575,6 +759,9 @@ themes:
               era: 'modern'
               register: 'typed'
 
+              entry: 'signed'
+              photo: 'a photograph'
+              display: 'on display'
 briefings:
   themes:
     clockwork-workshop:

@@ -179,6 +179,12 @@ themes:
           milk:
             label: 'Milk'
             pattern: '{noun} {}'
+          made:
+            label: 'Made by'
+            pattern: '{noun} made by {}'
+          ordered:
+            label: 'Ordered by'
+            pattern: '{noun} ordered mostly by {}'
         items:
           latte:
             label: 'Latte'
@@ -187,6 +193,8 @@ themes:
               served: 'hot'
               strength: 'gentle'
               milk: 'with milk'
+              made: 'the machine'
+              ordered: 'regulars'
           mocha:
             label: 'Mocha'
             blurb: 'Pudding in a cup, ordered with a straight face.'
@@ -194,6 +202,8 @@ themes:
               served: 'hot'
               strength: 'gentle'
               milk: 'with milk'
+              made: 'hand'
+              ordered: 'newcomers'
           chai:
             label: 'Chai'
             blurb: 'Spiced, sweet, and always a little too hot to start.'
@@ -201,6 +211,8 @@ themes:
               served: 'hot'
               strength: 'gentle'
               milk: 'with milk'
+              made: 'the kettle'
+              ordered: 'nobody in particular'
           cortado:
             label: 'Cortado'
             blurb: 'Small, serious, and gone in three sips.'
@@ -208,6 +220,8 @@ themes:
               served: 'hot'
               strength: 'strong'
               milk: 'with milk'
+              made: 'the machine'
+              ordered: 'regulars'
           matcha:
             label: 'Matcha'
             blurb: 'Bright green and quietly smug about the antioxidants.'
@@ -215,6 +229,8 @@ themes:
               served: 'hot'
               strength: 'gentle'
               milk: 'with milk'
+              made: 'hand'
+              ordered: 'newcomers'
           espresso:
             label: 'Espresso'
             blurb: 'A thimble of pure intent.'
@@ -222,6 +238,8 @@ themes:
               served: 'hot'
               strength: 'strong'
               milk: 'without milk'
+              made: 'the machine'
+              ordered: 'regulars'
           flat-white:
             label: 'Flat White'
             blurb: 'The latte’s smaller relative. Neither acknowledges the relationship in public.'
@@ -229,6 +247,8 @@ themes:
               served: 'hot'
               strength: 'strong'
               milk: 'with milk'
+              made: 'the machine'
+              ordered: 'regulars'
           americano:
             label: 'Americano'
             blurb: 'An espresso that has been talked down from the ledge.'
@@ -236,6 +256,8 @@ themes:
               served: 'hot'
               strength: 'strong'
               milk: 'without milk'
+              made: 'the machine'
+              ordered: 'nobody in particular'
           cappuccino:
             label: 'Cappuccino'
             blurb: 'One third foam, and the third everyone argues about.'
@@ -243,6 +265,8 @@ themes:
               served: 'hot'
               strength: 'strong'
               milk: 'with milk'
+              made: 'the machine'
+              ordered: 'newcomers'
           macchiato:
             label: 'Macchiato'
             blurb: 'Espresso with a spot of milk. The milk has been told not to get comfortable.'
@@ -250,6 +274,8 @@ themes:
               served: 'hot'
               strength: 'strong'
               milk: 'with milk'
+              made: 'the machine'
+              ordered: 'nobody in particular'
           cold-brew:
             label: 'Cold Brew'
             blurb: 'Planned yesterday. Ordered by somebody who woke up four minutes ago.'
@@ -257,6 +283,8 @@ themes:
               served: 'iced'
               strength: 'strong'
               milk: 'without milk'
+              made: 'hand'
+              ordered: 'newcomers'
           oat-latte:
             label: 'Oat Latte'
             blurb: 'The milk that started a thousand conversations.'
@@ -264,6 +292,8 @@ themes:
               served: 'hot'
               strength: 'gentle'
               milk: 'with milk'
+              made: 'the machine'
+              ordered: 'regulars'
           mint-tea:
             label: 'Mint Tea'
             blurb: 'Ordered after a large lunch, without exception.'
@@ -271,6 +301,8 @@ themes:
               served: 'hot'
               strength: 'gentle'
               milk: 'without milk'
+              made: 'the kettle'
+              ordered: 'nobody in particular'
           hot-choc:
             label: 'Hot Choc'
             blurb: 'Comes with marshmallows whether or not anyone asked.'
@@ -278,6 +310,8 @@ themes:
               served: 'hot'
               strength: 'gentle'
               milk: 'with milk'
+              made: 'hand'
+              ordered: 'newcomers'
       pastry:
         name: 'Pastry'
         pattern: 'the {}'
@@ -293,6 +327,12 @@ themes:
           size:
             label: 'Size'
             pattern: '{} {noun}'
+          baked:
+            label: 'Baked'
+            pattern: '{noun} baked {}'
+          pairs:
+            label: 'Goes with'
+            pattern: '{noun} that goes with {}'
         items:
           croissant:
             label: 'Croissant'
@@ -301,6 +341,8 @@ themes:
               texture: 'flaky'
               filling: 'nothing'
               size: 'big'
+              baked: 'overnight'
+              pairs: 'coffee'
           cannel:
             label: 'Cannelé'
             blurb: 'Burnt on purpose. Do not attempt to send it back.'
@@ -308,6 +350,8 @@ themes:
               texture: 'crisp'
               filling: 'custard'
               size: 'small'
+              baked: 'on site'
+              pairs: 'coffee'
           scone:
             label: 'Scone'
             blurb: 'Starts a war about the order of jam and cream.'
@@ -315,6 +359,8 @@ themes:
               texture: 'crumbly'
               filling: 'nothing'
               size: 'big'
+              baked: 'on site'
+              pairs: 'tea'
           clair:
             label: 'Éclair'
             blurb: 'Impossible to eat with dignity. Nobody manages it.'
@@ -322,6 +368,8 @@ themes:
               texture: 'soft'
               filling: 'cream'
               size: 'big'
+              baked: 'on site'
+              pairs: 'coffee'
           brioche:
             label: 'Brioche'
             blurb: 'More butter than bread, which is the entire point.'
@@ -329,6 +377,8 @@ themes:
               texture: 'soft'
               filling: 'nothing'
               size: 'big'
+              baked: 'overnight'
+              pairs: 'tea'
           tartlet:
             label: 'Tartlet'
             blurb: 'Glazed to a mirror finish. Briefly admired, then structurally compromised.'
@@ -336,6 +386,8 @@ themes:
               texture: 'crisp'
               filling: 'fruit'
               size: 'small'
+              baked: 'on site'
+              pairs: 'tea'
           danish:
             label: 'Danish'
             blurb: 'Named after a country that would like a word about it.'
@@ -343,6 +395,8 @@ themes:
               texture: 'flaky'
               filling: 'fruit'
               size: 'big'
+              baked: 'elsewhere'
+              pairs: 'coffee'
           madeleine:
             label: 'Madeleine'
             blurb: 'One bite of it and you are nine years old again.'
@@ -350,6 +404,8 @@ themes:
               texture: 'soft'
               filling: 'nothing'
               size: 'small'
+              baked: 'on site'
+              pairs: 'tea'
           palmier:
             label: 'Palmier'
             blurb: 'All edges, no middle, and gone before the coffee lands.'
@@ -357,6 +413,8 @@ themes:
               texture: 'crisp'
               filling: 'nothing'
               size: 'small'
+              baked: 'elsewhere'
+              pairs: 'anything'
           doughnut:
             label: 'Doughnut'
             blurb: 'The jam is always in the last bite or the first. Never both.'
@@ -364,6 +422,8 @@ themes:
               texture: 'soft'
               filling: 'jam'
               size: 'big'
+              baked: 'elsewhere'
+              pairs: 'anything'
           muffin:
             label: 'Muffin'
             blurb: 'A cake pretending, for breakfast purposes, to be bread.'
@@ -371,6 +431,8 @@ themes:
               texture: 'crumbly'
               filling: 'fruit'
               size: 'big'
+              baked: 'on site'
+              pairs: 'anything'
           baklava:
             label: 'Baklava'
             blurb: 'Forty layers, all of them sticky, none of them regretted.'
@@ -378,6 +440,8 @@ themes:
               texture: 'flaky'
               filling: 'nuts'
               size: 'small'
+              baked: 'elsewhere'
+              pairs: 'tea'
           cruffin:
             label: 'Cruffin'
             blurb: 'Half croissant, half muffin. Both families are still discussing the paperwork.'
@@ -385,6 +449,8 @@ themes:
               texture: 'flaky'
               filling: 'cream'
               size: 'big'
+              baked: 'overnight'
+              pairs: 'coffee'
           turnover:
             label: 'Turnover'
             blurb: 'Cool to the touch. Filled with a substance the sun would consider excessive.'
@@ -392,6 +458,8 @@ themes:
               texture: 'flaky'
               filling: 'fruit'
               size: 'big'
+              baked: 'overnight'
+              pairs: 'anything'
       seat:
         name: 'Seat'
         pattern: 'the {} table'
@@ -407,6 +475,12 @@ themes:
           light:
             label: 'Light'
             pattern: '{noun} in the {}'
+          noise:
+            label: 'Noise'
+            pattern: '{noun} that is {}'
+          booking:
+            label: 'Taken'
+            pattern: '{noun} usually {}'
         items:
           window:
             label: 'Window'
@@ -415,6 +489,8 @@ themes:
               where: 'indoors'
               size: 'roomy'
               light: 'sun'
+              noise: 'lively'
+              booking: 'fought over'
           corner:
             label: 'Corner'
             blurb: 'A laptop habitat. Purchases one coffee and gradually acquires territorial rights.'
@@ -422,6 +498,8 @@ themes:
               where: 'indoors'
               size: 'snug'
               light: 'shade'
+              noise: 'quiet'
+              booking: 'claimed on arrival'
           patio:
             label: 'Patio'
             blurb: 'Outdoor seating, subject to Britain.'
@@ -429,6 +507,8 @@ themes:
               where: 'outdoors'
               size: 'roomy'
               light: 'sun'
+              noise: 'lively'
+              booking: 'fought over'
           counter:
             label: 'Counter'
             blurb: 'A front-row seat to the machine and the swearing.'
@@ -436,6 +516,8 @@ themes:
               where: 'indoors'
               size: 'snug'
               light: 'shade'
+              noise: 'loud'
+              booking: 'claimed on arrival'
           loft:
             label: 'Loft'
             blurb: 'Up the creaking stairs. Your coffee arrives with a short account of the climb.'
@@ -443,6 +525,8 @@ themes:
               where: 'indoors'
               size: 'roomy'
               light: 'shade'
+              noise: 'quiet'
+              booking: 'booked ahead'
           fireside:
             label: 'Fireside'
             blurb: 'Warm enough that leaving becomes a whole decision.'
@@ -450,6 +534,8 @@ themes:
               where: 'indoors'
               size: 'snug'
               light: 'shade'
+              noise: 'quiet'
+              booking: 'fought over'
           balcony:
             label: 'Balcony'
             blurb: 'Two chairs, one railing, and a queue for both.'
@@ -457,6 +543,8 @@ themes:
               where: 'outdoors'
               size: 'snug'
               light: 'sun'
+              noise: 'lively'
+              booking: 'booked ahead'
           alcove:
             label: 'Alcove'
             blurb: 'Nobody finds you here, including the staff with your order.'
@@ -464,6 +552,8 @@ themes:
               where: 'indoors'
               size: 'snug'
               light: 'shade'
+              noise: 'quiet'
+              booking: 'claimed on arrival'
           bar-stool:
             label: 'Bar Stool'
             blurb: 'Comfortable for exactly as long as one coffee lasts.'
@@ -471,6 +561,8 @@ themes:
               where: 'indoors'
               size: 'snug'
               light: 'sun'
+              noise: 'loud'
+              booking: 'claimed on arrival'
           booth:
             label: 'Booth'
             blurb: 'Seats four. Currently reserved by one coat and a charging cable.'
@@ -478,6 +570,8 @@ themes:
               where: 'indoors'
               size: 'roomy'
               light: 'shade'
+              noise: 'lively'
+              booking: 'booked ahead'
           terrace:
             label: 'Terrace'
             blurb: 'Sunny, breezy, and one gust from losing every napkin.'
@@ -485,6 +579,8 @@ themes:
               where: 'outdoors'
               size: 'roomy'
               light: 'sun'
+              noise: 'lively'
+              booking: 'booked ahead'
           garden:
             label: 'Garden'
             blurb: 'Shared with a robin who has learned about crumbs.'
@@ -492,6 +588,8 @@ themes:
               where: 'outdoors'
               size: 'roomy'
               light: 'shade'
+              noise: 'quiet'
+              booking: 'claimed on arrival'
           nook:
             label: 'Nook'
             blurb: 'Shelved on three sides. The books are glued down after the philosophy incident.'
@@ -499,6 +597,8 @@ themes:
               where: 'indoors'
               size: 'snug'
               light: 'shade'
+              noise: 'quiet'
+              booking: 'claimed on arrival'
           bench:
             label: 'Bench'
             blurb: 'Seats three politely, or two people with strong opinions.'
@@ -506,6 +606,8 @@ themes:
               where: 'outdoors'
               size: 'roomy'
               light: 'sun'
+              noise: 'lively'
+              booking: 'claimed on arrival'
       bill:
         name: 'Bill'
         pattern: 'the {} bill'
@@ -523,6 +625,15 @@ themes:
           parity:
             label: 'Number'
             pattern: '{noun} with an {} number'
+          half:
+            label: 'Half of the run'
+            pattern: '{noun} from the {} half of the run'
+          settled:
+            label: 'Settled by'
+            pattern: '{noun} settled by {}'
+          tip:
+            label: 'Tip'
+            pattern: '{noun} that left {} tip'
         items:
           4:
             label: '£4'
@@ -530,78 +641,117 @@ themes:
             traits:
               band: 'modest'
               parity: 'even'
+              half: 'first'
+              settled: 'cash'
+              tip: 'no'
           5:
             label: '£5'
             blurb: 'A £5 ticket. The smallest order anyone has admitted to.'
             traits:
               band: 'modest'
               parity: 'odd'
+              half: 'first'
+              settled: 'cash'
+              tip: 'a modest'
           6:
             label: '£6'
             blurb: 'A £6 ticket. Rounded up, because the tip jar was watching.'
             traits:
               band: 'modest'
               parity: 'even'
+              half: 'first'
+              settled: 'cash'
+              tip: 'a generous'
           7:
             label: '£7'
             blurb: 'A £7 ticket. Split three ways after some very slow arithmetic.'
             traits:
               band: 'modest'
               parity: 'odd'
+              half: 'first'
+              settled: 'an argument'
+              tip: 'no'
           8:
             label: '£8'
             blurb: 'An £8 ticket. Settled by card, then queried, then settled again.'
             traits:
               band: 'modest'
               parity: 'even'
+              half: 'first'
+              settled: 'card'
+              tip: 'a modest'
           9:
             label: '£9'
             blurb: 'A £9 ticket. Includes one pastry that was denied at the till.'
             traits:
               band: 'middling'
               parity: 'odd'
+              half: 'first'
+              settled: 'card'
+              tip: 'a modest'
           10:
             label: '£10'
             blurb: 'A £10 ticket. Exactly the price of a quiet hour, apparently.'
             traits:
               band: 'middling'
               parity: 'even'
+              half: 'first'
+              settled: 'card'
+              tip: 'a generous'
           11:
             label: '£11'
             blurb: 'An £11 ticket. Somebody was buying for a friend and regretting it.'
             traits:
               band: 'middling'
               parity: 'odd'
+              half: 'second'
+              settled: 'an argument'
+              tip: 'a modest'
           12:
             label: '£12'
             blurb: 'A £12 ticket. Two drinks and a great deal of foam.'
             traits:
               band: 'middling'
               parity: 'even'
+              half: 'second'
+              settled: 'card'
+              tip: 'no'
           13:
             label: '£13'
             blurb: 'A £13 ticket. The morning the oat milk went up and nobody warned anyone.'
             traits:
               band: 'middling'
               parity: 'odd'
+              half: 'second'
+              settled: 'card'
+              tip: 'a modest'
           14:
             label: '£14'
             blurb: 'A £14 ticket. A round for the table, bravely announced.'
             traits:
               band: 'steep'
               parity: 'even'
+              half: 'second'
+              settled: 'an argument'
+              tip: 'a generous'
           15:
             label: '£15'
             blurb: 'A £15 ticket. Paid with a note so large the till sighed.'
             traits:
               band: 'steep'
               parity: 'odd'
+              half: 'second'
+              settled: 'card'
+              tip: 'a modest'
           16:
             label: '£16'
             blurb: 'A £16 ticket. The record, until the office came in on Friday.'
             traits:
               band: 'steep'
               parity: 'even'
+              half: 'second'
+              settled: 'card'
+              tip: 'no'
           17:
             label: '£17'
             blurb: 'A £17 ticket. Framed behind the counter, unofficially.'
@@ -609,6 +759,9 @@ themes:
               band: 'steep'
               parity: 'odd'
 
+              half: 'second'
+              settled: 'card'
+              tip: 'a generous'
 briefings:
   themes:
     cafe:
