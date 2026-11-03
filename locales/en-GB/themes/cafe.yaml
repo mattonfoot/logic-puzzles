@@ -9,12 +9,27 @@ themes:
     name: 'Corner Café'
     blurb: 'Regulars, orders and the morning rush'
     clues:
-      link: '{a} is on the same ticket as {b}.'
-      notLink: '{a} is not on the same ticket as {b}.'
-      groupNot: 'No {a} is on the same ticket as {b}.'
-      either: '{a} is on the same ticket as either {b} or {c}.'
+      # The wording for a pairing with no customer in it: two things that came
+      # to the table together.
+      link: '{a} was ordered with {b}.'
+      notLink: '{a} was not ordered with {b}.'
+      groupNot: 'No {a} was ordered with {b}.'
+      either: '{a} was ordered with either {b} or {c}.'
       compare: 'The {noun} for {greater} came out {comparative} than for {lesser}.'
       compareGap: 'The {noun} for {greater} came out exactly {gap} {unit} {comparative} than for {lesser}.'
+    # A customer does the ordering, so a pairing they are in says so, whichever
+    # side of the sentence they fall on.
+    voices:
+      anchorFirst:
+        link: '{a} ordered {b}.'
+        notLink: '{a} did not order {b}.'
+        groupNot: 'No {a} ordered {b}.'
+        either: '{a} ordered either {b} or {c}.'
+      anchorSecond:
+        link: '{a} was ordered by {b}.'
+        notLink: '{a} was not ordered by {b}.'
+        groupNot: 'No {a} was ordered by {b}.'
+        either: '{a} was ordered by either {b} or {c}.'
     categories:
       customer:
         name: 'Customer'
@@ -166,8 +181,8 @@ themes:
               trade: 'a merchant captain'
       drink:
         name: 'Drink'
-        pattern: 'the {} drinker'
-        describes: 'the drinker of the {}'
+        pattern: 'the {}'
+        describes: 'the {}'
         noun: 'drink'
         traits:
           served:
@@ -182,9 +197,9 @@ themes:
           made:
             label: 'Made by'
             pattern: '{noun} made by {}'
-          ordered:
-            label: 'Ordered by'
-            pattern: '{noun} ordered mostly by {}'
+          asked:
+            label: 'Asked for by'
+            pattern: '{noun} that {} ask for'
         items:
           latte:
             label: 'Latte'
@@ -194,7 +209,7 @@ themes:
               strength: 'gentle'
               milk: 'with milk'
               made: 'the machine'
-              ordered: 'regulars'
+              asked: 'the regulars'
           mocha:
             label: 'Mocha'
             blurb: 'Pudding in a cup, ordered with a straight face.'
@@ -203,7 +218,7 @@ themes:
               strength: 'gentle'
               milk: 'with milk'
               made: 'hand'
-              ordered: 'newcomers'
+              asked: 'newcomers'
           chai:
             label: 'Chai'
             blurb: 'Spiced, sweet, and always a little too hot to start.'
@@ -212,7 +227,7 @@ themes:
               strength: 'gentle'
               milk: 'with milk'
               made: 'the kettle'
-              ordered: 'nobody in particular'
+              asked: 'few people'
           cortado:
             label: 'Cortado'
             blurb: 'Small, serious, and gone in three sips.'
@@ -221,7 +236,7 @@ themes:
               strength: 'strong'
               milk: 'with milk'
               made: 'the machine'
-              ordered: 'regulars'
+              asked: 'the regulars'
           matcha:
             label: 'Matcha'
             blurb: 'Bright green and quietly smug about the antioxidants.'
@@ -230,7 +245,7 @@ themes:
               strength: 'gentle'
               milk: 'with milk'
               made: 'hand'
-              ordered: 'newcomers'
+              asked: 'newcomers'
           espresso:
             label: 'Espresso'
             blurb: 'A thimble of pure intent.'
@@ -239,7 +254,7 @@ themes:
               strength: 'strong'
               milk: 'without milk'
               made: 'the machine'
-              ordered: 'regulars'
+              asked: 'the regulars'
           flat-white:
             label: 'Flat White'
             blurb: 'The latte’s smaller relative. Neither acknowledges the relationship in public.'
@@ -248,7 +263,7 @@ themes:
               strength: 'strong'
               milk: 'with milk'
               made: 'the machine'
-              ordered: 'regulars'
+              asked: 'the regulars'
           americano:
             label: 'Americano'
             blurb: 'An espresso that has been talked down from the ledge.'
@@ -257,7 +272,7 @@ themes:
               strength: 'strong'
               milk: 'without milk'
               made: 'the machine'
-              ordered: 'nobody in particular'
+              asked: 'few people'
           cappuccino:
             label: 'Cappuccino'
             blurb: 'One third foam, and the third everyone argues about.'
@@ -266,7 +281,7 @@ themes:
               strength: 'strong'
               milk: 'with milk'
               made: 'the machine'
-              ordered: 'newcomers'
+              asked: 'newcomers'
           macchiato:
             label: 'Macchiato'
             blurb: 'Espresso with a spot of milk. The milk has been told not to get comfortable.'
@@ -275,7 +290,7 @@ themes:
               strength: 'strong'
               milk: 'with milk'
               made: 'the machine'
-              ordered: 'nobody in particular'
+              asked: 'few people'
           cold-brew:
             label: 'Cold Brew'
             blurb: 'Planned yesterday. Ordered by somebody who woke up four minutes ago.'
@@ -284,7 +299,7 @@ themes:
               strength: 'strong'
               milk: 'without milk'
               made: 'hand'
-              ordered: 'newcomers'
+              asked: 'newcomers'
           oat-latte:
             label: 'Oat Latte'
             blurb: 'The milk that started a thousand conversations.'
@@ -293,7 +308,7 @@ themes:
               strength: 'gentle'
               milk: 'with milk'
               made: 'the machine'
-              ordered: 'regulars'
+              asked: 'the regulars'
           mint-tea:
             label: 'Mint Tea'
             blurb: 'Ordered after a large lunch, without exception.'
@@ -302,7 +317,7 @@ themes:
               strength: 'gentle'
               milk: 'without milk'
               made: 'the kettle'
-              ordered: 'nobody in particular'
+              asked: 'few people'
           hot-choc:
             label: 'Hot Choc'
             blurb: 'Comes with marshmallows whether or not anyone asked.'
@@ -311,7 +326,7 @@ themes:
               strength: 'gentle'
               milk: 'with milk'
               made: 'hand'
-              ordered: 'newcomers'
+              asked: 'newcomers'
       pastry:
         name: 'Pastry'
         pattern: 'the {}'

@@ -181,6 +181,27 @@ describe('themes', () => {
         }
       });
 
+      it('writes any voice it has to the same shape as the kind it replaces', () => {
+        const voices = [theme.voices?.anchorFirst, theme.voices?.anchorSecond];
+        for (const voice of voices) {
+          if (!voice) continue;
+          for (const [kind, template] of Object.entries(voice)) {
+            // A voice is the same statement said differently, so it keeps every
+            // slot — a wording that dropped {b} would lose half the clue.
+            for (const slot of REQUIRED_SLOTS[kind as keyof ClueTemplates]) {
+              expect(`${kind}: ${template}`).toContain(slot);
+            }
+            expect(template.trim()).toBe(template);
+            expect(template).toMatch(/[.!?]$/);
+            for (const [, name] of template.matchAll(/\{(\w+)\}/g)) {
+              expect(KNOWN_SLOTS).toContain(name);
+            }
+          }
+          // Comparisons read from the ordered set, not from who is in them.
+          expect(Object.keys(voice).filter((kind) => kind.startsWith('compare'))).toEqual([]);
+        }
+      });
+
       it('leaves the scale to the slots rather than writing it out', () => {
         // `{noun}`, `{comparative}` and `{unit}` are filled from the ordered
         // set's own words. A template that spells one of them out instead goes

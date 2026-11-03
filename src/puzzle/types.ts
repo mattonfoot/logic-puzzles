@@ -116,6 +116,31 @@ export interface ClueTemplates {
  */
 export type ClueKind = keyof ClueTemplates;
 
+/**
+ * The kinds that pair two attributes, and so can be worded differently
+ * depending on which set is on which side. Comparisons are left out: they take
+ * their words from the ordered set itself.
+ */
+export type PairingKind = 'link' | 'notLink' | 'groupNot' | 'either';
+
+/**
+ * Wording for when the cast is one side of the pairing.
+ *
+ * A theme whose sets are all the same sort of thing needs one sentence a kind:
+ * "{a} is paired with {b}" reads the same whichever way round it falls. A theme
+ * where the cast *does* something to the rest does not — the café's customers
+ * order, and what they order is ordered by them, and a croissant and a coffee
+ * are ordered with each other. So a theme may give the pairing kinds two more
+ * voices, used when the anchor set is the first side of the sentence or the
+ * second; anything left out falls back to `clues`.
+ */
+export interface ClueVoices {
+  /** The anchor is `{a}`: "Miss Custard ordered the Croissant." */
+  anchorFirst?: Partial<Record<PairingKind, string>>;
+  /** It is `{b}`, or both of an either-or's options: "... ordered by Miss Custard." */
+  anchorSecond?: Partial<Record<PairingKind, string>>;
+}
+
 export interface ThemeDef {
   id: string;
   name: string;
@@ -126,6 +151,8 @@ export interface ThemeDef {
   categories: CategoryDef[];
   /** Wording for this theme's clues; anything omitted uses the default. */
   clues?: Partial<ClueTemplates>;
+  /** Wording for the pairing clues the cast is in; see `ClueVoices`. */
+  voices?: ClueVoices;
 }
 
 /** A category after it has been sampled down to the puzzle's size. */
@@ -207,6 +234,8 @@ export interface Puzzle {
   seed: number;
   /** The theme's wording, resolved at generation so saved games read the same. */
   clueTemplates: ClueTemplates;
+  /** Its wording for the pairing clues the cast is in, if it has any. */
+  clueVoices?: ClueVoices;
   themeId: string;
   themeName: string;
   themeIcon: string;

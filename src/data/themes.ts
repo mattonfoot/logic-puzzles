@@ -20,7 +20,14 @@
  * are words.
  */
 import { STRINGS } from '../i18n';
-import type { CategoryDef, ItemDef, OrderedMeta, ThemeDef, TraitDef } from '../puzzle/types';
+import type {
+  CategoryDef,
+  ClueVoices,
+  ItemDef,
+  OrderedMeta,
+  ThemeDef,
+  TraitDef,
+} from '../puzzle/types';
 
 interface CategoryWords {
   name: string;
@@ -36,6 +43,7 @@ interface ThemeWords {
   name: string;
   blurb: string;
   clues?: Record<string, string>;
+  voices?: ClueVoices;
   categories: Record<string, CategoryWords>;
 }
 
@@ -128,6 +136,7 @@ function theme(id: string, scales: Record<string, (index: number) => number> = {
     blurb: said.blurb,
     categories: Object.keys(said.categories).map((category) => set(id, category, scales[category])),
     ...(said.clues ? { clues: { ...said.clues } } : null),
+    ...(said.voices ? { voices: said.voices } : null),
   };
 }
 

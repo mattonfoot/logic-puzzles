@@ -42,6 +42,15 @@ member of the set is called and `{}` for the value, so "astronaut with red
 hair" is one template and one word. `clues` gives a theme its own sentences;
 anything it leaves out falls back to `clue.templates` in `ui.yaml`.
 
+`voices` is for a theme whose cast *does* something to the rest of its sets. One
+sentence a kind only works while both sides are the same sort of thing: the
+café's customers order, what they order is ordered by them, and two things on
+one table were ordered with each other. So a theme may write the four pairing
+kinds twice more — under `anchorFirst` for when the cast is `{a}`, and
+`anchorSecond` for when it is `{b}` (or both of an either-or's options) — and
+each voice keeps every slot the kind needs. Comparisons take no voice: they
+already read from the ordered set's own words.
+
 Write every set **five or six traits**, and every item a value for each. A
 puzzle plays with four of them, drawn by its seed, so the ones beyond four are
 what make two puzzles on the same theme describe the same cast differently.

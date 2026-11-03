@@ -207,6 +207,7 @@ function lesson<Id extends LessonId>(id: Id, spec: LessonSpec<Id>): Lesson {
     puzzle: {
       seed: 0,
       clueTemplates: resolveClueTemplates(theme),
+      ...(theme.voices ? { clueVoices: theme.voices } : null),
       themeId: theme.id,
       themeName: theme.name,
       themeIcon: theme.icon,

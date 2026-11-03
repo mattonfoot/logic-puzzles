@@ -10,6 +10,7 @@ import type {
   Attribute,
   Clue,
   ClueTemplates,
+  PairingKind,
   Puzzle,
   PuzzleCategory,
   ThemeDef,
@@ -29,6 +30,23 @@ const DESCRIBE_ONE_IN = 3;
 
 export function resolveClueTemplates(theme: ThemeDef): ClueTemplates {
   return { ...DEFAULT_CLUE_TEMPLATES, ...theme.clues };
+}
+
+/** The cast: a puzzle's first set is its theme's anchor, lesson or not. */
+const ANCHOR = 0;
+
+/**
+ * The sentence a pairing is written in, which depends on where the cast falls:
+ * the café's customer orders, is ordered by, or is nowhere in it and the two
+ * sides were ordered with each other. A theme with nothing to say about that
+ * gets its one template for the kind.
+ */
+function wording(puzzle: Puzzle, kind: PairingKind, first: number, second: number): string {
+  const voices = puzzle.clueVoices;
+  const voice =
+    first === ANCHOR ? voices?.anchorFirst : second === ANCHOR ? voices?.anchorSecond : undefined;
+  const templates = puzzle.clueTemplates ?? DEFAULT_CLUE_TEMPLATES;
+  return voice?.[kind] ?? templates[kind] ?? DEFAULT_CLUE_TEMPLATES[kind];
 }
 
 /** Fills `{name}` slots; a slot with no value is left out rather than printed. */
@@ -158,10 +176,13 @@ export function describeClue(clue: Clue, puzzle: Puzzle): string {
 
   switch (clue.kind) {
     case 'link':
-      return fill(templates[clue.positive ? 'link' : 'notLink'], {
-        a: name(puzzle, clue.a, 'a'),
-        b: name(puzzle, clue.b, 'b'),
-      });
+      return fill(
+        wording(puzzle, clue.positive ? 'link' : 'notLink', clue.a.category, clue.b.category),
+        {
+          a: name(puzzle, clue.a, 'a'),
+          b: name(puzzle, clue.b, 'b'),
+        },
+      );
 
     case 'groupNot': {
       const category = categories[clue.group.category];
@@ -170,7 +191,7 @@ export function describeClue(clue: Clue, puzzle: Puzzle): string {
       // template starts the sentence with "No".
       const group =
         described === null ? category.name.toLowerCase() : frame(category, described, 'no');
-      return fill(templates.groupNot ?? DEFAULT_CLUE_TEMPLATES.groupNot, {
+      return fill(wording(puzzle, 'groupNot', clue.group.category, clue.b.category), {
         a: group.replace(/^no /, ''),
         b: name(puzzle, clue.b, 'b'),
       });
@@ -195,13 +216,13 @@ export function describeClue(clue: Clue, puzzle: Puzzle): string {
         if (described) {
           // Two options that share a description are one statement: "paired
           // with a payload made of glass" says the same as naming both.
-          return fill(templates.link, {
+          return fill(wording(puzzle, 'link', clue.a.category, options[0].category), {
             a: name(puzzle, clue.a, 'a'),
             b: frame(category, described, 'a'),
           });
         }
       }
-      return fill(templates.either, {
+      return fill(wording(puzzle, 'either', clue.a.category, options[0].category), {
         a: name(puzzle, clue.a, 'a'),
         b: phrase(categories, options[0]),
         c: phrase(categories, options[1]),

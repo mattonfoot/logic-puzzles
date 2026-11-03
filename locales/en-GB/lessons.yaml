@@ -64,7 +64,7 @@ lessons:
       drinkDone: One pair down.
       pastry: Now Ms Barley and the croissant, on the grid below.
       pastryDone: Barley has the mocha and Barley has the croissant.
-      carry: 'So the mocha and the croissant are on the same ticket as each other. Find them on the drinks-and-pastries grid and tick them.'
+      carry: 'So the mocha and the croissant were ordered with each other. Find them on the drinks-and-pastries grid and tick them.'
       carryDone: That is the idea this board is for. A pair never stays on one grid.
       crumbDrink: Alderman Crumb and the chai.
       crumbDrinkDone: Same again.

@@ -328,9 +328,7 @@ describe('how to play', () => {
 
     fireEvent.press(button('Clue'));
     expect(screen.getByText('The clue')).toBeOnTheScreen();
-    expect(
-      screen.getByText('Ms Barley is on the same ticket as the Mocha drinker.'),
-    ).toBeOnTheScreen();
+    expect(screen.getByText('Ms Barley ordered the Mocha.')).toBeOnTheScreen();
     expect(screen.getByText(/Tap where Ms Barley meets the mocha twice/)).toBeOnTheScreen();
     expect(screen.getByText('Hit the Clue button again when you are done.')).toBeOnTheScreen();
   });
@@ -341,11 +339,7 @@ describe('how to play', () => {
     fireEvent.press(button('Clue'));
 
     expect(header('Vague clues')).toBeOnTheScreen();
-    expect(
-      screen.getByText(
-        'Ms Barley is on the same ticket as either the Latte drinker or the Mocha drinker.',
-      ),
-    ).toBeOnTheScreen();
+    expect(screen.getByText('Ms Barley ordered either the Latte or the Mocha.')).toBeOnTheScreen();
   });
 
   /** The second press is where the board is read. */
@@ -359,9 +353,7 @@ describe('how to play', () => {
     expect(screen.getByText(/Nothing on Ms Barley and Mocha yet/)).toBeOnTheScreen();
     // The clue and the instruction are still there behind it, which is what
     // somebody who pressed Clue to re-read them wanted anyway.
-    expect(
-      screen.getByText('Ms Barley is on the same ticket as the Mocha drinker.'),
-    ).toBeOnTheScreen();
+    expect(screen.getByText('Ms Barley ordered the Mocha.')).toBeOnTheScreen();
   });
 
   it('says which way round a half-made mark is wrong, and how to finish it', () => {
@@ -386,9 +378,7 @@ describe('how to play', () => {
 
     fireEvent.press(button('Clue'));
     expect(screen.queryByText(/Nothing on/)).toBeNull();
-    expect(
-      screen.getByText('Alderman Crumb is on the same ticket as the Chai drinker.'),
-    ).toBeOnTheScreen();
+    expect(screen.getByText('Alderman Crumb ordered the Chai.')).toBeOnTheScreen();
     expect(screen.getByText(/Now the same for Alderman Crumb and the chai/)).toBeOnTheScreen();
   });
 
@@ -404,9 +394,7 @@ describe('how to play', () => {
     fireEvent.press(button('Clue'));
     expect(screen.getByText(/Mrs Marzipan and Latte cannot be right/)).toBeOnTheScreen();
     // Still on the first step, so still the first clue.
-    expect(
-      screen.getByText('Ms Barley is on the same ticket as the Mocha drinker.'),
-    ).toBeOnTheScreen();
+    expect(screen.getByText('Ms Barley ordered the Mocha.')).toBeOnTheScreen();
   });
 
   it('crosses off the rest of the row and column when a tick lands', () => {

@@ -956,13 +956,27 @@ const THEME_WORDS = {
     name: 'Corner Café',
     blurb: 'Regulars, orders and the morning rush',
     clues: {
-      link: '{a} is on the same ticket as {b}.',
-      notLink: '{a} is not on the same ticket as {b}.',
-      groupNot: 'No {a} is on the same ticket as {b}.',
-      either: '{a} is on the same ticket as either {b} or {c}.',
+      link: '{a} was ordered with {b}.',
+      notLink: '{a} was not ordered with {b}.',
+      groupNot: 'No {a} was ordered with {b}.',
+      either: '{a} was ordered with either {b} or {c}.',
       compare: 'The {noun} for {greater} came out {comparative} than for {lesser}.',
       compareGap:
         'The {noun} for {greater} came out exactly {gap} {unit} {comparative} than for {lesser}.',
+    },
+    voices: {
+      anchorFirst: {
+        link: '{a} ordered {b}.',
+        notLink: '{a} did not order {b}.',
+        groupNot: 'No {a} ordered {b}.',
+        either: '{a} ordered either {b} or {c}.',
+      },
+      anchorSecond: {
+        link: '{a} was ordered by {b}.',
+        notLink: '{a} was not ordered by {b}.',
+        groupNot: 'No {a} was ordered by {b}.',
+        either: '{a} was ordered by either {b} or {c}.',
+      },
     },
     categories: {
       customer: {
@@ -1152,8 +1166,8 @@ const THEME_WORDS = {
       },
       drink: {
         name: 'Drink',
-        pattern: 'the {} drinker',
-        describes: 'the drinker of the {}',
+        pattern: 'the {}',
+        describes: 'the {}',
         noun: 'drink',
         traits: {
           served: {
@@ -1172,9 +1186,9 @@ const THEME_WORDS = {
             label: 'Made by',
             pattern: '{noun} made by {}',
           },
-          ordered: {
-            label: 'Ordered by',
-            pattern: '{noun} ordered mostly by {}',
+          asked: {
+            label: 'Asked for by',
+            pattern: '{noun} that {} ask for',
           },
         },
         items: {
@@ -1186,7 +1200,7 @@ const THEME_WORDS = {
               strength: 'gentle',
               milk: 'with milk',
               made: 'the machine',
-              ordered: 'regulars',
+              asked: 'the regulars',
             },
           },
           mocha: {
@@ -1197,7 +1211,7 @@ const THEME_WORDS = {
               strength: 'gentle',
               milk: 'with milk',
               made: 'hand',
-              ordered: 'newcomers',
+              asked: 'newcomers',
             },
           },
           chai: {
@@ -1208,7 +1222,7 @@ const THEME_WORDS = {
               strength: 'gentle',
               milk: 'with milk',
               made: 'the kettle',
-              ordered: 'nobody in particular',
+              asked: 'few people',
             },
           },
           cortado: {
@@ -1219,7 +1233,7 @@ const THEME_WORDS = {
               strength: 'strong',
               milk: 'with milk',
               made: 'the machine',
-              ordered: 'regulars',
+              asked: 'the regulars',
             },
           },
           matcha: {
@@ -1230,7 +1244,7 @@ const THEME_WORDS = {
               strength: 'gentle',
               milk: 'with milk',
               made: 'hand',
-              ordered: 'newcomers',
+              asked: 'newcomers',
             },
           },
           espresso: {
@@ -1241,7 +1255,7 @@ const THEME_WORDS = {
               strength: 'strong',
               milk: 'without milk',
               made: 'the machine',
-              ordered: 'regulars',
+              asked: 'the regulars',
             },
           },
           'flat-white': {
@@ -1252,7 +1266,7 @@ const THEME_WORDS = {
               strength: 'strong',
               milk: 'with milk',
               made: 'the machine',
-              ordered: 'regulars',
+              asked: 'the regulars',
             },
           },
           americano: {
@@ -1263,7 +1277,7 @@ const THEME_WORDS = {
               strength: 'strong',
               milk: 'without milk',
               made: 'the machine',
-              ordered: 'nobody in particular',
+              asked: 'few people',
             },
           },
           cappuccino: {
@@ -1274,7 +1288,7 @@ const THEME_WORDS = {
               strength: 'strong',
               milk: 'with milk',
               made: 'the machine',
-              ordered: 'newcomers',
+              asked: 'newcomers',
             },
           },
           macchiato: {
@@ -1285,7 +1299,7 @@ const THEME_WORDS = {
               strength: 'strong',
               milk: 'with milk',
               made: 'the machine',
-              ordered: 'nobody in particular',
+              asked: 'few people',
             },
           },
           'cold-brew': {
@@ -1296,7 +1310,7 @@ const THEME_WORDS = {
               strength: 'strong',
               milk: 'without milk',
               made: 'hand',
-              ordered: 'newcomers',
+              asked: 'newcomers',
             },
           },
           'oat-latte': {
@@ -1307,7 +1321,7 @@ const THEME_WORDS = {
               strength: 'gentle',
               milk: 'with milk',
               made: 'the machine',
-              ordered: 'regulars',
+              asked: 'the regulars',
             },
           },
           'mint-tea': {
@@ -1318,7 +1332,7 @@ const THEME_WORDS = {
               strength: 'gentle',
               milk: 'without milk',
               made: 'the kettle',
-              ordered: 'nobody in particular',
+              asked: 'few people',
             },
           },
           'hot-choc': {
@@ -1329,7 +1343,7 @@ const THEME_WORDS = {
               strength: 'gentle',
               milk: 'with milk',
               made: 'hand',
-              ordered: 'newcomers',
+              asked: 'newcomers',
             },
           },
         },
@@ -13609,7 +13623,7 @@ export const STRINGS = {
         pastry: 'Now Ms Barley and the croissant, on the grid below.',
         pastryDone: 'Barley has the mocha and Barley has the croissant.',
         carry:
-          'So the mocha and the croissant are on the same ticket as each other. Find them on the drinks-and-pastries grid and tick them.',
+          'So the mocha and the croissant were ordered with each other. Find them on the drinks-and-pastries grid and tick them.',
         carryDone: 'That is the idea this board is for. A pair never stays on one grid.',
         crumbDrink: 'Alderman Crumb and the chai.',
         crumbDrinkDone: 'Same again.',

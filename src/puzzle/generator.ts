@@ -52,6 +52,7 @@ export function generatePuzzle({ theme: themeOrPool, size, seed }: GenerateOptio
   return {
     seed: actualSeed,
     clueTemplates: resolveClueTemplates(theme),
+    ...(theme.voices ? { clueVoices: theme.voices } : null),
     themeId: theme.id,
     themeName: theme.name,
     themeIcon: theme.icon,

@@ -158,6 +158,55 @@ describe('describeClue', () => {
   });
 });
 
+describe('the voices a theme writes for its cast', () => {
+  const voiced: Puzzle = {
+    ...puzzleWith(),
+    clueVoices: {
+      anchorFirst: { link: '{a} feeds {b}.', groupNot: 'No {a} feeds {b}.' },
+      anchorSecond: { link: '{a} is fed by {b}.', either: '{a} is fed by either {b} or {c}.' },
+    },
+  };
+  const group: Clue = {
+    kind: 'groupNot',
+    group: { category: 0, trait: 'nothing', value: 'none', items: [0, 1] },
+    b: { category: 1, item: 1 },
+  };
+
+  it('speaks for the cast when the cast is the first side', () => {
+    expect(describeClue(link, voiced)).toBe('Ann feeds the Dog owner.');
+    expect(describeClue(group, voiced)).toBe('No person feeds the Dog owner.');
+  });
+
+  it('speaks to the cast when the cast is the second side', () => {
+    const toCast: Clue = { ...link, a: { category: 1, item: 1 }, b: { category: 0, item: 0 } };
+    expect(describeClue(toCast, voiced)).toBe('The Dog owner is fed by Ann.');
+
+    const options: Clue = {
+      kind: 'either',
+      a: { category: 1, item: 1 },
+      options: [
+        { category: 0, item: 0 },
+        { category: 0, item: 1 },
+      ],
+    };
+    expect(describeClue(options, voiced)).toBe('The Dog owner is fed by either Ann or Bo.');
+  });
+
+  it('keeps the plain wording when the cast is in neither side', () => {
+    const between: Clue = { ...link, a: { category: 1, item: 0 }, b: { category: 2, item: 1 } };
+    expect(describeClue(between, voiced)).toBe('The Cat owner lives with the 9 year old.');
+  });
+
+  it('keeps it for the kinds the voice does not cover', () => {
+    // anchorFirst says nothing about notLink, so the theme's own wording stands.
+    expect(describeClue(notLink, voiced)).toBe('Ann does not live with the Dog owner.');
+  });
+
+  it('is skipped entirely by a puzzle saved before the theme had one', () => {
+    expect(describeClue(link, puzzleWith())).toBe('Ann lives with the Dog owner.');
+  });
+});
+
 describe('every theme', () => {
   it('writes clues that read as finished sentences', () => {
     for (const themeUnderTest of THEMES) {
