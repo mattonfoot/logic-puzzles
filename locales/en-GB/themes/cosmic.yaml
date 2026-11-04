@@ -15,6 +15,32 @@ themes:
       either: '{a} shares a mission with either {b} or {c}.'
       compare: '{greater} launches {comparative} than {lesser}.'
       compareGap: '{greater} launches exactly {gap} {unit} {comparative} than {lesser}.'
+    voices:
+      astronaut:
+        destination: { did: 'flew to', didNot: 'did not fly to' }
+        ship: { did: 'crewed', didNot: 'did not crew' }
+        cargo: { did: 'signed for', didNot: 'did not sign for' }
+        launch: { did: 'lifted off on', didNot: 'did not lift off on' }
+      destination:
+        astronaut: { did: 'was reached by', didNot: 'was not reached by' }
+        ship: { did: 'was served by', didNot: 'was not served by' }
+        cargo: { did: 'was sent', didNot: 'was not sent' }
+        launch: { did: 'was reached on', didNot: 'was not reached on' }
+      ship:
+        astronaut: { did: 'was crewed by', didNot: 'was not crewed by' }
+        destination: { did: 'was bound for', didNot: 'was not bound for' }
+        cargo: { did: 'carried', didNot: 'did not carry' }
+        launch: { did: 'flew on', didNot: 'did not fly on' }
+      cargo:
+        astronaut: { did: 'was signed for by', didNot: 'was not signed for by' }
+        destination: { did: 'was bound for', didNot: 'was not bound for' }
+        ship: { did: 'was loaded onto', didNot: 'was not loaded onto' }
+        launch: { did: 'went up on', didNot: 'did not go up on' }
+      launch:
+        astronaut: { did: 'sent up', didNot: 'did not send up' }
+        destination: { did: 'set out for', didNot: 'did not set out for' }
+        ship: { did: 'sent up', didNot: 'did not send up' }
+        cargo: { did: 'took up', didNot: 'did not take up' }
     categories:
       astronaut:
         name: 'Astronaut'
@@ -166,8 +192,8 @@ themes:
               height: '1.9m'
       destination:
         name: 'Destination'
-        pattern: 'the crew bound for {}'
-        describes: 'the crew bound for the {}'
+        pattern: '{}'
+        describes: 'the {}'
         noun: 'world'
         traits:
           kind:

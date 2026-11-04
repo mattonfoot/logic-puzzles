@@ -15,6 +15,32 @@ themes:
       either: '{a} was on the same dive as either {b} or {c}.'
       compare: '{greater} went {comparative} than {lesser}.'
       compareGap: '{greater} went exactly {gap} {unit} {comparative} than {lesser}.'
+    voices:
+      diver:
+        species: { did: 'spotted', didNot: 'did not spot' }
+        gear: { did: 'dived with', didNot: 'did not dive with' }
+        site: { did: 'dived', didNot: 'did not dive' }
+        depth: { did: 'made', didNot: 'did not make' }
+      species:
+        diver: { did: 'was spotted by', didNot: 'was not spotted by' }
+        gear: { did: 'was spotted with', didNot: 'was not spotted with' }
+        site: { did: 'lives at', didNot: 'does not live at' }
+        depth: { did: 'turned up on', didNot: 'did not turn up on' }
+      gear:
+        diver: { did: 'went with', didNot: 'did not go with' }
+        species: { did: 'found', didNot: 'did not find' }
+        site: { did: 'went to', didNot: 'did not go to' }
+        depth: { did: 'went down on', didNot: 'did not go down on' }
+      site:
+        diver: { did: 'was dived by', didNot: 'was not dived by' }
+        species: { did: 'is home to', didNot: 'is not home to' }
+        gear: { did: 'called for', didNot: 'did not call for' }
+        depth: { did: 'saw', didNot: 'never saw' }
+      depth:
+        diver: { did: 'was made by', didNot: 'was not made by' }
+        species: { did: 'turned up', didNot: 'did not turn up' }
+        gear: { did: 'needed', didNot: 'did not need' }
+        site: { did: 'went down at', didNot: 'did not go down at' }
     categories:
       diver:
         name: 'Diver'
@@ -166,8 +192,8 @@ themes:
               height: '1.7m'
       species:
         name: 'Sighting'
-        pattern: 'the {} spotter'
-        describes: 'the spotter of the {}'
+        pattern: 'the {}'
+        describes: 'the {}'
         noun: 'creature'
         traits:
           size:
@@ -314,8 +340,8 @@ themes:
               active: 'night'
       gear:
         name: 'Gear'
-        pattern: 'the diver with the {}'
-        describes: 'the diver with the {}'
+        pattern: 'the {}'
+        describes: 'the {}'
         noun: 'kit'
         traits:
           material:
@@ -610,9 +636,9 @@ themes:
               reached: 'a long swim'
       depth:
         name: 'Depth'
-        pattern: 'the diver at {}'
-        describes: 'the diver at a {}'
-        noun: 'depth'
+        pattern: 'the {} descent'
+        describes: 'the {}'
+        noun: 'descent'
         ordered:
           noun: 'depth'
           unit: 'metres'
@@ -630,7 +656,7 @@ themes:
             pattern: '{noun} in the {} half of the range'
           air:
             label: 'Breathing'
-            pattern: '{noun} dived on {}'
+            pattern: '{noun} on {}'
           training:
             label: 'Open to'
             pattern: '{noun} open to {} divers'

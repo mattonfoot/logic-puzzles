@@ -15,6 +15,32 @@ themes:
       either: '{a} shares a workshop job with either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+    voices:
+      maker:
+        invention: { did: 'invented', didNot: 'did not invent' }
+        material: { did: 'worked with', didNot: 'did not work with' }
+        tool: { did: 'used', didNot: 'did not use' }
+        build-year: { did: 'worked on', didNot: 'did not work on' }
+      invention:
+        maker: { did: 'was invented by', didNot: 'was not invented by' }
+        material: { did: 'was made of', didNot: 'was not made of' }
+        tool: { did: 'was made with', didNot: 'was not made with' }
+        build-year: { did: 'came out of', didNot: 'did not come out of' }
+      material:
+        maker: { did: 'was worked by', didNot: 'was not worked by' }
+        invention: { did: 'went into', didNot: 'did not go into' }
+        tool: { did: 'was worked with', didNot: 'was not worked with' }
+        build-year: { did: 'went into', didNot: 'did not go into' }
+      tool:
+        maker: { did: 'helped', didNot: 'did not help' }
+        invention: { did: 'shaped', didNot: 'did not shape' }
+        material: { did: 'worked', didNot: 'did not work' }
+        build-year: { did: 'worked on', didNot: 'did not work on' }
+      build-year:
+        maker: { did: 'was the work of', didNot: 'was not the work of' }
+        invention: { did: 'produced', didNot: 'did not produce' }
+        material: { did: 'used up', didNot: 'did not use up' }
+        tool: { did: 'called for', didNot: 'did not call for' }
     categories:
       maker:
         name: 'Maker'

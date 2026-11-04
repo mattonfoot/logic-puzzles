@@ -15,6 +15,32 @@ themes:
       either: '{a} shares an assessment with either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+    voices:
+      pupil:
+        familiar: { did: 'kept', didNot: 'did not keep' }
+        spell: { did: 'cast', didNot: 'did not cast' }
+        classroom: { did: 'studied in', didNot: 'did not study in' }
+        score: { did: 'earned', didNot: 'did not earn' }
+      familiar:
+        pupil: { did: 'belonged to', didNot: 'did not belong to' }
+        spell: { did: 'helped with', didNot: 'did not help with' }
+        classroom: { did: 'waited in', didNot: 'did not wait in' }
+        score: { did: 'belonged with', didNot: 'did not belong with' }
+      spell:
+        pupil: { did: 'was cast by', didNot: 'was not cast by' }
+        familiar: { did: 'was helped by', didNot: 'was not helped by' }
+        classroom: { did: 'was taught in', didNot: 'was not taught in' }
+        score: { did: 'earned', didNot: 'did not earn' }
+      classroom:
+        pupil: { did: 'taught', didNot: 'did not teach' }
+        familiar: { did: 'put up with', didNot: 'did not put up with' }
+        spell: { did: 'covered', didNot: 'did not cover' }
+        score: { did: 'gave out', didNot: 'did not give out' }
+      score:
+        pupil: { did: 'was earned by', didNot: 'was not earned by' }
+        familiar: { did: 'was earned beside', didNot: 'was not earned beside' }
+        spell: { did: 'was earned for', didNot: 'was not earned for' }
+        classroom: { did: 'came out of', didNot: 'did not come out of' }
     categories:
       pupil:
         name: 'Pupil'
@@ -328,8 +354,8 @@ themes:
             label: 'Duration'
             pattern: '{} {noun}'
           year:
-            label: 'Taught in'
-            pattern: '{noun} taught in the {} year'
+            label: 'Year'
+            pattern: '{noun} from the {} year'
           permission:
             label: 'Permission'
             pattern: '{noun} that is {}'

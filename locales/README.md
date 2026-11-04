@@ -43,28 +43,26 @@ hair" is one template and one word. `clues` gives a theme its own sentences;
 anything it leaves out falls back to `clue.templates` in `ui.yaml`.
 
 `voices` is for a theme whose sets are different sorts of thing. One sentence a
-kind only works while they are interchangeable: in the café a customer orders,
-what they order is ordered by them, two of those were ordered with each other,
-and a table is not ordered at all — it is where the rest of it happened.
+kind only works while they are interchangeable — "{a} is paired with {b}" reads
+the same whichever two it falls between. They rarely are. In the workshop a
+maker *invented* an invention, an invention *was made of* a material, and a tool
+*shaped* both.
 
-So any set may be given a voice, keyed by its id, holding the four pairing kinds
-written twice: under `first` for when that set is `{a}`, and `second` for when it
-is `{b}` (or both of an either-or's options). Both say the same sentence with the
-slots where they fall, and a template may put `{b}` before `{a}` — except in a
-group clue, where `{a}` is always the group and the sentence opens on it.
+So a theme writes the words that go between two of its sets, keyed by set id:
+`voices.maker.invention` is the wording for a pairing with the maker on the
+first side and the invention on the second. Each is a verb phrase and its
+denial — `did: 'invented'`, `didNot: 'did not invent'` — and all four pairing
+kinds are built from the pair, so the statement, the denial, the group ruled out
+and the choice of two cannot drift apart. Both directions are written, because
+English does not reverse a sentence by swapping its ends.
 
-A pairing is worded by **the first set written in `voices` that it is between**,
-so the set with most to say about a sentence goes at the top: the café writes the
-table, then the bill, then the customer. A pairing between two sets with no voice
-— and any kind a voice leaves out — falls back to `clues`. Comparisons take no
-voice: they already read from the ordered set's own words.
-
-Write every set **five or six traits**, and every item a value for each. A
-puzzle plays with four of them, drawn by its seed, so the ones beyond four are
-what make two puzzles on the same theme describe the same cast differently.
-Traits past the first few should be things the drawing does not show — a
-provenance, a shift, a paperwork state — since the icon is fixed and a trait it
-contradicts reads as a mistake.
+Two things to write for: either side may arrive as a description rather than a
+name — "the material that is cheap" as well as "the Brass Ingot" — so the phrase
+has to read with both; and a label may be plural, so a past-tense verb ("shaped",
+"went into") is safer than one that agrees with its subject ("is kept in" breaks
+on "the Cotton Gloves"). A pairing the theme says nothing about falls back to
+`clues`, and comparisons take no voice: they read from the ordered set's own
+words.
 
 How a briefing is written — and the one rule a test holds them to, that a
 briefing names no set but the anchor — is beside the fallback briefing in

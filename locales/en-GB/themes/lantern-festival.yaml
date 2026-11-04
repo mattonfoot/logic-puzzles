@@ -15,6 +15,32 @@ themes:
       either: '{a} joins the same festival act as either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+    voices:
+      artist:
+        lantern: { did: 'made', didNot: 'did not make' }
+        instrument: { did: 'played', didNot: 'did not play' }
+        stall: { did: 'ran', didNot: 'did not run' }
+        showtime: { did: 'took', didNot: 'did not take' }
+      lantern:
+        artist: { did: 'was made by', didNot: 'was not made by' }
+        instrument: { did: 'was paraded with', didNot: 'was not paraded with' }
+        stall: { did: 'hung over', didNot: 'did not hang over' }
+        showtime: { did: 'was shown at', didNot: 'was not shown at' }
+      instrument:
+        artist: { did: 'belonged to', didNot: 'did not belong to' }
+        lantern: { did: 'played beside', didNot: 'did not play beside' }
+        stall: { did: 'played at', didNot: 'did not play at' }
+        showtime: { did: 'played in', didNot: 'did not play in' }
+      stall:
+        artist: { did: 'was run by', didNot: 'was not run by' }
+        lantern: { did: 'was lit by', didNot: 'was not lit by' }
+        instrument: { did: 'heard', didNot: 'did not hear' }
+        showtime: { did: 'opened for', didNot: 'did not open for' }
+      showtime:
+        artist: { did: 'was taken by', didNot: 'was not taken by' }
+        lantern: { did: 'showed', didNot: 'did not show' }
+        instrument: { did: 'called for', didNot: 'did not call for' }
+        stall: { did: 'drew', didNot: 'did not draw' }
     categories:
       artist:
         name: 'Artist'

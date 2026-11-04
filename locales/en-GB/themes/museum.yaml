@@ -15,6 +15,32 @@ themes:
       either: '{a} is recorded with either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+    voices:
+      curator:
+        exhibit: { did: 'looked after', didNot: 'did not look after' }
+        gallery: { did: 'worked in', didNot: 'did not work in' }
+        equipment: { did: 'signed out', didNot: 'did not sign out' }
+        acquisition: { did: 'brought in', didNot: 'did not bring in' }
+      exhibit:
+        curator: { did: 'was looked after by', didNot: 'was not looked after by' }
+        gallery: { did: 'was shown in', didNot: 'was not shown in' }
+        equipment: { did: 'was cared for with', didNot: 'was not cared for with' }
+        acquisition: { did: 'arrived with', didNot: 'did not arrive with' }
+      gallery:
+        curator: { did: 'was run by', didNot: 'was not run by' }
+        exhibit: { did: 'showed', didNot: 'did not show' }
+        equipment: { did: 'kept', didNot: 'did not keep' }
+        acquisition: { did: 'took in', didNot: 'did not take in' }
+      equipment:
+        curator: { did: 'went out with', didNot: 'did not go out with' }
+        exhibit: { did: 'cared for', didNot: 'did not care for' }
+        gallery: { did: 'sat in', didNot: 'did not sit in' }
+        acquisition: { did: 'went with', didNot: 'did not go with' }
+      acquisition:
+        curator: { did: 'was brought in by', didNot: 'was not brought in by' }
+        exhibit: { did: 'brought in', didNot: 'did not bring in' }
+        gallery: { did: 'went to', didNot: 'did not go to' }
+        equipment: { did: 'called for', didNot: 'did not call for' }
     categories:
       curator:
         name: 'Curator'

@@ -15,6 +15,32 @@ themes:
       either: '{a} is the same entry as either {b} or {c}.'
       compare: '{greater} stands {comparative} than {lesser}.'
       compareGap: '{greater} stands exactly {gap} {unit} {comparative} than {lesser}.'
+    voices:
+      gardener:
+        flower: { did: 'grew', didNot: 'did not grow' }
+        pot: { did: 'planted up', didNot: 'did not plant up' }
+        tool: { did: 'worked with', didNot: 'did not work with' }
+        height: { did: 'raised', didNot: 'did not raise' }
+      flower:
+        gardener: { did: 'was grown by', didNot: 'was not grown by' }
+        pot: { did: 'was planted in', didNot: 'was not planted in' }
+        tool: { did: 'was tended with', didNot: 'was not tended with' }
+        height: { did: 'grew into', didNot: 'did not grow into' }
+      pot:
+        gardener: { did: 'belongs to', didNot: 'does not belong to' }
+        flower: { did: 'holds', didNot: 'does not hold' }
+        tool: { did: 'was filled using', didNot: 'was not filled using' }
+        height: { did: 'grew', didNot: 'did not grow' }
+      tool:
+        gardener: { did: 'belonged to', didNot: 'did not belong to' }
+        flower: { did: 'tended', didNot: 'did not tend' }
+        pot: { did: 'filled', didNot: 'did not fill' }
+        height: { did: 'tended', didNot: 'did not tend' }
+      height:
+        gardener: { did: 'was raised by', didNot: 'was not raised by' }
+        flower: { did: 'grew from', didNot: 'did not grow from' }
+        pot: { did: 'grows in', didNot: 'does not grow in' }
+        tool: { did: 'was tended with', didNot: 'was not tended with' }
     categories:
       gardener:
         name: 'Gardener'
@@ -166,8 +192,8 @@ themes:
               prize: 'Best in Show'
       flower:
         name: 'Flower'
-        pattern: 'the {} grower'
-        describes: 'the grower of the {}'
+        pattern: 'the {}'
+        describes: 'the {}'
         noun: 'bloom'
         traits:
           colour:
@@ -462,8 +488,8 @@ themes:
               price: 'a bargain'
       tool:
         name: 'Tool'
-        pattern: 'the {} owner'
-        describes: 'the owner of the {}'
+        pattern: 'the {}'
+        describes: 'the {}'
         noun: 'tool'
         traits:
           material:

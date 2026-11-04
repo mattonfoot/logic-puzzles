@@ -15,6 +15,32 @@ themes:
       either: '{a} travels on the same booking as either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+    voices:
+      passenger:
+        luggage: { did: 'carried', didNot: 'did not carry' }
+        destination: { did: 'travelled to', didNot: 'did not travel to' }
+        refreshment: { did: 'bought', didNot: 'did not buy' }
+        departure: { did: 'caught', didNot: 'did not catch' }
+      luggage:
+        passenger: { did: 'was carried by', didNot: 'was not carried by' }
+        destination: { did: 'was bound for', didNot: 'was not bound for' }
+        refreshment: { did: 'travelled with', didNot: 'did not travel with' }
+        departure: { did: 'went on', didNot: 'did not go on' }
+      destination:
+        passenger: { did: 'was reached by', didNot: 'was not reached by' }
+        luggage: { did: 'received', didNot: 'did not receive' }
+        refreshment: { did: 'called for', didNot: 'did not call for' }
+        departure: { did: 'was served by', didNot: 'was not served by' }
+      refreshment:
+        passenger: { did: 'was bought by', didNot: 'was not bought by' }
+        luggage: { did: 'travelled with', didNot: 'did not travel with' }
+        destination: { did: 'was eaten on the way to', didNot: 'was not eaten on the way to' }
+        departure: { did: 'was bought for', didNot: 'was not bought for' }
+      departure:
+        passenger: { did: 'carried', didNot: 'did not carry' }
+        luggage: { did: 'took', didNot: 'did not take' }
+        destination: { did: 'ran to', didNot: 'did not run to' }
+        refreshment: { did: 'came with', didNot: 'did not come with' }
     categories:
       passenger:
         name: 'Passenger'
@@ -314,7 +340,7 @@ themes:
               labelled: 'labelled'
       destination:
         name: 'Destination'
-        pattern: 'the {}'
+        pattern: '{}'
         describes: 'the {}'
         noun: 'destination'
         traits:

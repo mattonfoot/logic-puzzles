@@ -158,20 +158,15 @@ describe('describeClue', () => {
   });
 });
 
-describe('the voices a theme writes for its sets', () => {
+describe('the words a theme puts between two of its sets', () => {
   const voiced: Puzzle = {
     ...puzzleWith(),
     clueVoices: {
-      // The age has more to say about a sentence than the person does, so it
-      // is written first and wins any pairing it is in.
-      age: {
-        first: { link: '{b} is {a}.' },
-        second: { link: '{a} is {b}.' },
-      },
       person: {
-        first: { link: '{a} feeds {b}.', groupNot: 'No {a} feeds {b}.' },
-        second: { link: '{a} is fed by {b}.', either: '{a} is fed by either {b} or {c}.' },
+        pet: { did: 'feeds', didNot: 'does not feed' },
+        age: { did: 'turned', didNot: 'never turned' },
       },
+      pet: { person: { did: 'is fed by', didNot: 'is not fed by' } },
     },
   };
   const group: Clue = {
@@ -180,44 +175,33 @@ describe('the voices a theme writes for its sets', () => {
     b: { category: 1, item: 1 },
   };
 
-  it('speaks for a set that is the first side', () => {
+  it('builds all four pairing kinds out of the one relationship', () => {
     expect(describeClue(link, voiced)).toBe('Ann feeds the Dog owner.');
+    expect(describeClue(notLink, voiced)).toBe('Ann does not feed the Dog owner.');
     expect(describeClue(group, voiced)).toBe('No person feeds the Dog owner.');
+    expect(describeClue(either, voiced)).toBe('Ann feeds either the Cat owner or the Dog owner.');
   });
 
-  it('speaks to it when it is the second side', () => {
-    const toPerson: Clue = { ...link, a: { category: 1, item: 1 }, b: { category: 0, item: 0 } };
-    expect(describeClue(toPerson, voiced)).toBe('The Dog owner is fed by Ann.');
-
-    const options: Clue = {
-      kind: 'either',
-      a: { category: 1, item: 1 },
-      options: [
-        { category: 0, item: 0 },
-        { category: 0, item: 1 },
-      ],
-    };
-    expect(describeClue(options, voiced)).toBe('The Dog owner is fed by either Ann or Bo.');
+  it('says it the other way round when the sets fall the other way round', () => {
+    const back: Clue = { ...link, a: { category: 1, item: 1 }, b: { category: 0, item: 0 } };
+    expect(describeClue(back, voiced)).toBe('The Dog owner is fed by Ann.');
   });
 
-  it('gives a pairing between two voiced sets to whichever is written first', () => {
-    // Both the age and the person have something to say; the age said it first.
-    const both: Clue = { ...link, a: { category: 0, item: 0 }, b: { category: 2, item: 1 } };
-    expect(describeClue(both, voiced)).toBe('Ann is the 9 year old.');
+  it('keeps each pair of sets to its own relationship', () => {
+    const older: Clue = { ...link, a: { category: 0, item: 0 }, b: { category: 2, item: 1 } };
+    expect(describeClue(older, voiced)).toBe('Ann turned the 9 year old.');
   });
 
-  it('keeps the plain wording for a pairing between sets with no voice', () => {
-    const between: Clue = { ...link, a: { category: 1, item: 0 }, b: { category: 1, item: 2 } };
-    expect(describeClue(between, voiced)).toBe('The Cat owner lives with the Newt owner.');
+  it('falls back to the template for a pairing it says nothing about', () => {
+    // Nothing is written for a pet paired with an age, in either direction.
+    const between: Clue = { ...link, a: { category: 1, item: 0 }, b: { category: 2, item: 1 } };
+    expect(describeClue(between, voiced)).toBe('The Cat owner lives with the 9 year old.');
+
+    const backwards: Clue = { ...link, a: { category: 2, item: 1 }, b: { category: 1, item: 0 } };
+    expect(describeClue(backwards, voiced)).toBe('The 9 year old lives with the Cat owner.');
   });
 
-  it('keeps it for the kinds a voice does not cover', () => {
-    // The person's voice says nothing about notLink, and the pet has no voice
-    // at all, so the theme's own wording stands.
-    expect(describeClue(notLink, voiced)).toBe('Ann does not live with the Dog owner.');
-  });
-
-  it('is skipped entirely by a puzzle saved before the theme had one', () => {
+  it('is skipped entirely by a puzzle saved before the theme had any', () => {
     expect(describeClue(link, puzzleWith())).toBe('Ann lives with the Dog owner.');
   });
 });

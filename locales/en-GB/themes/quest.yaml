@@ -15,6 +15,32 @@ themes:
       either: '{a} is either {b} or {c}.'
       compare: '{greater} claimed a {comparative} {noun} than {lesser}.'
       compareGap: '{greater} claimed exactly {gap} {unit} more than {lesser}.'
+    voices:
+      hero:
+        weapon: { did: 'wielded', didNot: 'did not wield' }
+        beast: { did: 'slew', didNot: 'did not slay' }
+        realm: { did: 'championed', didNot: 'did not champion' }
+        reward: { did: 'claimed', didNot: 'did not claim' }
+      weapon:
+        hero: { did: 'was wielded by', didNot: 'was not wielded by' }
+        beast: { did: 'slew', didNot: 'did not slay' }
+        realm: { did: 'was carried through', didNot: 'was not carried through' }
+        reward: { did: 'earned', didNot: 'did not earn' }
+      beast:
+        hero: { did: 'was slain by', didNot: 'was not slain by' }
+        weapon: { did: 'was slain with', didNot: 'was not slain with' }
+        realm: { did: 'troubled', didNot: 'did not trouble' }
+        reward: { did: 'was worth', didNot: 'was not worth' }
+      realm:
+        hero: { did: 'was championed by', didNot: 'was not championed by' }
+        weapon: { did: 'saw', didNot: 'never saw' }
+        beast: { did: 'was troubled by', didNot: 'was not troubled by' }
+        reward: { did: 'paid', didNot: 'did not pay' }
+      reward:
+        hero: { did: 'was claimed by', didNot: 'was not claimed by' }
+        weapon: { did: 'was earned with', didNot: 'was not earned with' }
+        beast: { did: 'was paid for', didNot: 'was not paid for' }
+        realm: { did: 'was paid by', didNot: 'was not paid by' }
     categories:
       hero:
         name: 'Hero'
@@ -166,8 +192,8 @@ themes:
               age: '33'
       weapon:
         name: 'Weapon'
-        pattern: 'the {} wielder'
-        describes: 'the wielder of the {}'
+        pattern: 'the {}'
+        describes: 'the {}'
         noun: 'weapon'
         traits:
           material:
@@ -314,8 +340,8 @@ themes:
               upkeep: 'little'
       beast:
         name: 'Beast'
-        pattern: 'the {} slayer'
-        describes: 'the slayer of the {}'
+        pattern: 'the {}'
+        describes: 'the {}'
         noun: 'beast'
         traits:
           size:
@@ -462,8 +488,8 @@ themes:
               bounty: 'local'
       realm:
         name: 'Realm'
-        pattern: 'the champion of {}'
-        describes: 'the champion of the {}'
+        pattern: '{}'
+        describes: 'the {}'
         noun: 'realm'
         traits:
           land:

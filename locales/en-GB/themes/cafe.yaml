@@ -22,39 +22,31 @@ themes:
     # how a pairing it is in should read. The first of these the pairing is
     # between wins, which is why the table, with the most to say, comes first.
     voices:
-      seat:
-        first:
-          link: '{b} was at {a}.'
-          notLink: '{b} was not at {a}.'
-          groupNot: 'No {a} had {b} at it.'
-          either: 'Either {b} or {c} was at {a}.'
-        second:
-          link: '{a} was at {b}.'
-          notLink: '{a} was not at {b}.'
-          groupNot: 'No {a} was at {b}.'
-          either: '{a} was at either {b} or {c}.'
-      bill:
-        first:
-          link: '{b} was on {a}.'
-          notLink: '{b} was not on {a}.'
-          groupNot: 'No {a} had {b} on it.'
-          either: 'Either {b} or {c} was on {a}.'
-        second:
-          link: '{a} was on {b}.'
-          notLink: '{a} was not on {b}.'
-          groupNot: 'No {a} was on {b}.'
-          either: '{a} was on either {b} or {c}.'
       customer:
-        first:
-          link: '{a} ordered {b}.'
-          notLink: '{a} did not order {b}.'
-          groupNot: 'No {a} ordered {b}.'
-          either: '{a} ordered either {b} or {c}.'
-        second:
-          link: '{a} was ordered by {b}.'
-          notLink: '{a} was not ordered by {b}.'
-          groupNot: 'No {a} was ordered by {b}.'
-          either: '{a} was ordered by either {b} or {c}.'
+        drink: { did: 'ordered', didNot: 'did not order' }
+        pastry: { did: 'ordered', didNot: 'did not order' }
+        seat: { did: 'sat at', didNot: 'did not sit at' }
+        bill: { did: 'ran up', didNot: 'did not run up' }
+      drink:
+        customer: { did: 'was ordered by', didNot: 'was not ordered by' }
+        pastry: { did: 'was ordered with', didNot: 'was not ordered with' }
+        seat: { did: 'was served at', didNot: 'was not served at' }
+        bill: { did: 'was on', didNot: 'was not on' }
+      pastry:
+        customer: { did: 'was ordered by', didNot: 'was not ordered by' }
+        drink: { did: 'was ordered with', didNot: 'was not ordered with' }
+        seat: { did: 'was served at', didNot: 'was not served at' }
+        bill: { did: 'was on', didNot: 'was not on' }
+      seat:
+        customer: { did: 'seated', didNot: 'did not seat' }
+        drink: { did: 'served', didNot: 'did not serve' }
+        pastry: { did: 'served', didNot: 'did not serve' }
+        bill: { did: 'ran up', didNot: 'did not run up' }
+      bill:
+        customer: { did: 'was run up by', didNot: 'was not run up by' }
+        drink: { did: 'covered', didNot: 'did not cover' }
+        pastry: { did: 'covered', didNot: 'did not cover' }
+        seat: { did: 'was run up at', didNot: 'was not run up at' }
     categories:
       customer:
         name: 'Customer'

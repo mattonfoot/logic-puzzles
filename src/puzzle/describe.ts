@@ -34,23 +34,30 @@ export function resolveClueTemplates(theme: ThemeDef): ClueTemplates {
 
 /**
  * The sentence a pairing is written in, which depends on the two sets it is
- * between: the café's customer orders, what they order is ordered by them, and
- * a table is where that happened rather than another thing on the ticket.
+ * between and which way round they fall: the workshop's maker invented the
+ * invention, and the invention was invented by the maker.
  *
- * The theme's voices are tried in the order it writes them, so the set with
- * most to say about a sentence is named first; the first one this pairing is
- * between, and that has a wording for this kind, says it. A theme with nothing
- * to say gets its one template for the kind.
+ * The theme gives the words between the two sides and the four kinds are built
+ * from them, so the denial and the group clue cannot drift from the statement.
+ * A pairing the theme says nothing about gets its one template for the kind.
  */
 function wording(puzzle: Puzzle, kind: PairingKind, first: number, second: number): string {
-  const templates = puzzle.clueTemplates ?? DEFAULT_CLUE_TEMPLATES;
-  const sides = [puzzle.categories[first]?.id, puzzle.categories[second]?.id];
-
-  for (const [id, voice] of Object.entries(puzzle.clueVoices ?? {})) {
-    const said =
-      id === sides[0] ? voice.first?.[kind] : id === sides[1] ? voice.second?.[kind] : undefined;
-    if (said) return said;
+  const between =
+    puzzle.clueVoices?.[puzzle.categories[first]?.id]?.[puzzle.categories[second]?.id];
+  if (between) {
+    switch (kind) {
+      case 'link':
+        return `{a} ${between.did} {b}.`;
+      case 'notLink':
+        return `{a} ${between.didNot} {b}.`;
+      // The group clue hands over a bare description and opens on it itself.
+      case 'groupNot':
+        return `No {a} ${between.did} {b}.`;
+      case 'either':
+        return `{a} ${between.did} either {b} or {c}.`;
+    }
   }
+  const templates = puzzle.clueTemplates ?? DEFAULT_CLUE_TEMPLATES;
   return templates[kind] ?? DEFAULT_CLUE_TEMPLATES[kind];
 }
 

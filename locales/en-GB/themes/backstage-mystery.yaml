@@ -15,6 +15,32 @@ themes:
       either: '{a} is on stage with either {b} or {c}, but not both.'
       compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+    voices:
+      performer:
+        prop: { did: 'carried', didNot: 'did not carry' }
+        costume: { did: 'wore', didNot: 'did not wear' }
+        scenery: { did: 'played against', didNot: 'did not play against' }
+        stage-time: { did: 'took', didNot: 'did not take' }
+      prop:
+        performer: { did: 'was carried by', didNot: 'was not carried by' }
+        costume: { did: 'went with', didNot: 'did not go with' }
+        scenery: { did: 'was set against', didNot: 'was not set against' }
+        stage-time: { did: 'was used in', didNot: 'was not used in' }
+      costume:
+        performer: { did: 'dressed', didNot: 'did not dress' }
+        prop: { did: 'went with', didNot: 'did not go with' }
+        scenery: { did: 'stood against', didNot: 'did not stand against' }
+        stage-time: { did: 'came out for', didNot: 'did not come out for' }
+      scenery:
+        performer: { did: 'stood behind', didNot: 'did not stand behind' }
+        prop: { did: 'held', didNot: 'did not hold' }
+        costume: { did: 'framed', didNot: 'did not frame' }
+        stage-time: { did: 'stood for', didNot: 'did not stand for' }
+      stage-time:
+        performer: { did: 'was taken by', didNot: 'was not taken by' }
+        prop: { did: 'used', didNot: 'did not use' }
+        costume: { did: 'called for', didNot: 'did not call for' }
+        scenery: { did: 'played in front of', didNot: 'did not play in front of' }
     categories:
       performer:
         name: 'Performer'

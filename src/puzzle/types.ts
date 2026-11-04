@@ -124,40 +124,37 @@ export type ClueKind = keyof ClueTemplates;
 export type PairingKind = 'link' | 'notLink' | 'groupNot' | 'either';
 
 /**
- * One set's wording for the pairings it is in, from both sides of the sentence.
+ * How one set relates to another, as the words between them.
  *
- * A pairing has two sides, and a template fills them by position: `{a}` is the
- * first, `{b}` the second. Which side a set lands on is the generator's
- * business, so a set that wants its own wording says it twice — the same
- * sentence, with the slots where they fall. A template may put them in either
- * order, so "{b} was at {a}" and "{a} was at {b}" are one sentence written for
- * the two cases. Group clues are the exception: `{a}` is always the group the
- * sentence rules out, and the sentence always opens on it.
+ * A pairing clue is one sentence with two sides, and what belongs between them
+ * is a verb phrase: a maker *invented* an invention, an invention *was made of*
+ * a material, a customer *ordered* a drink. Give the phrase and its negative
+ * and all four pairing kinds follow from them — the statement, its denial, the
+ * group ruled out, and the choice of two — which keeps a theme from having to
+ * write the same relationship four times and get one of them subtly wrong.
  */
-export interface SetVoice {
-  /** The set is `{a}`: the first side, or an either-or's single side. */
-  first?: Partial<Record<PairingKind, string>>;
-  /** It is `{b}`: the second side, or both of an either-or's options. */
-  second?: Partial<Record<PairingKind, string>>;
+export interface PairVoice {
+  /** "invented", "was made of" — the sentence reads "{a} <did> {b}." */
+  did: string;
+  /** Its denial: "did not invent", "was not made of". */
+  didNot: string;
 }
 
 /**
- * Wording that depends on which sets a pairing is between.
+ * How a theme's sets relate to each other, by set id: `voices[a][b]` is the
+ * wording for a pairing with `a` on the first side and `b` on the second.
  *
- * A theme whose sets are all the same sort of thing needs one sentence a kind:
- * "{a} is paired with {b}" reads the same whichever two it falls between. A
- * theme where they are different sorts of thing does not. In the café a
- * customer orders, what they order is ordered by them, two of those were
- * ordered with each other, and a table is not ordered at all — it is where the
- * rest of it happened.
+ * One sentence a kind only works while a theme's sets are interchangeable —
+ * "{a} is paired with {b}" reads the same whichever two it falls between. They
+ * rarely are. In the workshop a maker invented an invention, was invented by
+ * runs the other way, and a tool was used on both; in the café a table is not
+ * ordered at all. Both directions are written out, because English does not
+ * reverse a sentence by swapping its ends.
  *
- * So a theme may give any of its sets a voice, keyed by set id. A pairing is
- * worded by the **first set written here that it is between**, which is how a
- * theme says that the table has more to say about a sentence than the customer
- * does; a pairing between two sets with nothing written here, or a kind a voice
- * leaves out, falls back to `clues`.
+ * A pairing between two sets with nothing written here falls back to `clues`,
+ * and comparisons take no voice: they read from the ordered set's own words.
  */
-export type ClueVoices = Record<string, SetVoice>;
+export type ClueVoices = Record<string, Record<string, PairVoice>>;
 
 export interface ThemeDef {
   id: string;

@@ -181,29 +181,28 @@ describe('themes', () => {
         }
       });
 
-      it('writes any voice it has to the same shape as the kind it replaces', () => {
+      it('writes the words between two of its sets as a phrase, both ways round', () => {
         const ids = new Set(theme.categories.map((category) => category.id));
-        for (const [id, voice] of Object.entries(theme.voices ?? {})) {
+        for (const [from, pairs] of Object.entries(theme.voices ?? {})) {
           // A voice for a set the theme does not have would never be reached.
-          expect(`${id} is a set of ${theme.id}`).toBe(
-            ids.has(id) ? `${id} is a set of ${theme.id}` : `${id} is not a set of ${theme.id}`,
+          expect(`${theme.id} has a set ${from}`).toBe(
+            ids.has(from) ? `${theme.id} has a set ${from}` : `${theme.id} has no set ${from}`,
           );
 
-          for (const [kind, template] of Object.entries({ ...voice.first, ...voice.second })) {
-            // A voice is the same statement said differently, so it keeps every
-            // slot — a wording that dropped {b} would lose half the clue.
-            for (const slot of REQUIRED_SLOTS[kind as keyof ClueTemplates]) {
-              expect(`${kind}: ${template}`).toContain(slot);
+          for (const [to, voice] of Object.entries(pairs)) {
+            const pair = `${theme.id} ${from} -> ${to}`;
+            expect(`${pair} is between two sets it has`).toBe(
+              ids.has(to) && to !== from ? `${pair} is between two sets it has` : `${pair} is not`,
+            );
+
+            // The phrase sits inside a sentence the game builds around it, so
+            // it carries no slots, no punctuation and no capital of its own.
+            for (const words of [voice.did, voice.didNot]) {
+              expect(`${pair}: ${words}`).toMatch(/^[a-z][^{}.!?]*[a-z]$/u);
+              expect(words.trim()).toBe(words);
             }
-            expect(template.trim()).toBe(template);
-            expect(template).toMatch(/[.!?]$/);
-            for (const [, name] of template.matchAll(/\{(\w+)\}/g)) {
-              expect(KNOWN_SLOTS).toContain(name);
-            }
+            expect(`${pair}: ${voice.did}`).not.toBe(`${pair}: ${voice.didNot}`);
           }
-          // Comparisons read from the ordered set, not from who is in them.
-          const kinds = Object.keys({ ...voice.first, ...voice.second });
-          expect(kinds.filter((kind) => kind.startsWith('compare'))).toEqual([]);
         }
       });
 

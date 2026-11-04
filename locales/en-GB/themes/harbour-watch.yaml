@@ -15,6 +15,32 @@ themes:
       either: '{a} shares a port call with either {b} or {c}, but not both.'
       compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
+    voices:
+      skipper:
+        vessel: { did: 'sailed', didNot: 'did not sail' }
+        cargo: { did: 'landed', didNot: 'did not land' }
+        berth: { did: 'tied up at', didNot: 'did not tie up at' }
+        arrival: { did: 'made', didNot: 'did not make' }
+      vessel:
+        skipper: { did: 'was sailed by', didNot: 'was not sailed by' }
+        cargo: { did: 'carried', didNot: 'did not carry' }
+        berth: { did: 'lay at', didNot: 'did not lie at' }
+        arrival: { did: 'made', didNot: 'did not make' }
+      cargo:
+        skipper: { did: 'came ashore with', didNot: 'did not come ashore with' }
+        vessel: { did: 'travelled on', didNot: 'did not travel on' }
+        berth: { did: 'came ashore at', didNot: 'did not come ashore at' }
+        arrival: { did: 'came in on', didNot: 'did not come in on' }
+      berth:
+        skipper: { did: 'took', didNot: 'did not take' }
+        vessel: { did: 'held', didNot: 'did not hold' }
+        cargo: { did: 'took in', didNot: 'did not take in' }
+        arrival: { did: 'kept', didNot: 'did not keep' }
+      arrival:
+        skipper: { did: 'was made by', didNot: 'was not made by' }
+        vessel: { did: 'brought in', didNot: 'did not bring in' }
+        cargo: { did: 'brought in', didNot: 'did not bring in' }
+        berth: { did: 'was booked for', didNot: 'was not booked for' }
     categories:
       skipper:
         name: 'Skipper'

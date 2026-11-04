@@ -19,6 +19,98 @@ const THEME_WORDS = {
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
     },
+    voices: {
+      performer: {
+        prop: {
+          did: 'carried',
+          didNot: 'did not carry',
+        },
+        costume: {
+          did: 'wore',
+          didNot: 'did not wear',
+        },
+        scenery: {
+          did: 'played against',
+          didNot: 'did not play against',
+        },
+        'stage-time': {
+          did: 'took',
+          didNot: 'did not take',
+        },
+      },
+      prop: {
+        performer: {
+          did: 'was carried by',
+          didNot: 'was not carried by',
+        },
+        costume: {
+          did: 'went with',
+          didNot: 'did not go with',
+        },
+        scenery: {
+          did: 'was set against',
+          didNot: 'was not set against',
+        },
+        'stage-time': {
+          did: 'was used in',
+          didNot: 'was not used in',
+        },
+      },
+      costume: {
+        performer: {
+          did: 'dressed',
+          didNot: 'did not dress',
+        },
+        prop: {
+          did: 'went with',
+          didNot: 'did not go with',
+        },
+        scenery: {
+          did: 'stood against',
+          didNot: 'did not stand against',
+        },
+        'stage-time': {
+          did: 'came out for',
+          didNot: 'did not come out for',
+        },
+      },
+      scenery: {
+        performer: {
+          did: 'stood behind',
+          didNot: 'did not stand behind',
+        },
+        prop: {
+          did: 'held',
+          didNot: 'did not hold',
+        },
+        costume: {
+          did: 'framed',
+          didNot: 'did not frame',
+        },
+        'stage-time': {
+          did: 'stood for',
+          didNot: 'did not stand for',
+        },
+      },
+      'stage-time': {
+        performer: {
+          did: 'was taken by',
+          didNot: 'was not taken by',
+        },
+        prop: {
+          did: 'used',
+          didNot: 'did not use',
+        },
+        costume: {
+          did: 'called for',
+          didNot: 'did not call for',
+        },
+        scenery: {
+          did: 'played in front of',
+          didNot: 'did not play in front of',
+        },
+      },
+    },
     categories: {
       performer: {
         name: 'Performer',
@@ -965,46 +1057,94 @@ const THEME_WORDS = {
         'The {noun} for {greater} came out exactly {gap} {unit} {comparative} than for {lesser}.',
     },
     voices: {
-      seat: {
-        first: {
-          link: '{b} was at {a}.',
-          notLink: '{b} was not at {a}.',
-          groupNot: 'No {a} had {b} at it.',
-          either: 'Either {b} or {c} was at {a}.',
+      customer: {
+        drink: {
+          did: 'ordered',
+          didNot: 'did not order',
         },
-        second: {
-          link: '{a} was at {b}.',
-          notLink: '{a} was not at {b}.',
-          groupNot: 'No {a} was at {b}.',
-          either: '{a} was at either {b} or {c}.',
+        pastry: {
+          did: 'ordered',
+          didNot: 'did not order',
+        },
+        seat: {
+          did: 'sat at',
+          didNot: 'did not sit at',
+        },
+        bill: {
+          did: 'ran up',
+          didNot: 'did not run up',
+        },
+      },
+      drink: {
+        customer: {
+          did: 'was ordered by',
+          didNot: 'was not ordered by',
+        },
+        pastry: {
+          did: 'was ordered with',
+          didNot: 'was not ordered with',
+        },
+        seat: {
+          did: 'was served at',
+          didNot: 'was not served at',
+        },
+        bill: {
+          did: 'was on',
+          didNot: 'was not on',
+        },
+      },
+      pastry: {
+        customer: {
+          did: 'was ordered by',
+          didNot: 'was not ordered by',
+        },
+        drink: {
+          did: 'was ordered with',
+          didNot: 'was not ordered with',
+        },
+        seat: {
+          did: 'was served at',
+          didNot: 'was not served at',
+        },
+        bill: {
+          did: 'was on',
+          didNot: 'was not on',
+        },
+      },
+      seat: {
+        customer: {
+          did: 'seated',
+          didNot: 'did not seat',
+        },
+        drink: {
+          did: 'served',
+          didNot: 'did not serve',
+        },
+        pastry: {
+          did: 'served',
+          didNot: 'did not serve',
+        },
+        bill: {
+          did: 'ran up',
+          didNot: 'did not run up',
         },
       },
       bill: {
-        first: {
-          link: '{b} was on {a}.',
-          notLink: '{b} was not on {a}.',
-          groupNot: 'No {a} had {b} on it.',
-          either: 'Either {b} or {c} was on {a}.',
+        customer: {
+          did: 'was run up by',
+          didNot: 'was not run up by',
         },
-        second: {
-          link: '{a} was on {b}.',
-          notLink: '{a} was not on {b}.',
-          groupNot: 'No {a} was on {b}.',
-          either: '{a} was on either {b} or {c}.',
+        drink: {
+          did: 'covered',
+          didNot: 'did not cover',
         },
-      },
-      customer: {
-        first: {
-          link: '{a} ordered {b}.',
-          notLink: '{a} did not order {b}.',
-          groupNot: 'No {a} ordered {b}.',
-          either: '{a} ordered either {b} or {c}.',
+        pastry: {
+          did: 'covered',
+          didNot: 'did not cover',
         },
-        second: {
-          link: '{a} was ordered by {b}.',
-          notLink: '{a} was not ordered by {b}.',
-          groupNot: 'No {a} was ordered by {b}.',
-          either: '{a} was ordered by either {b} or {c}.',
+        seat: {
+          did: 'was run up at',
+          didNot: 'was not run up at',
         },
       },
     },
@@ -1952,6 +2092,98 @@ const THEME_WORDS = {
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
     },
+    voices: {
+      maker: {
+        invention: {
+          did: 'invented',
+          didNot: 'did not invent',
+        },
+        material: {
+          did: 'worked with',
+          didNot: 'did not work with',
+        },
+        tool: {
+          did: 'used',
+          didNot: 'did not use',
+        },
+        'build-year': {
+          did: 'worked on',
+          didNot: 'did not work on',
+        },
+      },
+      invention: {
+        maker: {
+          did: 'was invented by',
+          didNot: 'was not invented by',
+        },
+        material: {
+          did: 'was made of',
+          didNot: 'was not made of',
+        },
+        tool: {
+          did: 'was made with',
+          didNot: 'was not made with',
+        },
+        'build-year': {
+          did: 'came out of',
+          didNot: 'did not come out of',
+        },
+      },
+      material: {
+        maker: {
+          did: 'was worked by',
+          didNot: 'was not worked by',
+        },
+        invention: {
+          did: 'went into',
+          didNot: 'did not go into',
+        },
+        tool: {
+          did: 'was worked with',
+          didNot: 'was not worked with',
+        },
+        'build-year': {
+          did: 'went into',
+          didNot: 'did not go into',
+        },
+      },
+      tool: {
+        maker: {
+          did: 'helped',
+          didNot: 'did not help',
+        },
+        invention: {
+          did: 'shaped',
+          didNot: 'did not shape',
+        },
+        material: {
+          did: 'worked',
+          didNot: 'did not work',
+        },
+        'build-year': {
+          did: 'worked on',
+          didNot: 'did not work on',
+        },
+      },
+      'build-year': {
+        maker: {
+          did: 'was the work of',
+          didNot: 'was not the work of',
+        },
+        invention: {
+          did: 'produced',
+          didNot: 'did not produce',
+        },
+        material: {
+          did: 'used up',
+          didNot: 'did not use up',
+        },
+        tool: {
+          did: 'called for',
+          didNot: 'did not call for',
+        },
+      },
+    },
     categories: {
       maker: {
         name: 'Maker',
@@ -2895,6 +3127,98 @@ const THEME_WORDS = {
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
     },
+    voices: {
+      pupil: {
+        familiar: {
+          did: 'kept',
+          didNot: 'did not keep',
+        },
+        spell: {
+          did: 'cast',
+          didNot: 'did not cast',
+        },
+        classroom: {
+          did: 'studied in',
+          didNot: 'did not study in',
+        },
+        score: {
+          did: 'earned',
+          didNot: 'did not earn',
+        },
+      },
+      familiar: {
+        pupil: {
+          did: 'belonged to',
+          didNot: 'did not belong to',
+        },
+        spell: {
+          did: 'helped with',
+          didNot: 'did not help with',
+        },
+        classroom: {
+          did: 'waited in',
+          didNot: 'did not wait in',
+        },
+        score: {
+          did: 'belonged with',
+          didNot: 'did not belong with',
+        },
+      },
+      spell: {
+        pupil: {
+          did: 'was cast by',
+          didNot: 'was not cast by',
+        },
+        familiar: {
+          did: 'was helped by',
+          didNot: 'was not helped by',
+        },
+        classroom: {
+          did: 'was taught in',
+          didNot: 'was not taught in',
+        },
+        score: {
+          did: 'earned',
+          didNot: 'did not earn',
+        },
+      },
+      classroom: {
+        pupil: {
+          did: 'taught',
+          didNot: 'did not teach',
+        },
+        familiar: {
+          did: 'put up with',
+          didNot: 'did not put up with',
+        },
+        spell: {
+          did: 'covered',
+          didNot: 'did not cover',
+        },
+        score: {
+          did: 'gave out',
+          didNot: 'did not give out',
+        },
+      },
+      score: {
+        pupil: {
+          did: 'was earned by',
+          didNot: 'was not earned by',
+        },
+        familiar: {
+          did: 'was earned beside',
+          didNot: 'was not earned beside',
+        },
+        spell: {
+          did: 'was earned for',
+          didNot: 'was not earned for',
+        },
+        classroom: {
+          did: 'came out of',
+          didNot: 'did not come out of',
+        },
+      },
+    },
     categories: {
       pupil: {
         name: 'Pupil',
@@ -3285,8 +3609,8 @@ const THEME_WORDS = {
             pattern: '{} {noun}',
           },
           year: {
-            label: 'Taught in',
-            pattern: '{noun} taught in the {} year',
+            label: 'Year',
+            pattern: '{noun} from the {} year',
           },
           permission: {
             label: 'Permission',
@@ -3837,6 +4161,98 @@ const THEME_WORDS = {
       compare: '{greater} launches {comparative} than {lesser}.',
       compareGap: '{greater} launches exactly {gap} {unit} {comparative} than {lesser}.',
     },
+    voices: {
+      astronaut: {
+        destination: {
+          did: 'flew to',
+          didNot: 'did not fly to',
+        },
+        ship: {
+          did: 'crewed',
+          didNot: 'did not crew',
+        },
+        cargo: {
+          did: 'signed for',
+          didNot: 'did not sign for',
+        },
+        launch: {
+          did: 'lifted off on',
+          didNot: 'did not lift off on',
+        },
+      },
+      destination: {
+        astronaut: {
+          did: 'was reached by',
+          didNot: 'was not reached by',
+        },
+        ship: {
+          did: 'was served by',
+          didNot: 'was not served by',
+        },
+        cargo: {
+          did: 'was sent',
+          didNot: 'was not sent',
+        },
+        launch: {
+          did: 'was reached on',
+          didNot: 'was not reached on',
+        },
+      },
+      ship: {
+        astronaut: {
+          did: 'was crewed by',
+          didNot: 'was not crewed by',
+        },
+        destination: {
+          did: 'was bound for',
+          didNot: 'was not bound for',
+        },
+        cargo: {
+          did: 'carried',
+          didNot: 'did not carry',
+        },
+        launch: {
+          did: 'flew on',
+          didNot: 'did not fly on',
+        },
+      },
+      cargo: {
+        astronaut: {
+          did: 'was signed for by',
+          didNot: 'was not signed for by',
+        },
+        destination: {
+          did: 'was bound for',
+          didNot: 'was not bound for',
+        },
+        ship: {
+          did: 'was loaded onto',
+          didNot: 'was not loaded onto',
+        },
+        launch: {
+          did: 'went up on',
+          didNot: 'did not go up on',
+        },
+      },
+      launch: {
+        astronaut: {
+          did: 'sent up',
+          didNot: 'did not send up',
+        },
+        destination: {
+          did: 'set out for',
+          didNot: 'did not set out for',
+        },
+        ship: {
+          did: 'sent up',
+          didNot: 'did not send up',
+        },
+        cargo: {
+          did: 'took up',
+          didNot: 'did not take up',
+        },
+      },
+    },
     categories: {
       astronaut: {
         name: 'Astronaut',
@@ -4026,8 +4442,8 @@ const THEME_WORDS = {
       },
       destination: {
         name: 'Destination',
-        pattern: 'the crew bound for {}',
-        describes: 'the crew bound for the {}',
+        pattern: '{}',
+        describes: 'the {}',
         noun: 'world',
         traits: {
           kind: {
@@ -4783,6 +5199,98 @@ const THEME_WORDS = {
       compare: '{greater} stands {comparative} than {lesser}.',
       compareGap: '{greater} stands exactly {gap} {unit} {comparative} than {lesser}.',
     },
+    voices: {
+      gardener: {
+        flower: {
+          did: 'grew',
+          didNot: 'did not grow',
+        },
+        pot: {
+          did: 'planted up',
+          didNot: 'did not plant up',
+        },
+        tool: {
+          did: 'worked with',
+          didNot: 'did not work with',
+        },
+        height: {
+          did: 'raised',
+          didNot: 'did not raise',
+        },
+      },
+      flower: {
+        gardener: {
+          did: 'was grown by',
+          didNot: 'was not grown by',
+        },
+        pot: {
+          did: 'was planted in',
+          didNot: 'was not planted in',
+        },
+        tool: {
+          did: 'was tended with',
+          didNot: 'was not tended with',
+        },
+        height: {
+          did: 'grew into',
+          didNot: 'did not grow into',
+        },
+      },
+      pot: {
+        gardener: {
+          did: 'belongs to',
+          didNot: 'does not belong to',
+        },
+        flower: {
+          did: 'holds',
+          didNot: 'does not hold',
+        },
+        tool: {
+          did: 'was filled using',
+          didNot: 'was not filled using',
+        },
+        height: {
+          did: 'grew',
+          didNot: 'did not grow',
+        },
+      },
+      tool: {
+        gardener: {
+          did: 'belonged to',
+          didNot: 'did not belong to',
+        },
+        flower: {
+          did: 'tended',
+          didNot: 'did not tend',
+        },
+        pot: {
+          did: 'filled',
+          didNot: 'did not fill',
+        },
+        height: {
+          did: 'tended',
+          didNot: 'did not tend',
+        },
+      },
+      height: {
+        gardener: {
+          did: 'was raised by',
+          didNot: 'was not raised by',
+        },
+        flower: {
+          did: 'grew from',
+          didNot: 'did not grow from',
+        },
+        pot: {
+          did: 'grows in',
+          didNot: 'does not grow in',
+        },
+        tool: {
+          did: 'was tended with',
+          didNot: 'was not tended with',
+        },
+      },
+    },
     categories: {
       gardener: {
         name: 'Gardener',
@@ -4973,8 +5481,8 @@ const THEME_WORDS = {
       },
       flower: {
         name: 'Flower',
-        pattern: 'the {} grower',
-        describes: 'the grower of the {}',
+        pattern: 'the {}',
+        describes: 'the {}',
         noun: 'bloom',
         traits: {
           colour: {
@@ -5345,8 +5853,8 @@ const THEME_WORDS = {
       },
       tool: {
         name: 'Tool',
-        pattern: 'the {} owner',
-        describes: 'the owner of the {}',
+        pattern: 'the {}',
+        describes: 'the {}',
         noun: 'tool',
         traits: {
           material: {
@@ -5730,6 +6238,98 @@ const THEME_WORDS = {
       compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.',
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
+    },
+    voices: {
+      skipper: {
+        vessel: {
+          did: 'sailed',
+          didNot: 'did not sail',
+        },
+        cargo: {
+          did: 'landed',
+          didNot: 'did not land',
+        },
+        berth: {
+          did: 'tied up at',
+          didNot: 'did not tie up at',
+        },
+        arrival: {
+          did: 'made',
+          didNot: 'did not make',
+        },
+      },
+      vessel: {
+        skipper: {
+          did: 'was sailed by',
+          didNot: 'was not sailed by',
+        },
+        cargo: {
+          did: 'carried',
+          didNot: 'did not carry',
+        },
+        berth: {
+          did: 'lay at',
+          didNot: 'did not lie at',
+        },
+        arrival: {
+          did: 'made',
+          didNot: 'did not make',
+        },
+      },
+      cargo: {
+        skipper: {
+          did: 'came ashore with',
+          didNot: 'did not come ashore with',
+        },
+        vessel: {
+          did: 'travelled on',
+          didNot: 'did not travel on',
+        },
+        berth: {
+          did: 'came ashore at',
+          didNot: 'did not come ashore at',
+        },
+        arrival: {
+          did: 'came in on',
+          didNot: 'did not come in on',
+        },
+      },
+      berth: {
+        skipper: {
+          did: 'took',
+          didNot: 'did not take',
+        },
+        vessel: {
+          did: 'held',
+          didNot: 'did not hold',
+        },
+        cargo: {
+          did: 'took in',
+          didNot: 'did not take in',
+        },
+        arrival: {
+          did: 'kept',
+          didNot: 'did not keep',
+        },
+      },
+      arrival: {
+        skipper: {
+          did: 'was made by',
+          didNot: 'was not made by',
+        },
+        vessel: {
+          did: 'brought in',
+          didNot: 'did not bring in',
+        },
+        cargo: {
+          did: 'brought in',
+          didNot: 'did not bring in',
+        },
+        berth: {
+          did: 'was booked for',
+          didNot: 'was not booked for',
+        },
+      },
     },
     categories: {
       skipper: {
@@ -6678,6 +7278,98 @@ const THEME_WORDS = {
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
     },
+    voices: {
+      artist: {
+        lantern: {
+          did: 'made',
+          didNot: 'did not make',
+        },
+        instrument: {
+          did: 'played',
+          didNot: 'did not play',
+        },
+        stall: {
+          did: 'ran',
+          didNot: 'did not run',
+        },
+        showtime: {
+          did: 'took',
+          didNot: 'did not take',
+        },
+      },
+      lantern: {
+        artist: {
+          did: 'was made by',
+          didNot: 'was not made by',
+        },
+        instrument: {
+          did: 'was paraded with',
+          didNot: 'was not paraded with',
+        },
+        stall: {
+          did: 'hung over',
+          didNot: 'did not hang over',
+        },
+        showtime: {
+          did: 'was shown at',
+          didNot: 'was not shown at',
+        },
+      },
+      instrument: {
+        artist: {
+          did: 'belonged to',
+          didNot: 'did not belong to',
+        },
+        lantern: {
+          did: 'played beside',
+          didNot: 'did not play beside',
+        },
+        stall: {
+          did: 'played at',
+          didNot: 'did not play at',
+        },
+        showtime: {
+          did: 'played in',
+          didNot: 'did not play in',
+        },
+      },
+      stall: {
+        artist: {
+          did: 'was run by',
+          didNot: 'was not run by',
+        },
+        lantern: {
+          did: 'was lit by',
+          didNot: 'was not lit by',
+        },
+        instrument: {
+          did: 'heard',
+          didNot: 'did not hear',
+        },
+        showtime: {
+          did: 'opened for',
+          didNot: 'did not open for',
+        },
+      },
+      showtime: {
+        artist: {
+          did: 'was taken by',
+          didNot: 'was not taken by',
+        },
+        lantern: {
+          did: 'showed',
+          didNot: 'did not show',
+        },
+        instrument: {
+          did: 'called for',
+          didNot: 'did not call for',
+        },
+        stall: {
+          did: 'drew',
+          didNot: 'did not draw',
+        },
+      },
+    },
     categories: {
       artist: {
         name: 'Artist',
@@ -7619,6 +8311,98 @@ const THEME_WORDS = {
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
     },
+    voices: {
+      passenger: {
+        luggage: {
+          did: 'carried',
+          didNot: 'did not carry',
+        },
+        destination: {
+          did: 'travelled to',
+          didNot: 'did not travel to',
+        },
+        refreshment: {
+          did: 'bought',
+          didNot: 'did not buy',
+        },
+        departure: {
+          did: 'caught',
+          didNot: 'did not catch',
+        },
+      },
+      luggage: {
+        passenger: {
+          did: 'was carried by',
+          didNot: 'was not carried by',
+        },
+        destination: {
+          did: 'was bound for',
+          didNot: 'was not bound for',
+        },
+        refreshment: {
+          did: 'travelled with',
+          didNot: 'did not travel with',
+        },
+        departure: {
+          did: 'went on',
+          didNot: 'did not go on',
+        },
+      },
+      destination: {
+        passenger: {
+          did: 'was reached by',
+          didNot: 'was not reached by',
+        },
+        luggage: {
+          did: 'received',
+          didNot: 'did not receive',
+        },
+        refreshment: {
+          did: 'called for',
+          didNot: 'did not call for',
+        },
+        departure: {
+          did: 'was served by',
+          didNot: 'was not served by',
+        },
+      },
+      refreshment: {
+        passenger: {
+          did: 'was bought by',
+          didNot: 'was not bought by',
+        },
+        luggage: {
+          did: 'travelled with',
+          didNot: 'did not travel with',
+        },
+        destination: {
+          did: 'was eaten on the way to',
+          didNot: 'was not eaten on the way to',
+        },
+        departure: {
+          did: 'was bought for',
+          didNot: 'was not bought for',
+        },
+      },
+      departure: {
+        passenger: {
+          did: 'carried',
+          didNot: 'did not carry',
+        },
+        luggage: {
+          did: 'took',
+          didNot: 'did not take',
+        },
+        destination: {
+          did: 'ran to',
+          didNot: 'did not run to',
+        },
+        refreshment: {
+          did: 'came with',
+          didNot: 'did not come with',
+        },
+      },
+    },
     categories: {
       passenger: {
         name: 'Passenger',
@@ -7990,7 +8774,7 @@ const THEME_WORDS = {
       },
       destination: {
         name: 'Destination',
-        pattern: 'the {}',
+        pattern: '{}',
         describes: 'the {}',
         noun: 'destination',
         traits: {
@@ -8559,6 +9343,98 @@ const THEME_WORDS = {
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
+    },
+    voices: {
+      curator: {
+        exhibit: {
+          did: 'looked after',
+          didNot: 'did not look after',
+        },
+        gallery: {
+          did: 'worked in',
+          didNot: 'did not work in',
+        },
+        equipment: {
+          did: 'signed out',
+          didNot: 'did not sign out',
+        },
+        acquisition: {
+          did: 'brought in',
+          didNot: 'did not bring in',
+        },
+      },
+      exhibit: {
+        curator: {
+          did: 'was looked after by',
+          didNot: 'was not looked after by',
+        },
+        gallery: {
+          did: 'was shown in',
+          didNot: 'was not shown in',
+        },
+        equipment: {
+          did: 'was cared for with',
+          didNot: 'was not cared for with',
+        },
+        acquisition: {
+          did: 'arrived with',
+          didNot: 'did not arrive with',
+        },
+      },
+      gallery: {
+        curator: {
+          did: 'was run by',
+          didNot: 'was not run by',
+        },
+        exhibit: {
+          did: 'showed',
+          didNot: 'did not show',
+        },
+        equipment: {
+          did: 'kept',
+          didNot: 'did not keep',
+        },
+        acquisition: {
+          did: 'took in',
+          didNot: 'did not take in',
+        },
+      },
+      equipment: {
+        curator: {
+          did: 'went out with',
+          didNot: 'did not go out with',
+        },
+        exhibit: {
+          did: 'cared for',
+          didNot: 'did not care for',
+        },
+        gallery: {
+          did: 'sat in',
+          didNot: 'did not sit in',
+        },
+        acquisition: {
+          did: 'went with',
+          didNot: 'did not go with',
+        },
+      },
+      acquisition: {
+        curator: {
+          did: 'was brought in by',
+          didNot: 'was not brought in by',
+        },
+        exhibit: {
+          did: 'brought in',
+          didNot: 'did not bring in',
+        },
+        gallery: {
+          did: 'went to',
+          didNot: 'did not go to',
+        },
+        equipment: {
+          did: 'called for',
+          didNot: 'did not call for',
+        },
+      },
     },
     categories: {
       curator: {
@@ -9518,6 +10394,98 @@ const THEME_WORDS = {
       compare: '{greater} claimed a {comparative} {noun} than {lesser}.',
       compareGap: '{greater} claimed exactly {gap} {unit} more than {lesser}.',
     },
+    voices: {
+      hero: {
+        weapon: {
+          did: 'wielded',
+          didNot: 'did not wield',
+        },
+        beast: {
+          did: 'slew',
+          didNot: 'did not slay',
+        },
+        realm: {
+          did: 'championed',
+          didNot: 'did not champion',
+        },
+        reward: {
+          did: 'claimed',
+          didNot: 'did not claim',
+        },
+      },
+      weapon: {
+        hero: {
+          did: 'was wielded by',
+          didNot: 'was not wielded by',
+        },
+        beast: {
+          did: 'slew',
+          didNot: 'did not slay',
+        },
+        realm: {
+          did: 'was carried through',
+          didNot: 'was not carried through',
+        },
+        reward: {
+          did: 'earned',
+          didNot: 'did not earn',
+        },
+      },
+      beast: {
+        hero: {
+          did: 'was slain by',
+          didNot: 'was not slain by',
+        },
+        weapon: {
+          did: 'was slain with',
+          didNot: 'was not slain with',
+        },
+        realm: {
+          did: 'troubled',
+          didNot: 'did not trouble',
+        },
+        reward: {
+          did: 'was worth',
+          didNot: 'was not worth',
+        },
+      },
+      realm: {
+        hero: {
+          did: 'was championed by',
+          didNot: 'was not championed by',
+        },
+        weapon: {
+          did: 'saw',
+          didNot: 'never saw',
+        },
+        beast: {
+          did: 'was troubled by',
+          didNot: 'was not troubled by',
+        },
+        reward: {
+          did: 'paid',
+          didNot: 'did not pay',
+        },
+      },
+      reward: {
+        hero: {
+          did: 'was claimed by',
+          didNot: 'was not claimed by',
+        },
+        weapon: {
+          did: 'was earned with',
+          didNot: 'was not earned with',
+        },
+        beast: {
+          did: 'was paid for',
+          didNot: 'was not paid for',
+        },
+        realm: {
+          did: 'was paid by',
+          didNot: 'was not paid by',
+        },
+      },
+    },
     categories: {
       hero: {
         name: 'Hero',
@@ -9709,8 +10677,8 @@ const THEME_WORDS = {
       },
       weapon: {
         name: 'Weapon',
-        pattern: 'the {} wielder',
-        describes: 'the wielder of the {}',
+        pattern: 'the {}',
+        describes: 'the {}',
         noun: 'weapon',
         traits: {
           material: {
@@ -9898,8 +10866,8 @@ const THEME_WORDS = {
       },
       beast: {
         name: 'Beast',
-        pattern: 'the {} slayer',
-        describes: 'the slayer of the {}',
+        pattern: 'the {}',
+        describes: 'the {}',
         noun: 'beast',
         traits: {
           size: {
@@ -10086,8 +11054,8 @@ const THEME_WORDS = {
       },
       realm: {
         name: 'Realm',
-        pattern: 'the champion of {}',
-        describes: 'the champion of the {}',
+        pattern: '{}',
+        describes: 'the {}',
         noun: 'realm',
         traits: {
           land: {
@@ -10476,6 +11444,98 @@ const THEME_WORDS = {
       compare: '{greater} went {comparative} than {lesser}.',
       compareGap: '{greater} went exactly {gap} {unit} {comparative} than {lesser}.',
     },
+    voices: {
+      diver: {
+        species: {
+          did: 'spotted',
+          didNot: 'did not spot',
+        },
+        gear: {
+          did: 'dived with',
+          didNot: 'did not dive with',
+        },
+        site: {
+          did: 'dived',
+          didNot: 'did not dive',
+        },
+        depth: {
+          did: 'made',
+          didNot: 'did not make',
+        },
+      },
+      species: {
+        diver: {
+          did: 'was spotted by',
+          didNot: 'was not spotted by',
+        },
+        gear: {
+          did: 'was spotted with',
+          didNot: 'was not spotted with',
+        },
+        site: {
+          did: 'lives at',
+          didNot: 'does not live at',
+        },
+        depth: {
+          did: 'turned up on',
+          didNot: 'did not turn up on',
+        },
+      },
+      gear: {
+        diver: {
+          did: 'went with',
+          didNot: 'did not go with',
+        },
+        species: {
+          did: 'found',
+          didNot: 'did not find',
+        },
+        site: {
+          did: 'went to',
+          didNot: 'did not go to',
+        },
+        depth: {
+          did: 'went down on',
+          didNot: 'did not go down on',
+        },
+      },
+      site: {
+        diver: {
+          did: 'was dived by',
+          didNot: 'was not dived by',
+        },
+        species: {
+          did: 'is home to',
+          didNot: 'is not home to',
+        },
+        gear: {
+          did: 'called for',
+          didNot: 'did not call for',
+        },
+        depth: {
+          did: 'saw',
+          didNot: 'never saw',
+        },
+      },
+      depth: {
+        diver: {
+          did: 'was made by',
+          didNot: 'was not made by',
+        },
+        species: {
+          did: 'turned up',
+          didNot: 'did not turn up',
+        },
+        gear: {
+          did: 'needed',
+          didNot: 'did not need',
+        },
+        site: {
+          did: 'went down at',
+          didNot: 'did not go down at',
+        },
+      },
+    },
     categories: {
       diver: {
         name: 'Diver',
@@ -10663,8 +11723,8 @@ const THEME_WORDS = {
       },
       species: {
         name: 'Sighting',
-        pattern: 'the {} spotter',
-        describes: 'the spotter of the {}',
+        pattern: 'the {}',
+        describes: 'the {}',
         noun: 'creature',
         traits: {
           size: {
@@ -10850,8 +11910,8 @@ const THEME_WORDS = {
       },
       gear: {
         name: 'Gear',
-        pattern: 'the diver with the {}',
-        describes: 'the diver with the {}',
+        pattern: 'the {}',
+        describes: 'the {}',
         noun: 'kit',
         traits: {
           material: {
@@ -11225,9 +12285,9 @@ const THEME_WORDS = {
       },
       depth: {
         name: 'Depth',
-        pattern: 'the diver at {}',
-        describes: 'the diver at a {}',
-        noun: 'depth',
+        pattern: 'the {} descent',
+        describes: 'the {}',
+        noun: 'descent',
         ordered: {
           noun: 'depth',
           unit: 'metres',
@@ -11249,7 +12309,7 @@ const THEME_WORDS = {
           },
           air: {
             label: 'Breathing',
-            pattern: '{noun} dived on {}',
+            pattern: '{noun} on {}',
           },
           training: {
             label: 'Open to',
