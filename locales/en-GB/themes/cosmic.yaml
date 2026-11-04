@@ -9,10 +9,6 @@ themes:
     name: 'Cosmic Voyage'
     blurb: 'Crews, ships and launch windows'
     clues:
-      link: '{a} shares a mission with {b}.'
-      notLink: '{a} does not share a mission with {b}.'
-      groupNot: 'No {a} shares a mission with {b}.'
-      either: '{a} shares a mission with either {b} or {c}.'
       compare: '{greater} launches {comparative} than {lesser}.'
       compareGap: '{greater} launches exactly {gap} {unit} {comparative} than {lesser}.'
     voices:

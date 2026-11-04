@@ -9,10 +9,6 @@ themes:
     name: 'Lantern Festival'
     blurb: 'A thousand lights. One rather confused running order.'
     clues:
-      link: '{a} joins the same festival act as {b}.'
-      notLink: '{a} does not join the same festival act as {b}.'
-      groupNot: 'No {a} joins the same festival act as {b}.'
-      either: '{a} joins the same festival act as either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     voices:

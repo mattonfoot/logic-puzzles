@@ -52,14 +52,38 @@ describe('themes', () => {
     expect(custom.length).toBeGreaterThan(0);
 
     // Two themes should not be saying the same thing.
-    const links = new Set(THEMES.map((theme) => resolveClueTemplates(theme).link));
-    expect(links.size).toBeGreaterThan(1);
+    const compares = new Set(THEMES.map((theme) => resolveClueTemplates(theme).compare));
+    expect(compares.size).toBeGreaterThan(1);
 
     // And the defaults are still complete on their own.
     for (const slots of Object.values(REQUIRED_SLOTS)) {
       expect(slots.length).toBeGreaterThan(0);
     }
     expect(Object.keys(DEFAULT_CLUE_TEMPLATES).sort()).toEqual(Object.keys(REQUIRED_SLOTS).sort());
+  });
+
+  it('leaves the neutral pairing wording to the themes that have not been written yet', () => {
+    // Every theme says what its sets did to each other, both ways round, so
+    // the one-size-fits-all "is paired with" is now a safety net rather than
+    // something a player reads. A theme that stops covering a pairing falls
+    // through to wording written for nobody, which is the point: it reads as
+    // the oversight it is.
+    for (const theme of THEMES) {
+      for (const from of theme.categories) {
+        for (const to of theme.categories) {
+          if (from.id === to.id) continue;
+          const said = theme.voices?.[from.id]?.[to.id];
+          expect(`${theme.id}: ${from.id} -> ${to.id}`).toBe(
+            said
+              ? `${theme.id}: ${from.id} -> ${to.id}`
+              : `${theme.id}: nothing said for ${from.id} -> ${to.id}`,
+          );
+        }
+      }
+
+      // And nothing is left in `clues` that a voice has taken over.
+      expect(Object.keys(theme.clues ?? {}).sort()).toEqual(['compare', 'compareGap']);
+    }
   });
 
   it('offers several themes to draw from', () => {

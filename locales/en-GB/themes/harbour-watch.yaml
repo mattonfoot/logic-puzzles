@@ -9,10 +9,6 @@ themes:
     name: 'Harbour Watch'
     blurb: 'The tide is dependable. The paperwork is less so.'
     clues:
-      link: '{a} shares a port call with {b}.'
-      notLink: '{a} does not share a port call with {b}.'
-      groupNot: 'No {a} shares a port call with {b}.'
-      either: '{a} shares a port call with either {b} or {c}, but not both.'
       compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     voices:

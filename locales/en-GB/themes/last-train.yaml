@@ -9,10 +9,6 @@ themes:
     name: 'Last Train'
     blurb: 'Everyone is certain they are on the right train.'
     clues:
-      link: '{a} travels on the same booking as {b}.'
-      notLink: '{a} does not travel on the same booking as {b}.'
-      groupNot: 'No {a} travels on the same booking as {b}.'
-      either: '{a} travels on the same booking as either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     voices:

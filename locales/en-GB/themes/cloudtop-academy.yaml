@@ -9,10 +9,6 @@ themes:
     name: 'Cloudtop Academy'
     blurb: 'Outstanding potential. Unsupervised results may vary.'
     clues:
-      link: '{a} shares an assessment with {b}.'
-      notLink: '{a} does not share an assessment with {b}.'
-      groupNot: 'No {a} shares an assessment with {b}.'
-      either: '{a} shares an assessment with either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     voices:

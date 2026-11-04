@@ -9,10 +9,6 @@ themes:
     name: 'Reef Dive'
     blurb: 'Divers, sightings and depth logs'
     clues:
-      link: '{a} and {b} were on the same dive.'
-      notLink: '{a} and {b} were not on the same dive.'
-      groupNot: 'No {a} was on the same dive as {b}.'
-      either: '{a} was on the same dive as either {b} or {c}.'
       compare: '{greater} went {comparative} than {lesser}.'
       compareGap: '{greater} went exactly {gap} {unit} {comparative} than {lesser}.'
     voices:

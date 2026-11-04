@@ -9,10 +9,6 @@ themes:
     name: 'Clockwork Workshop'
     blurb: 'Precision engineering. Approximate supervision.'
     clues:
-      link: '{a} shares a workshop job with {b}.'
-      notLink: '{a} does not share a workshop job with {b}.'
-      groupNot: 'No {a} shares a workshop job with {b}.'
-      either: '{a} shares a workshop job with either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     voices:

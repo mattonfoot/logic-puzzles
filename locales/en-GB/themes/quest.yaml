@@ -9,10 +9,6 @@ themes:
     name: 'Mythic Quest'
     blurb: 'Heroes, beasts and hard-won gold'
     clues:
-      link: '{a} is none other than {b}.'
-      notLink: '{a} is not {b}.'
-      groupNot: 'No {a} is {b}.'
-      either: '{a} is either {b} or {c}.'
       compare: '{greater} claimed a {comparative} {noun} than {lesser}.'
       compareGap: '{greater} claimed exactly {gap} {unit} more than {lesser}.'
     voices:

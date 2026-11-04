@@ -40,7 +40,10 @@ the key alone.
 where the item's own name goes. A trait's `pattern` uses `{noun}` for what one
 member of the set is called and `{}` for the value, so "astronaut with red
 hair" is one template and one word. `clues` gives a theme its own sentences;
-anything it leaves out falls back to `clue.templates` in `ui.yaml`.
+anything it leaves out falls back to `clue.templates` in `ui.yaml`. In practice
+a theme writes only the two comparisons there: the pairing kinds are written in
+`voices` below, set by set, and a theme that covers all of them never reaches
+the neutral wording at all.
 
 `voices` is for a theme whose sets are different sorts of thing. One sentence a
 kind only works while they are interchangeable — "{a} is paired with {b}" reads

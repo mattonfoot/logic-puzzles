@@ -11,10 +11,6 @@ const THEME_WORDS = {
     name: 'Backstage Mystery',
     blurb: 'A flawless production, pending several small explanations.',
     clues: {
-      link: '{a} is on stage with {b}.',
-      notLink: '{a} is not on stage with {b}.',
-      groupNot: 'No {a} is on stage with {b}.',
-      either: '{a} is on stage with either {b} or {c}, but not both.',
       compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.',
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
@@ -1048,10 +1044,6 @@ const THEME_WORDS = {
     name: 'Corner Café',
     blurb: 'Regulars, orders and the morning rush',
     clues: {
-      link: '{a} was ordered with {b}.',
-      notLink: '{a} was not ordered with {b}.',
-      groupNot: 'No {a} was ordered with {b}.',
-      either: '{a} was ordered with either {b} or {c}.',
       compare: 'The {noun} for {greater} came out {comparative} than for {lesser}.',
       compareGap:
         'The {noun} for {greater} came out exactly {gap} {unit} {comparative} than for {lesser}.',
@@ -2084,10 +2076,6 @@ const THEME_WORDS = {
     name: 'Clockwork Workshop',
     blurb: 'Precision engineering. Approximate supervision.',
     clues: {
-      link: '{a} shares a workshop job with {b}.',
-      notLink: '{a} does not share a workshop job with {b}.',
-      groupNot: 'No {a} shares a workshop job with {b}.',
-      either: '{a} shares a workshop job with either {b} or {c}, but not both.',
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
@@ -3119,10 +3107,6 @@ const THEME_WORDS = {
     name: 'Cloudtop Academy',
     blurb: 'Outstanding potential. Unsupervised results may vary.',
     clues: {
-      link: '{a} shares an assessment with {b}.',
-      notLink: '{a} does not share an assessment with {b}.',
-      groupNot: 'No {a} shares an assessment with {b}.',
-      either: '{a} shares an assessment with either {b} or {c}, but not both.',
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
@@ -4154,10 +4138,6 @@ const THEME_WORDS = {
     name: 'Cosmic Voyage',
     blurb: 'Crews, ships and launch windows',
     clues: {
-      link: '{a} shares a mission with {b}.',
-      notLink: '{a} does not share a mission with {b}.',
-      groupNot: 'No {a} shares a mission with {b}.',
-      either: '{a} shares a mission with either {b} or {c}.',
       compare: '{greater} launches {comparative} than {lesser}.',
       compareGap: '{greater} launches exactly {gap} {unit} {comparative} than {lesser}.',
     },
@@ -5192,10 +5172,6 @@ const THEME_WORDS = {
     name: 'Blue Ribbon Garden',
     blurb: 'Growers, blooms and show-day heights',
     clues: {
-      link: '{a} and {b} are the same entry.',
-      notLink: '{a} and {b} are different entries.',
-      groupNot: 'No {a} is the same entry as {b}.',
-      either: '{a} is the same entry as either {b} or {c}.',
       compare: '{greater} stands {comparative} than {lesser}.',
       compareGap: '{greater} stands exactly {gap} {unit} {comparative} than {lesser}.',
     },
@@ -6231,10 +6207,6 @@ const THEME_WORDS = {
     name: 'Harbour Watch',
     blurb: 'The tide is dependable. The paperwork is less so.',
     clues: {
-      link: '{a} shares a port call with {b}.',
-      notLink: '{a} does not share a port call with {b}.',
-      groupNot: 'No {a} shares a port call with {b}.',
-      either: '{a} shares a port call with either {b} or {c}, but not both.',
       compare: 'The {noun} linked to {greater} is {comparative} than the one linked to {lesser}.',
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
@@ -7270,10 +7242,6 @@ const THEME_WORDS = {
     name: 'Lantern Festival',
     blurb: 'A thousand lights. One rather confused running order.',
     clues: {
-      link: '{a} joins the same festival act as {b}.',
-      notLink: '{a} does not join the same festival act as {b}.',
-      groupNot: 'No {a} joins the same festival act as {b}.',
-      either: '{a} joins the same festival act as either {b} or {c}, but not both.',
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
@@ -8303,10 +8271,6 @@ const THEME_WORDS = {
     name: 'Last Train',
     blurb: 'Everyone is certain they are on the right train.',
     clues: {
-      link: '{a} travels on the same booking as {b}.',
-      notLink: '{a} does not travel on the same booking as {b}.',
-      groupNot: 'No {a} travels on the same booking as {b}.',
-      either: '{a} travels on the same booking as either {b} or {c}, but not both.',
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
@@ -9336,10 +9300,6 @@ const THEME_WORDS = {
     name: 'Midnight Museum',
     blurb: 'The labels are precise. The staff are another matter.',
     clues: {
-      link: '{a} is recorded with {b}.',
-      notLink: '{a} is not recorded with {b}.',
-      groupNot: 'No {a} is recorded with {b}.',
-      either: '{a} is recorded with either {b} or {c}, but not both.',
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.',
       compareGap:
         'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.',
@@ -10387,10 +10347,6 @@ const THEME_WORDS = {
     name: 'Mythic Quest',
     blurb: 'Heroes, beasts and hard-won gold',
     clues: {
-      link: '{a} is none other than {b}.',
-      notLink: '{a} is not {b}.',
-      groupNot: 'No {a} is {b}.',
-      either: '{a} is either {b} or {c}.',
       compare: '{greater} claimed a {comparative} {noun} than {lesser}.',
       compareGap: '{greater} claimed exactly {gap} {unit} more than {lesser}.',
     },
@@ -11437,10 +11393,6 @@ const THEME_WORDS = {
     name: 'Reef Dive',
     blurb: 'Divers, sightings and depth logs',
     clues: {
-      link: '{a} and {b} were on the same dive.',
-      notLink: '{a} and {b} were not on the same dive.',
-      groupNot: 'No {a} was on the same dive as {b}.',
-      either: '{a} was on the same dive as either {b} or {c}.',
       compare: '{greater} went {comparative} than {lesser}.',
       compareGap: '{greater} went exactly {gap} {unit} {comparative} than {lesser}.',
     },

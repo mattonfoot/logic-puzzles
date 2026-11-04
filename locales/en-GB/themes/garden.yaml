@@ -9,10 +9,6 @@ themes:
     name: 'Blue Ribbon Garden'
     blurb: 'Growers, blooms and show-day heights'
     clues:
-      link: '{a} and {b} are the same entry.'
-      notLink: '{a} and {b} are different entries.'
-      groupNot: 'No {a} is the same entry as {b}.'
-      either: '{a} is the same entry as either {b} or {c}.'
       compare: '{greater} stands {comparative} than {lesser}.'
       compareGap: '{greater} stands exactly {gap} {unit} {comparative} than {lesser}.'
     voices:

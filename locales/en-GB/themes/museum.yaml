@@ -9,10 +9,6 @@ themes:
     name: 'Midnight Museum'
     blurb: 'The labels are precise. The staff are another matter.'
     clues:
-      link: '{a} is recorded with {b}.'
-      notLink: '{a} is not recorded with {b}.'
-      groupNot: 'No {a} is recorded with {b}.'
-      either: '{a} is recorded with either {b} or {c}, but not both.'
       compare: '{greater} is linked to a {comparative} {noun} than {lesser}.'
       compareGap: 'The {noun} linked to {greater} is exactly {gap} {unit} {comparative} than the one linked to {lesser}.'
     voices:

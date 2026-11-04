@@ -11,10 +11,6 @@ themes:
     clues:
       # The wording for a pairing with no customer in it: two things that came
       # to the table together.
-      link: '{a} was ordered with {b}.'
-      notLink: '{a} was not ordered with {b}.'
-      groupNot: 'No {a} was ordered with {b}.'
-      either: '{a} was ordered with either {b} or {c}.'
       compare: 'The {noun} for {greater} came out {comparative} than for {lesser}.'
       compareGap: 'The {noun} for {greater} came out exactly {gap} {unit} {comparative} than for {lesser}.'
     # Not everything in a café is ordered. A table is where the order happened,
