@@ -965,17 +965,47 @@ const THEME_WORDS = {
         'The {noun} for {greater} came out exactly {gap} {unit} {comparative} than for {lesser}.',
     },
     voices: {
-      anchorFirst: {
-        link: '{a} ordered {b}.',
-        notLink: '{a} did not order {b}.',
-        groupNot: 'No {a} ordered {b}.',
-        either: '{a} ordered either {b} or {c}.',
+      seat: {
+        first: {
+          link: '{b} was at {a}.',
+          notLink: '{b} was not at {a}.',
+          groupNot: 'No {a} had {b} at it.',
+          either: 'Either {b} or {c} was at {a}.',
+        },
+        second: {
+          link: '{a} was at {b}.',
+          notLink: '{a} was not at {b}.',
+          groupNot: 'No {a} was at {b}.',
+          either: '{a} was at either {b} or {c}.',
+        },
       },
-      anchorSecond: {
-        link: '{a} was ordered by {b}.',
-        notLink: '{a} was not ordered by {b}.',
-        groupNot: 'No {a} was ordered by {b}.',
-        either: '{a} was ordered by either {b} or {c}.',
+      bill: {
+        first: {
+          link: '{b} was on {a}.',
+          notLink: '{b} was not on {a}.',
+          groupNot: 'No {a} had {b} on it.',
+          either: 'Either {b} or {c} was on {a}.',
+        },
+        second: {
+          link: '{a} was on {b}.',
+          notLink: '{a} was not on {b}.',
+          groupNot: 'No {a} was on {b}.',
+          either: '{a} was on either {b} or {c}.',
+        },
+      },
+      customer: {
+        first: {
+          link: '{a} ordered {b}.',
+          notLink: '{a} did not order {b}.',
+          groupNot: 'No {a} ordered {b}.',
+          either: '{a} ordered either {b} or {c}.',
+        },
+        second: {
+          link: '{a} was ordered by {b}.',
+          notLink: '{a} was not ordered by {b}.',
+          groupNot: 'No {a} was ordered by {b}.',
+          either: '{a} was ordered by either {b} or {c}.',
+        },
       },
     },
     categories: {

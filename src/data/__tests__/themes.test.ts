@@ -182,10 +182,14 @@ describe('themes', () => {
       });
 
       it('writes any voice it has to the same shape as the kind it replaces', () => {
-        const voices = [theme.voices?.anchorFirst, theme.voices?.anchorSecond];
-        for (const voice of voices) {
-          if (!voice) continue;
-          for (const [kind, template] of Object.entries(voice)) {
+        const ids = new Set(theme.categories.map((category) => category.id));
+        for (const [id, voice] of Object.entries(theme.voices ?? {})) {
+          // A voice for a set the theme does not have would never be reached.
+          expect(`${id} is a set of ${theme.id}`).toBe(
+            ids.has(id) ? `${id} is a set of ${theme.id}` : `${id} is not a set of ${theme.id}`,
+          );
+
+          for (const [kind, template] of Object.entries({ ...voice.first, ...voice.second })) {
             // A voice is the same statement said differently, so it keeps every
             // slot — a wording that dropped {b} would lose half the clue.
             for (const slot of REQUIRED_SLOTS[kind as keyof ClueTemplates]) {
@@ -198,7 +202,8 @@ describe('themes', () => {
             }
           }
           // Comparisons read from the ordered set, not from who is in them.
-          expect(Object.keys(voice).filter((kind) => kind.startsWith('compare'))).toEqual([]);
+          const kinds = Object.keys({ ...voice.first, ...voice.second });
+          expect(kinds.filter((kind) => kind.startsWith('compare'))).toEqual([]);
         }
       });
 

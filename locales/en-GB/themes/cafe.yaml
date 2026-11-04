@@ -17,19 +17,44 @@ themes:
       either: '{a} was ordered with either {b} or {c}.'
       compare: 'The {noun} for {greater} came out {comparative} than for {lesser}.'
       compareGap: 'The {noun} for {greater} came out exactly {gap} {unit} {comparative} than for {lesser}.'
-    # A customer does the ordering, so a pairing they are in says so, whichever
-    # side of the sentence they fall on.
+    # Not everything in a café is ordered. A table is where the order happened,
+    # a bill is what it came to, and a customer is who placed it — so each says
+    # how a pairing it is in should read. The first of these the pairing is
+    # between wins, which is why the table, with the most to say, comes first.
     voices:
-      anchorFirst:
-        link: '{a} ordered {b}.'
-        notLink: '{a} did not order {b}.'
-        groupNot: 'No {a} ordered {b}.'
-        either: '{a} ordered either {b} or {c}.'
-      anchorSecond:
-        link: '{a} was ordered by {b}.'
-        notLink: '{a} was not ordered by {b}.'
-        groupNot: 'No {a} was ordered by {b}.'
-        either: '{a} was ordered by either {b} or {c}.'
+      seat:
+        first:
+          link: '{b} was at {a}.'
+          notLink: '{b} was not at {a}.'
+          groupNot: 'No {a} had {b} at it.'
+          either: 'Either {b} or {c} was at {a}.'
+        second:
+          link: '{a} was at {b}.'
+          notLink: '{a} was not at {b}.'
+          groupNot: 'No {a} was at {b}.'
+          either: '{a} was at either {b} or {c}.'
+      bill:
+        first:
+          link: '{b} was on {a}.'
+          notLink: '{b} was not on {a}.'
+          groupNot: 'No {a} had {b} on it.'
+          either: 'Either {b} or {c} was on {a}.'
+        second:
+          link: '{a} was on {b}.'
+          notLink: '{a} was not on {b}.'
+          groupNot: 'No {a} was on {b}.'
+          either: '{a} was on either {b} or {c}.'
+      customer:
+        first:
+          link: '{a} ordered {b}.'
+          notLink: '{a} did not order {b}.'
+          groupNot: 'No {a} ordered {b}.'
+          either: '{a} ordered either {b} or {c}.'
+        second:
+          link: '{a} was ordered by {b}.'
+          notLink: '{a} was not ordered by {b}.'
+          groupNot: 'No {a} was ordered by {b}.'
+          either: '{a} was ordered by either {b} or {c}.'
     categories:
       customer:
         name: 'Customer'

@@ -32,21 +32,26 @@ export function resolveClueTemplates(theme: ThemeDef): ClueTemplates {
   return { ...DEFAULT_CLUE_TEMPLATES, ...theme.clues };
 }
 
-/** The cast: a puzzle's first set is its theme's anchor, lesson or not. */
-const ANCHOR = 0;
-
 /**
- * The sentence a pairing is written in, which depends on where the cast falls:
- * the café's customer orders, is ordered by, or is nowhere in it and the two
- * sides were ordered with each other. A theme with nothing to say about that
- * gets its one template for the kind.
+ * The sentence a pairing is written in, which depends on the two sets it is
+ * between: the café's customer orders, what they order is ordered by them, and
+ * a table is where that happened rather than another thing on the ticket.
+ *
+ * The theme's voices are tried in the order it writes them, so the set with
+ * most to say about a sentence is named first; the first one this pairing is
+ * between, and that has a wording for this kind, says it. A theme with nothing
+ * to say gets its one template for the kind.
  */
 function wording(puzzle: Puzzle, kind: PairingKind, first: number, second: number): string {
-  const voices = puzzle.clueVoices;
-  const voice =
-    first === ANCHOR ? voices?.anchorFirst : second === ANCHOR ? voices?.anchorSecond : undefined;
   const templates = puzzle.clueTemplates ?? DEFAULT_CLUE_TEMPLATES;
-  return voice?.[kind] ?? templates[kind] ?? DEFAULT_CLUE_TEMPLATES[kind];
+  const sides = [puzzle.categories[first]?.id, puzzle.categories[second]?.id];
+
+  for (const [id, voice] of Object.entries(puzzle.clueVoices ?? {})) {
+    const said =
+      id === sides[0] ? voice.first?.[kind] : id === sides[1] ? voice.second?.[kind] : undefined;
+    if (said) return said;
+  }
+  return templates[kind] ?? DEFAULT_CLUE_TEMPLATES[kind];
 }
 
 /** Fills `{name}` slots; a slot with no value is left out rather than printed. */

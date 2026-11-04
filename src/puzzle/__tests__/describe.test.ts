@@ -158,12 +158,20 @@ describe('describeClue', () => {
   });
 });
 
-describe('the voices a theme writes for its cast', () => {
+describe('the voices a theme writes for its sets', () => {
   const voiced: Puzzle = {
     ...puzzleWith(),
     clueVoices: {
-      anchorFirst: { link: '{a} feeds {b}.', groupNot: 'No {a} feeds {b}.' },
-      anchorSecond: { link: '{a} is fed by {b}.', either: '{a} is fed by either {b} or {c}.' },
+      // The age has more to say about a sentence than the person does, so it
+      // is written first and wins any pairing it is in.
+      age: {
+        first: { link: '{b} is {a}.' },
+        second: { link: '{a} is {b}.' },
+      },
+      person: {
+        first: { link: '{a} feeds {b}.', groupNot: 'No {a} feeds {b}.' },
+        second: { link: '{a} is fed by {b}.', either: '{a} is fed by either {b} or {c}.' },
+      },
     },
   };
   const group: Clue = {
@@ -172,14 +180,14 @@ describe('the voices a theme writes for its cast', () => {
     b: { category: 1, item: 1 },
   };
 
-  it('speaks for the cast when the cast is the first side', () => {
+  it('speaks for a set that is the first side', () => {
     expect(describeClue(link, voiced)).toBe('Ann feeds the Dog owner.');
     expect(describeClue(group, voiced)).toBe('No person feeds the Dog owner.');
   });
 
-  it('speaks to the cast when the cast is the second side', () => {
-    const toCast: Clue = { ...link, a: { category: 1, item: 1 }, b: { category: 0, item: 0 } };
-    expect(describeClue(toCast, voiced)).toBe('The Dog owner is fed by Ann.');
+  it('speaks to it when it is the second side', () => {
+    const toPerson: Clue = { ...link, a: { category: 1, item: 1 }, b: { category: 0, item: 0 } };
+    expect(describeClue(toPerson, voiced)).toBe('The Dog owner is fed by Ann.');
 
     const options: Clue = {
       kind: 'either',
@@ -192,13 +200,20 @@ describe('the voices a theme writes for its cast', () => {
     expect(describeClue(options, voiced)).toBe('The Dog owner is fed by either Ann or Bo.');
   });
 
-  it('keeps the plain wording when the cast is in neither side', () => {
-    const between: Clue = { ...link, a: { category: 1, item: 0 }, b: { category: 2, item: 1 } };
-    expect(describeClue(between, voiced)).toBe('The Cat owner lives with the 9 year old.');
+  it('gives a pairing between two voiced sets to whichever is written first', () => {
+    // Both the age and the person have something to say; the age said it first.
+    const both: Clue = { ...link, a: { category: 0, item: 0 }, b: { category: 2, item: 1 } };
+    expect(describeClue(both, voiced)).toBe('Ann is the 9 year old.');
   });
 
-  it('keeps it for the kinds the voice does not cover', () => {
-    // anchorFirst says nothing about notLink, so the theme's own wording stands.
+  it('keeps the plain wording for a pairing between sets with no voice', () => {
+    const between: Clue = { ...link, a: { category: 1, item: 0 }, b: { category: 1, item: 2 } };
+    expect(describeClue(between, voiced)).toBe('The Cat owner lives with the Newt owner.');
+  });
+
+  it('keeps it for the kinds a voice does not cover', () => {
+    // The person's voice says nothing about notLink, and the pet has no voice
+    // at all, so the theme's own wording stands.
     expect(describeClue(notLink, voiced)).toBe('Ann does not live with the Dog owner.');
   });
 
