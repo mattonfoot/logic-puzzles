@@ -7,7 +7,7 @@ import { feedback } from './feedback';
 import { Icon } from './Icon';
 import { Text } from './Text';
 import { useStyles, useTheme } from './ThemeProvider';
-import { space, type Palette } from './theme';
+import { MENU_TYPE_CAP, space, type Palette } from './theme';
 
 interface Props {
   /** What a screen reader says it goes back to, e.g. "Back to setup". */
@@ -26,8 +26,8 @@ interface Props {
  * The triangle is one of the app's own silhouettes rather than a typed glyph,
  * so it is solid and the same shape on every platform.
  *
- * It carries the bottom safe area, so it is the last thing on a screen — the
- * scrolling part above it does not need to leave room for the home indicator.
+ * It carries the bottom safe area, so it is the last thing on a screen — what
+ * sits above it does not need to leave room for the home indicator.
  */
 export function BackLink({ label, onPress }: Props) {
   const insets = useSafeAreaInsets();
@@ -47,7 +47,9 @@ export function BackLink({ label, onPress }: Props) {
         style={({ pressed }) => [styles.hit, { opacity: pressed ? 0.6 : 1 }]}
       >
         <Icon name="ui/icon-back" size={11} color={palette.inkSoft} />
-        <Text style={styles.text}>{t('common.back')}</Text>
+        <Text style={styles.text} maxFontSizeMultiplier={MENU_TYPE_CAP}>
+          {t('common.back')}
+        </Text>
       </Pressable>
     </View>
   );

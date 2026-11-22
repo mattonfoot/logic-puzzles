@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { BackLink } from '../ui/BackLink';
 import { Choice } from '../ui/Choice';
@@ -43,8 +43,12 @@ interface Props {
  * business, which is why an entry is a label and a function rather than a
  * lesson.
  *
- * No list is long enough to scroll on any phone the app is built for; it
- * scrolls anyway, for the reader who has turned the system text size up.
+ * It does not scroll, and neither does any other menu. A choice that has to be
+ * dragged into view is a choice the player has to find first, and a list that
+ * moves under the thumb is a list that can be moved past the thing being
+ * reached for. The lists are short enough to fit, `npm run sizes` measures that
+ * on the five phones at the largest ordinary text setting, and `MENU_TYPE_CAP`
+ * is what stops the words growing past the point where it stays true.
  */
 export function MenuScreen({ title, entries, backLabel, onBack }: Props) {
   const styles = useStyles(makeStyles);
@@ -54,7 +58,7 @@ export function MenuScreen({ title, entries, backLabel, onBack }: Props) {
       <TitlePanel />
 
       <View style={styles.bottom}>
-        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <View style={styles.content}>
           <RuledTitle>{title}</RuledTitle>
 
           {entries.map((entry) => (
@@ -72,7 +76,7 @@ export function MenuScreen({ title, entries, backLabel, onBack }: Props) {
               onPress={entry.onPress}
             />
           ))}
-        </ScrollView>
+        </View>
 
         <BackLink label={backLabel} onPress={onBack} />
       </View>

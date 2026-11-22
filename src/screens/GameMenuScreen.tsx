@@ -94,6 +94,14 @@ export function GameMenuScreen({
 
   return (
     <View style={styles.screen}>
+      {/* The one list here that still scrolls. Everything a player chooses a
+          way through the app with — the front door, the lessons, the ways of
+          playing, the difficulties, the numbers, the daily five — now stands
+          still, because a choice that has to be dragged into view is a choice
+          that has to be found first. This is not one of those: it is six
+          switches and a restart, it is already two points taller than an
+          iPhone SE at the default text size, and the switches are the kind of
+          thing a reader at a large text size most needs to reach. */}
       <ScrollView
         contentContainerStyle={[styles.content, { paddingTop: insets.top + space(5) }]}
         showsVerticalScrollIndicator={false}

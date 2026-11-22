@@ -3,7 +3,7 @@ import { StyleSheet, View, type ViewStyle } from 'react-native';
 
 import { Text } from './Text';
 import { useStyles } from './ThemeProvider';
-import { space, TITLE_GAP, type, type Palette } from './theme';
+import { MENU_TYPE_CAP, space, TITLE_GAP, type, type Palette } from './theme';
 
 interface Props {
   children: string;
@@ -22,7 +22,7 @@ export function RuledTitle({ children, style }: Props) {
   const styles = useStyles(makeStyles);
   return (
     <View style={[styles.row, style]}>
-      <Text style={styles.title} accessibilityRole="header">
+      <Text style={styles.title} accessibilityRole="header" maxFontSizeMultiplier={MENU_TYPE_CAP}>
         {children}
       </Text>
       <View style={styles.line} />

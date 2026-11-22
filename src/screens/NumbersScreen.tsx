@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
 
 import {
   completedInRange,
@@ -85,7 +85,7 @@ export function NumbersScreen({ size, mode, busy, history, onPlay, onBack }: Pro
               the two screens behind this one. */}
           <RuledTitle>{t('numbers.title', { game: gameTitle(mode, size.difficulty) })}</RuledTitle>
 
-          <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
+          <View style={styles.list}>
             {level > 0
               ? ranges.map((range, row) => {
                   // A group is a row like any other: a box that ticks when
@@ -178,7 +178,7 @@ export function NumbersScreen({ size, mode, busy, history, onPlay, onBack }: Pro
                   );
                 })
               : null}
-          </ScrollView>
+          </View>
 
           {/* Under the list and at the foot of it, so the two sit where a page
               ends rather than floating halfway up with nothing beneath them. */}
@@ -228,10 +228,15 @@ const makeStyles = (palette: Palette) =>
       paddingTop: space(5),
     },
     list: {
+      // Takes the room the rows do not, so the pager stays at the foot of the
+      // page rather than riding up under the last number.
+      flex: 1,
       // Five stand in the half of the screen this gets, on every iPhone the app
-      // is built for. A shorter screen scrolls the numbers rather than pushing
-      // the pager off the bottom, which is the one thing here that has to stay
-      // put for the list to be usable at all.
+      // is built for, which is why the list does not scroll: the pager under it
+      // is the one thing here that has to stay put, and a list that could move
+      // under the thumb would be a list that can be dragged past the row being
+      // reached for. `npm run sizes` measures the five rows, the pager and the
+      // way back against every phone.
       paddingBottom: space(2),
     },
     row: {

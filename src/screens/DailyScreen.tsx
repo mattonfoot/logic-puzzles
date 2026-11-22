@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
 
 import { SIZES } from '../data/sizes';
 import { dailyDone, dailyStreak } from '../game/library';
@@ -72,7 +72,7 @@ export function DailyScreen({ busy, history, onPlay, onShowResult, onBack }: Pro
             </Text>
           ) : null}
 
-          <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
+          <View style={styles.list}>
             {SIZES.map((size) => {
               const game = done.get(size.id) ?? null;
               return (
@@ -99,7 +99,7 @@ export function DailyScreen({ busy, history, onPlay, onShowResult, onBack }: Pro
                 </Pressable>
               );
             })}
-          </ScrollView>
+          </View>
         </View>
 
         <BackLink label={t('daily.back')} onPress={onBack} />
@@ -139,6 +139,7 @@ const makeStyles = (palette: Palette) =>
       marginBottom: space(2),
     },
     list: {
+      flex: 1,
       paddingBottom: space(4),
     },
     row: {

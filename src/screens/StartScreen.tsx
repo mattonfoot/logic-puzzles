@@ -6,7 +6,7 @@ import { t } from '../i18n';
 import { feedback } from '../ui/feedback';
 import { Text } from '../ui/Text';
 import { useStyles, useTheme } from '../ui/ThemeProvider';
-import { space, type, type Palette } from '../ui/theme';
+import { MENU_TYPE_CAP, space, type, type Palette } from '../ui/theme';
 import { TitlePanel } from '../ui/TitlePanel';
 
 interface Props {
@@ -90,7 +90,12 @@ function Door({ label, onPress }: { label: string; onPress: () => void }) {
       hitSlop={12}
       style={({ pressed }) => [styles.door, { opacity: pressed ? 0.6 : 1 }]}
     >
-      <Text style={[styles.doorText, { color: palette.accent }]}>{label}</Text>
+      <Text
+        style={[styles.doorText, { color: palette.accent }]}
+        maxFontSizeMultiplier={MENU_TYPE_CAP}
+      >
+        {label}
+      </Text>
     </Pressable>
   );
 }
@@ -108,7 +113,9 @@ function FootLink({ label, onPress }: { label: string; onPress: () => void }) {
       }}
       style={({ pressed }) => [styles.footLink, { opacity: pressed ? 0.6 : 1 }]}
     >
-      <Text style={styles.footText}>{label}</Text>
+      <Text style={styles.footText} maxFontSizeMultiplier={MENU_TYPE_CAP}>
+        {label}
+      </Text>
     </Pressable>
   );
 }

@@ -96,6 +96,11 @@ export function TitlePanel() {
 
   return (
     <View
+      // `npm run sizes` asks each menu whether it fits without scrolling, and
+      // the name here would answer for it: the browser has no
+      // `adjustsFontSizeToFit`, so at a larger text setting it reports two
+      // points of overflow that the phone does not have.
+      testID="title-panel"
       style={[
         styles.panel,
         {

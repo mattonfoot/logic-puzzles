@@ -17,19 +17,36 @@
  * so a run that leaned on it having left one behind would only work when the
  * walk had been told to skip building too.
  *
+ * `--headroom` answers the other question: not whether a menu fits, but how far
+ * its words could still grow before it stopped. That is what `MENU_TYPE_CAP` is
+ * set from — the smallest of those numbers, on the narrowest phone.
+ *
  * The browser reports no safe-area insets, so a device's notch and
  * home indicator are added on top of what is measured here — which is why the
  * numbered list is asked to clear the pager by that much and not merely to
  * touch it. `src/ui/__tests__/panel.test.ts` holds the arithmetic that decides
  * the panel's share of a real screen with its insets.
  */
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { rm } from 'node:fs/promises';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { chromium } from 'playwright';
 
 import { BUILD_DIR, run, serve, wait } from './screenshots.mjs';
+
+/**
+ * How far the menus let their words grow, read out of the stylesheet rather
+ * than written down again here: the cap is what keeps a menu that cannot
+ * scroll from growing a row off the bottom, so the check has to be asking
+ * about the same number the app is drawing with.
+ */
+const THEME = join(dirname(fileURLToPath(import.meta.url)), '..', 'src', 'ui', 'theme.ts');
+const MENU_TYPE_CAP = Number(
+  /MENU_TYPE_CAP = ([\d.]+)/.exec(readFileSync(THEME, 'utf8'))?.[1] ?? NaN,
+);
+if (!Number.isFinite(MENU_TYPE_CAP)) throw new Error(`No MENU_TYPE_CAP in ${THEME}`);
 
 /** The sizes iOS reports, in points, and the inset the foot loses on a device. */
 const PHONES = [
@@ -114,13 +131,91 @@ async function tooTight(page, label) {
   return null;
 }
 
-/** Anything on the page that has more in it than it can show. */
-const scrollers = (page) =>
-  page.evaluate(() =>
-    [...document.querySelectorAll('div')]
+/**
+ * Anything on the page with more in it than it can show, at the size a phone
+ * would draw it.
+ *
+ * No menu scrolls any more, so this is no longer a question about a scroll bar:
+ * a list that outgrows its box now loses its last row off the bottom with
+ * nothing to drag. The words are grown the way `wrapsAt` grows them, both the
+ * size and the leading, since iOS scales a line's height with its letters and
+ * React Native sets both in points.
+ */
+const overflowing = (page, scale = 1) =>
+  page.evaluate((factor) => {
+    const all = [...document.querySelectorAll('*')];
+    // Measured first, then applied: setting a parent's size changes what the
+    // browser computes for its children, and growing that again compounds.
+    const own = all.map((el) => {
+      const style = getComputedStyle(el);
+      return {
+        el,
+        was: { size: el.style.fontSize, height: el.style.lineHeight },
+        size: parseFloat(style.fontSize),
+        height: parseFloat(style.lineHeight),
+      };
+    });
+    if (factor !== 1) {
+      for (const { el, size, height } of own) {
+        if (size) el.style.fontSize = `${size * factor}px`;
+        if (height) el.style.lineHeight = `${height * factor}px`;
+      }
+    }
+    // The panel over a menu sizes the app's own name with
+    // `adjustsFontSizeToFit`, which React Native Web does not implement: the
+    // phone shrinks the word, the browser reports two points of overflow.
+    const panel = document.querySelector('[data-testid="title-panel"]');
+    const over = [...document.querySelectorAll('div')]
+      .filter((el) => !panel?.contains(el))
       .filter((el) => el.scrollHeight > el.clientHeight + 1 && el.clientHeight > 80)
-      .map((el) => el.scrollHeight - el.clientHeight),
-  );
+      .map((el) => el.scrollHeight - el.clientHeight);
+    if (factor !== 1) {
+      for (const { el, was } of own) {
+        el.style.fontSize = was.size;
+        el.style.lineHeight = was.height;
+      }
+    }
+    return over;
+  }, scale);
+
+/**
+ * Run with `--headroom` to be told, instead, how far each menu's words can grow
+ * before it stops fitting. That is the number `MENU_TYPE_CAP` is set from, and
+ * the only way to know it is to measure it on every phone.
+ */
+const HEADROOM = process.argv.includes('--headroom');
+
+/** The largest multiplier this screen still fits at, to two decimal places. */
+async function headroom(page) {
+  if ((await overflowing(page)).length > 0) return 1;
+  let fits = 1;
+  let over = 3;
+  while (over - fits > 0.01) {
+    const mid = (fits + over) / 2;
+    if ((await overflowing(page, mid)).length > 0) over = mid;
+    else fits = mid;
+  }
+  return fits;
+}
+
+/**
+ * The question every menu is asked, now that none of them scroll: does all of
+ * it fit, at the size it is drawn and at the largest ordinary text setting?
+ */
+async function fits(page, where, complain) {
+  if (HEADROOM) {
+    const most = await headroom(page);
+    console.log(`    ${where.padEnd(24)} fits up to ${most.toFixed(2)}\u00d7`);
+    return;
+  }
+  const now = await overflowing(page);
+  if (now.length > 0) complain(`${where} overflows by ${now.join(', ')}pt`);
+  const grown = await overflowing(page, MENU_TYPE_CAP);
+  if (grown.length > 0)
+    complain(
+      `${where} overflows by ${grown.join(', ')}pt at ${MENU_TYPE_CAP}\u00d7, which the menus allow`,
+    );
+}
 
 async function main() {
   if (process.argv.includes('--skip-build')) {
@@ -162,6 +257,15 @@ async function main() {
         if (tight) complain(`${tight}, on the front door`);
       }
     }
+    await fits(page, 'the front door', complain);
+
+    // Today's five boards, which is a menu like any other: one row a size, the
+    // streak over them, the way back under.
+    await page.getByLabel('Daily', { exact: true }).click();
+    await wait(page, 600);
+    await fits(page, 'the daily list', complain);
+    await page.getByLabel('Back').click();
+    await wait(page, 400);
 
     // The two menus behind How to play: the same panel over the same half, so
     // the same question — does the list clear the way back?
@@ -176,6 +280,7 @@ async function main() {
         if (tight) complain(`${tight}, on the lessons menu`);
       }
     }
+    await fits(page, 'the lessons menu', complain);
     await page.getByLabel('Understanding clues').click();
     await wait(page, 500);
     for (const name of [
@@ -193,8 +298,7 @@ async function main() {
         if (tight) complain(`${tight}, on the clue lessons`);
       }
     }
-    const overLessons = await scrollers(page);
-    if (overLessons.length > 0) complain(`the clue lessons scroll by ${overLessons.join(', ')}pt`);
+    await fits(page, 'the clue lessons', complain);
     await page.getByLabel('Back').click();
     await wait(page, 400);
     await page.getByLabel('Back').click();
@@ -215,6 +319,7 @@ async function main() {
         if (tight) complain(`${tight}, on the ways of playing`);
       }
     }
+    await fits(page, 'the ways of playing', complain);
 
     await page.getByLabel('Pure Deduction', { exact: true }).click();
     await wait(page, 500);
@@ -227,6 +332,7 @@ async function main() {
         if (tight) complain(`${tight}, on the difficulties`);
       }
     }
+    await fits(page, 'the difficulties', complain);
 
     // The numbered list: six rows, the pager under them, and the way back under
     // that. This is the screen that decides how much of the phone the panel can
@@ -258,8 +364,7 @@ async function main() {
       }
       if (back.bottom > phone.height) complain('the way back runs off the numbered list');
     }
-    const over = await scrollers(page);
-    if (over.length > 0) complain(`the numbered list scrolls by ${over.join(', ')}pt`);
+    await fits(page, 'the numbered list', complain);
 
     // The board, zoomed until it is larger than the screen: the row and column
     // headings have to stay put while the grids slide under them, or the
@@ -272,6 +377,7 @@ async function main() {
     await wait(page, 1600);
     await page.getByLabel('Close').click({ position: { x: 12, y: 12 } });
     await wait(page, 400);
+
     for (let press = 0; press < 12; press++) {
       const zoom = page.getByLabel('Zoom in');
       if (await zoom.isDisabled()) break;

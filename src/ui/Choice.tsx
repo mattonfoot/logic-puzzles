@@ -4,7 +4,7 @@ import { Pressable, StyleSheet } from 'react-native';
 import { feedback } from './feedback';
 import { Text } from './Text';
 import { useStyles, useTheme } from './ThemeProvider';
-import { space, type, type Palette } from './theme';
+import { MENU_TYPE_CAP, space, type, type Palette } from './theme';
 
 interface Props {
   label: string;
@@ -50,7 +50,10 @@ export function Choice({ label, hint, disabled = false, size = 'menu', onPress }
       }}
       style={({ pressed }) => [styles.choice, { opacity: disabled ? 0.4 : pressed ? 0.6 : 1 }]}
     >
-      <Text style={[size === 'long' ? styles.long : styles.label, { color: palette.accent }]}>
+      <Text
+        style={[size === 'long' ? styles.long : styles.label, { color: palette.accent }]}
+        maxFontSizeMultiplier={MENU_TYPE_CAP}
+      >
         {label}
       </Text>
     </Pressable>

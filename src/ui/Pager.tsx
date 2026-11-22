@@ -6,7 +6,7 @@ import { feedback } from './feedback';
 import { Icon } from './Icon';
 import { Text } from './Text';
 import { useStyles, useTheme } from './ThemeProvider';
-import { space, type Palette } from './theme';
+import { MENU_TYPE_CAP, space, type Palette } from './theme';
 
 interface Props {
   onPrevious: () => void;
@@ -67,7 +67,9 @@ export function Pager({
           <Icon name="ui/icon-zoom-out" size={20} color={palette.accent} />
         </Pressable>
       ) : middle ? (
-        <Text style={styles.middle}>{middle}</Text>
+        <Text style={styles.middle} maxFontSizeMultiplier={MENU_TYPE_CAP}>
+          {middle}
+        </Text>
       ) : null}
       <PageLink label={t('common.next')} disabled={Boolean(nextDisabled)} onPress={onNext} />
     </View>
@@ -98,7 +100,9 @@ function PageLink({
       }}
       style={({ pressed }) => [styles.link, { opacity: disabled ? 0.3 : pressed ? 0.6 : 1 }]}
     >
-      <Text style={[styles.text, { color: palette.accent }]}>{label}</Text>
+      <Text style={[styles.text, { color: palette.accent }]} maxFontSizeMultiplier={MENU_TYPE_CAP}>
+        {label}
+      </Text>
     </Pressable>
   );
 }

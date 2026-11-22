@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 import { SIZES } from '../data/sizes';
 import { progress } from '../game/board';
@@ -40,8 +40,9 @@ interface Props {
  * What each shape means is on the board a second later, and was never the thing
  * being chosen.
  *
- * That leaves half a screen for five names and whatever game is waiting, so the
- * bottom half scrolls. The way back sits under it rather than inside it.
+ * That leaves half a screen for five names and whatever game is waiting, and
+ * all of it fits: the list does not scroll, here or on any other menu. The way
+ * back sits under it rather than inside it.
  *
  * A game already in progress sits above the **Play** heading, as one word —
  * **Continue** — set the same size as the difficulties under it. It is not one
@@ -74,7 +75,7 @@ export function SetupScreen({
       <TitlePanel />
 
       <View style={styles.bottom}>
-        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <View style={styles.content}>
           {savedGame ? (
             <View style={styles.waiting}>
               <Choice
@@ -111,7 +112,7 @@ export function SetupScreen({
               />
             ))}
           </View>
-        </ScrollView>
+        </View>
 
         <BackLink label={t('setup.back')} onPress={onBack} />
       </View>

@@ -214,6 +214,34 @@ export const type = {
  */
 export const TITLE_GAP = space(4);
 
+/**
+ * How far a menu's words grow with the reader's text setting.
+ *
+ * A menu does not scroll: every choice on it is on the screen or it cannot be
+ * reached. That holds while the words are the size the design was set at, and
+ * `npm run sizes --headroom` says how much further each menu can take them:
+ *
+ *     the ways of playing  2.27×      the clue lessons  1.51×
+ *     the lessons menu     1.60×      the daily list    1.35×
+ *     the front door       1.48×      the difficulties  1.27×
+ *                      the numbered list  1.16×
+ *
+ * on the narrowest phone the app is built for. The smallest of those is what
+ * every menu is held to, since the reader's setting is one number for all of
+ * them: five numbers, their pager and the way back in half a screen is the
+ * tightest thing the app draws, and it is where any more room would have to
+ * come from.
+ *
+ * 1.15 is iOS's xLarge, two notches above the default. Past it the words stop
+ * growing rather than carrying the last row off the bottom of a list that
+ * cannot be scrolled to reach it.
+ *
+ * Only the menus are capped. Everything a reader actually reads — a briefing, a
+ * lesson, the statistics, the board's own settings — is on a screen that
+ * scrolls, and grows as far as the reader asks.
+ */
+export const MENU_TYPE_CAP = 1.15;
+
 export const shadow = {
   card: Platform.select({
     ios: {
