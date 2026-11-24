@@ -199,6 +199,29 @@ async function headroom(page) {
 }
 
 /**
+ * How much screen is left under the way back.
+ *
+ * It is the last thing on every screen and it belongs at the foot of one,
+ * where the thumb is and where it sits on the settings and the statistics.
+ * A list that no longer fills its half leaves it floating under the last
+ * choice with the rest of the screen empty beneath it, which is what happened
+ * the day the menus stopped scrolling: the view that replaced the ScrollView
+ * was only as tall as its rows.
+ *
+ * Measured against the window rather than a container, since the question is
+ * where it lands on the phone. The browser reports no home indicator, so what
+ * is left is the bar's own padding and nothing else.
+ */
+const FOOT = 24;
+
+async function atTheFoot(page, where, complain) {
+  const back = await box(page, 'Back');
+  if (!back) return complain(`${where} has no way back`);
+  const under = Math.round((await page.viewportSize()).height - back.bottom);
+  if (under > FOOT) complain(`${where} leaves ${under}pt under the way back`);
+}
+
+/**
  * The question every menu is asked, now that none of them scroll: does all of
  * it fit, at the size it is drawn and at the largest ordinary text setting?
  */
@@ -264,6 +287,7 @@ async function main() {
     await page.getByLabel('Daily', { exact: true }).click();
     await wait(page, 600);
     await fits(page, 'the daily list', complain);
+    await atTheFoot(page, 'the daily list', complain);
     await page.getByLabel('Back').click();
     await wait(page, 400);
 
@@ -281,6 +305,7 @@ async function main() {
       }
     }
     await fits(page, 'the lessons menu', complain);
+    await atTheFoot(page, 'the lessons menu', complain);
     await page.getByLabel('Understanding clues').click();
     await wait(page, 500);
     for (const name of [
@@ -299,6 +324,7 @@ async function main() {
       }
     }
     await fits(page, 'the clue lessons', complain);
+    await atTheFoot(page, 'the clue lessons', complain);
     await page.getByLabel('Back').click();
     await wait(page, 400);
     await page.getByLabel('Back').click();
@@ -320,6 +346,7 @@ async function main() {
       }
     }
     await fits(page, 'the ways of playing', complain);
+    await atTheFoot(page, 'the ways of playing', complain);
 
     await page.getByLabel('Pure Deduction', { exact: true }).click();
     await wait(page, 500);
@@ -333,6 +360,7 @@ async function main() {
       }
     }
     await fits(page, 'the difficulties', complain);
+    await atTheFoot(page, 'the difficulties', complain);
 
     // The numbered list: six rows, the pager under them, and the way back under
     // that. This is the screen that decides how much of the phone the panel can
@@ -365,6 +393,7 @@ async function main() {
       if (back.bottom > phone.height) complain('the way back runs off the numbered list');
     }
     await fits(page, 'the numbered list', complain);
+    await atTheFoot(page, 'the numbered list', complain);
 
     // The board, zoomed until it is larger than the screen: the row and column
     // headings have to stay put while the grids slide under them, or the

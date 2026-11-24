@@ -95,6 +95,10 @@ const makeStyles = (palette: Palette) =>
       flex: 1,
     },
     content: {
+      // Takes the whole half, so the way back sits at the foot of the screen
+      // rather than wherever the last choice happens to end. The ScrollView
+      // this replaced did that by filling; a plain view has to be told.
+      flex: 1,
       paddingHorizontal: space(5),
       paddingTop: space(5),
       paddingBottom: space(5),
