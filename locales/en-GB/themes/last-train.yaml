@@ -788,68 +788,68 @@ briefings:
   themes:
     last-train:
       - title: The Unhelpful Breeze
-        body: A draught has rearranged the conductor's notes into a system admired only by the open window. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: A draught has rearranged the conductor's notes into a system admired only by the open window. The window has since been shut by somebody who did not look down first. Several pages are under the radiator and curling gently.
       - title: Carbon Copy
-        body: The duplicate ledger is perfectly readable, but every passenger's entry has acquired somebody else's heading. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The duplicate ledger is perfectly readable, and every entry has acquired somebody else's heading. The copying was done in a hurry on a moving train. Everything is in there, one line out, all the way down the page.
       - title: The Ink Incident
-        body: A clerk has discovered that shaking a pen above the register is an excellent way to change its contents. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: A clerk has discovered that shaking a pen above the register is an excellent way to change its contents. The pen now works beautifully. The register has four new marks and has lost two names underneath them.
       - title: Platform Diplomacy
-        body: Several passengers have offered to explain the confusion, producing several incompatible and unusually confident explanations. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: Several passengers have offered to explain the confusion, producing several incompatible and unusually confident accounts. One has drawn a diagram on the back of a timetable. The diagram has been corrected twice by people who were not there.
       - title: The Great Stapling
-        body: A well-meaning assistant has fastened the loose records together according to paper size rather than meaning. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: A well-meaning assistant has fastened the loose records together according to paper size rather than meaning. The staple went through all of it in one go. Pulling it out will take the corner off at least three sheets.
       - title: An Orderly Queue
-        body: The queue is immaculate, which makes the disorganised paperwork on the conductor's desk feel particularly personal. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The queue is immaculate, which makes the state of the conductor's desk feel particularly personal. Everybody is standing exactly where they should be. Nothing on the desk can currently say who any of them are.
       - title: The Reversed Register
-        body: Someone has copied the ledger from the last page backwards and called the result a fresh perspective. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: Somebody has copied the ledger from the last page backwards and called the result a fresh perspective. It is certainly fresh. Read from the top it describes an evening running steadily towards the morning it started in.
       - title: A Very Helpful Child
-        body: A young volunteer has sorted the paperwork into piles labelled interesting, boring and probably important. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: A young volunteer has sorted the paperwork into piles marked interesting, boring and probably important. The interesting pile is the largest. The probably important pile contains a sweet wrapper and most of the evening.
       - title: The Wrong Clipboard
-        body: The conductor has retrieved the missing clipboard, unfortunately from someone who had already started improving it. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The conductor has retrieved the missing clipboard, unfortunately from somebody who had already started improving it. The improvements are in green ink and very confident. None of them is in the right column.
       - title: A Quiet Carriage
-        body: The passengers have agreed to keep quiet while the clerk works, except when offering essential corrections. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The passengers have agreed to keep quiet while the clerk works, except when offering essential corrections. Essential corrections are being offered roughly every ninety seconds. Three have contradicted the one before it.
       - title: The Duplicate Stamp
-        body: Every entry has been stamped checked, including several entries that the clerk is certain have not been checked. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: Every entry has been stamped checked, including several the clerk is certain were not. The stamp was found in a drawer and used with enthusiasm. It says checked in red, twice, on a page that is still blank underneath.
       - title: A Matter of Handwriting
-        body: The clerk's elegant loops have been interpreted as letters, numbers and one small drawing of a duck. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The clerk's elegant loops have been read as letters, numbers and one small drawing of a duck. The duck has been initialled by a supervisor. Nobody has yet established what the duck was supposed to be.
       - title: The Folding Method
-        body: The register was folded for safekeeping and now presents its information in a particularly unhelpful sequence. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The register was folded for safekeeping and now presents its contents in a particularly unhelpful sequence. It was folded twice and then once more to fit a pocket. The pocket belonged to a coat that has been worn since.
       - title: Lost in Translation
-        body: A passenger has translated the clerk's abbreviations into longer phrases that remain just as mysterious. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: A passenger has translated the clerk's abbreviations into longer phrases that remain just as mysterious. Three letters have become eleven words. The eleven words mean no more than the three letters did.
       - title: The Helpful Announcement
-        body: An announcement has reassured everyone that the records are in order, creating immediate demand for that to become true. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: An announcement has reassured everybody that the records are in order, creating immediate demand for that to be true. It was heard the length of the platform. Two people have already come to the office to compliment the organisation.
       - title: Loose Leaves
-        body: The binding has given up before the staff, leaving a fan of pages with excellent freedom of movement. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The binding has given up before the staff have, leaving a fan of pages with excellent freedom of movement. They were collected off the floor by three people at once. Each handed over a neat stack in a different order.
       - title: The Blue Pencil
-        body: The conductor's corrections are clear, but nobody remembers which of two blue pencils marked the final version. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The conductor's corrections are clear, and nobody remembers which of two blue pencils made the final ones. Both pencils are in the tin. Both were sharpened this morning and neither will admit to anything.
       - title: The Inspection Smile
-        body: An inspector has arrived smiling, a development the clerk considers more alarming than open criticism. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: An inspector has arrived smiling, which the clerk finds considerably more alarming than open criticism. The smile has not changed in four minutes. The folder is still shut and is being looked at steadily.
       - title: A Fresh Start
-        body: The replacement ledger is beautifully clean because the information is still on an untidy collection of slips. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The replacement ledger is beautifully clean because everything that should be in it is still on an untidy drift of slips. The slips are held down by a mug. The mug is the only thing on the desk in a known position.
       - title: The Polite Dispute
-        body: Two clerks are disagreeing with such courtesy that the passengers have mistaken it for a welcoming ceremony. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: Two clerks are disagreeing with such courtesy that the passengers have mistaken it for a welcoming ceremony. Somebody has applauded. The disagreement has not moved an inch in either direction since the applause.
       - title: The Desk Drawer
-        body: The missing notes have been found in the drawer marked completed, where they had no business being. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The missing notes have turned up in the drawer marked completed, where they had no business being. Nothing in there was completed. One sheet has a question on it that was never answered and is now urgent.
       - title: A Promising Index
-        body: The index points to pages that point to other pages, showing admirable initiative but little practical value. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The index points to pages that point to other pages, which shows initiative and very little else. Following it twice returns you to where you started. Following it three times takes you to an empty sleeve.
       - title: The Almost Final Draft
-        body: The conductor has discovered another version labelled final, with handwriting that suggests considerable optimism. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The conductor has found another version labelled final, in handwriting that suggests considerable optimism. That makes three finals. Each is neater than the last and each disagrees with both the others.
       - title: The Clipping Problem
-        body: Paper clips have preserved every scrap while quietly obscuring several headings needed to understand them. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: Paper clips have preserved every scrap while quietly covering several headings needed to read them. The clips are bronze and rather handsome. Underneath each one is the word that would have explained the sheet.
       - title: The Red Carpet
-        body: A ceremonial welcome is ready outside, while inside the office the paperwork remains stubbornly informal. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: A ceremonial welcome is ready on the platform while inside the office the paperwork remains stubbornly informal. The brass band has tuned up twice. The office has a shoebox and four conflicting accounts of the evening.
       - title: The Familiar Face
-        body: Every passenger seems familiar to the clerk, which is comforting until accurate records are required. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: Every passenger seems familiar to the clerk, which is comforting until accurate records are wanted. They have all been greeted warmly by name. Two of the names were wrong and neither passenger wished to correct it.
       - title: The Restored Folder
-        body: The rescued folder is dry again, but its contents have settled into an arrangement of their own choosing. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The rescued folder is dry again, and its contents have settled into an arrangement of their own choosing. The drying rack did the arranging. It worked by size, which was efficient and not at all helpful.
       - title: The Neat Rewrite
-        body: A passenger has rewritten the notes neatly, preserving every uncertainty with exceptional penmanship. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: A passenger has rewritten the notes neatly, preserving every uncertainty with exceptional penmanship. The capitals are beautiful. The confusion underneath them has survived the journey entirely unharmed.
       - title: The Supervisor's Visit
-        body: The supervisor has asked one simple question about the ledger and is now waiting for a simple answer. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The supervisor has asked one simple question about the ledger and is now waiting for a simple answer. The question was who sat where. The answer has so far taken two people, four minutes and a diagram.
       - title: An Excess of Labels
-        body: The filing system has more labels than files, and several labels appear to be giving conflicting instructions. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The filing system has more labels than files, and several labels appear to be issuing conflicting instructions. One says do not move. Another, on the same box, says move to the other office, and is signed by the same person.
       - title: The Missing Margin
-        body: A copying error has removed the margins containing the clerk's most useful clarifications. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: A copying error has removed the margins holding the clerk's most useful clarifications. The pages are otherwise perfect. Everything that explained them was written half an inch outside the glass.
       - title: A Seat at the Desk
-        body: A passenger has kindly offered to take over the records, inspiring the staff to solve the problem promptly. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: A passenger has kindly offered to take over the records, which has inspired the staff to considerable urgency. The offer was sincere and is being repeated. The staff would like it settled before anybody accepts.
       - title: The Final Check
-        body: The conductor wants one dependable account before putting the folder away with an expression of professional certainty. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.
+        body: The conductor wants one dependable account before the folder goes away with an air of professional certainty. The air of certainty is ready. The account is four people, one evening, and no two of them agreeing yet.

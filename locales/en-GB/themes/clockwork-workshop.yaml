@@ -788,68 +788,68 @@ briefings:
   themes:
     clockwork-workshop:
       - title: Inspection Pending
-        body: The workshop inspector has polished a clipboard, leaving the makers little doubt about the seriousness of the visit. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The workshop inspector has polished a clipboard, leaving the makers in little doubt about the seriousness of the visit. The clipboard is empty, which somehow makes it worse. Whatever goes onto it had better agree with what is on the benches.
       - title: The Helpful Magnet
-        body: A large magnet has gathered every metal clip from the paperwork and left the pages pursuing separate careers. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: A large magnet has gathered every metal clip from the paperwork and left the pages pursuing separate careers. The magnet is now wearing the clips like a fringe and refuses to give them up. The pages will have to be sorted by what they say.
       - title: Under the Bench
-        body: The missing job cards have been recovered from beneath a bench, alongside several explanations nobody finds convincing. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The missing job cards have been recovered from beneath a bench, alongside several explanations nobody finds convincing. One card has a bootprint on it. Another has been there long enough to have dried flat and taken on the grain of the floor.
       - title: A New Filing System
-        body: The makers have adopted a colour-coded system without recording what any of the colours mean. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The makers have adopted a colour-coded system without recording what any of the colours mean. Green is thought to mean finished, or possibly urgent, or possibly that the green pen was nearest. The work itself still knows what happened.
       - title: The Apprentice's Sort
-        body: An apprentice has arranged the records by how impressive the handwriting looked, with predictably artistic results. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: An apprentice has arranged the records by how impressive the handwriting looked, with predictably artistic results. The best page is a note about a missing teaspoon. The worst is the only one anybody actually needs.
       - title: A Gust of Progress
-        body: The ventilation test has succeeded beyond expectations and redistributed the paperwork throughout the workshop. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The ventilation test has succeeded beyond expectations and redistributed the paperwork throughout the workshop. Two sheets have been retrieved from the yard and one from a passing cyclist. What came back is complete, which is not the same as being in order.
       - title: The Quiet Morning
-        body: The makers planned a calm administrative session before discovering that the folder marked current contains three different versions. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The makers planned a calm administrative morning, then discovered the folder marked current holds three different versions. Each has a date. Two of the dates are the same day, and the third is a Sunday, when the workshop is shut.
       - title: The Ink Test
-        body: A demonstration of indelible ink has left the record headings impressively permanent and largely unreadable. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: A demonstration of indelible ink has left the record headings impressively permanent and largely unreadable. The ink does everything it promised. It has simply done all of it in the same place, on top of itself, three times over.
       - title: The Committee Copy
-        body: A committee has approved the ledger in principle, provided someone can explain which entries belong together. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: A committee has approved the ledger in principle, provided somebody can explain which entries belong together. The committee has gone to lunch. It is a long lunch, but not that long, and the explanation is still at nothing.
       - title: The Bench Shuffle
-        body: Clearing a space for inspection has moved every loose note into a single impressively unhelpful stack. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: Clearing a space for the inspection has moved every loose note into a single impressively unhelpful stack. The space is magnificent. The stack is now the tallest thing in the room and leans slightly towards the window.
       - title: The Rubber Stamp
-        body: The new approval stamp has been tested enthusiastically on paperwork that had not reached the approval stage. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The new approval stamp has been tested enthusiastically on paperwork that had not reached the approval stage. Everything is approved. The bench with nothing on it is approved. A sandwich wrapper is approved and has been filed accordingly.
       - title: An Elegant Abbreviation
-        body: The makers' shorthand saves an extraordinary amount of space by omitting most of the information needed to read it. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The makers' shorthand saves an extraordinary amount of space by omitting most of what a reader would need. A whole week is recorded as sm. brs. tues ok. Nobody can remember what was small, or brassy, or what was all right about Tuesday.
       - title: The Wrong Envelope
-        body: The correct notes have arrived in an envelope marked obsolete, triggering a small but passionate debate. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The correct notes have arrived in an envelope marked obsolete, which has triggered a small but passionate debate. One maker insists the envelope is right and the notes are wrong. The notes, inconveniently, are dated this morning.
       - title: The Filing Demonstration
-        body: A demonstration of efficiency has finished with the ledger upside down and the audience waiting politely. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: A demonstration of filing efficiency finished with the ledger upside down and the audience waiting politely. The demonstrator has been persuaded to sit down. The pages are now in the order gravity chose for them.
       - title: The Duplicate Ledger
-        body: Two identical-looking books contain different arrangements, and both have been signed with considerable confidence. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: Two identical-looking books contain different arrangements, and both have been signed with considerable confidence. The signatures are also identical. The maker who wrote them is away until Thursday and the manager would rather not wait.
       - title: A Clean Desk
-        body: The desk is spotless because every working note has been swept into the same drawer. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The desk is spotless because every working note has been swept into the same drawer. The drawer no longer opens smoothly. What the workshop did last week is in there, flattened, with the pencils.
       - title: The Supervisor's Pencil
-        body: The supervisor has corrected several records, but the pencil marks stop just before the useful part. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The supervisor has corrected several records, but the pencil marks stop just before the useful part. The corrections are excellent as far as they go. They go about halfway down the second page and then simply stop, mid-word.
       - title: A Minor Vibration
-        body: A routine test has shaken the page dividers loose without disturbing the makers' belief that everything is under control. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: A routine test has shaken the page dividers loose without disturbing the makers' belief that everything is under control. The dividers are on the floor. The belief is still on the bench, next to the paperwork it no longer organises.
       - title: The Long Explanation
-        body: The makers have explained the mix-up so thoroughly that the clerk now understands less than at the start. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The makers have explained the mix-up so thoroughly that the clerk now understands less than at the start. There were diagrams. There was a second diagram explaining the first one, and a third that apologised for both.
       - title: A Fresh Cover
-        body: The ledger has a handsome new cover and the same unresolved contents that made the old cover look tired. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The ledger has a handsome new cover and the same unresolved contents that made the old cover look tired. It is a very good cover. Opening it remains as discouraging as it was last week, and the week before.
       - title: The Last Binder
-        body: The remaining binder contains all the right paperwork, held together by determination rather than any clear sequence. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The remaining binder holds all the right paperwork, kept together by determination rather than any clear sequence. The rings gave up in the spring. Since then it has been closed by a strap and opened by nobody willing to risk it.
       - title: A Very Good Question
-        body: A visiting apprentice has asked how the records are organised, and the room has become unusually quiet. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: A visiting apprentice has asked how the records are organised, and the room has become unusually quiet. One maker has started a sentence twice. Somebody else has begun looking for a kettle that is already full.
       - title: The Noticeboard
-        body: The relevant slips are pinned to the noticeboard among reminders to organise the relevant slips. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The relevant slips are pinned to the noticeboard among reminders to organise the relevant slips. The oldest reminder is from March. The slips have outlasted three people who meant to deal with them.
       - title: The Spare Register
-        body: The backup register appears to have backed up the confusion with remarkable accuracy. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The backup register appears to have backed up the confusion with remarkable accuracy. Every error has been faithfully reproduced in a neater hand. It is, at least, now wrong in a way that is easy to read.
       - title: The Afternoon Tidy
-        body: The makers' collective tidying effort has removed every obvious sign of the filing system. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The makers' collective tidying effort has removed every obvious sign of the filing system. The surfaces gleam. Nobody can find the week's work, but everybody agrees the room has never looked better.
       - title: The Demonstration Day
-        body: Visitors are expected to admire the workshop shortly, making a coherent administrative story suddenly desirable. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: Visitors are expected to admire the workshop shortly, which has made a coherent account of the week suddenly desirable. They are being shown the lathe first, which buys perhaps twenty minutes. The bench after that is the one with the paperwork on it.
       - title: The Smudged Initials
-        body: The entries survived a damp cloth, but the identifying initials did not share their resilience. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The entries survived a damp cloth, but the identifying initials did not share their resilience. What is left could be an R, or a B, or the place where somebody rested a wet mug. The week will have to be worked out from what is still legible.
       - title: A Matter of Sequence
-        body: The pages have been numbered beautifully in an order that nobody can justify. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The pages have been numbered beautifully in an order nobody can justify. The numbering is in two inks and runs backwards after page nine. Whoever did it is not admitting to it and the handwriting is no help.
       - title: The Overeager Copyist
-        body: The copyist has filled every blank with information from the nearest available line. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The copyist has filled every blank with information from the nearest available line. Nothing is now empty, which was the goal, and nothing is now reliable, which was not. The original is somewhere under the copies.
       - title: The Box of Certainty
-        body: A box labelled definitely correct contains notes that disagree with one another in several decisive ways. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: A box labelled definitely correct holds notes that disagree with one another in several decisive ways. The label is in capitals and underlined twice. The disagreement is in pencil and much more recent.
       - title: The Return of Order
-        body: The makers have promised the manager that the confusion is nearly resolved, generously leaving the final part to you. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The makers have assured the manager that the confusion is nearly resolved. Nearly is doing an enormous amount of work in that sentence. What is left is the part where somebody says which record belongs to whom.
       - title: The Desk Bell
-        body: The manager has rung for the records and now appears to be practising patient silence. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The manager has rung the desk bell for the records and now appears to be practising patient silence. The silence has lasted four minutes. The bell is still within reach and everybody in the room is aware of it.
       - title: Ready for Review
-        body: The workshop can demonstrate plenty of activity, but the clerk still needs a dependable account of what was recorded. Use the clues to restore the makers' records before the inspection turns into a discussion.
+        body: The workshop can demonstrate plenty of activity, and the benches are a credit to it. What it cannot yet demonstrate is a dependable account of who did what. One is wanted by the end of the day, in writing, from somebody who was there.

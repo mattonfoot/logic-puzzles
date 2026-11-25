@@ -788,68 +788,68 @@ briefings:
   themes:
     harbour-watch:
       - title: The Open Window
-        body: A sea breeze has rearranged the harbour office papers with more enthusiasm than respect for the headings. Reconstruct the skippers' records from the clues so the office can trust its log again.
+        body: A sea breeze has rearranged the harbour office papers with more enthusiasm than respect for the headings. The window was opened to clear the smell of creosote. It cleared the desk as well, and the desk had the week's record on it.
       - title: A Gull's Opinion
-        body: A gull has inspected the ledger and left the clerk with a small cleaning job and a large administrative one. Use the clues to restore the records before the harbourmaster calls for the ledger.
+        body: A gull has inspected the ledger and left the clerk with a small cleaning job and a large administrative one. The gull is still on the sill, unrepentant. Two pages are beyond saving and a third has gone an unusual colour.
       - title: The Damp Log
-        body: The logbook survived its encounter with a wet coat, but several identifying marks were less fortunate. Put the skippers' records back in order using the surviving clues.
+        body: The logbook survived its encounter with a wet coat, but several identifying marks were less fortunate. The coat belonged to somebody who has since gone to sea. What is left on the page could mean almost anybody.
       - title: The Harbourmaster's Tea
-        body: The harbourmaster has set down a cup directly over the note explaining how the loose records fit together. Reconstruct the skippers' records from the clues so the office can trust its log again.
+        body: The harbourmaster has set a cup down squarely on the note explaining how the loose records fit together. The ring is perfect. What was inside the ring was the only sentence in the office that made sense of the morning.
       - title: A Neat Hand
-        body: A skipper has copied the muddled log in beautiful handwriting, preserving every uncertainty with exceptional care. Use the clues to restore the records before the harbourmaster calls for the ledger.
+        body: A skipper has copied the muddled log in beautiful handwriting, preserving every uncertainty with exceptional care. The copy is a pleasure to look at. It is also, line for line, exactly as unhelpful as the original.
       - title: The Duplicate Register
-        body: Two copies of the register claim to be definitive, and the clerk is reluctant to disappoint either of them. Put the skippers' records back in order using the surviving clues.
+        body: Two copies of the register claim to be definitive, and the clerk is reluctant to disappoint either of them. One is signed by the harbourmaster. The other is signed by the harbourmaster, on the same date, in a better mood.
       - title: The Missing Divider
-        body: The folder dividers have gone missing, leaving the paperwork neatly stacked but no longer usefully separated. Reconstruct the skippers' records from the clues so the office can trust its log again.
+        body: The folder dividers have gone missing, leaving the paperwork neatly stacked but no longer usefully separated. Everything is present and nothing is apart from anything else. Somewhere in there, a tidy morning is pretending to be one long one.
       - title: The Loud Whistle
-        body: The harbourmaster has requested the completed records by whistle, which the clerk considers an unnecessary escalation. Use the clues to restore the records before the harbourmaster calls for the ledger.
+        body: The harbourmaster has requested the completed records by whistle, which the clerk considers an unnecessary escalation. The whistle carries across the whole basin. Two skippers have already looked up, assuming it was about them.
       - title: A Helpful Visitor
-        body: A visitor has sorted the loose slips according to how important they looked, producing several impressive piles. Put the skippers' records back in order using the surviving clues.
+        body: A visitor has sorted the loose slips by how important they looked, producing several impressive piles. The largest pile is receipts for rope. The morning's record is in the smallest pile, under a postcard.
       - title: The Inspection Coat
-        body: The inspector has hung up a very dry coat and is now waiting for an equally reassuring account of the records. Reconstruct the skippers' records from the clues so the office can trust its log again.
+        body: The inspector has hung up a very dry coat and is now waiting for an equally reassuring account of the morning. The coat is dripping on nothing at all. The account, so far, is three people who each remember a different hour.
       - title: A Better Filing Method
-        body: The office adopted a better filing method yesterday, but nobody recorded how it differs from the previous one. Use the clues to restore the records before the harbourmaster calls for the ledger.
+        body: The office adopted a better filing method yesterday, and nobody recorded how it differs from the old one. The folders have been renumbered. The numbers mean something to the person who did it, who is at sea until Friday.
       - title: The Overconfident Stamp
-        body: Every sheet has been stamped checked, including the blank sheet used to test the stamp. Put the skippers' records back in order using the surviving clues.
+        body: Every sheet has been stamped checked, including the blank sheet used to test the stamp. The blank sheet is now the most official document in the building. Nothing on any of the others has actually been checked.
       - title: A Brief Squall
-        body: A brief squall rattled the office so thoroughly that the loose notes have abandoned their previous arrangement. Reconstruct the skippers' records from the clues so the office can trust its log again.
+        body: A brief squall rattled the office so thoroughly that the loose notes have abandoned their previous arrangement. The squall lasted ninety seconds. Putting the morning back together will take rather longer than that.
       - title: The Polite Skippers
-        body: The skippers are explaining the mix-up with remarkable courtesy and remarkably little agreement. Use the clues to restore the records before the harbourmaster calls for the ledger.
+        body: The skippers are explaining the mix-up with remarkable courtesy and remarkably little agreement. Each defers to the others on every point except their own. Only one morning happened, however politely it is being disputed.
       - title: The Top Drawer
-        body: The missing notes have been found in the drawer reserved for completed work, where they had apparently been optimistic. Put the skippers' records back in order using the surviving clues.
+        body: The missing notes have been found in the drawer reserved for completed work, where they had apparently been optimistic. Nothing in that drawer was finished. One sheet is not even dated, and the ink is still smudging.
       - title: An Admirable Index
-        body: The index points to the correct pages, provided someone can establish which page numbers are correct. Reconstruct the skippers' records from the clues so the office can trust its log again.
+        body: The index points to the correct pages, provided somebody can establish which page numbers are correct. The pages were renumbered in pencil, then again in ink. The index has only ever known about the pencil.
       - title: The Pencil Change
-        body: The clerk changed pencils halfway through the corrections and can no longer remember which marks were final. Use the clues to restore the records before the harbourmaster calls for the ledger.
+        body: The clerk changed pencils halfway through the corrections and can no longer remember which marks were final. Both pencils were grey. Both hands were the same hand. The morning is in there twice and only one version is true.
       - title: The Drying Rack
-        body: The paperwork is dry again, but the washing line has imposed an order based entirely on available space. Put the skippers' records back in order using the surviving clues.
+        body: The paperwork is dry again, but the washing line imposed an order based entirely on available space. The small sheets went between the big ones. The whole morning now reads in the sequence the pegs allowed.
       - title: The Shore Office
-        body: The office looks unusually tidy because every unresolved note has been transferred to one very full folder. Reconstruct the skippers' records from the clues so the office can trust its log again.
+        body: The office looks unusually tidy because every unresolved note has been moved into one very full folder. The folder will not close. It has been put on a chair, and the chair has been put behind a door.
       - title: A Firm Assurance
-        body: The harbourmaster has assured the inspector that the records are in order and would now like that to be true. Use the clues to restore the records before the harbourmaster calls for the ledger.
+        body: The harbourmaster has assured the inspector that the records are in order and would now very much like that to be true. The assurance was given at the gate, warmly, with a handshake. The inspector is walking this way at a comfortable pace.
       - title: The Rubber Band
-        body: A rubber band has kept all the loose slips together without making any promises about their sequence. Put the skippers' records back in order using the surviving clues.
+        body: A rubber band keeps all the loose slips together without making any promises about their sequence. It has been round them since Tuesday. The band is beginning to perish and the morning is still in no particular order.
       - title: The Second Explanation
-        body: The clerk's second explanation has clarified why the first explanation was insufficient, leaving the original problem untouched. Reconstruct the skippers' records from the clues so the office can trust its log again.
+        body: The clerk's second explanation has clarified why the first was insufficient, leaving the original problem untouched. There may be a third. The harbourmaster has suggested, kindly, that there should instead be a record.
       - title: A New Cover
-        body: The logbook has a handsome new cover around information that still needs a dependable arrangement. Use the clues to restore the records before the harbourmaster calls for the ledger.
+        body: The logbook has a handsome new cover wrapped around information that still needs a dependable arrangement. The cover is oilcloth and very smart. Inside it, the morning remains four accounts and no agreement.
       - title: The Clerk's Holiday
-        body: The returning clerk is pleased to find everything present and less pleased to find everything mixed together. Put the skippers' records back in order using the surviving clues.
+        body: The returning clerk is pleased to find everything present and much less pleased to find it all mixed together. A fortnight of good intentions is in one box. The week that matters is somewhere in the middle of it.
       - title: The Helpful Arrow
-        body: Someone has drawn arrows between the notes, creating an impressive diagram with no obvious beginning. Reconstruct the skippers' records from the clues so the office can trust its log again.
+        body: Somebody has drawn arrows between the notes, creating an impressive diagram with no obvious beginning. Several arrows meet head on. One goes off the edge of the page and continues, faintly, on the desk.
       - title: An Official Copy
-        body: The official copy has arrived bearing a seal, a signature and several unresolved questions. Use the clues to restore the records before the harbourmaster calls for the ledger.
+        body: The official copy has arrived bearing a seal, a signature and several unresolved questions. The seal is magnificent. The questions are in the margin, in a smaller hand, and none of them has been answered.
       - title: The Narrow Margin
-        body: The most useful comments were squeezed into the margin that the copying machine decided to omit. Put the skippers' records back in order using the surviving clues.
+        body: The most useful comments were squeezed into the margin that the copying machine decided to omit. The copies are crisp and complete except for the half inch that mattered. The original went back in the post on Monday.
       - title: A Quiet Morning
-        body: The harbour office had planned a quiet administrative morning before opening the folder labelled straightforward. Reconstruct the skippers' records from the clues so the office can trust its log again.
+        body: The harbour office had planned a quiet administrative morning, then opened the folder labelled straightforward. It is not. It has not been for some time. Whoever wrote the label was describing an ambition rather than a folder.
       - title: The Wrong Clipboard
-        body: The correct clipboard has been returned after a visitor used its records to organise a completely different discussion. Use the clues to restore the records before the harbourmaster calls for the ledger.
+        body: The correct clipboard has come back after a visitor used its paperwork to organise a completely different discussion. The clips have been rearranged thoughtfully. The thought was about something else entirely.
       - title: The Rewritten List
-        body: The list has been rewritten so often that the paper now looks more certain than the people who wrote on it. Put the skippers' records back in order using the surviving clues.
+        body: The list has been rewritten so often that the paper now looks more certain than the people who wrote on it. It is on its fourth version and its second kind of ink. Nobody can say which version the harbourmaster signed.
       - title: The Harbour Meeting
-        body: The skippers have agreed that the confusion should be resolved before it earns a permanent place on the agenda. Reconstruct the skippers' records from the clues so the office can trust its log again.
+        body: The skippers have agreed that the confusion should be resolved before it earns a permanent place on the agenda. It has already appeared twice under other business. A third appearance makes it a standing item, which nobody wants.
       - title: A Weatherproof Folder
-        body: The weatherproof folder has protected every word while doing nothing to explain which words belong together. Use the clues to restore the records before the harbourmaster calls for the ledger.
+        body: The weatherproof folder has protected every word while doing nothing to explain which words belong together. It has been dropped in the water twice and survived both. The arrangement inside it did not survive the first.
       - title: The Final Signature
-        body: The harbourmaster is ready to sign the log as soon as somebody can offer a convincing reason to do so. Put the skippers' records back in order using the surviving clues.
+        body: The harbourmaster is ready to sign the log as soon as somebody can offer a convincing reason to do so. The pen is out. The ink is good. What is missing is a morning that holds together under a second reading.

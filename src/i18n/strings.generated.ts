@@ -12440,135 +12440,135 @@ const BRIEFING_WORDS = {
     'backstage-mystery': [
       {
         title: "The Director's Pencil",
-        body: "The director has corrected the production ledger so enthusiastically that the original headings are now difficult to identify. Use the clues to restore the performers' records before the director requests the ledger.",
+        body: 'The director has corrected the production ledger so enthusiastically that the original headings are no longer available for inspection. Two corrections have since been corrected, one of them twice and in a different ink. The clerk would like the record settled before the pencil is sharpened again.',
       },
       {
         title: 'The Dress Rehearsal',
-        body: 'The rehearsal went remarkably well, leaving the company free to notice how thoroughly the paperwork disagrees with itself. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        body: 'The rehearsal went remarkably well, leaving the company free to notice how thoroughly the paperwork disagrees with itself. Nobody wishes to raise it with the director, who is still bowing to an empty auditorium. Put the evening back together before the bowing finishes.',
       },
       {
         title: 'A Helpful Understudy',
-        body: "An understudy has reorganised the notes by dramatic importance, a system that places nearly everything first. Put the performers' records back in order using the surviving clues.",
+        body: "An understudy has reorganised the notes by dramatic importance, a system that places nearly everything first. The understudy's own line now opens two pages at once. Restore the running order before the offer of further help is made.",
       },
       {
         title: 'The Unplanned Draught',
-        body: "A draught has swept across the director's desk and given the record slips a brief touring engagement. Use the clues to restore the performers' records before the director requests the ledger.",
+        body: "A draught has swept across the director's desk and given the record slips a brief touring engagement. Most came to rest under the piano, where the pianist has been using them as a footrest since Tuesday. Gather the evening back into something the office can file.",
       },
       {
         title: 'The Duplicate Ledger',
-        body: 'Two ledgers are labelled final, and both have acquired annotations insisting that the other should be ignored. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        body: 'Two ledgers are labelled final, and both have acquired annotations insisting that the other should be ignored. The handwriting in each is identical. The clerk has given up asking who wrote them and started asking which evening they describe.',
       },
       {
         title: 'The Interval Tea',
-        body: "A cup of tea has spread across the notes with the leisurely confidence of someone who knows the interval will be extended. Put the performers' records back in order using the surviving clues.",
+        body: 'A cup of tea has spread across the notes with the leisurely confidence of somebody who knows the interval will be extended. The names survived. Everything written beside them has gone the colour of weak broth and will need saying again.',
       },
       {
         title: 'A Convincing Account',
-        body: "Every performer has supplied a convincing explanation, but the explanations have declined to agree with one another. Use the clues to restore the performers' records before the director requests the ledger.",
+        body: 'Every performer has supplied a convincing explanation, and the explanations have declined to agree with one another. Each is delivered with excellent timing and no supporting paperwork. Only one evening can have happened, whatever the delivery suggests.',
       },
       {
         title: 'The Gold Pen',
-        body: "The director's gold pen makes the corrections look authoritative without making their meaning any clearer. Reconstruct the records from the clues so the company can rely on its paperwork again.",
+        body: "The director's gold pen makes a correction look authoritative without making it any clearer. It also bleeds through to the page beneath, where it has authoritatively corrected something else entirely. Recover what the ledger said before the pen was discovered.",
       },
       {
         title: 'The Prompt Desk',
-        body: "The desk is ready for a difficult evening, except for the untidy collection of records occupying its useful surface. Put the performers' records back in order using the surviving clues.",
+        body: 'The desk is ready for a difficult evening, apart from the untidy drift of records occupying its only useful surface. The book must go there, the lamp must go there, and so, it turns out, must everything else. The desk will be clear once the record is.',
       },
       {
         title: 'The Neat Copy',
-        body: "A performer has produced a beautiful copy of the ledger, including faithful reproductions of its contradictions. Use the clues to restore the performers' records before the director requests the ledger.",
+        body: 'A performer has produced a beautiful copy of the ledger, including faithful reproductions of all its contradictions. The lettering has been admired by everyone who has not yet tried to use it. Settle what it was copying before somebody has it framed.',
       },
       {
         title: 'The Binding Gives Way',
-        body: "The ledger's binding has retired from service, leaving a company of loose pages awaiting direction. Reconstruct the records from the clues so the company can rely on its paperwork again.",
+        body: "The ledger's binding has retired from service, leaving a company of loose pages awaiting direction. They were gathered in the order they were picked up, which was the order they landed in. Give them back the order they were written in.",
       },
       {
         title: 'An Eager Assistant',
-        body: "An assistant has arranged the records according to the length of each paragraph, with pleasing visual results. Put the performers' records back in order using the surviving clues.",
+        body: 'An assistant has arranged the records by the length of each paragraph, with pleasing visual results. The shortest entries now open the file and the evening begins somewhere near the middle. Put it back in the order it actually happened.',
       },
       {
         title: 'The Last Annotation',
-        body: "The final annotation refers to an earlier annotation that appears to have been crossed out with conviction. Use the clues to restore the performers' records before the director requests the ledger.",
+        body: 'The final annotation refers to an earlier annotation that has been crossed out with real conviction. Under the crossing-out is a note reading see above. Above it is the same note, pointing down, in the same hand.',
       },
       {
         title: 'A Public Assurance',
-        body: 'The director has announced that the company is ready and is now quietly seeking supporting evidence. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        body: 'The director has announced that the company is ready and is now quietly looking for the evidence. The announcement was made to a journalist, which has shortened the deadline considerably. Assemble a record worth the confidence already spent on it.',
       },
       {
         title: 'The Missing Tab',
-        body: "The index tabs have detached themselves, leaving the folder with excellent contents and very little guidance. Put the performers' records back in order using the surviving clues.",
+        body: 'The index tabs have detached themselves, leaving the folder with excellent contents and very little guidance. Two were later found adhering to a jacket that had gone on without them. Work out what the folder was once telling anybody who opened it.',
       },
       {
         title: 'The Applause Test',
-        body: "A loud rehearsal of applause has briefly distracted the clerk from a task that required rather more concentration. Use the clues to restore the performers' records before the director requests the ledger.",
+        body: 'A loud rehearsal of applause has distracted the clerk from a task requiring rather more concentration than applause does. Three entries were written during the ovation and none of them survived it. The evening will have to be reconstructed without them.',
       },
       {
         title: 'The Wrong Notebook',
-        body: "The director's working notes were copied into a notebook already full of unrelated but equally dramatic comments. Reconstruct the records from the clues so the company can rely on its paperwork again.",
+        body: "The director's working notes were copied into a notebook already full of unrelated but equally dramatic remarks. Half the page now concerns a dispute about a kettle in 1986. Separate the evening from the kettle before the notebook is consulted again.",
       },
       {
         title: 'A Particularly Good Question',
-        body: "A visiting producer has asked how the records are organised, prompting an unexpectedly long pause. Put the performers' records back in order using the surviving clues.",
+        body: 'A visiting producer has asked how the records are organised, prompting an unexpectedly long pause. The pause was followed by an offer of tea, which the producer accepted and the clerk is still making. Have an answer ready for when the tea arrives.',
       },
       {
         title: 'The Evening Bulletin',
-        body: "The bulletin is ready to print once the clerk can replace the confident placeholders with dependable information. Use the clues to restore the performers' records before the director requests the ledger.",
+        body: 'The evening bulletin is ready to print as soon as somebody replaces the confident placeholders with dependable information. The placeholders read to be confirmed, twice, and splendid, once. The printer is holding the press and has mentioned it four times.',
       },
       {
         title: 'The Second Draft',
-        body: 'The second draft corrects the first in ways that the third draft regards as a serious misunderstanding. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        body: 'The second draft corrects the first in ways the third draft regards as a serious misunderstanding. All three are signed by the same person on the same afternoon. Decide which afternoon the company is going to admit to.',
       },
       {
         title: 'The Polite Disagreement',
-        body: "The performers are disagreeing so politely that the director suspects everyone has been rehearsing it. Put the performers' records back in order using the surviving clues.",
+        body: 'The performers are disagreeing so politely that the director suspects they have been rehearsing it. Each concedes everything except the point in question. Somewhere beneath the courtesy is an evening that genuinely took place.',
       },
       {
         title: 'A Fresh Folder',
-        body: "The new folder has solved the problem of torn corners while leaving the problem of muddled records fully intact. Use the clues to restore the performers' records before the director requests the ledger.",
+        body: 'The new folder has solved the problem of torn corners while leaving the problem of muddled records entirely intact. It is a lovely folder. It is now the tidiest container of nonsense the office has ever owned, and the nonsense is still due by Friday.',
       },
       {
         title: 'The Overeager Copier',
-        body: 'The copying machine has supplied enough duplicates to give every uncertainty its own personal audience. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        body: 'The copying machine has supplied enough duplicates to give every uncertainty an audience of its own. Nine copies of one page, none of another. Settle the record while there is still paper left to settle it on.',
       },
       {
         title: 'The Narrow Desk',
-        body: "The desk is too narrow for the paperwork, encouraging the clerk to stack things before reading their headings. Put the performers' records back in order using the surviving clues.",
+        body: 'The desk is too narrow for the paperwork, which encourages the clerk to stack things before reading their headings. The stack has since been tidied by somebody helpful. The evening is in there somewhere, in an order nobody chose.',
       },
       {
         title: "The Manager's Visit",
-        body: "The manager has arrived carrying an empty file and an expression that suggests it should soon contain answers. Use the clues to restore the performers' records before the director requests the ledger.",
+        body: 'The manager has arrived carrying an empty file and an expression suggesting it should not stay that way. The manager has also brought a chair, which is a worrying sign. Fill the file before the chair is drawn up to the desk.',
       },
       {
         title: 'A Well-Meant Correction',
-        body: 'A performer has corrected a record using a recollection that another performer remembers correcting yesterday. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        body: 'A performer has corrected a record using a recollection that another performer remembers correcting yesterday. Both are certain. Both were there. Only one of them can have been where they say they were when it happened.',
       },
       {
         title: 'The Smudged Initials',
-        body: "The initials identifying several entries have been smudged into something that might generously be called decorative. Put the performers' records back in order using the surviving clues.",
+        body: 'The initials identifying several entries have been smudged into something that might generously be called decorative. The clerk has tried holding the page to the lamp, which has produced a warm page and no initials. The evening will have to be worked out from what is still legible.',
       },
       {
         title: 'The Rehearsal Notes',
-        body: "The rehearsal notes contain every useful detail, surrounded by enough encouragement to conceal it effectively. Use the clues to restore the performers' records before the director requests the ledger.",
+        body: 'The rehearsal notes contain every useful detail, surrounded by enough encouragement to conceal it effectively. Marvellous appears eleven times. The useful detail appears once, between two of them, and nobody can now find which two.',
       },
       {
         title: 'An Elegant Abbreviation',
-        body: "The director's shorthand saves paper by omitting nearly everything a reader might reasonably need. Reconstruct the records from the clues so the company can rely on its paperwork again.",
+        body: "The director's shorthand saves paper by omitting nearly everything a reader might reasonably need. An entire evening is recorded as gd — cf. tues. Tuesday's page says the same thing, and points back at this one.",
       },
       {
         title: 'The Helpful Ribbon',
-        body: "A ribbon marks the important pages, although somebody has extended that distinction to the entire ledger. Put the performers' records back in order using the surviving clues.",
+        body: 'A ribbon was tied through the important pages, after which somebody extended that distinction to the whole ledger. Every page is now important and none of them is marked. Find the evening the ribbon was originally about.',
       },
       {
         title: 'The Unexpected Audience',
-        body: "Several visitors have gathered at the office door just as the clerk begins to appreciate the scale of the mix-up. Use the clues to restore the performers' records before the director requests the ledger.",
+        body: 'Several visitors have gathered at the office door just as the clerk begins to appreciate the size of the muddle. They are smiling encouragingly, which is not helping. The record wants settling before the smiling turns to questions.',
       },
       {
         title: 'The Company Promise',
-        body: 'The company has promised a tidy account before the next meeting, generously leaving the practical arrangements unresolved. Reconstruct the records from the clues so the company can rely on its paperwork again.',
+        body: 'The company has promised a tidy account before the next meeting, leaving the practical arrangements generously unresolved. The meeting is on Thursday. The account is, at present, four people with excellent memories and no agreement between them.',
       },
       {
         title: 'The Final Bow',
-        body: "The director would like to close the ledger with the same confidence the performers bring to closing a rehearsal. Put the performers' records back in order using the surviving clues.",
+        body: 'The director would like to close the ledger with the same confidence the performers bring to closing a rehearsal. The ledger, so far, is not cooperating. One evening, written down in full and agreed by everybody in it, and the book can be shut.',
       },
     ],
     cafe: [
@@ -12708,269 +12708,269 @@ const BRIEFING_WORDS = {
     'clockwork-workshop': [
       {
         title: 'Inspection Pending',
-        body: "The workshop inspector has polished a clipboard, leaving the makers little doubt about the seriousness of the visit. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The workshop inspector has polished a clipboard, leaving the makers in little doubt about the seriousness of the visit. The clipboard is empty, which somehow makes it worse. Whatever goes onto it had better agree with what is on the benches.',
       },
       {
         title: 'The Helpful Magnet',
-        body: "A large magnet has gathered every metal clip from the paperwork and left the pages pursuing separate careers. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'A large magnet has gathered every metal clip from the paperwork and left the pages pursuing separate careers. The magnet is now wearing the clips like a fringe and refuses to give them up. The pages will have to be sorted by what they say.',
       },
       {
         title: 'Under the Bench',
-        body: "The missing job cards have been recovered from beneath a bench, alongside several explanations nobody finds convincing. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The missing job cards have been recovered from beneath a bench, alongside several explanations nobody finds convincing. One card has a bootprint on it. Another has been there long enough to have dried flat and taken on the grain of the floor.',
       },
       {
         title: 'A New Filing System',
-        body: "The makers have adopted a colour-coded system without recording what any of the colours mean. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The makers have adopted a colour-coded system without recording what any of the colours mean. Green is thought to mean finished, or possibly urgent, or possibly that the green pen was nearest. The work itself still knows what happened.',
       },
       {
         title: "The Apprentice's Sort",
-        body: "An apprentice has arranged the records by how impressive the handwriting looked, with predictably artistic results. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'An apprentice has arranged the records by how impressive the handwriting looked, with predictably artistic results. The best page is a note about a missing teaspoon. The worst is the only one anybody actually needs.',
       },
       {
         title: 'A Gust of Progress',
-        body: "The ventilation test has succeeded beyond expectations and redistributed the paperwork throughout the workshop. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The ventilation test has succeeded beyond expectations and redistributed the paperwork throughout the workshop. Two sheets have been retrieved from the yard and one from a passing cyclist. What came back is complete, which is not the same as being in order.',
       },
       {
         title: 'The Quiet Morning',
-        body: "The makers planned a calm administrative session before discovering that the folder marked current contains three different versions. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The makers planned a calm administrative morning, then discovered the folder marked current holds three different versions. Each has a date. Two of the dates are the same day, and the third is a Sunday, when the workshop is shut.',
       },
       {
         title: 'The Ink Test',
-        body: "A demonstration of indelible ink has left the record headings impressively permanent and largely unreadable. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'A demonstration of indelible ink has left the record headings impressively permanent and largely unreadable. The ink does everything it promised. It has simply done all of it in the same place, on top of itself, three times over.',
       },
       {
         title: 'The Committee Copy',
-        body: "A committee has approved the ledger in principle, provided someone can explain which entries belong together. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'A committee has approved the ledger in principle, provided somebody can explain which entries belong together. The committee has gone to lunch. It is a long lunch, but not that long, and the explanation is still at nothing.',
       },
       {
         title: 'The Bench Shuffle',
-        body: "Clearing a space for inspection has moved every loose note into a single impressively unhelpful stack. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'Clearing a space for the inspection has moved every loose note into a single impressively unhelpful stack. The space is magnificent. The stack is now the tallest thing in the room and leans slightly towards the window.',
       },
       {
         title: 'The Rubber Stamp',
-        body: "The new approval stamp has been tested enthusiastically on paperwork that had not reached the approval stage. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The new approval stamp has been tested enthusiastically on paperwork that had not reached the approval stage. Everything is approved. The bench with nothing on it is approved. A sandwich wrapper is approved and has been filed accordingly.',
       },
       {
         title: 'An Elegant Abbreviation',
-        body: "The makers' shorthand saves an extraordinary amount of space by omitting most of the information needed to read it. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: "The makers' shorthand saves an extraordinary amount of space by omitting most of what a reader would need. A whole week is recorded as sm. brs. tues ok. Nobody can remember what was small, or brassy, or what was all right about Tuesday.",
       },
       {
         title: 'The Wrong Envelope',
-        body: "The correct notes have arrived in an envelope marked obsolete, triggering a small but passionate debate. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The correct notes have arrived in an envelope marked obsolete, which has triggered a small but passionate debate. One maker insists the envelope is right and the notes are wrong. The notes, inconveniently, are dated this morning.',
       },
       {
         title: 'The Filing Demonstration',
-        body: "A demonstration of efficiency has finished with the ledger upside down and the audience waiting politely. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'A demonstration of filing efficiency finished with the ledger upside down and the audience waiting politely. The demonstrator has been persuaded to sit down. The pages are now in the order gravity chose for them.',
       },
       {
         title: 'The Duplicate Ledger',
-        body: "Two identical-looking books contain different arrangements, and both have been signed with considerable confidence. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'Two identical-looking books contain different arrangements, and both have been signed with considerable confidence. The signatures are also identical. The maker who wrote them is away until Thursday and the manager would rather not wait.',
       },
       {
         title: 'A Clean Desk',
-        body: "The desk is spotless because every working note has been swept into the same drawer. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The desk is spotless because every working note has been swept into the same drawer. The drawer no longer opens smoothly. What the workshop did last week is in there, flattened, with the pencils.',
       },
       {
         title: "The Supervisor's Pencil",
-        body: "The supervisor has corrected several records, but the pencil marks stop just before the useful part. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The supervisor has corrected several records, but the pencil marks stop just before the useful part. The corrections are excellent as far as they go. They go about halfway down the second page and then simply stop, mid-word.',
       },
       {
         title: 'A Minor Vibration',
-        body: "A routine test has shaken the page dividers loose without disturbing the makers' belief that everything is under control. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: "A routine test has shaken the page dividers loose without disturbing the makers' belief that everything is under control. The dividers are on the floor. The belief is still on the bench, next to the paperwork it no longer organises.",
       },
       {
         title: 'The Long Explanation',
-        body: "The makers have explained the mix-up so thoroughly that the clerk now understands less than at the start. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The makers have explained the mix-up so thoroughly that the clerk now understands less than at the start. There were diagrams. There was a second diagram explaining the first one, and a third that apologised for both.',
       },
       {
         title: 'A Fresh Cover',
-        body: "The ledger has a handsome new cover and the same unresolved contents that made the old cover look tired. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The ledger has a handsome new cover and the same unresolved contents that made the old cover look tired. It is a very good cover. Opening it remains as discouraging as it was last week, and the week before.',
       },
       {
         title: 'The Last Binder',
-        body: "The remaining binder contains all the right paperwork, held together by determination rather than any clear sequence. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The remaining binder holds all the right paperwork, kept together by determination rather than any clear sequence. The rings gave up in the spring. Since then it has been closed by a strap and opened by nobody willing to risk it.',
       },
       {
         title: 'A Very Good Question',
-        body: "A visiting apprentice has asked how the records are organised, and the room has become unusually quiet. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'A visiting apprentice has asked how the records are organised, and the room has become unusually quiet. One maker has started a sentence twice. Somebody else has begun looking for a kettle that is already full.',
       },
       {
         title: 'The Noticeboard',
-        body: "The relevant slips are pinned to the noticeboard among reminders to organise the relevant slips. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The relevant slips are pinned to the noticeboard among reminders to organise the relevant slips. The oldest reminder is from March. The slips have outlasted three people who meant to deal with them.',
       },
       {
         title: 'The Spare Register',
-        body: "The backup register appears to have backed up the confusion with remarkable accuracy. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The backup register appears to have backed up the confusion with remarkable accuracy. Every error has been faithfully reproduced in a neater hand. It is, at least, now wrong in a way that is easy to read.',
       },
       {
         title: 'The Afternoon Tidy',
-        body: "The makers' collective tidying effort has removed every obvious sign of the filing system. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: "The makers' collective tidying effort has removed every obvious sign of the filing system. The surfaces gleam. Nobody can find the week's work, but everybody agrees the room has never looked better.",
       },
       {
         title: 'The Demonstration Day',
-        body: "Visitors are expected to admire the workshop shortly, making a coherent administrative story suddenly desirable. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'Visitors are expected to admire the workshop shortly, which has made a coherent account of the week suddenly desirable. They are being shown the lathe first, which buys perhaps twenty minutes. The bench after that is the one with the paperwork on it.',
       },
       {
         title: 'The Smudged Initials',
-        body: "The entries survived a damp cloth, but the identifying initials did not share their resilience. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The entries survived a damp cloth, but the identifying initials did not share their resilience. What is left could be an R, or a B, or the place where somebody rested a wet mug. The week will have to be worked out from what is still legible.',
       },
       {
         title: 'A Matter of Sequence',
-        body: "The pages have been numbered beautifully in an order that nobody can justify. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The pages have been numbered beautifully in an order nobody can justify. The numbering is in two inks and runs backwards after page nine. Whoever did it is not admitting to it and the handwriting is no help.',
       },
       {
         title: 'The Overeager Copyist',
-        body: "The copyist has filled every blank with information from the nearest available line. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The copyist has filled every blank with information from the nearest available line. Nothing is now empty, which was the goal, and nothing is now reliable, which was not. The original is somewhere under the copies.',
       },
       {
         title: 'The Box of Certainty',
-        body: "A box labelled definitely correct contains notes that disagree with one another in several decisive ways. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'A box labelled definitely correct holds notes that disagree with one another in several decisive ways. The label is in capitals and underlined twice. The disagreement is in pencil and much more recent.',
       },
       {
         title: 'The Return of Order',
-        body: "The makers have promised the manager that the confusion is nearly resolved, generously leaving the final part to you. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The makers have assured the manager that the confusion is nearly resolved. Nearly is doing an enormous amount of work in that sentence. What is left is the part where somebody says which record belongs to whom.',
       },
       {
         title: 'The Desk Bell',
-        body: "The manager has rung for the records and now appears to be practising patient silence. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The manager has rung the desk bell for the records and now appears to be practising patient silence. The silence has lasted four minutes. The bell is still within reach and everybody in the room is aware of it.',
       },
       {
         title: 'Ready for Review',
-        body: "The workshop can demonstrate plenty of activity, but the clerk still needs a dependable account of what was recorded. Use the clues to restore the makers' records before the inspection turns into a discussion.",
+        body: 'The workshop can demonstrate plenty of activity, and the benches are a credit to it. What it cannot yet demonstrate is a dependable account of who did what. One is wanted by the end of the day, in writing, from somebody who was there.',
       },
     ],
     'cloudtop-academy': [
       {
         title: 'The Wandering Ledger',
-        body: "The assessment ledger has wandered off and returned with its pages in a more adventurous order. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The assessment ledger has wandered off and come back with its pages in a more adventurous order. It was found on the roof, warm, and with a feather in it. Nobody is admitting to having left the window open.',
       },
       {
         title: 'A Helpful Breeze',
-        body: "An open window has introduced the records to the weather and left the tutor gathering the consequences. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'An open window has introduced the records to the weather and left the tutor gathering the consequences. Two sheets came back damp from the courtyard. One has not come back at all and was last seen heading for the orchard.',
       },
       {
         title: "The Headteacher's Visit",
-        body: "The headteacher has asked to see the records, and the tutor has begun smiling with unusual concentration. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: "The headteacher has asked to see the records, and the tutor has begun smiling with unusual concentration. The smile is holding. The folder under the tutor's arm is, at present, mostly hope and one very neat cover sheet.",
       },
       {
         title: 'The Enchanted Ink',
-        body: "The ink has settled back into ordinary letters, but the headings have not returned to their original places. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The ink has settled back into ordinary letters, and the headings have not returned to their original places. It was an experiment in self-correcting writing. It corrected itself enthusiastically and then stopped reading the page.',
       },
       {
         title: 'A Model Pupil',
-        body: "A pupil has tidied the desk so thoroughly that the filing system now exists chiefly in memory. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'A pupil has tidied the desk so thoroughly that the filing system now exists chiefly in memory. The desk is a wonder. The system lived in the arrangement of the piles, and the piles are the thing that went.',
       },
       {
         title: 'The Duplicate Register',
-        body: "The duplicate register contains the same information in an arrangement that disagrees with the original. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The duplicate register holds the same information in an arrangement that disagrees with the original. Both were written on the same afternoon by the same tutor. Neither has been signed, which is now the only thing in their favour.',
       },
       {
         title: 'The Floating Pages',
-        body: "The pages have stopped floating, which is a welcome first step towards making sense of them. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The pages have stopped floating, which is a welcome first step and not much more than that. They came down over an hour and settled wherever the draught left them. Two are on the beam and will need the long pole.',
       },
       {
         title: "The Tutor's Shortcut",
-        body: "The tutor's abbreviated notes save time only if somebody can first work out what they mean. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: "The tutor's abbreviated notes save time only if somebody can first work out what they mean. A whole morning reads as dth, gd, see fri. Friday's page says the same thing and refers politely back to this one.",
       },
       {
         title: 'A Very Small Dragon',
-        body: "An uninvited visitor has sneezed near the desk, leaving the paperwork warm, intact and unexpectedly rearranged. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'An uninvited visitor has sneezed near the desk, leaving the paperwork warm, intact and unexpectedly rearranged. Nothing is burnt, which everybody agrees is the main thing. Nothing is in order either, which is the other thing.',
       },
       {
         title: 'The Missing Index',
-        body: "The index has vanished while the pages it was meant to explain remain inconveniently present. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The index has vanished while the pages it was meant to explain remain inconveniently present. It was a single sheet in a fine hand. The tutor has looked in the obvious places and is starting on the unlikely ones.',
       },
       {
         title: 'The Neat Rewrite',
-        body: "A pupil has copied the records with immaculate penmanship and complete loyalty to their original confusion. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'A pupil has copied the records with immaculate penmanship and complete loyalty to their original confusion. Every letter is a pleasure. Every entry is in precisely the wrong row, beautifully.',
       },
       {
         title: 'The Advisory Committee',
-        body: "The pupils have formed a committee to discuss the mix-up, creating an immediate need for a quicker method. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The pupils have formed a committee to discuss the mix-up, which has created an immediate need for a faster method. The committee has elected a chair and a secretary. It has not yet reached the matter it was formed about.',
       },
       {
         title: 'A Fresh Cover',
-        body: "The register has received a splendid new binding around contents that still require considerable attention. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The register has a splendid new binding around contents that still need considerable attention. The binding is tooled in silver and smells of the workshop. Inside, the term is in four hands and no agreed order.',
       },
       {
         title: 'The Silent Inspection',
-        body: "The inspector has said nothing about the paperwork, which the tutor finds considerably worse than a complaint. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The inspector has said nothing at all about the paperwork, which the tutor finds considerably worse than a complaint. There was a pause at the desk. There was a note made, and the note was shielded with a hand.',
       },
       {
         title: 'The Overhelpful Quill',
-        body: "The automatic quill has completed several unfinished lines using information it found nearby. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The automatic quill has completed several unfinished lines using information it found nearby. It is very proud of this. Three entries now describe the weather, which was on the sheet underneath them.',
       },
       {
         title: 'A Matter of Margins',
-        body: "The tutor's useful comments were in the margins, which the copying process has treated as optional. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: "The tutor's useful comments were in the margins, which the copying has treated as optional. The copies are crisp and the margins are gone. What survives is the part that never needed explaining.",
       },
       {
         title: 'The Wrong Shelf',
-        body: "The records have been found among the adventure stories, where their recent history apparently qualified them. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The records have been found among the adventure stories, where their recent history apparently qualified them. They were shelved under returns. Somebody has read two pages and put them back the wrong way round.',
       },
       {
         title: 'The Folding Lesson',
-        body: "An exercise in paper folding has accidentally included several sheets that were supposed to remain administrative. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'An exercise in paper folding has accidentally included several sheets that were meant to stay administrative. Two are now birds. One is a passable boat and has been to the fountain and back.',
       },
       {
         title: 'The Almost Accurate Copy',
-        body: "The latest copy looks reassuring until the headings are compared with the entries beneath them. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The latest copy looks reassuring until the headings are compared with the entries beneath them. It is signed, dated and entirely wrong from the third line down. The first two lines are correct, which is how it got signed.',
       },
       {
         title: 'The Desk Has Opinions',
-        body: "The desk has rearranged its drawers overnight and appears unwilling to explain its preferred system. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The desk has rearranged its drawers overnight and seems unwilling to explain its preferred system. It does this about once a term. Everything is somewhere, and the something it is in is never the drawer it was in.',
       },
       {
         title: 'A Polite Reminder',
-        body: "The headteacher has sent a polite reminder, carefully leaving space for a less polite follow-up. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The headteacher has sent a polite reminder, carefully leaving room for a less polite one. It arrived folded into a paper crane that landed on the register. The crane is still sitting there, looking patient.',
       },
       {
         title: 'The Unreadable Initials',
-        body: "The tutor's initials have become indistinguishable from the flourish used to cross out mistakes. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: "The tutor's initials have become indistinguishable from the flourish used to cross out mistakes. Both are a long confident loop. Several entries may therefore be approved, deleted, or simply signed with enthusiasm.",
       },
       {
         title: 'The Helpful Bell',
-        body: "The bell has announced the end of administrative work while the administrative work remains unconvinced. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The bell has announced the end of administrative work while the administrative work remains unconvinced. The corridors have emptied. The desk has not, and the lamp has just been lit for the second time today.',
       },
       {
         title: 'A Perfectly Good Folder',
-        body: "The folder is in excellent condition, a fact the tutor mentions whenever anyone asks about its contents. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The folder is in excellent condition, a fact the tutor mentions whenever anybody asks about its contents. It is leather, with a clasp. The clasp is the only part of it currently doing its job.',
       },
       {
         title: "The Pupils' Account",
-        body: "The pupils remember the assessment vividly but disagree about which details belong in which record. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The pupils remember the term vividly and disagree about which details belong to whom. Each account is delivered with total certainty and a different set of names. They cannot all have been where they say they were.',
       },
       {
         title: 'The Blue Ribbon',
-        body: "A blue ribbon marks the important pages, though someone has applied it to every page for fairness. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'A blue ribbon marks the important pages, though somebody has since applied it to every page for fairness. Fairness has been achieved. The ribbon now marks the whole register and tells the tutor nothing at all.',
       },
       {
         title: 'The Floating Pencil',
-        body: "The pencil has finally landed after correcting several entries that nobody asked it to correct. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The pencil has finally landed after correcting several entries that nobody asked it to correct. It was enchanted last term and has been thorough ever since. Four of its corrections are improvements and two are inventions.',
       },
       {
         title: 'An Unexpected Audience',
-        body: "A group of visiting tutors has gathered at the desk just as the filing problem becomes difficult to disguise. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'A group of visiting tutors has gathered at the desk just as the muddle becomes difficult to disguise. They are being shown the view. The view will hold them for a minute or two, and the desk is in full sight.',
       },
       {
         title: 'The Backup Plan',
-        body: "The backup records have been recovered and appear to preserve the original uncertainty with impressive care. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The backup records have been recovered and appear to preserve the original uncertainty with impressive care. They were kept in a separate tower for safety. They are safe, identical, and just as useless.',
       },
       {
         title: 'A Brief Experiment',
-        body: "An experiment in self-organising paperwork has ended with the papers organised according to their own priorities. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'An experiment in self-organising paperwork has ended with the papers organised according to their own priorities. They have sorted themselves by weight. The heaviest is a complaint from the kitchens, now at the front.',
       },
       {
         title: 'The Morning Promise',
-        body: "The tutor promised an orderly register by the next meeting and would appreciate reality catching up. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The tutor promised an orderly register by the next meeting and would appreciate reality catching up. The meeting is tomorrow at ten. Reality, as of this afternoon, is a drawer and some good intentions.',
       },
       {
         title: 'The Last Annotation',
-        body: "The final note says see previous note, beginning a journey that has so far produced no destination. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The final note says see previous note, which begins a journey that has so far arrived nowhere. The previous note says the same. The one before that is a shopping list, and it is the most useful of the three.',
       },
       {
         title: 'Ready for the Head',
-        body: "The register needs one trustworthy arrangement before it is presented with the customary air of academic certainty. Use the clues to restore the pupils' records before the tutor submits the register.",
+        body: 'The register needs one trustworthy arrangement before it is carried off with the customary air of academic certainty. The air is well practised. What is wanted now is a term that holds together when somebody reads it twice.',
       },
     ],
     cosmic: [
@@ -13244,403 +13244,403 @@ const BRIEFING_WORDS = {
     'harbour-watch': [
       {
         title: 'The Open Window',
-        body: "A sea breeze has rearranged the harbour office papers with more enthusiasm than respect for the headings. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        body: "A sea breeze has rearranged the harbour office papers with more enthusiasm than respect for the headings. The window was opened to clear the smell of creosote. It cleared the desk as well, and the desk had the week's record on it.",
       },
       {
         title: "A Gull's Opinion",
-        body: 'A gull has inspected the ledger and left the clerk with a small cleaning job and a large administrative one. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        body: 'A gull has inspected the ledger and left the clerk with a small cleaning job and a large administrative one. The gull is still on the sill, unrepentant. Two pages are beyond saving and a third has gone an unusual colour.',
       },
       {
         title: 'The Damp Log',
-        body: "The logbook survived its encounter with a wet coat, but several identifying marks were less fortunate. Put the skippers' records back in order using the surviving clues.",
+        body: 'The logbook survived its encounter with a wet coat, but several identifying marks were less fortunate. The coat belonged to somebody who has since gone to sea. What is left on the page could mean almost anybody.',
       },
       {
         title: "The Harbourmaster's Tea",
-        body: "The harbourmaster has set down a cup directly over the note explaining how the loose records fit together. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        body: 'The harbourmaster has set a cup down squarely on the note explaining how the loose records fit together. The ring is perfect. What was inside the ring was the only sentence in the office that made sense of the morning.',
       },
       {
         title: 'A Neat Hand',
-        body: 'A skipper has copied the muddled log in beautiful handwriting, preserving every uncertainty with exceptional care. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        body: 'A skipper has copied the muddled log in beautiful handwriting, preserving every uncertainty with exceptional care. The copy is a pleasure to look at. It is also, line for line, exactly as unhelpful as the original.',
       },
       {
         title: 'The Duplicate Register',
-        body: "Two copies of the register claim to be definitive, and the clerk is reluctant to disappoint either of them. Put the skippers' records back in order using the surviving clues.",
+        body: 'Two copies of the register claim to be definitive, and the clerk is reluctant to disappoint either of them. One is signed by the harbourmaster. The other is signed by the harbourmaster, on the same date, in a better mood.',
       },
       {
         title: 'The Missing Divider',
-        body: "The folder dividers have gone missing, leaving the paperwork neatly stacked but no longer usefully separated. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        body: 'The folder dividers have gone missing, leaving the paperwork neatly stacked but no longer usefully separated. Everything is present and nothing is apart from anything else. Somewhere in there, a tidy morning is pretending to be one long one.',
       },
       {
         title: 'The Loud Whistle',
-        body: 'The harbourmaster has requested the completed records by whistle, which the clerk considers an unnecessary escalation. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        body: 'The harbourmaster has requested the completed records by whistle, which the clerk considers an unnecessary escalation. The whistle carries across the whole basin. Two skippers have already looked up, assuming it was about them.',
       },
       {
         title: 'A Helpful Visitor',
-        body: "A visitor has sorted the loose slips according to how important they looked, producing several impressive piles. Put the skippers' records back in order using the surviving clues.",
+        body: "A visitor has sorted the loose slips by how important they looked, producing several impressive piles. The largest pile is receipts for rope. The morning's record is in the smallest pile, under a postcard.",
       },
       {
         title: 'The Inspection Coat',
-        body: "The inspector has hung up a very dry coat and is now waiting for an equally reassuring account of the records. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        body: 'The inspector has hung up a very dry coat and is now waiting for an equally reassuring account of the morning. The coat is dripping on nothing at all. The account, so far, is three people who each remember a different hour.',
       },
       {
         title: 'A Better Filing Method',
-        body: 'The office adopted a better filing method yesterday, but nobody recorded how it differs from the previous one. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        body: 'The office adopted a better filing method yesterday, and nobody recorded how it differs from the old one. The folders have been renumbered. The numbers mean something to the person who did it, who is at sea until Friday.',
       },
       {
         title: 'The Overconfident Stamp',
-        body: "Every sheet has been stamped checked, including the blank sheet used to test the stamp. Put the skippers' records back in order using the surviving clues.",
+        body: 'Every sheet has been stamped checked, including the blank sheet used to test the stamp. The blank sheet is now the most official document in the building. Nothing on any of the others has actually been checked.',
       },
       {
         title: 'A Brief Squall',
-        body: "A brief squall rattled the office so thoroughly that the loose notes have abandoned their previous arrangement. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        body: 'A brief squall rattled the office so thoroughly that the loose notes have abandoned their previous arrangement. The squall lasted ninety seconds. Putting the morning back together will take rather longer than that.',
       },
       {
         title: 'The Polite Skippers',
-        body: 'The skippers are explaining the mix-up with remarkable courtesy and remarkably little agreement. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        body: 'The skippers are explaining the mix-up with remarkable courtesy and remarkably little agreement. Each defers to the others on every point except their own. Only one morning happened, however politely it is being disputed.',
       },
       {
         title: 'The Top Drawer',
-        body: "The missing notes have been found in the drawer reserved for completed work, where they had apparently been optimistic. Put the skippers' records back in order using the surviving clues.",
+        body: 'The missing notes have been found in the drawer reserved for completed work, where they had apparently been optimistic. Nothing in that drawer was finished. One sheet is not even dated, and the ink is still smudging.',
       },
       {
         title: 'An Admirable Index',
-        body: "The index points to the correct pages, provided someone can establish which page numbers are correct. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        body: 'The index points to the correct pages, provided somebody can establish which page numbers are correct. The pages were renumbered in pencil, then again in ink. The index has only ever known about the pencil.',
       },
       {
         title: 'The Pencil Change',
-        body: 'The clerk changed pencils halfway through the corrections and can no longer remember which marks were final. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        body: 'The clerk changed pencils halfway through the corrections and can no longer remember which marks were final. Both pencils were grey. Both hands were the same hand. The morning is in there twice and only one version is true.',
       },
       {
         title: 'The Drying Rack',
-        body: "The paperwork is dry again, but the washing line has imposed an order based entirely on available space. Put the skippers' records back in order using the surviving clues.",
+        body: 'The paperwork is dry again, but the washing line imposed an order based entirely on available space. The small sheets went between the big ones. The whole morning now reads in the sequence the pegs allowed.',
       },
       {
         title: 'The Shore Office',
-        body: "The office looks unusually tidy because every unresolved note has been transferred to one very full folder. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        body: 'The office looks unusually tidy because every unresolved note has been moved into one very full folder. The folder will not close. It has been put on a chair, and the chair has been put behind a door.',
       },
       {
         title: 'A Firm Assurance',
-        body: 'The harbourmaster has assured the inspector that the records are in order and would now like that to be true. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        body: 'The harbourmaster has assured the inspector that the records are in order and would now very much like that to be true. The assurance was given at the gate, warmly, with a handshake. The inspector is walking this way at a comfortable pace.',
       },
       {
         title: 'The Rubber Band',
-        body: "A rubber band has kept all the loose slips together without making any promises about their sequence. Put the skippers' records back in order using the surviving clues.",
+        body: 'A rubber band keeps all the loose slips together without making any promises about their sequence. It has been round them since Tuesday. The band is beginning to perish and the morning is still in no particular order.',
       },
       {
         title: 'The Second Explanation',
-        body: "The clerk's second explanation has clarified why the first explanation was insufficient, leaving the original problem untouched. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        body: "The clerk's second explanation has clarified why the first was insufficient, leaving the original problem untouched. There may be a third. The harbourmaster has suggested, kindly, that there should instead be a record.",
       },
       {
         title: 'A New Cover',
-        body: 'The logbook has a handsome new cover around information that still needs a dependable arrangement. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        body: 'The logbook has a handsome new cover wrapped around information that still needs a dependable arrangement. The cover is oilcloth and very smart. Inside it, the morning remains four accounts and no agreement.',
       },
       {
         title: "The Clerk's Holiday",
-        body: "The returning clerk is pleased to find everything present and less pleased to find everything mixed together. Put the skippers' records back in order using the surviving clues.",
+        body: 'The returning clerk is pleased to find everything present and much less pleased to find it all mixed together. A fortnight of good intentions is in one box. The week that matters is somewhere in the middle of it.',
       },
       {
         title: 'The Helpful Arrow',
-        body: "Someone has drawn arrows between the notes, creating an impressive diagram with no obvious beginning. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        body: 'Somebody has drawn arrows between the notes, creating an impressive diagram with no obvious beginning. Several arrows meet head on. One goes off the edge of the page and continues, faintly, on the desk.',
       },
       {
         title: 'An Official Copy',
-        body: 'The official copy has arrived bearing a seal, a signature and several unresolved questions. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        body: 'The official copy has arrived bearing a seal, a signature and several unresolved questions. The seal is magnificent. The questions are in the margin, in a smaller hand, and none of them has been answered.',
       },
       {
         title: 'The Narrow Margin',
-        body: "The most useful comments were squeezed into the margin that the copying machine decided to omit. Put the skippers' records back in order using the surviving clues.",
+        body: 'The most useful comments were squeezed into the margin that the copying machine decided to omit. The copies are crisp and complete except for the half inch that mattered. The original went back in the post on Monday.',
       },
       {
         title: 'A Quiet Morning',
-        body: "The harbour office had planned a quiet administrative morning before opening the folder labelled straightforward. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        body: 'The harbour office had planned a quiet administrative morning, then opened the folder labelled straightforward. It is not. It has not been for some time. Whoever wrote the label was describing an ambition rather than a folder.',
       },
       {
         title: 'The Wrong Clipboard',
-        body: 'The correct clipboard has been returned after a visitor used its records to organise a completely different discussion. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        body: 'The correct clipboard has come back after a visitor used its paperwork to organise a completely different discussion. The clips have been rearranged thoughtfully. The thought was about something else entirely.',
       },
       {
         title: 'The Rewritten List',
-        body: "The list has been rewritten so often that the paper now looks more certain than the people who wrote on it. Put the skippers' records back in order using the surviving clues.",
+        body: 'The list has been rewritten so often that the paper now looks more certain than the people who wrote on it. It is on its fourth version and its second kind of ink. Nobody can say which version the harbourmaster signed.',
       },
       {
         title: 'The Harbour Meeting',
-        body: "The skippers have agreed that the confusion should be resolved before it earns a permanent place on the agenda. Reconstruct the skippers' records from the clues so the office can trust its log again.",
+        body: 'The skippers have agreed that the confusion should be resolved before it earns a permanent place on the agenda. It has already appeared twice under other business. A third appearance makes it a standing item, which nobody wants.',
       },
       {
         title: 'A Weatherproof Folder',
-        body: 'The weatherproof folder has protected every word while doing nothing to explain which words belong together. Use the clues to restore the records before the harbourmaster calls for the ledger.',
+        body: 'The weatherproof folder has protected every word while doing nothing to explain which words belong together. It has been dropped in the water twice and survived both. The arrangement inside it did not survive the first.',
       },
       {
         title: 'The Final Signature',
-        body: "The harbourmaster is ready to sign the log as soon as somebody can offer a convincing reason to do so. Put the skippers' records back in order using the surviving clues.",
+        body: 'The harbourmaster is ready to sign the log as soon as somebody can offer a convincing reason to do so. The pen is out. The ink is good. What is missing is a morning that holds together under a second reading.',
       },
     ],
     'lantern-festival': [
       {
         title: 'The Unplanned Breeze',
-        body: "A breeze has swept through the organising desk and given every loose page a brief public appearance. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: "A breeze has swept through the organising desk and given every loose page a brief tour of the square. Most were caught by a child who has been thanked warmly and asked nothing about the order. The festival's record will have to be rebuilt from memory.",
       },
       {
         title: 'The Committee Folder',
-        body: "The committee's master folder contains several master copies, each quietly disagreeing with the others. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: "The committee's master folder contains several master copies, each quietly disagreeing with the others. Three are marked final and one is marked really final. The really final one is the oldest of the four.",
       },
       {
         title: 'A Helpful Volunteer',
-        body: "A volunteer has sorted the artists' records by handwriting style, producing a handsome but impractical display. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: "A volunteer has sorted the artists' records by handwriting style, producing a handsome but impractical display. The loops are together. The upright hands are together. Nothing is with the thing it describes.",
       },
       {
         title: "The Mayor's Question",
-        body: "The mayor has asked whether the paperwork is ready, using the voice reserved for expecting a reassuring answer. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The mayor has asked whether the paperwork is ready, using the voice reserved for expecting a yes. The clerk said almost, which the mayor heard as yes. The gap between those two words is the rest of this afternoon.',
       },
       {
         title: 'The Ribbon Knot',
-        body: "The organisers have tied the records together securely without first checking the sequence of the pages. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The organisers tied the records together securely without first checking the order of the pages. The knot is magnificent and quite permanent. Whatever order the pages are in is now the order they will stay in.',
       },
       {
         title: 'A Splash of Colour',
-        body: "Decorative paint has reached the desk, improving its appearance while complicating several important headings. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'Decorative paint has reached the desk, improving its appearance while complicating several important headings. The gold went on beautifully. It went on over the top of four names and a date, all of which are now gold.',
       },
       {
         title: 'The Rehearsed Welcome',
-        body: "The welcome speech is perfectly rehearsed, but the clerk is still improvising an explanation for the ledger. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The welcome speech is perfectly rehearsed, and the clerk is still improvising an explanation for the ledger. The speech thanks everybody by name. The ledger cannot currently confirm that any of them were there.',
       },
       {
         title: 'The Spare Clipboard',
-        body: "The spare clipboard has been found underneath the missing clipboard, and neither contains a trustworthy arrangement. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The spare clipboard has been found underneath the missing clipboard, and neither holds a trustworthy arrangement. They disagree with each other on two points. On a third they agree, which is somehow less reassuring.',
       },
       {
         title: 'The Neat Hand',
-        body: "An artist has rewritten the muddled notes in beautiful lettering without making them any less muddled. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'An artist has rewritten the muddled notes in beautiful lettering without making them any less muddled. Each capital has been given a small flourish. The flourishes take up the space where the corrections should have gone.',
       },
       {
         title: 'A Civic Smile',
-        body: "The organisers are smiling for the official photograph while quietly passing the confused records behind their backs. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The organisers are smiling for the official photograph while quietly passing the confused records behind their backs. The photographer has asked them to hold still. Somebody at the end of the row now has everything and no idea what it is.',
       },
       {
         title: 'The Folded List',
-        body: "The master list has been folded so often that its creases now look more authoritative than its headings. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The master list has been folded so often that its creases now look more authoritative than its headings. It opens in four pieces and closes in five. The important column runs straight down the middle of a fold.',
       },
       {
         title: 'The Helpful Arrow',
-        body: "Someone has added arrows to clarify the paperwork, and several arrows now point confidently towards one another. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'Somebody has added arrows to clarify the paperwork, and several arrows now point confidently at one another. Two form a complete circle. A third leaves the page and is thought to continue on the back.',
       },
       {
         title: 'The Volunteer Desk',
-        body: "The volunteer desk has enough enthusiasm for three celebrations and one unresolved pile of record slips. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The volunteer desk has enough enthusiasm for three celebrations and one unresolved pile of record slips. Everybody has offered to help. Nobody has offered to decide, which is the only thing the pile requires.',
       },
       {
         title: 'An Extra Copy',
-        body: "The photocopier has supplied another version with excellent contrast and a newly confusing arrangement. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The photocopier has supplied another version with excellent contrast and a newly confusing arrangement. The feeder took the sheets in the order it fancied. Both the original and the copy are now wrong in different ways.',
       },
       {
         title: 'The Almost Finished File',
-        body: "The file marked nearly finished turns out to describe the organiser's hopes rather than its contents. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: "The file marked nearly finished turns out to describe the organiser's hopes rather than its contents. It holds a timetable from last year and a receipt for rope. The hopes, to be fair, were sincere at the time.",
       },
       {
         title: 'The Lost Corner',
-        body: "The corner of the register has torn away precisely where the clerk had written the useful explanation. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The corner of the register has torn away precisely where the clerk had written the useful explanation. The tear is clean and the corner is gone. Everything either side of it survives and explains nothing.',
       },
       {
         title: 'A Matter of Presentation',
-        body: "The committee has chosen an elegant cover for the records and would now appreciate some dependable contents. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The committee has chosen an elegant cover for the records and would now appreciate some dependable contents. The cover cost more than the tea urn. What goes inside it is still four people disagreeing in a corridor.',
       },
       {
         title: 'The Noticeboard Shuffle',
-        body: "The noticeboard has been refreshed by someone who assumed all the pinned slips were interchangeable. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The noticeboard has been refreshed by somebody who assumed all the pinned slips were interchangeable. They are now beautifully spaced. The board reads, top to bottom, as a sequence that never happened.',
       },
       {
         title: 'The Overfull Envelope',
-        body: "Every necessary note is in the envelope, along with enough unrelated reminders to make finding it an achievement. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: "Every necessary note is in the envelope, along with enough unrelated reminders to make finding it an achievement. There is a dentist's appointment in there from February. The evening is in there too, in pieces, between the reminders.",
       },
       {
         title: 'The Ink Runs',
-        body: "A damp sleeve has turned the clerk's careful headings into a small abstract landscape. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: "A damp sleeve has turned the clerk's careful headings into a small abstract landscape. It is rather lovely, in the right light. In any light at all it has stopped being a list of who was where.",
       },
       {
         title: 'The Smiling Artists',
-        body: "The artists have agreed that the confusion is easily fixed, although none has volunteered to explain how. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The artists have agreed that the confusion is easily fixed, although none has volunteered to explain how. Each has suggested asking one of the others. The others have each suggested asking the first one.',
       },
       {
         title: 'The Official Stamp',
-        body: "The official stamp has been applied before the official checking, creating a strong incentive to finish the latter. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The official stamp has been applied before the official checking, which has created a strong incentive to finish the checking. Every page now says approved. Approved by whom, and of what, is the part still missing.',
       },
       {
         title: 'The Confident Delegate',
-        body: "A committee delegate has announced that the records are complete and is now looking for evidence. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'A committee delegate has announced that the records are complete and is now looking for the evidence. The announcement was made from the bandstand with a loud voice. The looking is being done quietly, at the back.',
       },
       {
         title: 'A Short Interruption',
-        body: "A brief interruption has become a long conversation, during which the paperwork has lost its original order. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'A brief interruption became a long conversation, during which the paperwork lost its original order. The conversation was about parking. It lasted forty minutes and the desk was used throughout as a place to lean.',
       },
       {
         title: 'The Neighbourly Advice',
-        body: "Several neighbours have offered helpful suggestions, leaving the clerk with more annotations than records. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'Several neighbours have offered helpful suggestions, leaving the clerk with more annotations than records. Two suggestions contradict each other in the same margin. A third has been written across a heading in biro.',
       },
       {
         title: 'The Second Draft',
-        body: "The second draft corrects the first draft in ways that the third draft appears to dispute. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The second draft corrects the first in ways the third draft appears to dispute. All three are in the folder. None is dated, and the handwriting is the same cheerful hand in every one of them.',
       },
       {
         title: 'The Borrowed Desk',
-        body: "The borrowed desk is smaller than expected, so the records have been stacked according to gravitational necessity. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: "The borrowed desk is smaller than expected, so the records have been stacked according to gravitational necessity. The heavy folders are at the bottom. The evening's own notes are somewhere near the top, slipping.",
       },
       {
         title: 'The Wrong Drawer',
-        body: "The missing paperwork has emerged from a drawer labelled decorations, where it was doing neither job well. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The missing paperwork has emerged from a drawer labelled decorations, where it was doing neither job well. It came out with glitter on it. The glitter has since spread to the two folders either side of it.',
       },
       {
         title: 'The Final Flourish',
-        body: "The organisers have added a decorative flourish to every page except the one explaining their order. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The organisers have added a decorative flourish to every page except the one explaining their order. That page is plain, sensible and missing. Everything that survives is beautiful and says nothing useful.',
       },
       {
         title: 'A Quiet Request',
-        body: "The clerk has quietly requested help before the committee turns the mix-up into a formal discussion. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The clerk has quietly asked for help before the committee turns the mix-up into a formal discussion. A formal discussion would take an hour and produce a subcommittee. Settling it now would take rather less.',
       },
       {
         title: 'The Proud Parent',
-        body: "A visiting parent has praised the organisation, producing a sudden and collective interest in accurate records. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'A visiting parent has praised the organisation, producing a sudden and collective interest in accurate records. The praise was generous and entirely undeserved. Several organisers are now walking briskly towards the desk.',
       },
       {
         title: 'The Paper Trail',
-        body: "The loose slips form an impressive trail across the desk but stop short of forming a usable account. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The loose slips form an impressive trail across the desk but stop short of forming a usable account. They go from the urn to the window and then under it. What they do not do, anywhere along the way, is agree.',
       },
       {
         title: 'The Closing Folder',
-        body: "The organisers want to close the folder with confidence instead of simply closing it firmly. Reconstruct the artists' records from the clues so the organisers can put the paperwork right.",
+        body: 'The organisers would like to close the folder with confidence rather than simply closing it firmly. Firmly has been tried, twice. It holds until somebody asks a question, at which point the folder opens itself.',
       },
     ],
     'last-train': [
       {
         title: 'The Unhelpful Breeze',
-        body: "A draught has rearranged the conductor's notes into a system admired only by the open window. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        body: "A draught has rearranged the conductor's notes into a system admired only by the open window. The window has since been shut by somebody who did not look down first. Several pages are under the radiator and curling gently.",
       },
       {
         title: 'Carbon Copy',
-        body: "The duplicate ledger is perfectly readable, but every passenger's entry has acquired somebody else's heading. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        body: "The duplicate ledger is perfectly readable, and every entry has acquired somebody else's heading. The copying was done in a hurry on a moving train. Everything is in there, one line out, all the way down the page.",
       },
       {
         title: 'The Ink Incident',
-        body: 'A clerk has discovered that shaking a pen above the register is an excellent way to change its contents. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'A clerk has discovered that shaking a pen above the register is an excellent way to change its contents. The pen now works beautifully. The register has four new marks and has lost two names underneath them.',
       },
       {
         title: 'Platform Diplomacy',
-        body: 'Several passengers have offered to explain the confusion, producing several incompatible and unusually confident explanations. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'Several passengers have offered to explain the confusion, producing several incompatible and unusually confident accounts. One has drawn a diagram on the back of a timetable. The diagram has been corrected twice by people who were not there.',
       },
       {
         title: 'The Great Stapling',
-        body: 'A well-meaning assistant has fastened the loose records together according to paper size rather than meaning. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'A well-meaning assistant has fastened the loose records together according to paper size rather than meaning. The staple went through all of it in one go. Pulling it out will take the corner off at least three sheets.',
       },
       {
         title: 'An Orderly Queue',
-        body: "The queue is immaculate, which makes the disorganised paperwork on the conductor's desk feel particularly personal. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        body: "The queue is immaculate, which makes the state of the conductor's desk feel particularly personal. Everybody is standing exactly where they should be. Nothing on the desk can currently say who any of them are.",
       },
       {
         title: 'The Reversed Register',
-        body: 'Someone has copied the ledger from the last page backwards and called the result a fresh perspective. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'Somebody has copied the ledger from the last page backwards and called the result a fresh perspective. It is certainly fresh. Read from the top it describes an evening running steadily towards the morning it started in.',
       },
       {
         title: 'A Very Helpful Child',
-        body: 'A young volunteer has sorted the paperwork into piles labelled interesting, boring and probably important. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'A young volunteer has sorted the paperwork into piles marked interesting, boring and probably important. The interesting pile is the largest. The probably important pile contains a sweet wrapper and most of the evening.',
       },
       {
         title: 'The Wrong Clipboard',
-        body: 'The conductor has retrieved the missing clipboard, unfortunately from someone who had already started improving it. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'The conductor has retrieved the missing clipboard, unfortunately from somebody who had already started improving it. The improvements are in green ink and very confident. None of them is in the right column.',
       },
       {
         title: 'A Quiet Carriage',
-        body: 'The passengers have agreed to keep quiet while the clerk works, except when offering essential corrections. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'The passengers have agreed to keep quiet while the clerk works, except when offering essential corrections. Essential corrections are being offered roughly every ninety seconds. Three have contradicted the one before it.',
       },
       {
         title: 'The Duplicate Stamp',
-        body: 'Every entry has been stamped checked, including several entries that the clerk is certain have not been checked. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'Every entry has been stamped checked, including several the clerk is certain were not. The stamp was found in a drawer and used with enthusiasm. It says checked in red, twice, on a page that is still blank underneath.',
       },
       {
         title: 'A Matter of Handwriting',
-        body: "The clerk's elegant loops have been interpreted as letters, numbers and one small drawing of a duck. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        body: "The clerk's elegant loops have been read as letters, numbers and one small drawing of a duck. The duck has been initialled by a supervisor. Nobody has yet established what the duck was supposed to be.",
       },
       {
         title: 'The Folding Method',
-        body: 'The register was folded for safekeeping and now presents its information in a particularly unhelpful sequence. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'The register was folded for safekeeping and now presents its contents in a particularly unhelpful sequence. It was folded twice and then once more to fit a pocket. The pocket belonged to a coat that has been worn since.',
       },
       {
         title: 'Lost in Translation',
-        body: "A passenger has translated the clerk's abbreviations into longer phrases that remain just as mysterious. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        body: "A passenger has translated the clerk's abbreviations into longer phrases that remain just as mysterious. Three letters have become eleven words. The eleven words mean no more than the three letters did.",
       },
       {
         title: 'The Helpful Announcement',
-        body: 'An announcement has reassured everyone that the records are in order, creating immediate demand for that to become true. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'An announcement has reassured everybody that the records are in order, creating immediate demand for that to be true. It was heard the length of the platform. Two people have already come to the office to compliment the organisation.',
       },
       {
         title: 'Loose Leaves',
-        body: 'The binding has given up before the staff, leaving a fan of pages with excellent freedom of movement. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'The binding has given up before the staff have, leaving a fan of pages with excellent freedom of movement. They were collected off the floor by three people at once. Each handed over a neat stack in a different order.',
       },
       {
         title: 'The Blue Pencil',
-        body: "The conductor's corrections are clear, but nobody remembers which of two blue pencils marked the final version. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        body: "The conductor's corrections are clear, and nobody remembers which of two blue pencils made the final ones. Both pencils are in the tin. Both were sharpened this morning and neither will admit to anything.",
       },
       {
         title: 'The Inspection Smile',
-        body: 'An inspector has arrived smiling, a development the clerk considers more alarming than open criticism. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'An inspector has arrived smiling, which the clerk finds considerably more alarming than open criticism. The smile has not changed in four minutes. The folder is still shut and is being looked at steadily.',
       },
       {
         title: 'A Fresh Start',
-        body: 'The replacement ledger is beautifully clean because the information is still on an untidy collection of slips. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'The replacement ledger is beautifully clean because everything that should be in it is still on an untidy drift of slips. The slips are held down by a mug. The mug is the only thing on the desk in a known position.',
       },
       {
         title: 'The Polite Dispute',
-        body: 'Two clerks are disagreeing with such courtesy that the passengers have mistaken it for a welcoming ceremony. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'Two clerks are disagreeing with such courtesy that the passengers have mistaken it for a welcoming ceremony. Somebody has applauded. The disagreement has not moved an inch in either direction since the applause.',
       },
       {
         title: 'The Desk Drawer',
-        body: 'The missing notes have been found in the drawer marked completed, where they had no business being. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'The missing notes have turned up in the drawer marked completed, where they had no business being. Nothing in there was completed. One sheet has a question on it that was never answered and is now urgent.',
       },
       {
         title: 'A Promising Index',
-        body: 'The index points to pages that point to other pages, showing admirable initiative but little practical value. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'The index points to pages that point to other pages, which shows initiative and very little else. Following it twice returns you to where you started. Following it three times takes you to an empty sleeve.',
       },
       {
         title: 'The Almost Final Draft',
-        body: 'The conductor has discovered another version labelled final, with handwriting that suggests considerable optimism. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'The conductor has found another version labelled final, in handwriting that suggests considerable optimism. That makes three finals. Each is neater than the last and each disagrees with both the others.',
       },
       {
         title: 'The Clipping Problem',
-        body: 'Paper clips have preserved every scrap while quietly obscuring several headings needed to understand them. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'Paper clips have preserved every scrap while quietly covering several headings needed to read them. The clips are bronze and rather handsome. Underneath each one is the word that would have explained the sheet.',
       },
       {
         title: 'The Red Carpet',
-        body: 'A ceremonial welcome is ready outside, while inside the office the paperwork remains stubbornly informal. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'A ceremonial welcome is ready on the platform while inside the office the paperwork remains stubbornly informal. The brass band has tuned up twice. The office has a shoebox and four conflicting accounts of the evening.',
       },
       {
         title: 'The Familiar Face',
-        body: 'Every passenger seems familiar to the clerk, which is comforting until accurate records are required. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'Every passenger seems familiar to the clerk, which is comforting until accurate records are wanted. They have all been greeted warmly by name. Two of the names were wrong and neither passenger wished to correct it.',
       },
       {
         title: 'The Restored Folder',
-        body: 'The rescued folder is dry again, but its contents have settled into an arrangement of their own choosing. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'The rescued folder is dry again, and its contents have settled into an arrangement of their own choosing. The drying rack did the arranging. It worked by size, which was efficient and not at all helpful.',
       },
       {
         title: 'The Neat Rewrite',
-        body: 'A passenger has rewritten the notes neatly, preserving every uncertainty with exceptional penmanship. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'A passenger has rewritten the notes neatly, preserving every uncertainty with exceptional penmanship. The capitals are beautiful. The confusion underneath them has survived the journey entirely unharmed.',
       },
       {
         title: "The Supervisor's Visit",
-        body: 'The supervisor has asked one simple question about the ledger and is now waiting for a simple answer. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'The supervisor has asked one simple question about the ledger and is now waiting for a simple answer. The question was who sat where. The answer has so far taken two people, four minutes and a diagram.',
       },
       {
         title: 'An Excess of Labels',
-        body: 'The filing system has more labels than files, and several labels appear to be giving conflicting instructions. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'The filing system has more labels than files, and several labels appear to be issuing conflicting instructions. One says do not move. Another, on the same box, says move to the other office, and is signed by the same person.',
       },
       {
         title: 'The Missing Margin',
-        body: "A copying error has removed the margins containing the clerk's most useful clarifications. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.",
+        body: "A copying error has removed the margins holding the clerk's most useful clarifications. The pages are otherwise perfect. Everything that explained them was written half an inch outside the glass.",
       },
       {
         title: 'A Seat at the Desk',
-        body: 'A passenger has kindly offered to take over the records, inspiring the staff to solve the problem promptly. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'A passenger has kindly offered to take over the records, which has inspired the staff to considerable urgency. The offer was sincere and is being repeated. The staff would like it settled before anybody accepts.',
       },
       {
         title: 'The Final Check',
-        body: 'The conductor wants one dependable account before putting the folder away with an expression of professional certainty. Reconstruct the passenger records from the clues so the conductor can rely on the ledger again.',
+        body: 'The conductor wants one dependable account before the folder goes away with an air of professional certainty. The air of certainty is ready. The account is four people, one evening, and no two of them agreeing yet.',
       },
     ],
     museum: [
