@@ -17,6 +17,7 @@
     },
     "android": {
       "package": "com.mattonfoot.deduction",
+      "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#F5F3EC",
         "foregroundImage": "./assets/android-icon-foreground.png",

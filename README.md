@@ -131,6 +131,63 @@ whenever a build needs them, so the config is the source of truth and there is
 no native project to keep in step by hand. `npx expo prebuild --platform ios`
 writes one out if you want to look at it.
 
+## Into the stores
+
+`docs/store.md` holds every word the two stores ask for — names, descriptions,
+keywords, the content-rating answers and the data-safety answers — written once
+so both say the same thing. `docs/privacy.html` is the policy page both require
+a link to; it needs hosting somewhere public, and GitHub Pages serving `/docs`
+off this repository is the shortest route to a URL.
+
+Both stores want a paid account before they want anything else: **Apple
+Developer Program** at $99 a year, **Google Play Console** at $25 once. Neither
+can be hurried, and the Play one has a wall behind it — see below.
+
+A release is two commands per platform:
+
+```sh
+npm run build:release      # both platforms, production profile
+npm run submit:ios         # to App Store Connect, then TestFlight
+npm run submit:android     # to the internal track, as a draft
+```
+
+`eas.json` carries what is not a credential: the Play submission goes to the
+**internal track** as a **draft**, so promoting a build to production stays a
+decision somebody makes in the console rather than something a command has
+already done.
+
+What it deliberately does not carry: `appleId`, `ascAppId` and `appleTeamId`
+belong to whoever is submitting, and EAS asks for them on the first run and
+remembers them. The Android side needs a **Google Cloud service-account key**
+with Play permissions, saved as `play-service-account.json` in the project root
+— `.gitignore` keeps it out of the repository, and it must stay out.
+
+Version numbers are in `app.json`: `ios.buildNumber` and `android.versionCode`,
+both starting at 1. `eas.json` sets `appVersionSource: local` with
+`autoIncrement` on the production profile, so EAS bumps them in `app.json` and
+the bump has to be committed — a build whose number went up in a file nobody
+committed is a build nobody can reproduce.
+
+### The two-week wall
+
+A **personal** Play account opened after November 2023 cannot publish to
+production until it has run a closed test with **12 testers opted in for 14
+continuous days**. There is no shortening it. An organisation account skips the
+requirement and is verified differently.
+
+So open the Play account first, get a build into closed testing, start that
+clock, and do the App Store submission while it runs.
+
+### Before either of them
+
+`npm run sizes` walks both platforms now — five iPhones and six Android
+viewports, the narrowest of which is a 320 dp phone, what a 360 dp handset
+reports when the reader turns display size up. It checks geometry on the web
+export in Chromium, which catches a row that will not fit and nothing that
+depends on actually being Android. A device or emulator still owes the app a
+look before it ships: haptics, audio, fonts and the back gesture are all things
+only the real thing can answer for.
+
 ## Dependencies
 
 **The Expo SDK decides the versions, not npm.** Everything with a native side —

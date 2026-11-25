@@ -42,3 +42,6 @@ yarn-error.*
 
 # screenshot tooling
 .screenshot-build/
+
+# Play submissions
+play-service-account.json

@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 /**
- * Checks that every screen fits on every iPhone the app is built for.
+ * Checks that every screen fits on every phone the app is built for.
  *
- *   npm run sizes
+ *   npm run sizes            both platforms
+ *   npm run sizes -- --ios   the iPhones alone
+ *   npm run sizes -- --android
  *
  * The walkthrough in `screenshots.mjs` drives one phone, which is what a
  * picture wants and not what a layout wants: a screen that fits a 15 Pro can
@@ -48,14 +50,53 @@ const MENU_TYPE_CAP = Number(
 );
 if (!Number.isFinite(MENU_TYPE_CAP)) throw new Error(`No MENU_TYPE_CAP in ${THEME}`);
 
-/** The sizes iOS reports, in points, and the inset the foot loses on a device. */
+/**
+ * The phones, in the units each platform lays out in, with the inset the foot
+ * loses to a gesture bar.
+ *
+ * iOS reports points; Android reports density-independent pixels, which are
+ * the same thing by another name — a Pixel 8 is 1080 physical pixels across
+ * and 412 of these. So the viewports below are comparable, and the Android
+ * ones are narrower and shorter than anything Apple sells: 360 dp is the
+ * width the layout has to survive, and it is 15 dp tighter than an SE.
+ *
+ * What this measures is geometry, which is all it ever measured — the walk
+ * drives the web export in Chromium, so it catches a row that will not fit
+ * and nothing that depends on being Android. The gesture bar is 24 dp where
+ * iOS's home indicator is 34 pt.
+ */
 const PHONES = [
-  { name: 'iPhone SE (3rd generation)', width: 375, height: 667, bottomInset: 0 },
-  { name: 'iPhone 11 Pro / 13 mini', width: 375, height: 812, bottomInset: 34 },
-  { name: 'iPhone 14', width: 390, height: 844, bottomInset: 34 },
-  { name: 'iPhone 15 Pro', width: 393, height: 852, bottomInset: 34 },
-  { name: 'iPhone 15 Pro Max', width: 430, height: 932, bottomInset: 34 },
+  { os: 'ios', name: 'iPhone SE (3rd generation)', width: 375, height: 667, bottomInset: 0 },
+  { os: 'ios', name: 'iPhone 11 Pro / 13 mini', width: 375, height: 812, bottomInset: 34 },
+  { os: 'ios', name: 'iPhone 14', width: 390, height: 844, bottomInset: 34 },
+  { os: 'ios', name: 'iPhone 15 Pro', width: 393, height: 852, bottomInset: 34 },
+  { os: 'ios', name: 'iPhone 15 Pro Max', width: 430, height: 932, bottomInset: 34 },
+  // Android has a second scale the reader can turn up: display size, which
+  // changes the dp the screen reports rather than the size of the words. A
+  // 360 dp phone set two notches up reports about 320, which is the floor
+  // Android itself uses for its smallest-width buckets.
+  {
+    os: 'android',
+    name: 'Galaxy A14, display size large',
+    width: 320,
+    height: 711,
+    bottomInset: 24,
+  },
+  // The narrowest width Play still sees in numbers, and the shortest with it.
+  { os: 'android', name: 'Galaxy A14 / S21', width: 360, height: 800, bottomInset: 24 },
+  { os: 'android', name: 'Pixel 4a', width: 393, height: 851, bottomInset: 24 },
+  { os: 'android', name: 'Pixel 8', width: 412, height: 915, bottomInset: 24 },
+  { os: 'android', name: 'Pixel 8 Pro', width: 448, height: 998, bottomInset: 24 },
+  { os: 'android', name: 'Galaxy S24 Ultra', width: 480, height: 1060, bottomInset: 24 },
 ];
+
+/** Which of them this run is about. */
+const only = process.argv.includes('--ios')
+  ? 'ios'
+  : process.argv.includes('--android')
+    ? 'android'
+    : null;
+const WALKING = only ? PHONES.filter((phone) => phone.os === only) : PHONES;
 
 const box = (page, label) =>
   page.evaluate((name) => {
@@ -68,14 +109,18 @@ const box = (page, label) =>
 /**
  * How far a label has to stretch before the check will accept it.
  *
- * iOS scales text by the reader's setting, and 1.35 is xxxLarge — the largest of
- * the ordinary sizes, above which come the accessibility ones. Those go to three
- * times and more, and everything in every app reflows at three times; asking a
- * menu row to survive that would be asking it not to honour the setting at all.
- * This is the line between "the design has to hold" and "the reader has asked
- * for something else".
+ * This used to be 1.35, iOS's xxxLarge, on the reasoning that the design has to
+ * hold up to the largest of the ordinary text settings and that the
+ * accessibility ones above it are a different request. That was the right line
+ * while a menu could scroll. It is no longer the line the app draws: the menus
+ * stand still now, so `MENU_TYPE_CAP` stops their words at a size every one of
+ * them was measured to fit at, and nothing in a menu ever reaches 1.35.
+ *
+ * Asking about a size the app will not render is asking a question with no
+ * answer in it, so the cap is the question. Raise the cap and this gets harder
+ * on its own, which is the right way round.
  */
-const DYNAMIC_TYPE = 1.35;
+const DYNAMIC_TYPE = MENU_TYPE_CAP;
 
 /**
  * Whether a label wraps onto a second line, at the size a phone would draw it.
@@ -110,6 +155,10 @@ const wrapsAt = (page, label, scale) =>
         .reverse()
         .find((el) => el.children.length === 0 && el.textContent.trim() === name);
       if (!text) return false;
+      // A label that shrinks to fit cannot wrap, and React Native Web does not
+      // implement the shrinking — so the browser would report a second line
+      // the phone never draws. The overflow check still covers these.
+      if (text.closest('[data-testid="door-label"]')) return false;
 
       const own = text.style.fontSize;
       const drawn = parseFloat(getComputedStyle(text).fontSize);
@@ -261,7 +310,7 @@ async function main() {
   const problems = [];
   console.log('Checking every screen at every size:\n');
 
-  for (const phone of PHONES) {
+  for (const phone of WALKING) {
     const page = await browser.newPage({ viewport: { width: phone.width, height: phone.height } });
     const complain = (what) => problems.push(`${phone.name}: ${what}`);
 
@@ -492,7 +541,7 @@ async function main() {
     process.exitCode = 1;
     return;
   }
-  console.log(`\nEvery screen fits all ${PHONES.length} sizes.`);
+  console.log(`\nEvery screen fits all ${WALKING.length} sizes.`);
 }
 
 main().catch((error) => {

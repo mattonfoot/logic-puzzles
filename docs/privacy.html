@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Deduction — Privacy</title>
+    <meta
+      name="description"
+      content="The privacy policy for Deduction, a logic puzzle game for iPhone and Android."
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap"
+    />
+    <style>
+      /* The app's own two palettes, so the page reads as part of the same thing. */
+      :root {
+        --bg: #f6f3ec;
+        --surface: #ffffff;
+        --ink: #1d2333;
+        --ink-soft: #5c6379;
+        --accent: #4c6fff;
+        --line: #e4dfd4;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #14161c;
+          --surface: #1b1e26;
+          --ink: #ecedf2;
+          --ink-soft: #a9b0c2;
+          --accent: #8aa2ff;
+          --line: #2b303c;
+          color-scheme: dark;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          'Outfit',
+          system-ui,
+          -apple-system,
+          sans-serif;
+        font-size: 17px;
+        line-height: 1.55;
+      }
+      .wrap {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding-left: max(20px, env(safe-area-inset-left, 0px));
+        padding-right: max(20px, env(safe-area-inset-right, 0px));
+        padding-block: 3rem 4rem;
+      }
+      h1 {
+        font-size: clamp(2rem, 1.4rem + 2.4vw, 2.8rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        margin: 0 0 0.4rem;
+      }
+      .eyebrow {
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin: 0 0 1.2rem;
+      }
+      .lede {
+        font-size: 1.15rem;
+        margin: 0 0 2.2rem;
+      }
+      h2 {
+        font-size: 1.15rem;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        margin: 2.2rem 0 0.6rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      h2::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--line);
+      }
+      p {
+        margin: 0 0 1rem;
+        color: var(--ink-soft);
+      }
+      p strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      ul {
+        margin: 0 0 1rem;
+        padding-left: 1.2rem;
+        color: var(--ink-soft);
+      }
+      li {
+        margin-bottom: 0.4rem;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        padding: 1.1rem 1.3rem;
+        margin: 0 0 1.4rem;
+      }
+      .card p:last-child {
+        margin-bottom: 0;
+      }
+      a {
+        color: var(--accent);
+      }
+      footer {
+        margin-top: 3rem;
+        padding-top: 1.2rem;
+        border-top: 1px solid var(--line);
+        font-size: 0.85rem;
+        color: var(--ink-soft);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <p class="eyebrow">Deduction</p>
+      <h1>Privacy</h1>
+      <p class="lede">
+        Deduction collects nothing, sends nothing and asks for nothing. There is no account, no
+        sign-in and no network connection of any kind.
+      </p>
+
+      <div class="card">
+        <p>
+          <strong>The short version.</strong> The app is a logic puzzle that runs entirely on your
+          phone. It has no servers to talk to, so there is nothing for it to send and nowhere for it
+          to send it.
+        </p>
+      </div>
+
+      <h2>What is stored</h2>
+      <p>
+        The app keeps a few things on your device so a game survives being put down, and so the
+        statistics screen has something to show:
+      </p>
+      <ul>
+        <li>the puzzle you are in the middle of, and the marks you have made on it;</li>
+        <li>which puzzles you have finished, how long each took and how many hints you used;</li>
+        <li>your settings — the colour, the night setting, sound and haptics.</li>
+      </ul>
+      <p>
+        All of it is written to the app's own storage on the device. None of it leaves the phone.
+        Deleting the app deletes all of it, and <strong>Settings → Statistics → Clear</strong>
+        clears the history without deleting anything else.
+      </p>
+
+      <h2>What is not collected</h2>
+      <p>
+        No name, no email address, no contacts, no photos, no location, no device identifiers and no
+        usage analytics. The app contains no advertising, no tracking of any kind and no third-party
+        analytics or crash-reporting service.
+      </p>
+
+      <h2>Children</h2>
+      <p>
+        The app is suitable for all ages. Since it collects no personal information from anybody, it
+        collects none from children either.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        If a future version of the app ever collects or sends anything, this page will say so before
+        that version ships, and the change will be described here rather than quietly made.
+      </p>
+
+      <h2>Getting in touch</h2>
+      <p>
+        Questions about any of this can go to
+        <a href="https://github.com/mattonfoot/logic-puzzles/issues">the project's issue tracker</a
+        >.
+      </p>
+
+      <footer>
+        <p>Last updated 25 November 2026.</p>
+      </footer>
+    </div>
+  </body>
+</html>

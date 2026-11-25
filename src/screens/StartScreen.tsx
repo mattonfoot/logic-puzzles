@@ -91,7 +91,15 @@ function Door({ label, onPress }: { label: string; onPress: () => void }) {
       style={({ pressed }) => [styles.door, { opacity: pressed ? 0.6 : 1 }]}
     >
       <Text
+        // The widest words in the app, on the narrowest screens it runs on: an
+        // Android phone at 320 dp with the text setting up is 248 points of
+        // room for "How to play" at 48 points, which is not enough. It shrinks
+        // rather than wrapping, the way the app's own name does on the panel —
+        // a door that turns into two lines stops reading as a door.
+        testID="door-label"
         style={[styles.doorText, { color: palette.accent }]}
+        numberOfLines={1}
+        adjustsFontSizeToFit
         maxFontSizeMultiplier={MENU_TYPE_CAP}
       >
         {label}
