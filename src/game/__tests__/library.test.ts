@@ -4,6 +4,7 @@ import { generatePuzzle } from '../../puzzle/generator';
 import {
   completedInRange,
   completedOnPage,
+  furthestCompleted,
   dailyDate,
   dailyDone,
   dailySeed,
@@ -18,6 +19,7 @@ import {
   themeFor,
   MAX_ZOOM,
   pageNumbers,
+  pageOf,
   PAGE_SIZE,
   rangesOn,
   span,
@@ -220,6 +222,42 @@ describe('completedOnPage', () => {
     ];
     const found = completedOnPage(history, 'sm', 'pure', pageNumbers(0));
     expect(found.get(5)).toEqual(findCompleted(history, 'sm', 'pure', 5));
+  });
+});
+
+describe('furthestCompleted', () => {
+  it('is the highest number finished, whatever order they were played in', () => {
+    const history = [
+      finished({ seed: numberedSeed(3, 'sm', 'pure') }),
+      finished({ seed: numberedSeed(23, 'sm', 'pure') }),
+      finished({ seed: numberedSeed(9, 'sm', 'pure') }),
+    ];
+    expect(furthestCompleted(history, 'sm', 'pure')).toBe(23);
+  });
+
+  it('counts nothing for a difficulty or a way of playing with no games', () => {
+    const history = [finished({ seed: numberedSeed(23, 'sm', 'pure') })];
+    expect(furthestCompleted(history, 'lg', 'pure')).toBe(0);
+    expect(furthestCompleted(history, 'sm', 'classic')).toBe(0);
+    expect(furthestCompleted([], 'sm', 'pure')).toBe(0);
+  });
+
+  it('ignores the dailies, which are not numbered games', () => {
+    const history = [finished({ seed: dailySeed(new Date(2026, 7, 29), 'sm'), sizeId: 'sm' })];
+    expect(furthestCompleted(history, 'sm', 'pure')).toBe(0);
+  });
+});
+
+describe('pageOf', () => {
+  it('is pageNumbers the other way round', () => {
+    for (const page of [0, 1, 7]) {
+      for (const number of pageNumbers(page)) expect(pageOf(number)).toBe(page);
+    }
+  });
+
+  it('opens at the start for a player who has finished nothing', () => {
+    expect(pageOf(0)).toBe(0);
+    expect(pageOf(-3)).toBe(0);
   });
 });
 

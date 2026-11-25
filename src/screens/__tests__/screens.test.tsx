@@ -733,6 +733,67 @@ describe('the numbered puzzles', () => {
     expect(onPlay).toHaveBeenCalledWith(2);
   });
 
+  it('opens on the page holding the furthest puzzle finished', () => {
+    stage(
+      <NumbersScreen
+        size={advanced}
+        mode="pure"
+        busy={false}
+        history={[
+          game({ seed: numberedSeed(3, advanced.id, 'pure') }),
+          game({ seed: numberedSeed(23, advanced.id, 'pure') }),
+        ]}
+        onPlay={none}
+        onBack={none}
+      />,
+    );
+
+    // 23 is on the fifth page, 21 to 25, and the player is put there rather
+    // than twenty presses away from it.
+    expect(ticked('Puzzle 23')).toBe(true);
+    expect(button('Puzzle 21')).toBeOnTheScreen();
+    expect(screen.queryByRole('button', { name: 'Puzzle 3' })).toBeNull();
+    expect(button('Previous')).toBeEnabled();
+  });
+
+  it('opens at the start for a player with nothing finished here', () => {
+    stage(
+      <NumbersScreen
+        size={advanced}
+        mode="pure"
+        busy={false}
+        // Finished games, but at another difficulty and the other way of
+        // playing: neither says anything about where this list should open.
+        history={[
+          game({ seed: numberedSeed(23, 'lg', 'pure'), sizeId: 'lg' }),
+          game({ seed: numberedSeed(31, advanced.id, 'classic') }),
+        ]}
+        onPlay={none}
+        onBack={none}
+      />,
+    );
+
+    expect(button('Puzzle 1')).toBeOnTheScreen();
+    expect(button('Previous')).toBeDisabled();
+  });
+
+  it('stays where it is put once it is open', () => {
+    stage(
+      <NumbersScreen
+        size={advanced}
+        mode="pure"
+        busy={false}
+        history={[game({ seed: numberedSeed(23, advanced.id, 'pure') })]}
+        onPlay={none}
+        onBack={none}
+      />,
+    );
+
+    fireEvent.press(button('Previous'));
+    expect(button('Puzzle 16')).toBeOnTheScreen();
+    expect(screen.queryByRole('button', { name: 'Puzzle 23' })).toBeNull();
+  });
+
   it('turns the page', () => {
     stage(
       <NumbersScreen
@@ -820,12 +881,15 @@ describe('the numbered puzzles', () => {
         onBack={none}
       />,
     );
+    // It opens on the page holding 40, the furthest finished, so zooming out
+    // lands on the groups around it rather than on the first five.
     fireEvent.press(button('Zoom out'));
-    expect(button('Puzzles 1–5').props.accessibilityHint).toBe('2 of 5 finished');
-    expect(screen.getByText('2 of 5 finished')).toBeOnTheScreen();
-    expect(button('Puzzles 6–10').props.accessibilityHint).toBe('Opens the pages in this group');
+    expect(button('Puzzles 36–40').props.accessibilityHint).toBe('1 of 5 finished');
+    expect(screen.getByText('1 of 5 finished')).toBeOnTheScreen();
+    expect(button('Puzzles 26–30').props.accessibilityHint).toBe('Opens the pages in this group');
 
     fireEvent.press(button('Zoom out'));
+    expect(button('Puzzles 1–25').props.accessibilityHint).toBe('2 of 25 finished');
     expect(button('Puzzles 26–50').props.accessibilityHint).toBe('1 of 25 finished');
     fireEvent.press(button('Zoom out'));
     expect(button('Puzzles 1–125')).toBeOnTheScreen();

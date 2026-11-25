@@ -230,6 +230,34 @@ export function completedOnPage(
 }
 
 /**
+ * The highest numbered game finished at this difficulty, or 0 for none.
+ *
+ * What a player has reached rather than how many they have done: a game played
+ * out of order counts, and one played twice counts once. The list opens where
+ * this is, so somebody who left off at 23 comes back to 23 rather than to the
+ * first five numbers they finished a fortnight ago.
+ */
+export function furthestCompleted(history: CompletedGame[], sizeId: string, mode: ModeId): number {
+  let furthest = 0;
+  for (const game of history) {
+    if (game.sizeId !== sizeId) continue;
+    const number = numberOn(game.seed, sizeId, mode);
+    if (number !== null && number > furthest) furthest = number;
+  }
+  return furthest;
+}
+
+/**
+ * The page a number is on, which is `pageNumbers` the other way round.
+ *
+ * A number below the first is page 0 rather than a page before it: nothing has
+ * been finished, so the list opens where it always did.
+ */
+export function pageOf(number: number, size = PAGE_SIZE): number {
+  return number < 1 ? 0 : Math.floor((number - 1) / size);
+}
+
+/**
  * The day itself as a number: 20260829 for the 29th of August 2026.
  *
  * Every date gets its own number, which a product of the three parts could not

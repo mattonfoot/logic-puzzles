@@ -4,7 +4,9 @@ import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
 import {
   completedInRange,
   completedOnPage,
+  furthestCompleted,
   MAX_ZOOM,
+  pageOf,
   rangesOn,
   span,
   zoomInto,
@@ -63,7 +65,16 @@ interface Props {
 export function NumbersScreen({ size, mode, busy, history, onPlay, onBack }: Props) {
   const palette = useTheme();
   const styles = useStyles(makeStyles);
-  const [view, setView] = useState<Catalogue>({ level: 0, page: 0 });
+  // Where the player left off, not where the numbers start. Somebody fifty
+  // games in should not have to press Next ten times to reach the row they
+  // were on, and the page they want is the one holding the furthest game they
+  // have finished. Worked out once, when the screen opens: paging away from it
+  // afterwards is the player's business, and a page that kept springing back
+  // would be unusable.
+  const [view, setView] = useState<Catalogue>(() => ({
+    level: 0,
+    page: pageOf(furthestCompleted(history, size.id, mode)),
+  }));
   const { level, page } = view;
 
   const ranges = useMemo(() => rangesOn(view), [view]);
